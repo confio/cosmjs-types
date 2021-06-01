@@ -18,5 +18,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "define-proto": "./scripts/define-proto.sh"
   }
 }
