@@ -20,7 +20,8 @@
     "access": "public"
   },
   "scripts": {
-    "define-proto": "./scripts/define-proto.sh"
+    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
+    "define-proto": "./scripts/define-proto.sh && yarn format"
   },
   "devDependencies": {
     "prettier": "^2.3.0"
