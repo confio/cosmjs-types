@@ -8,6 +8,8 @@ __metadata:
 "@cosmjs-types/cosmos@workspace:packages/cosmos":
   version: 0.0.0-use.local
   resolution: "@cosmjs-types/cosmos@workspace:packages/cosmos"
+  dependencies:
+    prettier: ^2.3.0
   languageName: unknown
   linkType: soft
 
@@ -148,7 +150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.0.2":
+"prettier@npm:^2.0.2, prettier@npm:^2.3.0":
   version: 2.3.0
   resolution: "prettier@npm:2.3.0"
   bin:

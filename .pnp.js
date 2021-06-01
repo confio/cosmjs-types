@@ -51,7 +51,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:packages/cosmos", {
           "packageLocation": "./packages/cosmos/",
           "packageDependencies": [
-            ["@cosmjs-types/cosmos", "workspace:packages/cosmos"]
+            ["@cosmjs-types/cosmos", "workspace:packages/cosmos"],
+            ["prettier", "npm:2.3.0"]
           ],
           "linkType": "SOFT",
         }]

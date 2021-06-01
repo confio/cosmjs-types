@@ -21,5 +21,8 @@
   },
   "scripts": {
     "define-proto": "./scripts/define-proto.sh"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.0"
   }
 }
