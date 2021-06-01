@@ -1,0 +1,22 @@
+{
+  "name": "@cosmjs-types/cosmos",
+  "version": "0.0.0",
+  "description": "Generated types for Cosmos protobuf definitions",
+  "contributors": [
+    "Will Clark <willclarktech@users.noreply.github.com>"
+  ],
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build/",
+    "*.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/confio/cosmjs-types/tree/main/packages/cosmos"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
