@@ -24,6 +24,7 @@
     "define-proto": "./scripts/define-proto.sh && yarn format"
   },
   "devDependencies": {
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.0",
+    "typescript": "~4.0"
   }
 }

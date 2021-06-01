@@ -10,6 +10,7 @@ __metadata:
   resolution: "@cosmjs-types/cosmos@workspace:packages/cosmos"
   dependencies:
     prettier: ^2.3.0
+    typescript: ~4.0
   languageName: unknown
   linkType: soft
 
@@ -217,5 +218,25 @@ __metadata:
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
   checksum: 7d6f3387ea5d6663533260e8f7d9ad0ed0a26cc3563d36c0cc81b29180124d6adba485a3999da944f10faaa34e0f8f0f3c413c03fc44fdc0b411901864164f04
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@~4.0#builtin<compat/typescript>":
+  version: 4.0.7
+  resolution: "typescript@patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: f234923fbef722077d00ee008aa3492b02adbfe5a67b1c31687a0f7c6cb9946b759665ea643ffc1174298ffb1c59de0cc2abe1a91e57415d51951589eff12446
+  languageName: node
+  linkType: hard
+
+typescript@~4.0:
+  version: 4.0.7
+  resolution: "typescript@npm:4.0.7"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 1b4c63a228efd6ceec80382b6001dad2c27c9bd46022f965dab907a13275c9ceb7b4b4de8be8902457bd644d2b0f9ddd8cf03b561e35d7cd2d793cf7554afd2d
   languageName: node
   linkType: hard

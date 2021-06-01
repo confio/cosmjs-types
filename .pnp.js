@@ -52,7 +52,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/cosmos/",
           "packageDependencies": [
             ["@cosmjs-types/cosmos", "workspace:packages/cosmos"],
-            ["prettier", "npm:2.3.0"]
+            ["prettier", "npm:2.3.0"],
+            ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "SOFT",
         }]
@@ -296,6 +297,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-proto-descriptors", "npm:1.2.1"],
             ["long", "npm:4.0.0"],
             ["protobufjs", "npm:6.11.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["typescript", [
+        ["patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e", {
+          "packageLocation": "./.yarn/cache/typescript-patch-92bf6e8d8b-f234923fbe.zip/node_modules/typescript/",
+          "packageDependencies": [
+            ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "HARD",
         }]
