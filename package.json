@@ -15,5 +15,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "ts-proto": "^1.81.1"
+  }
 }
