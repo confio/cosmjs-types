@@ -13,13 +13,21 @@
     "access": "public"
   },
   "files": [
-    "build/",
+    "confio/",
+    "cosmos/",
+    "cosmos_proto/",
+    "cosmwasm/",
+    "gogoproto/",
+    "google/",
+    "ibc/",
+    "tendermint/",
     "*.md"
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
     "define-proto": "./scripts/define-proto.sh && yarn format",
-    "build": "rm -rf ./build && tsc"
+    "prepare": "./scripts/prepare.sh",
+    "build": "rm -rf ./build && tsc && yarn prepare"
   },
   "dependencies": {
     "long": "^4.0.0",

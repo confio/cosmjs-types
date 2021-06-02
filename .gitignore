@@ -11,3 +11,11 @@
 #/.pnp.*
 
 /build/
+/confio/
+/cosmos/
+/cosmos_proto/
+/cosmwasm/
+/gogoproto/
+/google/
+/ibc/
+/tendermint/
