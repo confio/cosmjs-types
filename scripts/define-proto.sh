@@ -2,7 +2,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-OUT_DIR="./generated"
+OUT_DIR="./src"
 COSMOS_SDK_PROTO_DIR="./cosmos-sdk/proto"
 COSMOS_SDK_THIRD_PARTY_PROTO_DIR="./cosmos-sdk/third_party/proto"
 
