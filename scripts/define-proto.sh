@@ -3,8 +3,9 @@ set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
 OUT_DIR="./src"
-COSMOS_SDK_PROTO_DIR="./cosmos-sdk/proto"
-COSMOS_SDK_THIRD_PARTY_PROTO_DIR="./cosmos-sdk/third_party/proto"
+WASMD_DIR="./wasmd/proto"
+WASMD_THIRD_PARTY_DIR="./wasmd/third_party/proto"
+COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos/"
 
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
@@ -13,63 +14,69 @@ mkdir -p "$OUT_DIR"
 protoc \
   --plugin="$PLUGIN_PATH" \
   --ts_proto_yarn_2_out="$OUT_DIR" \
-  --proto_path="$COSMOS_SDK_PROTO_DIR" \
-  --proto_path="$COSMOS_SDK_THIRD_PARTY_PROTO_DIR" \
+  --proto_path="$WASMD_DIR" \
+  --proto_path="$WASMD_THIRD_PARTY_DIR" \
   --ts_proto_yarn_2_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/auth/v1beta1/auth.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/auth/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/auth/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/bank/v1beta1/bank.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/bank/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/bank/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/bank/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/abci/v1beta1/abci.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/kv/v1beta1/kv.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/query/v1beta1/pagination.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/reflection/v1beta1/reflection.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/snapshots/v1beta1/snapshot.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/store/v1beta1/commit_info.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/store/v1beta1/snapshot.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/tendermint/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/base/v1beta1/coin.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/capability/v1beta1/capability.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/capability/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crisis/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crisis/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crypto/ed25519/keys.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crypto/multisig/keys.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crypto/multisig/v1beta1/multisig.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/crypto/secp256k1/keys.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/distribution/v1beta1/distribution.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/distribution/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/distribution/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/distribution/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/evidence/v1beta1/evidence.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/evidence/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/evidence/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/evidence/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/genutil/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/gov/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/gov/v1beta1/gov.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/gov/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/gov/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/mint/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/mint/v1beta1/mint.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/mint/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/params/v1beta1/params.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/params/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/slashing/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/slashing/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/slashing/v1beta1/slashing.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/slashing/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/staking/v1beta1/genesis.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/staking/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/staking/v1beta1/staking.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/staking/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/tx/signing/v1beta1/signing.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/tx/v1beta1/service.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/tx/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/upgrade/v1beta1/query.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/upgrade/v1beta1/upgrade.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/vesting/v1beta1/tx.proto" \
-  "$COSMOS_SDK_PROTO_DIR/cosmos/vesting/v1beta1/vesting.proto"
+  "$COSMOS_DIR/auth/v1beta1/auth.proto" \
+  "$COSMOS_DIR/auth/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/auth/v1beta1/query.proto" \
+  "$COSMOS_DIR/bank/v1beta1/bank.proto" \
+  "$COSMOS_DIR/bank/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/bank/v1beta1/query.proto" \
+  "$COSMOS_DIR/bank/v1beta1/tx.proto" \
+  "$COSMOS_DIR/base/abci/v1beta1/abci.proto" \
+  "$COSMOS_DIR/base/kv/v1beta1/kv.proto" \
+  "$COSMOS_DIR/base/query/v1beta1/pagination.proto" \
+  "$COSMOS_DIR/base/reflection/v1beta1/reflection.proto" \
+  "$COSMOS_DIR/base/snapshots/v1beta1/snapshot.proto" \
+  "$COSMOS_DIR/base/store/v1beta1/commit_info.proto" \
+  "$COSMOS_DIR/base/store/v1beta1/snapshot.proto" \
+  "$COSMOS_DIR/base/tendermint/v1beta1/query.proto" \
+  "$COSMOS_DIR/base/v1beta1/coin.proto" \
+  "$COSMOS_DIR/capability/v1beta1/capability.proto" \
+  "$COSMOS_DIR/capability/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/crisis/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/crisis/v1beta1/tx.proto" \
+  "$COSMOS_DIR/crypto/ed25519/keys.proto" \
+  "$COSMOS_DIR/crypto/multisig/keys.proto" \
+  "$COSMOS_DIR/crypto/multisig/v1beta1/multisig.proto" \
+  "$COSMOS_DIR/crypto/secp256k1/keys.proto" \
+  "$COSMOS_DIR/distribution/v1beta1/distribution.proto" \
+  "$COSMOS_DIR/distribution/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/distribution/v1beta1/query.proto" \
+  "$COSMOS_DIR/distribution/v1beta1/tx.proto" \
+  "$COSMOS_DIR/evidence/v1beta1/evidence.proto" \
+  "$COSMOS_DIR/evidence/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/evidence/v1beta1/query.proto" \
+  "$COSMOS_DIR/evidence/v1beta1/tx.proto" \
+  "$COSMOS_DIR/genutil/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/gov/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/gov/v1beta1/gov.proto" \
+  "$COSMOS_DIR/gov/v1beta1/query.proto" \
+  "$COSMOS_DIR/gov/v1beta1/tx.proto" \
+  "$COSMOS_DIR/mint/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/mint/v1beta1/mint.proto" \
+  "$COSMOS_DIR/mint/v1beta1/query.proto" \
+  "$COSMOS_DIR/params/v1beta1/params.proto" \
+  "$COSMOS_DIR/params/v1beta1/query.proto" \
+  "$COSMOS_DIR/slashing/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/slashing/v1beta1/query.proto" \
+  "$COSMOS_DIR/slashing/v1beta1/slashing.proto" \
+  "$COSMOS_DIR/slashing/v1beta1/tx.proto" \
+  "$COSMOS_DIR/staking/v1beta1/genesis.proto" \
+  "$COSMOS_DIR/staking/v1beta1/query.proto" \
+  "$COSMOS_DIR/staking/v1beta1/staking.proto" \
+  "$COSMOS_DIR/staking/v1beta1/tx.proto" \
+  "$COSMOS_DIR/tx/signing/v1beta1/signing.proto" \
+  "$COSMOS_DIR/tx/v1beta1/service.proto" \
+  "$COSMOS_DIR/tx/v1beta1/tx.proto" \
+  "$COSMOS_DIR/upgrade/v1beta1/query.proto" \
+  "$COSMOS_DIR/upgrade/v1beta1/upgrade.proto" \
+  "$COSMOS_DIR/vesting/v1beta1/tx.proto" \
+  "$COSMOS_DIR/vesting/v1beta1/vesting.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/genesis.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/ibc.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/proposal.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/query.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/tx.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1beta1/types.proto"
