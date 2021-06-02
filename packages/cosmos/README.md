@@ -1,1 +1,0 @@
-# @cosmjs-types/cosmos

@@ -1,7 +1,6 @@
 {
   "name": "cosmjs-types",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos-SDK and other related projects",
-  "private": true,
   "contributors": [
     "Will Clark <willclarktech@users.noreply.github.com>"
   ],
@@ -13,10 +12,32 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": [
-    "packages/*"
+  "files": [
+    "confio/",
+    "cosmos/",
+    "cosmos_proto/",
+    "cosmwasm/",
+    "gogoproto/",
+    "google/",
+    "ibc/",
+    "tendermint/",
+    "*.md"
   ],
+  "scripts": {
+    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
+    "define-proto": "./scripts/define-proto.sh && yarn format",
+    "prepare": "./scripts/prepare.sh",
+    "build": "rm -rf ./build && tsc && yarn prepare"
+  },
   "devDependencies": {
-    "ts-proto": "^1.81.1"
+    "@types/long": "^4.0.1",
+    "@types/node": "^15.6.2",
+    "prettier": "^2.3.0",
+    "ts-proto": "^1.81.1",
+    "typescript": "~4.0"
+  },
+  "dependencies": {
+    "long": "^4.0.0",
+    "protobufjs": "~6.10.2"
   }
 }

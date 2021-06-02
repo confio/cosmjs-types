@@ -21,16 +21,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {
         "name": "cosmjs-types",
         "reference": "workspace:."
-      },
-      {
-        "name": "@cosmjs-types/cosmos",
-        "reference": "workspace:packages/cosmos"
       }
     ],
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
-      ["@cosmjs-types/cosmos", ["workspace:packages/cosmos"]],
       ["cosmjs-types", ["workspace:."]]
     ],
     "fallbackPool": [
@@ -42,21 +37,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["ts-proto", "npm:1.81.1"]
-          ],
-          "linkType": "SOFT",
-        }]
-      ]],
-      ["@cosmjs-types/cosmos", [
-        ["workspace:packages/cosmos", {
-          "packageLocation": "./packages/cosmos/",
-          "packageDependencies": [
-            ["@cosmjs-types/cosmos", "workspace:packages/cosmos"],
             ["@types/long", "npm:4.0.1"],
-            ["@types/node", "npm:15.6.1"],
+            ["@types/node", "npm:15.6.2"],
             ["long", "npm:4.0.0"],
             ["prettier", "npm:2.3.0"],
             ["protobufjs", "npm:6.10.2"],
+            ["ts-proto", "npm:1.81.1"],
             ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "SOFT",
@@ -177,6 +163,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:15.6.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:15.6.2", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-15.6.2-9d8f9d46a0-e65d6d4750.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:15.6.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@types/object-hash", [
@@ -202,7 +195,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["cosmjs-types", "workspace:."],
-            ["ts-proto", "npm:1.81.1"]
+            ["@types/long", "npm:4.0.1"],
+            ["@types/node", "npm:15.6.2"],
+            ["long", "npm:4.0.0"],
+            ["prettier", "npm:2.3.0"],
+            ["protobufjs", "npm:6.10.2"],
+            ["ts-proto", "npm:1.81.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "SOFT",
         }]

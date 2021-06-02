@@ -9,3 +9,13 @@
 # Documentation here: https://yarnpkg.com/features/zero-installs
 !/.yarn/cache
 #/.pnp.*
+
+/build/
+/confio/
+/cosmos/
+/cosmos_proto/
+/cosmwasm/
+/gogoproto/
+/google/
+/ibc/
+/tendermint/
