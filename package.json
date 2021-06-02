@@ -18,7 +18,14 @@
     "define-proto": "./scripts/define-proto.sh && yarn format"
   },
   "devDependencies": {
+    "@types/long": "^4.0.1",
+    "@types/node": "^15.6.2",
     "prettier": "^2.3.0",
-    "ts-proto": "^1.81.1"
+    "ts-proto": "^1.81.1",
+    "typescript": "~4.0"
+  },
+  "dependencies": {
+    "long": "^4.0.0",
+    "protobufjs": "~6.10.2"
   }
 }
