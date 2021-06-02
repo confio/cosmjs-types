@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./generated/**/*.ts\"",
-    "define-proto": "./scripts/define-proto.sh && yarn format"
+    "define-proto": "./scripts/define-proto.sh && yarn format",
+    "move-proto": "./scripts/move-proto.sh"
   },
   "devDependencies": {
     "prettier": "^2.3.0",
