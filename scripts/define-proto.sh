@@ -7,6 +7,7 @@ WASMD_DIR="./wasmd/proto"
 WASMD_THIRD_PARTY_DIR="./wasmd/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio/"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos/"
+IBC_DIR="$WASMD_THIRD_PARTY_DIR/ibc"
 
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
@@ -76,6 +77,27 @@ protoc \
   "$COSMOS_DIR/upgrade/v1beta1/upgrade.proto" \
   "$COSMOS_DIR/vesting/v1beta1/tx.proto" \
   "$COSMOS_DIR/vesting/v1beta1/vesting.proto" \
+  "$IBC_DIR/applications/transfer/v1/genesis.proto" \
+  "$IBC_DIR/applications/transfer/v1/query.proto" \
+  "$IBC_DIR/applications/transfer/v1/transfer.proto" \
+  "$IBC_DIR/applications/transfer/v1/tx.proto" \
+  "$IBC_DIR/core/channel/v1/channel.proto" \
+  "$IBC_DIR/core/channel/v1/genesis.proto" \
+  "$IBC_DIR/core/channel/v1/query.proto" \
+  "$IBC_DIR/core/channel/v1/tx.proto" \
+  "$IBC_DIR/core/client/v1/client.proto" \
+  "$IBC_DIR/core/client/v1/genesis.proto" \
+  "$IBC_DIR/core/client/v1/query.proto" \
+  "$IBC_DIR/core/client/v1/tx.proto" \
+  "$IBC_DIR/lightclients/localhost/v1/localhost.proto" \
+  "$IBC_DIR/lightclients/solomachine/v1/solomachine.proto" \
+  "$IBC_DIR/lightclients/tendermint/v1/tendermint.proto" \
+  "$IBC_DIR/core/commitment/v1/commitment.proto" \
+  "$IBC_DIR/core/connection/v1/connection.proto" \
+  "$IBC_DIR/core/connection/v1/genesis.proto" \
+  "$IBC_DIR/core/connection/v1/query.proto" \
+  "$IBC_DIR/core/connection/v1/tx.proto" \
+  "$IBC_DIR/core/types/v1/genesis.proto" \
   "$WASMD_DIR/cosmwasm/wasm/v1beta1/genesis.proto" \
   "$WASMD_DIR/cosmwasm/wasm/v1beta1/ibc.proto" \
   "$WASMD_DIR/cosmwasm/wasm/v1beta1/proposal.proto" \
