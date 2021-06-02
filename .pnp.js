@@ -21,16 +21,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {
         "name": "cosmjs-types",
         "reference": "workspace:."
-      },
-      {
-        "name": "@cosmjs-types/cosmos",
-        "reference": "workspace:packages/cosmos"
       }
     ],
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
-      ["@cosmjs-types/cosmos", ["workspace:packages/cosmos"]],
       ["cosmjs-types", ["workspace:."]]
     ],
     "fallbackPool": [
@@ -44,20 +39,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["prettier", "npm:2.3.0"],
             ["ts-proto", "npm:1.81.1"]
-          ],
-          "linkType": "SOFT",
-        }]
-      ]],
-      ["@cosmjs-types/cosmos", [
-        ["workspace:packages/cosmos", {
-          "packageLocation": "./packages/cosmos/",
-          "packageDependencies": [
-            ["@cosmjs-types/cosmos", "workspace:packages/cosmos"],
-            ["@types/long", "npm:4.0.1"],
-            ["@types/node", "npm:15.6.1"],
-            ["long", "npm:4.0.0"],
-            ["protobufjs", "npm:6.10.2"],
-            ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "SOFT",
         }]
@@ -164,13 +145,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/node", [
-        ["npm:13.13.52", {
-          "packageLocation": "./.yarn/cache/@types-node-npm-13.13.52-95159539bb-702db7930d.zip/node_modules/@types/node/",
-          "packageDependencies": [
-            ["@types/node", "npm:13.13.52"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:15.6.1", {
           "packageLocation": "./.yarn/cache/@types-node-npm-15.6.1-1a0b9c8653-07b3855bc0.zip/node_modules/@types/node/",
           "packageDependencies": [
@@ -254,26 +228,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["protobufjs", [
-        ["npm:6.10.2", {
-          "packageLocation": "./.yarn/unplugged/protobufjs-npm-6.10.2-f0f2cab7fe/node_modules/protobufjs/",
-          "packageDependencies": [
-            ["protobufjs", "npm:6.10.2"],
-            ["@protobufjs/aspromise", "npm:1.1.2"],
-            ["@protobufjs/base64", "npm:1.1.2"],
-            ["@protobufjs/codegen", "npm:2.0.4"],
-            ["@protobufjs/eventemitter", "npm:1.1.0"],
-            ["@protobufjs/fetch", "npm:1.1.0"],
-            ["@protobufjs/float", "npm:1.0.2"],
-            ["@protobufjs/inquire", "npm:1.1.0"],
-            ["@protobufjs/path", "npm:1.1.2"],
-            ["@protobufjs/pool", "npm:1.1.0"],
-            ["@protobufjs/utf8", "npm:1.1.0"],
-            ["@types/long", "npm:4.0.1"],
-            ["@types/node", "npm:13.13.52"],
-            ["long", "npm:4.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:6.11.2", {
           "packageLocation": "./.yarn/unplugged/protobufjs-npm-6.11.2-9b422ce98e/node_modules/protobufjs/",
           "packageDependencies": [
@@ -329,15 +283,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-proto-descriptors", "npm:1.2.1"],
             ["long", "npm:4.0.0"],
             ["protobufjs", "npm:6.11.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["typescript", [
-        ["patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e", {
-          "packageLocation": "./.yarn/cache/typescript-patch-92bf6e8d8b-f234923fbe.zip/node_modules/typescript/",
-          "packageDependencies": [
-            ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
           "linkType": "HARD",
         }]

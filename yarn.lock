@@ -5,18 +5,6 @@ __metadata:
   version: 4
   cacheKey: 7
 
-"@cosmjs-types/cosmos@workspace:packages/cosmos":
-  version: 0.0.0-use.local
-  resolution: "@cosmjs-types/cosmos@workspace:packages/cosmos"
-  dependencies:
-    "@types/long": ^4.0.1
-    "@types/node": ^15.6.1
-    long: ^4.0.0
-    protobufjs: ~6.10.2
-    typescript: ~4.0
-  languageName: unknown
-  linkType: soft
-
 "@protobufjs/aspromise@npm:^1.1.1, @protobufjs/aspromise@npm:^1.1.2":
   version: 1.1.2
   resolution: "@protobufjs/aspromise@npm:1.1.2"
@@ -97,17 +85,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:>=13.7.0, @types/node@npm:^15.6.1":
+"@types/node@npm:>=13.7.0":
   version: 15.6.1
   resolution: "@types/node@npm:15.6.1"
   checksum: 07b3855bc0a1ba2215455a3ef4ed5e88711321b3cdc0ba1ea0286f6facbdf61530970b9fa7eec79eb1d46231f986c21ef3b7c1f1e0c365cf1b887d76b0addb86
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^13.7.0":
-  version: 13.13.52
-  resolution: "@types/node@npm:13.13.52"
-  checksum: 702db7930d333cc56e38d1ffb0ac394c2ccaae3be41ad6d92d84e5225f2ccf7a69fc19bd9eceafd0c00189876add6464460c5fd47ce4bdc14f6f9b0a7212aee0
   languageName: node
   linkType: hard
 
@@ -195,30 +176,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:~6.10.2":
-  version: 6.10.2
-  resolution: "protobufjs@npm:6.10.2"
-  dependencies:
-    "@protobufjs/aspromise": ^1.1.2
-    "@protobufjs/base64": ^1.1.2
-    "@protobufjs/codegen": ^2.0.4
-    "@protobufjs/eventemitter": ^1.1.0
-    "@protobufjs/fetch": ^1.1.0
-    "@protobufjs/float": ^1.0.2
-    "@protobufjs/inquire": ^1.1.0
-    "@protobufjs/path": ^1.1.2
-    "@protobufjs/pool": ^1.1.0
-    "@protobufjs/utf8": ^1.1.0
-    "@types/long": ^4.0.1
-    "@types/node": ^13.7.0
-    long: ^4.0.0
-  bin:
-    pbjs: bin/pbjs
-    pbts: bin/pbts
-  checksum: 09d629236243465a501b390742e3d0c4429a8801539116b4a3e33a833a3f95359a03adf55121fbe42323e5128e4689a9727efd5293164384104dc4057bf720a5
-  languageName: node
-  linkType: hard
-
 "ts-poet@npm:^4.5.0":
   version: 4.5.0
   resolution: "ts-poet@npm:4.5.0"
@@ -253,25 +210,5 @@ __metadata:
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
   checksum: 7d6f3387ea5d6663533260e8f7d9ad0ed0a26cc3563d36c0cc81b29180124d6adba485a3999da944f10faaa34e0f8f0f3c413c03fc44fdc0b411901864164f04
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@~4.0#builtin<compat/typescript>":
-  version: 4.0.7
-  resolution: "typescript@patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: f234923fbef722077d00ee008aa3492b02adbfe5a67b1c31687a0f7c6cb9946b759665ea643ffc1174298ffb1c59de0cc2abe1a91e57415d51951589eff12446
-  languageName: node
-  linkType: hard
-
-typescript@~4.0:
-  version: 4.0.7
-  resolution: "typescript@npm:4.0.7"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 1b4c63a228efd6ceec80382b6001dad2c27c9bd46022f965dab907a13275c9ceb7b4b4de8be8902457bd644d2b0f9ddd8cf03b561e35d7cd2d793cf7554afd2d
   languageName: node
   linkType: hard

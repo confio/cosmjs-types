@@ -13,9 +13,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./generated/**/*.ts\"",
     "define-proto": "./scripts/define-proto.sh && yarn format",
