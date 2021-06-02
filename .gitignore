@@ -10,4 +10,4 @@
 !/.yarn/cache
 #/.pnp.*
 
-/generated/
+/build/
