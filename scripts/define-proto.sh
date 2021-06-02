@@ -3,8 +3,8 @@ set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
 OUT_DIR="./src"
-WASMD_DIR="./wasmd/proto"
-WASMD_THIRD_PARTY_DIR="./wasmd/third_party/proto"
+WASMD_DIR="./wasmd-0.16/proto"
+WASMD_THIRD_PARTY_DIR="./wasmd-0.16/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio/"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos/"
 IBC_DIR="$WASMD_THIRD_PARTY_DIR/ibc"
