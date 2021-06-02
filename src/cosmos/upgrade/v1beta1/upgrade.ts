@@ -1,8 +1,6 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
-import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 
@@ -19,11 +17,6 @@ export interface Plan {
    */
   name: string;
   /**
-   * The time after which the upgrade must be performed.
-   * Leave set to its zero value to use a pre-defined Height instead.
-   */
-  time?: Date;
-  /**
    * The height at which the upgrade must be performed.
    * Only used if Time is not set.
    */
@@ -33,14 +26,6 @@ export interface Plan {
    * such as a git commit that validators could automatically upgrade to
    */
   info: string;
-  /**
-   * IBC-enabled chains can opt-in to including the upgraded client state in its upgrade plan
-   * This will make the chain commit to the correct upgraded (self) client state before the upgrade occurs,
-   * so that connecting chains can verify that the new upgraded client is valid by verifying a proof on the
-   * previous version of the chain.
-   * This will allow IBC connections to persist smoothly across planned chain upgrades
-   */
-  upgradedClientState?: Any;
 }
 
 /**
@@ -69,17 +54,11 @@ export const Plan = {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
-    if (message.time !== undefined) {
-      Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim();
-    }
     if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
-    }
-    if (message.upgradedClientState !== undefined) {
-      Any.encode(message.upgradedClientState, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -94,17 +73,11 @@ export const Plan = {
         case 1:
           message.name = reader.string();
           break;
-        case 2:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
         case 3:
           message.height = reader.int64() as Long;
           break;
         case 4:
           message.info = reader.string();
-          break;
-        case 5:
-          message.upgradedClientState = Any.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -121,11 +94,6 @@ export const Plan = {
     } else {
       message.name = "";
     }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = fromJsonTimestamp(object.time);
-    } else {
-      message.time = undefined;
-    }
     if (object.height !== undefined && object.height !== null) {
       message.height = Long.fromString(object.height);
     } else {
@@ -136,24 +104,14 @@ export const Plan = {
     } else {
       message.info = "";
     }
-    if (object.upgradedClientState !== undefined && object.upgradedClientState !== null) {
-      message.upgradedClientState = Any.fromJSON(object.upgradedClientState);
-    } else {
-      message.upgradedClientState = undefined;
-    }
     return message;
   },
 
   toJSON(message: Plan): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
-    message.time !== undefined && (obj.time = message.time.toISOString());
     message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
     message.info !== undefined && (obj.info = message.info);
-    message.upgradedClientState !== undefined &&
-      (obj.upgradedClientState = message.upgradedClientState
-        ? Any.toJSON(message.upgradedClientState)
-        : undefined);
     return obj;
   },
 
@@ -164,11 +122,6 @@ export const Plan = {
     } else {
       message.name = "";
     }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = object.time;
-    } else {
-      message.time = undefined;
-    }
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height as Long;
     } else {
@@ -178,11 +131,6 @@ export const Plan = {
       message.info = object.info;
     } else {
       message.info = "";
-    }
-    if (object.upgradedClientState !== undefined && object.upgradedClientState !== null) {
-      message.upgradedClientState = Any.fromPartial(object.upgradedClientState);
-    } else {
-      message.upgradedClientState = undefined;
     }
     return message;
   },
@@ -359,32 +307,6 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-function toTimestamp(date: Date): Timestamp {
-  const seconds = numberToLong(date.getTime() / 1_000);
-  const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
-}
-
-function fromTimestamp(t: Timestamp): Date {
-  let millis = t.seconds.toNumber() * 1_000;
-  millis += t.nanos / 1_000_000;
-  return new Date(millis);
-}
-
-function fromJsonTimestamp(o: any): Date {
-  if (o instanceof Date) {
-    return o;
-  } else if (typeof o === "string") {
-    return new Date(o);
-  } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
-  }
-}
-
-function numberToLong(number: number) {
-  return Long.fromNumber(number);
-}
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
