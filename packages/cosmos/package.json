@@ -18,8 +18,6 @@
     "access": "public"
   },
   "scripts": {
-    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
-    "define-proto": "./scripts/define-proto.sh && yarn format",
     "build": "rm -rf ./build && tsc"
   },
   "dependencies": {
@@ -29,7 +27,6 @@
   "devDependencies": {
     "@types/long": "^4.0.1",
     "@types/node": "^15.6.1",
-    "prettier": "^2.3.0",
     "typescript": "~4.0"
   }
 }

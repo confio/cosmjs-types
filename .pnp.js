@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["prettier", "npm:2.3.0"],
             ["ts-proto", "npm:1.81.1"]
           ],
           "linkType": "SOFT",
@@ -55,7 +56,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:15.6.1"],
             ["long", "npm:4.0.0"],
-            ["prettier", "npm:2.3.0"],
             ["protobufjs", "npm:6.10.2"],
             ["typescript", "patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=a45b0e"]
           ],
@@ -202,6 +202,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["cosmjs-types", "workspace:."],
+            ["prettier", "npm:2.3.0"],
             ["ts-proto", "npm:1.81.1"]
           ],
           "linkType": "SOFT",

@@ -16,7 +16,12 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "format": "prettier --write --loglevel warn \"./generated/**/*.ts\"",
+    "define-proto": "./scripts/define-proto.sh && yarn format"
+  },
   "devDependencies": {
+    "prettier": "^2.3.0",
     "ts-proto": "^1.81.1"
   }
 }
