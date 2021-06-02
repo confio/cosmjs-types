@@ -17,7 +17,7 @@
     "*.md"
   ],
   "scripts": {
-    "format": "prettier --write --loglevel warn \"./generated/**/*.ts\"",
+    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
     "define-proto": "./scripts/define-proto.sh && yarn format",
     "build": "rm -rf ./build && tsc"
   },
