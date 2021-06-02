@@ -5,6 +5,7 @@ command -v shellcheck >/dev/null && shellcheck "$0"
 OUT_DIR="./src"
 WASMD_DIR="./wasmd/proto"
 WASMD_THIRD_PARTY_DIR="./wasmd/third_party/proto"
+CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio/"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos/"
 
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
@@ -17,6 +18,7 @@ protoc \
   --proto_path="$WASMD_DIR" \
   --proto_path="$WASMD_THIRD_PARTY_DIR" \
   --ts_proto_yarn_2_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+  "$CONFIO_DIR/proofs.proto" \
   "$COSMOS_DIR/auth/v1beta1/auth.proto" \
   "$COSMOS_DIR/auth/v1beta1/genesis.proto" \
   "$COSMOS_DIR/auth/v1beta1/query.proto" \
