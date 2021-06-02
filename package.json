@@ -12,6 +12,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "build/",
+    "*.md"
+  ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./generated/**/*.ts\"",
     "define-proto": "./scripts/define-proto.sh && yarn format",
