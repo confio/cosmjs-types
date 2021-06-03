@@ -22,7 +22,8 @@
     "google/",
     "ibc/",
     "tendermint/",
-    "*.md"
+    "*.md",
+    "!wasmd-0.16/**/*.md"
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
