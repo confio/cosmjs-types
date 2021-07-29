@@ -19,3 +19,6 @@
 /google/
 /ibc/
 /tendermint/
+
+# IDEs
+.vscode/
