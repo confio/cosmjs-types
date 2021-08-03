@@ -19,8 +19,11 @@ export interface Plan {
    */
   name: string;
   /**
-   * The time after which the upgrade must be performed.
-   * Leave set to its zero value to use a pre-defined Height instead.
+   * Deprecated: Time based upgrades have been deprecated. Time based upgrade logic
+   * has been removed from the SDK.
+   * If this field is not empty, an error will be thrown.
+   *
+   * @deprecated
    */
   time?: Date;
   /**
@@ -34,11 +37,11 @@ export interface Plan {
    */
   info: string;
   /**
-   * IBC-enabled chains can opt-in to including the upgraded client state in its upgrade plan
-   * This will make the chain commit to the correct upgraded (self) client state before the upgrade occurs,
-   * so that connecting chains can verify that the new upgraded client is valid by verifying a proof on the
-   * previous version of the chain.
-   * This will allow IBC connections to persist smoothly across planned chain upgrades
+   * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
+   * moved to the IBC module in the sub module 02-client.
+   * If this field is not empty, an error will be thrown.
+   *
+   * @deprecated
    */
   upgradedClientState?: Any;
 }
@@ -60,6 +63,14 @@ export interface SoftwareUpgradeProposal {
 export interface CancelSoftwareUpgradeProposal {
   title: string;
   description: string;
+}
+
+/** ModuleVersion specifies a module and its consensus version. */
+export interface ModuleVersion {
+  /** name of the app module */
+  name: string;
+  /** consensus version of the app module */
+  version: Long;
 }
 
 const basePlan: object = { name: "", height: Long.ZERO, info: "" };
@@ -344,6 +355,78 @@ export const CancelSoftwareUpgradeProposal = {
       message.description = object.description;
     } else {
       message.description = "";
+    }
+    return message;
+  },
+};
+
+const baseModuleVersion: object = { name: "", version: Long.UZERO };
+
+export const ModuleVersion = {
+  encode(message: ModuleVersion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (!message.version.isZero()) {
+      writer.uint32(16).uint64(message.version);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ModuleVersion {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseModuleVersion } as ModuleVersion;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.name = reader.string();
+          break;
+        case 2:
+          message.version = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ModuleVersion {
+    const message = { ...baseModuleVersion } as ModuleVersion;
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
+    } else {
+      message.name = "";
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = Long.fromString(object.version);
+    } else {
+      message.version = Long.UZERO;
+    }
+    return message;
+  },
+
+  toJSON(message: ModuleVersion): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.version !== undefined && (obj.version = (message.version || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ModuleVersion>): ModuleVersion {
+    const message = { ...baseModuleVersion } as ModuleVersion;
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    } else {
+      message.name = "";
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version as Long;
+    } else {
+      message.version = Long.UZERO;
     }
     return message;
   },
