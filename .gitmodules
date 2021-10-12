@@ -4,3 +4,6 @@
 [submodule "wasmd-0.18"]
 	path = wasmd-0.18
 	url = https://github.com/CosmWasm/wasmd.git
+[submodule "wasmd-0.20"]
+	path = wasmd-0.20
+	url = https://github.com/CosmWasm/wasmd.git
