@@ -23,16 +23,7 @@ jobs:
             wget -O protoc-linux-x86_64.zip "https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protoc-3.17.3-linux-x86_64.zip"
             unzip protoc-linux-x86_64.zip -d ./protoc-linux-x86_64
             sudo ln -s $(realpath ./protoc-linux-x86_64/bin/protoc) /usr/local/bin/protoc
-            # sudo mv ./protoc-linux-x86_64/bin/protoc /usr/local/bin
-            # sudo mkdir -p /usr/include/google/protobuf/
-            # sudo mv \
-            #   ./protoc-linux-x86_64/include/google/protobuf/empty.proto \
-            #   ./protoc-linux-x86_64/include/google/protobuf/descriptor.proto \
-            #   /usr/include/google/protobuf/
-            echo "protoc version:"
-            protoc --version
-            # echo "protobuf includes:"
-            # ls -lS /usr/include/google/protobuf/
+            echo "protoc version:" && protoc --version
       - checkout
       - run:
           name: Checkout submodules
@@ -44,7 +35,7 @@ jobs:
           name: Install Dependencies
           command: yarn install --immutable --immutable-cache --check-cache
       - run:
-          name: Code generator (.proto -> .ts)
+          name: Generate code (.proto -> .ts)
           command: yarn define-proto
       - run:
           name: Ensure schemas are up-to-date
@@ -57,4 +48,4 @@ jobs:
             fi
       - run:
           name: Build (.ts -> .js/.d.ts)
-          command: yarn define-proto
+          command: yarn build
