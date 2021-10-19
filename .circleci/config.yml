@@ -36,7 +36,7 @@ jobs:
           command: yarn install --immutable --immutable-cache --check-cache
       - run:
           name: Generate code (.proto -> .ts)
-          command: yarn define-proto
+          command: yarn codegen
       - run:
           name: Ensure schemas are up-to-date
           command: |
