@@ -19,6 +19,9 @@ jobs:
           command: sudo apt-get install protobuf-compiler
       - checkout
       - run:
+          name: Checkout submodules
+          command: git submodule init && git submodule update
+      - run:
           name: Version information
           command: echo "node $(node --version)"; echo "yarn $(yarn --version)"
       - run:
