@@ -21,6 +21,6 @@ yarn dlx @yarnpkg/sdks vscode
 ### Rebuilding types
 
 ```sh
-yarn define-proto # Generate .ts files into ./src
+yarn codegen # Generate .ts files into ./src
 yarn build # Build .js/.d.ts files
 ```
