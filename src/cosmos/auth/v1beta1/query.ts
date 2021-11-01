@@ -73,11 +73,7 @@ export const QueryAccountRequest = {
 
   fromPartial(object: DeepPartial<QueryAccountRequest>): QueryAccountRequest {
     const message = { ...baseQueryAccountRequest } as QueryAccountRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     return message;
   },
 };

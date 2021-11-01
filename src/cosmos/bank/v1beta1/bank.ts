@@ -146,11 +146,7 @@ export const Params = {
         message.sendEnabled.push(SendEnabled.fromPartial(e));
       }
     }
-    if (object.defaultSendEnabled !== undefined && object.defaultSendEnabled !== null) {
-      message.defaultSendEnabled = object.defaultSendEnabled;
-    } else {
-      message.defaultSendEnabled = false;
-    }
+    message.defaultSendEnabled = object.defaultSendEnabled ?? false;
     return message;
   },
 };
@@ -213,16 +209,8 @@ export const SendEnabled = {
 
   fromPartial(object: DeepPartial<SendEnabled>): SendEnabled {
     const message = { ...baseSendEnabled } as SendEnabled;
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = object.denom;
-    } else {
-      message.denom = "";
-    }
-    if (object.enabled !== undefined && object.enabled !== null) {
-      message.enabled = object.enabled;
-    } else {
-      message.enabled = false;
-    }
+    message.denom = object.denom ?? "";
+    message.enabled = object.enabled ?? false;
     return message;
   },
 };
@@ -291,12 +279,8 @@ export const Input = {
 
   fromPartial(object: DeepPartial<Input>): Input {
     const message = { ...baseInput } as Input;
+    message.address = object.address ?? "";
     message.coins = [];
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
     if (object.coins !== undefined && object.coins !== null) {
       for (const e of object.coins) {
         message.coins.push(Coin.fromPartial(e));
@@ -370,12 +354,8 @@ export const Output = {
 
   fromPartial(object: DeepPartial<Output>): Output {
     const message = { ...baseOutput } as Output;
+    message.address = object.address ?? "";
     message.coins = [];
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
     if (object.coins !== undefined && object.coins !== null) {
       for (const e of object.coins) {
         message.coins.push(Coin.fromPartial(e));
@@ -523,17 +503,9 @@ export const DenomUnit = {
 
   fromPartial(object: DeepPartial<DenomUnit>): DenomUnit {
     const message = { ...baseDenomUnit } as DenomUnit;
+    message.denom = object.denom ?? "";
+    message.exponent = object.exponent ?? 0;
     message.aliases = [];
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = object.denom;
-    } else {
-      message.denom = "";
-    }
-    if (object.exponent !== undefined && object.exponent !== null) {
-      message.exponent = object.exponent;
-    } else {
-      message.exponent = 0;
-    }
     if (object.aliases !== undefined && object.aliases !== null) {
       for (const e of object.aliases) {
         message.aliases.push(e);
@@ -631,27 +603,15 @@ export const Metadata = {
 
   fromPartial(object: DeepPartial<Metadata>): Metadata {
     const message = { ...baseMetadata } as Metadata;
+    message.description = object.description ?? "";
     message.denomUnits = [];
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
     if (object.denomUnits !== undefined && object.denomUnits !== null) {
       for (const e of object.denomUnits) {
         message.denomUnits.push(DenomUnit.fromPartial(e));
       }
     }
-    if (object.base !== undefined && object.base !== null) {
-      message.base = object.base;
-    } else {
-      message.base = "";
-    }
-    if (object.display !== undefined && object.display !== null) {
-      message.display = object.display;
-    } else {
-      message.display = "";
-    }
+    message.base = object.base ?? "";
+    message.display = object.display ?? "";
     return message;
   },
 };

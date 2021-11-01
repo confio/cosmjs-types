@@ -334,47 +334,23 @@ export const TxResponse = {
 
   fromPartial(object: DeepPartial<TxResponse>): TxResponse {
     const message = { ...baseTxResponse } as TxResponse;
-    message.logs = [];
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height as Long;
     } else {
       message.height = Long.ZERO;
     }
-    if (object.txhash !== undefined && object.txhash !== null) {
-      message.txhash = object.txhash;
-    } else {
-      message.txhash = "";
-    }
-    if (object.codespace !== undefined && object.codespace !== null) {
-      message.codespace = object.codespace;
-    } else {
-      message.codespace = "";
-    }
-    if (object.code !== undefined && object.code !== null) {
-      message.code = object.code;
-    } else {
-      message.code = 0;
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = "";
-    }
-    if (object.rawLog !== undefined && object.rawLog !== null) {
-      message.rawLog = object.rawLog;
-    } else {
-      message.rawLog = "";
-    }
+    message.txhash = object.txhash ?? "";
+    message.codespace = object.codespace ?? "";
+    message.code = object.code ?? 0;
+    message.data = object.data ?? "";
+    message.rawLog = object.rawLog ?? "";
+    message.logs = [];
     if (object.logs !== undefined && object.logs !== null) {
       for (const e of object.logs) {
         message.logs.push(ABCIMessageLog.fromPartial(e));
       }
     }
-    if (object.info !== undefined && object.info !== null) {
-      message.info = object.info;
-    } else {
-      message.info = "";
-    }
+    message.info = object.info ?? "";
     if (object.gasWanted !== undefined && object.gasWanted !== null) {
       message.gasWanted = object.gasWanted as Long;
     } else {
@@ -390,11 +366,7 @@ export const TxResponse = {
     } else {
       message.tx = undefined;
     }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp;
-    } else {
-      message.timestamp = "";
-    }
+    message.timestamp = object.timestamp ?? "";
     return message;
   },
 };
@@ -475,17 +447,9 @@ export const ABCIMessageLog = {
 
   fromPartial(object: DeepPartial<ABCIMessageLog>): ABCIMessageLog {
     const message = { ...baseABCIMessageLog } as ABCIMessageLog;
+    message.msgIndex = object.msgIndex ?? 0;
+    message.log = object.log ?? "";
     message.events = [];
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = object.msgIndex;
-    } else {
-      message.msgIndex = 0;
-    }
-    if (object.log !== undefined && object.log !== null) {
-      message.log = object.log;
-    } else {
-      message.log = "";
-    }
     if (object.events !== undefined && object.events !== null) {
       for (const e of object.events) {
         message.events.push(StringEvent.fromPartial(e));
@@ -559,12 +523,8 @@ export const StringEvent = {
 
   fromPartial(object: DeepPartial<StringEvent>): StringEvent {
     const message = { ...baseStringEvent } as StringEvent;
+    message.type = object.type ?? "";
     message.attributes = [];
-    if (object.type !== undefined && object.type !== null) {
-      message.type = object.type;
-    } else {
-      message.type = "";
-    }
     if (object.attributes !== undefined && object.attributes !== null) {
       for (const e of object.attributes) {
         message.attributes.push(Attribute.fromPartial(e));
@@ -632,16 +592,8 @@ export const Attribute = {
 
   fromPartial(object: DeepPartial<Attribute>): Attribute {
     const message = { ...baseAttribute } as Attribute;
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = "";
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = "";
-    }
+    message.key = object.key ?? "";
+    message.value = object.value ?? "";
     return message;
   },
 };
@@ -795,17 +747,9 @@ export const Result = {
 
   fromPartial(object: DeepPartial<Result>): Result {
     const message = { ...baseResult } as Result;
+    message.data = object.data ?? new Uint8Array();
+    message.log = object.log ?? "";
     message.events = [];
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
-    if (object.log !== undefined && object.log !== null) {
-      message.log = object.log;
-    } else {
-      message.log = "";
-    }
     if (object.events !== undefined && object.events !== null) {
       for (const e of object.events) {
         message.events.push(Event.fromPartial(e));
@@ -947,16 +891,8 @@ export const MsgData = {
 
   fromPartial(object: DeepPartial<MsgData>): MsgData {
     const message = { ...baseMsgData } as MsgData;
-    if (object.msgType !== undefined && object.msgType !== null) {
-      message.msgType = object.msgType;
-    } else {
-      message.msgType = "";
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.msgType = object.msgType ?? "";
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -1141,7 +1077,6 @@ export const SearchTxsResult = {
 
   fromPartial(object: DeepPartial<SearchTxsResult>): SearchTxsResult {
     const message = { ...baseSearchTxsResult } as SearchTxsResult;
-    message.txs = [];
     if (object.totalCount !== undefined && object.totalCount !== null) {
       message.totalCount = object.totalCount as Long;
     } else {
@@ -1167,6 +1102,7 @@ export const SearchTxsResult = {
     } else {
       message.limit = Long.UZERO;
     }
+    message.txs = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
         message.txs.push(TxResponse.fromPartial(e));

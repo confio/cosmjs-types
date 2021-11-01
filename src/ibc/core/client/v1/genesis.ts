@@ -167,18 +167,18 @@ export const GenesisState = {
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.clients = [];
-    message.clientsConsensus = [];
-    message.clientsMetadata = [];
     if (object.clients !== undefined && object.clients !== null) {
       for (const e of object.clients) {
         message.clients.push(IdentifiedClientState.fromPartial(e));
       }
     }
+    message.clientsConsensus = [];
     if (object.clientsConsensus !== undefined && object.clientsConsensus !== null) {
       for (const e of object.clientsConsensus) {
         message.clientsConsensus.push(ClientConsensusStates.fromPartial(e));
       }
     }
+    message.clientsMetadata = [];
     if (object.clientsMetadata !== undefined && object.clientsMetadata !== null) {
       for (const e of object.clientsMetadata) {
         message.clientsMetadata.push(IdentifiedGenesisMetadata.fromPartial(e));
@@ -189,11 +189,7 @@ export const GenesisState = {
     } else {
       message.params = undefined;
     }
-    if (object.createLocalhost !== undefined && object.createLocalhost !== null) {
-      message.createLocalhost = object.createLocalhost;
-    } else {
-      message.createLocalhost = false;
-    }
+    message.createLocalhost = object.createLocalhost ?? false;
     if (object.nextClientSequence !== undefined && object.nextClientSequence !== null) {
       message.nextClientSequence = object.nextClientSequence as Long;
     } else {
@@ -263,16 +259,8 @@ export const GenesisMetadata = {
 
   fromPartial(object: DeepPartial<GenesisMetadata>): GenesisMetadata {
     const message = { ...baseGenesisMetadata } as GenesisMetadata;
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = new Uint8Array();
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = new Uint8Array();
-    }
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
@@ -341,12 +329,8 @@ export const IdentifiedGenesisMetadata = {
 
   fromPartial(object: DeepPartial<IdentifiedGenesisMetadata>): IdentifiedGenesisMetadata {
     const message = { ...baseIdentifiedGenesisMetadata } as IdentifiedGenesisMetadata;
+    message.clientId = object.clientId ?? "";
     message.clientMetadata = [];
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
     if (object.clientMetadata !== undefined && object.clientMetadata !== null) {
       for (const e of object.clientMetadata) {
         message.clientMetadata.push(GenesisMetadata.fromPartial(e));

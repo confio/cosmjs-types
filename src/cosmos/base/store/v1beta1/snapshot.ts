@@ -143,11 +143,7 @@ export const SnapshotStoreItem = {
 
   fromPartial(object: DeepPartial<SnapshotStoreItem>): SnapshotStoreItem {
     const message = { ...baseSnapshotStoreItem } as SnapshotStoreItem;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
+    message.name = object.name ?? "";
     return message;
   },
 };
@@ -236,26 +232,14 @@ export const SnapshotIAVLItem = {
 
   fromPartial(object: DeepPartial<SnapshotIAVLItem>): SnapshotIAVLItem {
     const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = new Uint8Array();
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = new Uint8Array();
-    }
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     if (object.version !== undefined && object.version !== null) {
       message.version = object.version as Long;
     } else {
       message.version = Long.ZERO;
     }
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height;
-    } else {
-      message.height = 0;
-    }
+    message.height = object.height ?? 0;
     return message;
   },
 };

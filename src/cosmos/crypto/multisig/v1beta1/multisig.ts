@@ -145,16 +145,8 @@ export const CompactBitArray = {
 
   fromPartial(object: DeepPartial<CompactBitArray>): CompactBitArray {
     const message = { ...baseCompactBitArray } as CompactBitArray;
-    if (object.extraBitsStored !== undefined && object.extraBitsStored !== null) {
-      message.extraBitsStored = object.extraBitsStored;
-    } else {
-      message.extraBitsStored = 0;
-    }
-    if (object.elems !== undefined && object.elems !== null) {
-      message.elems = object.elems;
-    } else {
-      message.elems = new Uint8Array();
-    }
+    message.extraBitsStored = object.extraBitsStored ?? 0;
+    message.elems = object.elems ?? new Uint8Array();
     return message;
   },
 };

@@ -161,12 +161,12 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.owners = [];
     if (object.index !== undefined && object.index !== null) {
       message.index = object.index as Long;
     } else {
       message.index = Long.UZERO;
     }
+    message.owners = [];
     if (object.owners !== undefined && object.owners !== null) {
       for (const e of object.owners) {
         message.owners.push(GenesisOwners.fromPartial(e));

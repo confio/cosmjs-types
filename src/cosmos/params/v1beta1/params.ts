@@ -97,17 +97,9 @@ export const ParameterChangeProposal = {
 
   fromPartial(object: DeepPartial<ParameterChangeProposal>): ParameterChangeProposal {
     const message = { ...baseParameterChangeProposal } as ParameterChangeProposal;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     message.changes = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
     if (object.changes !== undefined && object.changes !== null) {
       for (const e of object.changes) {
         message.changes.push(ParamChange.fromPartial(e));
@@ -187,21 +179,9 @@ export const ParamChange = {
 
   fromPartial(object: DeepPartial<ParamChange>): ParamChange {
     const message = { ...baseParamChange } as ParamChange;
-    if (object.subspace !== undefined && object.subspace !== null) {
-      message.subspace = object.subspace;
-    } else {
-      message.subspace = "";
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = "";
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = "";
-    }
+    message.subspace = object.subspace ?? "";
+    message.key = object.key ?? "";
+    message.value = object.value ?? "";
     return message;
   },
 };

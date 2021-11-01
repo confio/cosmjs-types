@@ -149,11 +149,7 @@ export const ValidatorSigningInfo = {
 
   fromPartial(object: DeepPartial<ValidatorSigningInfo>): ValidatorSigningInfo {
     const message = { ...baseValidatorSigningInfo } as ValidatorSigningInfo;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.startHeight !== undefined && object.startHeight !== null) {
       message.startHeight = object.startHeight as Long;
     } else {
@@ -164,16 +160,8 @@ export const ValidatorSigningInfo = {
     } else {
       message.indexOffset = Long.ZERO;
     }
-    if (object.jailedUntil !== undefined && object.jailedUntil !== null) {
-      message.jailedUntil = object.jailedUntil;
-    } else {
-      message.jailedUntil = undefined;
-    }
-    if (object.tombstoned !== undefined && object.tombstoned !== null) {
-      message.tombstoned = object.tombstoned;
-    } else {
-      message.tombstoned = false;
-    }
+    message.jailedUntil = object.jailedUntil ?? undefined;
+    message.tombstoned = object.tombstoned ?? false;
     if (object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null) {
       message.missedBlocksCounter = object.missedBlocksCounter as Long;
     } else {
@@ -295,26 +283,14 @@ export const Params = {
     } else {
       message.signedBlocksWindow = Long.ZERO;
     }
-    if (object.minSignedPerWindow !== undefined && object.minSignedPerWindow !== null) {
-      message.minSignedPerWindow = object.minSignedPerWindow;
-    } else {
-      message.minSignedPerWindow = new Uint8Array();
-    }
+    message.minSignedPerWindow = object.minSignedPerWindow ?? new Uint8Array();
     if (object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null) {
       message.downtimeJailDuration = Duration.fromPartial(object.downtimeJailDuration);
     } else {
       message.downtimeJailDuration = undefined;
     }
-    if (object.slashFractionDoubleSign !== undefined && object.slashFractionDoubleSign !== null) {
-      message.slashFractionDoubleSign = object.slashFractionDoubleSign;
-    } else {
-      message.slashFractionDoubleSign = new Uint8Array();
-    }
-    if (object.slashFractionDowntime !== undefined && object.slashFractionDowntime !== null) {
-      message.slashFractionDowntime = object.slashFractionDowntime;
-    } else {
-      message.slashFractionDowntime = new Uint8Array();
-    }
+    message.slashFractionDoubleSign = object.slashFractionDoubleSign ?? new Uint8Array();
+    message.slashFractionDowntime = object.slashFractionDowntime ?? new Uint8Array();
     return message;
   },
 };

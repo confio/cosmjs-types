@@ -116,11 +116,7 @@ export const BaseAccount = {
 
   fromPartial(object: DeepPartial<BaseAccount>): BaseAccount {
     const message = { ...baseBaseAccount } as BaseAccount;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.pubKey !== undefined && object.pubKey !== null) {
       message.pubKey = Any.fromPartial(object.pubKey);
     } else {
@@ -217,17 +213,13 @@ export const ModuleAccount = {
 
   fromPartial(object: DeepPartial<ModuleAccount>): ModuleAccount {
     const message = { ...baseModuleAccount } as ModuleAccount;
-    message.permissions = [];
     if (object.baseAccount !== undefined && object.baseAccount !== null) {
       message.baseAccount = BaseAccount.fromPartial(object.baseAccount);
     } else {
       message.baseAccount = undefined;
     }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
+    message.name = object.name ?? "";
+    message.permissions = [];
     if (object.permissions !== undefined && object.permissions !== null) {
       for (const e of object.permissions) {
         message.permissions.push(e);

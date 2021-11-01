@@ -254,12 +254,12 @@ export const GetValidatorSetByHeightResponse = {
 
   fromPartial(object: DeepPartial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
     const message = { ...baseGetValidatorSetByHeightResponse } as GetValidatorSetByHeightResponse;
-    message.validators = [];
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
       message.blockHeight = object.blockHeight as Long;
     } else {
       message.blockHeight = Long.ZERO;
     }
+    message.validators = [];
     if (object.validators !== undefined && object.validators !== null) {
       for (const e of object.validators) {
         message.validators.push(Validator.fromPartial(e));
@@ -407,12 +407,12 @@ export const GetLatestValidatorSetResponse = {
 
   fromPartial(object: DeepPartial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
     const message = { ...baseGetLatestValidatorSetResponse } as GetLatestValidatorSetResponse;
-    message.validators = [];
     if (object.blockHeight !== undefined && object.blockHeight !== null) {
       message.blockHeight = object.blockHeight as Long;
     } else {
       message.blockHeight = Long.ZERO;
     }
+    message.validators = [];
     if (object.validators !== undefined && object.validators !== null) {
       for (const e of object.validators) {
         message.validators.push(Validator.fromPartial(e));
@@ -510,11 +510,7 @@ export const Validator = {
 
   fromPartial(object: DeepPartial<Validator>): Validator {
     const message = { ...baseValidator } as Validator;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.pubKey !== undefined && object.pubKey !== null) {
       message.pubKey = Any.fromPartial(object.pubKey);
     } else {
@@ -857,11 +853,7 @@ export const GetSyncingResponse = {
 
   fromPartial(object: DeepPartial<GetSyncingResponse>): GetSyncingResponse {
     const message = { ...baseGetSyncingResponse } as GetSyncingResponse;
-    if (object.syncing !== undefined && object.syncing !== null) {
-      message.syncing = object.syncing;
-    } else {
-      message.syncing = false;
-    }
+    message.syncing = object.syncing ?? false;
     return message;
   },
 };
@@ -1113,37 +1105,13 @@ export const VersionInfo = {
 
   fromPartial(object: DeepPartial<VersionInfo>): VersionInfo {
     const message = { ...baseVersionInfo } as VersionInfo;
+    message.name = object.name ?? "";
+    message.appName = object.appName ?? "";
+    message.version = object.version ?? "";
+    message.gitCommit = object.gitCommit ?? "";
+    message.buildTags = object.buildTags ?? "";
+    message.goVersion = object.goVersion ?? "";
     message.buildDeps = [];
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
-    if (object.appName !== undefined && object.appName !== null) {
-      message.appName = object.appName;
-    } else {
-      message.appName = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version;
-    } else {
-      message.version = "";
-    }
-    if (object.gitCommit !== undefined && object.gitCommit !== null) {
-      message.gitCommit = object.gitCommit;
-    } else {
-      message.gitCommit = "";
-    }
-    if (object.buildTags !== undefined && object.buildTags !== null) {
-      message.buildTags = object.buildTags;
-    } else {
-      message.buildTags = "";
-    }
-    if (object.goVersion !== undefined && object.goVersion !== null) {
-      message.goVersion = object.goVersion;
-    } else {
-      message.goVersion = "";
-    }
     if (object.buildDeps !== undefined && object.buildDeps !== null) {
       for (const e of object.buildDeps) {
         message.buildDeps.push(Module.fromPartial(e));
@@ -1223,21 +1191,9 @@ export const Module = {
 
   fromPartial(object: DeepPartial<Module>): Module {
     const message = { ...baseModule } as Module;
-    if (object.path !== undefined && object.path !== null) {
-      message.path = object.path;
-    } else {
-      message.path = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version;
-    } else {
-      message.version = "";
-    }
-    if (object.sum !== undefined && object.sum !== null) {
-      message.sum = object.sum;
-    } else {
-      message.sum = "";
-    }
+    message.path = object.path ?? "";
+    message.version = object.version ?? "";
+    message.sum = object.sum ?? "";
     return message;
   },
 };

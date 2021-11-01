@@ -170,24 +170,24 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.deposits = [];
-    message.votes = [];
-    message.proposals = [];
     if (object.startingProposalId !== undefined && object.startingProposalId !== null) {
       message.startingProposalId = object.startingProposalId as Long;
     } else {
       message.startingProposalId = Long.UZERO;
     }
+    message.deposits = [];
     if (object.deposits !== undefined && object.deposits !== null) {
       for (const e of object.deposits) {
         message.deposits.push(Deposit.fromPartial(e));
       }
     }
+    message.votes = [];
     if (object.votes !== undefined && object.votes !== null) {
       for (const e of object.votes) {
         message.votes.push(Vote.fromPartial(e));
       }
     }
+    message.proposals = [];
     if (object.proposals !== undefined && object.proposals !== null) {
       for (const e of object.proposals) {
         message.proposals.push(Proposal.fromPartial(e));

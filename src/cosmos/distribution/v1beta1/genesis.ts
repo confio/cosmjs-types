@@ -170,16 +170,8 @@ export const DelegatorWithdrawInfo = {
 
   fromPartial(object: DeepPartial<DelegatorWithdrawInfo>): DelegatorWithdrawInfo {
     const message = { ...baseDelegatorWithdrawInfo } as DelegatorWithdrawInfo;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.withdrawAddress !== undefined && object.withdrawAddress !== null) {
-      message.withdrawAddress = object.withdrawAddress;
-    } else {
-      message.withdrawAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.withdrawAddress = object.withdrawAddress ?? "";
     return message;
   },
 };
@@ -248,12 +240,8 @@ export const ValidatorOutstandingRewardsRecord = {
 
   fromPartial(object: DeepPartial<ValidatorOutstandingRewardsRecord>): ValidatorOutstandingRewardsRecord {
     const message = { ...baseValidatorOutstandingRewardsRecord } as ValidatorOutstandingRewardsRecord;
+    message.validatorAddress = object.validatorAddress ?? "";
     message.outstandingRewards = [];
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
     if (object.outstandingRewards !== undefined && object.outstandingRewards !== null) {
       for (const e of object.outstandingRewards) {
         message.outstandingRewards.push(DecCoin.fromPartial(e));
@@ -329,11 +317,7 @@ export const ValidatorAccumulatedCommissionRecord = {
     object: DeepPartial<ValidatorAccumulatedCommissionRecord>,
   ): ValidatorAccumulatedCommissionRecord {
     const message = { ...baseValidatorAccumulatedCommissionRecord } as ValidatorAccumulatedCommissionRecord;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.accumulated !== undefined && object.accumulated !== null) {
       message.accumulated = ValidatorAccumulatedCommission.fromPartial(object.accumulated);
     } else {
@@ -414,11 +398,7 @@ export const ValidatorHistoricalRewardsRecord = {
 
   fromPartial(object: DeepPartial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
     const message = { ...baseValidatorHistoricalRewardsRecord } as ValidatorHistoricalRewardsRecord;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.period !== undefined && object.period !== null) {
       message.period = object.period as Long;
     } else {
@@ -492,11 +472,7 @@ export const ValidatorCurrentRewardsRecord = {
 
   fromPartial(object: DeepPartial<ValidatorCurrentRewardsRecord>): ValidatorCurrentRewardsRecord {
     const message = { ...baseValidatorCurrentRewardsRecord } as ValidatorCurrentRewardsRecord;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.rewards !== undefined && object.rewards !== null) {
       message.rewards = ValidatorCurrentRewards.fromPartial(object.rewards);
     } else {
@@ -579,16 +555,8 @@ export const DelegatorStartingInfoRecord = {
 
   fromPartial(object: DeepPartial<DelegatorStartingInfoRecord>): DelegatorStartingInfoRecord {
     const message = { ...baseDelegatorStartingInfoRecord } as DelegatorStartingInfoRecord;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.startingInfo !== undefined && object.startingInfo !== null) {
       message.startingInfo = DelegatorStartingInfo.fromPartial(object.startingInfo);
     } else {
@@ -687,11 +655,7 @@ export const ValidatorSlashEventRecord = {
 
   fromPartial(object: DeepPartial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
     const message = { ...baseValidatorSlashEventRecord } as ValidatorSlashEventRecord;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height as Long;
     } else {
@@ -929,13 +893,6 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.delegatorWithdrawInfos = [];
-    message.outstandingRewards = [];
-    message.validatorAccumulatedCommissions = [];
-    message.validatorHistoricalRewards = [];
-    message.validatorCurrentRewards = [];
-    message.delegatorStartingInfos = [];
-    message.validatorSlashEvents = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -946,21 +903,20 @@ export const GenesisState = {
     } else {
       message.feePool = undefined;
     }
+    message.delegatorWithdrawInfos = [];
     if (object.delegatorWithdrawInfos !== undefined && object.delegatorWithdrawInfos !== null) {
       for (const e of object.delegatorWithdrawInfos) {
         message.delegatorWithdrawInfos.push(DelegatorWithdrawInfo.fromPartial(e));
       }
     }
-    if (object.previousProposer !== undefined && object.previousProposer !== null) {
-      message.previousProposer = object.previousProposer;
-    } else {
-      message.previousProposer = "";
-    }
+    message.previousProposer = object.previousProposer ?? "";
+    message.outstandingRewards = [];
     if (object.outstandingRewards !== undefined && object.outstandingRewards !== null) {
       for (const e of object.outstandingRewards) {
         message.outstandingRewards.push(ValidatorOutstandingRewardsRecord.fromPartial(e));
       }
     }
+    message.validatorAccumulatedCommissions = [];
     if (
       object.validatorAccumulatedCommissions !== undefined &&
       object.validatorAccumulatedCommissions !== null
@@ -969,21 +925,25 @@ export const GenesisState = {
         message.validatorAccumulatedCommissions.push(ValidatorAccumulatedCommissionRecord.fromPartial(e));
       }
     }
+    message.validatorHistoricalRewards = [];
     if (object.validatorHistoricalRewards !== undefined && object.validatorHistoricalRewards !== null) {
       for (const e of object.validatorHistoricalRewards) {
         message.validatorHistoricalRewards.push(ValidatorHistoricalRewardsRecord.fromPartial(e));
       }
     }
+    message.validatorCurrentRewards = [];
     if (object.validatorCurrentRewards !== undefined && object.validatorCurrentRewards !== null) {
       for (const e of object.validatorCurrentRewards) {
         message.validatorCurrentRewards.push(ValidatorCurrentRewardsRecord.fromPartial(e));
       }
     }
+    message.delegatorStartingInfos = [];
     if (object.delegatorStartingInfos !== undefined && object.delegatorStartingInfos !== null) {
       for (const e of object.delegatorStartingInfos) {
         message.delegatorStartingInfos.push(DelegatorStartingInfoRecord.fromPartial(e));
       }
     }
+    message.validatorSlashEvents = [];
     if (object.validatorSlashEvents !== undefined && object.validatorSlashEvents !== null) {
       for (const e of object.validatorSlashEvents) {
         message.validatorSlashEvents.push(ValidatorSlashEventRecord.fromPartial(e));

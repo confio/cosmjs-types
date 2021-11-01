@@ -99,11 +99,7 @@ export const QueryDenomTraceRequest = {
 
   fromPartial(object: DeepPartial<QueryDenomTraceRequest>): QueryDenomTraceRequest {
     const message = { ...baseQueryDenomTraceRequest } as QueryDenomTraceRequest;
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = object.hash;
-    } else {
-      message.hash = "";
-    }
+    message.hash = object.hash ?? "";
     return message;
   },
 };

@@ -78,12 +78,12 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.accounts = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
     }
+    message.accounts = [];
     if (object.accounts !== undefined && object.accounts !== null) {
       for (const e of object.accounts) {
         message.accounts.push(Any.fromPartial(e));

@@ -159,26 +159,14 @@ export const Plan = {
 
   fromPartial(object: DeepPartial<Plan>): Plan {
     const message = { ...basePlan } as Plan;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = object.time;
-    } else {
-      message.time = undefined;
-    }
+    message.name = object.name ?? "";
+    message.time = object.time ?? undefined;
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height as Long;
     } else {
       message.height = Long.ZERO;
     }
-    if (object.info !== undefined && object.info !== null) {
-      message.info = object.info;
-    } else {
-      message.info = "";
-    }
+    message.info = object.info ?? "";
     if (object.upgradedClientState !== undefined && object.upgradedClientState !== null) {
       message.upgradedClientState = Any.fromPartial(object.upgradedClientState);
     } else {
@@ -258,16 +246,8 @@ export const SoftwareUpgradeProposal = {
 
   fromPartial(object: DeepPartial<SoftwareUpgradeProposal>): SoftwareUpgradeProposal {
     const message = { ...baseSoftwareUpgradeProposal } as SoftwareUpgradeProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     if (object.plan !== undefined && object.plan !== null) {
       message.plan = Plan.fromPartial(object.plan);
     } else {
@@ -335,16 +315,8 @@ export const CancelSoftwareUpgradeProposal = {
 
   fromPartial(object: DeepPartial<CancelSoftwareUpgradeProposal>): CancelSoftwareUpgradeProposal {
     const message = { ...baseCancelSoftwareUpgradeProposal } as CancelSoftwareUpgradeProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     return message;
   },
 };
