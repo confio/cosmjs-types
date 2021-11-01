@@ -122,7 +122,7 @@ __metadata:
     long: ^4.0.0
     prettier: ^2.3.0
     protobufjs: ~6.11.2
-    ts-proto: ^1.83.1
+    ts-proto: ^1.83.3
     typescript: ~4.0
   languageName: unknown
   linkType: soft
@@ -209,9 +209,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.83.1":
-  version: 1.83.1
-  resolution: "ts-proto@npm:1.83.1"
+"ts-proto@npm:^1.83.3":
+  version: 1.83.3
+  resolution: "ts-proto@npm:1.83.3"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
@@ -221,7 +221,7 @@ __metadata:
     ts-proto-descriptors: ^1.2.1
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: 4702508a0d375ed5ea6447539c676306dfdf4e84b0c161bcb8f732b2e23f0690e4e908c1e5a4ca47ca06ab674d8b22c2b6483d0636aede0cbb813a72464c00cb
+  checksum: 9234b6db9eb7786bb32efaf392cc4dc49ff3f81f1e83e603ef05221a7935dd471a1574834cf4ced5a557020282bb183853bed751e7331f84893b2e6d9e288ed9
   languageName: node
   linkType: hard
 
