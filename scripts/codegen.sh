@@ -106,7 +106,7 @@ protoc \
   "$WASMD_DIR/cosmwasm/wasm/v1beta1/tx.proto" \
   "$WASMD_DIR/cosmwasm/wasm/v1beta1/types.proto"
 
-echo "Processing wasmd 0.08 proto files ..."
+echo "Processing wasmd 0.18 proto files ..."
 WASMD_DIR="./wasmd-0.18/proto"
 WASMD_THIRD_PARTY_DIR="./wasmd-0.18/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio"
