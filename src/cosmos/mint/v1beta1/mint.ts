@@ -86,16 +86,8 @@ export const Minter = {
 
   fromPartial(object: DeepPartial<Minter>): Minter {
     const message = { ...baseMinter } as Minter;
-    if (object.inflation !== undefined && object.inflation !== null) {
-      message.inflation = object.inflation;
-    } else {
-      message.inflation = "";
-    }
-    if (object.annualProvisions !== undefined && object.annualProvisions !== null) {
-      message.annualProvisions = object.annualProvisions;
-    } else {
-      message.annualProvisions = "";
-    }
+    message.inflation = object.inflation ?? "";
+    message.annualProvisions = object.annualProvisions ?? "";
     return message;
   },
 };
@@ -214,31 +206,11 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    if (object.mintDenom !== undefined && object.mintDenom !== null) {
-      message.mintDenom = object.mintDenom;
-    } else {
-      message.mintDenom = "";
-    }
-    if (object.inflationRateChange !== undefined && object.inflationRateChange !== null) {
-      message.inflationRateChange = object.inflationRateChange;
-    } else {
-      message.inflationRateChange = "";
-    }
-    if (object.inflationMax !== undefined && object.inflationMax !== null) {
-      message.inflationMax = object.inflationMax;
-    } else {
-      message.inflationMax = "";
-    }
-    if (object.inflationMin !== undefined && object.inflationMin !== null) {
-      message.inflationMin = object.inflationMin;
-    } else {
-      message.inflationMin = "";
-    }
-    if (object.goalBonded !== undefined && object.goalBonded !== null) {
-      message.goalBonded = object.goalBonded;
-    } else {
-      message.goalBonded = "";
-    }
+    message.mintDenom = object.mintDenom ?? "";
+    message.inflationRateChange = object.inflationRateChange ?? "";
+    message.inflationMax = object.inflationMax ?? "";
+    message.inflationMin = object.inflationMin ?? "";
+    message.goalBonded = object.goalBonded ?? "";
     if (object.blocksPerYear !== undefined && object.blocksPerYear !== null) {
       message.blocksPerYear = object.blocksPerYear as Long;
     } else {

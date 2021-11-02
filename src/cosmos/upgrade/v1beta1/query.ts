@@ -198,11 +198,7 @@ export const QueryAppliedPlanRequest = {
 
   fromPartial(object: DeepPartial<QueryAppliedPlanRequest>): QueryAppliedPlanRequest {
     const message = { ...baseQueryAppliedPlanRequest } as QueryAppliedPlanRequest;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
+    message.name = object.name ?? "";
     return message;
   },
 };

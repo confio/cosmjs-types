@@ -164,11 +164,7 @@ export const QueryClientStateRequest = {
 
   fromPartial(object: DeepPartial<QueryClientStateRequest>): QueryClientStateRequest {
     const message = { ...baseQueryClientStateRequest } as QueryClientStateRequest;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
+    message.clientId = object.clientId ?? "";
     return message;
   },
 };
@@ -251,11 +247,7 @@ export const QueryClientStateResponse = {
     } else {
       message.clientState = undefined;
     }
-    if (object.proof !== undefined && object.proof !== null) {
-      message.proof = object.proof;
-    } else {
-      message.proof = new Uint8Array();
-    }
+    message.proof = object.proof ?? new Uint8Array();
     if (object.proofHeight !== undefined && object.proofHeight !== null) {
       message.proofHeight = Height.fromPartial(object.proofHeight);
     } else {
@@ -490,11 +482,7 @@ export const QueryConsensusStateRequest = {
 
   fromPartial(object: DeepPartial<QueryConsensusStateRequest>): QueryConsensusStateRequest {
     const message = { ...baseQueryConsensusStateRequest } as QueryConsensusStateRequest;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
+    message.clientId = object.clientId ?? "";
     if (object.revisionNumber !== undefined && object.revisionNumber !== null) {
       message.revisionNumber = object.revisionNumber as Long;
     } else {
@@ -505,11 +493,7 @@ export const QueryConsensusStateRequest = {
     } else {
       message.revisionHeight = Long.UZERO;
     }
-    if (object.latestHeight !== undefined && object.latestHeight !== null) {
-      message.latestHeight = object.latestHeight;
-    } else {
-      message.latestHeight = false;
-    }
+    message.latestHeight = object.latestHeight ?? false;
     return message;
   },
 };
@@ -592,11 +576,7 @@ export const QueryConsensusStateResponse = {
     } else {
       message.consensusState = undefined;
     }
-    if (object.proof !== undefined && object.proof !== null) {
-      message.proof = object.proof;
-    } else {
-      message.proof = new Uint8Array();
-    }
+    message.proof = object.proof ?? new Uint8Array();
     if (object.proofHeight !== undefined && object.proofHeight !== null) {
       message.proofHeight = Height.fromPartial(object.proofHeight);
     } else {
@@ -665,11 +645,7 @@ export const QueryConsensusStatesRequest = {
 
   fromPartial(object: DeepPartial<QueryConsensusStatesRequest>): QueryConsensusStatesRequest {
     const message = { ...baseQueryConsensusStatesRequest } as QueryConsensusStatesRequest;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
+    message.clientId = object.clientId ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {

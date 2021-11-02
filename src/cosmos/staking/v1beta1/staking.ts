@@ -358,12 +358,12 @@ export const HistoricalInfo = {
 
   fromPartial(object: DeepPartial<HistoricalInfo>): HistoricalInfo {
     const message = { ...baseHistoricalInfo } as HistoricalInfo;
-    message.valset = [];
     if (object.header !== undefined && object.header !== null) {
       message.header = Header.fromPartial(object.header);
     } else {
       message.header = undefined;
     }
+    message.valset = [];
     if (object.valset !== undefined && object.valset !== null) {
       for (const e of object.valset) {
         message.valset.push(Validator.fromPartial(e));
@@ -443,21 +443,9 @@ export const CommissionRates = {
 
   fromPartial(object: DeepPartial<CommissionRates>): CommissionRates {
     const message = { ...baseCommissionRates } as CommissionRates;
-    if (object.rate !== undefined && object.rate !== null) {
-      message.rate = object.rate;
-    } else {
-      message.rate = "";
-    }
-    if (object.maxRate !== undefined && object.maxRate !== null) {
-      message.maxRate = object.maxRate;
-    } else {
-      message.maxRate = "";
-    }
-    if (object.maxChangeRate !== undefined && object.maxChangeRate !== null) {
-      message.maxChangeRate = object.maxChangeRate;
-    } else {
-      message.maxChangeRate = "";
-    }
+    message.rate = object.rate ?? "";
+    message.maxRate = object.maxRate ?? "";
+    message.maxChangeRate = object.maxChangeRate ?? "";
     return message;
   },
 };
@@ -528,11 +516,7 @@ export const Commission = {
     } else {
       message.commissionRates = undefined;
     }
-    if (object.updateTime !== undefined && object.updateTime !== null) {
-      message.updateTime = object.updateTime;
-    } else {
-      message.updateTime = undefined;
-    }
+    message.updateTime = object.updateTime ?? undefined;
     return message;
   },
 };
@@ -631,31 +615,11 @@ export const Description = {
 
   fromPartial(object: DeepPartial<Description>): Description {
     const message = { ...baseDescription } as Description;
-    if (object.moniker !== undefined && object.moniker !== null) {
-      message.moniker = object.moniker;
-    } else {
-      message.moniker = "";
-    }
-    if (object.identity !== undefined && object.identity !== null) {
-      message.identity = object.identity;
-    } else {
-      message.identity = "";
-    }
-    if (object.website !== undefined && object.website !== null) {
-      message.website = object.website;
-    } else {
-      message.website = "";
-    }
-    if (object.securityContact !== undefined && object.securityContact !== null) {
-      message.securityContact = object.securityContact;
-    } else {
-      message.securityContact = "";
-    }
-    if (object.details !== undefined && object.details !== null) {
-      message.details = object.details;
-    } else {
-      message.details = "";
-    }
+    message.moniker = object.moniker ?? "";
+    message.identity = object.identity ?? "";
+    message.website = object.website ?? "";
+    message.securityContact = object.securityContact ?? "";
+    message.details = object.details ?? "";
     return message;
   },
 };
@@ -838,36 +802,16 @@ export const Validator = {
 
   fromPartial(object: DeepPartial<Validator>): Validator {
     const message = { ...baseValidator } as Validator;
-    if (object.operatorAddress !== undefined && object.operatorAddress !== null) {
-      message.operatorAddress = object.operatorAddress;
-    } else {
-      message.operatorAddress = "";
-    }
+    message.operatorAddress = object.operatorAddress ?? "";
     if (object.consensusPubkey !== undefined && object.consensusPubkey !== null) {
       message.consensusPubkey = Any.fromPartial(object.consensusPubkey);
     } else {
       message.consensusPubkey = undefined;
     }
-    if (object.jailed !== undefined && object.jailed !== null) {
-      message.jailed = object.jailed;
-    } else {
-      message.jailed = false;
-    }
-    if (object.status !== undefined && object.status !== null) {
-      message.status = object.status;
-    } else {
-      message.status = 0;
-    }
-    if (object.tokens !== undefined && object.tokens !== null) {
-      message.tokens = object.tokens;
-    } else {
-      message.tokens = "";
-    }
-    if (object.delegatorShares !== undefined && object.delegatorShares !== null) {
-      message.delegatorShares = object.delegatorShares;
-    } else {
-      message.delegatorShares = "";
-    }
+    message.jailed = object.jailed ?? false;
+    message.status = object.status ?? 0;
+    message.tokens = object.tokens ?? "";
+    message.delegatorShares = object.delegatorShares ?? "";
     if (object.description !== undefined && object.description !== null) {
       message.description = Description.fromPartial(object.description);
     } else {
@@ -878,21 +822,13 @@ export const Validator = {
     } else {
       message.unbondingHeight = Long.ZERO;
     }
-    if (object.unbondingTime !== undefined && object.unbondingTime !== null) {
-      message.unbondingTime = object.unbondingTime;
-    } else {
-      message.unbondingTime = undefined;
-    }
+    message.unbondingTime = object.unbondingTime ?? undefined;
     if (object.commission !== undefined && object.commission !== null) {
       message.commission = Commission.fromPartial(object.commission);
     } else {
       message.commission = undefined;
     }
-    if (object.minSelfDelegation !== undefined && object.minSelfDelegation !== null) {
-      message.minSelfDelegation = object.minSelfDelegation;
-    } else {
-      message.minSelfDelegation = "";
-    }
+    message.minSelfDelegation = object.minSelfDelegation ?? "";
     return message;
   },
 };
@@ -1017,16 +953,8 @@ export const DVPair = {
 
   fromPartial(object: DeepPartial<DVPair>): DVPair {
     const message = { ...baseDVPair } as DVPair;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
 };
@@ -1163,21 +1091,9 @@ export const DVVTriplet = {
 
   fromPartial(object: DeepPartial<DVVTriplet>): DVVTriplet {
     const message = { ...baseDVVTriplet } as DVVTriplet;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorSrcAddress !== undefined && object.validatorSrcAddress !== null) {
-      message.validatorSrcAddress = object.validatorSrcAddress;
-    } else {
-      message.validatorSrcAddress = "";
-    }
-    if (object.validatorDstAddress !== undefined && object.validatorDstAddress !== null) {
-      message.validatorDstAddress = object.validatorDstAddress;
-    } else {
-      message.validatorDstAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorSrcAddress = object.validatorSrcAddress ?? "";
+    message.validatorDstAddress = object.validatorDstAddress ?? "";
     return message;
   },
 };
@@ -1314,21 +1230,9 @@ export const Delegation = {
 
   fromPartial(object: DeepPartial<Delegation>): Delegation {
     const message = { ...baseDelegation } as Delegation;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
-    if (object.shares !== undefined && object.shares !== null) {
-      message.shares = object.shares;
-    } else {
-      message.shares = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
+    message.shares = object.shares ?? "";
     return message;
   },
 };
@@ -1409,17 +1313,9 @@ export const UnbondingDelegation = {
 
   fromPartial(object: DeepPartial<UnbondingDelegation>): UnbondingDelegation {
     const message = { ...baseUnbondingDelegation } as UnbondingDelegation;
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     message.entries = [];
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
     if (object.entries !== undefined && object.entries !== null) {
       for (const e of object.entries) {
         message.entries.push(UnbondingDelegationEntry.fromPartial(e));
@@ -1517,21 +1413,9 @@ export const UnbondingDelegationEntry = {
     } else {
       message.creationHeight = Long.ZERO;
     }
-    if (object.completionTime !== undefined && object.completionTime !== null) {
-      message.completionTime = object.completionTime;
-    } else {
-      message.completionTime = undefined;
-    }
-    if (object.initialBalance !== undefined && object.initialBalance !== null) {
-      message.initialBalance = object.initialBalance;
-    } else {
-      message.initialBalance = "";
-    }
-    if (object.balance !== undefined && object.balance !== null) {
-      message.balance = object.balance;
-    } else {
-      message.balance = "";
-    }
+    message.completionTime = object.completionTime ?? undefined;
+    message.initialBalance = object.initialBalance ?? "";
+    message.balance = object.balance ?? "";
     return message;
   },
 };
@@ -1624,21 +1508,9 @@ export const RedelegationEntry = {
     } else {
       message.creationHeight = Long.ZERO;
     }
-    if (object.completionTime !== undefined && object.completionTime !== null) {
-      message.completionTime = object.completionTime;
-    } else {
-      message.completionTime = undefined;
-    }
-    if (object.initialBalance !== undefined && object.initialBalance !== null) {
-      message.initialBalance = object.initialBalance;
-    } else {
-      message.initialBalance = "";
-    }
-    if (object.sharesDst !== undefined && object.sharesDst !== null) {
-      message.sharesDst = object.sharesDst;
-    } else {
-      message.sharesDst = "";
-    }
+    message.completionTime = object.completionTime ?? undefined;
+    message.initialBalance = object.initialBalance ?? "";
+    message.sharesDst = object.sharesDst ?? "";
     return message;
   },
 };
@@ -1731,22 +1603,10 @@ export const Redelegation = {
 
   fromPartial(object: DeepPartial<Redelegation>): Redelegation {
     const message = { ...baseRedelegation } as Redelegation;
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorSrcAddress = object.validatorSrcAddress ?? "";
+    message.validatorDstAddress = object.validatorDstAddress ?? "";
     message.entries = [];
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorSrcAddress !== undefined && object.validatorSrcAddress !== null) {
-      message.validatorSrcAddress = object.validatorSrcAddress;
-    } else {
-      message.validatorSrcAddress = "";
-    }
-    if (object.validatorDstAddress !== undefined && object.validatorDstAddress !== null) {
-      message.validatorDstAddress = object.validatorDstAddress;
-    } else {
-      message.validatorDstAddress = "";
-    }
     if (object.entries !== undefined && object.entries !== null) {
       for (const e of object.entries) {
         message.entries.push(RedelegationEntry.fromPartial(e));
@@ -1856,26 +1716,10 @@ export const Params = {
     } else {
       message.unbondingTime = undefined;
     }
-    if (object.maxValidators !== undefined && object.maxValidators !== null) {
-      message.maxValidators = object.maxValidators;
-    } else {
-      message.maxValidators = 0;
-    }
-    if (object.maxEntries !== undefined && object.maxEntries !== null) {
-      message.maxEntries = object.maxEntries;
-    } else {
-      message.maxEntries = 0;
-    }
-    if (object.historicalEntries !== undefined && object.historicalEntries !== null) {
-      message.historicalEntries = object.historicalEntries;
-    } else {
-      message.historicalEntries = 0;
-    }
-    if (object.bondDenom !== undefined && object.bondDenom !== null) {
-      message.bondDenom = object.bondDenom;
-    } else {
-      message.bondDenom = "";
-    }
+    message.maxValidators = object.maxValidators ?? 0;
+    message.maxEntries = object.maxEntries ?? 0;
+    message.historicalEntries = object.historicalEntries ?? 0;
+    message.bondDenom = object.bondDenom ?? "";
     return message;
   },
 };
@@ -2020,11 +1864,7 @@ export const RedelegationEntryResponse = {
     } else {
       message.redelegationEntry = undefined;
     }
-    if (object.balance !== undefined && object.balance !== null) {
-      message.balance = object.balance;
-    } else {
-      message.balance = "";
-    }
+    message.balance = object.balance ?? "";
     return message;
   },
 };
@@ -2094,12 +1934,12 @@ export const RedelegationResponse = {
 
   fromPartial(object: DeepPartial<RedelegationResponse>): RedelegationResponse {
     const message = { ...baseRedelegationResponse } as RedelegationResponse;
-    message.entries = [];
     if (object.redelegation !== undefined && object.redelegation !== null) {
       message.redelegation = Redelegation.fromPartial(object.redelegation);
     } else {
       message.redelegation = undefined;
     }
+    message.entries = [];
     if (object.entries !== undefined && object.entries !== null) {
       for (const e of object.entries) {
         message.entries.push(RedelegationEntryResponse.fromPartial(e));
@@ -2167,16 +2007,8 @@ export const Pool = {
 
   fromPartial(object: DeepPartial<Pool>): Pool {
     const message = { ...basePool } as Pool;
-    if (object.notBondedTokens !== undefined && object.notBondedTokens !== null) {
-      message.notBondedTokens = object.notBondedTokens;
-    } else {
-      message.notBondedTokens = "";
-    }
-    if (object.bondedTokens !== undefined && object.bondedTokens !== null) {
-      message.bondedTokens = object.bondedTokens;
-    } else {
-      message.bondedTokens = "";
-    }
+    message.notBondedTokens = object.notBondedTokens ?? "";
+    message.bondedTokens = object.bondedTokens ?? "";
     return message;
   },
 };

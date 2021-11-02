@@ -58,11 +58,7 @@ export const MsgUnjail = {
 
   fromPartial(object: DeepPartial<MsgUnjail>): MsgUnjail {
     const message = { ...baseMsgUnjail } as MsgUnjail;
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };

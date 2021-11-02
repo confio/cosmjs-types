@@ -87,11 +87,7 @@ export const QueryEvidenceRequest = {
 
   fromPartial(object: DeepPartial<QueryEvidenceRequest>): QueryEvidenceRequest {
     const message = { ...baseQueryEvidenceRequest } as QueryEvidenceRequest;
-    if (object.evidenceHash !== undefined && object.evidenceHash !== null) {
-      message.evidenceHash = object.evidenceHash;
-    } else {
-      message.evidenceHash = new Uint8Array();
-    }
+    message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     return message;
   },
 };

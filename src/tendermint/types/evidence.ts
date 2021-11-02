@@ -232,11 +232,7 @@ export const DuplicateVoteEvidence = {
     } else {
       message.validatorPower = Long.ZERO;
     }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp;
-    } else {
-      message.timestamp = undefined;
-    }
+    message.timestamp = object.timestamp ?? undefined;
     return message;
   },
 };
@@ -345,7 +341,6 @@ export const LightClientAttackEvidence = {
 
   fromPartial(object: DeepPartial<LightClientAttackEvidence>): LightClientAttackEvidence {
     const message = { ...baseLightClientAttackEvidence } as LightClientAttackEvidence;
-    message.byzantineValidators = [];
     if (object.conflictingBlock !== undefined && object.conflictingBlock !== null) {
       message.conflictingBlock = LightBlock.fromPartial(object.conflictingBlock);
     } else {
@@ -356,6 +351,7 @@ export const LightClientAttackEvidence = {
     } else {
       message.commonHeight = Long.ZERO;
     }
+    message.byzantineValidators = [];
     if (object.byzantineValidators !== undefined && object.byzantineValidators !== null) {
       for (const e of object.byzantineValidators) {
         message.byzantineValidators.push(Validator.fromPartial(e));
@@ -366,11 +362,7 @@ export const LightClientAttackEvidence = {
     } else {
       message.totalVotingPower = Long.ZERO;
     }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp;
-    } else {
-      message.timestamp = undefined;
-    }
+    message.timestamp = object.timestamp ?? undefined;
     return message;
   },
 };

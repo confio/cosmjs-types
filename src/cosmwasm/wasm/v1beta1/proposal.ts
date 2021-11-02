@@ -241,36 +241,12 @@ export const StoreCodeProposal = {
 
   fromPartial(object: DeepPartial<StoreCodeProposal>): StoreCodeProposal {
     const message = { ...baseStoreCodeProposal } as StoreCodeProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = object.runAs;
-    } else {
-      message.runAs = "";
-    }
-    if (object.wasmByteCode !== undefined && object.wasmByteCode !== null) {
-      message.wasmByteCode = object.wasmByteCode;
-    } else {
-      message.wasmByteCode = new Uint8Array();
-    }
-    if (object.source !== undefined && object.source !== null) {
-      message.source = object.source;
-    } else {
-      message.source = "";
-    }
-    if (object.builder !== undefined && object.builder !== null) {
-      message.builder = object.builder;
-    } else {
-      message.builder = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.runAs = object.runAs ?? "";
+    message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
+    message.source = object.source ?? "";
+    message.builder = object.builder ?? "";
     if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
       message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
     } else {
@@ -424,42 +400,18 @@ export const InstantiateContractProposal = {
 
   fromPartial(object: DeepPartial<InstantiateContractProposal>): InstantiateContractProposal {
     const message = { ...baseInstantiateContractProposal } as InstantiateContractProposal;
-    message.funds = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = object.runAs;
-    } else {
-      message.runAs = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    } else {
-      message.admin = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.runAs = object.runAs ?? "";
+    message.admin = object.admin ?? "";
     if (object.codeId !== undefined && object.codeId !== null) {
       message.codeId = object.codeId as Long;
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = object.label;
-    } else {
-      message.label = "";
-    }
-    if (object.initMsg !== undefined && object.initMsg !== null) {
-      message.initMsg = object.initMsg;
-    } else {
-      message.initMsg = new Uint8Array();
-    }
+    message.label = object.label ?? "";
+    message.initMsg = object.initMsg ?? new Uint8Array();
+    message.funds = [];
     if (object.funds !== undefined && object.funds !== null) {
       for (const e of object.funds) {
         message.funds.push(Coin.fromPartial(e));
@@ -584,36 +536,16 @@ export const MigrateContractProposal = {
 
   fromPartial(object: DeepPartial<MigrateContractProposal>): MigrateContractProposal {
     const message = { ...baseMigrateContractProposal } as MigrateContractProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = object.runAs;
-    } else {
-      message.runAs = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.runAs = object.runAs ?? "";
+    message.contract = object.contract ?? "";
     if (object.codeId !== undefined && object.codeId !== null) {
       message.codeId = object.codeId as Long;
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.migrateMsg !== undefined && object.migrateMsg !== null) {
-      message.migrateMsg = object.migrateMsg;
-    } else {
-      message.migrateMsg = new Uint8Array();
-    }
+    message.migrateMsg = object.migrateMsg ?? new Uint8Array();
     return message;
   },
 };
@@ -700,26 +632,10 @@ export const UpdateAdminProposal = {
 
   fromPartial(object: DeepPartial<UpdateAdminProposal>): UpdateAdminProposal {
     const message = { ...baseUpdateAdminProposal } as UpdateAdminProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.newAdmin !== undefined && object.newAdmin !== null) {
-      message.newAdmin = object.newAdmin;
-    } else {
-      message.newAdmin = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.newAdmin = object.newAdmin ?? "";
+    message.contract = object.contract ?? "";
     return message;
   },
 };
@@ -794,21 +710,9 @@ export const ClearAdminProposal = {
 
   fromPartial(object: DeepPartial<ClearAdminProposal>): ClearAdminProposal {
     const message = { ...baseClearAdminProposal } as ClearAdminProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.contract = object.contract ?? "";
     return message;
   },
 };
@@ -898,17 +802,9 @@ export const PinCodesProposal = {
 
   fromPartial(object: DeepPartial<PinCodesProposal>): PinCodesProposal {
     const message = { ...basePinCodesProposal } as PinCodesProposal;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     message.codeIds = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
     if (object.codeIds !== undefined && object.codeIds !== null) {
       for (const e of object.codeIds) {
         message.codeIds.push(e);
@@ -1003,17 +899,9 @@ export const UnpinCodesProposal = {
 
   fromPartial(object: DeepPartial<UnpinCodesProposal>): UnpinCodesProposal {
     const message = { ...baseUnpinCodesProposal } as UnpinCodesProposal;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     message.codeIds = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
     if (object.codeIds !== undefined && object.codeIds !== null) {
       for (const e of object.codeIds) {
         message.codeIds.push(e);

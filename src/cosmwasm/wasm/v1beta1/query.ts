@@ -209,11 +209,7 @@ export const QueryContractInfoRequest = {
 
   fromPartial(object: DeepPartial<QueryContractInfoRequest>): QueryContractInfoRequest {
     const message = { ...baseQueryContractInfoRequest } as QueryContractInfoRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     return message;
   },
 };
@@ -277,11 +273,7 @@ export const QueryContractInfoResponse = {
 
   fromPartial(object: DeepPartial<QueryContractInfoResponse>): QueryContractInfoResponse {
     const message = { ...baseQueryContractInfoResponse } as QueryContractInfoResponse;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.contractInfo !== undefined && object.contractInfo !== null) {
       message.contractInfo = ContractInfo.fromPartial(object.contractInfo);
     } else {
@@ -350,11 +342,7 @@ export const QueryContractHistoryRequest = {
 
   fromPartial(object: DeepPartial<QueryContractHistoryRequest>): QueryContractHistoryRequest {
     const message = { ...baseQueryContractHistoryRequest } as QueryContractHistoryRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -656,11 +644,7 @@ export const QueryAllContractStateRequest = {
 
   fromPartial(object: DeepPartial<QueryAllContractStateRequest>): QueryAllContractStateRequest {
     const message = { ...baseQueryAllContractStateRequest } as QueryAllContractStateRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -811,16 +795,8 @@ export const QueryRawContractStateRequest = {
 
   fromPartial(object: DeepPartial<QueryRawContractStateRequest>): QueryRawContractStateRequest {
     const message = { ...baseQueryRawContractStateRequest } as QueryRawContractStateRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
-    if (object.queryData !== undefined && object.queryData !== null) {
-      message.queryData = object.queryData;
-    } else {
-      message.queryData = new Uint8Array();
-    }
+    message.address = object.address ?? "";
+    message.queryData = object.queryData ?? new Uint8Array();
     return message;
   },
 };
@@ -872,11 +848,7 @@ export const QueryRawContractStateResponse = {
 
   fromPartial(object: DeepPartial<QueryRawContractStateResponse>): QueryRawContractStateResponse {
     const message = { ...baseQueryRawContractStateResponse } as QueryRawContractStateResponse;
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -942,16 +914,8 @@ export const QuerySmartContractStateRequest = {
 
   fromPartial(object: DeepPartial<QuerySmartContractStateRequest>): QuerySmartContractStateRequest {
     const message = { ...baseQuerySmartContractStateRequest } as QuerySmartContractStateRequest;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
-    if (object.queryData !== undefined && object.queryData !== null) {
-      message.queryData = object.queryData;
-    } else {
-      message.queryData = new Uint8Array();
-    }
+    message.address = object.address ?? "";
+    message.queryData = object.queryData ?? new Uint8Array();
     return message;
   },
 };
@@ -1003,11 +967,7 @@ export const QuerySmartContractStateResponse = {
 
   fromPartial(object: DeepPartial<QuerySmartContractStateResponse>): QuerySmartContractStateResponse {
     const message = { ...baseQuerySmartContractStateResponse } as QuerySmartContractStateResponse;
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -1167,26 +1127,10 @@ export const CodeInfoResponse = {
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    } else {
-      message.creator = "";
-    }
-    if (object.dataHash !== undefined && object.dataHash !== null) {
-      message.dataHash = object.dataHash;
-    } else {
-      message.dataHash = new Uint8Array();
-    }
-    if (object.source !== undefined && object.source !== null) {
-      message.source = object.source;
-    } else {
-      message.source = "";
-    }
-    if (object.builder !== undefined && object.builder !== null) {
-      message.builder = object.builder;
-    } else {
-      message.builder = "";
-    }
+    message.creator = object.creator ?? "";
+    message.dataHash = object.dataHash ?? new Uint8Array();
+    message.source = object.source ?? "";
+    message.builder = object.builder ?? "";
     return message;
   },
 };
@@ -1256,11 +1200,7 @@ export const QueryCodeResponse = {
     } else {
       message.codeInfo = undefined;
     }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };

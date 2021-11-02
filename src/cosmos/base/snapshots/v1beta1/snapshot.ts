@@ -120,21 +120,9 @@ export const Snapshot = {
     } else {
       message.height = Long.UZERO;
     }
-    if (object.format !== undefined && object.format !== null) {
-      message.format = object.format;
-    } else {
-      message.format = 0;
-    }
-    if (object.chunks !== undefined && object.chunks !== null) {
-      message.chunks = object.chunks;
-    } else {
-      message.chunks = 0;
-    }
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = object.hash;
-    } else {
-      message.hash = new Uint8Array();
-    }
+    message.format = object.format ?? 0;
+    message.chunks = object.chunks ?? 0;
+    message.hash = object.hash ?? new Uint8Array();
     if (object.metadata !== undefined && object.metadata !== null) {
       message.metadata = Metadata.fromPartial(object.metadata);
     } else {

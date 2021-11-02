@@ -79,11 +79,7 @@ export const MsgSubmitEvidence = {
 
   fromPartial(object: DeepPartial<MsgSubmitEvidence>): MsgSubmitEvidence {
     const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
-    if (object.submitter !== undefined && object.submitter !== null) {
-      message.submitter = object.submitter;
-    } else {
-      message.submitter = "";
-    }
+    message.submitter = object.submitter ?? "";
     if (object.evidence !== undefined && object.evidence !== null) {
       message.evidence = Any.fromPartial(object.evidence);
     } else {
@@ -140,11 +136,7 @@ export const MsgSubmitEvidenceResponse = {
 
   fromPartial(object: DeepPartial<MsgSubmitEvidenceResponse>): MsgSubmitEvidenceResponse {
     const message = { ...baseMsgSubmitEvidenceResponse } as MsgSubmitEvidenceResponse;
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = object.hash;
-    } else {
-      message.hash = new Uint8Array();
-    }
+    message.hash = object.hash ?? new Uint8Array();
     return message;
   },
 };

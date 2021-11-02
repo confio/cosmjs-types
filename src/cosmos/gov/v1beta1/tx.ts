@@ -119,22 +119,18 @@ export const MsgSubmitProposal = {
 
   fromPartial(object: DeepPartial<MsgSubmitProposal>): MsgSubmitProposal {
     const message = { ...baseMsgSubmitProposal } as MsgSubmitProposal;
-    message.initialDeposit = [];
     if (object.content !== undefined && object.content !== null) {
       message.content = Any.fromPartial(object.content);
     } else {
       message.content = undefined;
     }
+    message.initialDeposit = [];
     if (object.initialDeposit !== undefined && object.initialDeposit !== null) {
       for (const e of object.initialDeposit) {
         message.initialDeposit.push(Coin.fromPartial(e));
       }
     }
-    if (object.proposer !== undefined && object.proposer !== null) {
-      message.proposer = object.proposer;
-    } else {
-      message.proposer = "";
-    }
+    message.proposer = object.proposer ?? "";
     return message;
   },
 };
@@ -269,16 +265,8 @@ export const MsgVote = {
     } else {
       message.proposalId = Long.UZERO;
     }
-    if (object.voter !== undefined && object.voter !== null) {
-      message.voter = object.voter;
-    } else {
-      message.voter = "";
-    }
-    if (object.option !== undefined && object.option !== null) {
-      message.option = object.option;
-    } else {
-      message.option = 0;
-    }
+    message.voter = object.voter ?? "";
+    message.option = object.option ?? 0;
     return message;
   },
 };
@@ -397,17 +385,13 @@ export const MsgDeposit = {
 
   fromPartial(object: DeepPartial<MsgDeposit>): MsgDeposit {
     const message = { ...baseMsgDeposit } as MsgDeposit;
-    message.amount = [];
     if (object.proposalId !== undefined && object.proposalId !== null) {
       message.proposalId = object.proposalId as Long;
     } else {
       message.proposalId = Long.UZERO;
     }
-    if (object.depositor !== undefined && object.depositor !== null) {
-      message.depositor = object.depositor;
-    } else {
-      message.depositor = "";
-    }
+    message.depositor = object.depositor ?? "";
+    message.amount = [];
     if (object.amount !== undefined && object.amount !== null) {
       for (const e of object.amount) {
         message.amount.push(Coin.fromPartial(e));

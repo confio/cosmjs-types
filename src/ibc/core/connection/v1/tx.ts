@@ -191,11 +191,7 @@ export const MsgConnectionOpenInit = {
 
   fromPartial(object: DeepPartial<MsgConnectionOpenInit>): MsgConnectionOpenInit {
     const message = { ...baseMsgConnectionOpenInit } as MsgConnectionOpenInit;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
+    message.clientId = object.clientId ?? "";
     if (object.counterparty !== undefined && object.counterparty !== null) {
       message.counterparty = Counterparty.fromPartial(object.counterparty);
     } else {
@@ -211,11 +207,7 @@ export const MsgConnectionOpenInit = {
     } else {
       message.delayPeriod = Long.UZERO;
     }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    } else {
-      message.signer = "";
-    }
+    message.signer = object.signer ?? "";
     return message;
   },
 };
@@ -460,17 +452,8 @@ export const MsgConnectionOpenTry = {
 
   fromPartial(object: DeepPartial<MsgConnectionOpenTry>): MsgConnectionOpenTry {
     const message = { ...baseMsgConnectionOpenTry } as MsgConnectionOpenTry;
-    message.counterpartyVersions = [];
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = object.clientId;
-    } else {
-      message.clientId = "";
-    }
-    if (object.previousConnectionId !== undefined && object.previousConnectionId !== null) {
-      message.previousConnectionId = object.previousConnectionId;
-    } else {
-      message.previousConnectionId = "";
-    }
+    message.clientId = object.clientId ?? "";
+    message.previousConnectionId = object.previousConnectionId ?? "";
     if (object.clientState !== undefined && object.clientState !== null) {
       message.clientState = Any.fromPartial(object.clientState);
     } else {
@@ -486,6 +469,7 @@ export const MsgConnectionOpenTry = {
     } else {
       message.delayPeriod = Long.UZERO;
     }
+    message.counterpartyVersions = [];
     if (object.counterpartyVersions !== undefined && object.counterpartyVersions !== null) {
       for (const e of object.counterpartyVersions) {
         message.counterpartyVersions.push(Version.fromPartial(e));
@@ -496,31 +480,15 @@ export const MsgConnectionOpenTry = {
     } else {
       message.proofHeight = undefined;
     }
-    if (object.proofInit !== undefined && object.proofInit !== null) {
-      message.proofInit = object.proofInit;
-    } else {
-      message.proofInit = new Uint8Array();
-    }
-    if (object.proofClient !== undefined && object.proofClient !== null) {
-      message.proofClient = object.proofClient;
-    } else {
-      message.proofClient = new Uint8Array();
-    }
-    if (object.proofConsensus !== undefined && object.proofConsensus !== null) {
-      message.proofConsensus = object.proofConsensus;
-    } else {
-      message.proofConsensus = new Uint8Array();
-    }
+    message.proofInit = object.proofInit ?? new Uint8Array();
+    message.proofClient = object.proofClient ?? new Uint8Array();
+    message.proofConsensus = object.proofConsensus ?? new Uint8Array();
     if (object.consensusHeight !== undefined && object.consensusHeight !== null) {
       message.consensusHeight = Height.fromPartial(object.consensusHeight);
     } else {
       message.consensusHeight = undefined;
     }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    } else {
-      message.signer = "";
-    }
+    message.signer = object.signer ?? "";
     return message;
   },
 };
@@ -729,16 +697,8 @@ export const MsgConnectionOpenAck = {
 
   fromPartial(object: DeepPartial<MsgConnectionOpenAck>): MsgConnectionOpenAck {
     const message = { ...baseMsgConnectionOpenAck } as MsgConnectionOpenAck;
-    if (object.connectionId !== undefined && object.connectionId !== null) {
-      message.connectionId = object.connectionId;
-    } else {
-      message.connectionId = "";
-    }
-    if (object.counterpartyConnectionId !== undefined && object.counterpartyConnectionId !== null) {
-      message.counterpartyConnectionId = object.counterpartyConnectionId;
-    } else {
-      message.counterpartyConnectionId = "";
-    }
+    message.connectionId = object.connectionId ?? "";
+    message.counterpartyConnectionId = object.counterpartyConnectionId ?? "";
     if (object.version !== undefined && object.version !== null) {
       message.version = Version.fromPartial(object.version);
     } else {
@@ -754,31 +714,15 @@ export const MsgConnectionOpenAck = {
     } else {
       message.proofHeight = undefined;
     }
-    if (object.proofTry !== undefined && object.proofTry !== null) {
-      message.proofTry = object.proofTry;
-    } else {
-      message.proofTry = new Uint8Array();
-    }
-    if (object.proofClient !== undefined && object.proofClient !== null) {
-      message.proofClient = object.proofClient;
-    } else {
-      message.proofClient = new Uint8Array();
-    }
-    if (object.proofConsensus !== undefined && object.proofConsensus !== null) {
-      message.proofConsensus = object.proofConsensus;
-    } else {
-      message.proofConsensus = new Uint8Array();
-    }
+    message.proofTry = object.proofTry ?? new Uint8Array();
+    message.proofClient = object.proofClient ?? new Uint8Array();
+    message.proofConsensus = object.proofConsensus ?? new Uint8Array();
     if (object.consensusHeight !== undefined && object.consensusHeight !== null) {
       message.consensusHeight = Height.fromPartial(object.consensusHeight);
     } else {
       message.consensusHeight = undefined;
     }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    } else {
-      message.signer = "";
-    }
+    message.signer = object.signer ?? "";
     return message;
   },
 };
@@ -905,26 +849,14 @@ export const MsgConnectionOpenConfirm = {
 
   fromPartial(object: DeepPartial<MsgConnectionOpenConfirm>): MsgConnectionOpenConfirm {
     const message = { ...baseMsgConnectionOpenConfirm } as MsgConnectionOpenConfirm;
-    if (object.connectionId !== undefined && object.connectionId !== null) {
-      message.connectionId = object.connectionId;
-    } else {
-      message.connectionId = "";
-    }
-    if (object.proofAck !== undefined && object.proofAck !== null) {
-      message.proofAck = object.proofAck;
-    } else {
-      message.proofAck = new Uint8Array();
-    }
+    message.connectionId = object.connectionId ?? "";
+    message.proofAck = object.proofAck ?? new Uint8Array();
     if (object.proofHeight !== undefined && object.proofHeight !== null) {
       message.proofHeight = Height.fromPartial(object.proofHeight);
     } else {
       message.proofHeight = undefined;
     }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    } else {
-      message.signer = "";
-    }
+    message.signer = object.signer ?? "";
     return message;
   },
 };

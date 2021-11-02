@@ -145,11 +145,7 @@ export const Duration = {
     } else {
       message.seconds = Long.ZERO;
     }
-    if (object.nanos !== undefined && object.nanos !== null) {
-      message.nanos = object.nanos;
-    } else {
-      message.nanos = 0;
-    }
+    message.nanos = object.nanos ?? 0;
     return message;
   },
 };
