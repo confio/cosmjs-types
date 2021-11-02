@@ -142,16 +142,8 @@ export const Owner = {
 
   fromPartial(object: DeepPartial<Owner>): Owner {
     const message = { ...baseOwner } as Owner;
-    if (object.module !== undefined && object.module !== null) {
-      message.module = object.module;
-    } else {
-      message.module = "";
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
+    message.module = object.module ?? "";
+    message.name = object.name ?? "";
     return message;
   },
 };

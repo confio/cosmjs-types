@@ -102,21 +102,9 @@ export const NetAddress = {
 
   fromPartial(object: DeepPartial<NetAddress>): NetAddress {
     const message = { ...baseNetAddress } as NetAddress;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id;
-    } else {
-      message.id = "";
-    }
-    if (object.ip !== undefined && object.ip !== null) {
-      message.ip = object.ip;
-    } else {
-      message.ip = "";
-    }
-    if (object.port !== undefined && object.port !== null) {
-      message.port = object.port;
-    } else {
-      message.port = 0;
-    }
+    message.id = object.id ?? "";
+    message.ip = object.ip ?? "";
+    message.port = object.port ?? 0;
     return message;
   },
 };
@@ -356,36 +344,12 @@ export const DefaultNodeInfo = {
     } else {
       message.protocolVersion = undefined;
     }
-    if (object.defaultNodeId !== undefined && object.defaultNodeId !== null) {
-      message.defaultNodeId = object.defaultNodeId;
-    } else {
-      message.defaultNodeId = "";
-    }
-    if (object.listenAddr !== undefined && object.listenAddr !== null) {
-      message.listenAddr = object.listenAddr;
-    } else {
-      message.listenAddr = "";
-    }
-    if (object.network !== undefined && object.network !== null) {
-      message.network = object.network;
-    } else {
-      message.network = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version;
-    } else {
-      message.version = "";
-    }
-    if (object.channels !== undefined && object.channels !== null) {
-      message.channels = object.channels;
-    } else {
-      message.channels = new Uint8Array();
-    }
-    if (object.moniker !== undefined && object.moniker !== null) {
-      message.moniker = object.moniker;
-    } else {
-      message.moniker = "";
-    }
+    message.defaultNodeId = object.defaultNodeId ?? "";
+    message.listenAddr = object.listenAddr ?? "";
+    message.network = object.network ?? "";
+    message.version = object.version ?? "";
+    message.channels = object.channels ?? new Uint8Array();
+    message.moniker = object.moniker ?? "";
     if (object.other !== undefined && object.other !== null) {
       message.other = DefaultNodeInfoOther.fromPartial(object.other);
     } else {
@@ -453,16 +417,8 @@ export const DefaultNodeInfoOther = {
 
   fromPartial(object: DeepPartial<DefaultNodeInfoOther>): DefaultNodeInfoOther {
     const message = { ...baseDefaultNodeInfoOther } as DefaultNodeInfoOther;
-    if (object.txIndex !== undefined && object.txIndex !== null) {
-      message.txIndex = object.txIndex;
-    } else {
-      message.txIndex = "";
-    }
-    if (object.rpcAddress !== undefined && object.rpcAddress !== null) {
-      message.rpcAddress = object.rpcAddress;
-    } else {
-      message.rpcAddress = "";
-    }
+    message.txIndex = object.txIndex ?? "";
+    message.rpcAddress = object.rpcAddress ?? "";
     return message;
   },
 };

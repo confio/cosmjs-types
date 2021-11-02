@@ -89,11 +89,7 @@ export const MerkleRoot = {
 
   fromPartial(object: DeepPartial<MerkleRoot>): MerkleRoot {
     const message = { ...baseMerkleRoot } as MerkleRoot;
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = object.hash;
-    } else {
-      message.hash = new Uint8Array();
-    }
+    message.hash = object.hash ?? new Uint8Array();
     return message;
   },
 };
@@ -147,11 +143,7 @@ export const MerklePrefix = {
 
   fromPartial(object: DeepPartial<MerklePrefix>): MerklePrefix {
     const message = { ...baseMerklePrefix } as MerklePrefix;
-    if (object.keyPrefix !== undefined && object.keyPrefix !== null) {
-      message.keyPrefix = object.keyPrefix;
-    } else {
-      message.keyPrefix = new Uint8Array();
-    }
+    message.keyPrefix = object.keyPrefix ?? new Uint8Array();
     return message;
   },
 };

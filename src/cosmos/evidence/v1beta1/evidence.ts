@@ -103,21 +103,13 @@ export const Equivocation = {
     } else {
       message.height = Long.ZERO;
     }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = object.time;
-    } else {
-      message.time = undefined;
-    }
+    message.time = object.time ?? undefined;
     if (object.power !== undefined && object.power !== null) {
       message.power = object.power as Long;
     } else {
       message.power = Long.ZERO;
     }
-    if (object.consensusAddress !== undefined && object.consensusAddress !== null) {
-      message.consensusAddress = object.consensusAddress;
-    } else {
-      message.consensusAddress = "";
-    }
+    message.consensusAddress = object.consensusAddress ?? "";
     return message;
   },
 };

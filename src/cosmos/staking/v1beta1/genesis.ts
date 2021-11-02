@@ -211,51 +211,43 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.lastValidatorPowers = [];
-    message.validators = [];
-    message.delegations = [];
-    message.unbondingDelegations = [];
-    message.redelegations = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
     }
-    if (object.lastTotalPower !== undefined && object.lastTotalPower !== null) {
-      message.lastTotalPower = object.lastTotalPower;
-    } else {
-      message.lastTotalPower = new Uint8Array();
-    }
+    message.lastTotalPower = object.lastTotalPower ?? new Uint8Array();
+    message.lastValidatorPowers = [];
     if (object.lastValidatorPowers !== undefined && object.lastValidatorPowers !== null) {
       for (const e of object.lastValidatorPowers) {
         message.lastValidatorPowers.push(LastValidatorPower.fromPartial(e));
       }
     }
+    message.validators = [];
     if (object.validators !== undefined && object.validators !== null) {
       for (const e of object.validators) {
         message.validators.push(Validator.fromPartial(e));
       }
     }
+    message.delegations = [];
     if (object.delegations !== undefined && object.delegations !== null) {
       for (const e of object.delegations) {
         message.delegations.push(Delegation.fromPartial(e));
       }
     }
+    message.unbondingDelegations = [];
     if (object.unbondingDelegations !== undefined && object.unbondingDelegations !== null) {
       for (const e of object.unbondingDelegations) {
         message.unbondingDelegations.push(UnbondingDelegation.fromPartial(e));
       }
     }
+    message.redelegations = [];
     if (object.redelegations !== undefined && object.redelegations !== null) {
       for (const e of object.redelegations) {
         message.redelegations.push(Redelegation.fromPartial(e));
       }
     }
-    if (object.exported !== undefined && object.exported !== null) {
-      message.exported = object.exported;
-    } else {
-      message.exported = false;
-    }
+    message.exported = object.exported ?? false;
     return message;
   },
 };
@@ -318,11 +310,7 @@ export const LastValidatorPower = {
 
   fromPartial(object: DeepPartial<LastValidatorPower>): LastValidatorPower {
     const message = { ...baseLastValidatorPower } as LastValidatorPower;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.address = object.address ?? "";
     if (object.power !== undefined && object.power !== null) {
       message.power = object.power as Long;
     } else {

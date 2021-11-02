@@ -324,11 +324,7 @@ export const QueryValidatorOutstandingRewardsRequest = {
     const message = {
       ...baseQueryValidatorOutstandingRewardsRequest,
     } as QueryValidatorOutstandingRewardsRequest;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
 };
@@ -446,11 +442,7 @@ export const QueryValidatorCommissionRequest = {
 
   fromPartial(object: DeepPartial<QueryValidatorCommissionRequest>): QueryValidatorCommissionRequest {
     const message = { ...baseQueryValidatorCommissionRequest } as QueryValidatorCommissionRequest;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
 };
@@ -602,11 +594,7 @@ export const QueryValidatorSlashesRequest = {
 
   fromPartial(object: DeepPartial<QueryValidatorSlashesRequest>): QueryValidatorSlashesRequest {
     const message = { ...baseQueryValidatorSlashesRequest } as QueryValidatorSlashesRequest;
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.startingHeight !== undefined && object.startingHeight !== null) {
       message.startingHeight = object.startingHeight as Long;
     } else {
@@ -764,16 +752,8 @@ export const QueryDelegationRewardsRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegationRewardsRequest>): QueryDelegationRewardsRequest {
     const message = { ...baseQueryDelegationRewardsRequest } as QueryDelegationRewardsRequest;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
 };
@@ -886,11 +866,7 @@ export const QueryDelegationTotalRewardsRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegationTotalRewardsRequest>): QueryDelegationTotalRewardsRequest {
     const message = { ...baseQueryDelegationTotalRewardsRequest } as QueryDelegationTotalRewardsRequest;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
     return message;
   },
 };
@@ -966,12 +942,12 @@ export const QueryDelegationTotalRewardsResponse = {
   fromPartial(object: DeepPartial<QueryDelegationTotalRewardsResponse>): QueryDelegationTotalRewardsResponse {
     const message = { ...baseQueryDelegationTotalRewardsResponse } as QueryDelegationTotalRewardsResponse;
     message.rewards = [];
-    message.total = [];
     if (object.rewards !== undefined && object.rewards !== null) {
       for (const e of object.rewards) {
         message.rewards.push(DelegationDelegatorReward.fromPartial(e));
       }
     }
+    message.total = [];
     if (object.total !== undefined && object.total !== null) {
       for (const e of object.total) {
         message.total.push(DecCoin.fromPartial(e));
@@ -1027,11 +1003,7 @@ export const QueryDelegatorValidatorsRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegatorValidatorsRequest>): QueryDelegatorValidatorsRequest {
     const message = { ...baseQueryDelegatorValidatorsRequest } as QueryDelegatorValidatorsRequest;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
     return message;
   },
 };
@@ -1149,11 +1121,7 @@ export const QueryDelegatorWithdrawAddressRequest = {
     object: DeepPartial<QueryDelegatorWithdrawAddressRequest>,
   ): QueryDelegatorWithdrawAddressRequest {
     const message = { ...baseQueryDelegatorWithdrawAddressRequest } as QueryDelegatorWithdrawAddressRequest;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
     return message;
   },
 };
@@ -1209,11 +1177,7 @@ export const QueryDelegatorWithdrawAddressResponse = {
     object: DeepPartial<QueryDelegatorWithdrawAddressResponse>,
   ): QueryDelegatorWithdrawAddressResponse {
     const message = { ...baseQueryDelegatorWithdrawAddressResponse } as QueryDelegatorWithdrawAddressResponse;
-    if (object.withdrawAddress !== undefined && object.withdrawAddress !== null) {
-      message.withdrawAddress = object.withdrawAddress;
-    } else {
-      message.withdrawAddress = "";
-    }
+    message.withdrawAddress = object.withdrawAddress ?? "";
     return message;
   },
 };

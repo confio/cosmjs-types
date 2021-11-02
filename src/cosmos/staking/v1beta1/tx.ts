@@ -213,21 +213,9 @@ export const MsgCreateValidator = {
     } else {
       message.commission = undefined;
     }
-    if (object.minSelfDelegation !== undefined && object.minSelfDelegation !== null) {
-      message.minSelfDelegation = object.minSelfDelegation;
-    } else {
-      message.minSelfDelegation = "";
-    }
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.minSelfDelegation = object.minSelfDelegation ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.pubkey !== undefined && object.pubkey !== null) {
       message.pubkey = Any.fromPartial(object.pubkey);
     } else {
@@ -368,21 +356,9 @@ export const MsgEditValidator = {
     } else {
       message.description = undefined;
     }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
-    if (object.commissionRate !== undefined && object.commissionRate !== null) {
-      message.commissionRate = object.commissionRate;
-    } else {
-      message.commissionRate = "";
-    }
-    if (object.minSelfDelegation !== undefined && object.minSelfDelegation !== null) {
-      message.minSelfDelegation = object.minSelfDelegation;
-    } else {
-      message.minSelfDelegation = "";
-    }
+    message.validatorAddress = object.validatorAddress ?? "";
+    message.commissionRate = object.commissionRate ?? "";
+    message.minSelfDelegation = object.minSelfDelegation ?? "";
     return message;
   },
 };
@@ -495,16 +471,8 @@ export const MsgDelegate = {
 
   fromPartial(object: DeepPartial<MsgDelegate>): MsgDelegate {
     const message = { ...baseMsgDelegate } as MsgDelegate;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromPartial(object.amount);
     } else {
@@ -638,21 +606,9 @@ export const MsgBeginRedelegate = {
 
   fromPartial(object: DeepPartial<MsgBeginRedelegate>): MsgBeginRedelegate {
     const message = { ...baseMsgBeginRedelegate } as MsgBeginRedelegate;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorSrcAddress !== undefined && object.validatorSrcAddress !== null) {
-      message.validatorSrcAddress = object.validatorSrcAddress;
-    } else {
-      message.validatorSrcAddress = "";
-    }
-    if (object.validatorDstAddress !== undefined && object.validatorDstAddress !== null) {
-      message.validatorDstAddress = object.validatorDstAddress;
-    } else {
-      message.validatorDstAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorSrcAddress = object.validatorSrcAddress ?? "";
+    message.validatorDstAddress = object.validatorDstAddress ?? "";
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromPartial(object.amount);
     } else {
@@ -708,11 +664,7 @@ export const MsgBeginRedelegateResponse = {
 
   fromPartial(object: DeepPartial<MsgBeginRedelegateResponse>): MsgBeginRedelegateResponse {
     const message = { ...baseMsgBeginRedelegateResponse } as MsgBeginRedelegateResponse;
-    if (object.completionTime !== undefined && object.completionTime !== null) {
-      message.completionTime = object.completionTime;
-    } else {
-      message.completionTime = undefined;
-    }
+    message.completionTime = object.completionTime ?? undefined;
     return message;
   },
 };
@@ -787,16 +739,8 @@ export const MsgUndelegate = {
 
   fromPartial(object: DeepPartial<MsgUndelegate>): MsgUndelegate {
     const message = { ...baseMsgUndelegate } as MsgUndelegate;
-    if (object.delegatorAddress !== undefined && object.delegatorAddress !== null) {
-      message.delegatorAddress = object.delegatorAddress;
-    } else {
-      message.delegatorAddress = "";
-    }
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
+    message.delegatorAddress = object.delegatorAddress ?? "";
+    message.validatorAddress = object.validatorAddress ?? "";
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromPartial(object.amount);
     } else {
@@ -852,11 +796,7 @@ export const MsgUndelegateResponse = {
 
   fromPartial(object: DeepPartial<MsgUndelegateResponse>): MsgUndelegateResponse {
     const message = { ...baseMsgUndelegateResponse } as MsgUndelegateResponse;
-    if (object.completionTime !== undefined && object.completionTime !== null) {
-      message.completionTime = object.completionTime;
-    } else {
-      message.completionTime = undefined;
-    }
+    message.completionTime = object.completionTime ?? undefined;
     return message;
   },
 };

@@ -101,17 +101,9 @@ export const MsgSend = {
 
   fromPartial(object: DeepPartial<MsgSend>): MsgSend {
     const message = { ...baseMsgSend } as MsgSend;
+    message.fromAddress = object.fromAddress ?? "";
+    message.toAddress = object.toAddress ?? "";
     message.amount = [];
-    if (object.fromAddress !== undefined && object.fromAddress !== null) {
-      message.fromAddress = object.fromAddress;
-    } else {
-      message.fromAddress = "";
-    }
-    if (object.toAddress !== undefined && object.toAddress !== null) {
-      message.toAddress = object.toAddress;
-    } else {
-      message.toAddress = "";
-    }
     if (object.amount !== undefined && object.amount !== null) {
       for (const e of object.amount) {
         message.amount.push(Coin.fromPartial(e));
@@ -230,12 +222,12 @@ export const MsgMultiSend = {
   fromPartial(object: DeepPartial<MsgMultiSend>): MsgMultiSend {
     const message = { ...baseMsgMultiSend } as MsgMultiSend;
     message.inputs = [];
-    message.outputs = [];
     if (object.inputs !== undefined && object.inputs !== null) {
       for (const e of object.inputs) {
         message.inputs.push(Input.fromPartial(e));
       }
     }
+    message.outputs = [];
     if (object.outputs !== undefined && object.outputs !== null) {
       for (const e of object.outputs) {
         message.outputs.push(Output.fromPartial(e));

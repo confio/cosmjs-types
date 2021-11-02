@@ -112,11 +112,7 @@ export const MsgIBCSend = {
 
   fromPartial(object: DeepPartial<MsgIBCSend>): MsgIBCSend {
     const message = { ...baseMsgIBCSend } as MsgIBCSend;
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = object.channel;
-    } else {
-      message.channel = "";
-    }
+    message.channel = object.channel ?? "";
     if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
       message.timeoutHeight = object.timeoutHeight as Long;
     } else {
@@ -127,11 +123,7 @@ export const MsgIBCSend = {
     } else {
       message.timeoutTimestamp = Long.UZERO;
     }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -182,11 +174,7 @@ export const MsgIBCCloseChannel = {
 
   fromPartial(object: DeepPartial<MsgIBCCloseChannel>): MsgIBCCloseChannel {
     const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = object.channel;
-    } else {
-      message.channel = "";
-    }
+    message.channel = object.channel ?? "";
     return message;
   },
 };

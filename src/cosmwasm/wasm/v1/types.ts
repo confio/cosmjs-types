@@ -233,11 +233,7 @@ export const AccessTypeParam = {
 
   fromPartial(object: DeepPartial<AccessTypeParam>): AccessTypeParam {
     const message = { ...baseAccessTypeParam } as AccessTypeParam;
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = 0;
-    }
+    message.value = object.value ?? 0;
     return message;
   },
 };
@@ -300,16 +296,8 @@ export const AccessConfig = {
 
   fromPartial(object: DeepPartial<AccessConfig>): AccessConfig {
     const message = { ...baseAccessConfig } as AccessConfig;
-    if (object.permission !== undefined && object.permission !== null) {
-      message.permission = object.permission;
-    } else {
-      message.permission = 0;
-    }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
+    message.permission = object.permission ?? 0;
+    message.address = object.address ?? "";
     return message;
   },
 };
@@ -394,11 +382,7 @@ export const Params = {
     } else {
       message.codeUploadAccess = undefined;
     }
-    if (object.instantiateDefaultPermission !== undefined && object.instantiateDefaultPermission !== null) {
-      message.instantiateDefaultPermission = object.instantiateDefaultPermission;
-    } else {
-      message.instantiateDefaultPermission = 0;
-    }
+    message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
     if (object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null) {
       message.maxWasmCodeSize = object.maxWasmCodeSize as Long;
     } else {
@@ -482,16 +466,8 @@ export const CodeInfo = {
 
   fromPartial(object: DeepPartial<CodeInfo>): CodeInfo {
     const message = { ...baseCodeInfo } as CodeInfo;
-    if (object.codeHash !== undefined && object.codeHash !== null) {
-      message.codeHash = object.codeHash;
-    } else {
-      message.codeHash = new Uint8Array();
-    }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    } else {
-      message.creator = "";
-    }
+    message.codeHash = object.codeHash ?? new Uint8Array();
+    message.creator = object.creator ?? "";
     if (object.instantiateConfig !== undefined && object.instantiateConfig !== null) {
       message.instantiateConfig = AccessConfig.fromPartial(object.instantiateConfig);
     } else {
@@ -626,31 +602,15 @@ export const ContractInfo = {
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    } else {
-      message.creator = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    } else {
-      message.admin = "";
-    }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = object.label;
-    } else {
-      message.label = "";
-    }
+    message.creator = object.creator ?? "";
+    message.admin = object.admin ?? "";
+    message.label = object.label ?? "";
     if (object.created !== undefined && object.created !== null) {
       message.created = AbsoluteTxPosition.fromPartial(object.created);
     } else {
       message.created = undefined;
     }
-    if (object.ibcPortId !== undefined && object.ibcPortId !== null) {
-      message.ibcPortId = object.ibcPortId;
-    } else {
-      message.ibcPortId = "";
-    }
+    message.ibcPortId = object.ibcPortId ?? "";
     if (object.extension !== undefined && object.extension !== null) {
       message.extension = Any.fromPartial(object.extension);
     } else {
@@ -745,11 +705,7 @@ export const ContractCodeHistoryEntry = {
 
   fromPartial(object: DeepPartial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry {
     const message = { ...baseContractCodeHistoryEntry } as ContractCodeHistoryEntry;
-    if (object.operation !== undefined && object.operation !== null) {
-      message.operation = object.operation;
-    } else {
-      message.operation = 0;
-    }
+    message.operation = object.operation ?? 0;
     if (object.codeId !== undefined && object.codeId !== null) {
       message.codeId = object.codeId as Long;
     } else {
@@ -760,11 +716,7 @@ export const ContractCodeHistoryEntry = {
     } else {
       message.updated = undefined;
     }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = object.msg;
-    } else {
-      message.msg = new Uint8Array();
-    }
+    message.msg = object.msg ?? new Uint8Array();
     return message;
   },
 };
@@ -901,16 +853,8 @@ export const Model = {
 
   fromPartial(object: DeepPartial<Model>): Model {
     const message = { ...baseModel } as Model;
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    } else {
-      message.key = new Uint8Array();
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value;
-    } else {
-      message.value = new Uint8Array();
-    }
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };

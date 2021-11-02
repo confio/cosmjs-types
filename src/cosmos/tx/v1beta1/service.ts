@@ -309,12 +309,12 @@ export const GetTxsEventResponse = {
   fromPartial(object: DeepPartial<GetTxsEventResponse>): GetTxsEventResponse {
     const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
     message.txs = [];
-    message.txResponses = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
         message.txs.push(Tx.fromPartial(e));
       }
     }
+    message.txResponses = [];
     if (object.txResponses !== undefined && object.txResponses !== null) {
       for (const e of object.txResponses) {
         message.txResponses.push(TxResponse.fromPartial(e));
@@ -388,16 +388,8 @@ export const BroadcastTxRequest = {
 
   fromPartial(object: DeepPartial<BroadcastTxRequest>): BroadcastTxRequest {
     const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
-    if (object.txBytes !== undefined && object.txBytes !== null) {
-      message.txBytes = object.txBytes;
-    } else {
-      message.txBytes = new Uint8Array();
-    }
-    if (object.mode !== undefined && object.mode !== null) {
-      message.mode = object.mode;
-    } else {
-      message.mode = 0;
-    }
+    message.txBytes = object.txBytes ?? new Uint8Array();
+    message.mode = object.mode ?? 0;
     return message;
   },
 };
@@ -632,11 +624,7 @@ export const GetTxRequest = {
 
   fromPartial(object: DeepPartial<GetTxRequest>): GetTxRequest {
     const message = { ...baseGetTxRequest } as GetTxRequest;
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = object.hash;
-    } else {
-      message.hash = "";
-    }
+    message.hash = object.hash ?? "";
     return message;
   },
 };

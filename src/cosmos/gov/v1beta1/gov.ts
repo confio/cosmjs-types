@@ -283,16 +283,8 @@ export const TextProposal = {
 
   fromPartial(object: DeepPartial<TextProposal>): TextProposal {
     const message = { ...baseTextProposal } as TextProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     return message;
   },
 };
@@ -373,17 +365,13 @@ export const Deposit = {
 
   fromPartial(object: DeepPartial<Deposit>): Deposit {
     const message = { ...baseDeposit } as Deposit;
-    message.amount = [];
     if (object.proposalId !== undefined && object.proposalId !== null) {
       message.proposalId = object.proposalId as Long;
     } else {
       message.proposalId = Long.UZERO;
     }
-    if (object.depositor !== undefined && object.depositor !== null) {
-      message.depositor = object.depositor;
-    } else {
-      message.depositor = "";
-    }
+    message.depositor = object.depositor ?? "";
+    message.amount = [];
     if (object.amount !== undefined && object.amount !== null) {
       for (const e of object.amount) {
         message.amount.push(Coin.fromPartial(e));
@@ -545,7 +533,6 @@ export const Proposal = {
 
   fromPartial(object: DeepPartial<Proposal>): Proposal {
     const message = { ...baseProposal } as Proposal;
-    message.totalDeposit = [];
     if (object.proposalId !== undefined && object.proposalId !== null) {
       message.proposalId = object.proposalId as Long;
     } else {
@@ -556,41 +543,22 @@ export const Proposal = {
     } else {
       message.content = undefined;
     }
-    if (object.status !== undefined && object.status !== null) {
-      message.status = object.status;
-    } else {
-      message.status = 0;
-    }
+    message.status = object.status ?? 0;
     if (object.finalTallyResult !== undefined && object.finalTallyResult !== null) {
       message.finalTallyResult = TallyResult.fromPartial(object.finalTallyResult);
     } else {
       message.finalTallyResult = undefined;
     }
-    if (object.submitTime !== undefined && object.submitTime !== null) {
-      message.submitTime = object.submitTime;
-    } else {
-      message.submitTime = undefined;
-    }
-    if (object.depositEndTime !== undefined && object.depositEndTime !== null) {
-      message.depositEndTime = object.depositEndTime;
-    } else {
-      message.depositEndTime = undefined;
-    }
+    message.submitTime = object.submitTime ?? undefined;
+    message.depositEndTime = object.depositEndTime ?? undefined;
+    message.totalDeposit = [];
     if (object.totalDeposit !== undefined && object.totalDeposit !== null) {
       for (const e of object.totalDeposit) {
         message.totalDeposit.push(Coin.fromPartial(e));
       }
     }
-    if (object.votingStartTime !== undefined && object.votingStartTime !== null) {
-      message.votingStartTime = object.votingStartTime;
-    } else {
-      message.votingStartTime = undefined;
-    }
-    if (object.votingEndTime !== undefined && object.votingEndTime !== null) {
-      message.votingEndTime = object.votingEndTime;
-    } else {
-      message.votingEndTime = undefined;
-    }
+    message.votingStartTime = object.votingStartTime ?? undefined;
+    message.votingEndTime = object.votingEndTime ?? undefined;
     return message;
   },
 };
@@ -677,26 +645,10 @@ export const TallyResult = {
 
   fromPartial(object: DeepPartial<TallyResult>): TallyResult {
     const message = { ...baseTallyResult } as TallyResult;
-    if (object.yes !== undefined && object.yes !== null) {
-      message.yes = object.yes;
-    } else {
-      message.yes = "";
-    }
-    if (object.abstain !== undefined && object.abstain !== null) {
-      message.abstain = object.abstain;
-    } else {
-      message.abstain = "";
-    }
-    if (object.no !== undefined && object.no !== null) {
-      message.no = object.no;
-    } else {
-      message.no = "";
-    }
-    if (object.noWithVeto !== undefined && object.noWithVeto !== null) {
-      message.noWithVeto = object.noWithVeto;
-    } else {
-      message.noWithVeto = "";
-    }
+    message.yes = object.yes ?? "";
+    message.abstain = object.abstain ?? "";
+    message.no = object.no ?? "";
+    message.noWithVeto = object.noWithVeto ?? "";
     return message;
   },
 };
@@ -776,16 +728,8 @@ export const Vote = {
     } else {
       message.proposalId = Long.UZERO;
     }
-    if (object.voter !== undefined && object.voter !== null) {
-      message.voter = object.voter;
-    } else {
-      message.voter = "";
-    }
-    if (object.option !== undefined && object.option !== null) {
-      message.option = object.option;
-    } else {
-      message.option = 0;
-    }
+    message.voter = object.voter ?? "";
+    message.option = object.option ?? 0;
     return message;
   },
 };
@@ -1005,21 +949,9 @@ export const TallyParams = {
 
   fromPartial(object: DeepPartial<TallyParams>): TallyParams {
     const message = { ...baseTallyParams } as TallyParams;
-    if (object.quorum !== undefined && object.quorum !== null) {
-      message.quorum = object.quorum;
-    } else {
-      message.quorum = new Uint8Array();
-    }
-    if (object.threshold !== undefined && object.threshold !== null) {
-      message.threshold = object.threshold;
-    } else {
-      message.threshold = new Uint8Array();
-    }
-    if (object.vetoThreshold !== undefined && object.vetoThreshold !== null) {
-      message.vetoThreshold = object.vetoThreshold;
-    } else {
-      message.vetoThreshold = new Uint8Array();
-    }
+    message.quorum = object.quorum ?? new Uint8Array();
+    message.threshold = object.threshold ?? new Uint8Array();
+    message.vetoThreshold = object.vetoThreshold ?? new Uint8Array();
     return message;
   },
 };

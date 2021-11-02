@@ -129,24 +129,24 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.balances = [];
-    message.supply = [];
-    message.denomMetadata = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
     }
+    message.balances = [];
     if (object.balances !== undefined && object.balances !== null) {
       for (const e of object.balances) {
         message.balances.push(Balance.fromPartial(e));
       }
     }
+    message.supply = [];
     if (object.supply !== undefined && object.supply !== null) {
       for (const e of object.supply) {
         message.supply.push(Coin.fromPartial(e));
       }
     }
+    message.denomMetadata = [];
     if (object.denomMetadata !== undefined && object.denomMetadata !== null) {
       for (const e of object.denomMetadata) {
         message.denomMetadata.push(Metadata.fromPartial(e));
@@ -220,12 +220,8 @@ export const Balance = {
 
   fromPartial(object: DeepPartial<Balance>): Balance {
     const message = { ...baseBalance } as Balance;
+    message.address = object.address ?? "";
     message.coins = [];
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
     if (object.coins !== undefined && object.coins !== null) {
       for (const e of object.coins) {
         message.coins.push(Coin.fromPartial(e));

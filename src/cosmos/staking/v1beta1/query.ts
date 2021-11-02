@@ -323,11 +323,7 @@ export const QueryValidatorsRequest = {
 
   fromPartial(object: DeepPartial<QueryValidatorsRequest>): QueryValidatorsRequest {
     const message = { ...baseQueryValidatorsRequest } as QueryValidatorsRequest;
-    if (object.status !== undefined && object.status !== null) {
-      message.status = object.status;
-    } else {
-      message.status = "";
-    }
+    message.status = object.status ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -463,11 +459,7 @@ export const QueryValidatorRequest = {
 
   fromPartial(object: DeepPartial<QueryValidatorRequest>): QueryValidatorRequest {
     const message = { ...baseQueryValidatorRequest } as QueryValidatorRequest;
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -587,11 +579,7 @@ export const QueryValidatorDelegationsRequest = {
 
   fromPartial(object: DeepPartial<QueryValidatorDelegationsRequest>): QueryValidatorDelegationsRequest {
     const message = { ...baseQueryValidatorDelegationsRequest } as QueryValidatorDelegationsRequest;
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.validatorAddr = object.validatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -753,11 +741,7 @@ export const QueryValidatorUnbondingDelegationsRequest = {
     const message = {
       ...baseQueryValidatorUnbondingDelegationsRequest,
     } as QueryValidatorUnbondingDelegationsRequest;
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.validatorAddr = object.validatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -918,16 +902,8 @@ export const QueryDelegationRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegationRequest>): QueryDelegationRequest {
     const message = { ...baseQueryDelegationRequest } as QueryDelegationRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -1048,16 +1024,8 @@ export const QueryUnbondingDelegationRequest = {
 
   fromPartial(object: DeepPartial<QueryUnbondingDelegationRequest>): QueryUnbondingDelegationRequest {
     const message = { ...baseQueryUnbondingDelegationRequest } as QueryUnbondingDelegationRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -1177,11 +1145,7 @@ export const QueryDelegatorDelegationsRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegatorDelegationsRequest>): QueryDelegatorDelegationsRequest {
     const message = { ...baseQueryDelegatorDelegationsRequest } as QueryDelegatorDelegationsRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1343,11 +1307,7 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
     const message = {
       ...baseQueryDelegatorUnbondingDelegationsRequest,
     } as QueryDelegatorUnbondingDelegationsRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1537,21 +1497,9 @@ export const QueryRedelegationsRequest = {
 
   fromPartial(object: DeepPartial<QueryRedelegationsRequest>): QueryRedelegationsRequest {
     const message = { ...baseQueryRedelegationsRequest } as QueryRedelegationsRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
-    if (object.srcValidatorAddr !== undefined && object.srcValidatorAddr !== null) {
-      message.srcValidatorAddr = object.srcValidatorAddr;
-    } else {
-      message.srcValidatorAddr = "";
-    }
-    if (object.dstValidatorAddr !== undefined && object.dstValidatorAddr !== null) {
-      message.dstValidatorAddr = object.dstValidatorAddr;
-    } else {
-      message.dstValidatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.srcValidatorAddr = object.srcValidatorAddr ?? "";
+    message.dstValidatorAddr = object.dstValidatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1702,11 +1650,7 @@ export const QueryDelegatorValidatorsRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegatorValidatorsRequest>): QueryDelegatorValidatorsRequest {
     const message = { ...baseQueryDelegatorValidatorsRequest } as QueryDelegatorValidatorsRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1854,16 +1798,8 @@ export const QueryDelegatorValidatorRequest = {
 
   fromPartial(object: DeepPartial<QueryDelegatorValidatorRequest>): QueryDelegatorValidatorRequest {
     const message = { ...baseQueryDelegatorValidatorRequest } as QueryDelegatorValidatorRequest;
-    if (object.delegatorAddr !== undefined && object.delegatorAddr !== null) {
-      message.delegatorAddr = object.delegatorAddr;
-    } else {
-      message.delegatorAddr = "";
-    }
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = object.validatorAddr;
-    } else {
-      message.validatorAddr = "";
-    }
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };

@@ -404,16 +404,8 @@ export const SignatureDescriptor_Data_Single = {
 
   fromPartial(object: DeepPartial<SignatureDescriptor_Data_Single>): SignatureDescriptor_Data_Single {
     const message = { ...baseSignatureDescriptor_Data_Single } as SignatureDescriptor_Data_Single;
-    if (object.mode !== undefined && object.mode !== null) {
-      message.mode = object.mode;
-    } else {
-      message.mode = 0;
-    }
-    if (object.signature !== undefined && object.signature !== null) {
-      message.signature = object.signature;
-    } else {
-      message.signature = new Uint8Array();
-    }
+    message.mode = object.mode ?? 0;
+    message.signature = object.signature ?? new Uint8Array();
     return message;
   },
 };
@@ -483,12 +475,12 @@ export const SignatureDescriptor_Data_Multi = {
 
   fromPartial(object: DeepPartial<SignatureDescriptor_Data_Multi>): SignatureDescriptor_Data_Multi {
     const message = { ...baseSignatureDescriptor_Data_Multi } as SignatureDescriptor_Data_Multi;
-    message.signatures = [];
     if (object.bitarray !== undefined && object.bitarray !== null) {
       message.bitarray = CompactBitArray.fromPartial(object.bitarray);
     } else {
       message.bitarray = undefined;
     }
+    message.signatures = [];
     if (object.signatures !== undefined && object.signatures !== null) {
       for (const e of object.signatures) {
         message.signatures.push(SignatureDescriptor_Data.fromPartial(e));

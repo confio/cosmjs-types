@@ -191,16 +191,8 @@ export const MsgStoreCode = {
 
   fromPartial(object: DeepPartial<MsgStoreCode>): MsgStoreCode {
     const message = { ...baseMsgStoreCode } as MsgStoreCode;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.wasmByteCode !== undefined && object.wasmByteCode !== null) {
-      message.wasmByteCode = object.wasmByteCode;
-    } else {
-      message.wasmByteCode = new Uint8Array();
-    }
+    message.sender = object.sender ?? "";
+    message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
     if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
       message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
     } else {
@@ -378,32 +370,16 @@ export const MsgInstantiateContract = {
 
   fromPartial(object: DeepPartial<MsgInstantiateContract>): MsgInstantiateContract {
     const message = { ...baseMsgInstantiateContract } as MsgInstantiateContract;
-    message.funds = [];
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    } else {
-      message.admin = "";
-    }
+    message.sender = object.sender ?? "";
+    message.admin = object.admin ?? "";
     if (object.codeId !== undefined && object.codeId !== null) {
       message.codeId = object.codeId as Long;
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = object.label;
-    } else {
-      message.label = "";
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = object.msg;
-    } else {
-      message.msg = new Uint8Array();
-    }
+    message.label = object.label ?? "";
+    message.msg = object.msg ?? new Uint8Array();
+    message.funds = [];
     if (object.funds !== undefined && object.funds !== null) {
       for (const e of object.funds) {
         message.funds.push(Coin.fromPartial(e));
@@ -472,16 +448,8 @@ export const MsgInstantiateContractResponse = {
 
   fromPartial(object: DeepPartial<MsgInstantiateContractResponse>): MsgInstantiateContractResponse {
     const message = { ...baseMsgInstantiateContractResponse } as MsgInstantiateContractResponse;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    } else {
-      message.address = "";
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.address = object.address ?? "";
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -575,22 +543,10 @@ export const MsgExecuteContract = {
 
   fromPartial(object: DeepPartial<MsgExecuteContract>): MsgExecuteContract {
     const message = { ...baseMsgExecuteContract } as MsgExecuteContract;
+    message.sender = object.sender ?? "";
+    message.contract = object.contract ?? "";
+    message.msg = object.msg ?? new Uint8Array();
     message.funds = [];
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = object.msg;
-    } else {
-      message.msg = new Uint8Array();
-    }
     if (object.funds !== undefined && object.funds !== null) {
       for (const e of object.funds) {
         message.funds.push(Coin.fromPartial(e));
@@ -647,11 +603,7 @@ export const MsgExecuteContractResponse = {
 
   fromPartial(object: DeepPartial<MsgExecuteContractResponse>): MsgExecuteContractResponse {
     const message = { ...baseMsgExecuteContractResponse } as MsgExecuteContractResponse;
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -739,26 +691,14 @@ export const MsgMigrateContract = {
 
   fromPartial(object: DeepPartial<MsgMigrateContract>): MsgMigrateContract {
     const message = { ...baseMsgMigrateContract } as MsgMigrateContract;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.sender = object.sender ?? "";
+    message.contract = object.contract ?? "";
     if (object.codeId !== undefined && object.codeId !== null) {
       message.codeId = object.codeId as Long;
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = object.msg;
-    } else {
-      message.msg = new Uint8Array();
-    }
+    message.msg = object.msg ?? new Uint8Array();
     return message;
   },
 };
@@ -810,11 +750,7 @@ export const MsgMigrateContractResponse = {
 
   fromPartial(object: DeepPartial<MsgMigrateContractResponse>): MsgMigrateContractResponse {
     const message = { ...baseMsgMigrateContractResponse } as MsgMigrateContractResponse;
-    if (object.data !== undefined && object.data !== null) {
-      message.data = object.data;
-    } else {
-      message.data = new Uint8Array();
-    }
+    message.data = object.data ?? new Uint8Array();
     return message;
   },
 };
@@ -889,21 +825,9 @@ export const MsgUpdateAdmin = {
 
   fromPartial(object: DeepPartial<MsgUpdateAdmin>): MsgUpdateAdmin {
     const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.newAdmin !== undefined && object.newAdmin !== null) {
-      message.newAdmin = object.newAdmin;
-    } else {
-      message.newAdmin = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.sender = object.sender ?? "";
+    message.newAdmin = object.newAdmin ?? "";
+    message.contract = object.contract ?? "";
     return message;
   },
 };
@@ -1004,16 +928,8 @@ export const MsgClearAdmin = {
 
   fromPartial(object: DeepPartial<MsgClearAdmin>): MsgClearAdmin {
     const message = { ...baseMsgClearAdmin } as MsgClearAdmin;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    } else {
-      message.contract = "";
-    }
+    message.sender = object.sender ?? "";
+    message.contract = object.contract ?? "";
     return message;
   },
 };

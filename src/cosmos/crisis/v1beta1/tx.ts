@@ -84,21 +84,9 @@ export const MsgVerifyInvariant = {
 
   fromPartial(object: DeepPartial<MsgVerifyInvariant>): MsgVerifyInvariant {
     const message = { ...baseMsgVerifyInvariant } as MsgVerifyInvariant;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    } else {
-      message.sender = "";
-    }
-    if (object.invariantModuleName !== undefined && object.invariantModuleName !== null) {
-      message.invariantModuleName = object.invariantModuleName;
-    } else {
-      message.invariantModuleName = "";
-    }
-    if (object.invariantRoute !== undefined && object.invariantRoute !== null) {
-      message.invariantRoute = object.invariantRoute;
-    } else {
-      message.invariantRoute = "";
-    }
+    message.sender = object.sender ?? "";
+    message.invariantModuleName = object.invariantModuleName ?? "";
+    message.invariantRoute = object.invariantRoute ?? "";
     return message;
   },
 };

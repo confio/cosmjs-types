@@ -213,26 +213,10 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    if (object.communityTax !== undefined && object.communityTax !== null) {
-      message.communityTax = object.communityTax;
-    } else {
-      message.communityTax = "";
-    }
-    if (object.baseProposerReward !== undefined && object.baseProposerReward !== null) {
-      message.baseProposerReward = object.baseProposerReward;
-    } else {
-      message.baseProposerReward = "";
-    }
-    if (object.bonusProposerReward !== undefined && object.bonusProposerReward !== null) {
-      message.bonusProposerReward = object.bonusProposerReward;
-    } else {
-      message.bonusProposerReward = "";
-    }
-    if (object.withdrawAddrEnabled !== undefined && object.withdrawAddrEnabled !== null) {
-      message.withdrawAddrEnabled = object.withdrawAddrEnabled;
-    } else {
-      message.withdrawAddrEnabled = false;
-    }
+    message.communityTax = object.communityTax ?? "";
+    message.baseProposerReward = object.baseProposerReward ?? "";
+    message.bonusProposerReward = object.bonusProposerReward ?? "";
+    message.withdrawAddrEnabled = object.withdrawAddrEnabled ?? false;
     return message;
   },
 };
@@ -309,11 +293,7 @@ export const ValidatorHistoricalRewards = {
         message.cumulativeRewardRatio.push(DecCoin.fromPartial(e));
       }
     }
-    if (object.referenceCount !== undefined && object.referenceCount !== null) {
-      message.referenceCount = object.referenceCount;
-    } else {
-      message.referenceCount = 0;
-    }
+    message.referenceCount = object.referenceCount ?? 0;
     return message;
   },
 };
@@ -585,11 +565,7 @@ export const ValidatorSlashEvent = {
     } else {
       message.validatorPeriod = Long.UZERO;
     }
-    if (object.fraction !== undefined && object.fraction !== null) {
-      message.fraction = object.fraction;
-    } else {
-      message.fraction = "";
-    }
+    message.fraction = object.fraction ?? "";
     return message;
   },
 };
@@ -808,22 +784,10 @@ export const CommunityPoolSpendProposal = {
 
   fromPartial(object: DeepPartial<CommunityPoolSpendProposal>): CommunityPoolSpendProposal {
     const message = { ...baseCommunityPoolSpendProposal } as CommunityPoolSpendProposal;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.recipient = object.recipient ?? "";
     message.amount = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.recipient !== undefined && object.recipient !== null) {
-      message.recipient = object.recipient;
-    } else {
-      message.recipient = "";
-    }
     if (object.amount !== undefined && object.amount !== null) {
       for (const e of object.amount) {
         message.amount.push(Coin.fromPartial(e));
@@ -909,11 +873,7 @@ export const DelegatorStartingInfo = {
     } else {
       message.previousPeriod = Long.UZERO;
     }
-    if (object.stake !== undefined && object.stake !== null) {
-      message.stake = object.stake;
-    } else {
-      message.stake = "";
-    }
+    message.stake = object.stake ?? "";
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height as Long;
     } else {
@@ -987,12 +947,8 @@ export const DelegationDelegatorReward = {
 
   fromPartial(object: DeepPartial<DelegationDelegatorReward>): DelegationDelegatorReward {
     const message = { ...baseDelegationDelegatorReward } as DelegationDelegatorReward;
+    message.validatorAddress = object.validatorAddress ?? "";
     message.reward = [];
-    if (object.validatorAddress !== undefined && object.validatorAddress !== null) {
-      message.validatorAddress = object.validatorAddress;
-    } else {
-      message.validatorAddress = "";
-    }
     if (object.reward !== undefined && object.reward !== null) {
       for (const e of object.reward) {
         message.reward.push(DecCoin.fromPartial(e));
@@ -1107,31 +1063,11 @@ export const CommunityPoolSpendProposalWithDeposit = {
     object: DeepPartial<CommunityPoolSpendProposalWithDeposit>,
   ): CommunityPoolSpendProposalWithDeposit {
     const message = { ...baseCommunityPoolSpendProposalWithDeposit } as CommunityPoolSpendProposalWithDeposit;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
-    if (object.recipient !== undefined && object.recipient !== null) {
-      message.recipient = object.recipient;
-    } else {
-      message.recipient = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
-    } else {
-      message.amount = "";
-    }
-    if (object.deposit !== undefined && object.deposit !== null) {
-      message.deposit = object.deposit;
-    } else {
-      message.deposit = "";
-    }
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.recipient = object.recipient ?? "";
+    message.amount = object.amount ?? "";
+    message.deposit = object.deposit ?? "";
     return message;
   },
 };
