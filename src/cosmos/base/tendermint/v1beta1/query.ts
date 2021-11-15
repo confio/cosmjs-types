@@ -92,6 +92,8 @@ export interface VersionInfo {
   buildTags: string;
   goVersion: string;
   buildDeps: Module[];
+  /** Since: cosmos-sdk 0.43 */
+  cosmosSdkVersion: string;
 }
 
 /** Module is the type for VersionInfo */
@@ -981,6 +983,7 @@ const baseVersionInfo: object = {
   gitCommit: "",
   buildTags: "",
   goVersion: "",
+  cosmosSdkVersion: "",
 };
 
 export const VersionInfo = {
@@ -1005,6 +1008,9 @@ export const VersionInfo = {
     }
     for (const v of message.buildDeps) {
       Module.encode(v!, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.cosmosSdkVersion !== "") {
+      writer.uint32(66).string(message.cosmosSdkVersion);
     }
     return writer;
   },
@@ -1037,6 +1043,9 @@ export const VersionInfo = {
           break;
         case 7:
           message.buildDeps.push(Module.decode(reader, reader.uint32()));
+          break;
+        case 8:
+          message.cosmosSdkVersion = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1084,6 +1093,11 @@ export const VersionInfo = {
         message.buildDeps.push(Module.fromJSON(e));
       }
     }
+    if (object.cosmosSdkVersion !== undefined && object.cosmosSdkVersion !== null) {
+      message.cosmosSdkVersion = String(object.cosmosSdkVersion);
+    } else {
+      message.cosmosSdkVersion = "";
+    }
     return message;
   },
 
@@ -1100,6 +1114,7 @@ export const VersionInfo = {
     } else {
       obj.buildDeps = [];
     }
+    message.cosmosSdkVersion !== undefined && (obj.cosmosSdkVersion = message.cosmosSdkVersion);
     return obj;
   },
 
@@ -1117,6 +1132,7 @@ export const VersionInfo = {
         message.buildDeps.push(Module.fromPartial(e));
       }
     }
+    message.cosmosSdkVersion = object.cosmosSdkVersion ?? "";
     return message;
   },
 };

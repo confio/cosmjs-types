@@ -143,6 +143,16 @@ export function proposalStatusToJSON(object: ProposalStatus): string {
 }
 
 /**
+ * WeightedVoteOption defines a unit of vote for vote split.
+ *
+ * Since: cosmos-sdk 0.43
+ */
+export interface WeightedVoteOption {
+  option: VoteOption;
+  weight: string;
+}
+
+/**
  * TextProposal defines a standard text proposal whose changes need to be
  * manually updated in case of approval.
  */
@@ -189,7 +199,16 @@ export interface TallyResult {
 export interface Vote {
   proposalId: Long;
   voter: string;
+  /**
+   * Deprecated: Prefer to use `options` instead. This field is set in queries
+   * if and only if `len(options) == 1` and that option has weight 1. In all
+   * other cases, this field will default to VOTE_OPTION_UNSPECIFIED.
+   *
+   * @deprecated
+   */
   option: VoteOption;
+  /** Since: cosmos-sdk 0.43 */
+  options: WeightedVoteOption[];
 }
 
 /** DepositParams defines the params for deposits on governance proposals. */
@@ -224,6 +243,70 @@ export interface TallyParams {
    */
   vetoThreshold: Uint8Array;
 }
+
+const baseWeightedVoteOption: object = { option: 0, weight: "" };
+
+export const WeightedVoteOption = {
+  encode(message: WeightedVoteOption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.option !== 0) {
+      writer.uint32(8).int32(message.option);
+    }
+    if (message.weight !== "") {
+      writer.uint32(18).string(message.weight);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WeightedVoteOption {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseWeightedVoteOption } as WeightedVoteOption;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.option = reader.int32() as any;
+          break;
+        case 2:
+          message.weight = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WeightedVoteOption {
+    const message = { ...baseWeightedVoteOption } as WeightedVoteOption;
+    if (object.option !== undefined && object.option !== null) {
+      message.option = voteOptionFromJSON(object.option);
+    } else {
+      message.option = 0;
+    }
+    if (object.weight !== undefined && object.weight !== null) {
+      message.weight = String(object.weight);
+    } else {
+      message.weight = "";
+    }
+    return message;
+  },
+
+  toJSON(message: WeightedVoteOption): unknown {
+    const obj: any = {};
+    message.option !== undefined && (obj.option = voteOptionToJSON(message.option));
+    message.weight !== undefined && (obj.weight = message.weight);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WeightedVoteOption>): WeightedVoteOption {
+    const message = { ...baseWeightedVoteOption } as WeightedVoteOption;
+    message.option = object.option ?? 0;
+    message.weight = object.weight ?? "";
+    return message;
+  },
+};
 
 const baseTextProposal: object = { title: "", description: "" };
 
@@ -666,6 +749,9 @@ export const Vote = {
     if (message.option !== 0) {
       writer.uint32(24).int32(message.option);
     }
+    for (const v of message.options) {
+      WeightedVoteOption.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -673,6 +759,7 @@ export const Vote = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseVote } as Vote;
+    message.options = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -685,6 +772,9 @@ export const Vote = {
         case 3:
           message.option = reader.int32() as any;
           break;
+        case 4:
+          message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -695,6 +785,7 @@ export const Vote = {
 
   fromJSON(object: any): Vote {
     const message = { ...baseVote } as Vote;
+    message.options = [];
     if (object.proposalId !== undefined && object.proposalId !== null) {
       message.proposalId = Long.fromString(object.proposalId);
     } else {
@@ -710,6 +801,11 @@ export const Vote = {
     } else {
       message.option = 0;
     }
+    if (object.options !== undefined && object.options !== null) {
+      for (const e of object.options) {
+        message.options.push(WeightedVoteOption.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -718,6 +814,11 @@ export const Vote = {
     message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.voter !== undefined && (obj.voter = message.voter);
     message.option !== undefined && (obj.option = voteOptionToJSON(message.option));
+    if (message.options) {
+      obj.options = message.options.map((e) => (e ? WeightedVoteOption.toJSON(e) : undefined));
+    } else {
+      obj.options = [];
+    }
     return obj;
   },
 
@@ -730,6 +831,12 @@ export const Vote = {
     }
     message.voter = object.voter ?? "";
     message.option = object.option ?? 0;
+    message.options = [];
+    if (object.options !== undefined && object.options !== null) {
+      for (const e of object.options) {
+        message.options.push(WeightedVoteOption.fromPartial(e));
+      }
+    }
     return message;
   },
 };
