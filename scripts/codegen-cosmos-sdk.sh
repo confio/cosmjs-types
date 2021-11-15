@@ -19,6 +19,10 @@ protoc \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/auth.proto" \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/genesis.proto" \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/query.proto" \
+  "$COSMOS_SDK_DIR/cosmos/authz/v1beta1/authz.proto" \
+  "$COSMOS_SDK_DIR/cosmos/authz/v1beta1/genesis.proto" \
+  "$COSMOS_SDK_DIR/cosmos/authz/v1beta1/query.proto" \
+  "$COSMOS_SDK_DIR/cosmos/authz/v1beta1/tx.proto" \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/bank.proto" \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/genesis.proto" \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/query.proto" \
