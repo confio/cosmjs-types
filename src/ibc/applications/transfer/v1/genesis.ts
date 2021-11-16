@@ -55,22 +55,10 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.denomTraces = [];
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.denomTraces !== undefined && object.denomTraces !== null) {
-      for (const e of object.denomTraces) {
-        message.denomTraces.push(DenomTrace.fromJSON(e));
-      }
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromJSON(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.denomTraces = (object.denomTraces ?? []).map((e: any) => DenomTrace.fromJSON(e));
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
     return message;
   },
 
@@ -89,17 +77,9 @@ export const GenesisState = {
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.portId = object.portId ?? "";
-    message.denomTraces = [];
-    if (object.denomTraces !== undefined && object.denomTraces !== null) {
-      for (const e of object.denomTraces) {
-        message.denomTraces.push(DenomTrace.fromPartial(e));
-      }
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromPartial(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.denomTraces = (object.denomTraces ?? []).map((e) => DenomTrace.fromPartial(e));
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
 };

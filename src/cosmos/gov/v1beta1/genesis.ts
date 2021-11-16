@@ -99,44 +99,25 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.deposits = [];
-    message.votes = [];
-    message.proposals = [];
-    if (object.startingProposalId !== undefined && object.startingProposalId !== null) {
-      message.startingProposalId = Long.fromString(object.startingProposalId);
-    } else {
-      message.startingProposalId = Long.UZERO;
-    }
-    if (object.deposits !== undefined && object.deposits !== null) {
-      for (const e of object.deposits) {
-        message.deposits.push(Deposit.fromJSON(e));
-      }
-    }
-    if (object.votes !== undefined && object.votes !== null) {
-      for (const e of object.votes) {
-        message.votes.push(Vote.fromJSON(e));
-      }
-    }
-    if (object.proposals !== undefined && object.proposals !== null) {
-      for (const e of object.proposals) {
-        message.proposals.push(Proposal.fromJSON(e));
-      }
-    }
-    if (object.depositParams !== undefined && object.depositParams !== null) {
-      message.depositParams = DepositParams.fromJSON(object.depositParams);
-    } else {
-      message.depositParams = undefined;
-    }
-    if (object.votingParams !== undefined && object.votingParams !== null) {
-      message.votingParams = VotingParams.fromJSON(object.votingParams);
-    } else {
-      message.votingParams = undefined;
-    }
-    if (object.tallyParams !== undefined && object.tallyParams !== null) {
-      message.tallyParams = TallyParams.fromJSON(object.tallyParams);
-    } else {
-      message.tallyParams = undefined;
-    }
+    message.startingProposalId =
+      object.startingProposalId !== undefined && object.startingProposalId !== null
+        ? Long.fromString(object.startingProposalId)
+        : Long.UZERO;
+    message.deposits = (object.deposits ?? []).map((e: any) => Deposit.fromJSON(e));
+    message.votes = (object.votes ?? []).map((e: any) => Vote.fromJSON(e));
+    message.proposals = (object.proposals ?? []).map((e: any) => Proposal.fromJSON(e));
+    message.depositParams =
+      object.depositParams !== undefined && object.depositParams !== null
+        ? DepositParams.fromJSON(object.depositParams)
+        : undefined;
+    message.votingParams =
+      object.votingParams !== undefined && object.votingParams !== null
+        ? VotingParams.fromJSON(object.votingParams)
+        : undefined;
+    message.tallyParams =
+      object.tallyParams !== undefined && object.tallyParams !== null
+        ? TallyParams.fromJSON(object.tallyParams)
+        : undefined;
     return message;
   },
 
@@ -175,39 +156,21 @@ export const GenesisState = {
     } else {
       message.startingProposalId = Long.UZERO;
     }
-    message.deposits = [];
-    if (object.deposits !== undefined && object.deposits !== null) {
-      for (const e of object.deposits) {
-        message.deposits.push(Deposit.fromPartial(e));
-      }
-    }
-    message.votes = [];
-    if (object.votes !== undefined && object.votes !== null) {
-      for (const e of object.votes) {
-        message.votes.push(Vote.fromPartial(e));
-      }
-    }
-    message.proposals = [];
-    if (object.proposals !== undefined && object.proposals !== null) {
-      for (const e of object.proposals) {
-        message.proposals.push(Proposal.fromPartial(e));
-      }
-    }
-    if (object.depositParams !== undefined && object.depositParams !== null) {
-      message.depositParams = DepositParams.fromPartial(object.depositParams);
-    } else {
-      message.depositParams = undefined;
-    }
-    if (object.votingParams !== undefined && object.votingParams !== null) {
-      message.votingParams = VotingParams.fromPartial(object.votingParams);
-    } else {
-      message.votingParams = undefined;
-    }
-    if (object.tallyParams !== undefined && object.tallyParams !== null) {
-      message.tallyParams = TallyParams.fromPartial(object.tallyParams);
-    } else {
-      message.tallyParams = undefined;
-    }
+    message.deposits = (object.deposits ?? []).map((e) => Deposit.fromPartial(e));
+    message.votes = (object.votes ?? []).map((e) => Vote.fromPartial(e));
+    message.proposals = (object.proposals ?? []).map((e) => Proposal.fromPartial(e));
+    message.depositParams =
+      object.depositParams !== undefined && object.depositParams !== null
+        ? DepositParams.fromPartial(object.depositParams)
+        : undefined;
+    message.votingParams =
+      object.votingParams !== undefined && object.votingParams !== null
+        ? VotingParams.fromPartial(object.votingParams)
+        : undefined;
+    message.tallyParams =
+      object.tallyParams !== undefined && object.tallyParams !== null
+        ? TallyParams.fromPartial(object.tallyParams)
+        : undefined;
     return message;
   },
 };

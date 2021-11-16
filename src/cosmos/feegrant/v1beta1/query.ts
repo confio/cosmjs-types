@@ -73,16 +73,8 @@ export const QueryAllowanceRequest = {
 
   fromJSON(object: any): QueryAllowanceRequest {
     const message = { ...baseQueryAllowanceRequest } as QueryAllowanceRequest;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
     return message;
   },
 
@@ -131,11 +123,10 @@ export const QueryAllowanceResponse = {
 
   fromJSON(object: any): QueryAllowanceResponse {
     const message = { ...baseQueryAllowanceResponse } as QueryAllowanceResponse;
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Grant.fromJSON(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Grant.fromJSON(object.allowance)
+        : undefined;
     return message;
   },
 
@@ -148,11 +139,10 @@ export const QueryAllowanceResponse = {
 
   fromPartial(object: DeepPartial<QueryAllowanceResponse>): QueryAllowanceResponse {
     const message = { ...baseQueryAllowanceResponse } as QueryAllowanceResponse;
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Grant.fromPartial(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Grant.fromPartial(object.allowance)
+        : undefined;
     return message;
   },
 };
@@ -193,16 +183,11 @@ export const QueryAllowancesRequest = {
 
   fromJSON(object: any): QueryAllowancesRequest {
     const message = { ...baseQueryAllowancesRequest } as QueryAllowancesRequest;
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -217,11 +202,10 @@ export const QueryAllowancesRequest = {
   fromPartial(object: DeepPartial<QueryAllowancesRequest>): QueryAllowancesRequest {
     const message = { ...baseQueryAllowancesRequest } as QueryAllowancesRequest;
     message.grantee = object.grantee ?? "";
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -263,17 +247,11 @@ export const QueryAllowancesResponse = {
 
   fromJSON(object: any): QueryAllowancesResponse {
     const message = { ...baseQueryAllowancesResponse } as QueryAllowancesResponse;
-    message.allowances = [];
-    if (object.allowances !== undefined && object.allowances !== null) {
-      for (const e of object.allowances) {
-        message.allowances.push(Grant.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.allowances = (object.allowances ?? []).map((e: any) => Grant.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -291,17 +269,11 @@ export const QueryAllowancesResponse = {
 
   fromPartial(object: DeepPartial<QueryAllowancesResponse>): QueryAllowancesResponse {
     const message = { ...baseQueryAllowancesResponse } as QueryAllowancesResponse;
-    message.allowances = [];
-    if (object.allowances !== undefined && object.allowances !== null) {
-      for (const e of object.allowances) {
-        message.allowances.push(Grant.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.allowances = (object.allowances ?? []).map((e) => Grant.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };

@@ -64,22 +64,10 @@ export const ParameterChangeProposal = {
 
   fromJSON(object: any): ParameterChangeProposal {
     const message = { ...baseParameterChangeProposal } as ParameterChangeProposal;
-    message.changes = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.changes !== undefined && object.changes !== null) {
-      for (const e of object.changes) {
-        message.changes.push(ParamChange.fromJSON(e));
-      }
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.changes = (object.changes ?? []).map((e: any) => ParamChange.fromJSON(e));
     return message;
   },
 
@@ -99,12 +87,7 @@ export const ParameterChangeProposal = {
     const message = { ...baseParameterChangeProposal } as ParameterChangeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.changes = [];
-    if (object.changes !== undefined && object.changes !== null) {
-      for (const e of object.changes) {
-        message.changes.push(ParamChange.fromPartial(e));
-      }
-    }
+    message.changes = (object.changes ?? []).map((e) => ParamChange.fromPartial(e));
     return message;
   },
 };
@@ -151,21 +134,10 @@ export const ParamChange = {
 
   fromJSON(object: any): ParamChange {
     const message = { ...baseParamChange } as ParamChange;
-    if (object.subspace !== undefined && object.subspace !== null) {
-      message.subspace = String(object.subspace);
-    } else {
-      message.subspace = "";
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = String(object.key);
-    } else {
-      message.key = "";
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = String(object.value);
-    } else {
-      message.value = "";
-    }
+    message.subspace =
+      object.subspace !== undefined && object.subspace !== null ? String(object.subspace) : "";
+    message.key = object.key !== undefined && object.key !== null ? String(object.key) : "";
+    message.value = object.value !== undefined && object.value !== null ? String(object.value) : "";
     return message;
   },
 

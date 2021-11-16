@@ -41,12 +41,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.genTxs = [];
-    if (object.genTxs !== undefined && object.genTxs !== null) {
-      for (const e of object.genTxs) {
-        message.genTxs.push(bytesFromBase64(e));
-      }
-    }
+    message.genTxs = (object.genTxs ?? []).map((e: any) => bytesFromBase64(e));
     return message;
   },
 
@@ -62,12 +57,7 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.genTxs = [];
-    if (object.genTxs !== undefined && object.genTxs !== null) {
-      for (const e of object.genTxs) {
-        message.genTxs.push(e);
-      }
-    }
+    message.genTxs = (object.genTxs ?? []).map((e) => e);
     return message;
   },
 };

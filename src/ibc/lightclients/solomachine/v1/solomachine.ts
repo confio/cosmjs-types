@@ -313,26 +313,22 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     const message = { ...baseClientState } as ClientState;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromString(object.sequence);
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.frozenSequence !== undefined && object.frozenSequence !== null) {
-      message.frozenSequence = Long.fromString(object.frozenSequence);
-    } else {
-      message.frozenSequence = Long.UZERO;
-    }
-    if (object.consensusState !== undefined && object.consensusState !== null) {
-      message.consensusState = ConsensusState.fromJSON(object.consensusState);
-    } else {
-      message.consensusState = undefined;
-    }
-    if (object.allowUpdateAfterProposal !== undefined && object.allowUpdateAfterProposal !== null) {
-      message.allowUpdateAfterProposal = Boolean(object.allowUpdateAfterProposal);
-    } else {
-      message.allowUpdateAfterProposal = false;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromString(object.sequence)
+        : Long.UZERO;
+    message.frozenSequence =
+      object.frozenSequence !== undefined && object.frozenSequence !== null
+        ? Long.fromString(object.frozenSequence)
+        : Long.UZERO;
+    message.consensusState =
+      object.consensusState !== undefined && object.consensusState !== null
+        ? ConsensusState.fromJSON(object.consensusState)
+        : undefined;
+    message.allowUpdateAfterProposal =
+      object.allowUpdateAfterProposal !== undefined && object.allowUpdateAfterProposal !== null
+        ? Boolean(object.allowUpdateAfterProposal)
+        : false;
     return message;
   },
 
@@ -362,11 +358,10 @@ export const ClientState = {
     } else {
       message.frozenSequence = Long.UZERO;
     }
-    if (object.consensusState !== undefined && object.consensusState !== null) {
-      message.consensusState = ConsensusState.fromPartial(object.consensusState);
-    } else {
-      message.consensusState = undefined;
-    }
+    message.consensusState =
+      object.consensusState !== undefined && object.consensusState !== null
+        ? ConsensusState.fromPartial(object.consensusState)
+        : undefined;
     message.allowUpdateAfterProposal = object.allowUpdateAfterProposal ?? false;
     return message;
   },
@@ -414,21 +409,16 @@ export const ConsensusState = {
 
   fromJSON(object: any): ConsensusState {
     const message = { ...baseConsensusState } as ConsensusState;
-    if (object.publicKey !== undefined && object.publicKey !== null) {
-      message.publicKey = Any.fromJSON(object.publicKey);
-    } else {
-      message.publicKey = undefined;
-    }
-    if (object.diversifier !== undefined && object.diversifier !== null) {
-      message.diversifier = String(object.diversifier);
-    } else {
-      message.diversifier = "";
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Long.fromString(object.timestamp);
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.publicKey =
+      object.publicKey !== undefined && object.publicKey !== null
+        ? Any.fromJSON(object.publicKey)
+        : undefined;
+    message.diversifier =
+      object.diversifier !== undefined && object.diversifier !== null ? String(object.diversifier) : "";
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromString(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 
@@ -443,11 +433,10 @@ export const ConsensusState = {
 
   fromPartial(object: DeepPartial<ConsensusState>): ConsensusState {
     const message = { ...baseConsensusState } as ConsensusState;
-    if (object.publicKey !== undefined && object.publicKey !== null) {
-      message.publicKey = Any.fromPartial(object.publicKey);
-    } else {
-      message.publicKey = undefined;
-    }
+    message.publicKey =
+      object.publicKey !== undefined && object.publicKey !== null
+        ? Any.fromPartial(object.publicKey)
+        : undefined;
     message.diversifier = object.diversifier ?? "";
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp as Long;
@@ -513,30 +502,26 @@ export const Header = {
 
   fromJSON(object: any): Header {
     const message = { ...baseHeader } as Header;
-    message.signature = new Uint8Array();
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromString(object.sequence);
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Long.fromString(object.timestamp);
-    } else {
-      message.timestamp = Long.UZERO;
-    }
-    if (object.signature !== undefined && object.signature !== null) {
-      message.signature = bytesFromBase64(object.signature);
-    }
-    if (object.newPublicKey !== undefined && object.newPublicKey !== null) {
-      message.newPublicKey = Any.fromJSON(object.newPublicKey);
-    } else {
-      message.newPublicKey = undefined;
-    }
-    if (object.newDiversifier !== undefined && object.newDiversifier !== null) {
-      message.newDiversifier = String(object.newDiversifier);
-    } else {
-      message.newDiversifier = "";
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromString(object.sequence)
+        : Long.UZERO;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromString(object.timestamp)
+        : Long.UZERO;
+    message.signature =
+      object.signature !== undefined && object.signature !== null
+        ? bytesFromBase64(object.signature)
+        : new Uint8Array();
+    message.newPublicKey =
+      object.newPublicKey !== undefined && object.newPublicKey !== null
+        ? Any.fromJSON(object.newPublicKey)
+        : undefined;
+    message.newDiversifier =
+      object.newDiversifier !== undefined && object.newDiversifier !== null
+        ? String(object.newDiversifier)
+        : "";
     return message;
   },
 
@@ -567,11 +552,10 @@ export const Header = {
       message.timestamp = Long.UZERO;
     }
     message.signature = object.signature ?? new Uint8Array();
-    if (object.newPublicKey !== undefined && object.newPublicKey !== null) {
-      message.newPublicKey = Any.fromPartial(object.newPublicKey);
-    } else {
-      message.newPublicKey = undefined;
-    }
+    message.newPublicKey =
+      object.newPublicKey !== undefined && object.newPublicKey !== null
+        ? Any.fromPartial(object.newPublicKey)
+        : undefined;
     message.newDiversifier = object.newDiversifier ?? "";
     return message;
   },
@@ -625,26 +609,20 @@ export const Misbehaviour = {
 
   fromJSON(object: any): Misbehaviour {
     const message = { ...baseMisbehaviour } as Misbehaviour;
-    if (object.clientId !== undefined && object.clientId !== null) {
-      message.clientId = String(object.clientId);
-    } else {
-      message.clientId = "";
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromString(object.sequence);
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.signatureOne !== undefined && object.signatureOne !== null) {
-      message.signatureOne = SignatureAndData.fromJSON(object.signatureOne);
-    } else {
-      message.signatureOne = undefined;
-    }
-    if (object.signatureTwo !== undefined && object.signatureTwo !== null) {
-      message.signatureTwo = SignatureAndData.fromJSON(object.signatureTwo);
-    } else {
-      message.signatureTwo = undefined;
-    }
+    message.clientId =
+      object.clientId !== undefined && object.clientId !== null ? String(object.clientId) : "";
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromString(object.sequence)
+        : Long.UZERO;
+    message.signatureOne =
+      object.signatureOne !== undefined && object.signatureOne !== null
+        ? SignatureAndData.fromJSON(object.signatureOne)
+        : undefined;
+    message.signatureTwo =
+      object.signatureTwo !== undefined && object.signatureTwo !== null
+        ? SignatureAndData.fromJSON(object.signatureTwo)
+        : undefined;
     return message;
   },
 
@@ -667,16 +645,14 @@ export const Misbehaviour = {
     } else {
       message.sequence = Long.UZERO;
     }
-    if (object.signatureOne !== undefined && object.signatureOne !== null) {
-      message.signatureOne = SignatureAndData.fromPartial(object.signatureOne);
-    } else {
-      message.signatureOne = undefined;
-    }
-    if (object.signatureTwo !== undefined && object.signatureTwo !== null) {
-      message.signatureTwo = SignatureAndData.fromPartial(object.signatureTwo);
-    } else {
-      message.signatureTwo = undefined;
-    }
+    message.signatureOne =
+      object.signatureOne !== undefined && object.signatureOne !== null
+        ? SignatureAndData.fromPartial(object.signatureOne)
+        : undefined;
+    message.signatureTwo =
+      object.signatureTwo !== undefined && object.signatureTwo !== null
+        ? SignatureAndData.fromPartial(object.signatureTwo)
+        : undefined;
     return message;
   },
 };
@@ -731,24 +707,18 @@ export const SignatureAndData = {
 
   fromJSON(object: any): SignatureAndData {
     const message = { ...baseSignatureAndData } as SignatureAndData;
-    message.signature = new Uint8Array();
-    message.data = new Uint8Array();
-    if (object.signature !== undefined && object.signature !== null) {
-      message.signature = bytesFromBase64(object.signature);
-    }
-    if (object.dataType !== undefined && object.dataType !== null) {
-      message.dataType = dataTypeFromJSON(object.dataType);
-    } else {
-      message.dataType = 0;
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Long.fromString(object.timestamp);
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.signature =
+      object.signature !== undefined && object.signature !== null
+        ? bytesFromBase64(object.signature)
+        : new Uint8Array();
+    message.dataType =
+      object.dataType !== undefined && object.dataType !== null ? dataTypeFromJSON(object.dataType) : 0;
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromString(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 
@@ -816,15 +786,14 @@ export const TimestampedSignatureData = {
 
   fromJSON(object: any): TimestampedSignatureData {
     const message = { ...baseTimestampedSignatureData } as TimestampedSignatureData;
-    message.signatureData = new Uint8Array();
-    if (object.signatureData !== undefined && object.signatureData !== null) {
-      message.signatureData = bytesFromBase64(object.signatureData);
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Long.fromString(object.timestamp);
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.signatureData =
+      object.signatureData !== undefined && object.signatureData !== null
+        ? bytesFromBase64(object.signatureData)
+        : new Uint8Array();
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromString(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 
@@ -905,30 +874,20 @@ export const SignBytes = {
 
   fromJSON(object: any): SignBytes {
     const message = { ...baseSignBytes } as SignBytes;
-    message.data = new Uint8Array();
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromString(object.sequence);
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Long.fromString(object.timestamp);
-    } else {
-      message.timestamp = Long.UZERO;
-    }
-    if (object.diversifier !== undefined && object.diversifier !== null) {
-      message.diversifier = String(object.diversifier);
-    } else {
-      message.diversifier = "";
-    }
-    if (object.dataType !== undefined && object.dataType !== null) {
-      message.dataType = dataTypeFromJSON(object.dataType);
-    } else {
-      message.dataType = 0;
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromString(object.sequence)
+        : Long.UZERO;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromString(object.timestamp)
+        : Long.UZERO;
+    message.diversifier =
+      object.diversifier !== undefined && object.diversifier !== null ? String(object.diversifier) : "";
+    message.dataType =
+      object.dataType !== undefined && object.dataType !== null ? dataTypeFromJSON(object.dataType) : 0;
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
     return message;
   },
 
@@ -998,16 +957,14 @@ export const HeaderData = {
 
   fromJSON(object: any): HeaderData {
     const message = { ...baseHeaderData } as HeaderData;
-    if (object.newPubKey !== undefined && object.newPubKey !== null) {
-      message.newPubKey = Any.fromJSON(object.newPubKey);
-    } else {
-      message.newPubKey = undefined;
-    }
-    if (object.newDiversifier !== undefined && object.newDiversifier !== null) {
-      message.newDiversifier = String(object.newDiversifier);
-    } else {
-      message.newDiversifier = "";
-    }
+    message.newPubKey =
+      object.newPubKey !== undefined && object.newPubKey !== null
+        ? Any.fromJSON(object.newPubKey)
+        : undefined;
+    message.newDiversifier =
+      object.newDiversifier !== undefined && object.newDiversifier !== null
+        ? String(object.newDiversifier)
+        : "";
     return message;
   },
 
@@ -1021,11 +978,10 @@ export const HeaderData = {
 
   fromPartial(object: DeepPartial<HeaderData>): HeaderData {
     const message = { ...baseHeaderData } as HeaderData;
-    if (object.newPubKey !== undefined && object.newPubKey !== null) {
-      message.newPubKey = Any.fromPartial(object.newPubKey);
-    } else {
-      message.newPubKey = undefined;
-    }
+    message.newPubKey =
+      object.newPubKey !== undefined && object.newPubKey !== null
+        ? Any.fromPartial(object.newPubKey)
+        : undefined;
     message.newDiversifier = object.newDiversifier ?? "";
     return message;
   },
@@ -1068,15 +1024,12 @@ export const ClientStateData = {
 
   fromJSON(object: any): ClientStateData {
     const message = { ...baseClientStateData } as ClientStateData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.clientState !== undefined && object.clientState !== null) {
-      message.clientState = Any.fromJSON(object.clientState);
-    } else {
-      message.clientState = undefined;
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.clientState =
+      object.clientState !== undefined && object.clientState !== null
+        ? Any.fromJSON(object.clientState)
+        : undefined;
     return message;
   },
 
@@ -1092,11 +1045,10 @@ export const ClientStateData = {
   fromPartial(object: DeepPartial<ClientStateData>): ClientStateData {
     const message = { ...baseClientStateData } as ClientStateData;
     message.path = object.path ?? new Uint8Array();
-    if (object.clientState !== undefined && object.clientState !== null) {
-      message.clientState = Any.fromPartial(object.clientState);
-    } else {
-      message.clientState = undefined;
-    }
+    message.clientState =
+      object.clientState !== undefined && object.clientState !== null
+        ? Any.fromPartial(object.clientState)
+        : undefined;
     return message;
   },
 };
@@ -1138,15 +1090,12 @@ export const ConsensusStateData = {
 
   fromJSON(object: any): ConsensusStateData {
     const message = { ...baseConsensusStateData } as ConsensusStateData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.consensusState !== undefined && object.consensusState !== null) {
-      message.consensusState = Any.fromJSON(object.consensusState);
-    } else {
-      message.consensusState = undefined;
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.consensusState =
+      object.consensusState !== undefined && object.consensusState !== null
+        ? Any.fromJSON(object.consensusState)
+        : undefined;
     return message;
   },
 
@@ -1162,11 +1111,10 @@ export const ConsensusStateData = {
   fromPartial(object: DeepPartial<ConsensusStateData>): ConsensusStateData {
     const message = { ...baseConsensusStateData } as ConsensusStateData;
     message.path = object.path ?? new Uint8Array();
-    if (object.consensusState !== undefined && object.consensusState !== null) {
-      message.consensusState = Any.fromPartial(object.consensusState);
-    } else {
-      message.consensusState = undefined;
-    }
+    message.consensusState =
+      object.consensusState !== undefined && object.consensusState !== null
+        ? Any.fromPartial(object.consensusState)
+        : undefined;
     return message;
   },
 };
@@ -1208,15 +1156,12 @@ export const ConnectionStateData = {
 
   fromJSON(object: any): ConnectionStateData {
     const message = { ...baseConnectionStateData } as ConnectionStateData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.connection !== undefined && object.connection !== null) {
-      message.connection = ConnectionEnd.fromJSON(object.connection);
-    } else {
-      message.connection = undefined;
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.connection =
+      object.connection !== undefined && object.connection !== null
+        ? ConnectionEnd.fromJSON(object.connection)
+        : undefined;
     return message;
   },
 
@@ -1232,11 +1177,10 @@ export const ConnectionStateData = {
   fromPartial(object: DeepPartial<ConnectionStateData>): ConnectionStateData {
     const message = { ...baseConnectionStateData } as ConnectionStateData;
     message.path = object.path ?? new Uint8Array();
-    if (object.connection !== undefined && object.connection !== null) {
-      message.connection = ConnectionEnd.fromPartial(object.connection);
-    } else {
-      message.connection = undefined;
-    }
+    message.connection =
+      object.connection !== undefined && object.connection !== null
+        ? ConnectionEnd.fromPartial(object.connection)
+        : undefined;
     return message;
   },
 };
@@ -1278,15 +1222,10 @@ export const ChannelStateData = {
 
   fromJSON(object: any): ChannelStateData {
     const message = { ...baseChannelStateData } as ChannelStateData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromJSON(object.channel);
-    } else {
-      message.channel = undefined;
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.channel =
+      object.channel !== undefined && object.channel !== null ? Channel.fromJSON(object.channel) : undefined;
     return message;
   },
 
@@ -1302,11 +1241,10 @@ export const ChannelStateData = {
   fromPartial(object: DeepPartial<ChannelStateData>): ChannelStateData {
     const message = { ...baseChannelStateData } as ChannelStateData;
     message.path = object.path ?? new Uint8Array();
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromPartial(object.channel);
-    } else {
-      message.channel = undefined;
-    }
+    message.channel =
+      object.channel !== undefined && object.channel !== null
+        ? Channel.fromPartial(object.channel)
+        : undefined;
     return message;
   },
 };
@@ -1349,14 +1287,12 @@ export const PacketCommitmentData = {
 
   fromJSON(object: any): PacketCommitmentData {
     const message = { ...basePacketCommitmentData } as PacketCommitmentData;
-    message.path = new Uint8Array();
-    message.commitment = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.commitment !== undefined && object.commitment !== null) {
-      message.commitment = bytesFromBase64(object.commitment);
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.commitment =
+      object.commitment !== undefined && object.commitment !== null
+        ? bytesFromBase64(object.commitment)
+        : new Uint8Array();
     return message;
   },
 
@@ -1417,14 +1353,12 @@ export const PacketAcknowledgementData = {
 
   fromJSON(object: any): PacketAcknowledgementData {
     const message = { ...basePacketAcknowledgementData } as PacketAcknowledgementData;
-    message.path = new Uint8Array();
-    message.acknowledgement = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.acknowledgement !== undefined && object.acknowledgement !== null) {
-      message.acknowledgement = bytesFromBase64(object.acknowledgement);
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.acknowledgement =
+      object.acknowledgement !== undefined && object.acknowledgement !== null
+        ? bytesFromBase64(object.acknowledgement)
+        : new Uint8Array();
     return message;
   },
 
@@ -1478,10 +1412,8 @@ export const PacketReceiptAbsenceData = {
 
   fromJSON(object: any): PacketReceiptAbsenceData {
     const message = { ...basePacketReceiptAbsenceData } as PacketReceiptAbsenceData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
     return message;
   },
 
@@ -1536,15 +1468,12 @@ export const NextSequenceRecvData = {
 
   fromJSON(object: any): NextSequenceRecvData {
     const message = { ...baseNextSequenceRecvData } as NextSequenceRecvData;
-    message.path = new Uint8Array();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = bytesFromBase64(object.path);
-    }
-    if (object.nextSeqRecv !== undefined && object.nextSeqRecv !== null) {
-      message.nextSeqRecv = Long.fromString(object.nextSeqRecv);
-    } else {
-      message.nextSeqRecv = Long.UZERO;
-    }
+    message.path =
+      object.path !== undefined && object.path !== null ? bytesFromBase64(object.path) : new Uint8Array();
+    message.nextSeqRecv =
+      object.nextSeqRecv !== undefined && object.nextSeqRecv !== null
+        ? Long.fromString(object.nextSeqRecv)
+        : Long.UZERO;
     return message;
   },
 

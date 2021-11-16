@@ -72,16 +72,8 @@ export const Coin = {
 
   fromJSON(object: any): Coin {
     const message = { ...baseCoin } as Coin;
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = String(object.denom);
-    } else {
-      message.denom = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = String(object.amount);
-    } else {
-      message.amount = "";
-    }
+    message.denom = object.denom !== undefined && object.denom !== null ? String(object.denom) : "";
+    message.amount = object.amount !== undefined && object.amount !== null ? String(object.amount) : "";
     return message;
   },
 
@@ -136,16 +128,8 @@ export const DecCoin = {
 
   fromJSON(object: any): DecCoin {
     const message = { ...baseDecCoin } as DecCoin;
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = String(object.denom);
-    } else {
-      message.denom = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = String(object.amount);
-    } else {
-      message.amount = "";
-    }
+    message.denom = object.denom !== undefined && object.denom !== null ? String(object.denom) : "";
+    message.amount = object.amount !== undefined && object.amount !== null ? String(object.amount) : "";
     return message;
   },
 
@@ -194,11 +178,7 @@ export const IntProto = {
 
   fromJSON(object: any): IntProto {
     const message = { ...baseIntProto } as IntProto;
-    if (object.int !== undefined && object.int !== null) {
-      message.int = String(object.int);
-    } else {
-      message.int = "";
-    }
+    message.int = object.int !== undefined && object.int !== null ? String(object.int) : "";
     return message;
   },
 
@@ -245,11 +225,7 @@ export const DecProto = {
 
   fromJSON(object: any): DecProto {
     const message = { ...baseDecProto } as DecProto;
-    if (object.dec !== undefined && object.dec !== null) {
-      message.dec = String(object.dec);
-    } else {
-      message.dec = "";
-    }
+    message.dec = object.dec !== undefined && object.dec !== null ? String(object.dec) : "";
     return message;
   },
 

@@ -80,32 +80,15 @@ export const MsgCreateVestingAccount = {
 
   fromJSON(object: any): MsgCreateVestingAccount {
     const message = { ...baseMsgCreateVestingAccount } as MsgCreateVestingAccount;
-    message.amount = [];
-    if (object.fromAddress !== undefined && object.fromAddress !== null) {
-      message.fromAddress = String(object.fromAddress);
-    } else {
-      message.fromAddress = "";
-    }
-    if (object.toAddress !== undefined && object.toAddress !== null) {
-      message.toAddress = String(object.toAddress);
-    } else {
-      message.toAddress = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.endTime !== undefined && object.endTime !== null) {
-      message.endTime = Long.fromString(object.endTime);
-    } else {
-      message.endTime = Long.ZERO;
-    }
-    if (object.delayed !== undefined && object.delayed !== null) {
-      message.delayed = Boolean(object.delayed);
-    } else {
-      message.delayed = false;
-    }
+    message.fromAddress =
+      object.fromAddress !== undefined && object.fromAddress !== null ? String(object.fromAddress) : "";
+    message.toAddress =
+      object.toAddress !== undefined && object.toAddress !== null ? String(object.toAddress) : "";
+    message.amount = (object.amount ?? []).map((e: any) => Coin.fromJSON(e));
+    message.endTime =
+      object.endTime !== undefined && object.endTime !== null ? Long.fromString(object.endTime) : Long.ZERO;
+    message.delayed =
+      object.delayed !== undefined && object.delayed !== null ? Boolean(object.delayed) : false;
     return message;
   },
 
@@ -127,12 +110,7 @@ export const MsgCreateVestingAccount = {
     const message = { ...baseMsgCreateVestingAccount } as MsgCreateVestingAccount;
     message.fromAddress = object.fromAddress ?? "";
     message.toAddress = object.toAddress ?? "";
-    message.amount = [];
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromPartial(e));
-      }
-    }
+    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
     if (object.endTime !== undefined && object.endTime !== null) {
       message.endTime = object.endTime as Long;
     } else {

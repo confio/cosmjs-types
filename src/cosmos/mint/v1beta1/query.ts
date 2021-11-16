@@ -109,11 +109,8 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromJSON(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
     return message;
   },
 
@@ -125,11 +122,8 @@ export const QueryParamsResponse = {
 
   fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromPartial(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
 };
@@ -203,10 +197,10 @@ export const QueryInflationResponse = {
 
   fromJSON(object: any): QueryInflationResponse {
     const message = { ...baseQueryInflationResponse } as QueryInflationResponse;
-    message.inflation = new Uint8Array();
-    if (object.inflation !== undefined && object.inflation !== null) {
-      message.inflation = bytesFromBase64(object.inflation);
-    }
+    message.inflation =
+      object.inflation !== undefined && object.inflation !== null
+        ? bytesFromBase64(object.inflation)
+        : new Uint8Array();
     return message;
   },
 
@@ -295,10 +289,10 @@ export const QueryAnnualProvisionsResponse = {
 
   fromJSON(object: any): QueryAnnualProvisionsResponse {
     const message = { ...baseQueryAnnualProvisionsResponse } as QueryAnnualProvisionsResponse;
-    message.annualProvisions = new Uint8Array();
-    if (object.annualProvisions !== undefined && object.annualProvisions !== null) {
-      message.annualProvisions = bytesFromBase64(object.annualProvisions);
-    }
+    message.annualProvisions =
+      object.annualProvisions !== undefined && object.annualProvisions !== null
+        ? bytesFromBase64(object.annualProvisions)
+        : new Uint8Array();
     return message;
   },
 

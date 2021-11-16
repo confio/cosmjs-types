@@ -42,11 +42,8 @@ export const MsgUnjail = {
 
   fromJSON(object: any): MsgUnjail {
     const message = { ...baseMsgUnjail } as MsgUnjail;
-    if (object.validatorAddr !== undefined && object.validatorAddr !== null) {
-      message.validatorAddr = String(object.validatorAddr);
-    } else {
-      message.validatorAddr = "";
-    }
+    message.validatorAddr =
+      object.validatorAddr !== undefined && object.validatorAddr !== null ? String(object.validatorAddr) : "";
     return message;
   },
 

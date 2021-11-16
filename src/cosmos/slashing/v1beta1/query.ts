@@ -118,11 +118,8 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromJSON(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
     return message;
   },
 
@@ -134,11 +131,8 @@ export const QueryParamsResponse = {
 
   fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromPartial(object.params);
-    } else {
-      message.params = undefined;
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
 };
@@ -173,11 +167,8 @@ export const QuerySigningInfoRequest = {
 
   fromJSON(object: any): QuerySigningInfoRequest {
     const message = { ...baseQuerySigningInfoRequest } as QuerySigningInfoRequest;
-    if (object.consAddress !== undefined && object.consAddress !== null) {
-      message.consAddress = String(object.consAddress);
-    } else {
-      message.consAddress = "";
-    }
+    message.consAddress =
+      object.consAddress !== undefined && object.consAddress !== null ? String(object.consAddress) : "";
     return message;
   },
 
@@ -224,11 +215,10 @@ export const QuerySigningInfoResponse = {
 
   fromJSON(object: any): QuerySigningInfoResponse {
     const message = { ...baseQuerySigningInfoResponse } as QuerySigningInfoResponse;
-    if (object.valSigningInfo !== undefined && object.valSigningInfo !== null) {
-      message.valSigningInfo = ValidatorSigningInfo.fromJSON(object.valSigningInfo);
-    } else {
-      message.valSigningInfo = undefined;
-    }
+    message.valSigningInfo =
+      object.valSigningInfo !== undefined && object.valSigningInfo !== null
+        ? ValidatorSigningInfo.fromJSON(object.valSigningInfo)
+        : undefined;
     return message;
   },
 
@@ -243,11 +233,10 @@ export const QuerySigningInfoResponse = {
 
   fromPartial(object: DeepPartial<QuerySigningInfoResponse>): QuerySigningInfoResponse {
     const message = { ...baseQuerySigningInfoResponse } as QuerySigningInfoResponse;
-    if (object.valSigningInfo !== undefined && object.valSigningInfo !== null) {
-      message.valSigningInfo = ValidatorSigningInfo.fromPartial(object.valSigningInfo);
-    } else {
-      message.valSigningInfo = undefined;
-    }
+    message.valSigningInfo =
+      object.valSigningInfo !== undefined && object.valSigningInfo !== null
+        ? ValidatorSigningInfo.fromPartial(object.valSigningInfo)
+        : undefined;
     return message;
   },
 };
@@ -282,11 +271,10 @@ export const QuerySigningInfosRequest = {
 
   fromJSON(object: any): QuerySigningInfosRequest {
     const message = { ...baseQuerySigningInfosRequest } as QuerySigningInfosRequest;
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -299,11 +287,10 @@ export const QuerySigningInfosRequest = {
 
   fromPartial(object: DeepPartial<QuerySigningInfosRequest>): QuerySigningInfosRequest {
     const message = { ...baseQuerySigningInfosRequest } as QuerySigningInfosRequest;
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -345,17 +332,11 @@ export const QuerySigningInfosResponse = {
 
   fromJSON(object: any): QuerySigningInfosResponse {
     const message = { ...baseQuerySigningInfosResponse } as QuerySigningInfosResponse;
-    message.info = [];
-    if (object.info !== undefined && object.info !== null) {
-      for (const e of object.info) {
-        message.info.push(ValidatorSigningInfo.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.info = (object.info ?? []).map((e: any) => ValidatorSigningInfo.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -373,17 +354,11 @@ export const QuerySigningInfosResponse = {
 
   fromPartial(object: DeepPartial<QuerySigningInfosResponse>): QuerySigningInfosResponse {
     const message = { ...baseQuerySigningInfosResponse } as QuerySigningInfosResponse;
-    message.info = [];
-    if (object.info !== undefined && object.info !== null) {
-      for (const e of object.info) {
-        message.info.push(ValidatorSigningInfo.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.info = (object.info ?? []).map((e) => ValidatorSigningInfo.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };

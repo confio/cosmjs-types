@@ -76,25 +76,17 @@ export const MsgIBCSend = {
 
   fromJSON(object: any): MsgIBCSend {
     const message = { ...baseMsgIBCSend } as MsgIBCSend;
-    message.data = new Uint8Array();
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = String(object.channel);
-    } else {
-      message.channel = "";
-    }
-    if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
-      message.timeoutHeight = Long.fromString(object.timeoutHeight);
-    } else {
-      message.timeoutHeight = Long.UZERO;
-    }
-    if (object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null) {
-      message.timeoutTimestamp = Long.fromString(object.timeoutTimestamp);
-    } else {
-      message.timeoutTimestamp = Long.UZERO;
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
+    message.channel = object.channel !== undefined && object.channel !== null ? String(object.channel) : "";
+    message.timeoutHeight =
+      object.timeoutHeight !== undefined && object.timeoutHeight !== null
+        ? Long.fromString(object.timeoutHeight)
+        : Long.UZERO;
+    message.timeoutTimestamp =
+      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
+        ? Long.fromString(object.timeoutTimestamp)
+        : Long.UZERO;
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
     return message;
   },
 
@@ -158,11 +150,7 @@ export const MsgIBCCloseChannel = {
 
   fromJSON(object: any): MsgIBCCloseChannel {
     const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = String(object.channel);
-    } else {
-      message.channel = "";
-    }
+    message.channel = object.channel !== undefined && object.channel !== null ? String(object.channel) : "";
     return message;
   },
 

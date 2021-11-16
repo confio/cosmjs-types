@@ -105,35 +105,12 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.codes = [];
-    message.contracts = [];
-    message.sequences = [];
-    message.genMsgs = [];
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromJSON(object.params);
-    } else {
-      message.params = undefined;
-    }
-    if (object.codes !== undefined && object.codes !== null) {
-      for (const e of object.codes) {
-        message.codes.push(Code.fromJSON(e));
-      }
-    }
-    if (object.contracts !== undefined && object.contracts !== null) {
-      for (const e of object.contracts) {
-        message.contracts.push(Contract.fromJSON(e));
-      }
-    }
-    if (object.sequences !== undefined && object.sequences !== null) {
-      for (const e of object.sequences) {
-        message.sequences.push(Sequence.fromJSON(e));
-      }
-    }
-    if (object.genMsgs !== undefined && object.genMsgs !== null) {
-      for (const e of object.genMsgs) {
-        message.genMsgs.push(GenesisState_GenMsgs.fromJSON(e));
-      }
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
+    message.codes = (object.codes ?? []).map((e: any) => Code.fromJSON(e));
+    message.contracts = (object.contracts ?? []).map((e: any) => Contract.fromJSON(e));
+    message.sequences = (object.sequences ?? []).map((e: any) => Sequence.fromJSON(e));
+    message.genMsgs = (object.genMsgs ?? []).map((e: any) => GenesisState_GenMsgs.fromJSON(e));
     return message;
   },
 
@@ -165,35 +142,12 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromPartial(object.params);
-    } else {
-      message.params = undefined;
-    }
-    message.codes = [];
-    if (object.codes !== undefined && object.codes !== null) {
-      for (const e of object.codes) {
-        message.codes.push(Code.fromPartial(e));
-      }
-    }
-    message.contracts = [];
-    if (object.contracts !== undefined && object.contracts !== null) {
-      for (const e of object.contracts) {
-        message.contracts.push(Contract.fromPartial(e));
-      }
-    }
-    message.sequences = [];
-    if (object.sequences !== undefined && object.sequences !== null) {
-      for (const e of object.sequences) {
-        message.sequences.push(Sequence.fromPartial(e));
-      }
-    }
-    message.genMsgs = [];
-    if (object.genMsgs !== undefined && object.genMsgs !== null) {
-      for (const e of object.genMsgs) {
-        message.genMsgs.push(GenesisState_GenMsgs.fromPartial(e));
-      }
-    }
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    message.codes = (object.codes ?? []).map((e) => Code.fromPartial(e));
+    message.contracts = (object.contracts ?? []).map((e) => Contract.fromPartial(e));
+    message.sequences = (object.sequences ?? []).map((e) => Sequence.fromPartial(e));
+    message.genMsgs = (object.genMsgs ?? []).map((e) => GenesisState_GenMsgs.fromPartial(e));
     return message;
   },
 };
@@ -240,21 +194,18 @@ export const GenesisState_GenMsgs = {
 
   fromJSON(object: any): GenesisState_GenMsgs {
     const message = { ...baseGenesisState_GenMsgs } as GenesisState_GenMsgs;
-    if (object.storeCode !== undefined && object.storeCode !== null) {
-      message.storeCode = MsgStoreCode.fromJSON(object.storeCode);
-    } else {
-      message.storeCode = undefined;
-    }
-    if (object.instantiateContract !== undefined && object.instantiateContract !== null) {
-      message.instantiateContract = MsgInstantiateContract.fromJSON(object.instantiateContract);
-    } else {
-      message.instantiateContract = undefined;
-    }
-    if (object.executeContract !== undefined && object.executeContract !== null) {
-      message.executeContract = MsgExecuteContract.fromJSON(object.executeContract);
-    } else {
-      message.executeContract = undefined;
-    }
+    message.storeCode =
+      object.storeCode !== undefined && object.storeCode !== null
+        ? MsgStoreCode.fromJSON(object.storeCode)
+        : undefined;
+    message.instantiateContract =
+      object.instantiateContract !== undefined && object.instantiateContract !== null
+        ? MsgInstantiateContract.fromJSON(object.instantiateContract)
+        : undefined;
+    message.executeContract =
+      object.executeContract !== undefined && object.executeContract !== null
+        ? MsgExecuteContract.fromJSON(object.executeContract)
+        : undefined;
     return message;
   },
 
@@ -275,21 +226,18 @@ export const GenesisState_GenMsgs = {
 
   fromPartial(object: DeepPartial<GenesisState_GenMsgs>): GenesisState_GenMsgs {
     const message = { ...baseGenesisState_GenMsgs } as GenesisState_GenMsgs;
-    if (object.storeCode !== undefined && object.storeCode !== null) {
-      message.storeCode = MsgStoreCode.fromPartial(object.storeCode);
-    } else {
-      message.storeCode = undefined;
-    }
-    if (object.instantiateContract !== undefined && object.instantiateContract !== null) {
-      message.instantiateContract = MsgInstantiateContract.fromPartial(object.instantiateContract);
-    } else {
-      message.instantiateContract = undefined;
-    }
-    if (object.executeContract !== undefined && object.executeContract !== null) {
-      message.executeContract = MsgExecuteContract.fromPartial(object.executeContract);
-    } else {
-      message.executeContract = undefined;
-    }
+    message.storeCode =
+      object.storeCode !== undefined && object.storeCode !== null
+        ? MsgStoreCode.fromPartial(object.storeCode)
+        : undefined;
+    message.instantiateContract =
+      object.instantiateContract !== undefined && object.instantiateContract !== null
+        ? MsgInstantiateContract.fromPartial(object.instantiateContract)
+        : undefined;
+    message.executeContract =
+      object.executeContract !== undefined && object.executeContract !== null
+        ? MsgExecuteContract.fromPartial(object.executeContract)
+        : undefined;
     return message;
   },
 };
@@ -343,25 +291,17 @@ export const Code = {
 
   fromJSON(object: any): Code {
     const message = { ...baseCode } as Code;
-    message.codeBytes = new Uint8Array();
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.codeInfo !== undefined && object.codeInfo !== null) {
-      message.codeInfo = CodeInfo.fromJSON(object.codeInfo);
-    } else {
-      message.codeInfo = undefined;
-    }
-    if (object.codeBytes !== undefined && object.codeBytes !== null) {
-      message.codeBytes = bytesFromBase64(object.codeBytes);
-    }
-    if (object.pinned !== undefined && object.pinned !== null) {
-      message.pinned = Boolean(object.pinned);
-    } else {
-      message.pinned = false;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.codeInfo =
+      object.codeInfo !== undefined && object.codeInfo !== null
+        ? CodeInfo.fromJSON(object.codeInfo)
+        : undefined;
+    message.codeBytes =
+      object.codeBytes !== undefined && object.codeBytes !== null
+        ? bytesFromBase64(object.codeBytes)
+        : new Uint8Array();
+    message.pinned = object.pinned !== undefined && object.pinned !== null ? Boolean(object.pinned) : false;
     return message;
   },
 
@@ -385,11 +325,10 @@ export const Code = {
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.codeInfo !== undefined && object.codeInfo !== null) {
-      message.codeInfo = CodeInfo.fromPartial(object.codeInfo);
-    } else {
-      message.codeInfo = undefined;
-    }
+    message.codeInfo =
+      object.codeInfo !== undefined && object.codeInfo !== null
+        ? CodeInfo.fromPartial(object.codeInfo)
+        : undefined;
     message.codeBytes = object.codeBytes ?? new Uint8Array();
     message.pinned = object.pinned ?? false;
     return message;
@@ -439,22 +378,15 @@ export const Contract = {
 
   fromJSON(object: any): Contract {
     const message = { ...baseContract } as Contract;
-    message.contractState = [];
-    if (object.contractAddress !== undefined && object.contractAddress !== null) {
-      message.contractAddress = String(object.contractAddress);
-    } else {
-      message.contractAddress = "";
-    }
-    if (object.contractInfo !== undefined && object.contractInfo !== null) {
-      message.contractInfo = ContractInfo.fromJSON(object.contractInfo);
-    } else {
-      message.contractInfo = undefined;
-    }
-    if (object.contractState !== undefined && object.contractState !== null) {
-      for (const e of object.contractState) {
-        message.contractState.push(Model.fromJSON(e));
-      }
-    }
+    message.contractAddress =
+      object.contractAddress !== undefined && object.contractAddress !== null
+        ? String(object.contractAddress)
+        : "";
+    message.contractInfo =
+      object.contractInfo !== undefined && object.contractInfo !== null
+        ? ContractInfo.fromJSON(object.contractInfo)
+        : undefined;
+    message.contractState = (object.contractState ?? []).map((e: any) => Model.fromJSON(e));
     return message;
   },
 
@@ -474,17 +406,11 @@ export const Contract = {
   fromPartial(object: DeepPartial<Contract>): Contract {
     const message = { ...baseContract } as Contract;
     message.contractAddress = object.contractAddress ?? "";
-    if (object.contractInfo !== undefined && object.contractInfo !== null) {
-      message.contractInfo = ContractInfo.fromPartial(object.contractInfo);
-    } else {
-      message.contractInfo = undefined;
-    }
-    message.contractState = [];
-    if (object.contractState !== undefined && object.contractState !== null) {
-      for (const e of object.contractState) {
-        message.contractState.push(Model.fromPartial(e));
-      }
-    }
+    message.contractInfo =
+      object.contractInfo !== undefined && object.contractInfo !== null
+        ? ContractInfo.fromPartial(object.contractInfo)
+        : undefined;
+    message.contractState = (object.contractState ?? []).map((e) => Model.fromPartial(e));
     return message;
   },
 };
@@ -526,15 +452,10 @@ export const Sequence = {
 
   fromJSON(object: any): Sequence {
     const message = { ...baseSequence } as Sequence;
-    message.idKey = new Uint8Array();
-    if (object.idKey !== undefined && object.idKey !== null) {
-      message.idKey = bytesFromBase64(object.idKey);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = Long.fromString(object.value);
-    } else {
-      message.value = Long.UZERO;
-    }
+    message.idKey =
+      object.idKey !== undefined && object.idKey !== null ? bytesFromBase64(object.idKey) : new Uint8Array();
+    message.value =
+      object.value !== undefined && object.value !== null ? Long.fromString(object.value) : Long.UZERO;
     return message;
   },
 

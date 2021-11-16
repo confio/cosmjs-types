@@ -157,11 +157,7 @@ export const QueryCurrentPlanResponse = {
 
   fromJSON(object: any): QueryCurrentPlanResponse {
     const message = { ...baseQueryCurrentPlanResponse } as QueryCurrentPlanResponse;
-    if (object.plan !== undefined && object.plan !== null) {
-      message.plan = Plan.fromJSON(object.plan);
-    } else {
-      message.plan = undefined;
-    }
+    message.plan = object.plan !== undefined && object.plan !== null ? Plan.fromJSON(object.plan) : undefined;
     return message;
   },
 
@@ -173,11 +169,8 @@ export const QueryCurrentPlanResponse = {
 
   fromPartial(object: DeepPartial<QueryCurrentPlanResponse>): QueryCurrentPlanResponse {
     const message = { ...baseQueryCurrentPlanResponse } as QueryCurrentPlanResponse;
-    if (object.plan !== undefined && object.plan !== null) {
-      message.plan = Plan.fromPartial(object.plan);
-    } else {
-      message.plan = undefined;
-    }
+    message.plan =
+      object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
     return message;
   },
 };
@@ -212,11 +205,7 @@ export const QueryAppliedPlanRequest = {
 
   fromJSON(object: any): QueryAppliedPlanRequest {
     const message = { ...baseQueryAppliedPlanRequest } as QueryAppliedPlanRequest;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
+    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
     return message;
   },
 
@@ -263,11 +252,8 @@ export const QueryAppliedPlanResponse = {
 
   fromJSON(object: any): QueryAppliedPlanResponse {
     const message = { ...baseQueryAppliedPlanResponse } as QueryAppliedPlanResponse;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Long.fromString(object.height);
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
     return message;
   },
 
@@ -318,11 +304,10 @@ export const QueryUpgradedConsensusStateRequest = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateRequest {
     const message = { ...baseQueryUpgradedConsensusStateRequest } as QueryUpgradedConsensusStateRequest;
-    if (object.lastHeight !== undefined && object.lastHeight !== null) {
-      message.lastHeight = Long.fromString(object.lastHeight);
-    } else {
-      message.lastHeight = Long.ZERO;
-    }
+    message.lastHeight =
+      object.lastHeight !== undefined && object.lastHeight !== null
+        ? Long.fromString(object.lastHeight)
+        : Long.ZERO;
     return message;
   },
 
@@ -374,10 +359,10 @@ export const QueryUpgradedConsensusStateResponse = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateResponse {
     const message = { ...baseQueryUpgradedConsensusStateResponse } as QueryUpgradedConsensusStateResponse;
-    message.upgradedConsensusState = new Uint8Array();
-    if (object.upgradedConsensusState !== undefined && object.upgradedConsensusState !== null) {
-      message.upgradedConsensusState = bytesFromBase64(object.upgradedConsensusState);
-    }
+    message.upgradedConsensusState =
+      object.upgradedConsensusState !== undefined && object.upgradedConsensusState !== null
+        ? bytesFromBase64(object.upgradedConsensusState)
+        : new Uint8Array();
     return message;
   },
 
@@ -427,11 +412,8 @@ export const QueryModuleVersionsRequest = {
 
   fromJSON(object: any): QueryModuleVersionsRequest {
     const message = { ...baseQueryModuleVersionsRequest } as QueryModuleVersionsRequest;
-    if (object.moduleName !== undefined && object.moduleName !== null) {
-      message.moduleName = String(object.moduleName);
-    } else {
-      message.moduleName = "";
-    }
+    message.moduleName =
+      object.moduleName !== undefined && object.moduleName !== null ? String(object.moduleName) : "";
     return message;
   },
 
@@ -479,12 +461,7 @@ export const QueryModuleVersionsResponse = {
 
   fromJSON(object: any): QueryModuleVersionsResponse {
     const message = { ...baseQueryModuleVersionsResponse } as QueryModuleVersionsResponse;
-    message.moduleVersions = [];
-    if (object.moduleVersions !== undefined && object.moduleVersions !== null) {
-      for (const e of object.moduleVersions) {
-        message.moduleVersions.push(ModuleVersion.fromJSON(e));
-      }
-    }
+    message.moduleVersions = (object.moduleVersions ?? []).map((e: any) => ModuleVersion.fromJSON(e));
     return message;
   },
 
@@ -500,12 +477,7 @@ export const QueryModuleVersionsResponse = {
 
   fromPartial(object: DeepPartial<QueryModuleVersionsResponse>): QueryModuleVersionsResponse {
     const message = { ...baseQueryModuleVersionsResponse } as QueryModuleVersionsResponse;
-    message.moduleVersions = [];
-    if (object.moduleVersions !== undefined && object.moduleVersions !== null) {
-      for (const e of object.moduleVersions) {
-        message.moduleVersions.push(ModuleVersion.fromPartial(e));
-      }
-    }
+    message.moduleVersions = (object.moduleVersions ?? []).map((e) => ModuleVersion.fromPartial(e));
     return message;
   },
 };

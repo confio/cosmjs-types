@@ -109,36 +109,25 @@ export const ValidatorSigningInfo = {
 
   fromJSON(object: any): ValidatorSigningInfo {
     const message = { ...baseValidatorSigningInfo } as ValidatorSigningInfo;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address);
-    } else {
-      message.address = "";
-    }
-    if (object.startHeight !== undefined && object.startHeight !== null) {
-      message.startHeight = Long.fromString(object.startHeight);
-    } else {
-      message.startHeight = Long.ZERO;
-    }
-    if (object.indexOffset !== undefined && object.indexOffset !== null) {
-      message.indexOffset = Long.fromString(object.indexOffset);
-    } else {
-      message.indexOffset = Long.ZERO;
-    }
-    if (object.jailedUntil !== undefined && object.jailedUntil !== null) {
-      message.jailedUntil = fromJsonTimestamp(object.jailedUntil);
-    } else {
-      message.jailedUntil = undefined;
-    }
-    if (object.tombstoned !== undefined && object.tombstoned !== null) {
-      message.tombstoned = Boolean(object.tombstoned);
-    } else {
-      message.tombstoned = false;
-    }
-    if (object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null) {
-      message.missedBlocksCounter = Long.fromString(object.missedBlocksCounter);
-    } else {
-      message.missedBlocksCounter = Long.ZERO;
-    }
+    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
+    message.startHeight =
+      object.startHeight !== undefined && object.startHeight !== null
+        ? Long.fromString(object.startHeight)
+        : Long.ZERO;
+    message.indexOffset =
+      object.indexOffset !== undefined && object.indexOffset !== null
+        ? Long.fromString(object.indexOffset)
+        : Long.ZERO;
+    message.jailedUntil =
+      object.jailedUntil !== undefined && object.jailedUntil !== null
+        ? fromJsonTimestamp(object.jailedUntil)
+        : undefined;
+    message.tombstoned =
+      object.tombstoned !== undefined && object.tombstoned !== null ? Boolean(object.tombstoned) : false;
+    message.missedBlocksCounter =
+      object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null
+        ? Long.fromString(object.missedBlocksCounter)
+        : Long.ZERO;
     return message;
   },
 
@@ -235,28 +224,26 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
-    message.minSignedPerWindow = new Uint8Array();
-    message.slashFractionDoubleSign = new Uint8Array();
-    message.slashFractionDowntime = new Uint8Array();
-    if (object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null) {
-      message.signedBlocksWindow = Long.fromString(object.signedBlocksWindow);
-    } else {
-      message.signedBlocksWindow = Long.ZERO;
-    }
-    if (object.minSignedPerWindow !== undefined && object.minSignedPerWindow !== null) {
-      message.minSignedPerWindow = bytesFromBase64(object.minSignedPerWindow);
-    }
-    if (object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null) {
-      message.downtimeJailDuration = Duration.fromJSON(object.downtimeJailDuration);
-    } else {
-      message.downtimeJailDuration = undefined;
-    }
-    if (object.slashFractionDoubleSign !== undefined && object.slashFractionDoubleSign !== null) {
-      message.slashFractionDoubleSign = bytesFromBase64(object.slashFractionDoubleSign);
-    }
-    if (object.slashFractionDowntime !== undefined && object.slashFractionDowntime !== null) {
-      message.slashFractionDowntime = bytesFromBase64(object.slashFractionDowntime);
-    }
+    message.signedBlocksWindow =
+      object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null
+        ? Long.fromString(object.signedBlocksWindow)
+        : Long.ZERO;
+    message.minSignedPerWindow =
+      object.minSignedPerWindow !== undefined && object.minSignedPerWindow !== null
+        ? bytesFromBase64(object.minSignedPerWindow)
+        : new Uint8Array();
+    message.downtimeJailDuration =
+      object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null
+        ? Duration.fromJSON(object.downtimeJailDuration)
+        : undefined;
+    message.slashFractionDoubleSign =
+      object.slashFractionDoubleSign !== undefined && object.slashFractionDoubleSign !== null
+        ? bytesFromBase64(object.slashFractionDoubleSign)
+        : new Uint8Array();
+    message.slashFractionDowntime =
+      object.slashFractionDowntime !== undefined && object.slashFractionDowntime !== null
+        ? bytesFromBase64(object.slashFractionDowntime)
+        : new Uint8Array();
     return message;
   },
 
@@ -291,11 +278,10 @@ export const Params = {
       message.signedBlocksWindow = Long.ZERO;
     }
     message.minSignedPerWindow = object.minSignedPerWindow ?? new Uint8Array();
-    if (object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null) {
-      message.downtimeJailDuration = Duration.fromPartial(object.downtimeJailDuration);
-    } else {
-      message.downtimeJailDuration = undefined;
-    }
+    message.downtimeJailDuration =
+      object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null
+        ? Duration.fromPartial(object.downtimeJailDuration)
+        : undefined;
     message.slashFractionDoubleSign = object.slashFractionDoubleSign ?? new Uint8Array();
     message.slashFractionDowntime = object.slashFractionDowntime ?? new Uint8Array();
     return message;

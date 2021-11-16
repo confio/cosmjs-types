@@ -46,12 +46,12 @@ export const PublicKey = {
 
   fromJSON(object: any): PublicKey {
     const message = { ...basePublicKey } as PublicKey;
-    if (object.ed25519 !== undefined && object.ed25519 !== null) {
-      message.ed25519 = bytesFromBase64(object.ed25519);
-    }
-    if (object.secp256k1 !== undefined && object.secp256k1 !== null) {
-      message.secp256k1 = bytesFromBase64(object.secp256k1);
-    }
+    message.ed25519 =
+      object.ed25519 !== undefined && object.ed25519 !== null ? bytesFromBase64(object.ed25519) : undefined;
+    message.secp256k1 =
+      object.secp256k1 !== undefined && object.secp256k1 !== null
+        ? bytesFromBase64(object.secp256k1)
+        : undefined;
     return message;
   },
 

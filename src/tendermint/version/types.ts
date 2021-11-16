@@ -60,16 +60,12 @@ export const App = {
 
   fromJSON(object: any): App {
     const message = { ...baseApp } as App;
-    if (object.protocol !== undefined && object.protocol !== null) {
-      message.protocol = Long.fromString(object.protocol);
-    } else {
-      message.protocol = Long.UZERO;
-    }
-    if (object.software !== undefined && object.software !== null) {
-      message.software = String(object.software);
-    } else {
-      message.software = "";
-    }
+    message.protocol =
+      object.protocol !== undefined && object.protocol !== null
+        ? Long.fromString(object.protocol)
+        : Long.UZERO;
+    message.software =
+      object.software !== undefined && object.software !== null ? String(object.software) : "";
     return message;
   },
 
@@ -128,16 +124,9 @@ export const Consensus = {
 
   fromJSON(object: any): Consensus {
     const message = { ...baseConsensus } as Consensus;
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Long.fromString(object.block);
-    } else {
-      message.block = Long.UZERO;
-    }
-    if (object.app !== undefined && object.app !== null) {
-      message.app = Long.fromString(object.app);
-    } else {
-      message.app = Long.UZERO;
-    }
+    message.block =
+      object.block !== undefined && object.block !== null ? Long.fromString(object.block) : Long.UZERO;
+    message.app = object.app !== undefined && object.app !== null ? Long.fromString(object.app) : Long.UZERO;
     return message;
   },
 

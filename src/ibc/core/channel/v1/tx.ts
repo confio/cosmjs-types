@@ -190,21 +190,10 @@ export const MsgChannelOpenInit = {
 
   fromJSON(object: any): MsgChannelOpenInit {
     const message = { ...baseMsgChannelOpenInit } as MsgChannelOpenInit;
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromJSON(object.channel);
-    } else {
-      message.channel = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.channel =
+      object.channel !== undefined && object.channel !== null ? Channel.fromJSON(object.channel) : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -220,11 +209,10 @@ export const MsgChannelOpenInit = {
   fromPartial(object: DeepPartial<MsgChannelOpenInit>): MsgChannelOpenInit {
     const message = { ...baseMsgChannelOpenInit } as MsgChannelOpenInit;
     message.portId = object.portId ?? "";
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromPartial(object.channel);
-    } else {
-      message.channel = undefined;
-    }
+    message.channel =
+      object.channel !== undefined && object.channel !== null
+        ? Channel.fromPartial(object.channel)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -340,40 +328,26 @@ export const MsgChannelOpenTry = {
 
   fromJSON(object: any): MsgChannelOpenTry {
     const message = { ...baseMsgChannelOpenTry } as MsgChannelOpenTry;
-    message.proofInit = new Uint8Array();
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.previousChannelId !== undefined && object.previousChannelId !== null) {
-      message.previousChannelId = String(object.previousChannelId);
-    } else {
-      message.previousChannelId = "";
-    }
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromJSON(object.channel);
-    } else {
-      message.channel = undefined;
-    }
-    if (object.counterpartyVersion !== undefined && object.counterpartyVersion !== null) {
-      message.counterpartyVersion = String(object.counterpartyVersion);
-    } else {
-      message.counterpartyVersion = "";
-    }
-    if (object.proofInit !== undefined && object.proofInit !== null) {
-      message.proofInit = bytesFromBase64(object.proofInit);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.previousChannelId =
+      object.previousChannelId !== undefined && object.previousChannelId !== null
+        ? String(object.previousChannelId)
+        : "";
+    message.channel =
+      object.channel !== undefined && object.channel !== null ? Channel.fromJSON(object.channel) : undefined;
+    message.counterpartyVersion =
+      object.counterpartyVersion !== undefined && object.counterpartyVersion !== null
+        ? String(object.counterpartyVersion)
+        : "";
+    message.proofInit =
+      object.proofInit !== undefined && object.proofInit !== null
+        ? bytesFromBase64(object.proofInit)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -398,18 +372,16 @@ export const MsgChannelOpenTry = {
     const message = { ...baseMsgChannelOpenTry } as MsgChannelOpenTry;
     message.portId = object.portId ?? "";
     message.previousChannelId = object.previousChannelId ?? "";
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = Channel.fromPartial(object.channel);
-    } else {
-      message.channel = undefined;
-    }
+    message.channel =
+      object.channel !== undefined && object.channel !== null
+        ? Channel.fromPartial(object.channel)
+        : undefined;
     message.counterpartyVersion = object.counterpartyVersion ?? "";
     message.proofInit = object.proofInit ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -526,40 +498,26 @@ export const MsgChannelOpenAck = {
 
   fromJSON(object: any): MsgChannelOpenAck {
     const message = { ...baseMsgChannelOpenAck } as MsgChannelOpenAck;
-    message.proofTry = new Uint8Array();
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = String(object.channelId);
-    } else {
-      message.channelId = "";
-    }
-    if (object.counterpartyChannelId !== undefined && object.counterpartyChannelId !== null) {
-      message.counterpartyChannelId = String(object.counterpartyChannelId);
-    } else {
-      message.counterpartyChannelId = "";
-    }
-    if (object.counterpartyVersion !== undefined && object.counterpartyVersion !== null) {
-      message.counterpartyVersion = String(object.counterpartyVersion);
-    } else {
-      message.counterpartyVersion = "";
-    }
-    if (object.proofTry !== undefined && object.proofTry !== null) {
-      message.proofTry = bytesFromBase64(object.proofTry);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.channelId =
+      object.channelId !== undefined && object.channelId !== null ? String(object.channelId) : "";
+    message.counterpartyChannelId =
+      object.counterpartyChannelId !== undefined && object.counterpartyChannelId !== null
+        ? String(object.counterpartyChannelId)
+        : "";
+    message.counterpartyVersion =
+      object.counterpartyVersion !== undefined && object.counterpartyVersion !== null
+        ? String(object.counterpartyVersion)
+        : "";
+    message.proofTry =
+      object.proofTry !== undefined && object.proofTry !== null
+        ? bytesFromBase64(object.proofTry)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -585,11 +543,10 @@ export const MsgChannelOpenAck = {
     message.counterpartyChannelId = object.counterpartyChannelId ?? "";
     message.counterpartyVersion = object.counterpartyVersion ?? "";
     message.proofTry = object.proofTry ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -688,30 +645,18 @@ export const MsgChannelOpenConfirm = {
 
   fromJSON(object: any): MsgChannelOpenConfirm {
     const message = { ...baseMsgChannelOpenConfirm } as MsgChannelOpenConfirm;
-    message.proofAck = new Uint8Array();
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = String(object.channelId);
-    } else {
-      message.channelId = "";
-    }
-    if (object.proofAck !== undefined && object.proofAck !== null) {
-      message.proofAck = bytesFromBase64(object.proofAck);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.channelId =
+      object.channelId !== undefined && object.channelId !== null ? String(object.channelId) : "";
+    message.proofAck =
+      object.proofAck !== undefined && object.proofAck !== null
+        ? bytesFromBase64(object.proofAck)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -732,11 +677,10 @@ export const MsgChannelOpenConfirm = {
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
     message.proofAck = object.proofAck ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -822,21 +766,10 @@ export const MsgChannelCloseInit = {
 
   fromJSON(object: any): MsgChannelCloseInit {
     const message = { ...baseMsgChannelCloseInit } as MsgChannelCloseInit;
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = String(object.channelId);
-    } else {
-      message.channelId = "";
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.channelId =
+      object.channelId !== undefined && object.channelId !== null ? String(object.channelId) : "";
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -950,30 +883,18 @@ export const MsgChannelCloseConfirm = {
 
   fromJSON(object: any): MsgChannelCloseConfirm {
     const message = { ...baseMsgChannelCloseConfirm } as MsgChannelCloseConfirm;
-    message.proofInit = new Uint8Array();
-    if (object.portId !== undefined && object.portId !== null) {
-      message.portId = String(object.portId);
-    } else {
-      message.portId = "";
-    }
-    if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = String(object.channelId);
-    } else {
-      message.channelId = "";
-    }
-    if (object.proofInit !== undefined && object.proofInit !== null) {
-      message.proofInit = bytesFromBase64(object.proofInit);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
+    message.channelId =
+      object.channelId !== undefined && object.channelId !== null ? String(object.channelId) : "";
+    message.proofInit =
+      object.proofInit !== undefined && object.proofInit !== null
+        ? bytesFromBase64(object.proofInit)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -996,11 +917,10 @@ export const MsgChannelCloseConfirm = {
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
     message.proofInit = object.proofInit ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -1093,25 +1013,17 @@ export const MsgRecvPacket = {
 
   fromJSON(object: any): MsgRecvPacket {
     const message = { ...baseMsgRecvPacket } as MsgRecvPacket;
-    message.proofCommitment = new Uint8Array();
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromJSON(object.packet);
-    } else {
-      message.packet = undefined;
-    }
-    if (object.proofCommitment !== undefined && object.proofCommitment !== null) {
-      message.proofCommitment = bytesFromBase64(object.proofCommitment);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromJSON(object.packet) : undefined;
+    message.proofCommitment =
+      object.proofCommitment !== undefined && object.proofCommitment !== null
+        ? bytesFromBase64(object.proofCommitment)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -1130,17 +1042,13 @@ export const MsgRecvPacket = {
 
   fromPartial(object: DeepPartial<MsgRecvPacket>): MsgRecvPacket {
     const message = { ...baseMsgRecvPacket } as MsgRecvPacket;
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromPartial(object.packet);
-    } else {
-      message.packet = undefined;
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
     message.proofCommitment = object.proofCommitment ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -1239,30 +1147,21 @@ export const MsgTimeout = {
 
   fromJSON(object: any): MsgTimeout {
     const message = { ...baseMsgTimeout } as MsgTimeout;
-    message.proofUnreceived = new Uint8Array();
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromJSON(object.packet);
-    } else {
-      message.packet = undefined;
-    }
-    if (object.proofUnreceived !== undefined && object.proofUnreceived !== null) {
-      message.proofUnreceived = bytesFromBase64(object.proofUnreceived);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
-      message.nextSequenceRecv = Long.fromString(object.nextSequenceRecv);
-    } else {
-      message.nextSequenceRecv = Long.UZERO;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromJSON(object.packet) : undefined;
+    message.proofUnreceived =
+      object.proofUnreceived !== undefined && object.proofUnreceived !== null
+        ? bytesFromBase64(object.proofUnreceived)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.nextSequenceRecv =
+      object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null
+        ? Long.fromString(object.nextSequenceRecv)
+        : Long.UZERO;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -1283,17 +1182,13 @@ export const MsgTimeout = {
 
   fromPartial(object: DeepPartial<MsgTimeout>): MsgTimeout {
     const message = { ...baseMsgTimeout } as MsgTimeout;
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromPartial(object.packet);
-    } else {
-      message.packet = undefined;
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
     message.proofUnreceived = object.proofUnreceived ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
       message.nextSequenceRecv = object.nextSequenceRecv as Long;
     } else {
@@ -1404,34 +1299,25 @@ export const MsgTimeoutOnClose = {
 
   fromJSON(object: any): MsgTimeoutOnClose {
     const message = { ...baseMsgTimeoutOnClose } as MsgTimeoutOnClose;
-    message.proofUnreceived = new Uint8Array();
-    message.proofClose = new Uint8Array();
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromJSON(object.packet);
-    } else {
-      message.packet = undefined;
-    }
-    if (object.proofUnreceived !== undefined && object.proofUnreceived !== null) {
-      message.proofUnreceived = bytesFromBase64(object.proofUnreceived);
-    }
-    if (object.proofClose !== undefined && object.proofClose !== null) {
-      message.proofClose = bytesFromBase64(object.proofClose);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
-      message.nextSequenceRecv = Long.fromString(object.nextSequenceRecv);
-    } else {
-      message.nextSequenceRecv = Long.UZERO;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromJSON(object.packet) : undefined;
+    message.proofUnreceived =
+      object.proofUnreceived !== undefined && object.proofUnreceived !== null
+        ? bytesFromBase64(object.proofUnreceived)
+        : new Uint8Array();
+    message.proofClose =
+      object.proofClose !== undefined && object.proofClose !== null
+        ? bytesFromBase64(object.proofClose)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.nextSequenceRecv =
+      object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null
+        ? Long.fromString(object.nextSequenceRecv)
+        : Long.UZERO;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -1456,18 +1342,14 @@ export const MsgTimeoutOnClose = {
 
   fromPartial(object: DeepPartial<MsgTimeoutOnClose>): MsgTimeoutOnClose {
     const message = { ...baseMsgTimeoutOnClose } as MsgTimeoutOnClose;
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromPartial(object.packet);
-    } else {
-      message.packet = undefined;
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
     message.proofUnreceived = object.proofUnreceived ?? new Uint8Array();
     message.proofClose = object.proofClose ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
       message.nextSequenceRecv = object.nextSequenceRecv as Long;
     } else {
@@ -1572,29 +1454,21 @@ export const MsgAcknowledgement = {
 
   fromJSON(object: any): MsgAcknowledgement {
     const message = { ...baseMsgAcknowledgement } as MsgAcknowledgement;
-    message.acknowledgement = new Uint8Array();
-    message.proofAcked = new Uint8Array();
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromJSON(object.packet);
-    } else {
-      message.packet = undefined;
-    }
-    if (object.acknowledgement !== undefined && object.acknowledgement !== null) {
-      message.acknowledgement = bytesFromBase64(object.acknowledgement);
-    }
-    if (object.proofAcked !== undefined && object.proofAcked !== null) {
-      message.proofAcked = bytesFromBase64(object.proofAcked);
-    }
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromJSON(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = String(object.signer);
-    } else {
-      message.signer = "";
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromJSON(object.packet) : undefined;
+    message.acknowledgement =
+      object.acknowledgement !== undefined && object.acknowledgement !== null
+        ? bytesFromBase64(object.acknowledgement)
+        : new Uint8Array();
+    message.proofAcked =
+      object.proofAcked !== undefined && object.proofAcked !== null
+        ? bytesFromBase64(object.proofAcked)
+        : new Uint8Array();
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromJSON(object.proofHeight)
+        : undefined;
+    message.signer = object.signer !== undefined && object.signer !== null ? String(object.signer) : "";
     return message;
   },
 
@@ -1617,18 +1491,14 @@ export const MsgAcknowledgement = {
 
   fromPartial(object: DeepPartial<MsgAcknowledgement>): MsgAcknowledgement {
     const message = { ...baseMsgAcknowledgement } as MsgAcknowledgement;
-    if (object.packet !== undefined && object.packet !== null) {
-      message.packet = Packet.fromPartial(object.packet);
-    } else {
-      message.packet = undefined;
-    }
+    message.packet =
+      object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
     message.acknowledgement = object.acknowledgement ?? new Uint8Array();
     message.proofAcked = object.proofAcked ?? new Uint8Array();
-    if (object.proofHeight !== undefined && object.proofHeight !== null) {
-      message.proofHeight = Height.fromPartial(object.proofHeight);
-    } else {
-      message.proofHeight = undefined;
-    }
+    message.proofHeight =
+      object.proofHeight !== undefined && object.proofHeight !== null
+        ? Height.fromPartial(object.proofHeight)
+        : undefined;
     message.signer = object.signer ?? "";
     return message;
   },

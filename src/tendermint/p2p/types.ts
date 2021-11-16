@@ -74,21 +74,9 @@ export const NetAddress = {
 
   fromJSON(object: any): NetAddress {
     const message = { ...baseNetAddress } as NetAddress;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = String(object.id);
-    } else {
-      message.id = "";
-    }
-    if (object.ip !== undefined && object.ip !== null) {
-      message.ip = String(object.ip);
-    } else {
-      message.ip = "";
-    }
-    if (object.port !== undefined && object.port !== null) {
-      message.port = Number(object.port);
-    } else {
-      message.port = 0;
-    }
+    message.id = object.id !== undefined && object.id !== null ? String(object.id) : "";
+    message.ip = object.ip !== undefined && object.ip !== null ? String(object.ip) : "";
+    message.port = object.port !== undefined && object.port !== null ? Number(object.port) : 0;
     return message;
   },
 
@@ -151,21 +139,10 @@ export const ProtocolVersion = {
 
   fromJSON(object: any): ProtocolVersion {
     const message = { ...baseProtocolVersion } as ProtocolVersion;
-    if (object.p2p !== undefined && object.p2p !== null) {
-      message.p2p = Long.fromString(object.p2p);
-    } else {
-      message.p2p = Long.UZERO;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Long.fromString(object.block);
-    } else {
-      message.block = Long.UZERO;
-    }
-    if (object.app !== undefined && object.app !== null) {
-      message.app = Long.fromString(object.app);
-    } else {
-      message.app = Long.UZERO;
-    }
+    message.p2p = object.p2p !== undefined && object.p2p !== null ? Long.fromString(object.p2p) : Long.UZERO;
+    message.block =
+      object.block !== undefined && object.block !== null ? Long.fromString(object.block) : Long.UZERO;
+    message.app = object.app !== undefined && object.app !== null ? Long.fromString(object.app) : Long.UZERO;
     return message;
   },
 
@@ -277,45 +254,25 @@ export const DefaultNodeInfo = {
 
   fromJSON(object: any): DefaultNodeInfo {
     const message = { ...baseDefaultNodeInfo } as DefaultNodeInfo;
-    message.channels = new Uint8Array();
-    if (object.protocolVersion !== undefined && object.protocolVersion !== null) {
-      message.protocolVersion = ProtocolVersion.fromJSON(object.protocolVersion);
-    } else {
-      message.protocolVersion = undefined;
-    }
-    if (object.defaultNodeId !== undefined && object.defaultNodeId !== null) {
-      message.defaultNodeId = String(object.defaultNodeId);
-    } else {
-      message.defaultNodeId = "";
-    }
-    if (object.listenAddr !== undefined && object.listenAddr !== null) {
-      message.listenAddr = String(object.listenAddr);
-    } else {
-      message.listenAddr = "";
-    }
-    if (object.network !== undefined && object.network !== null) {
-      message.network = String(object.network);
-    } else {
-      message.network = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = String(object.version);
-    } else {
-      message.version = "";
-    }
-    if (object.channels !== undefined && object.channels !== null) {
-      message.channels = bytesFromBase64(object.channels);
-    }
-    if (object.moniker !== undefined && object.moniker !== null) {
-      message.moniker = String(object.moniker);
-    } else {
-      message.moniker = "";
-    }
-    if (object.other !== undefined && object.other !== null) {
-      message.other = DefaultNodeInfoOther.fromJSON(object.other);
-    } else {
-      message.other = undefined;
-    }
+    message.protocolVersion =
+      object.protocolVersion !== undefined && object.protocolVersion !== null
+        ? ProtocolVersion.fromJSON(object.protocolVersion)
+        : undefined;
+    message.defaultNodeId =
+      object.defaultNodeId !== undefined && object.defaultNodeId !== null ? String(object.defaultNodeId) : "";
+    message.listenAddr =
+      object.listenAddr !== undefined && object.listenAddr !== null ? String(object.listenAddr) : "";
+    message.network = object.network !== undefined && object.network !== null ? String(object.network) : "";
+    message.version = object.version !== undefined && object.version !== null ? String(object.version) : "";
+    message.channels =
+      object.channels !== undefined && object.channels !== null
+        ? bytesFromBase64(object.channels)
+        : new Uint8Array();
+    message.moniker = object.moniker !== undefined && object.moniker !== null ? String(object.moniker) : "";
+    message.other =
+      object.other !== undefined && object.other !== null
+        ? DefaultNodeInfoOther.fromJSON(object.other)
+        : undefined;
     return message;
   },
 
@@ -339,22 +296,20 @@ export const DefaultNodeInfo = {
 
   fromPartial(object: DeepPartial<DefaultNodeInfo>): DefaultNodeInfo {
     const message = { ...baseDefaultNodeInfo } as DefaultNodeInfo;
-    if (object.protocolVersion !== undefined && object.protocolVersion !== null) {
-      message.protocolVersion = ProtocolVersion.fromPartial(object.protocolVersion);
-    } else {
-      message.protocolVersion = undefined;
-    }
+    message.protocolVersion =
+      object.protocolVersion !== undefined && object.protocolVersion !== null
+        ? ProtocolVersion.fromPartial(object.protocolVersion)
+        : undefined;
     message.defaultNodeId = object.defaultNodeId ?? "";
     message.listenAddr = object.listenAddr ?? "";
     message.network = object.network ?? "";
     message.version = object.version ?? "";
     message.channels = object.channels ?? new Uint8Array();
     message.moniker = object.moniker ?? "";
-    if (object.other !== undefined && object.other !== null) {
-      message.other = DefaultNodeInfoOther.fromPartial(object.other);
-    } else {
-      message.other = undefined;
-    }
+    message.other =
+      object.other !== undefined && object.other !== null
+        ? DefaultNodeInfoOther.fromPartial(object.other)
+        : undefined;
     return message;
   },
 };
@@ -395,16 +350,9 @@ export const DefaultNodeInfoOther = {
 
   fromJSON(object: any): DefaultNodeInfoOther {
     const message = { ...baseDefaultNodeInfoOther } as DefaultNodeInfoOther;
-    if (object.txIndex !== undefined && object.txIndex !== null) {
-      message.txIndex = String(object.txIndex);
-    } else {
-      message.txIndex = "";
-    }
-    if (object.rpcAddress !== undefined && object.rpcAddress !== null) {
-      message.rpcAddress = String(object.rpcAddress);
-    } else {
-      message.rpcAddress = "";
-    }
+    message.txIndex = object.txIndex !== undefined && object.txIndex !== null ? String(object.txIndex) : "";
+    message.rpcAddress =
+      object.rpcAddress !== undefined && object.rpcAddress !== null ? String(object.rpcAddress) : "";
     return message;
   },
 

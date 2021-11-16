@@ -165,30 +165,18 @@ export const StoreCodeProposal = {
 
   fromJSON(object: any): StoreCodeProposal {
     const message = { ...baseStoreCodeProposal } as StoreCodeProposal;
-    message.wasmByteCode = new Uint8Array();
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = String(object.runAs);
-    } else {
-      message.runAs = "";
-    }
-    if (object.wasmByteCode !== undefined && object.wasmByteCode !== null) {
-      message.wasmByteCode = bytesFromBase64(object.wasmByteCode);
-    }
-    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
-      message.instantiatePermission = AccessConfig.fromJSON(object.instantiatePermission);
-    } else {
-      message.instantiatePermission = undefined;
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.runAs = object.runAs !== undefined && object.runAs !== null ? String(object.runAs) : "";
+    message.wasmByteCode =
+      object.wasmByteCode !== undefined && object.wasmByteCode !== null
+        ? bytesFromBase64(object.wasmByteCode)
+        : new Uint8Array();
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromJSON(object.instantiatePermission)
+        : undefined;
     return message;
   },
 
@@ -214,11 +202,10 @@ export const StoreCodeProposal = {
     message.description = object.description ?? "";
     message.runAs = object.runAs ?? "";
     message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
-    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
-      message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
-    } else {
-      message.instantiatePermission = undefined;
-    }
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromPartial(object.instantiatePermission)
+        : undefined;
     return message;
   },
 };
@@ -304,46 +291,17 @@ export const InstantiateContractProposal = {
 
   fromJSON(object: any): InstantiateContractProposal {
     const message = { ...baseInstantiateContractProposal } as InstantiateContractProposal;
-    message.funds = [];
-    message.msg = new Uint8Array();
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = String(object.runAs);
-    } else {
-      message.runAs = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = String(object.admin);
-    } else {
-      message.admin = "";
-    }
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = String(object.label);
-    } else {
-      message.label = "";
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromJSON(e));
-      }
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.runAs = object.runAs !== undefined && object.runAs !== null ? String(object.runAs) : "";
+    message.admin = object.admin !== undefined && object.admin !== null ? String(object.admin) : "";
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.label = object.label !== undefined && object.label !== null ? String(object.label) : "";
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
+    message.funds = (object.funds ?? []).map((e: any) => Coin.fromJSON(e));
     return message;
   },
 
@@ -378,12 +336,7 @@ export const InstantiateContractProposal = {
     }
     message.label = object.label ?? "";
     message.msg = object.msg ?? new Uint8Array();
-    message.funds = [];
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromPartial(e));
-      }
-    }
+    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
     return message;
   },
 };
@@ -455,35 +408,16 @@ export const MigrateContractProposal = {
 
   fromJSON(object: any): MigrateContractProposal {
     const message = { ...baseMigrateContractProposal } as MigrateContractProposal;
-    message.msg = new Uint8Array();
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.runAs !== undefined && object.runAs !== null) {
-      message.runAs = String(object.runAs);
-    } else {
-      message.runAs = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.runAs = object.runAs !== undefined && object.runAs !== null ? String(object.runAs) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
     return message;
   },
 
@@ -563,26 +497,13 @@ export const UpdateAdminProposal = {
 
   fromJSON(object: any): UpdateAdminProposal {
     const message = { ...baseUpdateAdminProposal } as UpdateAdminProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.newAdmin !== undefined && object.newAdmin !== null) {
-      message.newAdmin = String(object.newAdmin);
-    } else {
-      message.newAdmin = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.newAdmin =
+      object.newAdmin !== undefined && object.newAdmin !== null ? String(object.newAdmin) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
     return message;
   },
 
@@ -647,21 +568,11 @@ export const ClearAdminProposal = {
 
   fromJSON(object: any): ClearAdminProposal {
     const message = { ...baseClearAdminProposal } as ClearAdminProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
     return message;
   },
 
@@ -734,22 +645,10 @@ export const PinCodesProposal = {
 
   fromJSON(object: any): PinCodesProposal {
     const message = { ...basePinCodesProposal } as PinCodesProposal;
-    message.codeIds = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.codeIds !== undefined && object.codeIds !== null) {
-      for (const e of object.codeIds) {
-        message.codeIds.push(Long.fromString(e));
-      }
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.codeIds = (object.codeIds ?? []).map((e: any) => Long.fromString(e));
     return message;
   },
 
@@ -769,12 +668,7 @@ export const PinCodesProposal = {
     const message = { ...basePinCodesProposal } as PinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = [];
-    if (object.codeIds !== undefined && object.codeIds !== null) {
-      for (const e of object.codeIds) {
-        message.codeIds.push(e);
-      }
-    }
+    message.codeIds = (object.codeIds ?? []).map((e) => e);
     return message;
   },
 };
@@ -831,22 +725,10 @@ export const UnpinCodesProposal = {
 
   fromJSON(object: any): UnpinCodesProposal {
     const message = { ...baseUnpinCodesProposal } as UnpinCodesProposal;
-    message.codeIds = [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.codeIds !== undefined && object.codeIds !== null) {
-      for (const e of object.codeIds) {
-        message.codeIds.push(Long.fromString(e));
-      }
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.codeIds = (object.codeIds ?? []).map((e: any) => Long.fromString(e));
     return message;
   },
 
@@ -866,12 +748,7 @@ export const UnpinCodesProposal = {
     const message = { ...baseUnpinCodesProposal } as UnpinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = [];
-    if (object.codeIds !== undefined && object.codeIds !== null) {
-      for (const e of object.codeIds) {
-        message.codeIds.push(e);
-      }
-    }
+    message.codeIds = (object.codeIds ?? []).map((e) => e);
     return message;
   },
 };

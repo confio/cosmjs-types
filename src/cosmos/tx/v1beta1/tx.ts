@@ -254,22 +254,13 @@ export const Tx = {
 
   fromJSON(object: any): Tx {
     const message = { ...baseTx } as Tx;
-    message.signatures = [];
-    if (object.body !== undefined && object.body !== null) {
-      message.body = TxBody.fromJSON(object.body);
-    } else {
-      message.body = undefined;
-    }
-    if (object.authInfo !== undefined && object.authInfo !== null) {
-      message.authInfo = AuthInfo.fromJSON(object.authInfo);
-    } else {
-      message.authInfo = undefined;
-    }
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(bytesFromBase64(e));
-      }
-    }
+    message.body =
+      object.body !== undefined && object.body !== null ? TxBody.fromJSON(object.body) : undefined;
+    message.authInfo =
+      object.authInfo !== undefined && object.authInfo !== null
+        ? AuthInfo.fromJSON(object.authInfo)
+        : undefined;
+    message.signatures = (object.signatures ?? []).map((e: any) => bytesFromBase64(e));
     return message;
   },
 
@@ -288,22 +279,13 @@ export const Tx = {
 
   fromPartial(object: DeepPartial<Tx>): Tx {
     const message = { ...baseTx } as Tx;
-    if (object.body !== undefined && object.body !== null) {
-      message.body = TxBody.fromPartial(object.body);
-    } else {
-      message.body = undefined;
-    }
-    if (object.authInfo !== undefined && object.authInfo !== null) {
-      message.authInfo = AuthInfo.fromPartial(object.authInfo);
-    } else {
-      message.authInfo = undefined;
-    }
-    message.signatures = [];
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(e);
-      }
-    }
+    message.body =
+      object.body !== undefined && object.body !== null ? TxBody.fromPartial(object.body) : undefined;
+    message.authInfo =
+      object.authInfo !== undefined && object.authInfo !== null
+        ? AuthInfo.fromPartial(object.authInfo)
+        : undefined;
+    message.signatures = (object.signatures ?? []).map((e) => e);
     return message;
   },
 };
@@ -353,20 +335,15 @@ export const TxRaw = {
 
   fromJSON(object: any): TxRaw {
     const message = { ...baseTxRaw } as TxRaw;
-    message.signatures = [];
-    message.bodyBytes = new Uint8Array();
-    message.authInfoBytes = new Uint8Array();
-    if (object.bodyBytes !== undefined && object.bodyBytes !== null) {
-      message.bodyBytes = bytesFromBase64(object.bodyBytes);
-    }
-    if (object.authInfoBytes !== undefined && object.authInfoBytes !== null) {
-      message.authInfoBytes = bytesFromBase64(object.authInfoBytes);
-    }
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(bytesFromBase64(e));
-      }
-    }
+    message.bodyBytes =
+      object.bodyBytes !== undefined && object.bodyBytes !== null
+        ? bytesFromBase64(object.bodyBytes)
+        : new Uint8Array();
+    message.authInfoBytes =
+      object.authInfoBytes !== undefined && object.authInfoBytes !== null
+        ? bytesFromBase64(object.authInfoBytes)
+        : new Uint8Array();
+    message.signatures = (object.signatures ?? []).map((e: any) => bytesFromBase64(e));
     return message;
   },
 
@@ -392,12 +369,7 @@ export const TxRaw = {
     const message = { ...baseTxRaw } as TxRaw;
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
-    message.signatures = [];
-    if (object.signatures !== undefined && object.signatures !== null) {
-      for (const e of object.signatures) {
-        message.signatures.push(e);
-      }
-    }
+    message.signatures = (object.signatures ?? []).map((e) => e);
     return message;
   },
 };
@@ -452,24 +424,19 @@ export const SignDoc = {
 
   fromJSON(object: any): SignDoc {
     const message = { ...baseSignDoc } as SignDoc;
-    message.bodyBytes = new Uint8Array();
-    message.authInfoBytes = new Uint8Array();
-    if (object.bodyBytes !== undefined && object.bodyBytes !== null) {
-      message.bodyBytes = bytesFromBase64(object.bodyBytes);
-    }
-    if (object.authInfoBytes !== undefined && object.authInfoBytes !== null) {
-      message.authInfoBytes = bytesFromBase64(object.authInfoBytes);
-    }
-    if (object.chainId !== undefined && object.chainId !== null) {
-      message.chainId = String(object.chainId);
-    } else {
-      message.chainId = "";
-    }
-    if (object.accountNumber !== undefined && object.accountNumber !== null) {
-      message.accountNumber = Long.fromString(object.accountNumber);
-    } else {
-      message.accountNumber = Long.UZERO;
-    }
+    message.bodyBytes =
+      object.bodyBytes !== undefined && object.bodyBytes !== null
+        ? bytesFromBase64(object.bodyBytes)
+        : new Uint8Array();
+    message.authInfoBytes =
+      object.authInfoBytes !== undefined && object.authInfoBytes !== null
+        ? bytesFromBase64(object.authInfoBytes)
+        : new Uint8Array();
+    message.chainId = object.chainId !== undefined && object.chainId !== null ? String(object.chainId) : "";
+    message.accountNumber =
+      object.accountNumber !== undefined && object.accountNumber !== null
+        ? Long.fromString(object.accountNumber)
+        : Long.UZERO;
     return message;
   },
 
@@ -560,34 +527,16 @@ export const TxBody = {
 
   fromJSON(object: any): TxBody {
     const message = { ...baseTxBody } as TxBody;
-    message.messages = [];
-    message.extensionOptions = [];
-    message.nonCriticalExtensionOptions = [];
-    if (object.messages !== undefined && object.messages !== null) {
-      for (const e of object.messages) {
-        message.messages.push(Any.fromJSON(e));
-      }
-    }
-    if (object.memo !== undefined && object.memo !== null) {
-      message.memo = String(object.memo);
-    } else {
-      message.memo = "";
-    }
-    if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
-      message.timeoutHeight = Long.fromString(object.timeoutHeight);
-    } else {
-      message.timeoutHeight = Long.UZERO;
-    }
-    if (object.extensionOptions !== undefined && object.extensionOptions !== null) {
-      for (const e of object.extensionOptions) {
-        message.extensionOptions.push(Any.fromJSON(e));
-      }
-    }
-    if (object.nonCriticalExtensionOptions !== undefined && object.nonCriticalExtensionOptions !== null) {
-      for (const e of object.nonCriticalExtensionOptions) {
-        message.nonCriticalExtensionOptions.push(Any.fromJSON(e));
-      }
-    }
+    message.messages = (object.messages ?? []).map((e: any) => Any.fromJSON(e));
+    message.memo = object.memo !== undefined && object.memo !== null ? String(object.memo) : "";
+    message.timeoutHeight =
+      object.timeoutHeight !== undefined && object.timeoutHeight !== null
+        ? Long.fromString(object.timeoutHeight)
+        : Long.UZERO;
+    message.extensionOptions = (object.extensionOptions ?? []).map((e: any) => Any.fromJSON(e));
+    message.nonCriticalExtensionOptions = (object.nonCriticalExtensionOptions ?? []).map((e: any) =>
+      Any.fromJSON(e),
+    );
     return message;
   },
 
@@ -618,30 +567,17 @@ export const TxBody = {
 
   fromPartial(object: DeepPartial<TxBody>): TxBody {
     const message = { ...baseTxBody } as TxBody;
-    message.messages = [];
-    if (object.messages !== undefined && object.messages !== null) {
-      for (const e of object.messages) {
-        message.messages.push(Any.fromPartial(e));
-      }
-    }
+    message.messages = (object.messages ?? []).map((e) => Any.fromPartial(e));
     message.memo = object.memo ?? "";
     if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
       message.timeoutHeight = object.timeoutHeight as Long;
     } else {
       message.timeoutHeight = Long.UZERO;
     }
-    message.extensionOptions = [];
-    if (object.extensionOptions !== undefined && object.extensionOptions !== null) {
-      for (const e of object.extensionOptions) {
-        message.extensionOptions.push(Any.fromPartial(e));
-      }
-    }
-    message.nonCriticalExtensionOptions = [];
-    if (object.nonCriticalExtensionOptions !== undefined && object.nonCriticalExtensionOptions !== null) {
-      for (const e of object.nonCriticalExtensionOptions) {
-        message.nonCriticalExtensionOptions.push(Any.fromPartial(e));
-      }
-    }
+    message.extensionOptions = (object.extensionOptions ?? []).map((e) => Any.fromPartial(e));
+    message.nonCriticalExtensionOptions = (object.nonCriticalExtensionOptions ?? []).map((e) =>
+      Any.fromPartial(e),
+    );
     return message;
   },
 };
@@ -683,17 +619,8 @@ export const AuthInfo = {
 
   fromJSON(object: any): AuthInfo {
     const message = { ...baseAuthInfo } as AuthInfo;
-    message.signerInfos = [];
-    if (object.signerInfos !== undefined && object.signerInfos !== null) {
-      for (const e of object.signerInfos) {
-        message.signerInfos.push(SignerInfo.fromJSON(e));
-      }
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Fee.fromJSON(object.fee);
-    } else {
-      message.fee = undefined;
-    }
+    message.signerInfos = (object.signerInfos ?? []).map((e: any) => SignerInfo.fromJSON(e));
+    message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromJSON(object.fee) : undefined;
     return message;
   },
 
@@ -710,17 +637,8 @@ export const AuthInfo = {
 
   fromPartial(object: DeepPartial<AuthInfo>): AuthInfo {
     const message = { ...baseAuthInfo } as AuthInfo;
-    message.signerInfos = [];
-    if (object.signerInfos !== undefined && object.signerInfos !== null) {
-      for (const e of object.signerInfos) {
-        message.signerInfos.push(SignerInfo.fromPartial(e));
-      }
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Fee.fromPartial(object.fee);
-    } else {
-      message.fee = undefined;
-    }
+    message.signerInfos = (object.signerInfos ?? []).map((e) => SignerInfo.fromPartial(e));
+    message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
     return message;
   },
 };
@@ -767,21 +685,18 @@ export const SignerInfo = {
 
   fromJSON(object: any): SignerInfo {
     const message = { ...baseSignerInfo } as SignerInfo;
-    if (object.publicKey !== undefined && object.publicKey !== null) {
-      message.publicKey = Any.fromJSON(object.publicKey);
-    } else {
-      message.publicKey = undefined;
-    }
-    if (object.modeInfo !== undefined && object.modeInfo !== null) {
-      message.modeInfo = ModeInfo.fromJSON(object.modeInfo);
-    } else {
-      message.modeInfo = undefined;
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromString(object.sequence);
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.publicKey =
+      object.publicKey !== undefined && object.publicKey !== null
+        ? Any.fromJSON(object.publicKey)
+        : undefined;
+    message.modeInfo =
+      object.modeInfo !== undefined && object.modeInfo !== null
+        ? ModeInfo.fromJSON(object.modeInfo)
+        : undefined;
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromString(object.sequence)
+        : Long.UZERO;
     return message;
   },
 
@@ -797,16 +712,14 @@ export const SignerInfo = {
 
   fromPartial(object: DeepPartial<SignerInfo>): SignerInfo {
     const message = { ...baseSignerInfo } as SignerInfo;
-    if (object.publicKey !== undefined && object.publicKey !== null) {
-      message.publicKey = Any.fromPartial(object.publicKey);
-    } else {
-      message.publicKey = undefined;
-    }
-    if (object.modeInfo !== undefined && object.modeInfo !== null) {
-      message.modeInfo = ModeInfo.fromPartial(object.modeInfo);
-    } else {
-      message.modeInfo = undefined;
-    }
+    message.publicKey =
+      object.publicKey !== undefined && object.publicKey !== null
+        ? Any.fromPartial(object.publicKey)
+        : undefined;
+    message.modeInfo =
+      object.modeInfo !== undefined && object.modeInfo !== null
+        ? ModeInfo.fromPartial(object.modeInfo)
+        : undefined;
     if (object.sequence !== undefined && object.sequence !== null) {
       message.sequence = object.sequence as Long;
     } else {
@@ -852,16 +765,12 @@ export const ModeInfo = {
 
   fromJSON(object: any): ModeInfo {
     const message = { ...baseModeInfo } as ModeInfo;
-    if (object.single !== undefined && object.single !== null) {
-      message.single = ModeInfo_Single.fromJSON(object.single);
-    } else {
-      message.single = undefined;
-    }
-    if (object.multi !== undefined && object.multi !== null) {
-      message.multi = ModeInfo_Multi.fromJSON(object.multi);
-    } else {
-      message.multi = undefined;
-    }
+    message.single =
+      object.single !== undefined && object.single !== null
+        ? ModeInfo_Single.fromJSON(object.single)
+        : undefined;
+    message.multi =
+      object.multi !== undefined && object.multi !== null ? ModeInfo_Multi.fromJSON(object.multi) : undefined;
     return message;
   },
 
@@ -876,16 +785,14 @@ export const ModeInfo = {
 
   fromPartial(object: DeepPartial<ModeInfo>): ModeInfo {
     const message = { ...baseModeInfo } as ModeInfo;
-    if (object.single !== undefined && object.single !== null) {
-      message.single = ModeInfo_Single.fromPartial(object.single);
-    } else {
-      message.single = undefined;
-    }
-    if (object.multi !== undefined && object.multi !== null) {
-      message.multi = ModeInfo_Multi.fromPartial(object.multi);
-    } else {
-      message.multi = undefined;
-    }
+    message.single =
+      object.single !== undefined && object.single !== null
+        ? ModeInfo_Single.fromPartial(object.single)
+        : undefined;
+    message.multi =
+      object.multi !== undefined && object.multi !== null
+        ? ModeInfo_Multi.fromPartial(object.multi)
+        : undefined;
     return message;
   },
 };
@@ -920,11 +827,7 @@ export const ModeInfo_Single = {
 
   fromJSON(object: any): ModeInfo_Single {
     const message = { ...baseModeInfo_Single } as ModeInfo_Single;
-    if (object.mode !== undefined && object.mode !== null) {
-      message.mode = signModeFromJSON(object.mode);
-    } else {
-      message.mode = 0;
-    }
+    message.mode = object.mode !== undefined && object.mode !== null ? signModeFromJSON(object.mode) : 0;
     return message;
   },
 
@@ -978,17 +881,11 @@ export const ModeInfo_Multi = {
 
   fromJSON(object: any): ModeInfo_Multi {
     const message = { ...baseModeInfo_Multi } as ModeInfo_Multi;
-    message.modeInfos = [];
-    if (object.bitarray !== undefined && object.bitarray !== null) {
-      message.bitarray = CompactBitArray.fromJSON(object.bitarray);
-    } else {
-      message.bitarray = undefined;
-    }
-    if (object.modeInfos !== undefined && object.modeInfos !== null) {
-      for (const e of object.modeInfos) {
-        message.modeInfos.push(ModeInfo.fromJSON(e));
-      }
-    }
+    message.bitarray =
+      object.bitarray !== undefined && object.bitarray !== null
+        ? CompactBitArray.fromJSON(object.bitarray)
+        : undefined;
+    message.modeInfos = (object.modeInfos ?? []).map((e: any) => ModeInfo.fromJSON(e));
     return message;
   },
 
@@ -1006,17 +903,11 @@ export const ModeInfo_Multi = {
 
   fromPartial(object: DeepPartial<ModeInfo_Multi>): ModeInfo_Multi {
     const message = { ...baseModeInfo_Multi } as ModeInfo_Multi;
-    if (object.bitarray !== undefined && object.bitarray !== null) {
-      message.bitarray = CompactBitArray.fromPartial(object.bitarray);
-    } else {
-      message.bitarray = undefined;
-    }
-    message.modeInfos = [];
-    if (object.modeInfos !== undefined && object.modeInfos !== null) {
-      for (const e of object.modeInfos) {
-        message.modeInfos.push(ModeInfo.fromPartial(e));
-      }
-    }
+    message.bitarray =
+      object.bitarray !== undefined && object.bitarray !== null
+        ? CompactBitArray.fromPartial(object.bitarray)
+        : undefined;
+    message.modeInfos = (object.modeInfos ?? []).map((e) => ModeInfo.fromPartial(e));
     return message;
   },
 };
@@ -1070,27 +961,13 @@ export const Fee = {
 
   fromJSON(object: any): Fee {
     const message = { ...baseFee } as Fee;
-    message.amount = [];
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.gasLimit !== undefined && object.gasLimit !== null) {
-      message.gasLimit = Long.fromString(object.gasLimit);
-    } else {
-      message.gasLimit = Long.UZERO;
-    }
-    if (object.payer !== undefined && object.payer !== null) {
-      message.payer = String(object.payer);
-    } else {
-      message.payer = "";
-    }
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
+    message.amount = (object.amount ?? []).map((e: any) => Coin.fromJSON(e));
+    message.gasLimit =
+      object.gasLimit !== undefined && object.gasLimit !== null
+        ? Long.fromString(object.gasLimit)
+        : Long.UZERO;
+    message.payer = object.payer !== undefined && object.payer !== null ? String(object.payer) : "";
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
     return message;
   },
 
@@ -1109,12 +986,7 @@ export const Fee = {
 
   fromPartial(object: DeepPartial<Fee>): Fee {
     const message = { ...baseFee } as Fee;
-    message.amount = [];
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromPartial(e));
-      }
-    }
+    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
     if (object.gasLimit !== undefined && object.gasLimit !== null) {
       message.gasLimit = object.gasLimit as Long;
     } else {

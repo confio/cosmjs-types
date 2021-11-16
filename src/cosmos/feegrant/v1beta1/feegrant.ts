@@ -107,17 +107,11 @@ export const BasicAllowance = {
 
   fromJSON(object: any): BasicAllowance {
     const message = { ...baseBasicAllowance } as BasicAllowance;
-    message.spendLimit = [];
-    if (object.spendLimit !== undefined && object.spendLimit !== null) {
-      for (const e of object.spendLimit) {
-        message.spendLimit.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.expiration !== undefined && object.expiration !== null) {
-      message.expiration = fromJsonTimestamp(object.expiration);
-    } else {
-      message.expiration = undefined;
-    }
+    message.spendLimit = (object.spendLimit ?? []).map((e: any) => Coin.fromJSON(e));
+    message.expiration =
+      object.expiration !== undefined && object.expiration !== null
+        ? fromJsonTimestamp(object.expiration)
+        : undefined;
     return message;
   },
 
@@ -134,12 +128,7 @@ export const BasicAllowance = {
 
   fromPartial(object: DeepPartial<BasicAllowance>): BasicAllowance {
     const message = { ...baseBasicAllowance } as BasicAllowance;
-    message.spendLimit = [];
-    if (object.spendLimit !== undefined && object.spendLimit !== null) {
-      for (const e of object.spendLimit) {
-        message.spendLimit.push(Coin.fromPartial(e));
-      }
-    }
+    message.spendLimit = (object.spendLimit ?? []).map((e) => Coin.fromPartial(e));
     message.expiration = object.expiration ?? undefined;
     return message;
   },
@@ -201,33 +190,16 @@ export const PeriodicAllowance = {
 
   fromJSON(object: any): PeriodicAllowance {
     const message = { ...basePeriodicAllowance } as PeriodicAllowance;
-    message.periodSpendLimit = [];
-    message.periodCanSpend = [];
-    if (object.basic !== undefined && object.basic !== null) {
-      message.basic = BasicAllowance.fromJSON(object.basic);
-    } else {
-      message.basic = undefined;
-    }
-    if (object.period !== undefined && object.period !== null) {
-      message.period = Duration.fromJSON(object.period);
-    } else {
-      message.period = undefined;
-    }
-    if (object.periodSpendLimit !== undefined && object.periodSpendLimit !== null) {
-      for (const e of object.periodSpendLimit) {
-        message.periodSpendLimit.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.periodCanSpend !== undefined && object.periodCanSpend !== null) {
-      for (const e of object.periodCanSpend) {
-        message.periodCanSpend.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.periodReset !== undefined && object.periodReset !== null) {
-      message.periodReset = fromJsonTimestamp(object.periodReset);
-    } else {
-      message.periodReset = undefined;
-    }
+    message.basic =
+      object.basic !== undefined && object.basic !== null ? BasicAllowance.fromJSON(object.basic) : undefined;
+    message.period =
+      object.period !== undefined && object.period !== null ? Duration.fromJSON(object.period) : undefined;
+    message.periodSpendLimit = (object.periodSpendLimit ?? []).map((e: any) => Coin.fromJSON(e));
+    message.periodCanSpend = (object.periodCanSpend ?? []).map((e: any) => Coin.fromJSON(e));
+    message.periodReset =
+      object.periodReset !== undefined && object.periodReset !== null
+        ? fromJsonTimestamp(object.periodReset)
+        : undefined;
     return message;
   },
 
@@ -253,28 +225,14 @@ export const PeriodicAllowance = {
 
   fromPartial(object: DeepPartial<PeriodicAllowance>): PeriodicAllowance {
     const message = { ...basePeriodicAllowance } as PeriodicAllowance;
-    if (object.basic !== undefined && object.basic !== null) {
-      message.basic = BasicAllowance.fromPartial(object.basic);
-    } else {
-      message.basic = undefined;
-    }
-    if (object.period !== undefined && object.period !== null) {
-      message.period = Duration.fromPartial(object.period);
-    } else {
-      message.period = undefined;
-    }
-    message.periodSpendLimit = [];
-    if (object.periodSpendLimit !== undefined && object.periodSpendLimit !== null) {
-      for (const e of object.periodSpendLimit) {
-        message.periodSpendLimit.push(Coin.fromPartial(e));
-      }
-    }
-    message.periodCanSpend = [];
-    if (object.periodCanSpend !== undefined && object.periodCanSpend !== null) {
-      for (const e of object.periodCanSpend) {
-        message.periodCanSpend.push(Coin.fromPartial(e));
-      }
-    }
+    message.basic =
+      object.basic !== undefined && object.basic !== null
+        ? BasicAllowance.fromPartial(object.basic)
+        : undefined;
+    message.period =
+      object.period !== undefined && object.period !== null ? Duration.fromPartial(object.period) : undefined;
+    message.periodSpendLimit = (object.periodSpendLimit ?? []).map((e) => Coin.fromPartial(e));
+    message.periodCanSpend = (object.periodCanSpend ?? []).map((e) => Coin.fromPartial(e));
     message.periodReset = object.periodReset ?? undefined;
     return message;
   },
@@ -317,17 +275,11 @@ export const AllowedMsgAllowance = {
 
   fromJSON(object: any): AllowedMsgAllowance {
     const message = { ...baseAllowedMsgAllowance } as AllowedMsgAllowance;
-    message.allowedMessages = [];
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromJSON(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
-    if (object.allowedMessages !== undefined && object.allowedMessages !== null) {
-      for (const e of object.allowedMessages) {
-        message.allowedMessages.push(String(e));
-      }
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromJSON(object.allowance)
+        : undefined;
+    message.allowedMessages = (object.allowedMessages ?? []).map((e: any) => String(e));
     return message;
   },
 
@@ -345,17 +297,11 @@ export const AllowedMsgAllowance = {
 
   fromPartial(object: DeepPartial<AllowedMsgAllowance>): AllowedMsgAllowance {
     const message = { ...baseAllowedMsgAllowance } as AllowedMsgAllowance;
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromPartial(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
-    message.allowedMessages = [];
-    if (object.allowedMessages !== undefined && object.allowedMessages !== null) {
-      for (const e of object.allowedMessages) {
-        message.allowedMessages.push(e);
-      }
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromPartial(object.allowance)
+        : undefined;
+    message.allowedMessages = (object.allowedMessages ?? []).map((e) => e);
     return message;
   },
 };
@@ -402,21 +348,12 @@ export const Grant = {
 
   fromJSON(object: any): Grant {
     const message = { ...baseGrant } as Grant;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromJSON(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromJSON(object.allowance)
+        : undefined;
     return message;
   },
 
@@ -433,11 +370,10 @@ export const Grant = {
     const message = { ...baseGrant } as Grant;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromPartial(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromPartial(object.allowance)
+        : undefined;
     return message;
   },
 };
