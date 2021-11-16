@@ -74,26 +74,14 @@ export const QueryGrantsRequest = {
 
   fromJSON(object: any): QueryGrantsRequest {
     const message = { ...baseQueryGrantsRequest } as QueryGrantsRequest;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
-    if (object.msgTypeUrl !== undefined && object.msgTypeUrl !== null) {
-      message.msgTypeUrl = String(object.msgTypeUrl);
-    } else {
-      message.msgTypeUrl = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
+    message.msgTypeUrl =
+      object.msgTypeUrl !== undefined && object.msgTypeUrl !== null ? String(object.msgTypeUrl) : "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -112,11 +100,10 @@ export const QueryGrantsRequest = {
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
     message.msgTypeUrl = object.msgTypeUrl ?? "";
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -158,17 +145,11 @@ export const QueryGrantsResponse = {
 
   fromJSON(object: any): QueryGrantsResponse {
     const message = { ...baseQueryGrantsResponse } as QueryGrantsResponse;
-    message.grants = [];
-    if (object.grants !== undefined && object.grants !== null) {
-      for (const e of object.grants) {
-        message.grants.push(Grant.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.grants = (object.grants ?? []).map((e: any) => Grant.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -186,17 +167,11 @@ export const QueryGrantsResponse = {
 
   fromPartial(object: DeepPartial<QueryGrantsResponse>): QueryGrantsResponse {
     const message = { ...baseQueryGrantsResponse } as QueryGrantsResponse;
-    message.grants = [];
-    if (object.grants !== undefined && object.grants !== null) {
-      for (const e of object.grants) {
-        message.grants.push(Grant.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.grants = (object.grants ?? []).map((e) => Grant.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };

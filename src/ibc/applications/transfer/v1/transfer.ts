@@ -101,26 +101,12 @@ export const FungibleTokenPacketData = {
 
   fromJSON(object: any): FungibleTokenPacketData {
     const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = String(object.denom);
-    } else {
-      message.denom = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Long.fromString(object.amount);
-    } else {
-      message.amount = Long.UZERO;
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = String(object.receiver);
-    } else {
-      message.receiver = "";
-    }
+    message.denom = object.denom !== undefined && object.denom !== null ? String(object.denom) : "";
+    message.amount =
+      object.amount !== undefined && object.amount !== null ? Long.fromString(object.amount) : Long.UZERO;
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.receiver =
+      object.receiver !== undefined && object.receiver !== null ? String(object.receiver) : "";
     return message;
   },
 
@@ -183,16 +169,9 @@ export const DenomTrace = {
 
   fromJSON(object: any): DenomTrace {
     const message = { ...baseDenomTrace } as DenomTrace;
-    if (object.path !== undefined && object.path !== null) {
-      message.path = String(object.path);
-    } else {
-      message.path = "";
-    }
-    if (object.baseDenom !== undefined && object.baseDenom !== null) {
-      message.baseDenom = String(object.baseDenom);
-    } else {
-      message.baseDenom = "";
-    }
+    message.path = object.path !== undefined && object.path !== null ? String(object.path) : "";
+    message.baseDenom =
+      object.baseDenom !== undefined && object.baseDenom !== null ? String(object.baseDenom) : "";
     return message;
   },
 
@@ -247,16 +226,12 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
-    if (object.sendEnabled !== undefined && object.sendEnabled !== null) {
-      message.sendEnabled = Boolean(object.sendEnabled);
-    } else {
-      message.sendEnabled = false;
-    }
-    if (object.receiveEnabled !== undefined && object.receiveEnabled !== null) {
-      message.receiveEnabled = Boolean(object.receiveEnabled);
-    } else {
-      message.receiveEnabled = false;
-    }
+    message.sendEnabled =
+      object.sendEnabled !== undefined && object.sendEnabled !== null ? Boolean(object.sendEnabled) : false;
+    message.receiveEnabled =
+      object.receiveEnabled !== undefined && object.receiveEnabled !== null
+        ? Boolean(object.receiveEnabled)
+        : false;
     return message;
   },
 

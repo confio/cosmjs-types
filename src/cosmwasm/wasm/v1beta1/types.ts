@@ -224,11 +224,8 @@ export const AccessTypeParam = {
 
   fromJSON(object: any): AccessTypeParam {
     const message = { ...baseAccessTypeParam } as AccessTypeParam;
-    if (object.value !== undefined && object.value !== null) {
-      message.value = accessTypeFromJSON(object.value);
-    } else {
-      message.value = 0;
-    }
+    message.value =
+      object.value !== undefined && object.value !== null ? accessTypeFromJSON(object.value) : 0;
     return message;
   },
 
@@ -281,16 +278,11 @@ export const AccessConfig = {
 
   fromJSON(object: any): AccessConfig {
     const message = { ...baseAccessConfig } as AccessConfig;
-    if (object.permission !== undefined && object.permission !== null) {
-      message.permission = accessTypeFromJSON(object.permission);
-    } else {
-      message.permission = 0;
-    }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address);
-    } else {
-      message.address = "";
-    }
+    message.permission =
+      object.permission !== undefined && object.permission !== null
+        ? accessTypeFromJSON(object.permission)
+        : 0;
+    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
     return message;
   },
 
@@ -351,21 +343,18 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
-    if (object.codeUploadAccess !== undefined && object.codeUploadAccess !== null) {
-      message.codeUploadAccess = AccessConfig.fromJSON(object.codeUploadAccess);
-    } else {
-      message.codeUploadAccess = undefined;
-    }
-    if (object.instantiateDefaultPermission !== undefined && object.instantiateDefaultPermission !== null) {
-      message.instantiateDefaultPermission = accessTypeFromJSON(object.instantiateDefaultPermission);
-    } else {
-      message.instantiateDefaultPermission = 0;
-    }
-    if (object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null) {
-      message.maxWasmCodeSize = Long.fromString(object.maxWasmCodeSize);
-    } else {
-      message.maxWasmCodeSize = Long.UZERO;
-    }
+    message.codeUploadAccess =
+      object.codeUploadAccess !== undefined && object.codeUploadAccess !== null
+        ? AccessConfig.fromJSON(object.codeUploadAccess)
+        : undefined;
+    message.instantiateDefaultPermission =
+      object.instantiateDefaultPermission !== undefined && object.instantiateDefaultPermission !== null
+        ? accessTypeFromJSON(object.instantiateDefaultPermission)
+        : 0;
+    message.maxWasmCodeSize =
+      object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null
+        ? Long.fromString(object.maxWasmCodeSize)
+        : Long.UZERO;
     return message;
   },
 
@@ -384,11 +373,10 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    if (object.codeUploadAccess !== undefined && object.codeUploadAccess !== null) {
-      message.codeUploadAccess = AccessConfig.fromPartial(object.codeUploadAccess);
-    } else {
-      message.codeUploadAccess = undefined;
-    }
+    message.codeUploadAccess =
+      object.codeUploadAccess !== undefined && object.codeUploadAccess !== null
+        ? AccessConfig.fromPartial(object.codeUploadAccess)
+        : undefined;
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
     if (object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null) {
       message.maxWasmCodeSize = object.maxWasmCodeSize as Long;
@@ -454,30 +442,17 @@ export const CodeInfo = {
 
   fromJSON(object: any): CodeInfo {
     const message = { ...baseCodeInfo } as CodeInfo;
-    message.codeHash = new Uint8Array();
-    if (object.codeHash !== undefined && object.codeHash !== null) {
-      message.codeHash = bytesFromBase64(object.codeHash);
-    }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
-    } else {
-      message.creator = "";
-    }
-    if (object.source !== undefined && object.source !== null) {
-      message.source = String(object.source);
-    } else {
-      message.source = "";
-    }
-    if (object.builder !== undefined && object.builder !== null) {
-      message.builder = String(object.builder);
-    } else {
-      message.builder = "";
-    }
-    if (object.instantiateConfig !== undefined && object.instantiateConfig !== null) {
-      message.instantiateConfig = AccessConfig.fromJSON(object.instantiateConfig);
-    } else {
-      message.instantiateConfig = undefined;
-    }
+    message.codeHash =
+      object.codeHash !== undefined && object.codeHash !== null
+        ? bytesFromBase64(object.codeHash)
+        : new Uint8Array();
+    message.creator = object.creator !== undefined && object.creator !== null ? String(object.creator) : "";
+    message.source = object.source !== undefined && object.source !== null ? String(object.source) : "";
+    message.builder = object.builder !== undefined && object.builder !== null ? String(object.builder) : "";
+    message.instantiateConfig =
+      object.instantiateConfig !== undefined && object.instantiateConfig !== null
+        ? AccessConfig.fromJSON(object.instantiateConfig)
+        : undefined;
     return message;
   },
 
@@ -501,11 +476,10 @@ export const CodeInfo = {
     message.creator = object.creator ?? "";
     message.source = object.source ?? "";
     message.builder = object.builder ?? "";
-    if (object.instantiateConfig !== undefined && object.instantiateConfig !== null) {
-      message.instantiateConfig = AccessConfig.fromPartial(object.instantiateConfig);
-    } else {
-      message.instantiateConfig = undefined;
-    }
+    message.instantiateConfig =
+      object.instantiateConfig !== undefined && object.instantiateConfig !== null
+        ? AccessConfig.fromPartial(object.instantiateConfig)
+        : undefined;
     return message;
   },
 };
@@ -576,41 +550,21 @@ export const ContractInfo = {
 
   fromJSON(object: any): ContractInfo {
     const message = { ...baseContractInfo } as ContractInfo;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
-    } else {
-      message.creator = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = String(object.admin);
-    } else {
-      message.admin = "";
-    }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = String(object.label);
-    } else {
-      message.label = "";
-    }
-    if (object.created !== undefined && object.created !== null) {
-      message.created = AbsoluteTxPosition.fromJSON(object.created);
-    } else {
-      message.created = undefined;
-    }
-    if (object.ibcPortId !== undefined && object.ibcPortId !== null) {
-      message.ibcPortId = String(object.ibcPortId);
-    } else {
-      message.ibcPortId = "";
-    }
-    if (object.extension !== undefined && object.extension !== null) {
-      message.extension = Any.fromJSON(object.extension);
-    } else {
-      message.extension = undefined;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.creator = object.creator !== undefined && object.creator !== null ? String(object.creator) : "";
+    message.admin = object.admin !== undefined && object.admin !== null ? String(object.admin) : "";
+    message.label = object.label !== undefined && object.label !== null ? String(object.label) : "";
+    message.created =
+      object.created !== undefined && object.created !== null
+        ? AbsoluteTxPosition.fromJSON(object.created)
+        : undefined;
+    message.ibcPortId =
+      object.ibcPortId !== undefined && object.ibcPortId !== null ? String(object.ibcPortId) : "";
+    message.extension =
+      object.extension !== undefined && object.extension !== null
+        ? Any.fromJSON(object.extension)
+        : undefined;
     return message;
   },
 
@@ -638,17 +592,15 @@ export const ContractInfo = {
     message.creator = object.creator ?? "";
     message.admin = object.admin ?? "";
     message.label = object.label ?? "";
-    if (object.created !== undefined && object.created !== null) {
-      message.created = AbsoluteTxPosition.fromPartial(object.created);
-    } else {
-      message.created = undefined;
-    }
+    message.created =
+      object.created !== undefined && object.created !== null
+        ? AbsoluteTxPosition.fromPartial(object.created)
+        : undefined;
     message.ibcPortId = object.ibcPortId ?? "";
-    if (object.extension !== undefined && object.extension !== null) {
-      message.extension = Any.fromPartial(object.extension);
-    } else {
-      message.extension = undefined;
-    }
+    message.extension =
+      object.extension !== undefined && object.extension !== null
+        ? Any.fromPartial(object.extension)
+        : undefined;
     return message;
   },
 };
@@ -702,25 +654,18 @@ export const ContractCodeHistoryEntry = {
 
   fromJSON(object: any): ContractCodeHistoryEntry {
     const message = { ...baseContractCodeHistoryEntry } as ContractCodeHistoryEntry;
-    message.msg = new Uint8Array();
-    if (object.operation !== undefined && object.operation !== null) {
-      message.operation = contractCodeHistoryOperationTypeFromJSON(object.operation);
-    } else {
-      message.operation = 0;
-    }
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.updated !== undefined && object.updated !== null) {
-      message.updated = AbsoluteTxPosition.fromJSON(object.updated);
-    } else {
-      message.updated = undefined;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
+    message.operation =
+      object.operation !== undefined && object.operation !== null
+        ? contractCodeHistoryOperationTypeFromJSON(object.operation)
+        : 0;
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.updated =
+      object.updated !== undefined && object.updated !== null
+        ? AbsoluteTxPosition.fromJSON(object.updated)
+        : undefined;
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
     return message;
   },
 
@@ -744,11 +689,10 @@ export const ContractCodeHistoryEntry = {
     } else {
       message.codeId = Long.UZERO;
     }
-    if (object.updated !== undefined && object.updated !== null) {
-      message.updated = AbsoluteTxPosition.fromPartial(object.updated);
-    } else {
-      message.updated = undefined;
-    }
+    message.updated =
+      object.updated !== undefined && object.updated !== null
+        ? AbsoluteTxPosition.fromPartial(object.updated)
+        : undefined;
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
@@ -790,16 +734,12 @@ export const AbsoluteTxPosition = {
 
   fromJSON(object: any): AbsoluteTxPosition {
     const message = { ...baseAbsoluteTxPosition } as AbsoluteTxPosition;
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = Long.fromString(object.blockHeight);
-    } else {
-      message.blockHeight = Long.UZERO;
-    }
-    if (object.txIndex !== undefined && object.txIndex !== null) {
-      message.txIndex = Long.fromString(object.txIndex);
-    } else {
-      message.txIndex = Long.UZERO;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromString(object.blockHeight)
+        : Long.UZERO;
+    message.txIndex =
+      object.txIndex !== undefined && object.txIndex !== null ? Long.fromString(object.txIndex) : Long.UZERO;
     return message;
   },
 
@@ -864,14 +804,10 @@ export const Model = {
 
   fromJSON(object: any): Model {
     const message = { ...baseModel } as Model;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = bytesFromBase64(object.value);
-    }
+    message.key =
+      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
+    message.value =
+      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
     return message;
   },
 

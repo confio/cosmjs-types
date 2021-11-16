@@ -64,26 +64,16 @@ export const Equivocation = {
 
   fromJSON(object: any): Equivocation {
     const message = { ...baseEquivocation } as Equivocation;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Long.fromString(object.height);
-    } else {
-      message.height = Long.ZERO;
-    }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = fromJsonTimestamp(object.time);
-    } else {
-      message.time = undefined;
-    }
-    if (object.power !== undefined && object.power !== null) {
-      message.power = Long.fromString(object.power);
-    } else {
-      message.power = Long.ZERO;
-    }
-    if (object.consensusAddress !== undefined && object.consensusAddress !== null) {
-      message.consensusAddress = String(object.consensusAddress);
-    } else {
-      message.consensusAddress = "";
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
+    message.time =
+      object.time !== undefined && object.time !== null ? fromJsonTimestamp(object.time) : undefined;
+    message.power =
+      object.power !== undefined && object.power !== null ? Long.fromString(object.power) : Long.ZERO;
+    message.consensusAddress =
+      object.consensusAddress !== undefined && object.consensusAddress !== null
+        ? String(object.consensusAddress)
+        : "";
     return message;
   },
 

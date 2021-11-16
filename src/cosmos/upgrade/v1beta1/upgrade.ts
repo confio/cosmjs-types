@@ -131,31 +131,16 @@ export const Plan = {
 
   fromJSON(object: any): Plan {
     const message = { ...basePlan } as Plan;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = fromJsonTimestamp(object.time);
-    } else {
-      message.time = undefined;
-    }
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Long.fromString(object.height);
-    } else {
-      message.height = Long.ZERO;
-    }
-    if (object.info !== undefined && object.info !== null) {
-      message.info = String(object.info);
-    } else {
-      message.info = "";
-    }
-    if (object.upgradedClientState !== undefined && object.upgradedClientState !== null) {
-      message.upgradedClientState = Any.fromJSON(object.upgradedClientState);
-    } else {
-      message.upgradedClientState = undefined;
-    }
+    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
+    message.time =
+      object.time !== undefined && object.time !== null ? fromJsonTimestamp(object.time) : undefined;
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
+    message.info = object.info !== undefined && object.info !== null ? String(object.info) : "";
+    message.upgradedClientState =
+      object.upgradedClientState !== undefined && object.upgradedClientState !== null
+        ? Any.fromJSON(object.upgradedClientState)
+        : undefined;
     return message;
   },
 
@@ -182,11 +167,10 @@ export const Plan = {
       message.height = Long.ZERO;
     }
     message.info = object.info ?? "";
-    if (object.upgradedClientState !== undefined && object.upgradedClientState !== null) {
-      message.upgradedClientState = Any.fromPartial(object.upgradedClientState);
-    } else {
-      message.upgradedClientState = undefined;
-    }
+    message.upgradedClientState =
+      object.upgradedClientState !== undefined && object.upgradedClientState !== null
+        ? Any.fromPartial(object.upgradedClientState)
+        : undefined;
     return message;
   },
 };
@@ -233,21 +217,10 @@ export const SoftwareUpgradeProposal = {
 
   fromJSON(object: any): SoftwareUpgradeProposal {
     const message = { ...baseSoftwareUpgradeProposal } as SoftwareUpgradeProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    if (object.plan !== undefined && object.plan !== null) {
-      message.plan = Plan.fromJSON(object.plan);
-    } else {
-      message.plan = undefined;
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
+    message.plan = object.plan !== undefined && object.plan !== null ? Plan.fromJSON(object.plan) : undefined;
     return message;
   },
 
@@ -263,11 +236,8 @@ export const SoftwareUpgradeProposal = {
     const message = { ...baseSoftwareUpgradeProposal } as SoftwareUpgradeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    if (object.plan !== undefined && object.plan !== null) {
-      message.plan = Plan.fromPartial(object.plan);
-    } else {
-      message.plan = undefined;
-    }
+    message.plan =
+      object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
     return message;
   },
 };
@@ -308,16 +278,9 @@ export const CancelSoftwareUpgradeProposal = {
 
   fromJSON(object: any): CancelSoftwareUpgradeProposal {
     const message = { ...baseCancelSoftwareUpgradeProposal } as CancelSoftwareUpgradeProposal;
-    if (object.title !== undefined && object.title !== null) {
-      message.title = String(object.title);
-    } else {
-      message.title = "";
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
+    message.title = object.title !== undefined && object.title !== null ? String(object.title) : "";
+    message.description =
+      object.description !== undefined && object.description !== null ? String(object.description) : "";
     return message;
   },
 
@@ -372,16 +335,9 @@ export const ModuleVersion = {
 
   fromJSON(object: any): ModuleVersion {
     const message = { ...baseModuleVersion } as ModuleVersion;
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = Long.fromString(object.version);
-    } else {
-      message.version = Long.UZERO;
-    }
+    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
+    message.version =
+      object.version !== undefined && object.version !== null ? Long.fromString(object.version) : Long.UZERO;
     return message;
   },
 

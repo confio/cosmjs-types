@@ -56,16 +56,10 @@ export const MsgSubmitEvidence = {
 
   fromJSON(object: any): MsgSubmitEvidence {
     const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
-    if (object.submitter !== undefined && object.submitter !== null) {
-      message.submitter = String(object.submitter);
-    } else {
-      message.submitter = "";
-    }
-    if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = Any.fromJSON(object.evidence);
-    } else {
-      message.evidence = undefined;
-    }
+    message.submitter =
+      object.submitter !== undefined && object.submitter !== null ? String(object.submitter) : "";
+    message.evidence =
+      object.evidence !== undefined && object.evidence !== null ? Any.fromJSON(object.evidence) : undefined;
     return message;
   },
 
@@ -80,11 +74,10 @@ export const MsgSubmitEvidence = {
   fromPartial(object: DeepPartial<MsgSubmitEvidence>): MsgSubmitEvidence {
     const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
     message.submitter = object.submitter ?? "";
-    if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = Any.fromPartial(object.evidence);
-    } else {
-      message.evidence = undefined;
-    }
+    message.evidence =
+      object.evidence !== undefined && object.evidence !== null
+        ? Any.fromPartial(object.evidence)
+        : undefined;
     return message;
   },
 };
@@ -120,10 +113,8 @@ export const MsgSubmitEvidenceResponse = {
 
   fromJSON(object: any): MsgSubmitEvidenceResponse {
     const message = { ...baseMsgSubmitEvidenceResponse } as MsgSubmitEvidenceResponse;
-    message.hash = new Uint8Array();
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = bytesFromBase64(object.hash);
-    }
+    message.hash =
+      object.hash !== undefined && object.hash !== null ? bytesFromBase64(object.hash) : new Uint8Array();
     return message;
   },
 

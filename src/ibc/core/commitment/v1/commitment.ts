@@ -73,10 +73,8 @@ export const MerkleRoot = {
 
   fromJSON(object: any): MerkleRoot {
     const message = { ...baseMerkleRoot } as MerkleRoot;
-    message.hash = new Uint8Array();
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = bytesFromBase64(object.hash);
-    }
+    message.hash =
+      object.hash !== undefined && object.hash !== null ? bytesFromBase64(object.hash) : new Uint8Array();
     return message;
   },
 
@@ -125,10 +123,10 @@ export const MerklePrefix = {
 
   fromJSON(object: any): MerklePrefix {
     const message = { ...baseMerklePrefix } as MerklePrefix;
-    message.keyPrefix = new Uint8Array();
-    if (object.keyPrefix !== undefined && object.keyPrefix !== null) {
-      message.keyPrefix = bytesFromBase64(object.keyPrefix);
-    }
+    message.keyPrefix =
+      object.keyPrefix !== undefined && object.keyPrefix !== null
+        ? bytesFromBase64(object.keyPrefix)
+        : new Uint8Array();
     return message;
   },
 
@@ -179,12 +177,7 @@ export const MerklePath = {
 
   fromJSON(object: any): MerklePath {
     const message = { ...baseMerklePath } as MerklePath;
-    message.keyPath = [];
-    if (object.keyPath !== undefined && object.keyPath !== null) {
-      for (const e of object.keyPath) {
-        message.keyPath.push(String(e));
-      }
-    }
+    message.keyPath = (object.keyPath ?? []).map((e: any) => String(e));
     return message;
   },
 
@@ -200,12 +193,7 @@ export const MerklePath = {
 
   fromPartial(object: DeepPartial<MerklePath>): MerklePath {
     const message = { ...baseMerklePath } as MerklePath;
-    message.keyPath = [];
-    if (object.keyPath !== undefined && object.keyPath !== null) {
-      for (const e of object.keyPath) {
-        message.keyPath.push(e);
-      }
-    }
+    message.keyPath = (object.keyPath ?? []).map((e) => e);
     return message;
   },
 };
@@ -241,12 +229,7 @@ export const MerkleProof = {
 
   fromJSON(object: any): MerkleProof {
     const message = { ...baseMerkleProof } as MerkleProof;
-    message.proofs = [];
-    if (object.proofs !== undefined && object.proofs !== null) {
-      for (const e of object.proofs) {
-        message.proofs.push(CommitmentProof.fromJSON(e));
-      }
-    }
+    message.proofs = (object.proofs ?? []).map((e: any) => CommitmentProof.fromJSON(e));
     return message;
   },
 
@@ -262,12 +245,7 @@ export const MerkleProof = {
 
   fromPartial(object: DeepPartial<MerkleProof>): MerkleProof {
     const message = { ...baseMerkleProof } as MerkleProof;
-    message.proofs = [];
-    if (object.proofs !== undefined && object.proofs !== null) {
-      for (const e of object.proofs) {
-        message.proofs.push(CommitmentProof.fromPartial(e));
-      }
-    }
+    message.proofs = (object.proofs ?? []).map((e) => CommitmentProof.fromPartial(e));
     return message;
   },
 };

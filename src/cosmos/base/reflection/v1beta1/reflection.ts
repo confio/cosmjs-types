@@ -99,12 +99,7 @@ export const ListAllInterfacesResponse = {
 
   fromJSON(object: any): ListAllInterfacesResponse {
     const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
-    message.interfaceNames = [];
-    if (object.interfaceNames !== undefined && object.interfaceNames !== null) {
-      for (const e of object.interfaceNames) {
-        message.interfaceNames.push(String(e));
-      }
-    }
+    message.interfaceNames = (object.interfaceNames ?? []).map((e: any) => String(e));
     return message;
   },
 
@@ -120,12 +115,7 @@ export const ListAllInterfacesResponse = {
 
   fromPartial(object: DeepPartial<ListAllInterfacesResponse>): ListAllInterfacesResponse {
     const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
-    message.interfaceNames = [];
-    if (object.interfaceNames !== undefined && object.interfaceNames !== null) {
-      for (const e of object.interfaceNames) {
-        message.interfaceNames.push(e);
-      }
-    }
+    message.interfaceNames = (object.interfaceNames ?? []).map((e) => e);
     return message;
   },
 };
@@ -160,11 +150,8 @@ export const ListImplementationsRequest = {
 
   fromJSON(object: any): ListImplementationsRequest {
     const message = { ...baseListImplementationsRequest } as ListImplementationsRequest;
-    if (object.interfaceName !== undefined && object.interfaceName !== null) {
-      message.interfaceName = String(object.interfaceName);
-    } else {
-      message.interfaceName = "";
-    }
+    message.interfaceName =
+      object.interfaceName !== undefined && object.interfaceName !== null ? String(object.interfaceName) : "";
     return message;
   },
 
@@ -212,12 +199,7 @@ export const ListImplementationsResponse = {
 
   fromJSON(object: any): ListImplementationsResponse {
     const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
-    message.implementationMessageNames = [];
-    if (object.implementationMessageNames !== undefined && object.implementationMessageNames !== null) {
-      for (const e of object.implementationMessageNames) {
-        message.implementationMessageNames.push(String(e));
-      }
-    }
+    message.implementationMessageNames = (object.implementationMessageNames ?? []).map((e: any) => String(e));
     return message;
   },
 
@@ -233,12 +215,7 @@ export const ListImplementationsResponse = {
 
   fromPartial(object: DeepPartial<ListImplementationsResponse>): ListImplementationsResponse {
     const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
-    message.implementationMessageNames = [];
-    if (object.implementationMessageNames !== undefined && object.implementationMessageNames !== null) {
-      for (const e of object.implementationMessageNames) {
-        message.implementationMessageNames.push(e);
-      }
-    }
+    message.implementationMessageNames = (object.implementationMessageNames ?? []).map((e) => e);
     return message;
   },
 };

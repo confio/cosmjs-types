@@ -52,16 +52,9 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     const message = { ...baseClientState } as ClientState;
-    if (object.chainId !== undefined && object.chainId !== null) {
-      message.chainId = String(object.chainId);
-    } else {
-      message.chainId = "";
-    }
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Height.fromJSON(object.height);
-    } else {
-      message.height = undefined;
-    }
+    message.chainId = object.chainId !== undefined && object.chainId !== null ? String(object.chainId) : "";
+    message.height =
+      object.height !== undefined && object.height !== null ? Height.fromJSON(object.height) : undefined;
     return message;
   },
 
@@ -75,11 +68,8 @@ export const ClientState = {
   fromPartial(object: DeepPartial<ClientState>): ClientState {
     const message = { ...baseClientState } as ClientState;
     message.chainId = object.chainId ?? "";
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Height.fromPartial(object.height);
-    } else {
-      message.height = undefined;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
     return message;
   },
 };

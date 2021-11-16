@@ -242,22 +242,13 @@ export const GetTxsEventRequest = {
 
   fromJSON(object: any): GetTxsEventRequest {
     const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
-    message.events = [];
-    if (object.events !== undefined && object.events !== null) {
-      for (const e of object.events) {
-        message.events.push(String(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    if (object.orderBy !== undefined && object.orderBy !== null) {
-      message.orderBy = orderByFromJSON(object.orderBy);
-    } else {
-      message.orderBy = 0;
-    }
+    message.events = (object.events ?? []).map((e: any) => String(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
+    message.orderBy =
+      object.orderBy !== undefined && object.orderBy !== null ? orderByFromJSON(object.orderBy) : 0;
     return message;
   },
 
@@ -276,17 +267,11 @@ export const GetTxsEventRequest = {
 
   fromPartial(object: DeepPartial<GetTxsEventRequest>): GetTxsEventRequest {
     const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
-    message.events = [];
-    if (object.events !== undefined && object.events !== null) {
-      for (const e of object.events) {
-        message.events.push(e);
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.events = (object.events ?? []).map((e) => e);
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     message.orderBy = object.orderBy ?? 0;
     return message;
   },
@@ -336,23 +321,12 @@ export const GetTxsEventResponse = {
 
   fromJSON(object: any): GetTxsEventResponse {
     const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
-    message.txs = [];
-    message.txResponses = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(Tx.fromJSON(e));
-      }
-    }
-    if (object.txResponses !== undefined && object.txResponses !== null) {
-      for (const e of object.txResponses) {
-        message.txResponses.push(TxResponse.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.txs = (object.txs ?? []).map((e: any) => Tx.fromJSON(e));
+    message.txResponses = (object.txResponses ?? []).map((e: any) => TxResponse.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -375,23 +349,12 @@ export const GetTxsEventResponse = {
 
   fromPartial(object: DeepPartial<GetTxsEventResponse>): GetTxsEventResponse {
     const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
-    message.txs = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(Tx.fromPartial(e));
-      }
-    }
-    message.txResponses = [];
-    if (object.txResponses !== undefined && object.txResponses !== null) {
-      for (const e of object.txResponses) {
-        message.txResponses.push(TxResponse.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.txs = (object.txs ?? []).map((e) => Tx.fromPartial(e));
+    message.txResponses = (object.txResponses ?? []).map((e) => TxResponse.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -433,15 +396,11 @@ export const BroadcastTxRequest = {
 
   fromJSON(object: any): BroadcastTxRequest {
     const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
-    message.txBytes = new Uint8Array();
-    if (object.txBytes !== undefined && object.txBytes !== null) {
-      message.txBytes = bytesFromBase64(object.txBytes);
-    }
-    if (object.mode !== undefined && object.mode !== null) {
-      message.mode = broadcastModeFromJSON(object.mode);
-    } else {
-      message.mode = 0;
-    }
+    message.txBytes =
+      object.txBytes !== undefined && object.txBytes !== null
+        ? bytesFromBase64(object.txBytes)
+        : new Uint8Array();
+    message.mode = object.mode !== undefined && object.mode !== null ? broadcastModeFromJSON(object.mode) : 0;
     return message;
   },
 
@@ -491,11 +450,10 @@ export const BroadcastTxResponse = {
 
   fromJSON(object: any): BroadcastTxResponse {
     const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
-    if (object.txResponse !== undefined && object.txResponse !== null) {
-      message.txResponse = TxResponse.fromJSON(object.txResponse);
-    } else {
-      message.txResponse = undefined;
-    }
+    message.txResponse =
+      object.txResponse !== undefined && object.txResponse !== null
+        ? TxResponse.fromJSON(object.txResponse)
+        : undefined;
     return message;
   },
 
@@ -508,11 +466,10 @@ export const BroadcastTxResponse = {
 
   fromPartial(object: DeepPartial<BroadcastTxResponse>): BroadcastTxResponse {
     const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
-    if (object.txResponse !== undefined && object.txResponse !== null) {
-      message.txResponse = TxResponse.fromPartial(object.txResponse);
-    } else {
-      message.txResponse = undefined;
-    }
+    message.txResponse =
+      object.txResponse !== undefined && object.txResponse !== null
+        ? TxResponse.fromPartial(object.txResponse)
+        : undefined;
     return message;
   },
 };
@@ -554,15 +511,11 @@ export const SimulateRequest = {
 
   fromJSON(object: any): SimulateRequest {
     const message = { ...baseSimulateRequest } as SimulateRequest;
-    message.txBytes = new Uint8Array();
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = Tx.fromJSON(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.txBytes !== undefined && object.txBytes !== null) {
-      message.txBytes = bytesFromBase64(object.txBytes);
-    }
+    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromJSON(object.tx) : undefined;
+    message.txBytes =
+      object.txBytes !== undefined && object.txBytes !== null
+        ? bytesFromBase64(object.txBytes)
+        : new Uint8Array();
     return message;
   },
 
@@ -576,11 +529,7 @@ export const SimulateRequest = {
 
   fromPartial(object: DeepPartial<SimulateRequest>): SimulateRequest {
     const message = { ...baseSimulateRequest } as SimulateRequest;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = Tx.fromPartial(object.tx);
-    } else {
-      message.tx = undefined;
-    }
+    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txBytes = object.txBytes ?? new Uint8Array();
     return message;
   },
@@ -622,16 +571,10 @@ export const SimulateResponse = {
 
   fromJSON(object: any): SimulateResponse {
     const message = { ...baseSimulateResponse } as SimulateResponse;
-    if (object.gasInfo !== undefined && object.gasInfo !== null) {
-      message.gasInfo = GasInfo.fromJSON(object.gasInfo);
-    } else {
-      message.gasInfo = undefined;
-    }
-    if (object.result !== undefined && object.result !== null) {
-      message.result = Result.fromJSON(object.result);
-    } else {
-      message.result = undefined;
-    }
+    message.gasInfo =
+      object.gasInfo !== undefined && object.gasInfo !== null ? GasInfo.fromJSON(object.gasInfo) : undefined;
+    message.result =
+      object.result !== undefined && object.result !== null ? Result.fromJSON(object.result) : undefined;
     return message;
   },
 
@@ -645,16 +588,12 @@ export const SimulateResponse = {
 
   fromPartial(object: DeepPartial<SimulateResponse>): SimulateResponse {
     const message = { ...baseSimulateResponse } as SimulateResponse;
-    if (object.gasInfo !== undefined && object.gasInfo !== null) {
-      message.gasInfo = GasInfo.fromPartial(object.gasInfo);
-    } else {
-      message.gasInfo = undefined;
-    }
-    if (object.result !== undefined && object.result !== null) {
-      message.result = Result.fromPartial(object.result);
-    } else {
-      message.result = undefined;
-    }
+    message.gasInfo =
+      object.gasInfo !== undefined && object.gasInfo !== null
+        ? GasInfo.fromPartial(object.gasInfo)
+        : undefined;
+    message.result =
+      object.result !== undefined && object.result !== null ? Result.fromPartial(object.result) : undefined;
     return message;
   },
 };
@@ -689,11 +628,7 @@ export const GetTxRequest = {
 
   fromJSON(object: any): GetTxRequest {
     const message = { ...baseGetTxRequest } as GetTxRequest;
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = String(object.hash);
-    } else {
-      message.hash = "";
-    }
+    message.hash = object.hash !== undefined && object.hash !== null ? String(object.hash) : "";
     return message;
   },
 
@@ -746,16 +681,11 @@ export const GetTxResponse = {
 
   fromJSON(object: any): GetTxResponse {
     const message = { ...baseGetTxResponse } as GetTxResponse;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = Tx.fromJSON(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.txResponse !== undefined && object.txResponse !== null) {
-      message.txResponse = TxResponse.fromJSON(object.txResponse);
-    } else {
-      message.txResponse = undefined;
-    }
+    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromJSON(object.tx) : undefined;
+    message.txResponse =
+      object.txResponse !== undefined && object.txResponse !== null
+        ? TxResponse.fromJSON(object.txResponse)
+        : undefined;
     return message;
   },
 
@@ -769,16 +699,11 @@ export const GetTxResponse = {
 
   fromPartial(object: DeepPartial<GetTxResponse>): GetTxResponse {
     const message = { ...baseGetTxResponse } as GetTxResponse;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = Tx.fromPartial(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.txResponse !== undefined && object.txResponse !== null) {
-      message.txResponse = TxResponse.fromPartial(object.txResponse);
-    } else {
-      message.txResponse = undefined;
-    }
+    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
+    message.txResponse =
+      object.txResponse !== undefined && object.txResponse !== null
+        ? TxResponse.fromPartial(object.txResponse)
+        : undefined;
     return message;
   },
 };

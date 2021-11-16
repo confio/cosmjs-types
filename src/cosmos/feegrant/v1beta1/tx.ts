@@ -76,21 +76,12 @@ export const MsgGrantAllowance = {
 
   fromJSON(object: any): MsgGrantAllowance {
     const message = { ...baseMsgGrantAllowance } as MsgGrantAllowance;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromJSON(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromJSON(object.allowance)
+        : undefined;
     return message;
   },
 
@@ -107,11 +98,10 @@ export const MsgGrantAllowance = {
     const message = { ...baseMsgGrantAllowance } as MsgGrantAllowance;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromPartial(object.allowance);
-    } else {
-      message.allowance = undefined;
-    }
+    message.allowance =
+      object.allowance !== undefined && object.allowance !== null
+        ? Any.fromPartial(object.allowance)
+        : undefined;
     return message;
   },
 };
@@ -190,16 +180,8 @@ export const MsgRevokeAllowance = {
 
   fromJSON(object: any): MsgRevokeAllowance {
     const message = { ...baseMsgRevokeAllowance } as MsgRevokeAllowance;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
     return message;
   },
 

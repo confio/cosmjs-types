@@ -46,12 +46,7 @@ export const Pairs = {
 
   fromJSON(object: any): Pairs {
     const message = { ...basePairs } as Pairs;
-    message.pairs = [];
-    if (object.pairs !== undefined && object.pairs !== null) {
-      for (const e of object.pairs) {
-        message.pairs.push(Pair.fromJSON(e));
-      }
-    }
+    message.pairs = (object.pairs ?? []).map((e: any) => Pair.fromJSON(e));
     return message;
   },
 
@@ -67,12 +62,7 @@ export const Pairs = {
 
   fromPartial(object: DeepPartial<Pairs>): Pairs {
     const message = { ...basePairs } as Pairs;
-    message.pairs = [];
-    if (object.pairs !== undefined && object.pairs !== null) {
-      for (const e of object.pairs) {
-        message.pairs.push(Pair.fromPartial(e));
-      }
-    }
+    message.pairs = (object.pairs ?? []).map((e) => Pair.fromPartial(e));
     return message;
   },
 };
@@ -115,14 +105,10 @@ export const Pair = {
 
   fromJSON(object: any): Pair {
     const message = { ...basePair } as Pair;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = bytesFromBase64(object.value);
-    }
+    message.key =
+      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
+    message.value =
+      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
     return message;
   },
 

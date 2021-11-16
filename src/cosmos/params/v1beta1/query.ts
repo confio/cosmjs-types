@@ -55,16 +55,9 @@ export const QueryParamsRequest = {
 
   fromJSON(object: any): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
-    if (object.subspace !== undefined && object.subspace !== null) {
-      message.subspace = String(object.subspace);
-    } else {
-      message.subspace = "";
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = String(object.key);
-    } else {
-      message.key = "";
-    }
+    message.subspace =
+      object.subspace !== undefined && object.subspace !== null ? String(object.subspace) : "";
+    message.key = object.key !== undefined && object.key !== null ? String(object.key) : "";
     return message;
   },
 
@@ -113,11 +106,8 @@ export const QueryParamsResponse = {
 
   fromJSON(object: any): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.param !== undefined && object.param !== null) {
-      message.param = ParamChange.fromJSON(object.param);
-    } else {
-      message.param = undefined;
-    }
+    message.param =
+      object.param !== undefined && object.param !== null ? ParamChange.fromJSON(object.param) : undefined;
     return message;
   },
 
@@ -130,11 +120,8 @@ export const QueryParamsResponse = {
 
   fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    if (object.param !== undefined && object.param !== null) {
-      message.param = ParamChange.fromPartial(object.param);
-    } else {
-      message.param = undefined;
-    }
+    message.param =
+      object.param !== undefined && object.param !== null ? ParamChange.fromPartial(object.param) : undefined;
     return message;
   },
 };

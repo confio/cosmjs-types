@@ -68,22 +68,11 @@ export const MsgSend = {
 
   fromJSON(object: any): MsgSend {
     const message = { ...baseMsgSend } as MsgSend;
-    message.amount = [];
-    if (object.fromAddress !== undefined && object.fromAddress !== null) {
-      message.fromAddress = String(object.fromAddress);
-    } else {
-      message.fromAddress = "";
-    }
-    if (object.toAddress !== undefined && object.toAddress !== null) {
-      message.toAddress = String(object.toAddress);
-    } else {
-      message.toAddress = "";
-    }
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromJSON(e));
-      }
-    }
+    message.fromAddress =
+      object.fromAddress !== undefined && object.fromAddress !== null ? String(object.fromAddress) : "";
+    message.toAddress =
+      object.toAddress !== undefined && object.toAddress !== null ? String(object.toAddress) : "";
+    message.amount = (object.amount ?? []).map((e: any) => Coin.fromJSON(e));
     return message;
   },
 
@@ -103,12 +92,7 @@ export const MsgSend = {
     const message = { ...baseMsgSend } as MsgSend;
     message.fromAddress = object.fromAddress ?? "";
     message.toAddress = object.toAddress ?? "";
-    message.amount = [];
-    if (object.amount !== undefined && object.amount !== null) {
-      for (const e of object.amount) {
-        message.amount.push(Coin.fromPartial(e));
-      }
-    }
+    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
     return message;
   },
 };
@@ -189,18 +173,8 @@ export const MsgMultiSend = {
 
   fromJSON(object: any): MsgMultiSend {
     const message = { ...baseMsgMultiSend } as MsgMultiSend;
-    message.inputs = [];
-    message.outputs = [];
-    if (object.inputs !== undefined && object.inputs !== null) {
-      for (const e of object.inputs) {
-        message.inputs.push(Input.fromJSON(e));
-      }
-    }
-    if (object.outputs !== undefined && object.outputs !== null) {
-      for (const e of object.outputs) {
-        message.outputs.push(Output.fromJSON(e));
-      }
-    }
+    message.inputs = (object.inputs ?? []).map((e: any) => Input.fromJSON(e));
+    message.outputs = (object.outputs ?? []).map((e: any) => Output.fromJSON(e));
     return message;
   },
 
@@ -221,18 +195,8 @@ export const MsgMultiSend = {
 
   fromPartial(object: DeepPartial<MsgMultiSend>): MsgMultiSend {
     const message = { ...baseMsgMultiSend } as MsgMultiSend;
-    message.inputs = [];
-    if (object.inputs !== undefined && object.inputs !== null) {
-      for (const e of object.inputs) {
-        message.inputs.push(Input.fromPartial(e));
-      }
-    }
-    message.outputs = [];
-    if (object.outputs !== undefined && object.outputs !== null) {
-      for (const e of object.outputs) {
-        message.outputs.push(Output.fromPartial(e));
-      }
-    }
+    message.inputs = (object.inputs ?? []).map((e) => Input.fromPartial(e));
+    message.outputs = (object.outputs ?? []).map((e) => Output.fromPartial(e));
     return message;
   },
 };

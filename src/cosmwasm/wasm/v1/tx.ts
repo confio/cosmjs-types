@@ -158,20 +158,15 @@ export const MsgStoreCode = {
 
   fromJSON(object: any): MsgStoreCode {
     const message = { ...baseMsgStoreCode } as MsgStoreCode;
-    message.wasmByteCode = new Uint8Array();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.wasmByteCode !== undefined && object.wasmByteCode !== null) {
-      message.wasmByteCode = bytesFromBase64(object.wasmByteCode);
-    }
-    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
-      message.instantiatePermission = AccessConfig.fromJSON(object.instantiatePermission);
-    } else {
-      message.instantiatePermission = undefined;
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.wasmByteCode =
+      object.wasmByteCode !== undefined && object.wasmByteCode !== null
+        ? bytesFromBase64(object.wasmByteCode)
+        : new Uint8Array();
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromJSON(object.instantiatePermission)
+        : undefined;
     return message;
   },
 
@@ -193,11 +188,10 @@ export const MsgStoreCode = {
     const message = { ...baseMsgStoreCode } as MsgStoreCode;
     message.sender = object.sender ?? "";
     message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
-    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
-      message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
-    } else {
-      message.instantiatePermission = undefined;
-    }
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromPartial(object.instantiatePermission)
+        : undefined;
     return message;
   },
 };
@@ -232,11 +226,8 @@ export const MsgStoreCodeResponse = {
 
   fromJSON(object: any): MsgStoreCodeResponse {
     const message = { ...baseMsgStoreCodeResponse } as MsgStoreCodeResponse;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
     return message;
   },
 
@@ -319,36 +310,14 @@ export const MsgInstantiateContract = {
 
   fromJSON(object: any): MsgInstantiateContract {
     const message = { ...baseMsgInstantiateContract } as MsgInstantiateContract;
-    message.funds = [];
-    message.msg = new Uint8Array();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = String(object.admin);
-    } else {
-      message.admin = "";
-    }
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.label !== undefined && object.label !== null) {
-      message.label = String(object.label);
-    } else {
-      message.label = "";
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromJSON(e));
-      }
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.admin = object.admin !== undefined && object.admin !== null ? String(object.admin) : "";
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.label = object.label !== undefined && object.label !== null ? String(object.label) : "";
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
+    message.funds = (object.funds ?? []).map((e: any) => Coin.fromJSON(e));
     return message;
   },
 
@@ -379,12 +348,7 @@ export const MsgInstantiateContract = {
     }
     message.label = object.label ?? "";
     message.msg = object.msg ?? new Uint8Array();
-    message.funds = [];
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromPartial(e));
-      }
-    }
+    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
     return message;
   },
 };
@@ -426,15 +390,9 @@ export const MsgInstantiateContractResponse = {
 
   fromJSON(object: any): MsgInstantiateContractResponse {
     const message = { ...baseMsgInstantiateContractResponse } as MsgInstantiateContractResponse;
-    message.data = new Uint8Array();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address);
-    } else {
-      message.address = "";
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
+    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
     return message;
   },
 
@@ -504,26 +462,12 @@ export const MsgExecuteContract = {
 
   fromJSON(object: any): MsgExecuteContract {
     const message = { ...baseMsgExecuteContract } as MsgExecuteContract;
-    message.funds = [];
-    message.msg = new Uint8Array();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromJSON(e));
-      }
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
+    message.funds = (object.funds ?? []).map((e: any) => Coin.fromJSON(e));
     return message;
   },
 
@@ -546,12 +490,7 @@ export const MsgExecuteContract = {
     message.sender = object.sender ?? "";
     message.contract = object.contract ?? "";
     message.msg = object.msg ?? new Uint8Array();
-    message.funds = [];
-    if (object.funds !== undefined && object.funds !== null) {
-      for (const e of object.funds) {
-        message.funds.push(Coin.fromPartial(e));
-      }
-    }
+    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
     return message;
   },
 };
@@ -587,10 +526,8 @@ export const MsgExecuteContractResponse = {
 
   fromJSON(object: any): MsgExecuteContractResponse {
     const message = { ...baseMsgExecuteContractResponse } as MsgExecuteContractResponse;
-    message.data = new Uint8Array();
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
     return message;
   },
 
@@ -657,25 +594,13 @@ export const MsgMigrateContract = {
 
   fromJSON(object: any): MsgMigrateContract {
     const message = { ...baseMsgMigrateContract } as MsgMigrateContract;
-    message.msg = new Uint8Array();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = Long.fromString(object.codeId);
-    } else {
-      message.codeId = Long.UZERO;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = bytesFromBase64(object.msg);
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromString(object.codeId) : Long.UZERO;
+    message.msg =
+      object.msg !== undefined && object.msg !== null ? bytesFromBase64(object.msg) : new Uint8Array();
     return message;
   },
 
@@ -734,10 +659,8 @@ export const MsgMigrateContractResponse = {
 
   fromJSON(object: any): MsgMigrateContractResponse {
     const message = { ...baseMsgMigrateContractResponse } as MsgMigrateContractResponse;
-    message.data = new Uint8Array();
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
+    message.data =
+      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
     return message;
   },
 
@@ -797,21 +720,11 @@ export const MsgUpdateAdmin = {
 
   fromJSON(object: any): MsgUpdateAdmin {
     const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.newAdmin !== undefined && object.newAdmin !== null) {
-      message.newAdmin = String(object.newAdmin);
-    } else {
-      message.newAdmin = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.newAdmin =
+      object.newAdmin !== undefined && object.newAdmin !== null ? String(object.newAdmin) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
     return message;
   },
 
@@ -906,16 +819,9 @@ export const MsgClearAdmin = {
 
   fromJSON(object: any): MsgClearAdmin {
     const message = { ...baseMsgClearAdmin } as MsgClearAdmin;
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = String(object.sender);
-    } else {
-      message.sender = "";
-    }
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = String(object.contract);
-    } else {
-      message.contract = "";
-    }
+    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
+    message.contract =
+      object.contract !== undefined && object.contract !== null ? String(object.contract) : "";
     return message;
   },
 

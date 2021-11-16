@@ -142,16 +142,12 @@ export const GetValidatorSetByHeightRequest = {
 
   fromJSON(object: any): GetValidatorSetByHeightRequest {
     const message = { ...baseGetValidatorSetByHeightRequest } as GetValidatorSetByHeightRequest;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Long.fromString(object.height);
-    } else {
-      message.height = Long.ZERO;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -170,11 +166,10 @@ export const GetValidatorSetByHeightRequest = {
     } else {
       message.height = Long.ZERO;
     }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -222,22 +217,15 @@ export const GetValidatorSetByHeightResponse = {
 
   fromJSON(object: any): GetValidatorSetByHeightResponse {
     const message = { ...baseGetValidatorSetByHeightResponse } as GetValidatorSetByHeightResponse;
-    message.validators = [];
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = Long.fromString(object.blockHeight);
-    } else {
-      message.blockHeight = Long.ZERO;
-    }
-    if (object.validators !== undefined && object.validators !== null) {
-      for (const e of object.validators) {
-        message.validators.push(Validator.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromString(object.blockHeight)
+        : Long.ZERO;
+    message.validators = (object.validators ?? []).map((e: any) => Validator.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -261,17 +249,11 @@ export const GetValidatorSetByHeightResponse = {
     } else {
       message.blockHeight = Long.ZERO;
     }
-    message.validators = [];
-    if (object.validators !== undefined && object.validators !== null) {
-      for (const e of object.validators) {
-        message.validators.push(Validator.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -306,11 +288,10 @@ export const GetLatestValidatorSetRequest = {
 
   fromJSON(object: any): GetLatestValidatorSetRequest {
     const message = { ...baseGetLatestValidatorSetRequest } as GetLatestValidatorSetRequest;
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -323,11 +304,10 @@ export const GetLatestValidatorSetRequest = {
 
   fromPartial(object: DeepPartial<GetLatestValidatorSetRequest>): GetLatestValidatorSetRequest {
     const message = { ...baseGetLatestValidatorSetRequest } as GetLatestValidatorSetRequest;
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -375,22 +355,15 @@ export const GetLatestValidatorSetResponse = {
 
   fromJSON(object: any): GetLatestValidatorSetResponse {
     const message = { ...baseGetLatestValidatorSetResponse } as GetLatestValidatorSetResponse;
-    message.validators = [];
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = Long.fromString(object.blockHeight);
-    } else {
-      message.blockHeight = Long.ZERO;
-    }
-    if (object.validators !== undefined && object.validators !== null) {
-      for (const e of object.validators) {
-        message.validators.push(Validator.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromString(object.blockHeight)
+        : Long.ZERO;
+    message.validators = (object.validators ?? []).map((e: any) => Validator.fromJSON(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
     return message;
   },
 
@@ -414,17 +387,11 @@ export const GetLatestValidatorSetResponse = {
     } else {
       message.blockHeight = Long.ZERO;
     }
-    message.validators = [];
-    if (object.validators !== undefined && object.validators !== null) {
-      for (const e of object.validators) {
-        message.validators.push(Validator.fromPartial(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -477,26 +444,17 @@ export const Validator = {
 
   fromJSON(object: any): Validator {
     const message = { ...baseValidator } as Validator;
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address);
-    } else {
-      message.address = "";
-    }
-    if (object.pubKey !== undefined && object.pubKey !== null) {
-      message.pubKey = Any.fromJSON(object.pubKey);
-    } else {
-      message.pubKey = undefined;
-    }
-    if (object.votingPower !== undefined && object.votingPower !== null) {
-      message.votingPower = Long.fromString(object.votingPower);
-    } else {
-      message.votingPower = Long.ZERO;
-    }
-    if (object.proposerPriority !== undefined && object.proposerPriority !== null) {
-      message.proposerPriority = Long.fromString(object.proposerPriority);
-    } else {
-      message.proposerPriority = Long.ZERO;
-    }
+    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
+    message.pubKey =
+      object.pubKey !== undefined && object.pubKey !== null ? Any.fromJSON(object.pubKey) : undefined;
+    message.votingPower =
+      object.votingPower !== undefined && object.votingPower !== null
+        ? Long.fromString(object.votingPower)
+        : Long.ZERO;
+    message.proposerPriority =
+      object.proposerPriority !== undefined && object.proposerPriority !== null
+        ? Long.fromString(object.proposerPriority)
+        : Long.ZERO;
     return message;
   },
 
@@ -513,11 +471,8 @@ export const Validator = {
   fromPartial(object: DeepPartial<Validator>): Validator {
     const message = { ...baseValidator } as Validator;
     message.address = object.address ?? "";
-    if (object.pubKey !== undefined && object.pubKey !== null) {
-      message.pubKey = Any.fromPartial(object.pubKey);
-    } else {
-      message.pubKey = undefined;
-    }
+    message.pubKey =
+      object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined;
     if (object.votingPower !== undefined && object.votingPower !== null) {
       message.votingPower = object.votingPower as Long;
     } else {
@@ -562,11 +517,8 @@ export const GetBlockByHeightRequest = {
 
   fromJSON(object: any): GetBlockByHeightRequest {
     const message = { ...baseGetBlockByHeightRequest } as GetBlockByHeightRequest;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = Long.fromString(object.height);
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
     return message;
   },
 
@@ -623,16 +575,10 @@ export const GetBlockByHeightResponse = {
 
   fromJSON(object: any): GetBlockByHeightResponse {
     const message = { ...baseGetBlockByHeightResponse } as GetBlockByHeightResponse;
-    if (object.blockId !== undefined && object.blockId !== null) {
-      message.blockId = BlockID.fromJSON(object.blockId);
-    } else {
-      message.blockId = undefined;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Block.fromJSON(object.block);
-    } else {
-      message.block = undefined;
-    }
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null ? BlockID.fromJSON(object.blockId) : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromJSON(object.block) : undefined;
     return message;
   },
 
@@ -646,16 +592,12 @@ export const GetBlockByHeightResponse = {
 
   fromPartial(object: DeepPartial<GetBlockByHeightResponse>): GetBlockByHeightResponse {
     const message = { ...baseGetBlockByHeightResponse } as GetBlockByHeightResponse;
-    if (object.blockId !== undefined && object.blockId !== null) {
-      message.blockId = BlockID.fromPartial(object.blockId);
-    } else {
-      message.blockId = undefined;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Block.fromPartial(object.block);
-    } else {
-      message.block = undefined;
-    }
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null
+        ? BlockID.fromPartial(object.blockId)
+        : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
     return message;
   },
 };
@@ -734,16 +676,10 @@ export const GetLatestBlockResponse = {
 
   fromJSON(object: any): GetLatestBlockResponse {
     const message = { ...baseGetLatestBlockResponse } as GetLatestBlockResponse;
-    if (object.blockId !== undefined && object.blockId !== null) {
-      message.blockId = BlockID.fromJSON(object.blockId);
-    } else {
-      message.blockId = undefined;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Block.fromJSON(object.block);
-    } else {
-      message.block = undefined;
-    }
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null ? BlockID.fromJSON(object.blockId) : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromJSON(object.block) : undefined;
     return message;
   },
 
@@ -757,16 +693,12 @@ export const GetLatestBlockResponse = {
 
   fromPartial(object: DeepPartial<GetLatestBlockResponse>): GetLatestBlockResponse {
     const message = { ...baseGetLatestBlockResponse } as GetLatestBlockResponse;
-    if (object.blockId !== undefined && object.blockId !== null) {
-      message.blockId = BlockID.fromPartial(object.blockId);
-    } else {
-      message.blockId = undefined;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Block.fromPartial(object.block);
-    } else {
-      message.block = undefined;
-    }
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null
+        ? BlockID.fromPartial(object.blockId)
+        : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
     return message;
   },
 };
@@ -839,11 +771,8 @@ export const GetSyncingResponse = {
 
   fromJSON(object: any): GetSyncingResponse {
     const message = { ...baseGetSyncingResponse } as GetSyncingResponse;
-    if (object.syncing !== undefined && object.syncing !== null) {
-      message.syncing = Boolean(object.syncing);
-    } else {
-      message.syncing = false;
-    }
+    message.syncing =
+      object.syncing !== undefined && object.syncing !== null ? Boolean(object.syncing) : false;
     return message;
   },
 
@@ -934,16 +863,14 @@ export const GetNodeInfoResponse = {
 
   fromJSON(object: any): GetNodeInfoResponse {
     const message = { ...baseGetNodeInfoResponse } as GetNodeInfoResponse;
-    if (object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null) {
-      message.defaultNodeInfo = DefaultNodeInfo.fromJSON(object.defaultNodeInfo);
-    } else {
-      message.defaultNodeInfo = undefined;
-    }
-    if (object.applicationVersion !== undefined && object.applicationVersion !== null) {
-      message.applicationVersion = VersionInfo.fromJSON(object.applicationVersion);
-    } else {
-      message.applicationVersion = undefined;
-    }
+    message.defaultNodeInfo =
+      object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
+        ? DefaultNodeInfo.fromJSON(object.defaultNodeInfo)
+        : undefined;
+    message.applicationVersion =
+      object.applicationVersion !== undefined && object.applicationVersion !== null
+        ? VersionInfo.fromJSON(object.applicationVersion)
+        : undefined;
     return message;
   },
 
@@ -962,16 +889,14 @@ export const GetNodeInfoResponse = {
 
   fromPartial(object: DeepPartial<GetNodeInfoResponse>): GetNodeInfoResponse {
     const message = { ...baseGetNodeInfoResponse } as GetNodeInfoResponse;
-    if (object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null) {
-      message.defaultNodeInfo = DefaultNodeInfo.fromPartial(object.defaultNodeInfo);
-    } else {
-      message.defaultNodeInfo = undefined;
-    }
-    if (object.applicationVersion !== undefined && object.applicationVersion !== null) {
-      message.applicationVersion = VersionInfo.fromPartial(object.applicationVersion);
-    } else {
-      message.applicationVersion = undefined;
-    }
+    message.defaultNodeInfo =
+      object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
+        ? DefaultNodeInfo.fromPartial(object.defaultNodeInfo)
+        : undefined;
+    message.applicationVersion =
+      object.applicationVersion !== undefined && object.applicationVersion !== null
+        ? VersionInfo.fromPartial(object.applicationVersion)
+        : undefined;
     return message;
   },
 };
@@ -1057,47 +982,20 @@ export const VersionInfo = {
 
   fromJSON(object: any): VersionInfo {
     const message = { ...baseVersionInfo } as VersionInfo;
-    message.buildDeps = [];
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (object.appName !== undefined && object.appName !== null) {
-      message.appName = String(object.appName);
-    } else {
-      message.appName = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = String(object.version);
-    } else {
-      message.version = "";
-    }
-    if (object.gitCommit !== undefined && object.gitCommit !== null) {
-      message.gitCommit = String(object.gitCommit);
-    } else {
-      message.gitCommit = "";
-    }
-    if (object.buildTags !== undefined && object.buildTags !== null) {
-      message.buildTags = String(object.buildTags);
-    } else {
-      message.buildTags = "";
-    }
-    if (object.goVersion !== undefined && object.goVersion !== null) {
-      message.goVersion = String(object.goVersion);
-    } else {
-      message.goVersion = "";
-    }
-    if (object.buildDeps !== undefined && object.buildDeps !== null) {
-      for (const e of object.buildDeps) {
-        message.buildDeps.push(Module.fromJSON(e));
-      }
-    }
-    if (object.cosmosSdkVersion !== undefined && object.cosmosSdkVersion !== null) {
-      message.cosmosSdkVersion = String(object.cosmosSdkVersion);
-    } else {
-      message.cosmosSdkVersion = "";
-    }
+    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
+    message.appName = object.appName !== undefined && object.appName !== null ? String(object.appName) : "";
+    message.version = object.version !== undefined && object.version !== null ? String(object.version) : "";
+    message.gitCommit =
+      object.gitCommit !== undefined && object.gitCommit !== null ? String(object.gitCommit) : "";
+    message.buildTags =
+      object.buildTags !== undefined && object.buildTags !== null ? String(object.buildTags) : "";
+    message.goVersion =
+      object.goVersion !== undefined && object.goVersion !== null ? String(object.goVersion) : "";
+    message.buildDeps = (object.buildDeps ?? []).map((e: any) => Module.fromJSON(e));
+    message.cosmosSdkVersion =
+      object.cosmosSdkVersion !== undefined && object.cosmosSdkVersion !== null
+        ? String(object.cosmosSdkVersion)
+        : "";
     return message;
   },
 
@@ -1126,12 +1024,7 @@ export const VersionInfo = {
     message.gitCommit = object.gitCommit ?? "";
     message.buildTags = object.buildTags ?? "";
     message.goVersion = object.goVersion ?? "";
-    message.buildDeps = [];
-    if (object.buildDeps !== undefined && object.buildDeps !== null) {
-      for (const e of object.buildDeps) {
-        message.buildDeps.push(Module.fromPartial(e));
-      }
-    }
+    message.buildDeps = (object.buildDeps ?? []).map((e) => Module.fromPartial(e));
     message.cosmosSdkVersion = object.cosmosSdkVersion ?? "";
     return message;
   },
@@ -1179,21 +1072,9 @@ export const Module = {
 
   fromJSON(object: any): Module {
     const message = { ...baseModule } as Module;
-    if (object.path !== undefined && object.path !== null) {
-      message.path = String(object.path);
-    } else {
-      message.path = "";
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = String(object.version);
-    } else {
-      message.version = "";
-    }
-    if (object.sum !== undefined && object.sum !== null) {
-      message.sum = String(object.sum);
-    } else {
-      message.sum = "";
-    }
+    message.path = object.path !== undefined && object.path !== null ? String(object.path) : "";
+    message.version = object.version !== undefined && object.version !== null ? String(object.version) : "";
+    message.sum = object.sum !== undefined && object.sum !== null ? String(object.sum) : "";
     return message;
   },
 

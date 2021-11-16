@@ -52,12 +52,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.authorization = [];
-    if (object.authorization !== undefined && object.authorization !== null) {
-      for (const e of object.authorization) {
-        message.authorization.push(GrantAuthorization.fromJSON(e));
-      }
-    }
+    message.authorization = (object.authorization ?? []).map((e: any) => GrantAuthorization.fromJSON(e));
     return message;
   },
 
@@ -73,12 +68,7 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.authorization = [];
-    if (object.authorization !== undefined && object.authorization !== null) {
-      for (const e of object.authorization) {
-        message.authorization.push(GrantAuthorization.fromPartial(e));
-      }
-    }
+    message.authorization = (object.authorization ?? []).map((e) => GrantAuthorization.fromPartial(e));
     return message;
   },
 };
@@ -131,26 +121,16 @@ export const GrantAuthorization = {
 
   fromJSON(object: any): GrantAuthorization {
     const message = { ...baseGrantAuthorization } as GrantAuthorization;
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = String(object.granter);
-    } else {
-      message.granter = "";
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = String(object.grantee);
-    } else {
-      message.grantee = "";
-    }
-    if (object.authorization !== undefined && object.authorization !== null) {
-      message.authorization = Any.fromJSON(object.authorization);
-    } else {
-      message.authorization = undefined;
-    }
-    if (object.expiration !== undefined && object.expiration !== null) {
-      message.expiration = fromJsonTimestamp(object.expiration);
-    } else {
-      message.expiration = undefined;
-    }
+    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
+    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
+    message.authorization =
+      object.authorization !== undefined && object.authorization !== null
+        ? Any.fromJSON(object.authorization)
+        : undefined;
+    message.expiration =
+      object.expiration !== undefined && object.expiration !== null
+        ? fromJsonTimestamp(object.expiration)
+        : undefined;
     return message;
   },
 
@@ -168,11 +148,10 @@ export const GrantAuthorization = {
     const message = { ...baseGrantAuthorization } as GrantAuthorization;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    if (object.authorization !== undefined && object.authorization !== null) {
-      message.authorization = Any.fromPartial(object.authorization);
-    } else {
-      message.authorization = undefined;
-    }
+    message.authorization =
+      object.authorization !== undefined && object.authorization !== null
+        ? Any.fromPartial(object.authorization)
+        : undefined;
     message.expiration = object.expiration ?? undefined;
     return message;
   },

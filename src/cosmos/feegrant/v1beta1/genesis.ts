@@ -43,12 +43,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.allowances = [];
-    if (object.allowances !== undefined && object.allowances !== null) {
-      for (const e of object.allowances) {
-        message.allowances.push(Grant.fromJSON(e));
-      }
-    }
+    message.allowances = (object.allowances ?? []).map((e: any) => Grant.fromJSON(e));
     return message;
   },
 
@@ -64,12 +59,7 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.allowances = [];
-    if (object.allowances !== undefined && object.allowances !== null) {
-      for (const e of object.allowances) {
-        message.allowances.push(Grant.fromPartial(e));
-      }
-    }
+    message.allowances = (object.allowances ?? []).map((e) => Grant.fromPartial(e));
     return message;
   },
 };

@@ -51,10 +51,8 @@ export const PubKey = {
 
   fromJSON(object: any): PubKey {
     const message = { ...basePubKey } as PubKey;
-    message.key = new Uint8Array();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
+    message.key =
+      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
     return message;
   },
 
@@ -103,10 +101,8 @@ export const PrivKey = {
 
   fromJSON(object: any): PrivKey {
     const message = { ...basePrivKey } as PrivKey;
-    message.key = new Uint8Array();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
+    message.key =
+      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
     return message;
   },
 
