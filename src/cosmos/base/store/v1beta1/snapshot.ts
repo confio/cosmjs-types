@@ -213,11 +213,8 @@ export const SnapshotIAVLItem = {
     const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version as Long;
-    } else {
-      message.version = Long.ZERO;
-    }
+    message.version =
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
     message.height = object.height ?? 0;
     return message;
   },
@@ -255,9 +252,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

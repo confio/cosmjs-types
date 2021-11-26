@@ -118,16 +118,10 @@ export const Proof = {
 
   fromPartial(object: DeepPartial<Proof>): Proof {
     const message = { ...baseProof } as Proof;
-    if (object.total !== undefined && object.total !== null) {
-      message.total = object.total as Long;
-    } else {
-      message.total = Long.ZERO;
-    }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index as Long;
-    } else {
-      message.index = Long.ZERO;
-    }
+    message.total =
+      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.ZERO;
+    message.index =
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
     message.leafHash = object.leafHash ?? new Uint8Array();
     message.aunts = (object.aunts ?? []).map((e) => e);
     return message;
@@ -415,9 +409,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

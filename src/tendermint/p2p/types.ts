@@ -156,21 +156,10 @@ export const ProtocolVersion = {
 
   fromPartial(object: DeepPartial<ProtocolVersion>): ProtocolVersion {
     const message = { ...baseProtocolVersion } as ProtocolVersion;
-    if (object.p2p !== undefined && object.p2p !== null) {
-      message.p2p = object.p2p as Long;
-    } else {
-      message.p2p = Long.UZERO;
-    }
-    if (object.block !== undefined && object.block !== null) {
-      message.block = object.block as Long;
-    } else {
-      message.block = Long.UZERO;
-    }
-    if (object.app !== undefined && object.app !== null) {
-      message.app = object.app as Long;
-    } else {
-      message.app = Long.UZERO;
-    }
+    message.p2p = object.p2p !== undefined && object.p2p !== null ? Long.fromValue(object.p2p) : Long.UZERO;
+    message.block =
+      object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
+    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
     return message;
   },
 };
@@ -403,9 +392,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -348,16 +348,14 @@ export const ClientState = {
 
   fromPartial(object: DeepPartial<ClientState>): ClientState {
     const message = { ...baseClientState } as ClientState;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.frozenSequence !== undefined && object.frozenSequence !== null) {
-      message.frozenSequence = object.frozenSequence as Long;
-    } else {
-      message.frozenSequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
+    message.frozenSequence =
+      object.frozenSequence !== undefined && object.frozenSequence !== null
+        ? Long.fromValue(object.frozenSequence)
+        : Long.UZERO;
     message.consensusState =
       object.consensusState !== undefined && object.consensusState !== null
         ? ConsensusState.fromPartial(object.consensusState)
@@ -438,11 +436,10 @@ export const ConsensusState = {
         ? Any.fromPartial(object.publicKey)
         : undefined;
     message.diversifier = object.diversifier ?? "";
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp as Long;
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromValue(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 };
@@ -541,16 +538,14 @@ export const Header = {
 
   fromPartial(object: DeepPartial<Header>): Header {
     const message = { ...baseHeader } as Header;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp as Long;
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromValue(object.timestamp)
+        : Long.UZERO;
     message.signature = object.signature ?? new Uint8Array();
     message.newPublicKey =
       object.newPublicKey !== undefined && object.newPublicKey !== null
@@ -640,11 +635,10 @@ export const Misbehaviour = {
   fromPartial(object: DeepPartial<Misbehaviour>): Misbehaviour {
     const message = { ...baseMisbehaviour } as Misbehaviour;
     message.clientId = object.clientId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     message.signatureOne =
       object.signatureOne !== undefined && object.signatureOne !== null
         ? SignatureAndData.fromPartial(object.signatureOne)
@@ -740,11 +734,10 @@ export const SignatureAndData = {
     message.signature = object.signature ?? new Uint8Array();
     message.dataType = object.dataType ?? 0;
     message.data = object.data ?? new Uint8Array();
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp as Long;
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromValue(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 };
@@ -810,11 +803,10 @@ export const TimestampedSignatureData = {
   fromPartial(object: DeepPartial<TimestampedSignatureData>): TimestampedSignatureData {
     const message = { ...baseTimestampedSignatureData } as TimestampedSignatureData;
     message.signatureData = object.signatureData ?? new Uint8Array();
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp as Long;
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromValue(object.timestamp)
+        : Long.UZERO;
     return message;
   },
 };
@@ -904,16 +896,14 @@ export const SignBytes = {
 
   fromPartial(object: DeepPartial<SignBytes>): SignBytes {
     const message = { ...baseSignBytes } as SignBytes;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = object.timestamp as Long;
-    } else {
-      message.timestamp = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Long.fromValue(object.timestamp)
+        : Long.UZERO;
     message.diversifier = object.diversifier ?? "";
     message.dataType = object.dataType ?? 0;
     message.data = object.data ?? new Uint8Array();
@@ -1488,11 +1478,10 @@ export const NextSequenceRecvData = {
   fromPartial(object: DeepPartial<NextSequenceRecvData>): NextSequenceRecvData {
     const message = { ...baseNextSequenceRecvData } as NextSequenceRecvData;
     message.path = object.path ?? new Uint8Array();
-    if (object.nextSeqRecv !== undefined && object.nextSeqRecv !== null) {
-      message.nextSeqRecv = object.nextSeqRecv as Long;
-    } else {
-      message.nextSeqRecv = Long.UZERO;
-    }
+    message.nextSeqRecv =
+      object.nextSeqRecv !== undefined && object.nextSeqRecv !== null
+        ? Long.fromValue(object.nextSeqRecv)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1529,9 +1518,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

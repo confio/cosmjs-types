@@ -253,11 +253,8 @@ export const LastValidatorPower = {
   fromPartial(object: DeepPartial<LastValidatorPower>): LastValidatorPower {
     const message = { ...baseLastValidatorPower } as LastValidatorPower;
     message.address = object.address ?? "";
-    if (object.power !== undefined && object.power !== null) {
-      message.power = object.power as Long;
-    } else {
-      message.power = Long.ZERO;
-    }
+    message.power =
+      object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO;
     return message;
   },
 };
@@ -294,9 +291,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -88,25 +88,21 @@ export const Equivocation = {
 
   fromPartial(object: DeepPartial<Equivocation>): Equivocation {
     const message = { ...baseEquivocation } as Equivocation;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time = object.time ?? undefined;
-    if (object.power !== undefined && object.power !== null) {
-      message.power = object.power as Long;
-    } else {
-      message.power = Long.ZERO;
-    }
+    message.power =
+      object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO;
     message.consensusAddress = object.consensusAddress ?? "";
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -3440,16 +3440,14 @@ export const UninterpretedOption = {
     const message = { ...baseUninterpretedOption } as UninterpretedOption;
     message.name = (object.name ?? []).map((e) => UninterpretedOption_NamePart.fromPartial(e));
     message.identifierValue = object.identifierValue ?? "";
-    if (object.positiveIntValue !== undefined && object.positiveIntValue !== null) {
-      message.positiveIntValue = object.positiveIntValue as Long;
-    } else {
-      message.positiveIntValue = Long.UZERO;
-    }
-    if (object.negativeIntValue !== undefined && object.negativeIntValue !== null) {
-      message.negativeIntValue = object.negativeIntValue as Long;
-    } else {
-      message.negativeIntValue = Long.ZERO;
-    }
+    message.positiveIntValue =
+      object.positiveIntValue !== undefined && object.positiveIntValue !== null
+        ? Long.fromValue(object.positiveIntValue)
+        : Long.UZERO;
+    message.negativeIntValue =
+      object.negativeIntValue !== undefined && object.negativeIntValue !== null
+        ? Long.fromValue(object.negativeIntValue)
+        : Long.ZERO;
     message.doubleValue = object.doubleValue ?? 0;
     message.stringValue = object.stringValue ?? new Uint8Array();
     message.aggregateValue = object.aggregateValue ?? "";
@@ -3870,9 +3868,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

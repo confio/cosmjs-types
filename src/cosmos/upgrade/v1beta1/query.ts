@@ -265,11 +265,8 @@ export const QueryAppliedPlanResponse = {
 
   fromPartial(object: DeepPartial<QueryAppliedPlanResponse>): QueryAppliedPlanResponse {
     const message = { ...baseQueryAppliedPlanResponse } as QueryAppliedPlanResponse;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     return message;
   },
 };
@@ -319,11 +316,10 @@ export const QueryUpgradedConsensusStateRequest = {
 
   fromPartial(object: DeepPartial<QueryUpgradedConsensusStateRequest>): QueryUpgradedConsensusStateRequest {
     const message = { ...baseQueryUpgradedConsensusStateRequest } as QueryUpgradedConsensusStateRequest;
-    if (object.lastHeight !== undefined && object.lastHeight !== null) {
-      message.lastHeight = object.lastHeight as Long;
-    } else {
-      message.lastHeight = Long.ZERO;
-    }
+    message.lastHeight =
+      object.lastHeight !== undefined && object.lastHeight !== null
+        ? Long.fromValue(object.lastHeight)
+        : Long.ZERO;
     return message;
   },
 };
@@ -581,9 +577,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

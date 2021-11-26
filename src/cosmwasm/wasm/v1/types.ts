@@ -371,11 +371,10 @@ export const Params = {
         ? AccessConfig.fromPartial(object.codeUploadAccess)
         : undefined;
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
-    if (object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null) {
-      message.maxWasmCodeSize = object.maxWasmCodeSize as Long;
-    } else {
-      message.maxWasmCodeSize = Long.UZERO;
-    }
+    message.maxWasmCodeSize =
+      object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null
+        ? Long.fromValue(object.maxWasmCodeSize)
+        : Long.UZERO;
     return message;
   },
 };
@@ -559,11 +558,8 @@ export const ContractInfo = {
 
   fromPartial(object: DeepPartial<ContractInfo>): ContractInfo {
     const message = { ...baseContractInfo } as ContractInfo;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.creator = object.creator ?? "";
     message.admin = object.admin ?? "";
     message.label = object.label ?? "";
@@ -659,11 +655,8 @@ export const ContractCodeHistoryEntry = {
   fromPartial(object: DeepPartial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry {
     const message = { ...baseContractCodeHistoryEntry } as ContractCodeHistoryEntry;
     message.operation = object.operation ?? 0;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.updated =
       object.updated !== undefined && object.updated !== null
         ? AbsoluteTxPosition.fromPartial(object.updated)
@@ -727,16 +720,12 @@ export const AbsoluteTxPosition = {
 
   fromPartial(object: DeepPartial<AbsoluteTxPosition>): AbsoluteTxPosition {
     const message = { ...baseAbsoluteTxPosition } as AbsoluteTxPosition;
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = object.blockHeight as Long;
-    } else {
-      message.blockHeight = Long.UZERO;
-    }
-    if (object.txIndex !== undefined && object.txIndex !== null) {
-      message.txIndex = object.txIndex as Long;
-    } else {
-      message.txIndex = Long.UZERO;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.UZERO;
+    message.txIndex =
+      object.txIndex !== undefined && object.txIndex !== null ? Long.fromValue(object.txIndex) : Long.UZERO;
     return message;
   },
 };
@@ -835,9 +824,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -292,11 +292,8 @@ export const TxResponse = {
 
   fromPartial(object: DeepPartial<TxResponse>): TxResponse {
     const message = { ...baseTxResponse } as TxResponse;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.txhash = object.txhash ?? "";
     message.codespace = object.codespace ?? "";
     message.code = object.code ?? 0;
@@ -304,16 +301,12 @@ export const TxResponse = {
     message.rawLog = object.rawLog ?? "";
     message.logs = (object.logs ?? []).map((e) => ABCIMessageLog.fromPartial(e));
     message.info = object.info ?? "";
-    if (object.gasWanted !== undefined && object.gasWanted !== null) {
-      message.gasWanted = object.gasWanted as Long;
-    } else {
-      message.gasWanted = Long.ZERO;
-    }
-    if (object.gasUsed !== undefined && object.gasUsed !== null) {
-      message.gasUsed = object.gasUsed as Long;
-    } else {
-      message.gasUsed = Long.ZERO;
-    }
+    message.gasWanted =
+      object.gasWanted !== undefined && object.gasWanted !== null
+        ? Long.fromValue(object.gasWanted)
+        : Long.ZERO;
+    message.gasUsed =
+      object.gasUsed !== undefined && object.gasUsed !== null ? Long.fromValue(object.gasUsed) : Long.ZERO;
     message.tx = object.tx !== undefined && object.tx !== null ? Any.fromPartial(object.tx) : undefined;
     message.timestamp = object.timestamp ?? "";
     return message;
@@ -562,16 +555,12 @@ export const GasInfo = {
 
   fromPartial(object: DeepPartial<GasInfo>): GasInfo {
     const message = { ...baseGasInfo } as GasInfo;
-    if (object.gasWanted !== undefined && object.gasWanted !== null) {
-      message.gasWanted = object.gasWanted as Long;
-    } else {
-      message.gasWanted = Long.UZERO;
-    }
-    if (object.gasUsed !== undefined && object.gasUsed !== null) {
-      message.gasUsed = object.gasUsed as Long;
-    } else {
-      message.gasUsed = Long.UZERO;
-    }
+    message.gasWanted =
+      object.gasWanted !== undefined && object.gasWanted !== null
+        ? Long.fromValue(object.gasWanted)
+        : Long.UZERO;
+    message.gasUsed =
+      object.gasUsed !== undefined && object.gasUsed !== null ? Long.fromValue(object.gasUsed) : Long.UZERO;
     return message;
   },
 };
@@ -927,31 +916,22 @@ export const SearchTxsResult = {
 
   fromPartial(object: DeepPartial<SearchTxsResult>): SearchTxsResult {
     const message = { ...baseSearchTxsResult } as SearchTxsResult;
-    if (object.totalCount !== undefined && object.totalCount !== null) {
-      message.totalCount = object.totalCount as Long;
-    } else {
-      message.totalCount = Long.UZERO;
-    }
-    if (object.count !== undefined && object.count !== null) {
-      message.count = object.count as Long;
-    } else {
-      message.count = Long.UZERO;
-    }
-    if (object.pageNumber !== undefined && object.pageNumber !== null) {
-      message.pageNumber = object.pageNumber as Long;
-    } else {
-      message.pageNumber = Long.UZERO;
-    }
-    if (object.pageTotal !== undefined && object.pageTotal !== null) {
-      message.pageTotal = object.pageTotal as Long;
-    } else {
-      message.pageTotal = Long.UZERO;
-    }
-    if (object.limit !== undefined && object.limit !== null) {
-      message.limit = object.limit as Long;
-    } else {
-      message.limit = Long.UZERO;
-    }
+    message.totalCount =
+      object.totalCount !== undefined && object.totalCount !== null
+        ? Long.fromValue(object.totalCount)
+        : Long.UZERO;
+    message.count =
+      object.count !== undefined && object.count !== null ? Long.fromValue(object.count) : Long.UZERO;
+    message.pageNumber =
+      object.pageNumber !== undefined && object.pageNumber !== null
+        ? Long.fromValue(object.pageNumber)
+        : Long.UZERO;
+    message.pageTotal =
+      object.pageTotal !== undefined && object.pageTotal !== null
+        ? Long.fromValue(object.pageTotal)
+        : Long.UZERO;
+    message.limit =
+      object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     message.txs = (object.txs ?? []).map((e) => TxResponse.fromPartial(e));
     return message;
   },
@@ -989,9 +969,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

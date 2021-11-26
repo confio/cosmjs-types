@@ -146,23 +146,20 @@ export const ValidatorSigningInfo = {
   fromPartial(object: DeepPartial<ValidatorSigningInfo>): ValidatorSigningInfo {
     const message = { ...baseValidatorSigningInfo } as ValidatorSigningInfo;
     message.address = object.address ?? "";
-    if (object.startHeight !== undefined && object.startHeight !== null) {
-      message.startHeight = object.startHeight as Long;
-    } else {
-      message.startHeight = Long.ZERO;
-    }
-    if (object.indexOffset !== undefined && object.indexOffset !== null) {
-      message.indexOffset = object.indexOffset as Long;
-    } else {
-      message.indexOffset = Long.ZERO;
-    }
+    message.startHeight =
+      object.startHeight !== undefined && object.startHeight !== null
+        ? Long.fromValue(object.startHeight)
+        : Long.ZERO;
+    message.indexOffset =
+      object.indexOffset !== undefined && object.indexOffset !== null
+        ? Long.fromValue(object.indexOffset)
+        : Long.ZERO;
     message.jailedUntil = object.jailedUntil ?? undefined;
     message.tombstoned = object.tombstoned ?? false;
-    if (object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null) {
-      message.missedBlocksCounter = object.missedBlocksCounter as Long;
-    } else {
-      message.missedBlocksCounter = Long.ZERO;
-    }
+    message.missedBlocksCounter =
+      object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null
+        ? Long.fromValue(object.missedBlocksCounter)
+        : Long.ZERO;
     return message;
   },
 };
@@ -272,11 +269,10 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    if (object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null) {
-      message.signedBlocksWindow = object.signedBlocksWindow as Long;
-    } else {
-      message.signedBlocksWindow = Long.ZERO;
-    }
+    message.signedBlocksWindow =
+      object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null
+        ? Long.fromValue(object.signedBlocksWindow)
+        : Long.ZERO;
     message.minSignedPerWindow = object.minSignedPerWindow ?? new Uint8Array();
     message.downtimeJailDuration =
       object.downtimeJailDuration !== undefined && object.downtimeJailDuration !== null
@@ -320,9 +316,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

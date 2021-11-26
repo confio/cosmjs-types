@@ -1189,11 +1189,10 @@ export const MsgTimeout = {
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)
         : undefined;
-    if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
-      message.nextSequenceRecv = object.nextSequenceRecv as Long;
-    } else {
-      message.nextSequenceRecv = Long.UZERO;
-    }
+    message.nextSequenceRecv =
+      object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null
+        ? Long.fromValue(object.nextSequenceRecv)
+        : Long.UZERO;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -1350,11 +1349,10 @@ export const MsgTimeoutOnClose = {
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)
         : undefined;
-    if (object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null) {
-      message.nextSequenceRecv = object.nextSequenceRecv as Long;
-    } else {
-      message.nextSequenceRecv = Long.UZERO;
-    }
+    message.nextSequenceRecv =
+      object.nextSequenceRecv !== undefined && object.nextSequenceRecv !== null
+        ? Long.fromValue(object.nextSequenceRecv)
+        : Long.UZERO;
     message.signer = object.signer ?? "";
     return message;
   },
@@ -1678,9 +1676,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

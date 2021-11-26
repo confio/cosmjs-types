@@ -338,11 +338,8 @@ export const ValidatorCurrentRewards = {
   fromPartial(object: DeepPartial<ValidatorCurrentRewards>): ValidatorCurrentRewards {
     const message = { ...baseValidatorCurrentRewards } as ValidatorCurrentRewards;
     message.rewards = (object.rewards ?? []).map((e) => DecCoin.fromPartial(e));
-    if (object.period !== undefined && object.period !== null) {
-      message.period = object.period as Long;
-    } else {
-      message.period = Long.UZERO;
-    }
+    message.period =
+      object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO;
     return message;
   },
 };
@@ -506,11 +503,10 @@ export const ValidatorSlashEvent = {
 
   fromPartial(object: DeepPartial<ValidatorSlashEvent>): ValidatorSlashEvent {
     const message = { ...baseValidatorSlashEvent } as ValidatorSlashEvent;
-    if (object.validatorPeriod !== undefined && object.validatorPeriod !== null) {
-      message.validatorPeriod = object.validatorPeriod as Long;
-    } else {
-      message.validatorPeriod = Long.UZERO;
-    }
+    message.validatorPeriod =
+      object.validatorPeriod !== undefined && object.validatorPeriod !== null
+        ? Long.fromValue(object.validatorPeriod)
+        : Long.UZERO;
     message.fraction = object.fraction ?? "";
     return message;
   },
@@ -770,17 +766,13 @@ export const DelegatorStartingInfo = {
 
   fromPartial(object: DeepPartial<DelegatorStartingInfo>): DelegatorStartingInfo {
     const message = { ...baseDelegatorStartingInfo } as DelegatorStartingInfo;
-    if (object.previousPeriod !== undefined && object.previousPeriod !== null) {
-      message.previousPeriod = object.previousPeriod as Long;
-    } else {
-      message.previousPeriod = Long.UZERO;
-    }
+    message.previousPeriod =
+      object.previousPeriod !== undefined && object.previousPeriod !== null
+        ? Long.fromValue(object.previousPeriod)
+        : Long.UZERO;
     message.stake = object.stake ?? "";
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.UZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
     return message;
   },
 };
@@ -945,9 +937,11 @@ export const CommunityPoolSpendProposalWithDeposit = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

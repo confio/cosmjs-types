@@ -110,16 +110,14 @@ export const BaseAccount = {
     message.address = object.address ?? "";
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined;
-    if (object.accountNumber !== undefined && object.accountNumber !== null) {
-      message.accountNumber = object.accountNumber as Long;
-    } else {
-      message.accountNumber = Long.UZERO;
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.accountNumber =
+      object.accountNumber !== undefined && object.accountNumber !== null
+        ? Long.fromValue(object.accountNumber)
+        : Long.UZERO;
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -300,38 +298,35 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    if (object.maxMemoCharacters !== undefined && object.maxMemoCharacters !== null) {
-      message.maxMemoCharacters = object.maxMemoCharacters as Long;
-    } else {
-      message.maxMemoCharacters = Long.UZERO;
-    }
-    if (object.txSigLimit !== undefined && object.txSigLimit !== null) {
-      message.txSigLimit = object.txSigLimit as Long;
-    } else {
-      message.txSigLimit = Long.UZERO;
-    }
-    if (object.txSizeCostPerByte !== undefined && object.txSizeCostPerByte !== null) {
-      message.txSizeCostPerByte = object.txSizeCostPerByte as Long;
-    } else {
-      message.txSizeCostPerByte = Long.UZERO;
-    }
-    if (object.sigVerifyCostEd25519 !== undefined && object.sigVerifyCostEd25519 !== null) {
-      message.sigVerifyCostEd25519 = object.sigVerifyCostEd25519 as Long;
-    } else {
-      message.sigVerifyCostEd25519 = Long.UZERO;
-    }
-    if (object.sigVerifyCostSecp256k1 !== undefined && object.sigVerifyCostSecp256k1 !== null) {
-      message.sigVerifyCostSecp256k1 = object.sigVerifyCostSecp256k1 as Long;
-    } else {
-      message.sigVerifyCostSecp256k1 = Long.UZERO;
-    }
+    message.maxMemoCharacters =
+      object.maxMemoCharacters !== undefined && object.maxMemoCharacters !== null
+        ? Long.fromValue(object.maxMemoCharacters)
+        : Long.UZERO;
+    message.txSigLimit =
+      object.txSigLimit !== undefined && object.txSigLimit !== null
+        ? Long.fromValue(object.txSigLimit)
+        : Long.UZERO;
+    message.txSizeCostPerByte =
+      object.txSizeCostPerByte !== undefined && object.txSizeCostPerByte !== null
+        ? Long.fromValue(object.txSizeCostPerByte)
+        : Long.UZERO;
+    message.sigVerifyCostEd25519 =
+      object.sigVerifyCostEd25519 !== undefined && object.sigVerifyCostEd25519 !== null
+        ? Long.fromValue(object.sigVerifyCostEd25519)
+        : Long.UZERO;
+    message.sigVerifyCostSecp256k1 =
+      object.sigVerifyCostSecp256k1 !== undefined && object.sigVerifyCostSecp256k1 !== null
+        ? Long.fromValue(object.sigVerifyCostSecp256k1)
+        : Long.UZERO;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

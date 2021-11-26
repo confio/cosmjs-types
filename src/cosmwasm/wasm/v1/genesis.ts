@@ -320,11 +320,8 @@ export const Code = {
 
   fromPartial(object: DeepPartial<Code>): Code {
     const message = { ...baseCode } as Code;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.codeInfo =
       object.codeInfo !== undefined && object.codeInfo !== null
         ? CodeInfo.fromPartial(object.codeInfo)
@@ -470,11 +467,8 @@ export const Sequence = {
   fromPartial(object: DeepPartial<Sequence>): Sequence {
     const message = { ...baseSequence } as Sequence;
     message.idKey = object.idKey ?? new Uint8Array();
-    if (object.value !== undefined && object.value !== null) {
-      message.value = object.value as Long;
-    } else {
-      message.value = Long.UZERO;
-    }
+    message.value =
+      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.UZERO;
     return message;
   },
 };
@@ -511,9 +505,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

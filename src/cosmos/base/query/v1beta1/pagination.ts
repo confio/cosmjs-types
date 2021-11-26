@@ -150,16 +150,10 @@ export const PageRequest = {
   fromPartial(object: DeepPartial<PageRequest>): PageRequest {
     const message = { ...basePageRequest } as PageRequest;
     message.key = object.key ?? new Uint8Array();
-    if (object.offset !== undefined && object.offset !== null) {
-      message.offset = object.offset as Long;
-    } else {
-      message.offset = Long.UZERO;
-    }
-    if (object.limit !== undefined && object.limit !== null) {
-      message.limit = object.limit as Long;
-    } else {
-      message.limit = Long.UZERO;
-    }
+    message.offset =
+      object.offset !== undefined && object.offset !== null ? Long.fromValue(object.offset) : Long.UZERO;
+    message.limit =
+      object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     message.countTotal = object.countTotal ?? false;
     message.reverse = object.reverse ?? false;
     return message;
@@ -223,11 +217,8 @@ export const PageResponse = {
   fromPartial(object: DeepPartial<PageResponse>): PageResponse {
     const message = { ...basePageResponse } as PageResponse;
     message.nextKey = object.nextKey ?? new Uint8Array();
-    if (object.total !== undefined && object.total !== null) {
-      message.total = object.total as Long;
-    } else {
-      message.total = Long.UZERO;
-    }
+    message.total =
+      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
   },
 };
@@ -264,9 +255,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

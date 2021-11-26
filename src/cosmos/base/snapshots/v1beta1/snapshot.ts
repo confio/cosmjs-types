@@ -101,11 +101,8 @@ export const Snapshot = {
 
   fromPartial(object: DeepPartial<Snapshot>): Snapshot {
     const message = { ...baseSnapshot } as Snapshot;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.UZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
     message.format = object.format ?? 0;
     message.chunks = object.chunks ?? 0;
     message.hash = object.hash ?? new Uint8Array();
@@ -203,9 +200,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

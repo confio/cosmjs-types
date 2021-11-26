@@ -87,11 +87,8 @@ export const CommitInfo = {
 
   fromPartial(object: DeepPartial<CommitInfo>): CommitInfo {
     const message = { ...baseCommitInfo } as CommitInfo;
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version as Long;
-    } else {
-      message.version = Long.ZERO;
-    }
+    message.version =
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
     message.storeInfos = (object.storeInfos ?? []).map((e) => StoreInfo.fromPartial(e));
     return message;
   },
@@ -214,11 +211,8 @@ export const CommitID = {
 
   fromPartial(object: DeepPartial<CommitID>): CommitID {
     const message = { ...baseCommitID } as CommitID;
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version as Long;
-    } else {
-      message.version = Long.ZERO;
-    }
+    message.version =
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
     message.hash = object.hash ?? new Uint8Array();
     return message;
   },
@@ -256,9 +250,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

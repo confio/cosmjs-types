@@ -40,7 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["long", "npm:4.0.0"],
             ["prettier", "npm:2.3.0"],
             ["protobufjs", "npm:6.11.2"],
-            ["ts-proto", "npm:1.87.0"],
+            ["ts-proto", "npm:1.90.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=ddd1e8"]
           ],
           "linkType": "SOFT",
@@ -191,7 +191,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["long", "npm:4.0.0"],
             ["prettier", "npm:2.3.0"],
             ["protobufjs", "npm:6.11.2"],
-            ["ts-proto", "npm:1.87.0"],
+            ["ts-proto", "npm:1.90.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=ddd1e8"]
           ],
           "linkType": "SOFT",
@@ -277,10 +277,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ts-proto", [
-        ["npm:1.87.0", {
-          "packageLocation": "./.yarn/cache/ts-proto-npm-1.87.0-e066a14177-3a4388b448.zip/node_modules/ts-proto/",
+        ["npm:1.90.0", {
+          "packageLocation": "./.yarn/cache/ts-proto-npm-1.90.0-52dbbe85bc-fc1526086b.zip/node_modules/ts-proto/",
           "packageDependencies": [
-            ["ts-proto", "npm:1.87.0"],
+            ["ts-proto", "npm:1.90.0"],
             ["@types/object-hash", "npm:1.3.4"],
             ["dataloader", "npm:1.4.0"],
             ["object-hash", "npm:1.3.1"],

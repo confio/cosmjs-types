@@ -329,11 +329,8 @@ export const InstantiateContractProposal = {
     message.description = object.description ?? "";
     message.runAs = object.runAs ?? "";
     message.admin = object.admin ?? "";
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.label = object.label ?? "";
     message.msg = object.msg ?? new Uint8Array();
     message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
@@ -439,11 +436,8 @@ export const MigrateContractProposal = {
     message.description = object.description ?? "";
     message.runAs = object.runAs ?? "";
     message.contract = object.contract ?? "";
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
@@ -668,7 +662,7 @@ export const PinCodesProposal = {
     const message = { ...basePinCodesProposal } as PinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = (object.codeIds ?? []).map((e) => e);
+    message.codeIds = (object.codeIds ?? []).map((e) => Long.fromValue(e));
     return message;
   },
 };
@@ -748,7 +742,7 @@ export const UnpinCodesProposal = {
     const message = { ...baseUnpinCodesProposal } as UnpinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = (object.codeIds ?? []).map((e) => e);
+    message.codeIds = (object.codeIds ?? []).map((e) => Long.fromValue(e));
     return message;
   },
 };
@@ -785,9 +779,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

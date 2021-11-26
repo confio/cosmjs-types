@@ -638,11 +638,8 @@ export const Header = {
         ? Consensus.fromPartial(object.version)
         : undefined;
     message.chainId = object.chainId ?? "";
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.time = object.time ?? undefined;
     message.lastBlockId =
       object.lastBlockId !== undefined && object.lastBlockId !== null
@@ -835,11 +832,8 @@ export const Vote = {
   fromPartial(object: DeepPartial<Vote>): Vote {
     const message = { ...baseVote } as Vote;
     message.type = object.type ?? 0;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.round = object.round ?? 0;
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -927,11 +921,8 @@ export const Commit = {
 
   fromPartial(object: DeepPartial<Commit>): Commit {
     const message = { ...baseCommit } as Commit;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.round = object.round ?? 0;
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -1141,11 +1132,8 @@ export const Proposal = {
   fromPartial(object: DeepPartial<Proposal>): Proposal {
     const message = { ...baseProposal } as Proposal;
     message.type = object.type ?? 0;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.round = object.round ?? 0;
     message.polRound = object.polRound ?? 0;
     message.blockId =
@@ -1365,18 +1353,14 @@ export const BlockMeta = {
       object.blockId !== undefined && object.blockId !== null
         ? BlockID.fromPartial(object.blockId)
         : undefined;
-    if (object.blockSize !== undefined && object.blockSize !== null) {
-      message.blockSize = object.blockSize as Long;
-    } else {
-      message.blockSize = Long.ZERO;
-    }
+    message.blockSize =
+      object.blockSize !== undefined && object.blockSize !== null
+        ? Long.fromValue(object.blockSize)
+        : Long.ZERO;
     message.header =
       object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;
-    if (object.numTxs !== undefined && object.numTxs !== null) {
-      message.numTxs = object.numTxs as Long;
-    } else {
-      message.numTxs = Long.ZERO;
-    }
+    message.numTxs =
+      object.numTxs !== undefined && object.numTxs !== null ? Long.fromValue(object.numTxs) : Long.ZERO;
     return message;
   },
 };
@@ -1488,9 +1472,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

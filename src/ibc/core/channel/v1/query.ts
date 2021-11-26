@@ -963,16 +963,14 @@ export const QueryChannelConsensusStateRequest = {
     const message = { ...baseQueryChannelConsensusStateRequest } as QueryChannelConsensusStateRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.revisionNumber !== undefined && object.revisionNumber !== null) {
-      message.revisionNumber = object.revisionNumber as Long;
-    } else {
-      message.revisionNumber = Long.UZERO;
-    }
-    if (object.revisionHeight !== undefined && object.revisionHeight !== null) {
-      message.revisionHeight = object.revisionHeight as Long;
-    } else {
-      message.revisionHeight = Long.UZERO;
-    }
+    message.revisionNumber =
+      object.revisionNumber !== undefined && object.revisionNumber !== null
+        ? Long.fromValue(object.revisionNumber)
+        : Long.UZERO;
+    message.revisionHeight =
+      object.revisionHeight !== undefined && object.revisionHeight !== null
+        ? Long.fromValue(object.revisionHeight)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1133,11 +1131,10 @@ export const QueryPacketCommitmentRequest = {
     const message = { ...baseQueryPacketCommitmentRequest } as QueryPacketCommitmentRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1440,11 +1437,10 @@ export const QueryPacketReceiptRequest = {
     const message = { ...baseQueryPacketReceiptRequest } as QueryPacketReceiptRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1589,11 +1585,10 @@ export const QueryPacketAcknowledgementRequest = {
     const message = { ...baseQueryPacketAcknowledgementRequest } as QueryPacketAcknowledgementRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1915,7 +1910,9 @@ export const QueryUnreceivedPacketsRequest = {
     const message = { ...baseQueryUnreceivedPacketsRequest } as QueryUnreceivedPacketsRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    message.packetCommitmentSequences = (object.packetCommitmentSequences ?? []).map((e) => e);
+    message.packetCommitmentSequences = (object.packetCommitmentSequences ?? []).map((e) =>
+      Long.fromValue(e),
+    );
     return message;
   },
 };
@@ -1985,7 +1982,7 @@ export const QueryUnreceivedPacketsResponse = {
 
   fromPartial(object: DeepPartial<QueryUnreceivedPacketsResponse>): QueryUnreceivedPacketsResponse {
     const message = { ...baseQueryUnreceivedPacketsResponse } as QueryUnreceivedPacketsResponse;
-    message.sequences = (object.sequences ?? []).map((e) => e);
+    message.sequences = (object.sequences ?? []).map((e) => Long.fromValue(e));
     message.height =
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
     return message;
@@ -2067,7 +2064,7 @@ export const QueryUnreceivedAcksRequest = {
     const message = { ...baseQueryUnreceivedAcksRequest } as QueryUnreceivedAcksRequest;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    message.packetAckSequences = (object.packetAckSequences ?? []).map((e) => e);
+    message.packetAckSequences = (object.packetAckSequences ?? []).map((e) => Long.fromValue(e));
     return message;
   },
 };
@@ -2137,7 +2134,7 @@ export const QueryUnreceivedAcksResponse = {
 
   fromPartial(object: DeepPartial<QueryUnreceivedAcksResponse>): QueryUnreceivedAcksResponse {
     const message = { ...baseQueryUnreceivedAcksResponse } as QueryUnreceivedAcksResponse;
-    message.sequences = (object.sequences ?? []).map((e) => e);
+    message.sequences = (object.sequences ?? []).map((e) => Long.fromValue(e));
     message.height =
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
     return message;
@@ -2270,11 +2267,10 @@ export const QueryNextSequenceReceiveResponse = {
 
   fromPartial(object: DeepPartial<QueryNextSequenceReceiveResponse>): QueryNextSequenceReceiveResponse {
     const message = { ...baseQueryNextSequenceReceiveResponse } as QueryNextSequenceReceiveResponse;
-    if (object.nextSequenceReceive !== undefined && object.nextSequenceReceive !== null) {
-      message.nextSequenceReceive = object.nextSequenceReceive as Long;
-    } else {
-      message.nextSequenceReceive = Long.UZERO;
-    }
+    message.nextSequenceReceive =
+      object.nextSequenceReceive !== undefined && object.nextSequenceReceive !== null
+        ? Long.fromValue(object.nextSequenceReceive)
+        : Long.UZERO;
     message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
@@ -2480,9 +2476,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

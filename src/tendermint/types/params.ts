@@ -248,21 +248,14 @@ export const BlockParams = {
 
   fromPartial(object: DeepPartial<BlockParams>): BlockParams {
     const message = { ...baseBlockParams } as BlockParams;
-    if (object.maxBytes !== undefined && object.maxBytes !== null) {
-      message.maxBytes = object.maxBytes as Long;
-    } else {
-      message.maxBytes = Long.ZERO;
-    }
-    if (object.maxGas !== undefined && object.maxGas !== null) {
-      message.maxGas = object.maxGas as Long;
-    } else {
-      message.maxGas = Long.ZERO;
-    }
-    if (object.timeIotaMs !== undefined && object.timeIotaMs !== null) {
-      message.timeIotaMs = object.timeIotaMs as Long;
-    } else {
-      message.timeIotaMs = Long.ZERO;
-    }
+    message.maxBytes =
+      object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
+    message.maxGas =
+      object.maxGas !== undefined && object.maxGas !== null ? Long.fromValue(object.maxGas) : Long.ZERO;
+    message.timeIotaMs =
+      object.timeIotaMs !== undefined && object.timeIotaMs !== null
+        ? Long.fromValue(object.timeIotaMs)
+        : Long.ZERO;
     return message;
   },
 };
@@ -336,20 +329,16 @@ export const EvidenceParams = {
 
   fromPartial(object: DeepPartial<EvidenceParams>): EvidenceParams {
     const message = { ...baseEvidenceParams } as EvidenceParams;
-    if (object.maxAgeNumBlocks !== undefined && object.maxAgeNumBlocks !== null) {
-      message.maxAgeNumBlocks = object.maxAgeNumBlocks as Long;
-    } else {
-      message.maxAgeNumBlocks = Long.ZERO;
-    }
+    message.maxAgeNumBlocks =
+      object.maxAgeNumBlocks !== undefined && object.maxAgeNumBlocks !== null
+        ? Long.fromValue(object.maxAgeNumBlocks)
+        : Long.ZERO;
     message.maxAgeDuration =
       object.maxAgeDuration !== undefined && object.maxAgeDuration !== null
         ? Duration.fromPartial(object.maxAgeDuration)
         : undefined;
-    if (object.maxBytes !== undefined && object.maxBytes !== null) {
-      message.maxBytes = object.maxBytes as Long;
-    } else {
-      message.maxBytes = Long.ZERO;
-    }
+    message.maxBytes =
+      object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
     return message;
   },
 };
@@ -451,11 +440,10 @@ export const VersionParams = {
 
   fromPartial(object: DeepPartial<VersionParams>): VersionParams {
     const message = { ...baseVersionParams } as VersionParams;
-    if (object.appVersion !== undefined && object.appVersion !== null) {
-      message.appVersion = object.appVersion as Long;
-    } else {
-      message.appVersion = Long.UZERO;
-    }
+    message.appVersion =
+      object.appVersion !== undefined && object.appVersion !== null
+        ? Long.fromValue(object.appVersion)
+        : Long.UZERO;
     return message;
   },
 };
@@ -517,23 +505,23 @@ export const HashedParams = {
 
   fromPartial(object: DeepPartial<HashedParams>): HashedParams {
     const message = { ...baseHashedParams } as HashedParams;
-    if (object.blockMaxBytes !== undefined && object.blockMaxBytes !== null) {
-      message.blockMaxBytes = object.blockMaxBytes as Long;
-    } else {
-      message.blockMaxBytes = Long.ZERO;
-    }
-    if (object.blockMaxGas !== undefined && object.blockMaxGas !== null) {
-      message.blockMaxGas = object.blockMaxGas as Long;
-    } else {
-      message.blockMaxGas = Long.ZERO;
-    }
+    message.blockMaxBytes =
+      object.blockMaxBytes !== undefined && object.blockMaxBytes !== null
+        ? Long.fromValue(object.blockMaxBytes)
+        : Long.ZERO;
+    message.blockMaxGas =
+      object.blockMaxGas !== undefined && object.blockMaxGas !== null
+        ? Long.fromValue(object.blockMaxGas)
+        : Long.ZERO;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

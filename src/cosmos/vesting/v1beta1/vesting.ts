@@ -164,11 +164,8 @@ export const BaseVestingAccount = {
     message.originalVesting = (object.originalVesting ?? []).map((e) => Coin.fromPartial(e));
     message.delegatedFree = (object.delegatedFree ?? []).map((e) => Coin.fromPartial(e));
     message.delegatedVesting = (object.delegatedVesting ?? []).map((e) => Coin.fromPartial(e));
-    if (object.endTime !== undefined && object.endTime !== null) {
-      message.endTime = object.endTime as Long;
-    } else {
-      message.endTime = Long.ZERO;
-    }
+    message.endTime =
+      object.endTime !== undefined && object.endTime !== null ? Long.fromValue(object.endTime) : Long.ZERO;
     return message;
   },
 };
@@ -236,11 +233,10 @@ export const ContinuousVestingAccount = {
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
         ? BaseVestingAccount.fromPartial(object.baseVestingAccount)
         : undefined;
-    if (object.startTime !== undefined && object.startTime !== null) {
-      message.startTime = object.startTime as Long;
-    } else {
-      message.startTime = Long.ZERO;
-    }
+    message.startTime =
+      object.startTime !== undefined && object.startTime !== null
+        ? Long.fromValue(object.startTime)
+        : Long.ZERO;
     return message;
   },
 };
@@ -357,11 +353,8 @@ export const Period = {
 
   fromPartial(object: DeepPartial<Period>): Period {
     const message = { ...basePeriod } as Period;
-    if (object.length !== undefined && object.length !== null) {
-      message.length = object.length as Long;
-    } else {
-      message.length = Long.ZERO;
-    }
+    message.length =
+      object.length !== undefined && object.length !== null ? Long.fromValue(object.length) : Long.ZERO;
     message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
     return message;
   },
@@ -443,11 +436,10 @@ export const PeriodicVestingAccount = {
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
         ? BaseVestingAccount.fromPartial(object.baseVestingAccount)
         : undefined;
-    if (object.startTime !== undefined && object.startTime !== null) {
-      message.startTime = object.startTime as Long;
-    } else {
-      message.startTime = Long.ZERO;
-    }
+    message.startTime =
+      object.startTime !== undefined && object.startTime !== null
+        ? Long.fromValue(object.startTime)
+        : Long.ZERO;
     message.vestingPeriods = (object.vestingPeriods ?? []).map((e) => Period.fromPartial(e));
     return message;
   },
@@ -509,9 +501,11 @@ export const PermanentLockedAccount = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

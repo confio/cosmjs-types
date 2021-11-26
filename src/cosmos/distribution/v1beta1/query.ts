@@ -579,16 +579,14 @@ export const QueryValidatorSlashesRequest = {
   fromPartial(object: DeepPartial<QueryValidatorSlashesRequest>): QueryValidatorSlashesRequest {
     const message = { ...baseQueryValidatorSlashesRequest } as QueryValidatorSlashesRequest;
     message.validatorAddress = object.validatorAddress ?? "";
-    if (object.startingHeight !== undefined && object.startingHeight !== null) {
-      message.startingHeight = object.startingHeight as Long;
-    } else {
-      message.startingHeight = Long.UZERO;
-    }
-    if (object.endingHeight !== undefined && object.endingHeight !== null) {
-      message.endingHeight = object.endingHeight as Long;
-    } else {
-      message.endingHeight = Long.UZERO;
-    }
+    message.startingHeight =
+      object.startingHeight !== undefined && object.startingHeight !== null
+        ? Long.fromValue(object.startingHeight)
+        : Long.UZERO;
+    message.endingHeight =
+      object.endingHeight !== undefined && object.endingHeight !== null
+        ? Long.fromValue(object.endingHeight)
+        : Long.UZERO;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1311,9 +1309,11 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
