@@ -617,16 +617,14 @@ export const Fraction = {
 
   fromPartial(object: DeepPartial<Fraction>): Fraction {
     const message = { ...baseFraction } as Fraction;
-    if (object.numerator !== undefined && object.numerator !== null) {
-      message.numerator = object.numerator as Long;
-    } else {
-      message.numerator = Long.UZERO;
-    }
-    if (object.denominator !== undefined && object.denominator !== null) {
-      message.denominator = object.denominator as Long;
-    } else {
-      message.denominator = Long.UZERO;
-    }
+    message.numerator =
+      object.numerator !== undefined && object.numerator !== null
+        ? Long.fromValue(object.numerator)
+        : Long.UZERO;
+    message.denominator =
+      object.denominator !== undefined && object.denominator !== null
+        ? Long.fromValue(object.denominator)
+        : Long.UZERO;
     return message;
   },
 };
@@ -663,9 +661,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

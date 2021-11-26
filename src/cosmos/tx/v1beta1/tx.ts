@@ -461,11 +461,10 @@ export const SignDoc = {
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
     message.chainId = object.chainId ?? "";
-    if (object.accountNumber !== undefined && object.accountNumber !== null) {
-      message.accountNumber = object.accountNumber as Long;
-    } else {
-      message.accountNumber = Long.UZERO;
-    }
+    message.accountNumber =
+      object.accountNumber !== undefined && object.accountNumber !== null
+        ? Long.fromValue(object.accountNumber)
+        : Long.UZERO;
     return message;
   },
 };
@@ -569,11 +568,10 @@ export const TxBody = {
     const message = { ...baseTxBody } as TxBody;
     message.messages = (object.messages ?? []).map((e) => Any.fromPartial(e));
     message.memo = object.memo ?? "";
-    if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
-      message.timeoutHeight = object.timeoutHeight as Long;
-    } else {
-      message.timeoutHeight = Long.UZERO;
-    }
+    message.timeoutHeight =
+      object.timeoutHeight !== undefined && object.timeoutHeight !== null
+        ? Long.fromValue(object.timeoutHeight)
+        : Long.UZERO;
     message.extensionOptions = (object.extensionOptions ?? []).map((e) => Any.fromPartial(e));
     message.nonCriticalExtensionOptions = (object.nonCriticalExtensionOptions ?? []).map((e) =>
       Any.fromPartial(e),
@@ -720,11 +718,10 @@ export const SignerInfo = {
       object.modeInfo !== undefined && object.modeInfo !== null
         ? ModeInfo.fromPartial(object.modeInfo)
         : undefined;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -987,11 +984,10 @@ export const Fee = {
   fromPartial(object: DeepPartial<Fee>): Fee {
     const message = { ...baseFee } as Fee;
     message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
-    if (object.gasLimit !== undefined && object.gasLimit !== null) {
-      message.gasLimit = object.gasLimit as Long;
-    } else {
-      message.gasLimit = Long.UZERO;
-    }
+    message.gasLimit =
+      object.gasLimit !== undefined && object.gasLimit !== null
+        ? Long.fromValue(object.gasLimit)
+        : Long.UZERO;
     message.payer = object.payer ?? "";
     message.granter = object.granter ?? "";
     return message;
@@ -1030,9 +1026,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -378,11 +378,8 @@ export const ValidatorHistoricalRewardsRecord = {
   fromPartial(object: DeepPartial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
     const message = { ...baseValidatorHistoricalRewardsRecord } as ValidatorHistoricalRewardsRecord;
     message.validatorAddress = object.validatorAddress ?? "";
-    if (object.period !== undefined && object.period !== null) {
-      message.period = object.period as Long;
-    } else {
-      message.period = Long.UZERO;
-    }
+    message.period =
+      object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO;
     message.rewards =
       object.rewards !== undefined && object.rewards !== null
         ? ValidatorHistoricalRewards.fromPartial(object.rewards)
@@ -619,16 +616,10 @@ export const ValidatorSlashEventRecord = {
   fromPartial(object: DeepPartial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
     const message = { ...baseValidatorSlashEventRecord } as ValidatorSlashEventRecord;
     message.validatorAddress = object.validatorAddress ?? "";
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.UZERO;
-    }
-    if (object.period !== undefined && object.period !== null) {
-      message.period = object.period as Long;
-    } else {
-      message.period = Long.UZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
+    message.period =
+      object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO;
     message.validatorSlashEvent =
       object.validatorSlashEvent !== undefined && object.validatorSlashEvent !== null
         ? ValidatorSlashEvent.fromPartial(object.validatorSlashEvent)
@@ -856,9 +847,11 @@ export const GenesisState = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

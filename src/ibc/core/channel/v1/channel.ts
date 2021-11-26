@@ -625,11 +625,10 @@ export const Packet = {
 
   fromPartial(object: DeepPartial<Packet>): Packet {
     const message = { ...basePacket } as Packet;
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     message.sourcePort = object.sourcePort ?? "";
     message.sourceChannel = object.sourceChannel ?? "";
     message.destinationPort = object.destinationPort ?? "";
@@ -639,11 +638,10 @@ export const Packet = {
       object.timeoutHeight !== undefined && object.timeoutHeight !== null
         ? Height.fromPartial(object.timeoutHeight)
         : undefined;
-    if (object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null) {
-      message.timeoutTimestamp = object.timeoutTimestamp as Long;
-    } else {
-      message.timeoutTimestamp = Long.UZERO;
-    }
+    message.timeoutTimestamp =
+      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
+        ? Long.fromValue(object.timeoutTimestamp)
+        : Long.UZERO;
     return message;
   },
 };
@@ -723,11 +721,10 @@ export const PacketState = {
     const message = { ...basePacketState } as PacketState;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     message.data = object.data ?? new Uint8Array();
     return message;
   },
@@ -823,9 +820,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

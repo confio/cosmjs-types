@@ -133,19 +133,18 @@ export const Duration = {
 
   fromPartial(object: DeepPartial<Duration>): Duration {
     const message = { ...baseDuration } as Duration;
-    if (object.seconds !== undefined && object.seconds !== null) {
-      message.seconds = object.seconds as Long;
-    } else {
-      message.seconds = Long.ZERO;
-    }
+    message.seconds =
+      object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;
     message.nanos = object.nanos ?? 0;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -161,11 +161,8 @@ export const GetValidatorSetByHeightRequest = {
 
   fromPartial(object: DeepPartial<GetValidatorSetByHeightRequest>): GetValidatorSetByHeightRequest {
     const message = { ...baseGetValidatorSetByHeightRequest } as GetValidatorSetByHeightRequest;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -244,11 +241,10 @@ export const GetValidatorSetByHeightResponse = {
 
   fromPartial(object: DeepPartial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
     const message = { ...baseGetValidatorSetByHeightResponse } as GetValidatorSetByHeightResponse;
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = object.blockHeight as Long;
-    } else {
-      message.blockHeight = Long.ZERO;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO;
     message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -382,11 +378,10 @@ export const GetLatestValidatorSetResponse = {
 
   fromPartial(object: DeepPartial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
     const message = { ...baseGetLatestValidatorSetResponse } as GetLatestValidatorSetResponse;
-    if (object.blockHeight !== undefined && object.blockHeight !== null) {
-      message.blockHeight = object.blockHeight as Long;
-    } else {
-      message.blockHeight = Long.ZERO;
-    }
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO;
     message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -473,16 +468,14 @@ export const Validator = {
     message.address = object.address ?? "";
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined;
-    if (object.votingPower !== undefined && object.votingPower !== null) {
-      message.votingPower = object.votingPower as Long;
-    } else {
-      message.votingPower = Long.ZERO;
-    }
-    if (object.proposerPriority !== undefined && object.proposerPriority !== null) {
-      message.proposerPriority = object.proposerPriority as Long;
-    } else {
-      message.proposerPriority = Long.ZERO;
-    }
+    message.votingPower =
+      object.votingPower !== undefined && object.votingPower !== null
+        ? Long.fromValue(object.votingPower)
+        : Long.ZERO;
+    message.proposerPriority =
+      object.proposerPriority !== undefined && object.proposerPriority !== null
+        ? Long.fromValue(object.proposerPriority)
+        : Long.ZERO;
     return message;
   },
 };
@@ -530,11 +523,8 @@ export const GetBlockByHeightRequest = {
 
   fromPartial(object: DeepPartial<GetBlockByHeightRequest>): GetBlockByHeightRequest {
     const message = { ...baseGetBlockByHeightRequest } as GetBlockByHeightRequest;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     return message;
   },
 };
@@ -1167,9 +1157,11 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

@@ -161,11 +161,8 @@ export const Plan = {
     const message = { ...basePlan } as Plan;
     message.name = object.name ?? "";
     message.time = object.time ?? undefined;
-    if (object.height !== undefined && object.height !== null) {
-      message.height = object.height as Long;
-    } else {
-      message.height = Long.ZERO;
-    }
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.info = object.info ?? "";
     message.upgradedClientState =
       object.upgradedClientState !== undefined && object.upgradedClientState !== null
@@ -351,18 +348,17 @@ export const ModuleVersion = {
   fromPartial(object: DeepPartial<ModuleVersion>): ModuleVersion {
     const message = { ...baseModuleVersion } as ModuleVersion;
     message.name = object.name ?? "";
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version as Long;
-    } else {
-      message.version = Long.UZERO;
-    }
+    message.version =
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.UZERO;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

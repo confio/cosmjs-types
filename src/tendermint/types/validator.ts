@@ -99,11 +99,10 @@ export const ValidatorSet = {
       object.proposer !== undefined && object.proposer !== null
         ? Validator.fromPartial(object.proposer)
         : undefined;
-    if (object.totalVotingPower !== undefined && object.totalVotingPower !== null) {
-      message.totalVotingPower = object.totalVotingPower as Long;
-    } else {
-      message.totalVotingPower = Long.ZERO;
-    }
+    message.totalVotingPower =
+      object.totalVotingPower !== undefined && object.totalVotingPower !== null
+        ? Long.fromValue(object.totalVotingPower)
+        : Long.ZERO;
     return message;
   },
 };
@@ -193,16 +192,14 @@ export const Validator = {
       object.pubKey !== undefined && object.pubKey !== null
         ? PublicKey.fromPartial(object.pubKey)
         : undefined;
-    if (object.votingPower !== undefined && object.votingPower !== null) {
-      message.votingPower = object.votingPower as Long;
-    } else {
-      message.votingPower = Long.ZERO;
-    }
-    if (object.proposerPriority !== undefined && object.proposerPriority !== null) {
-      message.proposerPriority = object.proposerPriority as Long;
-    } else {
-      message.proposerPriority = Long.ZERO;
-    }
+    message.votingPower =
+      object.votingPower !== undefined && object.votingPower !== null
+        ? Long.fromValue(object.votingPower)
+        : Long.ZERO;
+    message.proposerPriority =
+      object.proposerPriority !== undefined && object.proposerPriority !== null
+        ? Long.fromValue(object.proposerPriority)
+        : Long.ZERO;
     return message;
   },
 };
@@ -266,11 +263,10 @@ export const SimpleValidator = {
       object.pubKey !== undefined && object.pubKey !== null
         ? PublicKey.fromPartial(object.pubKey)
         : undefined;
-    if (object.votingPower !== undefined && object.votingPower !== null) {
-      message.votingPower = object.votingPower as Long;
-    } else {
-      message.votingPower = Long.ZERO;
-    }
+    message.votingPower =
+      object.votingPower !== undefined && object.votingPower !== null
+        ? Long.fromValue(object.votingPower)
+        : Long.ZERO;
     return message;
   },
 };
@@ -307,9 +303,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

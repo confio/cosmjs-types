@@ -78,11 +78,10 @@ export const App = {
 
   fromPartial(object: DeepPartial<App>): App {
     const message = { ...baseApp } as App;
-    if (object.protocol !== undefined && object.protocol !== null) {
-      message.protocol = object.protocol as Long;
-    } else {
-      message.protocol = Long.UZERO;
-    }
+    message.protocol =
+      object.protocol !== undefined && object.protocol !== null
+        ? Long.fromValue(object.protocol)
+        : Long.UZERO;
     message.software = object.software ?? "";
     return message;
   },
@@ -139,23 +138,18 @@ export const Consensus = {
 
   fromPartial(object: DeepPartial<Consensus>): Consensus {
     const message = { ...baseConsensus } as Consensus;
-    if (object.block !== undefined && object.block !== null) {
-      message.block = object.block as Long;
-    } else {
-      message.block = Long.UZERO;
-    }
-    if (object.app !== undefined && object.app !== null) {
-      message.app = object.app as Long;
-    } else {
-      message.app = Long.UZERO;
-    }
+    message.block =
+      object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
+    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

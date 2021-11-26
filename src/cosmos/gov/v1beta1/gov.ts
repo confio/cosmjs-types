@@ -425,11 +425,10 @@ export const Deposit = {
 
   fromPartial(object: DeepPartial<Deposit>): Deposit {
     const message = { ...baseDeposit } as Deposit;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.depositor = object.depositor ?? "";
     message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
     return message;
@@ -571,11 +570,10 @@ export const Proposal = {
 
   fromPartial(object: DeepPartial<Proposal>): Proposal {
     const message = { ...baseProposal } as Proposal;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.content =
       object.content !== undefined && object.content !== null ? Any.fromPartial(object.content) : undefined;
     message.status = object.status ?? 0;
@@ -742,11 +740,10 @@ export const Vote = {
 
   fromPartial(object: DeepPartial<Vote>): Vote {
     const message = { ...baseVote } as Vote;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.voter = object.voter ?? "";
     message.option = object.option ?? 0;
     message.options = (object.options ?? []).map((e) => WeightedVoteOption.fromPartial(e));
@@ -994,9 +991,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

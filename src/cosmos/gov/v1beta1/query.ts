@@ -185,11 +185,10 @@ export const QueryProposalRequest = {
 
   fromPartial(object: DeepPartial<QueryProposalRequest>): QueryProposalRequest {
     const message = { ...baseQueryProposalRequest } as QueryProposalRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -455,11 +454,10 @@ export const QueryVoteRequest = {
 
   fromPartial(object: DeepPartial<QueryVoteRequest>): QueryVoteRequest {
     const message = { ...baseQueryVoteRequest } as QueryVoteRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.voter = object.voter ?? "";
     return message;
   },
@@ -570,11 +568,10 @@ export const QueryVotesRequest = {
 
   fromPartial(object: DeepPartial<QueryVotesRequest>): QueryVotesRequest {
     const message = { ...baseQueryVotesRequest } as QueryVotesRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -839,11 +836,10 @@ export const QueryDepositRequest = {
 
   fromPartial(object: DeepPartial<QueryDepositRequest>): QueryDepositRequest {
     const message = { ...baseQueryDepositRequest } as QueryDepositRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.depositor = object.depositor ?? "";
     return message;
   },
@@ -958,11 +954,10 @@ export const QueryDepositsRequest = {
 
   fromPartial(object: DeepPartial<QueryDepositsRequest>): QueryDepositsRequest {
     const message = { ...baseQueryDepositsRequest } as QueryDepositsRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1084,11 +1079,10 @@ export const QueryTallyResultRequest = {
 
   fromPartial(object: DeepPartial<QueryTallyResultRequest>): QueryTallyResultRequest {
     const message = { ...baseQueryTallyResultRequest } as QueryTallyResultRequest;
-    if (object.proposalId !== undefined && object.proposalId !== null) {
-      message.proposalId = object.proposalId as Long;
-    } else {
-      message.proposalId = Long.UZERO;
-    }
+    message.proposalId =
+      object.proposalId !== undefined && object.proposalId !== null
+        ? Long.fromValue(object.proposalId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1229,9 +1223,11 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

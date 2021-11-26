@@ -264,11 +264,8 @@ export const MsgStoreCodeResponse = {
 
   fromPartial(object: DeepPartial<MsgStoreCodeResponse>): MsgStoreCodeResponse {
     const message = { ...baseMsgStoreCodeResponse } as MsgStoreCodeResponse;
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     return message;
   },
 };
@@ -368,11 +365,8 @@ export const MsgInstantiateContract = {
     const message = { ...baseMsgInstantiateContract } as MsgInstantiateContract;
     message.sender = object.sender ?? "";
     message.admin = object.admin ?? "";
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.label = object.label ?? "";
     message.initMsg = object.initMsg ?? new Uint8Array();
     message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
@@ -649,11 +643,8 @@ export const MsgMigrateContract = {
     const message = { ...baseMsgMigrateContract } as MsgMigrateContract;
     message.sender = object.sender ?? "";
     message.contract = object.contract ?? "";
-    if (object.codeId !== undefined && object.codeId !== null) {
-      message.codeId = object.codeId as Long;
-    } else {
-      message.codeId = Long.UZERO;
-    }
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.migrateMsg = object.migrateMsg ?? new Uint8Array();
     return message;
   },
@@ -1009,9 +1000,11 @@ function base64FromBytes(arr: Uint8Array): string {
   return btoa(bin.join(""));
 }
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

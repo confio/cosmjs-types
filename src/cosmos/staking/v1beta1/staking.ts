@@ -750,11 +750,10 @@ export const Validator = {
       object.description !== undefined && object.description !== null
         ? Description.fromPartial(object.description)
         : undefined;
-    if (object.unbondingHeight !== undefined && object.unbondingHeight !== null) {
-      message.unbondingHeight = object.unbondingHeight as Long;
-    } else {
-      message.unbondingHeight = Long.ZERO;
-    }
+    message.unbondingHeight =
+      object.unbondingHeight !== undefined && object.unbondingHeight !== null
+        ? Long.fromValue(object.unbondingHeight)
+        : Long.ZERO;
     message.unbondingTime = object.unbondingTime ?? undefined;
     message.commission =
       object.commission !== undefined && object.commission !== null
@@ -1280,11 +1279,10 @@ export const UnbondingDelegationEntry = {
 
   fromPartial(object: DeepPartial<UnbondingDelegationEntry>): UnbondingDelegationEntry {
     const message = { ...baseUnbondingDelegationEntry } as UnbondingDelegationEntry;
-    if (object.creationHeight !== undefined && object.creationHeight !== null) {
-      message.creationHeight = object.creationHeight as Long;
-    } else {
-      message.creationHeight = Long.ZERO;
-    }
+    message.creationHeight =
+      object.creationHeight !== undefined && object.creationHeight !== null
+        ? Long.fromValue(object.creationHeight)
+        : Long.ZERO;
     message.completionTime = object.completionTime ?? undefined;
     message.initialBalance = object.initialBalance ?? "";
     message.balance = object.balance ?? "";
@@ -1369,11 +1367,10 @@ export const RedelegationEntry = {
 
   fromPartial(object: DeepPartial<RedelegationEntry>): RedelegationEntry {
     const message = { ...baseRedelegationEntry } as RedelegationEntry;
-    if (object.creationHeight !== undefined && object.creationHeight !== null) {
-      message.creationHeight = object.creationHeight as Long;
-    } else {
-      message.creationHeight = Long.ZERO;
-    }
+    message.creationHeight =
+      object.creationHeight !== undefined && object.creationHeight !== null
+        ? Long.fromValue(object.creationHeight)
+        : Long.ZERO;
     message.completionTime = object.completionTime ?? undefined;
     message.initialBalance = object.initialBalance ?? "";
     message.sharesDst = object.sharesDst ?? "";
@@ -1824,9 +1821,11 @@ export const Pool = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

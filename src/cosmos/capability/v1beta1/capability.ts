@@ -72,11 +72,8 @@ export const Capability = {
 
   fromPartial(object: DeepPartial<Capability>): Capability {
     const message = { ...baseCapability } as Capability;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index as Long;
-    } else {
-      message.index = Long.UZERO;
-    }
+    message.index =
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     return message;
   },
 };
@@ -189,9 +186,11 @@ export const CapabilityOwners = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

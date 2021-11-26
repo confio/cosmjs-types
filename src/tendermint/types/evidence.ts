@@ -199,16 +199,14 @@ export const DuplicateVoteEvidence = {
       object.voteA !== undefined && object.voteA !== null ? Vote.fromPartial(object.voteA) : undefined;
     message.voteB =
       object.voteB !== undefined && object.voteB !== null ? Vote.fromPartial(object.voteB) : undefined;
-    if (object.totalVotingPower !== undefined && object.totalVotingPower !== null) {
-      message.totalVotingPower = object.totalVotingPower as Long;
-    } else {
-      message.totalVotingPower = Long.ZERO;
-    }
-    if (object.validatorPower !== undefined && object.validatorPower !== null) {
-      message.validatorPower = object.validatorPower as Long;
-    } else {
-      message.validatorPower = Long.ZERO;
-    }
+    message.totalVotingPower =
+      object.totalVotingPower !== undefined && object.totalVotingPower !== null
+        ? Long.fromValue(object.totalVotingPower)
+        : Long.ZERO;
+    message.validatorPower =
+      object.validatorPower !== undefined && object.validatorPower !== null
+        ? Long.fromValue(object.validatorPower)
+        : Long.ZERO;
     message.timestamp = object.timestamp ?? undefined;
     return message;
   },
@@ -313,17 +311,15 @@ export const LightClientAttackEvidence = {
       object.conflictingBlock !== undefined && object.conflictingBlock !== null
         ? LightBlock.fromPartial(object.conflictingBlock)
         : undefined;
-    if (object.commonHeight !== undefined && object.commonHeight !== null) {
-      message.commonHeight = object.commonHeight as Long;
-    } else {
-      message.commonHeight = Long.ZERO;
-    }
+    message.commonHeight =
+      object.commonHeight !== undefined && object.commonHeight !== null
+        ? Long.fromValue(object.commonHeight)
+        : Long.ZERO;
     message.byzantineValidators = (object.byzantineValidators ?? []).map((e) => Validator.fromPartial(e));
-    if (object.totalVotingPower !== undefined && object.totalVotingPower !== null) {
-      message.totalVotingPower = object.totalVotingPower as Long;
-    } else {
-      message.totalVotingPower = Long.ZERO;
-    }
+    message.totalVotingPower =
+      object.totalVotingPower !== undefined && object.totalVotingPower !== null
+        ? Long.fromValue(object.totalVotingPower)
+        : Long.ZERO;
     message.timestamp = object.timestamp ?? undefined;
     return message;
   },
@@ -381,9 +377,11 @@ export const EvidenceList = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

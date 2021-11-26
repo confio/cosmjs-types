@@ -122,11 +122,8 @@ export const FungibleTokenPacketData = {
   fromPartial(object: DeepPartial<FungibleTokenPacketData>): FungibleTokenPacketData {
     const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
     message.denom = object.denom ?? "";
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount as Long;
-    } else {
-      message.amount = Long.UZERO;
-    }
+    message.amount =
+      object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
     message.sender = object.sender ?? "";
     message.receiver = object.receiver ?? "";
     return message;
@@ -250,9 +247,11 @@ export const Params = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

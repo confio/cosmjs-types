@@ -151,11 +151,10 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    if (object.startingProposalId !== undefined && object.startingProposalId !== null) {
-      message.startingProposalId = object.startingProposalId as Long;
-    } else {
-      message.startingProposalId = Long.UZERO;
-    }
+    message.startingProposalId =
+      object.startingProposalId !== undefined && object.startingProposalId !== null
+        ? Long.fromValue(object.startingProposalId)
+        : Long.UZERO;
     message.deposits = (object.deposits ?? []).map((e) => Deposit.fromPartial(e));
     message.votes = (object.votes ?? []).map((e) => Vote.fromPartial(e));
     message.proposals = (object.proposals ?? []).map((e) => Proposal.fromPartial(e));
@@ -175,9 +174,11 @@ export const GenesisState = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>

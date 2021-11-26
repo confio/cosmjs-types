@@ -172,11 +172,10 @@ export const GenesisState = {
     message.sendSequences = (object.sendSequences ?? []).map((e) => PacketSequence.fromPartial(e));
     message.recvSequences = (object.recvSequences ?? []).map((e) => PacketSequence.fromPartial(e));
     message.ackSequences = (object.ackSequences ?? []).map((e) => PacketSequence.fromPartial(e));
-    if (object.nextChannelSequence !== undefined && object.nextChannelSequence !== null) {
-      message.nextChannelSequence = object.nextChannelSequence as Long;
-    } else {
-      message.nextChannelSequence = Long.UZERO;
-    }
+    message.nextChannelSequence =
+      object.nextChannelSequence !== undefined && object.nextChannelSequence !== null
+        ? Long.fromValue(object.nextChannelSequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -245,18 +244,19 @@ export const PacketSequence = {
     const message = { ...basePacketSequence } as PacketSequence;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = object.sequence as Long;
-    } else {
-      message.sequence = Long.UZERO;
-    }
+    message.sequence =
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
