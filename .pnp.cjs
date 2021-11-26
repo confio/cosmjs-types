@@ -38,7 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:15.6.2"],
             ["long", "npm:4.0.0"],
-            ["prettier", "npm:2.3.0"],
+            ["prettier", "npm:2.5.0"],
             ["protobufjs", "npm:6.11.2"],
             ["ts-proto", "npm:1.90.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=ddd1e8"]
@@ -189,7 +189,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:15.6.2"],
             ["long", "npm:4.0.0"],
-            ["prettier", "npm:2.3.0"],
+            ["prettier", "npm:2.5.0"],
             ["protobufjs", "npm:6.11.2"],
             ["ts-proto", "npm:1.90.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=ddd1e8"]
@@ -234,10 +234,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["prettier", [
-        ["npm:2.3.0", {
-          "packageLocation": "./.yarn/cache/prettier-npm-2.3.0-29ef37e8b6-e8851a45f6.zip/node_modules/prettier/",
+        ["npm:2.5.0", {
+          "packageLocation": "./.yarn/cache/prettier-npm-2.5.0-f1121aaab1-aad1b35b73.zip/node_modules/prettier/",
           "packageDependencies": [
-            ["prettier", "npm:2.3.0"]
+            ["prettier", "npm:2.5.0"]
           ],
           "linkType": "HARD",
         }]
@@ -271,7 +271,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-poet", "npm:4.5.0"],
             ["@types/prettier", "npm:1.19.1"],
             ["lodash", "npm:4.17.21"],
-            ["prettier", "npm:2.3.0"]
+            ["prettier", "npm:2.5.0"]
           ],
           "linkType": "HARD",
         }]
