@@ -2,8 +2,9 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-OUT_DIR="./src"
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=true"
 
+OUT_DIR="./src"
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
 mkdir -p "$OUT_DIR"
@@ -19,7 +20,7 @@ protoc \
   --ts_proto_yarn_2_out="$OUT_DIR" \
   --proto_path="$WASMD_DIR" \
   --proto_path="$WASMD_THIRD_PARTY_DIR" \
-  --ts_proto_yarn_2_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+  --ts_proto_yarn_2_opt="$TS_PROTO_OPTS" \
   "$CONFIO_DIR/proofs.proto" \
   "$COSMOS_DIR/auth/v1beta1/auth.proto" \
   "$COSMOS_DIR/auth/v1beta1/genesis.proto" \
@@ -117,7 +118,7 @@ protoc \
   --ts_proto_yarn_2_out="$OUT_DIR" \
   --proto_path="$WASMD_DIR" \
   --proto_path="$WASMD_THIRD_PARTY_DIR" \
-  --ts_proto_yarn_2_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+  --ts_proto_yarn_2_opt="$TS_PROTO_OPTS" \
   "$CONFIO_DIR/proofs.proto" \
   "$COSMOS_DIR/auth/v1beta1/auth.proto" \
   "$COSMOS_DIR/auth/v1beta1/genesis.proto" \

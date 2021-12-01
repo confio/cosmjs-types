@@ -2,6 +2,8 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=true"
+
 OUT_DIR="./src"
 COSMOS_SDK_DIR="./cosmos-sdk-0.44/proto"
 COSMOS_SDK_THIRD_PARTY_DIR="./cosmos-sdk-0.44/third_party/proto"
@@ -15,7 +17,7 @@ protoc \
   --ts_proto_yarn_2_out="$OUT_DIR" \
   --proto_path="$COSMOS_SDK_DIR" \
   --proto_path="$COSMOS_SDK_THIRD_PARTY_DIR" \
-  --ts_proto_yarn_2_opt="esModuleInterop=true,forceLong=long,useOptionals=true" \
+  --ts_proto_yarn_2_opt="$TS_PROTO_OPTS" \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/auth.proto" \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/genesis.proto" \
   "$COSMOS_SDK_DIR/cosmos/auth/v1beta1/query.proto" \
