@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { Duration } from "../../../google/protobuf/duration";
 
 export const protobufPackage = "cosmos.slashing.v1beta1";
 
@@ -21,7 +21,7 @@ export interface ValidatorSigningInfo {
    */
   indexOffset: Long;
   /** Timestamp until which the validator is jailed due to liveness downtime. */
-  jailedUntil?: Date;
+  jailedUntil?: Timestamp;
   /**
    * Whether or not a validator has been tombstoned (killed out of validator set). It is set
    * once the validator commits an equivocation or for any other configured misbehiavor.
@@ -63,7 +63,7 @@ export const ValidatorSigningInfo = {
       writer.uint32(24).int64(message.indexOffset);
     }
     if (message.jailedUntil !== undefined) {
-      Timestamp.encode(toTimestamp(message.jailedUntil), writer.uint32(34).fork()).ldelim();
+      Timestamp.encode(message.jailedUntil, writer.uint32(34).fork()).ldelim();
     }
     if (message.tombstoned === true) {
       writer.uint32(40).bool(message.tombstoned);
@@ -91,7 +91,7 @@ export const ValidatorSigningInfo = {
           message.indexOffset = reader.int64() as Long;
           break;
         case 4:
-          message.jailedUntil = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.jailedUntil = Timestamp.decode(reader, reader.uint32());
           break;
         case 5:
           message.tombstoned = reader.bool();
@@ -136,7 +136,7 @@ export const ValidatorSigningInfo = {
     message.address !== undefined && (obj.address = message.address);
     message.startHeight !== undefined && (obj.startHeight = (message.startHeight || Long.ZERO).toString());
     message.indexOffset !== undefined && (obj.indexOffset = (message.indexOffset || Long.ZERO).toString());
-    message.jailedUntil !== undefined && (obj.jailedUntil = message.jailedUntil.toISOString());
+    message.jailedUntil !== undefined && (obj.jailedUntil = fromTimestamp(message.jailedUntil).toISOString());
     message.tombstoned !== undefined && (obj.tombstoned = message.tombstoned);
     message.missedBlocksCounter !== undefined &&
       (obj.missedBlocksCounter = (message.missedBlocksCounter || Long.ZERO).toString());
@@ -154,7 +154,10 @@ export const ValidatorSigningInfo = {
       object.indexOffset !== undefined && object.indexOffset !== null
         ? Long.fromValue(object.indexOffset)
         : Long.ZERO;
-    message.jailedUntil = object.jailedUntil ?? undefined;
+    message.jailedUntil =
+      object.jailedUntil !== undefined && object.jailedUntil !== null
+        ? Timestamp.fromPartial(object.jailedUntil)
+        : undefined;
     message.tombstoned = object.tombstoned ?? false;
     message.missedBlocksCounter =
       object.missedBlocksCounter !== undefined && object.missedBlocksCounter !== null
@@ -341,13 +344,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 

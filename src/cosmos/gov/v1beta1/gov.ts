@@ -2,8 +2,8 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
-import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { Duration } from "../../../google/protobuf/duration";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
@@ -177,11 +177,11 @@ export interface Proposal {
   content?: Any;
   status: ProposalStatus;
   finalTallyResult?: TallyResult;
-  submitTime?: Date;
-  depositEndTime?: Date;
+  submitTime?: Timestamp;
+  depositEndTime?: Timestamp;
   totalDeposit: Coin[];
-  votingStartTime?: Date;
-  votingEndTime?: Date;
+  votingStartTime?: Timestamp;
+  votingEndTime?: Timestamp;
 }
 
 /** TallyResult defines a standard tally for a governance proposal. */
@@ -452,19 +452,19 @@ export const Proposal = {
       TallyResult.encode(message.finalTallyResult, writer.uint32(34).fork()).ldelim();
     }
     if (message.submitTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.submitTime), writer.uint32(42).fork()).ldelim();
+      Timestamp.encode(message.submitTime, writer.uint32(42).fork()).ldelim();
     }
     if (message.depositEndTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.depositEndTime), writer.uint32(50).fork()).ldelim();
+      Timestamp.encode(message.depositEndTime, writer.uint32(50).fork()).ldelim();
     }
     for (const v of message.totalDeposit) {
       Coin.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     if (message.votingStartTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.votingStartTime), writer.uint32(66).fork()).ldelim();
+      Timestamp.encode(message.votingStartTime, writer.uint32(66).fork()).ldelim();
     }
     if (message.votingEndTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.votingEndTime), writer.uint32(74).fork()).ldelim();
+      Timestamp.encode(message.votingEndTime, writer.uint32(74).fork()).ldelim();
     }
     return writer;
   },
@@ -490,19 +490,19 @@ export const Proposal = {
           message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
           break;
         case 5:
-          message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.submitTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 6:
-          message.depositEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.depositEndTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 7:
           message.totalDeposit.push(Coin.decode(reader, reader.uint32()));
           break;
         case 8:
-          message.votingStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.votingStartTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 9:
-          message.votingEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.votingEndTime = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -556,15 +556,18 @@ export const Proposal = {
       (obj.finalTallyResult = message.finalTallyResult
         ? TallyResult.toJSON(message.finalTallyResult)
         : undefined);
-    message.submitTime !== undefined && (obj.submitTime = message.submitTime.toISOString());
-    message.depositEndTime !== undefined && (obj.depositEndTime = message.depositEndTime.toISOString());
+    message.submitTime !== undefined && (obj.submitTime = fromTimestamp(message.submitTime).toISOString());
+    message.depositEndTime !== undefined &&
+      (obj.depositEndTime = fromTimestamp(message.depositEndTime).toISOString());
     if (message.totalDeposit) {
       obj.totalDeposit = message.totalDeposit.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.totalDeposit = [];
     }
-    message.votingStartTime !== undefined && (obj.votingStartTime = message.votingStartTime.toISOString());
-    message.votingEndTime !== undefined && (obj.votingEndTime = message.votingEndTime.toISOString());
+    message.votingStartTime !== undefined &&
+      (obj.votingStartTime = fromTimestamp(message.votingStartTime).toISOString());
+    message.votingEndTime !== undefined &&
+      (obj.votingEndTime = fromTimestamp(message.votingEndTime).toISOString());
     return obj;
   },
 
@@ -581,11 +584,23 @@ export const Proposal = {
       object.finalTallyResult !== undefined && object.finalTallyResult !== null
         ? TallyResult.fromPartial(object.finalTallyResult)
         : undefined;
-    message.submitTime = object.submitTime ?? undefined;
-    message.depositEndTime = object.depositEndTime ?? undefined;
+    message.submitTime =
+      object.submitTime !== undefined && object.submitTime !== null
+        ? Timestamp.fromPartial(object.submitTime)
+        : undefined;
+    message.depositEndTime =
+      object.depositEndTime !== undefined && object.depositEndTime !== null
+        ? Timestamp.fromPartial(object.depositEndTime)
+        : undefined;
     message.totalDeposit = (object.totalDeposit ?? []).map((e) => Coin.fromPartial(e));
-    message.votingStartTime = object.votingStartTime ?? undefined;
-    message.votingEndTime = object.votingEndTime ?? undefined;
+    message.votingStartTime =
+      object.votingStartTime !== undefined && object.votingStartTime !== null
+        ? Timestamp.fromPartial(object.votingStartTime)
+        : undefined;
+    message.votingEndTime =
+      object.votingEndTime !== undefined && object.votingEndTime !== null
+        ? Timestamp.fromPartial(object.votingEndTime)
+        : undefined;
     return message;
   },
 };
@@ -1016,13 +1031,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 
