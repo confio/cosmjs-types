@@ -65,7 +65,7 @@ export interface MsgBeginRedelegate {
 
 /** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
 export interface MsgBeginRedelegateResponse {
-  completionTime?: Date;
+  completionTime?: Timestamp;
 }
 
 /**
@@ -80,7 +80,7 @@ export interface MsgUndelegate {
 
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponse {
-  completionTime?: Date;
+  completionTime?: Timestamp;
 }
 
 const baseMsgCreateValidator: object = { minSelfDelegation: "", delegatorAddress: "", validatorAddress: "" };
@@ -582,7 +582,7 @@ const baseMsgBeginRedelegateResponse: object = {};
 export const MsgBeginRedelegateResponse = {
   encode(message: MsgBeginRedelegateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.completionTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(10).fork()).ldelim();
+      Timestamp.encode(message.completionTime, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -595,7 +595,7 @@ export const MsgBeginRedelegateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.completionTime = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -616,13 +616,17 @@ export const MsgBeginRedelegateResponse = {
 
   toJSON(message: MsgBeginRedelegateResponse): unknown {
     const obj: any = {};
-    message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
+    message.completionTime !== undefined &&
+      (obj.completionTime = fromTimestamp(message.completionTime).toISOString());
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgBeginRedelegateResponse>): MsgBeginRedelegateResponse {
     const message = { ...baseMsgBeginRedelegateResponse } as MsgBeginRedelegateResponse;
-    message.completionTime = object.completionTime ?? undefined;
+    message.completionTime =
+      object.completionTime !== undefined && object.completionTime !== null
+        ? Timestamp.fromPartial(object.completionTime)
+        : undefined;
     return message;
   },
 };
@@ -705,7 +709,7 @@ const baseMsgUndelegateResponse: object = {};
 export const MsgUndelegateResponse = {
   encode(message: MsgUndelegateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.completionTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(10).fork()).ldelim();
+      Timestamp.encode(message.completionTime, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -718,7 +722,7 @@ export const MsgUndelegateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.completionTime = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -739,13 +743,17 @@ export const MsgUndelegateResponse = {
 
   toJSON(message: MsgUndelegateResponse): unknown {
     const obj: any = {};
-    message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
+    message.completionTime !== undefined &&
+      (obj.completionTime = fromTimestamp(message.completionTime).toISOString());
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgUndelegateResponse>): MsgUndelegateResponse {
     const message = { ...baseMsgUndelegateResponse } as MsgUndelegateResponse;
-    message.completionTime = object.completionTime ?? undefined;
+    message.completionTime =
+      object.completionTime !== undefined && object.completionTime !== null
+        ? Timestamp.fromPartial(object.completionTime)
+        : undefined;
     return message;
   },
 };
@@ -843,13 +851,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 

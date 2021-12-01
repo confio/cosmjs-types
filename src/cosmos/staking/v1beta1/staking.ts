@@ -2,10 +2,10 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Header } from "../../../tendermint/types/types";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Any } from "../../../google/protobuf/any";
 import { Duration } from "../../../google/protobuf/duration";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 
@@ -87,7 +87,7 @@ export interface Commission {
   /** commission_rates defines the initial commission rates to be used for creating a validator. */
   commissionRates?: CommissionRates;
   /** update_time is the last time the commission rate was changed. */
-  updateTime?: Date;
+  updateTime?: Timestamp;
 }
 
 /** Description defines a validator description. */
@@ -132,7 +132,7 @@ export interface Validator {
   /** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
   unbondingHeight: Long;
   /** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
-  unbondingTime?: Date;
+  unbondingTime?: Timestamp;
   /** commission defines the commission parameters. */
   commission?: Commission;
   /** min_self_delegation is the validator's self declared minimum self delegation. */
@@ -208,7 +208,7 @@ export interface UnbondingDelegationEntry {
   /** creation_height is the height which the unbonding took place. */
   creationHeight: Long;
   /** completion_time is the unix time for unbonding completion. */
-  completionTime?: Date;
+  completionTime?: Timestamp;
   /** initial_balance defines the tokens initially scheduled to receive at completion. */
   initialBalance: string;
   /** balance defines the tokens to receive at completion. */
@@ -220,7 +220,7 @@ export interface RedelegationEntry {
   /** creation_height  defines the height which the redelegation took place. */
   creationHeight: Long;
   /** completion_time defines the unix time for redelegation completion. */
-  completionTime?: Date;
+  completionTime?: Timestamp;
   /** initial_balance defines the initial balance when redelegation started. */
   initialBalance: string;
   /** shares_dst is the amount of destination-validator shares created by redelegation. */
@@ -431,7 +431,7 @@ export const Commission = {
       CommissionRates.encode(message.commissionRates, writer.uint32(10).fork()).ldelim();
     }
     if (message.updateTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.updateTime), writer.uint32(18).fork()).ldelim();
+      Timestamp.encode(message.updateTime, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -447,7 +447,7 @@ export const Commission = {
           message.commissionRates = CommissionRates.decode(reader, reader.uint32());
           break;
         case 2:
-          message.updateTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.updateTime = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -476,7 +476,7 @@ export const Commission = {
       (obj.commissionRates = message.commissionRates
         ? CommissionRates.toJSON(message.commissionRates)
         : undefined);
-    message.updateTime !== undefined && (obj.updateTime = message.updateTime.toISOString());
+    message.updateTime !== undefined && (obj.updateTime = fromTimestamp(message.updateTime).toISOString());
     return obj;
   },
 
@@ -486,7 +486,10 @@ export const Commission = {
       object.commissionRates !== undefined && object.commissionRates !== null
         ? CommissionRates.fromPartial(object.commissionRates)
         : undefined;
-    message.updateTime = object.updateTime ?? undefined;
+    message.updateTime =
+      object.updateTime !== undefined && object.updateTime !== null
+        ? Timestamp.fromPartial(object.updateTime)
+        : undefined;
     return message;
   },
 };
@@ -615,7 +618,7 @@ export const Validator = {
       writer.uint32(64).int64(message.unbondingHeight);
     }
     if (message.unbondingTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.unbondingTime), writer.uint32(74).fork()).ldelim();
+      Timestamp.encode(message.unbondingTime, writer.uint32(74).fork()).ldelim();
     }
     if (message.commission !== undefined) {
       Commission.encode(message.commission, writer.uint32(82).fork()).ldelim();
@@ -658,7 +661,7 @@ export const Validator = {
           message.unbondingHeight = reader.int64() as Long;
           break;
         case 9:
-          message.unbondingTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.unbondingTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 10:
           message.commission = Commission.decode(reader, reader.uint32());
@@ -728,7 +731,8 @@ export const Validator = {
       (obj.description = message.description ? Description.toJSON(message.description) : undefined);
     message.unbondingHeight !== undefined &&
       (obj.unbondingHeight = (message.unbondingHeight || Long.ZERO).toString());
-    message.unbondingTime !== undefined && (obj.unbondingTime = message.unbondingTime.toISOString());
+    message.unbondingTime !== undefined &&
+      (obj.unbondingTime = fromTimestamp(message.unbondingTime).toISOString());
     message.commission !== undefined &&
       (obj.commission = message.commission ? Commission.toJSON(message.commission) : undefined);
     message.minSelfDelegation !== undefined && (obj.minSelfDelegation = message.minSelfDelegation);
@@ -754,7 +758,10 @@ export const Validator = {
       object.unbondingHeight !== undefined && object.unbondingHeight !== null
         ? Long.fromValue(object.unbondingHeight)
         : Long.ZERO;
-    message.unbondingTime = object.unbondingTime ?? undefined;
+    message.unbondingTime =
+      object.unbondingTime !== undefined && object.unbondingTime !== null
+        ? Timestamp.fromPartial(object.unbondingTime)
+        : undefined;
     message.commission =
       object.commission !== undefined && object.commission !== null
         ? Commission.fromPartial(object.commission)
@@ -1211,7 +1218,7 @@ export const UnbondingDelegationEntry = {
       writer.uint32(8).int64(message.creationHeight);
     }
     if (message.completionTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(18).fork()).ldelim();
+      Timestamp.encode(message.completionTime, writer.uint32(18).fork()).ldelim();
     }
     if (message.initialBalance !== "") {
       writer.uint32(26).string(message.initialBalance);
@@ -1233,7 +1240,7 @@ export const UnbondingDelegationEntry = {
           message.creationHeight = reader.int64() as Long;
           break;
         case 2:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.completionTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 3:
           message.initialBalance = reader.string();
@@ -1271,7 +1278,8 @@ export const UnbondingDelegationEntry = {
     const obj: any = {};
     message.creationHeight !== undefined &&
       (obj.creationHeight = (message.creationHeight || Long.ZERO).toString());
-    message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
+    message.completionTime !== undefined &&
+      (obj.completionTime = fromTimestamp(message.completionTime).toISOString());
     message.initialBalance !== undefined && (obj.initialBalance = message.initialBalance);
     message.balance !== undefined && (obj.balance = message.balance);
     return obj;
@@ -1283,7 +1291,10 @@ export const UnbondingDelegationEntry = {
       object.creationHeight !== undefined && object.creationHeight !== null
         ? Long.fromValue(object.creationHeight)
         : Long.ZERO;
-    message.completionTime = object.completionTime ?? undefined;
+    message.completionTime =
+      object.completionTime !== undefined && object.completionTime !== null
+        ? Timestamp.fromPartial(object.completionTime)
+        : undefined;
     message.initialBalance = object.initialBalance ?? "";
     message.balance = object.balance ?? "";
     return message;
@@ -1298,7 +1309,7 @@ export const RedelegationEntry = {
       writer.uint32(8).int64(message.creationHeight);
     }
     if (message.completionTime !== undefined) {
-      Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(18).fork()).ldelim();
+      Timestamp.encode(message.completionTime, writer.uint32(18).fork()).ldelim();
     }
     if (message.initialBalance !== "") {
       writer.uint32(26).string(message.initialBalance);
@@ -1320,7 +1331,7 @@ export const RedelegationEntry = {
           message.creationHeight = reader.int64() as Long;
           break;
         case 2:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.completionTime = Timestamp.decode(reader, reader.uint32());
           break;
         case 3:
           message.initialBalance = reader.string();
@@ -1359,7 +1370,8 @@ export const RedelegationEntry = {
     const obj: any = {};
     message.creationHeight !== undefined &&
       (obj.creationHeight = (message.creationHeight || Long.ZERO).toString());
-    message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
+    message.completionTime !== undefined &&
+      (obj.completionTime = fromTimestamp(message.completionTime).toISOString());
     message.initialBalance !== undefined && (obj.initialBalance = message.initialBalance);
     message.sharesDst !== undefined && (obj.sharesDst = message.sharesDst);
     return obj;
@@ -1371,7 +1383,10 @@ export const RedelegationEntry = {
       object.creationHeight !== undefined && object.creationHeight !== null
         ? Long.fromValue(object.creationHeight)
         : Long.ZERO;
-    message.completionTime = object.completionTime ?? undefined;
+    message.completionTime =
+      object.completionTime !== undefined && object.completionTime !== null
+        ? Timestamp.fromPartial(object.completionTime)
+        : undefined;
     message.initialBalance = object.initialBalance ?? "";
     message.sharesDst = object.sharesDst ?? "";
     return message;
@@ -1846,13 +1861,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 

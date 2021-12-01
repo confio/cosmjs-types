@@ -18,7 +18,7 @@ export interface DuplicateVoteEvidence {
   voteB?: Vote;
   totalVotingPower: Long;
   validatorPower: Long;
-  timestamp?: Date;
+  timestamp?: Timestamp;
 }
 
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
@@ -27,7 +27,7 @@ export interface LightClientAttackEvidence {
   commonHeight: Long;
   byzantineValidators: Validator[];
   totalVotingPower: Long;
-  timestamp?: Date;
+  timestamp?: Timestamp;
 }
 
 export interface EvidenceList {
@@ -125,7 +125,7 @@ export const DuplicateVoteEvidence = {
       writer.uint32(32).int64(message.validatorPower);
     }
     if (message.timestamp !== undefined) {
-      Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(42).fork()).ldelim();
+      Timestamp.encode(message.timestamp, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -150,7 +150,7 @@ export const DuplicateVoteEvidence = {
           message.validatorPower = reader.int64() as Long;
           break;
         case 5:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -189,7 +189,7 @@ export const DuplicateVoteEvidence = {
       (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
     message.validatorPower !== undefined &&
       (obj.validatorPower = (message.validatorPower || Long.ZERO).toString());
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
+    message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
     return obj;
   },
 
@@ -207,7 +207,10 @@ export const DuplicateVoteEvidence = {
       object.validatorPower !== undefined && object.validatorPower !== null
         ? Long.fromValue(object.validatorPower)
         : Long.ZERO;
-    message.timestamp = object.timestamp ?? undefined;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Timestamp.fromPartial(object.timestamp)
+        : undefined;
     return message;
   },
 };
@@ -229,7 +232,7 @@ export const LightClientAttackEvidence = {
       writer.uint32(32).int64(message.totalVotingPower);
     }
     if (message.timestamp !== undefined) {
-      Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(42).fork()).ldelim();
+      Timestamp.encode(message.timestamp, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -255,7 +258,7 @@ export const LightClientAttackEvidence = {
           message.totalVotingPower = reader.int64() as Long;
           break;
         case 5:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -301,7 +304,7 @@ export const LightClientAttackEvidence = {
     }
     message.totalVotingPower !== undefined &&
       (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
+    message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
     return obj;
   },
 
@@ -320,7 +323,10 @@ export const LightClientAttackEvidence = {
       object.totalVotingPower !== undefined && object.totalVotingPower !== null
         ? Long.fromValue(object.totalVotingPower)
         : Long.ZERO;
-    message.timestamp = object.timestamp ?? undefined;
+    message.timestamp =
+      object.timestamp !== undefined && object.timestamp !== null
+        ? Timestamp.fromPartial(object.timestamp)
+        : undefined;
     return message;
   },
 };
@@ -402,13 +408,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 

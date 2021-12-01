@@ -11,7 +11,7 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
  */
 export interface Equivocation {
   height: Long;
-  time?: Date;
+  time?: Timestamp;
   power: Long;
   consensusAddress: string;
 }
@@ -24,7 +24,7 @@ export const Equivocation = {
       writer.uint32(8).int64(message.height);
     }
     if (message.time !== undefined) {
-      Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim();
+      Timestamp.encode(message.time, writer.uint32(18).fork()).ldelim();
     }
     if (!message.power.isZero()) {
       writer.uint32(24).int64(message.power);
@@ -46,7 +46,7 @@ export const Equivocation = {
           message.height = reader.int64() as Long;
           break;
         case 2:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          message.time = Timestamp.decode(reader, reader.uint32());
           break;
         case 3:
           message.power = reader.int64() as Long;
@@ -80,7 +80,7 @@ export const Equivocation = {
   toJSON(message: Equivocation): unknown {
     const obj: any = {};
     message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
-    message.time !== undefined && (obj.time = message.time.toISOString());
+    message.time !== undefined && (obj.time = fromTimestamp(message.time).toISOString());
     message.power !== undefined && (obj.power = (message.power || Long.ZERO).toString());
     message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress);
     return obj;
@@ -90,7 +90,8 @@ export const Equivocation = {
     const message = { ...baseEquivocation } as Equivocation;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
-    message.time = object.time ?? undefined;
+    message.time =
+      object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
     message.power =
       object.power !== undefined && object.power !== null ? Long.fromValue(object.power) : Long.ZERO;
     message.consensusAddress = object.consensusAddress ?? "";
@@ -123,13 +124,13 @@ function fromTimestamp(t: Timestamp): Date {
   return new Date(millis);
 }
 
-function fromJsonTimestamp(o: any): Date {
+function fromJsonTimestamp(o: any): Timestamp {
   if (o instanceof Date) {
-    return o;
+    return toTimestamp(o);
   } else if (typeof o === "string") {
-    return new Date(o);
+    return toTimestamp(new Date(o));
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return Timestamp.fromJSON(o);
   }
 }
 
