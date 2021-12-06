@@ -85,7 +85,7 @@ export const QueryEvidenceRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryEvidenceRequest>): QueryEvidenceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryEvidenceRequest>, I>>(object: I): QueryEvidenceRequest {
     const message = { ...baseQueryEvidenceRequest } as QueryEvidenceRequest;
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     return message;
@@ -134,7 +134,7 @@ export const QueryEvidenceResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryEvidenceResponse>): QueryEvidenceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryEvidenceResponse>, I>>(object: I): QueryEvidenceResponse {
     const message = { ...baseQueryEvidenceResponse } as QueryEvidenceResponse;
     message.evidence =
       object.evidence !== undefined && object.evidence !== null
@@ -188,7 +188,7 @@ export const QueryAllEvidenceRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllEvidenceRequest>): QueryAllEvidenceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceRequest>, I>>(object: I): QueryAllEvidenceRequest {
     const message = { ...baseQueryAllEvidenceRequest } as QueryAllEvidenceRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -255,9 +255,11 @@ export const QueryAllEvidenceResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllEvidenceResponse>): QueryAllEvidenceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceResponse>, I>>(
+    object: I,
+  ): QueryAllEvidenceResponse {
     const message = { ...baseQueryAllEvidenceResponse } as QueryAllEvidenceResponse;
-    message.evidence = (object.evidence ?? []).map((e) => Any.fromPartial(e));
+    message.evidence = object.evidence?.map((e) => Any.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -331,6 +333,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -342,6 +345,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

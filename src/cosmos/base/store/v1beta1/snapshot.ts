@@ -77,7 +77,7 @@ export const SnapshotItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotItem>): SnapshotItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotItem>, I>>(object: I): SnapshotItem {
     const message = { ...baseSnapshotItem } as SnapshotItem;
     message.store =
       object.store !== undefined && object.store !== null
@@ -131,7 +131,7 @@ export const SnapshotStoreItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotStoreItem>): SnapshotStoreItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
     const message = { ...baseSnapshotStoreItem } as SnapshotStoreItem;
     message.name = object.name ?? "";
     return message;
@@ -209,7 +209,7 @@ export const SnapshotIAVLItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotIAVLItem>): SnapshotIAVLItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {
     const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -253,6 +253,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -264,6 +265,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

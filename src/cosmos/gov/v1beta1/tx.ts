@@ -129,11 +129,11 @@ export const MsgSubmitProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgSubmitProposal>): MsgSubmitProposal {
+  fromPartial<I extends Exact<DeepPartial<MsgSubmitProposal>, I>>(object: I): MsgSubmitProposal {
     const message = { ...baseMsgSubmitProposal } as MsgSubmitProposal;
     message.content =
       object.content !== undefined && object.content !== null ? Any.fromPartial(object.content) : undefined;
-    message.initialDeposit = (object.initialDeposit ?? []).map((e) => Coin.fromPartial(e));
+    message.initialDeposit = object.initialDeposit?.map((e) => Coin.fromPartial(e)) || [];
     message.proposer = object.proposer ?? "";
     return message;
   },
@@ -182,7 +182,9 @@ export const MsgSubmitProposalResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgSubmitProposalResponse>): MsgSubmitProposalResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgSubmitProposalResponse>, I>>(
+    object: I,
+  ): MsgSubmitProposalResponse {
     const message = { ...baseMsgSubmitProposalResponse } as MsgSubmitProposalResponse;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -252,7 +254,7 @@ export const MsgVote = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgVote>): MsgVote {
+  fromPartial<I extends Exact<DeepPartial<MsgVote>, I>>(object: I): MsgVote {
     const message = { ...baseMsgVote } as MsgVote;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -296,7 +298,7 @@ export const MsgVoteResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgVoteResponse>): MsgVoteResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgVoteResponse>, I>>(_: I): MsgVoteResponse {
     const message = { ...baseMsgVoteResponse } as MsgVoteResponse;
     return message;
   },
@@ -366,14 +368,14 @@ export const MsgVoteWeighted = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgVoteWeighted>): MsgVoteWeighted {
+  fromPartial<I extends Exact<DeepPartial<MsgVoteWeighted>, I>>(object: I): MsgVoteWeighted {
     const message = { ...baseMsgVoteWeighted } as MsgVoteWeighted;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     message.voter = object.voter ?? "";
-    message.options = (object.options ?? []).map((e) => WeightedVoteOption.fromPartial(e));
+    message.options = object.options?.map((e) => WeightedVoteOption.fromPartial(e)) || [];
     return message;
   },
 };
@@ -410,7 +412,7 @@ export const MsgVoteWeightedResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgVoteWeightedResponse>): MsgVoteWeightedResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgVoteWeightedResponse>, I>>(_: I): MsgVoteWeightedResponse {
     const message = { ...baseMsgVoteWeightedResponse } as MsgVoteWeightedResponse;
     return message;
   },
@@ -481,14 +483,14 @@ export const MsgDeposit = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgDeposit>): MsgDeposit {
+  fromPartial<I extends Exact<DeepPartial<MsgDeposit>, I>>(object: I): MsgDeposit {
     const message = { ...baseMsgDeposit } as MsgDeposit;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     message.depositor = object.depositor ?? "";
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -525,7 +527,7 @@ export const MsgDepositResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgDepositResponse>): MsgDepositResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(_: I): MsgDepositResponse {
     const message = { ...baseMsgDepositResponse } as MsgDepositResponse;
     return message;
   },
@@ -586,6 +588,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -597,6 +600,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

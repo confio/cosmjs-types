@@ -102,7 +102,7 @@ export const MsgIBCSend = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgIBCSend>): MsgIBCSend {
+  fromPartial<I extends Exact<DeepPartial<MsgIBCSend>, I>>(object: I): MsgIBCSend {
     const message = { ...baseMsgIBCSend } as MsgIBCSend;
     message.channel = object.channel ?? "";
     message.timeoutHeight =
@@ -158,7 +158,7 @@ export const MsgIBCCloseChannel = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgIBCCloseChannel>): MsgIBCCloseChannel {
+  fromPartial<I extends Exact<DeepPartial<MsgIBCCloseChannel>, I>>(object: I): MsgIBCCloseChannel {
     const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
     message.channel = object.channel ?? "";
     return message;
@@ -198,6 +198,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -209,6 +210,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

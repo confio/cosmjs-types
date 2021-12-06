@@ -316,7 +316,7 @@ export const QueryValidatorsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorsRequest>): QueryValidatorsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorsRequest>, I>>(object: I): QueryValidatorsRequest {
     const message = { ...baseQueryValidatorsRequest } as QueryValidatorsRequest;
     message.status = object.status ?? "";
     message.pagination =
@@ -384,9 +384,9 @@ export const QueryValidatorsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorsResponse>): QueryValidatorsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorsResponse>, I>>(object: I): QueryValidatorsResponse {
     const message = { ...baseQueryValidatorsResponse } as QueryValidatorsResponse;
-    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -436,7 +436,7 @@ export const QueryValidatorRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorRequest>): QueryValidatorRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorRequest>, I>>(object: I): QueryValidatorRequest {
     const message = { ...baseQueryValidatorRequest } as QueryValidatorRequest;
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
@@ -487,7 +487,7 @@ export const QueryValidatorResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorResponse>): QueryValidatorResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorResponse>, I>>(object: I): QueryValidatorResponse {
     const message = { ...baseQueryValidatorResponse } as QueryValidatorResponse;
     message.validator =
       object.validator !== undefined && object.validator !== null
@@ -550,7 +550,9 @@ export const QueryValidatorDelegationsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorDelegationsRequest>): QueryValidatorDelegationsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorDelegationsRequest>, I>>(
+    object: I,
+  ): QueryValidatorDelegationsRequest {
     const message = { ...baseQueryValidatorDelegationsRequest } as QueryValidatorDelegationsRequest;
     message.validatorAddr = object.validatorAddr ?? "";
     message.pagination =
@@ -622,11 +624,12 @@ export const QueryValidatorDelegationsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorDelegationsResponse>): QueryValidatorDelegationsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorDelegationsResponse>, I>>(
+    object: I,
+  ): QueryValidatorDelegationsResponse {
     const message = { ...baseQueryValidatorDelegationsResponse } as QueryValidatorDelegationsResponse;
-    message.delegationResponses = (object.delegationResponses ?? []).map((e) =>
-      DelegationResponse.fromPartial(e),
-    );
+    message.delegationResponses =
+      object.delegationResponses?.map((e) => DelegationResponse.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -695,8 +698,8 @@ export const QueryValidatorUnbondingDelegationsRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryValidatorUnbondingDelegationsRequest>,
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorUnbondingDelegationsRequest>, I>>(
+    object: I,
   ): QueryValidatorUnbondingDelegationsRequest {
     const message = {
       ...baseQueryValidatorUnbondingDelegationsRequest,
@@ -778,15 +781,14 @@ export const QueryValidatorUnbondingDelegationsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryValidatorUnbondingDelegationsResponse>,
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorUnbondingDelegationsResponse>, I>>(
+    object: I,
   ): QueryValidatorUnbondingDelegationsResponse {
     const message = {
       ...baseQueryValidatorUnbondingDelegationsResponse,
     } as QueryValidatorUnbondingDelegationsResponse;
-    message.unbondingResponses = (object.unbondingResponses ?? []).map((e) =>
-      UnbondingDelegation.fromPartial(e),
-    );
+    message.unbondingResponses =
+      object.unbondingResponses?.map((e) => UnbondingDelegation.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -845,7 +847,7 @@ export const QueryDelegationRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationRequest>): QueryDelegationRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationRequest>, I>>(object: I): QueryDelegationRequest {
     const message = { ...baseQueryDelegationRequest } as QueryDelegationRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.validatorAddr = object.validatorAddr ?? "";
@@ -899,7 +901,7 @@ export const QueryDelegationResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationResponse>): QueryDelegationResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationResponse>, I>>(object: I): QueryDelegationResponse {
     const message = { ...baseQueryDelegationResponse } as QueryDelegationResponse;
     message.delegationResponse =
       object.delegationResponse !== undefined && object.delegationResponse !== null
@@ -959,7 +961,9 @@ export const QueryUnbondingDelegationRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUnbondingDelegationRequest>): QueryUnbondingDelegationRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryUnbondingDelegationRequest>, I>>(
+    object: I,
+  ): QueryUnbondingDelegationRequest {
     const message = { ...baseQueryUnbondingDelegationRequest } as QueryUnbondingDelegationRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.validatorAddr = object.validatorAddr ?? "";
@@ -1011,7 +1015,9 @@ export const QueryUnbondingDelegationResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUnbondingDelegationResponse>): QueryUnbondingDelegationResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryUnbondingDelegationResponse>, I>>(
+    object: I,
+  ): QueryUnbondingDelegationResponse {
     const message = { ...baseQueryUnbondingDelegationResponse } as QueryUnbondingDelegationResponse;
     message.unbond =
       object.unbond !== undefined && object.unbond !== null
@@ -1074,7 +1080,9 @@ export const QueryDelegatorDelegationsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorDelegationsRequest>): QueryDelegatorDelegationsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorDelegationsRequest>, I>>(
+    object: I,
+  ): QueryDelegatorDelegationsRequest {
     const message = { ...baseQueryDelegatorDelegationsRequest } as QueryDelegatorDelegationsRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.pagination =
@@ -1146,11 +1154,12 @@ export const QueryDelegatorDelegationsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorDelegationsResponse>): QueryDelegatorDelegationsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorDelegationsResponse>, I>>(
+    object: I,
+  ): QueryDelegatorDelegationsResponse {
     const message = { ...baseQueryDelegatorDelegationsResponse } as QueryDelegatorDelegationsResponse;
-    message.delegationResponses = (object.delegationResponses ?? []).map((e) =>
-      DelegationResponse.fromPartial(e),
-    );
+    message.delegationResponses =
+      object.delegationResponses?.map((e) => DelegationResponse.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1219,8 +1228,8 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryDelegatorUnbondingDelegationsRequest>,
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorUnbondingDelegationsRequest>, I>>(
+    object: I,
   ): QueryDelegatorUnbondingDelegationsRequest {
     const message = {
       ...baseQueryDelegatorUnbondingDelegationsRequest,
@@ -1302,15 +1311,14 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryDelegatorUnbondingDelegationsResponse>,
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorUnbondingDelegationsResponse>, I>>(
+    object: I,
   ): QueryDelegatorUnbondingDelegationsResponse {
     const message = {
       ...baseQueryDelegatorUnbondingDelegationsResponse,
     } as QueryDelegatorUnbondingDelegationsResponse;
-    message.unbondingResponses = (object.unbondingResponses ?? []).map((e) =>
-      UnbondingDelegation.fromPartial(e),
-    );
+    message.unbondingResponses =
+      object.unbondingResponses?.map((e) => UnbondingDelegation.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1398,7 +1406,9 @@ export const QueryRedelegationsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryRedelegationsRequest>): QueryRedelegationsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryRedelegationsRequest>, I>>(
+    object: I,
+  ): QueryRedelegationsRequest {
     const message = { ...baseQueryRedelegationsRequest } as QueryRedelegationsRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.srcValidatorAddr = object.srcValidatorAddr ?? "";
@@ -1472,11 +1482,12 @@ export const QueryRedelegationsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryRedelegationsResponse>): QueryRedelegationsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryRedelegationsResponse>, I>>(
+    object: I,
+  ): QueryRedelegationsResponse {
     const message = { ...baseQueryRedelegationsResponse } as QueryRedelegationsResponse;
-    message.redelegationResponses = (object.redelegationResponses ?? []).map((e) =>
-      RedelegationResponse.fromPartial(e),
-    );
+    message.redelegationResponses =
+      object.redelegationResponses?.map((e) => RedelegationResponse.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1538,7 +1549,9 @@ export const QueryDelegatorValidatorsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorsRequest>): QueryDelegatorValidatorsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorsRequest>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorsRequest {
     const message = { ...baseQueryDelegatorValidatorsRequest } as QueryDelegatorValidatorsRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.pagination =
@@ -1606,9 +1619,11 @@ export const QueryDelegatorValidatorsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorsResponse>): QueryDelegatorValidatorsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorsResponse>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorsResponse {
     const message = { ...baseQueryDelegatorValidatorsResponse } as QueryDelegatorValidatorsResponse;
-    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1667,7 +1682,9 @@ export const QueryDelegatorValidatorRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorRequest>): QueryDelegatorValidatorRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorRequest>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorRequest {
     const message = { ...baseQueryDelegatorValidatorRequest } as QueryDelegatorValidatorRequest;
     message.delegatorAddr = object.delegatorAddr ?? "";
     message.validatorAddr = object.validatorAddr ?? "";
@@ -1719,7 +1736,9 @@ export const QueryDelegatorValidatorResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorResponse>): QueryDelegatorValidatorResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorResponse>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorResponse {
     const message = { ...baseQueryDelegatorValidatorResponse } as QueryDelegatorValidatorResponse;
     message.validator =
       object.validator !== undefined && object.validator !== null
@@ -1770,7 +1789,9 @@ export const QueryHistoricalInfoRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryHistoricalInfoRequest>): QueryHistoricalInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryHistoricalInfoRequest>, I>>(
+    object: I,
+  ): QueryHistoricalInfoRequest {
     const message = { ...baseQueryHistoricalInfoRequest } as QueryHistoricalInfoRequest;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -1819,7 +1840,9 @@ export const QueryHistoricalInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryHistoricalInfoResponse>): QueryHistoricalInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryHistoricalInfoResponse>, I>>(
+    object: I,
+  ): QueryHistoricalInfoResponse {
     const message = { ...baseQueryHistoricalInfoResponse } as QueryHistoricalInfoResponse;
     message.hist =
       object.hist !== undefined && object.hist !== null ? HistoricalInfo.fromPartial(object.hist) : undefined;
@@ -1859,7 +1882,7 @@ export const QueryPoolRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryPoolRequest>): QueryPoolRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryPoolRequest>, I>>(_: I): QueryPoolRequest {
     const message = { ...baseQueryPoolRequest } as QueryPoolRequest;
     return message;
   },
@@ -1905,7 +1928,7 @@ export const QueryPoolResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryPoolResponse>): QueryPoolResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryPoolResponse>, I>>(object: I): QueryPoolResponse {
     const message = { ...baseQueryPoolResponse } as QueryPoolResponse;
     message.pool =
       object.pool !== undefined && object.pool !== null ? Pool.fromPartial(object.pool) : undefined;
@@ -1945,7 +1968,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     return message;
   },
@@ -1992,7 +2015,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -2165,6 +2188,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -2176,6 +2200,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

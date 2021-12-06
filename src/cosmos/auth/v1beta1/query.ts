@@ -94,7 +94,7 @@ export const QueryAccountsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAccountsRequest>): QueryAccountsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountsRequest>, I>>(object: I): QueryAccountsRequest {
     const message = { ...baseQueryAccountsRequest } as QueryAccountsRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -161,9 +161,9 @@ export const QueryAccountsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAccountsResponse>): QueryAccountsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountsResponse>, I>>(object: I): QueryAccountsResponse {
     const message = { ...baseQueryAccountsResponse } as QueryAccountsResponse;
-    message.accounts = (object.accounts ?? []).map((e) => Any.fromPartial(e));
+    message.accounts = object.accounts?.map((e) => Any.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -212,7 +212,7 @@ export const QueryAccountRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAccountRequest>): QueryAccountRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(object: I): QueryAccountRequest {
     const message = { ...baseQueryAccountRequest } as QueryAccountRequest;
     message.address = object.address ?? "";
     return message;
@@ -261,7 +261,7 @@ export const QueryAccountResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAccountResponse>): QueryAccountResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAccountResponse>, I>>(object: I): QueryAccountResponse {
     const message = { ...baseQueryAccountResponse } as QueryAccountResponse;
     message.account =
       object.account !== undefined && object.account !== null ? Any.fromPartial(object.account) : undefined;
@@ -301,7 +301,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     return message;
   },
@@ -348,7 +348,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -402,6 +402,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -413,6 +414,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

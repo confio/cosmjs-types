@@ -277,7 +277,7 @@ export const Tx = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Tx>): Tx {
+  fromPartial<I extends Exact<DeepPartial<Tx>, I>>(object: I): Tx {
     const message = { ...baseTx } as Tx;
     message.body =
       object.body !== undefined && object.body !== null ? TxBody.fromPartial(object.body) : undefined;
@@ -285,7 +285,7 @@ export const Tx = {
       object.authInfo !== undefined && object.authInfo !== null
         ? AuthInfo.fromPartial(object.authInfo)
         : undefined;
-    message.signatures = (object.signatures ?? []).map((e) => e);
+    message.signatures = object.signatures?.map((e) => e) || [];
     return message;
   },
 };
@@ -365,11 +365,11 @@ export const TxRaw = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TxRaw>): TxRaw {
+  fromPartial<I extends Exact<DeepPartial<TxRaw>, I>>(object: I): TxRaw {
     const message = { ...baseTxRaw } as TxRaw;
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
-    message.signatures = (object.signatures ?? []).map((e) => e);
+    message.signatures = object.signatures?.map((e) => e) || [];
     return message;
   },
 };
@@ -456,7 +456,7 @@ export const SignDoc = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignDoc>): SignDoc {
+  fromPartial<I extends Exact<DeepPartial<SignDoc>, I>>(object: I): SignDoc {
     const message = { ...baseSignDoc } as SignDoc;
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
@@ -564,18 +564,17 @@ export const TxBody = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TxBody>): TxBody {
+  fromPartial<I extends Exact<DeepPartial<TxBody>, I>>(object: I): TxBody {
     const message = { ...baseTxBody } as TxBody;
-    message.messages = (object.messages ?? []).map((e) => Any.fromPartial(e));
+    message.messages = object.messages?.map((e) => Any.fromPartial(e)) || [];
     message.memo = object.memo ?? "";
     message.timeoutHeight =
       object.timeoutHeight !== undefined && object.timeoutHeight !== null
         ? Long.fromValue(object.timeoutHeight)
         : Long.UZERO;
-    message.extensionOptions = (object.extensionOptions ?? []).map((e) => Any.fromPartial(e));
-    message.nonCriticalExtensionOptions = (object.nonCriticalExtensionOptions ?? []).map((e) =>
-      Any.fromPartial(e),
-    );
+    message.extensionOptions = object.extensionOptions?.map((e) => Any.fromPartial(e)) || [];
+    message.nonCriticalExtensionOptions =
+      object.nonCriticalExtensionOptions?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
 };
@@ -633,9 +632,9 @@ export const AuthInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AuthInfo>): AuthInfo {
+  fromPartial<I extends Exact<DeepPartial<AuthInfo>, I>>(object: I): AuthInfo {
     const message = { ...baseAuthInfo } as AuthInfo;
-    message.signerInfos = (object.signerInfos ?? []).map((e) => SignerInfo.fromPartial(e));
+    message.signerInfos = object.signerInfos?.map((e) => SignerInfo.fromPartial(e)) || [];
     message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
     return message;
   },
@@ -708,7 +707,7 @@ export const SignerInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignerInfo>): SignerInfo {
+  fromPartial<I extends Exact<DeepPartial<SignerInfo>, I>>(object: I): SignerInfo {
     const message = { ...baseSignerInfo } as SignerInfo;
     message.publicKey =
       object.publicKey !== undefined && object.publicKey !== null
@@ -780,7 +779,7 @@ export const ModeInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ModeInfo>): ModeInfo {
+  fromPartial<I extends Exact<DeepPartial<ModeInfo>, I>>(object: I): ModeInfo {
     const message = { ...baseModeInfo } as ModeInfo;
     message.single =
       object.single !== undefined && object.single !== null
@@ -834,7 +833,7 @@ export const ModeInfo_Single = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ModeInfo_Single>): ModeInfo_Single {
+  fromPartial<I extends Exact<DeepPartial<ModeInfo_Single>, I>>(object: I): ModeInfo_Single {
     const message = { ...baseModeInfo_Single } as ModeInfo_Single;
     message.mode = object.mode ?? 0;
     return message;
@@ -898,13 +897,13 @@ export const ModeInfo_Multi = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ModeInfo_Multi>): ModeInfo_Multi {
+  fromPartial<I extends Exact<DeepPartial<ModeInfo_Multi>, I>>(object: I): ModeInfo_Multi {
     const message = { ...baseModeInfo_Multi } as ModeInfo_Multi;
     message.bitarray =
       object.bitarray !== undefined && object.bitarray !== null
         ? CompactBitArray.fromPartial(object.bitarray)
         : undefined;
-    message.modeInfos = (object.modeInfos ?? []).map((e) => ModeInfo.fromPartial(e));
+    message.modeInfos = object.modeInfos?.map((e) => ModeInfo.fromPartial(e)) || [];
     return message;
   },
 };
@@ -981,9 +980,9 @@ export const Fee = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Fee>): Fee {
+  fromPartial<I extends Exact<DeepPartial<Fee>, I>>(object: I): Fee {
     const message = { ...baseFee } as Fee;
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     message.gasLimit =
       object.gasLimit !== undefined && object.gasLimit !== null
         ? Long.fromValue(object.gasLimit)
@@ -1027,6 +1026,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1038,6 +1038,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

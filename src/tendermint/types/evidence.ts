@@ -94,7 +94,7 @@ export const Evidence = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Evidence>): Evidence {
+  fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
     const message = { ...baseEvidence } as Evidence;
     message.duplicateVoteEvidence =
       object.duplicateVoteEvidence !== undefined && object.duplicateVoteEvidence !== null
@@ -193,7 +193,7 @@ export const DuplicateVoteEvidence = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DuplicateVoteEvidence>): DuplicateVoteEvidence {
+  fromPartial<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(object: I): DuplicateVoteEvidence {
     const message = { ...baseDuplicateVoteEvidence } as DuplicateVoteEvidence;
     message.voteA =
       object.voteA !== undefined && object.voteA !== null ? Vote.fromPartial(object.voteA) : undefined;
@@ -308,7 +308,9 @@ export const LightClientAttackEvidence = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<LightClientAttackEvidence>): LightClientAttackEvidence {
+  fromPartial<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(
+    object: I,
+  ): LightClientAttackEvidence {
     const message = { ...baseLightClientAttackEvidence } as LightClientAttackEvidence;
     message.conflictingBlock =
       object.conflictingBlock !== undefined && object.conflictingBlock !== null
@@ -318,7 +320,7 @@ export const LightClientAttackEvidence = {
       object.commonHeight !== undefined && object.commonHeight !== null
         ? Long.fromValue(object.commonHeight)
         : Long.ZERO;
-    message.byzantineValidators = (object.byzantineValidators ?? []).map((e) => Validator.fromPartial(e));
+    message.byzantineValidators = object.byzantineValidators?.map((e) => Validator.fromPartial(e)) || [];
     message.totalVotingPower =
       object.totalVotingPower !== undefined && object.totalVotingPower !== null
         ? Long.fromValue(object.totalVotingPower)
@@ -376,14 +378,15 @@ export const EvidenceList = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<EvidenceList>): EvidenceList {
+  fromPartial<I extends Exact<DeepPartial<EvidenceList>, I>>(object: I): EvidenceList {
     const message = { ...baseEvidenceList } as EvidenceList;
-    message.evidence = (object.evidence ?? []).map((e) => Evidence.fromPartial(e));
+    message.evidence = object.evidence?.map((e) => Evidence.fromPartial(e)) || [];
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -395,6 +398,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

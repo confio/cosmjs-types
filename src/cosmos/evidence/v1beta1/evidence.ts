@@ -86,7 +86,7 @@ export const Equivocation = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Equivocation>): Equivocation {
+  fromPartial<I extends Exact<DeepPartial<Equivocation>, I>>(object: I): Equivocation {
     const message = { ...baseEquivocation } as Equivocation;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -100,6 +100,7 @@ export const Equivocation = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -111,6 +112,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

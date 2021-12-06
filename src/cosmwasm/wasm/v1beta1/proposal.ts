@@ -219,7 +219,7 @@ export const StoreCodeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<StoreCodeProposal>): StoreCodeProposal {
+  fromPartial<I extends Exact<DeepPartial<StoreCodeProposal>, I>>(object: I): StoreCodeProposal {
     const message = { ...baseStoreCodeProposal } as StoreCodeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -350,7 +350,9 @@ export const InstantiateContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<InstantiateContractProposal>): InstantiateContractProposal {
+  fromPartial<I extends Exact<DeepPartial<InstantiateContractProposal>, I>>(
+    object: I,
+  ): InstantiateContractProposal {
     const message = { ...baseInstantiateContractProposal } as InstantiateContractProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -360,7 +362,7 @@ export const InstantiateContractProposal = {
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.label = object.label ?? "";
     message.initMsg = object.initMsg ?? new Uint8Array();
-    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
+    message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -461,7 +463,7 @@ export const MigrateContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MigrateContractProposal>): MigrateContractProposal {
+  fromPartial<I extends Exact<DeepPartial<MigrateContractProposal>, I>>(object: I): MigrateContractProposal {
     const message = { ...baseMigrateContractProposal } as MigrateContractProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -541,7 +543,7 @@ export const UpdateAdminProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<UpdateAdminProposal>): UpdateAdminProposal {
+  fromPartial<I extends Exact<DeepPartial<UpdateAdminProposal>, I>>(object: I): UpdateAdminProposal {
     const message = { ...baseUpdateAdminProposal } as UpdateAdminProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -609,7 +611,7 @@ export const ClearAdminProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ClearAdminProposal>): ClearAdminProposal {
+  fromPartial<I extends Exact<DeepPartial<ClearAdminProposal>, I>>(object: I): ClearAdminProposal {
     const message = { ...baseClearAdminProposal } as ClearAdminProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -689,11 +691,11 @@ export const PinCodesProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PinCodesProposal>): PinCodesProposal {
+  fromPartial<I extends Exact<DeepPartial<PinCodesProposal>, I>>(object: I): PinCodesProposal {
     const message = { ...basePinCodesProposal } as PinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = (object.codeIds ?? []).map((e) => Long.fromValue(e));
+    message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
@@ -769,11 +771,11 @@ export const UnpinCodesProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<UnpinCodesProposal>): UnpinCodesProposal {
+  fromPartial<I extends Exact<DeepPartial<UnpinCodesProposal>, I>>(object: I): UnpinCodesProposal {
     const message = { ...baseUnpinCodesProposal } as UnpinCodesProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.codeIds = (object.codeIds ?? []).map((e) => Long.fromValue(e));
+    message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
@@ -811,6 +813,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -822,6 +825,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

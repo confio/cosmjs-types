@@ -105,7 +105,7 @@ export const BaseAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BaseAccount>): BaseAccount {
+  fromPartial<I extends Exact<DeepPartial<BaseAccount>, I>>(object: I): BaseAccount {
     const message = { ...baseBaseAccount } as BaseAccount;
     message.address = object.address ?? "";
     message.pubKey =
@@ -187,14 +187,14 @@ export const ModuleAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ModuleAccount>): ModuleAccount {
+  fromPartial<I extends Exact<DeepPartial<ModuleAccount>, I>>(object: I): ModuleAccount {
     const message = { ...baseModuleAccount } as ModuleAccount;
     message.baseAccount =
       object.baseAccount !== undefined && object.baseAccount !== null
         ? BaseAccount.fromPartial(object.baseAccount)
         : undefined;
     message.name = object.name ?? "";
-    message.permissions = (object.permissions ?? []).map((e) => e);
+    message.permissions = object.permissions?.map((e) => e) || [];
     return message;
   },
 };
@@ -296,7 +296,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = { ...baseParams } as Params;
     message.maxMemoCharacters =
       object.maxMemoCharacters !== undefined && object.maxMemoCharacters !== null
@@ -323,6 +323,7 @@ export const Params = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -334,6 +335,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

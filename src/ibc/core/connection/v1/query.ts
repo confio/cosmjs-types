@@ -163,7 +163,7 @@ export const QueryConnectionRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionRequest>): QueryConnectionRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionRequest>, I>>(object: I): QueryConnectionRequest {
     const message = { ...baseQueryConnectionRequest } as QueryConnectionRequest;
     message.connectionId = object.connectionId ?? "";
     return message;
@@ -237,7 +237,7 @@ export const QueryConnectionResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionResponse>): QueryConnectionResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionResponse>, I>>(object: I): QueryConnectionResponse {
     const message = { ...baseQueryConnectionResponse } as QueryConnectionResponse;
     message.connection =
       object.connection !== undefined && object.connection !== null
@@ -296,7 +296,7 @@ export const QueryConnectionsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionsRequest>): QueryConnectionsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionsRequest>, I>>(object: I): QueryConnectionsRequest {
     const message = { ...baseQueryConnectionsRequest } as QueryConnectionsRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -372,9 +372,11 @@ export const QueryConnectionsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionsResponse>): QueryConnectionsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionsResponse>, I>>(
+    object: I,
+  ): QueryConnectionsResponse {
     const message = { ...baseQueryConnectionsResponse } as QueryConnectionsResponse;
-    message.connections = (object.connections ?? []).map((e) => IdentifiedConnection.fromPartial(e));
+    message.connections = object.connections?.map((e) => IdentifiedConnection.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -426,7 +428,9 @@ export const QueryClientConnectionsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientConnectionsRequest>): QueryClientConnectionsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryClientConnectionsRequest>, I>>(
+    object: I,
+  ): QueryClientConnectionsRequest {
     const message = { ...baseQueryClientConnectionsRequest } as QueryClientConnectionsRequest;
     message.clientId = object.clientId ?? "";
     return message;
@@ -501,9 +505,11 @@ export const QueryClientConnectionsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientConnectionsResponse>): QueryClientConnectionsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryClientConnectionsResponse>, I>>(
+    object: I,
+  ): QueryClientConnectionsResponse {
     const message = { ...baseQueryClientConnectionsResponse } as QueryClientConnectionsResponse;
-    message.connectionPaths = (object.connectionPaths ?? []).map((e) => e);
+    message.connectionPaths = object.connectionPaths?.map((e) => e) || [];
     message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
@@ -554,7 +560,9 @@ export const QueryConnectionClientStateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionClientStateRequest>): QueryConnectionClientStateRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionClientStateRequest>, I>>(
+    object: I,
+  ): QueryConnectionClientStateRequest {
     const message = { ...baseQueryConnectionClientStateRequest } as QueryConnectionClientStateRequest;
     message.connectionId = object.connectionId ?? "";
     return message;
@@ -630,7 +638,9 @@ export const QueryConnectionClientStateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConnectionClientStateResponse>): QueryConnectionClientStateResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionClientStateResponse>, I>>(
+    object: I,
+  ): QueryConnectionClientStateResponse {
     const message = { ...baseQueryConnectionClientStateResponse } as QueryConnectionClientStateResponse;
     message.identifiedClientState =
       object.identifiedClientState !== undefined && object.identifiedClientState !== null
@@ -717,8 +727,8 @@ export const QueryConnectionConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryConnectionConsensusStateRequest>,
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionConsensusStateRequest>, I>>(
+    object: I,
   ): QueryConnectionConsensusStateRequest {
     const message = { ...baseQueryConnectionConsensusStateRequest } as QueryConnectionConsensusStateRequest;
     message.connectionId = object.connectionId ?? "";
@@ -813,8 +823,8 @@ export const QueryConnectionConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryConnectionConsensusStateResponse>,
+  fromPartial<I extends Exact<DeepPartial<QueryConnectionConsensusStateResponse>, I>>(
+    object: I,
   ): QueryConnectionConsensusStateResponse {
     const message = { ...baseQueryConnectionConsensusStateResponse } as QueryConnectionConsensusStateResponse;
     message.consensusState =
@@ -940,6 +950,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -951,6 +962,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

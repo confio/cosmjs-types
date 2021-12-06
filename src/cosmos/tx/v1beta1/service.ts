@@ -265,9 +265,9 @@ export const GetTxsEventRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetTxsEventRequest>): GetTxsEventRequest {
+  fromPartial<I extends Exact<DeepPartial<GetTxsEventRequest>, I>>(object: I): GetTxsEventRequest {
     const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
-    message.events = (object.events ?? []).map((e) => e);
+    message.events = object.events?.map((e) => e) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -347,10 +347,10 @@ export const GetTxsEventResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetTxsEventResponse>): GetTxsEventResponse {
+  fromPartial<I extends Exact<DeepPartial<GetTxsEventResponse>, I>>(object: I): GetTxsEventResponse {
     const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
-    message.txs = (object.txs ?? []).map((e) => Tx.fromPartial(e));
-    message.txResponses = (object.txResponses ?? []).map((e) => TxResponse.fromPartial(e));
+    message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
+    message.txResponses = object.txResponses?.map((e) => TxResponse.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -412,7 +412,7 @@ export const BroadcastTxRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BroadcastTxRequest>): BroadcastTxRequest {
+  fromPartial<I extends Exact<DeepPartial<BroadcastTxRequest>, I>>(object: I): BroadcastTxRequest {
     const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
     message.txBytes = object.txBytes ?? new Uint8Array();
     message.mode = object.mode ?? 0;
@@ -464,7 +464,7 @@ export const BroadcastTxResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BroadcastTxResponse>): BroadcastTxResponse {
+  fromPartial<I extends Exact<DeepPartial<BroadcastTxResponse>, I>>(object: I): BroadcastTxResponse {
     const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
     message.txResponse =
       object.txResponse !== undefined && object.txResponse !== null
@@ -527,7 +527,7 @@ export const SimulateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SimulateRequest>): SimulateRequest {
+  fromPartial<I extends Exact<DeepPartial<SimulateRequest>, I>>(object: I): SimulateRequest {
     const message = { ...baseSimulateRequest } as SimulateRequest;
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txBytes = object.txBytes ?? new Uint8Array();
@@ -586,7 +586,7 @@ export const SimulateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SimulateResponse>): SimulateResponse {
+  fromPartial<I extends Exact<DeepPartial<SimulateResponse>, I>>(object: I): SimulateResponse {
     const message = { ...baseSimulateResponse } as SimulateResponse;
     message.gasInfo =
       object.gasInfo !== undefined && object.gasInfo !== null
@@ -638,7 +638,7 @@ export const GetTxRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetTxRequest>): GetTxRequest {
+  fromPartial<I extends Exact<DeepPartial<GetTxRequest>, I>>(object: I): GetTxRequest {
     const message = { ...baseGetTxRequest } as GetTxRequest;
     message.hash = object.hash ?? "";
     return message;
@@ -697,7 +697,7 @@ export const GetTxResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetTxResponse>): GetTxResponse {
+  fromPartial<I extends Exact<DeepPartial<GetTxResponse>, I>>(object: I): GetTxResponse {
     const message = { ...baseGetTxResponse } as GetTxResponse;
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txResponse =
@@ -791,6 +791,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -802,6 +803,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

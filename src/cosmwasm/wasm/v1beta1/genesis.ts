@@ -140,14 +140,14 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    message.codes = (object.codes ?? []).map((e) => Code.fromPartial(e));
-    message.contracts = (object.contracts ?? []).map((e) => Contract.fromPartial(e));
-    message.sequences = (object.sequences ?? []).map((e) => Sequence.fromPartial(e));
-    message.genMsgs = (object.genMsgs ?? []).map((e) => GenesisState_GenMsgs.fromPartial(e));
+    message.codes = object.codes?.map((e) => Code.fromPartial(e)) || [];
+    message.contracts = object.contracts?.map((e) => Contract.fromPartial(e)) || [];
+    message.sequences = object.sequences?.map((e) => Sequence.fromPartial(e)) || [];
+    message.genMsgs = object.genMsgs?.map((e) => GenesisState_GenMsgs.fromPartial(e)) || [];
     return message;
   },
 };
@@ -224,7 +224,7 @@ export const GenesisState_GenMsgs = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState_GenMsgs>): GenesisState_GenMsgs {
+  fromPartial<I extends Exact<DeepPartial<GenesisState_GenMsgs>, I>>(object: I): GenesisState_GenMsgs {
     const message = { ...baseGenesisState_GenMsgs } as GenesisState_GenMsgs;
     message.storeCode =
       object.storeCode !== undefined && object.storeCode !== null
@@ -318,7 +318,7 @@ export const Code = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Code>): Code {
+  fromPartial<I extends Exact<DeepPartial<Code>, I>>(object: I): Code {
     const message = { ...baseCode } as Code;
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -400,14 +400,14 @@ export const Contract = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Contract>): Contract {
+  fromPartial<I extends Exact<DeepPartial<Contract>, I>>(object: I): Contract {
     const message = { ...baseContract } as Contract;
     message.contractAddress = object.contractAddress ?? "";
     message.contractInfo =
       object.contractInfo !== undefined && object.contractInfo !== null
         ? ContractInfo.fromPartial(object.contractInfo)
         : undefined;
-    message.contractState = (object.contractState ?? []).map((e) => Model.fromPartial(e));
+    message.contractState = object.contractState?.map((e) => Model.fromPartial(e)) || [];
     return message;
   },
 };
@@ -464,7 +464,7 @@ export const Sequence = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Sequence>): Sequence {
+  fromPartial<I extends Exact<DeepPartial<Sequence>, I>>(object: I): Sequence {
     const message = { ...baseSequence } as Sequence;
     message.idKey = object.idKey ?? new Uint8Array();
     message.value =
@@ -506,6 +506,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -517,6 +518,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

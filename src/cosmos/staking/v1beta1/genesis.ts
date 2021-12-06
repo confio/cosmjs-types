@@ -182,20 +182,18 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.lastTotalPower = object.lastTotalPower ?? new Uint8Array();
-    message.lastValidatorPowers = (object.lastValidatorPowers ?? []).map((e) =>
-      LastValidatorPower.fromPartial(e),
-    );
-    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
-    message.delegations = (object.delegations ?? []).map((e) => Delegation.fromPartial(e));
-    message.unbondingDelegations = (object.unbondingDelegations ?? []).map((e) =>
-      UnbondingDelegation.fromPartial(e),
-    );
-    message.redelegations = (object.redelegations ?? []).map((e) => Redelegation.fromPartial(e));
+    message.lastValidatorPowers =
+      object.lastValidatorPowers?.map((e) => LastValidatorPower.fromPartial(e)) || [];
+    message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
+    message.delegations = object.delegations?.map((e) => Delegation.fromPartial(e)) || [];
+    message.unbondingDelegations =
+      object.unbondingDelegations?.map((e) => UnbondingDelegation.fromPartial(e)) || [];
+    message.redelegations = object.redelegations?.map((e) => Redelegation.fromPartial(e)) || [];
     message.exported = object.exported ?? false;
     return message;
   },
@@ -250,7 +248,7 @@ export const LastValidatorPower = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<LastValidatorPower>): LastValidatorPower {
+  fromPartial<I extends Exact<DeepPartial<LastValidatorPower>, I>>(object: I): LastValidatorPower {
     const message = { ...baseLastValidatorPower } as LastValidatorPower;
     message.address = object.address ?? "";
     message.power =
@@ -292,6 +290,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -303,6 +302,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

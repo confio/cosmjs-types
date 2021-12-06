@@ -159,7 +159,7 @@ export const QueryClientStateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientStateRequest>): QueryClientStateRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryClientStateRequest>, I>>(object: I): QueryClientStateRequest {
     const message = { ...baseQueryClientStateRequest } as QueryClientStateRequest;
     message.clientId = object.clientId ?? "";
     return message;
@@ -233,7 +233,9 @@ export const QueryClientStateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientStateResponse>): QueryClientStateResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryClientStateResponse>, I>>(
+    object: I,
+  ): QueryClientStateResponse {
     const message = { ...baseQueryClientStateResponse } as QueryClientStateResponse;
     message.clientState =
       object.clientState !== undefined && object.clientState !== null
@@ -292,7 +294,9 @@ export const QueryClientStatesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientStatesRequest>): QueryClientStatesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryClientStatesRequest>, I>>(
+    object: I,
+  ): QueryClientStatesRequest {
     const message = { ...baseQueryClientStatesRequest } as QueryClientStatesRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -359,9 +363,11 @@ export const QueryClientStatesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientStatesResponse>): QueryClientStatesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryClientStatesResponse>, I>>(
+    object: I,
+  ): QueryClientStatesResponse {
     const message = { ...baseQueryClientStatesResponse } as QueryClientStatesResponse;
-    message.clientStates = (object.clientStates ?? []).map((e) => IdentifiedClientState.fromPartial(e));
+    message.clientStates = object.clientStates?.map((e) => IdentifiedClientState.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -451,7 +457,9 @@ export const QueryConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConsensusStateRequest>): QueryConsensusStateRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateRequest>, I>>(
+    object: I,
+  ): QueryConsensusStateRequest {
     const message = { ...baseQueryConsensusStateRequest } as QueryConsensusStateRequest;
     message.clientId = object.clientId ?? "";
     message.revisionNumber =
@@ -534,7 +542,9 @@ export const QueryConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConsensusStateResponse>): QueryConsensusStateResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateResponse>, I>>(
+    object: I,
+  ): QueryConsensusStateResponse {
     const message = { ...baseQueryConsensusStateResponse } as QueryConsensusStateResponse;
     message.consensusState =
       object.consensusState !== undefined && object.consensusState !== null
@@ -602,7 +612,9 @@ export const QueryConsensusStatesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConsensusStatesRequest>): QueryConsensusStatesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStatesRequest>, I>>(
+    object: I,
+  ): QueryConsensusStatesRequest {
     const message = { ...baseQueryConsensusStatesRequest } as QueryConsensusStatesRequest;
     message.clientId = object.clientId ?? "";
     message.pagination =
@@ -674,11 +686,12 @@ export const QueryConsensusStatesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryConsensusStatesResponse>): QueryConsensusStatesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStatesResponse>, I>>(
+    object: I,
+  ): QueryConsensusStatesResponse {
     const message = { ...baseQueryConsensusStatesResponse } as QueryConsensusStatesResponse;
-    message.consensusStates = (object.consensusStates ?? []).map((e) =>
-      ConsensusStateWithHeight.fromPartial(e),
-    );
+    message.consensusStates =
+      object.consensusStates?.map((e) => ConsensusStateWithHeight.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -719,7 +732,7 @@ export const QueryClientParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryClientParamsRequest>): QueryClientParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryClientParamsRequest>, I>>(_: I): QueryClientParamsRequest {
     const message = { ...baseQueryClientParamsRequest } as QueryClientParamsRequest;
     return message;
   },
@@ -766,7 +779,9 @@ export const QueryClientParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryClientParamsResponse>): QueryClientParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryClientParamsResponse>, I>>(
+    object: I,
+  ): QueryClientParamsResponse {
     const message = { ...baseQueryClientParamsResponse } as QueryClientParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -872,6 +887,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -883,6 +899,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

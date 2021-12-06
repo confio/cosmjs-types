@@ -206,7 +206,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     return message;
   },
@@ -253,7 +253,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -311,8 +311,8 @@ export const QueryValidatorOutstandingRewardsRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryValidatorOutstandingRewardsRequest>,
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorOutstandingRewardsRequest>, I>>(
+    object: I,
   ): QueryValidatorOutstandingRewardsRequest {
     const message = {
       ...baseQueryValidatorOutstandingRewardsRequest,
@@ -373,8 +373,8 @@ export const QueryValidatorOutstandingRewardsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryValidatorOutstandingRewardsResponse>,
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorOutstandingRewardsResponse>, I>>(
+    object: I,
   ): QueryValidatorOutstandingRewardsResponse {
     const message = {
       ...baseQueryValidatorOutstandingRewardsResponse,
@@ -430,7 +430,9 @@ export const QueryValidatorCommissionRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorCommissionRequest>): QueryValidatorCommissionRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorCommissionRequest>, I>>(
+    object: I,
+  ): QueryValidatorCommissionRequest {
     const message = { ...baseQueryValidatorCommissionRequest } as QueryValidatorCommissionRequest;
     message.validatorAddress = object.validatorAddress ?? "";
     return message;
@@ -483,7 +485,9 @@ export const QueryValidatorCommissionResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorCommissionResponse>): QueryValidatorCommissionResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorCommissionResponse>, I>>(
+    object: I,
+  ): QueryValidatorCommissionResponse {
     const message = { ...baseQueryValidatorCommissionResponse } as QueryValidatorCommissionResponse;
     message.commission =
       object.commission !== undefined && object.commission !== null
@@ -576,7 +580,9 @@ export const QueryValidatorSlashesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorSlashesRequest>): QueryValidatorSlashesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorSlashesRequest>, I>>(
+    object: I,
+  ): QueryValidatorSlashesRequest {
     const message = { ...baseQueryValidatorSlashesRequest } as QueryValidatorSlashesRequest;
     message.validatorAddress = object.validatorAddress ?? "";
     message.startingHeight =
@@ -652,9 +658,11 @@ export const QueryValidatorSlashesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryValidatorSlashesResponse>): QueryValidatorSlashesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryValidatorSlashesResponse>, I>>(
+    object: I,
+  ): QueryValidatorSlashesResponse {
     const message = { ...baseQueryValidatorSlashesResponse } as QueryValidatorSlashesResponse;
-    message.slashes = (object.slashes ?? []).map((e) => ValidatorSlashEvent.fromPartial(e));
+    message.slashes = object.slashes?.map((e) => ValidatorSlashEvent.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -717,7 +725,9 @@ export const QueryDelegationRewardsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationRewardsRequest>): QueryDelegationRewardsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationRewardsRequest>, I>>(
+    object: I,
+  ): QueryDelegationRewardsRequest {
     const message = { ...baseQueryDelegationRewardsRequest } as QueryDelegationRewardsRequest;
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -770,9 +780,11 @@ export const QueryDelegationRewardsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationRewardsResponse>): QueryDelegationRewardsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationRewardsResponse>, I>>(
+    object: I,
+  ): QueryDelegationRewardsResponse {
     const message = { ...baseQueryDelegationRewardsResponse } as QueryDelegationRewardsResponse;
-    message.rewards = (object.rewards ?? []).map((e) => DecCoin.fromPartial(e));
+    message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -820,7 +832,9 @@ export const QueryDelegationTotalRewardsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationTotalRewardsRequest>): QueryDelegationTotalRewardsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationTotalRewardsRequest>, I>>(
+    object: I,
+  ): QueryDelegationTotalRewardsRequest {
     const message = { ...baseQueryDelegationTotalRewardsRequest } as QueryDelegationTotalRewardsRequest;
     message.delegatorAddress = object.delegatorAddress ?? "";
     return message;
@@ -885,10 +899,12 @@ export const QueryDelegationTotalRewardsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegationTotalRewardsResponse>): QueryDelegationTotalRewardsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegationTotalRewardsResponse>, I>>(
+    object: I,
+  ): QueryDelegationTotalRewardsResponse {
     const message = { ...baseQueryDelegationTotalRewardsResponse } as QueryDelegationTotalRewardsResponse;
-    message.rewards = (object.rewards ?? []).map((e) => DelegationDelegatorReward.fromPartial(e));
-    message.total = (object.total ?? []).map((e) => DecCoin.fromPartial(e));
+    message.rewards = object.rewards?.map((e) => DelegationDelegatorReward.fromPartial(e)) || [];
+    message.total = object.total?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -936,7 +952,9 @@ export const QueryDelegatorValidatorsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorsRequest>): QueryDelegatorValidatorsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorsRequest>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorsRequest {
     const message = { ...baseQueryDelegatorValidatorsRequest } as QueryDelegatorValidatorsRequest;
     message.delegatorAddress = object.delegatorAddress ?? "";
     return message;
@@ -988,9 +1006,11 @@ export const QueryDelegatorValidatorsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDelegatorValidatorsResponse>): QueryDelegatorValidatorsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorValidatorsResponse>, I>>(
+    object: I,
+  ): QueryDelegatorValidatorsResponse {
     const message = { ...baseQueryDelegatorValidatorsResponse } as QueryDelegatorValidatorsResponse;
-    message.validators = (object.validators ?? []).map((e) => e);
+    message.validators = object.validators?.map((e) => e) || [];
     return message;
   },
 };
@@ -1041,8 +1061,8 @@ export const QueryDelegatorWithdrawAddressRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryDelegatorWithdrawAddressRequest>,
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorWithdrawAddressRequest>, I>>(
+    object: I,
   ): QueryDelegatorWithdrawAddressRequest {
     const message = { ...baseQueryDelegatorWithdrawAddressRequest } as QueryDelegatorWithdrawAddressRequest;
     message.delegatorAddress = object.delegatorAddress ?? "";
@@ -1096,8 +1116,8 @@ export const QueryDelegatorWithdrawAddressResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<QueryDelegatorWithdrawAddressResponse>,
+  fromPartial<I extends Exact<DeepPartial<QueryDelegatorWithdrawAddressResponse>, I>>(
+    object: I,
   ): QueryDelegatorWithdrawAddressResponse {
     const message = { ...baseQueryDelegatorWithdrawAddressResponse } as QueryDelegatorWithdrawAddressResponse;
     message.withdrawAddress = object.withdrawAddress ?? "";
@@ -1137,7 +1157,7 @@ export const QueryCommunityPoolRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryCommunityPoolRequest>): QueryCommunityPoolRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryCommunityPoolRequest>, I>>(_: I): QueryCommunityPoolRequest {
     const message = { ...baseQueryCommunityPoolRequest } as QueryCommunityPoolRequest;
     return message;
   },
@@ -1188,9 +1208,11 @@ export const QueryCommunityPoolResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryCommunityPoolResponse>): QueryCommunityPoolResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryCommunityPoolResponse>, I>>(
+    object: I,
+  ): QueryCommunityPoolResponse {
     const message = { ...baseQueryCommunityPoolResponse } as QueryCommunityPoolResponse;
-    message.pool = (object.pool ?? []).map((e) => DecCoin.fromPartial(e));
+    message.pool = object.pool?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -1310,6 +1332,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1321,6 +1344,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

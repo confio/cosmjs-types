@@ -94,7 +94,7 @@ export const MsgGrantAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgGrantAllowance>): MsgGrantAllowance {
+  fromPartial<I extends Exact<DeepPartial<MsgGrantAllowance>, I>>(object: I): MsgGrantAllowance {
     const message = { ...baseMsgGrantAllowance } as MsgGrantAllowance;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -138,7 +138,7 @@ export const MsgGrantAllowanceResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgGrantAllowanceResponse>): MsgGrantAllowanceResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgGrantAllowanceResponse>, I>>(_: I): MsgGrantAllowanceResponse {
     const message = { ...baseMsgGrantAllowanceResponse } as MsgGrantAllowanceResponse;
     return message;
   },
@@ -192,7 +192,7 @@ export const MsgRevokeAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgRevokeAllowance>): MsgRevokeAllowance {
+  fromPartial<I extends Exact<DeepPartial<MsgRevokeAllowance>, I>>(object: I): MsgRevokeAllowance {
     const message = { ...baseMsgRevokeAllowance } as MsgRevokeAllowance;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -232,7 +232,7 @@ export const MsgRevokeAllowanceResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgRevokeAllowanceResponse>): MsgRevokeAllowanceResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgRevokeAllowanceResponse>, I>>(_: I): MsgRevokeAllowanceResponse {
     const message = { ...baseMsgRevokeAllowanceResponse } as MsgRevokeAllowanceResponse;
     return message;
   },
@@ -277,6 +277,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -288,6 +289,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -155,15 +155,15 @@ export const BaseVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BaseVestingAccount>): BaseVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<BaseVestingAccount>, I>>(object: I): BaseVestingAccount {
     const message = { ...baseBaseVestingAccount } as BaseVestingAccount;
     message.baseAccount =
       object.baseAccount !== undefined && object.baseAccount !== null
         ? BaseAccount.fromPartial(object.baseAccount)
         : undefined;
-    message.originalVesting = (object.originalVesting ?? []).map((e) => Coin.fromPartial(e));
-    message.delegatedFree = (object.delegatedFree ?? []).map((e) => Coin.fromPartial(e));
-    message.delegatedVesting = (object.delegatedVesting ?? []).map((e) => Coin.fromPartial(e));
+    message.originalVesting = object.originalVesting?.map((e) => Coin.fromPartial(e)) || [];
+    message.delegatedFree = object.delegatedFree?.map((e) => Coin.fromPartial(e)) || [];
+    message.delegatedVesting = object.delegatedVesting?.map((e) => Coin.fromPartial(e)) || [];
     message.endTime =
       object.endTime !== undefined && object.endTime !== null ? Long.fromValue(object.endTime) : Long.ZERO;
     return message;
@@ -227,7 +227,9 @@ export const ContinuousVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ContinuousVestingAccount>): ContinuousVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<ContinuousVestingAccount>, I>>(
+    object: I,
+  ): ContinuousVestingAccount {
     const message = { ...baseContinuousVestingAccount } as ContinuousVestingAccount;
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -287,7 +289,7 @@ export const DelayedVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelayedVestingAccount>): DelayedVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<DelayedVestingAccount>, I>>(object: I): DelayedVestingAccount {
     const message = { ...baseDelayedVestingAccount } as DelayedVestingAccount;
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -351,11 +353,11 @@ export const Period = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Period>): Period {
+  fromPartial<I extends Exact<DeepPartial<Period>, I>>(object: I): Period {
     const message = { ...basePeriod } as Period;
     message.length =
       object.length !== undefined && object.length !== null ? Long.fromValue(object.length) : Long.ZERO;
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -430,7 +432,7 @@ export const PeriodicVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PeriodicVestingAccount>): PeriodicVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<PeriodicVestingAccount>, I>>(object: I): PeriodicVestingAccount {
     const message = { ...basePeriodicVestingAccount } as PeriodicVestingAccount;
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -440,7 +442,7 @@ export const PeriodicVestingAccount = {
       object.startTime !== undefined && object.startTime !== null
         ? Long.fromValue(object.startTime)
         : Long.ZERO;
-    message.vestingPeriods = (object.vestingPeriods ?? []).map((e) => Period.fromPartial(e));
+    message.vestingPeriods = object.vestingPeriods?.map((e) => Period.fromPartial(e)) || [];
     return message;
   },
 };
@@ -491,7 +493,7 @@ export const PermanentLockedAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PermanentLockedAccount>): PermanentLockedAccount {
+  fromPartial<I extends Exact<DeepPartial<PermanentLockedAccount>, I>>(object: I): PermanentLockedAccount {
     const message = { ...basePermanentLockedAccount } as PermanentLockedAccount;
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -502,6 +504,7 @@ export const PermanentLockedAccount = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -513,6 +516,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -88,11 +88,11 @@ export const MsgSend = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgSend>): MsgSend {
+  fromPartial<I extends Exact<DeepPartial<MsgSend>, I>>(object: I): MsgSend {
     const message = { ...baseMsgSend } as MsgSend;
     message.fromAddress = object.fromAddress ?? "";
     message.toAddress = object.toAddress ?? "";
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -129,7 +129,7 @@ export const MsgSendResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgSendResponse>): MsgSendResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
     const message = { ...baseMsgSendResponse } as MsgSendResponse;
     return message;
   },
@@ -193,10 +193,10 @@ export const MsgMultiSend = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgMultiSend>): MsgMultiSend {
+  fromPartial<I extends Exact<DeepPartial<MsgMultiSend>, I>>(object: I): MsgMultiSend {
     const message = { ...baseMsgMultiSend } as MsgMultiSend;
-    message.inputs = (object.inputs ?? []).map((e) => Input.fromPartial(e));
-    message.outputs = (object.outputs ?? []).map((e) => Output.fromPartial(e));
+    message.inputs = object.inputs?.map((e) => Input.fromPartial(e)) || [];
+    message.outputs = object.outputs?.map((e) => Output.fromPartial(e)) || [];
     return message;
   },
 };
@@ -233,7 +233,7 @@ export const MsgMultiSendResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgMultiSendResponse>): MsgMultiSendResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(_: I): MsgMultiSendResponse {
     const message = { ...baseMsgMultiSendResponse } as MsgMultiSendResponse;
     return message;
   },
@@ -272,6 +272,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -283,6 +284,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

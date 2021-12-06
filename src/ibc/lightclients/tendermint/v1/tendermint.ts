@@ -269,7 +269,7 @@ export const ClientState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ClientState>): ClientState {
+  fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
     const message = { ...baseClientState } as ClientState;
     message.chainId = object.chainId ?? "";
     message.trustLevel =
@@ -296,8 +296,8 @@ export const ClientState = {
       object.latestHeight !== undefined && object.latestHeight !== null
         ? Height.fromPartial(object.latestHeight)
         : undefined;
-    message.proofSpecs = (object.proofSpecs ?? []).map((e) => ProofSpec.fromPartial(e));
-    message.upgradePath = (object.upgradePath ?? []).map((e) => e);
+    message.proofSpecs = object.proofSpecs?.map((e) => ProofSpec.fromPartial(e)) || [];
+    message.upgradePath = object.upgradePath?.map((e) => e) || [];
     message.allowUpdateAfterExpiry = object.allowUpdateAfterExpiry ?? false;
     message.allowUpdateAfterMisbehaviour = object.allowUpdateAfterMisbehaviour ?? false;
     return message;
@@ -371,7 +371,7 @@ export const ConsensusState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ConsensusState>): ConsensusState {
+  fromPartial<I extends Exact<DeepPartial<ConsensusState>, I>>(object: I): ConsensusState {
     const message = { ...baseConsensusState } as ConsensusState;
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
@@ -445,7 +445,7 @@ export const Misbehaviour = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Misbehaviour>): Misbehaviour {
+  fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
     const message = { ...baseMisbehaviour } as Misbehaviour;
     message.clientId = object.clientId ?? "";
     message.header1 =
@@ -542,7 +542,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Header>): Header {
+  fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
     const message = { ...baseHeader } as Header;
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
@@ -618,7 +618,7 @@ export const Fraction = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Fraction>): Fraction {
+  fromPartial<I extends Exact<DeepPartial<Fraction>, I>>(object: I): Fraction {
     const message = { ...baseFraction } as Fraction;
     message.numerator =
       object.numerator !== undefined && object.numerator !== null
@@ -665,6 +665,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -676,6 +677,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

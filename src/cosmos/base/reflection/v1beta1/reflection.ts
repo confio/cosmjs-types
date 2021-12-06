@@ -62,7 +62,7 @@ export const ListAllInterfacesRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<ListAllInterfacesRequest>): ListAllInterfacesRequest {
+  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(_: I): ListAllInterfacesRequest {
     const message = { ...baseListAllInterfacesRequest } as ListAllInterfacesRequest;
     return message;
   },
@@ -113,9 +113,11 @@ export const ListAllInterfacesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ListAllInterfacesResponse>): ListAllInterfacesResponse {
+  fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(
+    object: I,
+  ): ListAllInterfacesResponse {
     const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
-    message.interfaceNames = (object.interfaceNames ?? []).map((e) => e);
+    message.interfaceNames = object.interfaceNames?.map((e) => e) || [];
     return message;
   },
 };
@@ -161,7 +163,9 @@ export const ListImplementationsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ListImplementationsRequest>): ListImplementationsRequest {
+  fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(
+    object: I,
+  ): ListImplementationsRequest {
     const message = { ...baseListImplementationsRequest } as ListImplementationsRequest;
     message.interfaceName = object.interfaceName ?? "";
     return message;
@@ -213,9 +217,11 @@ export const ListImplementationsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ListImplementationsResponse>): ListImplementationsResponse {
+  fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(
+    object: I,
+  ): ListImplementationsResponse {
     const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
-    message.implementationMessageNames = (object.implementationMessageNames ?? []).map((e) => e);
+    message.implementationMessageNames = object.implementationMessageNames?.map((e) => e) || [];
     return message;
   },
 };
@@ -267,6 +273,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -278,6 +285,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

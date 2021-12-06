@@ -77,7 +77,7 @@ export const GenesisOwners = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisOwners>): GenesisOwners {
+  fromPartial<I extends Exact<DeepPartial<GenesisOwners>, I>>(object: I): GenesisOwners {
     const message = { ...baseGenesisOwners } as GenesisOwners;
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
@@ -143,16 +143,17 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
-    message.owners = (object.owners ?? []).map((e) => GenesisOwners.fromPartial(e));
+    message.owners = object.owners?.map((e) => GenesisOwners.fromPartial(e)) || [];
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -164,6 +165,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

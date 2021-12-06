@@ -88,7 +88,7 @@ export const NetAddress = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<NetAddress>): NetAddress {
+  fromPartial<I extends Exact<DeepPartial<NetAddress>, I>>(object: I): NetAddress {
     const message = { ...baseNetAddress } as NetAddress;
     message.id = object.id ?? "";
     message.ip = object.ip ?? "";
@@ -154,7 +154,7 @@ export const ProtocolVersion = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ProtocolVersion>): ProtocolVersion {
+  fromPartial<I extends Exact<DeepPartial<ProtocolVersion>, I>>(object: I): ProtocolVersion {
     const message = { ...baseProtocolVersion } as ProtocolVersion;
     message.p2p = object.p2p !== undefined && object.p2p !== null ? Long.fromValue(object.p2p) : Long.UZERO;
     message.block =
@@ -283,7 +283,7 @@ export const DefaultNodeInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DefaultNodeInfo>): DefaultNodeInfo {
+  fromPartial<I extends Exact<DeepPartial<DefaultNodeInfo>, I>>(object: I): DefaultNodeInfo {
     const message = { ...baseDefaultNodeInfo } as DefaultNodeInfo;
     message.protocolVersion =
       object.protocolVersion !== undefined && object.protocolVersion !== null
@@ -352,7 +352,7 @@ export const DefaultNodeInfoOther = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DefaultNodeInfoOther>): DefaultNodeInfoOther {
+  fromPartial<I extends Exact<DeepPartial<DefaultNodeInfoOther>, I>>(object: I): DefaultNodeInfoOther {
     const message = { ...baseDefaultNodeInfoOther } as DefaultNodeInfoOther;
     message.txIndex = object.txIndex ?? "";
     message.rpcAddress = object.rpcAddress ?? "";
@@ -393,6 +393,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -404,6 +405,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

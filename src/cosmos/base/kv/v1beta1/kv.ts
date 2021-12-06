@@ -60,9 +60,9 @@ export const Pairs = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Pairs>): Pairs {
+  fromPartial<I extends Exact<DeepPartial<Pairs>, I>>(object: I): Pairs {
     const message = { ...basePairs } as Pairs;
-    message.pairs = (object.pairs ?? []).map((e) => Pair.fromPartial(e));
+    message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
   },
 };
@@ -121,7 +121,7 @@ export const Pair = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Pair>): Pair {
+  fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
     const message = { ...basePair } as Pair;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -162,6 +162,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -173,6 +174,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -305,7 +305,7 @@ export const Channel = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Channel>): Channel {
+  fromPartial<I extends Exact<DeepPartial<Channel>, I>>(object: I): Channel {
     const message = { ...baseChannel } as Channel;
     message.state = object.state ?? 0;
     message.ordering = object.ordering ?? 0;
@@ -313,7 +313,7 @@ export const Channel = {
       object.counterparty !== undefined && object.counterparty !== null
         ? Counterparty.fromPartial(object.counterparty)
         : undefined;
-    message.connectionHops = (object.connectionHops ?? []).map((e) => e);
+    message.connectionHops = object.connectionHops?.map((e) => e) || [];
     message.version = object.version ?? "";
     return message;
   },
@@ -425,7 +425,7 @@ export const IdentifiedChannel = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<IdentifiedChannel>): IdentifiedChannel {
+  fromPartial<I extends Exact<DeepPartial<IdentifiedChannel>, I>>(object: I): IdentifiedChannel {
     const message = { ...baseIdentifiedChannel } as IdentifiedChannel;
     message.state = object.state ?? 0;
     message.ordering = object.ordering ?? 0;
@@ -433,7 +433,7 @@ export const IdentifiedChannel = {
       object.counterparty !== undefined && object.counterparty !== null
         ? Counterparty.fromPartial(object.counterparty)
         : undefined;
-    message.connectionHops = (object.connectionHops ?? []).map((e) => e);
+    message.connectionHops = object.connectionHops?.map((e) => e) || [];
     message.version = object.version ?? "";
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -490,7 +490,7 @@ export const Counterparty = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Counterparty>): Counterparty {
+  fromPartial<I extends Exact<DeepPartial<Counterparty>, I>>(object: I): Counterparty {
     const message = { ...baseCounterparty } as Counterparty;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -623,7 +623,7 @@ export const Packet = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Packet>): Packet {
+  fromPartial<I extends Exact<DeepPartial<Packet>, I>>(object: I): Packet {
     const message = { ...basePacket } as Packet;
     message.sequence =
       object.sequence !== undefined && object.sequence !== null
@@ -717,7 +717,7 @@ export const PacketState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PacketState>): PacketState {
+  fromPartial<I extends Exact<DeepPartial<PacketState>, I>>(object: I): PacketState {
     const message = { ...basePacketState } as PacketState;
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -780,7 +780,7 @@ export const Acknowledgement = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Acknowledgement>): Acknowledgement {
+  fromPartial<I extends Exact<DeepPartial<Acknowledgement>, I>>(object: I): Acknowledgement {
     const message = { ...baseAcknowledgement } as Acknowledgement;
     message.result = object.result ?? undefined;
     message.error = object.error ?? undefined;
@@ -821,6 +821,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -832,6 +833,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

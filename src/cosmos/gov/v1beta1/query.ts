@@ -183,7 +183,7 @@ export const QueryProposalRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryProposalRequest>): QueryProposalRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalRequest>, I>>(object: I): QueryProposalRequest {
     const message = { ...baseQueryProposalRequest } as QueryProposalRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -237,7 +237,7 @@ export const QueryProposalResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryProposalResponse>): QueryProposalResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalResponse>, I>>(object: I): QueryProposalResponse {
     const message = { ...baseQueryProposalResponse } as QueryProposalResponse;
     message.proposal =
       object.proposal !== undefined && object.proposal !== null
@@ -320,7 +320,7 @@ export const QueryProposalsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryProposalsRequest>): QueryProposalsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalsRequest>, I>>(object: I): QueryProposalsRequest {
     const message = { ...baseQueryProposalsRequest } as QueryProposalsRequest;
     message.proposalStatus = object.proposalStatus ?? 0;
     message.voter = object.voter ?? "";
@@ -390,9 +390,9 @@ export const QueryProposalsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryProposalsResponse>): QueryProposalsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryProposalsResponse>, I>>(object: I): QueryProposalsResponse {
     const message = { ...baseQueryProposalsResponse } as QueryProposalsResponse;
-    message.proposals = (object.proposals ?? []).map((e) => Proposal.fromPartial(e));
+    message.proposals = object.proposals?.map((e) => Proposal.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -452,7 +452,7 @@ export const QueryVoteRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVoteRequest>): QueryVoteRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryVoteRequest>, I>>(object: I): QueryVoteRequest {
     const message = { ...baseQueryVoteRequest } as QueryVoteRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -503,7 +503,7 @@ export const QueryVoteResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVoteResponse>): QueryVoteResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryVoteResponse>, I>>(object: I): QueryVoteResponse {
     const message = { ...baseQueryVoteResponse } as QueryVoteResponse;
     message.vote =
       object.vote !== undefined && object.vote !== null ? Vote.fromPartial(object.vote) : undefined;
@@ -566,7 +566,7 @@ export const QueryVotesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVotesRequest>): QueryVotesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryVotesRequest>, I>>(object: I): QueryVotesRequest {
     const message = { ...baseQueryVotesRequest } as QueryVotesRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -637,9 +637,9 @@ export const QueryVotesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVotesResponse>): QueryVotesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryVotesResponse>, I>>(object: I): QueryVotesResponse {
     const message = { ...baseQueryVotesResponse } as QueryVotesResponse;
-    message.votes = (object.votes ?? []).map((e) => Vote.fromPartial(e));
+    message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -689,7 +689,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     message.paramsType = object.paramsType ?? "";
     return message;
@@ -764,7 +764,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.votingParams =
       object.votingParams !== undefined && object.votingParams !== null
@@ -834,7 +834,7 @@ export const QueryDepositRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDepositRequest>): QueryDepositRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositRequest>, I>>(object: I): QueryDepositRequest {
     const message = { ...baseQueryDepositRequest } as QueryDepositRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -887,7 +887,7 @@ export const QueryDepositResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDepositResponse>): QueryDepositResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositResponse>, I>>(object: I): QueryDepositResponse {
     const message = { ...baseQueryDepositResponse } as QueryDepositResponse;
     message.deposit =
       object.deposit !== undefined && object.deposit !== null
@@ -952,7 +952,7 @@ export const QueryDepositsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDepositsRequest>): QueryDepositsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositsRequest>, I>>(object: I): QueryDepositsRequest {
     const message = { ...baseQueryDepositsRequest } as QueryDepositsRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -1023,9 +1023,9 @@ export const QueryDepositsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDepositsResponse>): QueryDepositsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDepositsResponse>, I>>(object: I): QueryDepositsResponse {
     const message = { ...baseQueryDepositsResponse } as QueryDepositsResponse;
-    message.deposits = (object.deposits ?? []).map((e) => Deposit.fromPartial(e));
+    message.deposits = object.deposits?.map((e) => Deposit.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1077,7 +1077,7 @@ export const QueryTallyResultRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryTallyResultRequest>): QueryTallyResultRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryTallyResultRequest>, I>>(object: I): QueryTallyResultRequest {
     const message = { ...baseQueryTallyResultRequest } as QueryTallyResultRequest;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -1129,7 +1129,9 @@ export const QueryTallyResultResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryTallyResultResponse>): QueryTallyResultResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryTallyResultResponse>, I>>(
+    object: I,
+  ): QueryTallyResultResponse {
     const message = { ...baseQueryTallyResultResponse } as QueryTallyResultResponse;
     message.tally =
       object.tally !== undefined && object.tally !== null ? TallyResult.fromPartial(object.tally) : undefined;
@@ -1224,6 +1226,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1235,6 +1238,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
