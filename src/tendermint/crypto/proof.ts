@@ -116,14 +116,14 @@ export const Proof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Proof>): Proof {
+  fromPartial<I extends Exact<DeepPartial<Proof>, I>>(object: I): Proof {
     const message = { ...baseProof } as Proof;
     message.total =
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.ZERO;
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
     message.leafHash = object.leafHash ?? new Uint8Array();
-    message.aunts = (object.aunts ?? []).map((e) => e);
+    message.aunts = object.aunts?.map((e) => e) || [];
     return message;
   },
 };
@@ -180,7 +180,7 @@ export const ValueOp = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValueOp>): ValueOp {
+  fromPartial<I extends Exact<DeepPartial<ValueOp>, I>>(object: I): ValueOp {
     const message = { ...baseValueOp } as ValueOp;
     message.key = object.key ?? new Uint8Array();
     message.proof =
@@ -245,7 +245,7 @@ export const DominoOp = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DominoOp>): DominoOp {
+  fromPartial<I extends Exact<DeepPartial<DominoOp>, I>>(object: I): DominoOp {
     const message = { ...baseDominoOp } as DominoOp;
     message.key = object.key ?? "";
     message.input = object.input ?? "";
@@ -316,7 +316,7 @@ export const ProofOp = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ProofOp>): ProofOp {
+  fromPartial<I extends Exact<DeepPartial<ProofOp>, I>>(object: I): ProofOp {
     const message = { ...baseProofOp } as ProofOp;
     message.type = object.type ?? "";
     message.key = object.key ?? new Uint8Array();
@@ -370,9 +370,9 @@ export const ProofOps = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ProofOps>): ProofOps {
+  fromPartial<I extends Exact<DeepPartial<ProofOps>, I>>(object: I): ProofOps {
     const message = { ...baseProofOps } as ProofOps;
-    message.ops = (object.ops ?? []).map((e) => ProofOp.fromPartial(e));
+    message.ops = object.ops?.map((e) => ProofOp.fromPartial(e)) || [];
     return message;
   },
 };
@@ -410,6 +410,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -421,6 +422,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

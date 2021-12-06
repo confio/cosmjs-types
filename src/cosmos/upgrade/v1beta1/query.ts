@@ -121,7 +121,7 @@ export const QueryCurrentPlanRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryCurrentPlanRequest>): QueryCurrentPlanRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanRequest>, I>>(_: I): QueryCurrentPlanRequest {
     const message = { ...baseQueryCurrentPlanRequest } as QueryCurrentPlanRequest;
     return message;
   },
@@ -167,7 +167,9 @@ export const QueryCurrentPlanResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryCurrentPlanResponse>): QueryCurrentPlanResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanResponse>, I>>(
+    object: I,
+  ): QueryCurrentPlanResponse {
     const message = { ...baseQueryCurrentPlanResponse } as QueryCurrentPlanResponse;
     message.plan =
       object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
@@ -215,7 +217,7 @@ export const QueryAppliedPlanRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAppliedPlanRequest>): QueryAppliedPlanRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanRequest>, I>>(object: I): QueryAppliedPlanRequest {
     const message = { ...baseQueryAppliedPlanRequest } as QueryAppliedPlanRequest;
     message.name = object.name ?? "";
     return message;
@@ -263,7 +265,9 @@ export const QueryAppliedPlanResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAppliedPlanResponse>): QueryAppliedPlanResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanResponse>, I>>(
+    object: I,
+  ): QueryAppliedPlanResponse {
     const message = { ...baseQueryAppliedPlanResponse } as QueryAppliedPlanResponse;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -314,7 +318,9 @@ export const QueryUpgradedConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUpgradedConsensusStateRequest>): QueryUpgradedConsensusStateRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateRequest>, I>>(
+    object: I,
+  ): QueryUpgradedConsensusStateRequest {
     const message = { ...baseQueryUpgradedConsensusStateRequest } as QueryUpgradedConsensusStateRequest;
     message.lastHeight =
       object.lastHeight !== undefined && object.lastHeight !== null
@@ -371,7 +377,9 @@ export const QueryUpgradedConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUpgradedConsensusStateResponse>): QueryUpgradedConsensusStateResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateResponse>, I>>(
+    object: I,
+  ): QueryUpgradedConsensusStateResponse {
     const message = { ...baseQueryUpgradedConsensusStateResponse } as QueryUpgradedConsensusStateResponse;
     message.upgradedConsensusState = object.upgradedConsensusState ?? new Uint8Array();
     return message;
@@ -419,7 +427,9 @@ export const QueryModuleVersionsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryModuleVersionsRequest>): QueryModuleVersionsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsRequest>, I>>(
+    object: I,
+  ): QueryModuleVersionsRequest {
     const message = { ...baseQueryModuleVersionsRequest } as QueryModuleVersionsRequest;
     message.moduleName = object.moduleName ?? "";
     return message;
@@ -471,9 +481,11 @@ export const QueryModuleVersionsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryModuleVersionsResponse>): QueryModuleVersionsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsResponse>, I>>(
+    object: I,
+  ): QueryModuleVersionsResponse {
     const message = { ...baseQueryModuleVersionsResponse } as QueryModuleVersionsResponse;
-    message.moduleVersions = (object.moduleVersions ?? []).map((e) => ModuleVersion.fromPartial(e));
+    message.moduleVersions = object.moduleVersions?.map((e) => ModuleVersion.fromPartial(e)) || [];
     return message;
   },
 };
@@ -578,6 +590,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -589,6 +602,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

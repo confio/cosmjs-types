@@ -159,7 +159,9 @@ export const GetValidatorSetByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetValidatorSetByHeightRequest>): GetValidatorSetByHeightRequest {
+  fromPartial<I extends Exact<DeepPartial<GetValidatorSetByHeightRequest>, I>>(
+    object: I,
+  ): GetValidatorSetByHeightRequest {
     const message = { ...baseGetValidatorSetByHeightRequest } as GetValidatorSetByHeightRequest;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -239,13 +241,15 @@ export const GetValidatorSetByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
+  fromPartial<I extends Exact<DeepPartial<GetValidatorSetByHeightResponse>, I>>(
+    object: I,
+  ): GetValidatorSetByHeightResponse {
     const message = { ...baseGetValidatorSetByHeightResponse } as GetValidatorSetByHeightResponse;
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
         ? Long.fromValue(object.blockHeight)
         : Long.ZERO;
-    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -298,7 +302,9 @@ export const GetLatestValidatorSetRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetLatestValidatorSetRequest>): GetLatestValidatorSetRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetRequest>, I>>(
+    object: I,
+  ): GetLatestValidatorSetRequest {
     const message = { ...baseGetLatestValidatorSetRequest } as GetLatestValidatorSetRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -376,13 +382,15 @@ export const GetLatestValidatorSetResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
+  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetResponse>, I>>(
+    object: I,
+  ): GetLatestValidatorSetResponse {
     const message = { ...baseGetLatestValidatorSetResponse } as GetLatestValidatorSetResponse;
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
         ? Long.fromValue(object.blockHeight)
         : Long.ZERO;
-    message.validators = (object.validators ?? []).map((e) => Validator.fromPartial(e));
+    message.validators = object.validators?.map((e) => Validator.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -463,7 +471,7 @@ export const Validator = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Validator>): Validator {
+  fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = { ...baseValidator } as Validator;
     message.address = object.address ?? "";
     message.pubKey =
@@ -521,7 +529,7 @@ export const GetBlockByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetBlockByHeightRequest>): GetBlockByHeightRequest {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightRequest>, I>>(object: I): GetBlockByHeightRequest {
     const message = { ...baseGetBlockByHeightRequest } as GetBlockByHeightRequest;
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -580,7 +588,9 @@ export const GetBlockByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetBlockByHeightResponse>): GetBlockByHeightResponse {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightResponse>, I>>(
+    object: I,
+  ): GetBlockByHeightResponse {
     const message = { ...baseGetBlockByHeightResponse } as GetBlockByHeightResponse;
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -624,7 +634,7 @@ export const GetLatestBlockRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<GetLatestBlockRequest>): GetLatestBlockRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockRequest>, I>>(_: I): GetLatestBlockRequest {
     const message = { ...baseGetLatestBlockRequest } as GetLatestBlockRequest;
     return message;
   },
@@ -681,7 +691,7 @@ export const GetLatestBlockResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetLatestBlockResponse>): GetLatestBlockResponse {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockResponse>, I>>(object: I): GetLatestBlockResponse {
     const message = { ...baseGetLatestBlockResponse } as GetLatestBlockResponse;
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -725,7 +735,7 @@ export const GetSyncingRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<GetSyncingRequest>): GetSyncingRequest {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingRequest>, I>>(_: I): GetSyncingRequest {
     const message = { ...baseGetSyncingRequest } as GetSyncingRequest;
     return message;
   },
@@ -772,7 +782,7 @@ export const GetSyncingResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetSyncingResponse>): GetSyncingResponse {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingResponse>, I>>(object: I): GetSyncingResponse {
     const message = { ...baseGetSyncingResponse } as GetSyncingResponse;
     message.syncing = object.syncing ?? false;
     return message;
@@ -811,7 +821,7 @@ export const GetNodeInfoRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<GetNodeInfoRequest>): GetNodeInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoRequest>, I>>(_: I): GetNodeInfoRequest {
     const message = { ...baseGetNodeInfoRequest } as GetNodeInfoRequest;
     return message;
   },
@@ -877,7 +887,7 @@ export const GetNodeInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GetNodeInfoResponse>): GetNodeInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoResponse>, I>>(object: I): GetNodeInfoResponse {
     const message = { ...baseGetNodeInfoResponse } as GetNodeInfoResponse;
     message.defaultNodeInfo =
       object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
@@ -1006,7 +1016,7 @@ export const VersionInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<VersionInfo>): VersionInfo {
+  fromPartial<I extends Exact<DeepPartial<VersionInfo>, I>>(object: I): VersionInfo {
     const message = { ...baseVersionInfo } as VersionInfo;
     message.name = object.name ?? "";
     message.appName = object.appName ?? "";
@@ -1014,7 +1024,7 @@ export const VersionInfo = {
     message.gitCommit = object.gitCommit ?? "";
     message.buildTags = object.buildTags ?? "";
     message.goVersion = object.goVersion ?? "";
-    message.buildDeps = (object.buildDeps ?? []).map((e) => Module.fromPartial(e));
+    message.buildDeps = object.buildDeps?.map((e) => Module.fromPartial(e)) || [];
     message.cosmosSdkVersion = object.cosmosSdkVersion ?? "";
     return message;
   },
@@ -1076,7 +1086,7 @@ export const Module = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Module>): Module {
+  fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = { ...baseModule } as Module;
     message.path = object.path ?? "";
     message.version = object.version ?? "";
@@ -1158,6 +1168,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1169,6 +1180,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

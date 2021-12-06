@@ -161,9 +161,9 @@ export const SignatureDescriptors = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptors>): SignatureDescriptors {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptors>, I>>(object: I): SignatureDescriptors {
     const message = { ...baseSignatureDescriptors } as SignatureDescriptors;
-    message.signatures = (object.signatures ?? []).map((e) => SignatureDescriptor.fromPartial(e));
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor.fromPartial(e)) || [];
     return message;
   },
 };
@@ -235,7 +235,7 @@ export const SignatureDescriptor = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor>): SignatureDescriptor {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor>, I>>(object: I): SignatureDescriptor {
     const message = { ...baseSignatureDescriptor } as SignatureDescriptor;
     message.publicKey =
       object.publicKey !== undefined && object.publicKey !== null
@@ -309,7 +309,9 @@ export const SignatureDescriptor_Data = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data>): SignatureDescriptor_Data {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data {
     const message = { ...baseSignatureDescriptor_Data } as SignatureDescriptor_Data;
     message.single =
       object.single !== undefined && object.single !== null
@@ -378,7 +380,9 @@ export const SignatureDescriptor_Data_Single = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data_Single>): SignatureDescriptor_Data_Single {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Single>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data_Single {
     const message = { ...baseSignatureDescriptor_Data_Single } as SignatureDescriptor_Data_Single;
     message.mode = object.mode ?? 0;
     message.signature = object.signature ?? new Uint8Array();
@@ -443,13 +447,15 @@ export const SignatureDescriptor_Data_Multi = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data_Multi>): SignatureDescriptor_Data_Multi {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Multi>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data_Multi {
     const message = { ...baseSignatureDescriptor_Data_Multi } as SignatureDescriptor_Data_Multi;
     message.bitarray =
       object.bitarray !== undefined && object.bitarray !== null
         ? CompactBitArray.fromPartial(object.bitarray)
         : undefined;
-    message.signatures = (object.signatures ?? []).map((e) => SignatureDescriptor_Data.fromPartial(e));
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor_Data.fromPartial(e)) || [];
     return message;
   },
 };
@@ -487,6 +493,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -498,6 +505,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

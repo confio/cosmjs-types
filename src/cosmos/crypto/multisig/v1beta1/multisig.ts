@@ -69,9 +69,9 @@ export const MultiSignature = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MultiSignature>): MultiSignature {
+  fromPartial<I extends Exact<DeepPartial<MultiSignature>, I>>(object: I): MultiSignature {
     const message = { ...baseMultiSignature } as MultiSignature;
-    message.signatures = (object.signatures ?? []).map((e) => e);
+    message.signatures = object.signatures?.map((e) => e) || [];
     return message;
   },
 };
@@ -130,7 +130,7 @@ export const CompactBitArray = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CompactBitArray>): CompactBitArray {
+  fromPartial<I extends Exact<DeepPartial<CompactBitArray>, I>>(object: I): CompactBitArray {
     const message = { ...baseCompactBitArray } as CompactBitArray;
     message.extraBitsStored = object.extraBitsStored ?? 0;
     message.elems = object.elems ?? new Uint8Array();
@@ -171,6 +171,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -182,6 +183,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

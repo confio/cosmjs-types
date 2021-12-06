@@ -147,7 +147,7 @@ export const PageRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PageRequest>): PageRequest {
+  fromPartial<I extends Exact<DeepPartial<PageRequest>, I>>(object: I): PageRequest {
     const message = { ...basePageRequest } as PageRequest;
     message.key = object.key ?? new Uint8Array();
     message.offset =
@@ -214,7 +214,7 @@ export const PageResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PageResponse>): PageResponse {
+  fromPartial<I extends Exact<DeepPartial<PageResponse>, I>>(object: I): PageResponse {
     const message = { ...basePageResponse } as PageResponse;
     message.nextKey = object.nextKey ?? new Uint8Array();
     message.total =
@@ -256,6 +256,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -267,6 +268,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

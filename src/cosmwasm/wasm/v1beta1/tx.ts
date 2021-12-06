@@ -207,7 +207,7 @@ export const MsgStoreCode = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgStoreCode>): MsgStoreCode {
+  fromPartial<I extends Exact<DeepPartial<MsgStoreCode>, I>>(object: I): MsgStoreCode {
     const message = { ...baseMsgStoreCode } as MsgStoreCode;
     message.sender = object.sender ?? "";
     message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
@@ -262,7 +262,7 @@ export const MsgStoreCodeResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgStoreCodeResponse>): MsgStoreCodeResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgStoreCodeResponse>, I>>(object: I): MsgStoreCodeResponse {
     const message = { ...baseMsgStoreCodeResponse } as MsgStoreCodeResponse;
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -361,7 +361,7 @@ export const MsgInstantiateContract = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgInstantiateContract>): MsgInstantiateContract {
+  fromPartial<I extends Exact<DeepPartial<MsgInstantiateContract>, I>>(object: I): MsgInstantiateContract {
     const message = { ...baseMsgInstantiateContract } as MsgInstantiateContract;
     message.sender = object.sender ?? "";
     message.admin = object.admin ?? "";
@@ -369,7 +369,7 @@ export const MsgInstantiateContract = {
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.label = object.label ?? "";
     message.initMsg = object.initMsg ?? new Uint8Array();
-    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
+    message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -425,7 +425,9 @@ export const MsgInstantiateContractResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgInstantiateContractResponse>): MsgInstantiateContractResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgInstantiateContractResponse>, I>>(
+    object: I,
+  ): MsgInstantiateContractResponse {
     const message = { ...baseMsgInstantiateContractResponse } as MsgInstantiateContractResponse;
     message.address = object.address ?? "";
     message.data = object.data ?? new Uint8Array();
@@ -506,12 +508,12 @@ export const MsgExecuteContract = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgExecuteContract>): MsgExecuteContract {
+  fromPartial<I extends Exact<DeepPartial<MsgExecuteContract>, I>>(object: I): MsgExecuteContract {
     const message = { ...baseMsgExecuteContract } as MsgExecuteContract;
     message.sender = object.sender ?? "";
     message.contract = object.contract ?? "";
     message.msg = object.msg ?? new Uint8Array();
-    message.funds = (object.funds ?? []).map((e) => Coin.fromPartial(e));
+    message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -559,7 +561,9 @@ export const MsgExecuteContractResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgExecuteContractResponse>): MsgExecuteContractResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgExecuteContractResponse>, I>>(
+    object: I,
+  ): MsgExecuteContractResponse {
     const message = { ...baseMsgExecuteContractResponse } as MsgExecuteContractResponse;
     message.data = object.data ?? new Uint8Array();
     return message;
@@ -639,7 +643,7 @@ export const MsgMigrateContract = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgMigrateContract>): MsgMigrateContract {
+  fromPartial<I extends Exact<DeepPartial<MsgMigrateContract>, I>>(object: I): MsgMigrateContract {
     const message = { ...baseMsgMigrateContract } as MsgMigrateContract;
     message.sender = object.sender ?? "";
     message.contract = object.contract ?? "";
@@ -693,7 +697,9 @@ export const MsgMigrateContractResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgMigrateContractResponse>): MsgMigrateContractResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgMigrateContractResponse>, I>>(
+    object: I,
+  ): MsgMigrateContractResponse {
     const message = { ...baseMsgMigrateContractResponse } as MsgMigrateContractResponse;
     message.data = object.data ?? new Uint8Array();
     return message;
@@ -758,7 +764,7 @@ export const MsgUpdateAdmin = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgUpdateAdmin>): MsgUpdateAdmin {
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateAdmin>, I>>(object: I): MsgUpdateAdmin {
     const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin;
     message.sender = object.sender ?? "";
     message.newAdmin = object.newAdmin ?? "";
@@ -799,7 +805,7 @@ export const MsgUpdateAdminResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateAdminResponse>): MsgUpdateAdminResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateAdminResponse>, I>>(_: I): MsgUpdateAdminResponse {
     const message = { ...baseMsgUpdateAdminResponse } as MsgUpdateAdminResponse;
     return message;
   },
@@ -854,7 +860,7 @@ export const MsgClearAdmin = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgClearAdmin>): MsgClearAdmin {
+  fromPartial<I extends Exact<DeepPartial<MsgClearAdmin>, I>>(object: I): MsgClearAdmin {
     const message = { ...baseMsgClearAdmin } as MsgClearAdmin;
     message.sender = object.sender ?? "";
     message.contract = object.contract ?? "";
@@ -894,7 +900,7 @@ export const MsgClearAdminResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgClearAdminResponse>): MsgClearAdminResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgClearAdminResponse>, I>>(_: I): MsgClearAdminResponse {
     const message = { ...baseMsgClearAdminResponse } as MsgClearAdminResponse;
     return message;
   },
@@ -1001,6 +1007,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1012,6 +1019,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

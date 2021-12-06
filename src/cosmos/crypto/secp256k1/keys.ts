@@ -63,7 +63,7 @@ export const PubKey = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PubKey>): PubKey {
+  fromPartial<I extends Exact<DeepPartial<PubKey>, I>>(object: I): PubKey {
     const message = { ...basePubKey } as PubKey;
     message.key = object.key ?? new Uint8Array();
     return message;
@@ -113,7 +113,7 @@ export const PrivKey = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PrivKey>): PrivKey {
+  fromPartial<I extends Exact<DeepPartial<PrivKey>, I>>(object: I): PrivKey {
     const message = { ...basePrivKey } as PrivKey;
     message.key = object.key ?? new Uint8Array();
     return message;
@@ -153,6 +153,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -164,6 +165,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

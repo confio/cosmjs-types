@@ -85,7 +85,7 @@ export const QueryAllowanceRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllowanceRequest>): QueryAllowanceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowanceRequest>, I>>(object: I): QueryAllowanceRequest {
     const message = { ...baseQueryAllowanceRequest } as QueryAllowanceRequest;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -137,7 +137,7 @@ export const QueryAllowanceResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllowanceResponse>): QueryAllowanceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowanceResponse>, I>>(object: I): QueryAllowanceResponse {
     const message = { ...baseQueryAllowanceResponse } as QueryAllowanceResponse;
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
@@ -199,7 +199,7 @@ export const QueryAllowancesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllowancesRequest>): QueryAllowancesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesRequest>, I>>(object: I): QueryAllowancesRequest {
     const message = { ...baseQueryAllowancesRequest } as QueryAllowancesRequest;
     message.grantee = object.grantee ?? "";
     message.pagination =
@@ -267,9 +267,9 @@ export const QueryAllowancesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllowancesResponse>): QueryAllowancesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesResponse>, I>>(object: I): QueryAllowancesResponse {
     const message = { ...baseQueryAllowancesResponse } as QueryAllowancesResponse;
-    message.allowances = (object.allowances ?? []).map((e) => Grant.fromPartial(e));
+    message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -311,6 +311,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -322,6 +323,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

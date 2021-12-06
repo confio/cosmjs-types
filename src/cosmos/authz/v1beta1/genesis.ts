@@ -66,9 +66,9 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.authorization = (object.authorization ?? []).map((e) => GrantAuthorization.fromPartial(e));
+    message.authorization = object.authorization?.map((e) => GrantAuthorization.fromPartial(e)) || [];
     return message;
   },
 };
@@ -144,7 +144,7 @@ export const GrantAuthorization = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GrantAuthorization>): GrantAuthorization {
+  fromPartial<I extends Exact<DeepPartial<GrantAuthorization>, I>>(object: I): GrantAuthorization {
     const message = { ...baseGrantAuthorization } as GrantAuthorization;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -161,6 +161,7 @@ export const GrantAuthorization = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -172,6 +173,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

@@ -414,13 +414,13 @@ export const ExistenceProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ExistenceProof>): ExistenceProof {
+  fromPartial<I extends Exact<DeepPartial<ExistenceProof>, I>>(object: I): ExistenceProof {
     const message = { ...baseExistenceProof } as ExistenceProof;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     message.leaf =
       object.leaf !== undefined && object.leaf !== null ? LeafOp.fromPartial(object.leaf) : undefined;
-    message.path = (object.path ?? []).map((e) => InnerOp.fromPartial(e));
+    message.path = object.path?.map((e) => InnerOp.fromPartial(e)) || [];
     return message;
   },
 };
@@ -487,7 +487,7 @@ export const NonExistenceProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<NonExistenceProof>): NonExistenceProof {
+  fromPartial<I extends Exact<DeepPartial<NonExistenceProof>, I>>(object: I): NonExistenceProof {
     const message = { ...baseNonExistenceProof } as NonExistenceProof;
     message.key = object.key ?? new Uint8Array();
     message.left =
@@ -575,7 +575,7 @@ export const CommitmentProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CommitmentProof>): CommitmentProof {
+  fromPartial<I extends Exact<DeepPartial<CommitmentProof>, I>>(object: I): CommitmentProof {
     const message = { ...baseCommitmentProof } as CommitmentProof;
     message.exist =
       object.exist !== undefined && object.exist !== null
@@ -677,7 +677,7 @@ export const LeafOp = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<LeafOp>): LeafOp {
+  fromPartial<I extends Exact<DeepPartial<LeafOp>, I>>(object: I): LeafOp {
     const message = { ...baseLeafOp } as LeafOp;
     message.hash = object.hash ?? 0;
     message.prehashKey = object.prehashKey ?? 0;
@@ -754,7 +754,7 @@ export const InnerOp = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<InnerOp>): InnerOp {
+  fromPartial<I extends Exact<DeepPartial<InnerOp>, I>>(object: I): InnerOp {
     const message = { ...baseInnerOp } as InnerOp;
     message.hash = object.hash ?? 0;
     message.prefix = object.prefix ?? new Uint8Array();
@@ -837,7 +837,7 @@ export const ProofSpec = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ProofSpec>): ProofSpec {
+  fromPartial<I extends Exact<DeepPartial<ProofSpec>, I>>(object: I): ProofSpec {
     const message = { ...baseProofSpec } as ProofSpec;
     message.leafSpec =
       object.leafSpec !== undefined && object.leafSpec !== null
@@ -967,9 +967,9 @@ export const InnerSpec = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<InnerSpec>): InnerSpec {
+  fromPartial<I extends Exact<DeepPartial<InnerSpec>, I>>(object: I): InnerSpec {
     const message = { ...baseInnerSpec } as InnerSpec;
-    message.childOrder = (object.childOrder ?? []).map((e) => e);
+    message.childOrder = object.childOrder?.map((e) => e) || [];
     message.childSize = object.childSize ?? 0;
     message.minPrefixLength = object.minPrefixLength ?? 0;
     message.maxPrefixLength = object.maxPrefixLength ?? 0;
@@ -1024,9 +1024,9 @@ export const BatchProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BatchProof>): BatchProof {
+  fromPartial<I extends Exact<DeepPartial<BatchProof>, I>>(object: I): BatchProof {
     const message = { ...baseBatchProof } as BatchProof;
-    message.entries = (object.entries ?? []).map((e) => BatchEntry.fromPartial(e));
+    message.entries = object.entries?.map((e) => BatchEntry.fromPartial(e)) || [];
     return message;
   },
 };
@@ -1085,7 +1085,7 @@ export const BatchEntry = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BatchEntry>): BatchEntry {
+  fromPartial<I extends Exact<DeepPartial<BatchEntry>, I>>(object: I): BatchEntry {
     const message = { ...baseBatchEntry } as BatchEntry;
     message.exist =
       object.exist !== undefined && object.exist !== null
@@ -1157,10 +1157,10 @@ export const CompressedBatchProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CompressedBatchProof>): CompressedBatchProof {
+  fromPartial<I extends Exact<DeepPartial<CompressedBatchProof>, I>>(object: I): CompressedBatchProof {
     const message = { ...baseCompressedBatchProof } as CompressedBatchProof;
-    message.entries = (object.entries ?? []).map((e) => CompressedBatchEntry.fromPartial(e));
-    message.lookupInners = (object.lookupInners ?? []).map((e) => InnerOp.fromPartial(e));
+    message.entries = object.entries?.map((e) => CompressedBatchEntry.fromPartial(e)) || [];
+    message.lookupInners = object.lookupInners?.map((e) => InnerOp.fromPartial(e)) || [];
     return message;
   },
 };
@@ -1221,7 +1221,7 @@ export const CompressedBatchEntry = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CompressedBatchEntry>): CompressedBatchEntry {
+  fromPartial<I extends Exact<DeepPartial<CompressedBatchEntry>, I>>(object: I): CompressedBatchEntry {
     const message = { ...baseCompressedBatchEntry } as CompressedBatchEntry;
     message.exist =
       object.exist !== undefined && object.exist !== null
@@ -1320,13 +1320,15 @@ export const CompressedExistenceProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CompressedExistenceProof>): CompressedExistenceProof {
+  fromPartial<I extends Exact<DeepPartial<CompressedExistenceProof>, I>>(
+    object: I,
+  ): CompressedExistenceProof {
     const message = { ...baseCompressedExistenceProof } as CompressedExistenceProof;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     message.leaf =
       object.leaf !== undefined && object.leaf !== null ? LeafOp.fromPartial(object.leaf) : undefined;
-    message.path = (object.path ?? []).map((e) => e);
+    message.path = object.path?.map((e) => e) || [];
     return message;
   },
 };
@@ -1398,7 +1400,9 @@ export const CompressedNonExistenceProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CompressedNonExistenceProof>): CompressedNonExistenceProof {
+  fromPartial<I extends Exact<DeepPartial<CompressedNonExistenceProof>, I>>(
+    object: I,
+  ): CompressedNonExistenceProof {
     const message = { ...baseCompressedNonExistenceProof } as CompressedNonExistenceProof;
     message.key = object.key ?? new Uint8Array();
     message.left =
@@ -1446,6 +1450,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1457,6 +1462,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

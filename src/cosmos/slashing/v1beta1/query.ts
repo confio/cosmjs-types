@@ -82,7 +82,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     return message;
   },
@@ -129,7 +129,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -178,7 +178,7 @@ export const QuerySigningInfoRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfoRequest>): QuerySigningInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest {
     const message = { ...baseQuerySigningInfoRequest } as QuerySigningInfoRequest;
     message.consAddress = object.consAddress ?? "";
     return message;
@@ -231,7 +231,9 @@ export const QuerySigningInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfoResponse>): QuerySigningInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(
+    object: I,
+  ): QuerySigningInfoResponse {
     const message = { ...baseQuerySigningInfoResponse } as QuerySigningInfoResponse;
     message.valSigningInfo =
       object.valSigningInfo !== undefined && object.valSigningInfo !== null
@@ -285,7 +287,9 @@ export const QuerySigningInfosRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfosRequest>): QuerySigningInfosRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(
+    object: I,
+  ): QuerySigningInfosRequest {
     const message = { ...baseQuerySigningInfosRequest } as QuerySigningInfosRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -352,9 +356,11 @@ export const QuerySigningInfosResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfosResponse>): QuerySigningInfosResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(
+    object: I,
+  ): QuerySigningInfosResponse {
     const message = { ...baseQuerySigningInfosResponse } as QuerySigningInfosResponse;
-    message.info = (object.info ?? []).map((e) => ValidatorSigningInfo.fromPartial(e));
+    message.info = object.info?.map((e) => ValidatorSigningInfo.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -405,6 +411,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -416,6 +423,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

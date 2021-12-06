@@ -126,9 +126,9 @@ export const BasicAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BasicAllowance>): BasicAllowance {
+  fromPartial<I extends Exact<DeepPartial<BasicAllowance>, I>>(object: I): BasicAllowance {
     const message = { ...baseBasicAllowance } as BasicAllowance;
-    message.spendLimit = (object.spendLimit ?? []).map((e) => Coin.fromPartial(e));
+    message.spendLimit = object.spendLimit?.map((e) => Coin.fromPartial(e)) || [];
     message.expiration =
       object.expiration !== undefined && object.expiration !== null
         ? Timestamp.fromPartial(object.expiration)
@@ -226,7 +226,7 @@ export const PeriodicAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PeriodicAllowance>): PeriodicAllowance {
+  fromPartial<I extends Exact<DeepPartial<PeriodicAllowance>, I>>(object: I): PeriodicAllowance {
     const message = { ...basePeriodicAllowance } as PeriodicAllowance;
     message.basic =
       object.basic !== undefined && object.basic !== null
@@ -234,8 +234,8 @@ export const PeriodicAllowance = {
         : undefined;
     message.period =
       object.period !== undefined && object.period !== null ? Duration.fromPartial(object.period) : undefined;
-    message.periodSpendLimit = (object.periodSpendLimit ?? []).map((e) => Coin.fromPartial(e));
-    message.periodCanSpend = (object.periodCanSpend ?? []).map((e) => Coin.fromPartial(e));
+    message.periodSpendLimit = object.periodSpendLimit?.map((e) => Coin.fromPartial(e)) || [];
+    message.periodCanSpend = object.periodCanSpend?.map((e) => Coin.fromPartial(e)) || [];
     message.periodReset =
       object.periodReset !== undefined && object.periodReset !== null
         ? Timestamp.fromPartial(object.periodReset)
@@ -301,13 +301,13 @@ export const AllowedMsgAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AllowedMsgAllowance>): AllowedMsgAllowance {
+  fromPartial<I extends Exact<DeepPartial<AllowedMsgAllowance>, I>>(object: I): AllowedMsgAllowance {
     const message = { ...baseAllowedMsgAllowance } as AllowedMsgAllowance;
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
         ? Any.fromPartial(object.allowance)
         : undefined;
-    message.allowedMessages = (object.allowedMessages ?? []).map((e) => e);
+    message.allowedMessages = object.allowedMessages?.map((e) => e) || [];
     return message;
   },
 };
@@ -372,7 +372,7 @@ export const Grant = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Grant>): Grant {
+  fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
     const message = { ...baseGrant } as Grant;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -385,6 +385,7 @@ export const Grant = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -396,6 +397,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

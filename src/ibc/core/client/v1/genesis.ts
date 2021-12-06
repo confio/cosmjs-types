@@ -148,15 +148,13 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
-    message.clients = (object.clients ?? []).map((e) => IdentifiedClientState.fromPartial(e));
-    message.clientsConsensus = (object.clientsConsensus ?? []).map((e) =>
-      ClientConsensusStates.fromPartial(e),
-    );
-    message.clientsMetadata = (object.clientsMetadata ?? []).map((e) =>
-      IdentifiedGenesisMetadata.fromPartial(e),
-    );
+    message.clients = object.clients?.map((e) => IdentifiedClientState.fromPartial(e)) || [];
+    message.clientsConsensus =
+      object.clientsConsensus?.map((e) => ClientConsensusStates.fromPartial(e)) || [];
+    message.clientsMetadata =
+      object.clientsMetadata?.map((e) => IdentifiedGenesisMetadata.fromPartial(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.createLocalhost = object.createLocalhost ?? false;
@@ -222,7 +220,7 @@ export const GenesisMetadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisMetadata>): GenesisMetadata {
+  fromPartial<I extends Exact<DeepPartial<GenesisMetadata>, I>>(object: I): GenesisMetadata {
     const message = { ...baseGenesisMetadata } as GenesisMetadata;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -284,10 +282,12 @@ export const IdentifiedGenesisMetadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<IdentifiedGenesisMetadata>): IdentifiedGenesisMetadata {
+  fromPartial<I extends Exact<DeepPartial<IdentifiedGenesisMetadata>, I>>(
+    object: I,
+  ): IdentifiedGenesisMetadata {
     const message = { ...baseIdentifiedGenesisMetadata } as IdentifiedGenesisMetadata;
     message.clientId = object.clientId ?? "";
-    message.clientMetadata = (object.clientMetadata ?? []).map((e) => GenesisMetadata.fromPartial(e));
+    message.clientMetadata = object.clientMetadata?.map((e) => GenesisMetadata.fromPartial(e)) || [];
     return message;
   },
 };
@@ -325,6 +325,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -336,6 +337,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -166,7 +166,7 @@ export const DelegatorWithdrawInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelegatorWithdrawInfo>): DelegatorWithdrawInfo {
+  fromPartial<I extends Exact<DeepPartial<DelegatorWithdrawInfo>, I>>(object: I): DelegatorWithdrawInfo {
     const message = { ...baseDelegatorWithdrawInfo } as DelegatorWithdrawInfo;
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.withdrawAddress = object.withdrawAddress ?? "";
@@ -230,10 +230,12 @@ export const ValidatorOutstandingRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorOutstandingRewardsRecord>): ValidatorOutstandingRewardsRecord {
+  fromPartial<I extends Exact<DeepPartial<ValidatorOutstandingRewardsRecord>, I>>(
+    object: I,
+  ): ValidatorOutstandingRewardsRecord {
     const message = { ...baseValidatorOutstandingRewardsRecord } as ValidatorOutstandingRewardsRecord;
     message.validatorAddress = object.validatorAddress ?? "";
-    message.outstandingRewards = (object.outstandingRewards ?? []).map((e) => DecCoin.fromPartial(e));
+    message.outstandingRewards = object.outstandingRewards?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -298,8 +300,8 @@ export const ValidatorAccumulatedCommissionRecord = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ValidatorAccumulatedCommissionRecord>,
+  fromPartial<I extends Exact<DeepPartial<ValidatorAccumulatedCommissionRecord>, I>>(
+    object: I,
   ): ValidatorAccumulatedCommissionRecord {
     const message = { ...baseValidatorAccumulatedCommissionRecord } as ValidatorAccumulatedCommissionRecord;
     message.validatorAddress = object.validatorAddress ?? "";
@@ -375,7 +377,9 @@ export const ValidatorHistoricalRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
+  fromPartial<I extends Exact<DeepPartial<ValidatorHistoricalRewardsRecord>, I>>(
+    object: I,
+  ): ValidatorHistoricalRewardsRecord {
     const message = { ...baseValidatorHistoricalRewardsRecord } as ValidatorHistoricalRewardsRecord;
     message.validatorAddress = object.validatorAddress ?? "";
     message.period =
@@ -443,7 +447,9 @@ export const ValidatorCurrentRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorCurrentRewardsRecord>): ValidatorCurrentRewardsRecord {
+  fromPartial<I extends Exact<DeepPartial<ValidatorCurrentRewardsRecord>, I>>(
+    object: I,
+  ): ValidatorCurrentRewardsRecord {
     const message = { ...baseValidatorCurrentRewardsRecord } as ValidatorCurrentRewardsRecord;
     message.validatorAddress = object.validatorAddress ?? "";
     message.rewards =
@@ -522,7 +528,9 @@ export const DelegatorStartingInfoRecord = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelegatorStartingInfoRecord>): DelegatorStartingInfoRecord {
+  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfoRecord>, I>>(
+    object: I,
+  ): DelegatorStartingInfoRecord {
     const message = { ...baseDelegatorStartingInfoRecord } as DelegatorStartingInfoRecord;
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -613,7 +621,9 @@ export const ValidatorSlashEventRecord = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEventRecord>, I>>(
+    object: I,
+  ): ValidatorSlashEventRecord {
     const message = { ...baseValidatorSlashEventRecord } as ValidatorSlashEventRecord;
     message.validatorAddress = object.validatorAddress ?? "";
     message.height =
@@ -813,7 +823,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -821,33 +831,29 @@ export const GenesisState = {
       object.feePool !== undefined && object.feePool !== null
         ? FeePool.fromPartial(object.feePool)
         : undefined;
-    message.delegatorWithdrawInfos = (object.delegatorWithdrawInfos ?? []).map((e) =>
-      DelegatorWithdrawInfo.fromPartial(e),
-    );
+    message.delegatorWithdrawInfos =
+      object.delegatorWithdrawInfos?.map((e) => DelegatorWithdrawInfo.fromPartial(e)) || [];
     message.previousProposer = object.previousProposer ?? "";
-    message.outstandingRewards = (object.outstandingRewards ?? []).map((e) =>
-      ValidatorOutstandingRewardsRecord.fromPartial(e),
-    );
-    message.validatorAccumulatedCommissions = (object.validatorAccumulatedCommissions ?? []).map((e) =>
-      ValidatorAccumulatedCommissionRecord.fromPartial(e),
-    );
-    message.validatorHistoricalRewards = (object.validatorHistoricalRewards ?? []).map((e) =>
-      ValidatorHistoricalRewardsRecord.fromPartial(e),
-    );
-    message.validatorCurrentRewards = (object.validatorCurrentRewards ?? []).map((e) =>
-      ValidatorCurrentRewardsRecord.fromPartial(e),
-    );
-    message.delegatorStartingInfos = (object.delegatorStartingInfos ?? []).map((e) =>
-      DelegatorStartingInfoRecord.fromPartial(e),
-    );
-    message.validatorSlashEvents = (object.validatorSlashEvents ?? []).map((e) =>
-      ValidatorSlashEventRecord.fromPartial(e),
-    );
+    message.outstandingRewards =
+      object.outstandingRewards?.map((e) => ValidatorOutstandingRewardsRecord.fromPartial(e)) || [];
+    message.validatorAccumulatedCommissions =
+      object.validatorAccumulatedCommissions?.map((e) =>
+        ValidatorAccumulatedCommissionRecord.fromPartial(e),
+      ) || [];
+    message.validatorHistoricalRewards =
+      object.validatorHistoricalRewards?.map((e) => ValidatorHistoricalRewardsRecord.fromPartial(e)) || [];
+    message.validatorCurrentRewards =
+      object.validatorCurrentRewards?.map((e) => ValidatorCurrentRewardsRecord.fromPartial(e)) || [];
+    message.delegatorStartingInfos =
+      object.delegatorStartingInfos?.map((e) => DelegatorStartingInfoRecord.fromPartial(e)) || [];
+    message.validatorSlashEvents =
+      object.validatorSlashEvents?.map((e) => ValidatorSlashEventRecord.fromPartial(e)) || [];
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -859,6 +865,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

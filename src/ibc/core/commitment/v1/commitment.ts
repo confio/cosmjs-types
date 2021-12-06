@@ -85,7 +85,7 @@ export const MerkleRoot = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MerkleRoot>): MerkleRoot {
+  fromPartial<I extends Exact<DeepPartial<MerkleRoot>, I>>(object: I): MerkleRoot {
     const message = { ...baseMerkleRoot } as MerkleRoot;
     message.hash = object.hash ?? new Uint8Array();
     return message;
@@ -139,7 +139,7 @@ export const MerklePrefix = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MerklePrefix>): MerklePrefix {
+  fromPartial<I extends Exact<DeepPartial<MerklePrefix>, I>>(object: I): MerklePrefix {
     const message = { ...baseMerklePrefix } as MerklePrefix;
     message.keyPrefix = object.keyPrefix ?? new Uint8Array();
     return message;
@@ -191,9 +191,9 @@ export const MerklePath = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MerklePath>): MerklePath {
+  fromPartial<I extends Exact<DeepPartial<MerklePath>, I>>(object: I): MerklePath {
     const message = { ...baseMerklePath } as MerklePath;
-    message.keyPath = (object.keyPath ?? []).map((e) => e);
+    message.keyPath = object.keyPath?.map((e) => e) || [];
     return message;
   },
 };
@@ -243,9 +243,9 @@ export const MerkleProof = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MerkleProof>): MerkleProof {
+  fromPartial<I extends Exact<DeepPartial<MerkleProof>, I>>(object: I): MerkleProof {
     const message = { ...baseMerkleProof } as MerkleProof;
-    message.proofs = (object.proofs ?? []).map((e) => CommitmentProof.fromPartial(e));
+    message.proofs = object.proofs?.map((e) => CommitmentProof.fromPartial(e)) || [];
     return message;
   },
 };
@@ -283,6 +283,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -294,6 +295,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

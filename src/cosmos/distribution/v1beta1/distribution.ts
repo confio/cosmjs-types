@@ -205,7 +205,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = { ...baseParams } as Params;
     message.communityTax = object.communityTax ?? "";
     message.baseProposerReward = object.baseProposerReward ?? "";
@@ -273,9 +273,11 @@ export const ValidatorHistoricalRewards = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorHistoricalRewards>): ValidatorHistoricalRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorHistoricalRewards>, I>>(
+    object: I,
+  ): ValidatorHistoricalRewards {
     const message = { ...baseValidatorHistoricalRewards } as ValidatorHistoricalRewards;
-    message.cumulativeRewardRatio = (object.cumulativeRewardRatio ?? []).map((e) => DecCoin.fromPartial(e));
+    message.cumulativeRewardRatio = object.cumulativeRewardRatio?.map((e) => DecCoin.fromPartial(e)) || [];
     message.referenceCount = object.referenceCount ?? 0;
     return message;
   },
@@ -335,9 +337,9 @@ export const ValidatorCurrentRewards = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorCurrentRewards>): ValidatorCurrentRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorCurrentRewards>, I>>(object: I): ValidatorCurrentRewards {
     const message = { ...baseValidatorCurrentRewards } as ValidatorCurrentRewards;
-    message.rewards = (object.rewards ?? []).map((e) => DecCoin.fromPartial(e));
+    message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     message.period =
       object.period !== undefined && object.period !== null ? Long.fromValue(object.period) : Long.UZERO;
     return message;
@@ -389,9 +391,11 @@ export const ValidatorAccumulatedCommission = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorAccumulatedCommission>): ValidatorAccumulatedCommission {
+  fromPartial<I extends Exact<DeepPartial<ValidatorAccumulatedCommission>, I>>(
+    object: I,
+  ): ValidatorAccumulatedCommission {
     const message = { ...baseValidatorAccumulatedCommission } as ValidatorAccumulatedCommission;
-    message.commission = (object.commission ?? []).map((e) => DecCoin.fromPartial(e));
+    message.commission = object.commission?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -441,9 +445,11 @@ export const ValidatorOutstandingRewards = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorOutstandingRewards>): ValidatorOutstandingRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorOutstandingRewards>, I>>(
+    object: I,
+  ): ValidatorOutstandingRewards {
     const message = { ...baseValidatorOutstandingRewards } as ValidatorOutstandingRewards;
-    message.rewards = (object.rewards ?? []).map((e) => DecCoin.fromPartial(e));
+    message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -501,7 +507,7 @@ export const ValidatorSlashEvent = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorSlashEvent>): ValidatorSlashEvent {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvent>, I>>(object: I): ValidatorSlashEvent {
     const message = { ...baseValidatorSlashEvent } as ValidatorSlashEvent;
     message.validatorPeriod =
       object.validatorPeriod !== undefined && object.validatorPeriod !== null
@@ -561,11 +567,10 @@ export const ValidatorSlashEvents = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorSlashEvents>): ValidatorSlashEvents {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvents>, I>>(object: I): ValidatorSlashEvents {
     const message = { ...baseValidatorSlashEvents } as ValidatorSlashEvents;
-    message.validatorSlashEvents = (object.validatorSlashEvents ?? []).map((e) =>
-      ValidatorSlashEvent.fromPartial(e),
-    );
+    message.validatorSlashEvents =
+      object.validatorSlashEvents?.map((e) => ValidatorSlashEvent.fromPartial(e)) || [];
     return message;
   },
 };
@@ -615,9 +620,9 @@ export const FeePool = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<FeePool>): FeePool {
+  fromPartial<I extends Exact<DeepPartial<FeePool>, I>>(object: I): FeePool {
     const message = { ...baseFeePool } as FeePool;
-    message.communityPool = (object.communityPool ?? []).map((e) => DecCoin.fromPartial(e));
+    message.communityPool = object.communityPool?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -693,12 +698,14 @@ export const CommunityPoolSpendProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CommunityPoolSpendProposal>): CommunityPoolSpendProposal {
+  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposal>, I>>(
+    object: I,
+  ): CommunityPoolSpendProposal {
     const message = { ...baseCommunityPoolSpendProposal } as CommunityPoolSpendProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.recipient = object.recipient ?? "";
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -764,7 +771,7 @@ export const DelegatorStartingInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelegatorStartingInfo>): DelegatorStartingInfo {
+  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfo>, I>>(object: I): DelegatorStartingInfo {
     const message = { ...baseDelegatorStartingInfo } as DelegatorStartingInfo;
     message.previousPeriod =
       object.previousPeriod !== undefined && object.previousPeriod !== null
@@ -833,10 +840,12 @@ export const DelegationDelegatorReward = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelegationDelegatorReward>): DelegationDelegatorReward {
+  fromPartial<I extends Exact<DeepPartial<DelegationDelegatorReward>, I>>(
+    object: I,
+  ): DelegationDelegatorReward {
     const message = { ...baseDelegationDelegatorReward } as DelegationDelegatorReward;
     message.validatorAddress = object.validatorAddress ?? "";
-    message.reward = (object.reward ?? []).map((e) => DecCoin.fromPartial(e));
+    message.reward = object.reward?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -924,8 +933,8 @@ export const CommunityPoolSpendProposalWithDeposit = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<CommunityPoolSpendProposalWithDeposit>,
+  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposalWithDeposit>, I>>(
+    object: I,
   ): CommunityPoolSpendProposalWithDeposit {
     const message = { ...baseCommunityPoolSpendProposalWithDeposit } as CommunityPoolSpendProposalWithDeposit;
     message.title = object.title ?? "";
@@ -938,6 +947,7 @@ export const CommunityPoolSpendProposalWithDeposit = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -949,6 +959,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -293,7 +293,7 @@ export const WeightedVoteOption = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<WeightedVoteOption>): WeightedVoteOption {
+  fromPartial<I extends Exact<DeepPartial<WeightedVoteOption>, I>>(object: I): WeightedVoteOption {
     const message = { ...baseWeightedVoteOption } as WeightedVoteOption;
     message.option = object.option ?? 0;
     message.weight = object.weight ?? "";
@@ -350,7 +350,7 @@ export const TextProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TextProposal>): TextProposal {
+  fromPartial<I extends Exact<DeepPartial<TextProposal>, I>>(object: I): TextProposal {
     const message = { ...baseTextProposal } as TextProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -423,14 +423,14 @@ export const Deposit = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Deposit>): Deposit {
+  fromPartial<I extends Exact<DeepPartial<Deposit>, I>>(object: I): Deposit {
     const message = { ...baseDeposit } as Deposit;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     message.depositor = object.depositor ?? "";
-    message.amount = (object.amount ?? []).map((e) => Coin.fromPartial(e));
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -571,7 +571,7 @@ export const Proposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Proposal>): Proposal {
+  fromPartial<I extends Exact<DeepPartial<Proposal>, I>>(object: I): Proposal {
     const message = { ...baseProposal } as Proposal;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -592,7 +592,7 @@ export const Proposal = {
       object.depositEndTime !== undefined && object.depositEndTime !== null
         ? Timestamp.fromPartial(object.depositEndTime)
         : undefined;
-    message.totalDeposit = (object.totalDeposit ?? []).map((e) => Coin.fromPartial(e));
+    message.totalDeposit = object.totalDeposit?.map((e) => Coin.fromPartial(e)) || [];
     message.votingStartTime =
       object.votingStartTime !== undefined && object.votingStartTime !== null
         ? Timestamp.fromPartial(object.votingStartTime)
@@ -670,7 +670,7 @@ export const TallyResult = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TallyResult>): TallyResult {
+  fromPartial<I extends Exact<DeepPartial<TallyResult>, I>>(object: I): TallyResult {
     const message = { ...baseTallyResult } as TallyResult;
     message.yes = object.yes ?? "";
     message.abstain = object.abstain ?? "";
@@ -753,7 +753,7 @@ export const Vote = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Vote>): Vote {
+  fromPartial<I extends Exact<DeepPartial<Vote>, I>>(object: I): Vote {
     const message = { ...baseVote } as Vote;
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -761,7 +761,7 @@ export const Vote = {
         : Long.UZERO;
     message.voter = object.voter ?? "";
     message.option = object.option ?? 0;
-    message.options = (object.options ?? []).map((e) => WeightedVoteOption.fromPartial(e));
+    message.options = object.options?.map((e) => WeightedVoteOption.fromPartial(e)) || [];
     return message;
   },
 };
@@ -825,9 +825,9 @@ export const DepositParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DepositParams>): DepositParams {
+  fromPartial<I extends Exact<DeepPartial<DepositParams>, I>>(object: I): DepositParams {
     const message = { ...baseDepositParams } as DepositParams;
-    message.minDeposit = (object.minDeposit ?? []).map((e) => Coin.fromPartial(e));
+    message.minDeposit = object.minDeposit?.map((e) => Coin.fromPartial(e)) || [];
     message.maxDepositPeriod =
       object.maxDepositPeriod !== undefined && object.maxDepositPeriod !== null
         ? Duration.fromPartial(object.maxDepositPeriod)
@@ -880,7 +880,7 @@ export const VotingParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<VotingParams>): VotingParams {
+  fromPartial<I extends Exact<DeepPartial<VotingParams>, I>>(object: I): VotingParams {
     const message = { ...baseVotingParams } as VotingParams;
     message.votingPeriod =
       object.votingPeriod !== undefined && object.votingPeriod !== null
@@ -965,7 +965,7 @@ export const TallyParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TallyParams>): TallyParams {
+  fromPartial<I extends Exact<DeepPartial<TallyParams>, I>>(object: I): TallyParams {
     const message = { ...baseTallyParams } as TallyParams;
     message.quorum = object.quorum ?? new Uint8Array();
     message.threshold = object.threshold ?? new Uint8Array();
@@ -1007,6 +1007,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -1018,6 +1019,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

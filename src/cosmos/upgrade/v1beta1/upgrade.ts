@@ -157,7 +157,7 @@ export const Plan = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Plan>): Plan {
+  fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
     const message = { ...basePlan } as Plan;
     message.name = object.name ?? "";
     message.time =
@@ -230,7 +230,7 @@ export const SoftwareUpgradeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SoftwareUpgradeProposal>): SoftwareUpgradeProposal {
+  fromPartial<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(object: I): SoftwareUpgradeProposal {
     const message = { ...baseSoftwareUpgradeProposal } as SoftwareUpgradeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -289,7 +289,9 @@ export const CancelSoftwareUpgradeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CancelSoftwareUpgradeProposal>): CancelSoftwareUpgradeProposal {
+  fromPartial<I extends Exact<DeepPartial<CancelSoftwareUpgradeProposal>, I>>(
+    object: I,
+  ): CancelSoftwareUpgradeProposal {
     const message = { ...baseCancelSoftwareUpgradeProposal } as CancelSoftwareUpgradeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -346,7 +348,7 @@ export const ModuleVersion = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ModuleVersion>): ModuleVersion {
+  fromPartial<I extends Exact<DeepPartial<ModuleVersion>, I>>(object: I): ModuleVersion {
     const message = { ...baseModuleVersion } as ModuleVersion;
     message.name = object.name ?? "";
     message.version =
@@ -356,6 +358,7 @@ export const ModuleVersion = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -367,6 +370,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

@@ -83,11 +83,11 @@ export const ParameterChangeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ParameterChangeProposal>): ParameterChangeProposal {
+  fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
     const message = { ...baseParameterChangeProposal } as ParameterChangeProposal;
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.changes = (object.changes ?? []).map((e) => ParamChange.fromPartial(e));
+    message.changes = object.changes?.map((e) => ParamChange.fromPartial(e)) || [];
     return message;
   },
 };
@@ -149,7 +149,7 @@ export const ParamChange = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ParamChange>): ParamChange {
+  fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {
     const message = { ...baseParamChange } as ParamChange;
     message.subspace = object.subspace ?? "";
     message.key = object.key ?? "";
@@ -159,6 +159,7 @@ export const ParamChange = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -170,6 +171,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

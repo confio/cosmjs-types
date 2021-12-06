@@ -111,7 +111,7 @@ export const MsgGrant = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgGrant>): MsgGrant {
+  fromPartial<I extends Exact<DeepPartial<MsgGrant>, I>>(object: I): MsgGrant {
     const message = { ...baseMsgGrant } as MsgGrant;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -166,9 +166,9 @@ export const MsgExecResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgExecResponse>): MsgExecResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgExecResponse>, I>>(object: I): MsgExecResponse {
     const message = { ...baseMsgExecResponse } as MsgExecResponse;
-    message.results = (object.results ?? []).map((e) => e);
+    message.results = object.results?.map((e) => e) || [];
     return message;
   },
 };
@@ -226,10 +226,10 @@ export const MsgExec = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgExec>): MsgExec {
+  fromPartial<I extends Exact<DeepPartial<MsgExec>, I>>(object: I): MsgExec {
     const message = { ...baseMsgExec } as MsgExec;
     message.grantee = object.grantee ?? "";
-    message.msgs = (object.msgs ?? []).map((e) => Any.fromPartial(e));
+    message.msgs = object.msgs?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
 };
@@ -266,7 +266,7 @@ export const MsgGrantResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgGrantResponse>): MsgGrantResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgGrantResponse>, I>>(_: I): MsgGrantResponse {
     const message = { ...baseMsgGrantResponse } as MsgGrantResponse;
     return message;
   },
@@ -329,7 +329,7 @@ export const MsgRevoke = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgRevoke>): MsgRevoke {
+  fromPartial<I extends Exact<DeepPartial<MsgRevoke>, I>>(object: I): MsgRevoke {
     const message = { ...baseMsgRevoke } as MsgRevoke;
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -370,7 +370,7 @@ export const MsgRevokeResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgRevokeResponse>): MsgRevokeResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgRevokeResponse>, I>>(_: I): MsgRevokeResponse {
     const message = { ...baseMsgRevokeResponse } as MsgRevokeResponse;
     return message;
   },
@@ -462,6 +462,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -473,6 +474,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

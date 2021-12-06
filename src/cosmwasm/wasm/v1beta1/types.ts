@@ -235,7 +235,7 @@ export const AccessTypeParam = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AccessTypeParam>): AccessTypeParam {
+  fromPartial<I extends Exact<DeepPartial<AccessTypeParam>, I>>(object: I): AccessTypeParam {
     const message = { ...baseAccessTypeParam } as AccessTypeParam;
     message.value = object.value ?? 0;
     return message;
@@ -293,7 +293,7 @@ export const AccessConfig = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AccessConfig>): AccessConfig {
+  fromPartial<I extends Exact<DeepPartial<AccessConfig>, I>>(object: I): AccessConfig {
     const message = { ...baseAccessConfig } as AccessConfig;
     message.permission = object.permission ?? 0;
     message.address = object.address ?? "";
@@ -371,7 +371,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = { ...baseParams } as Params;
     message.codeUploadAccess =
       object.codeUploadAccess !== undefined && object.codeUploadAccess !== null
@@ -469,7 +469,7 @@ export const CodeInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CodeInfo>): CodeInfo {
+  fromPartial<I extends Exact<DeepPartial<CodeInfo>, I>>(object: I): CodeInfo {
     const message = { ...baseCodeInfo } as CodeInfo;
     message.codeHash = object.codeHash ?? new Uint8Array();
     message.creator = object.creator ?? "";
@@ -581,7 +581,7 @@ export const ContractInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ContractInfo>): ContractInfo {
+  fromPartial<I extends Exact<DeepPartial<ContractInfo>, I>>(object: I): ContractInfo {
     const message = { ...baseContractInfo } as ContractInfo;
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -677,7 +677,9 @@ export const ContractCodeHistoryEntry = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry {
+  fromPartial<I extends Exact<DeepPartial<ContractCodeHistoryEntry>, I>>(
+    object: I,
+  ): ContractCodeHistoryEntry {
     const message = { ...baseContractCodeHistoryEntry } as ContractCodeHistoryEntry;
     message.operation = object.operation ?? 0;
     message.codeId =
@@ -743,7 +745,7 @@ export const AbsoluteTxPosition = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AbsoluteTxPosition>): AbsoluteTxPosition {
+  fromPartial<I extends Exact<DeepPartial<AbsoluteTxPosition>, I>>(object: I): AbsoluteTxPosition {
     const message = { ...baseAbsoluteTxPosition } as AbsoluteTxPosition;
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -809,7 +811,7 @@ export const Model = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Model>): Model {
+  fromPartial<I extends Exact<DeepPartial<Model>, I>>(object: I): Model {
     const message = { ...baseModel } as Model;
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -850,6 +852,7 @@ function base64FromBytes(arr: Uint8Array): string {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -861,6 +864,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

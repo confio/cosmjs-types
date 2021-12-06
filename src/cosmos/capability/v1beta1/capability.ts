@@ -70,7 +70,7 @@ export const Capability = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Capability>): Capability {
+  fromPartial<I extends Exact<DeepPartial<Capability>, I>>(object: I): Capability {
     const message = { ...baseCapability } as Capability;
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
@@ -126,7 +126,7 @@ export const Owner = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Owner>): Owner {
+  fromPartial<I extends Exact<DeepPartial<Owner>, I>>(object: I): Owner {
     const message = { ...baseOwner } as Owner;
     message.module = object.module ?? "";
     message.name = object.name ?? "";
@@ -179,14 +179,15 @@ export const CapabilityOwners = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CapabilityOwners>): CapabilityOwners {
+  fromPartial<I extends Exact<DeepPartial<CapabilityOwners>, I>>(object: I): CapabilityOwners {
     const message = { ...baseCapabilityOwners } as CapabilityOwners;
-    message.owners = (object.owners ?? []).map((e) => Owner.fromPartial(e));
+    message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || [];
     return message;
   },
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -198,6 +199,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

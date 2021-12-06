@@ -119,7 +119,7 @@ export const FungibleTokenPacketData = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<FungibleTokenPacketData>): FungibleTokenPacketData {
+  fromPartial<I extends Exact<DeepPartial<FungibleTokenPacketData>, I>>(object: I): FungibleTokenPacketData {
     const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
     message.denom = object.denom ?? "";
     message.amount =
@@ -179,7 +179,7 @@ export const DenomTrace = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DenomTrace>): DenomTrace {
+  fromPartial<I extends Exact<DeepPartial<DenomTrace>, I>>(object: I): DenomTrace {
     const message = { ...baseDenomTrace } as DenomTrace;
     message.path = object.path ?? "";
     message.baseDenom = object.baseDenom ?? "";
@@ -239,7 +239,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = { ...baseParams } as Params;
     message.sendEnabled = object.sendEnabled ?? false;
     message.receiveEnabled = object.receiveEnabled ?? false;
@@ -248,6 +248,7 @@ export const Params = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -259,6 +260,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

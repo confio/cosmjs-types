@@ -163,7 +163,7 @@ export const ConsensusParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ConsensusParams>): ConsensusParams {
+  fromPartial<I extends Exact<DeepPartial<ConsensusParams>, I>>(object: I): ConsensusParams {
     const message = { ...baseConsensusParams } as ConsensusParams;
     message.block =
       object.block !== undefined && object.block !== null ? BlockParams.fromPartial(object.block) : undefined;
@@ -246,7 +246,7 @@ export const BlockParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BlockParams>): BlockParams {
+  fromPartial<I extends Exact<DeepPartial<BlockParams>, I>>(object: I): BlockParams {
     const message = { ...baseBlockParams } as BlockParams;
     message.maxBytes =
       object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
@@ -327,7 +327,7 @@ export const EvidenceParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<EvidenceParams>): EvidenceParams {
+  fromPartial<I extends Exact<DeepPartial<EvidenceParams>, I>>(object: I): EvidenceParams {
     const message = { ...baseEvidenceParams } as EvidenceParams;
     message.maxAgeNumBlocks =
       object.maxAgeNumBlocks !== undefined && object.maxAgeNumBlocks !== null
@@ -388,9 +388,9 @@ export const ValidatorParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorParams>): ValidatorParams {
+  fromPartial<I extends Exact<DeepPartial<ValidatorParams>, I>>(object: I): ValidatorParams {
     const message = { ...baseValidatorParams } as ValidatorParams;
-    message.pubKeyTypes = (object.pubKeyTypes ?? []).map((e) => e);
+    message.pubKeyTypes = object.pubKeyTypes?.map((e) => e) || [];
     return message;
   },
 };
@@ -438,7 +438,7 @@ export const VersionParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<VersionParams>): VersionParams {
+  fromPartial<I extends Exact<DeepPartial<VersionParams>, I>>(object: I): VersionParams {
     const message = { ...baseVersionParams } as VersionParams;
     message.appVersion =
       object.appVersion !== undefined && object.appVersion !== null
@@ -503,7 +503,7 @@ export const HashedParams = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<HashedParams>): HashedParams {
+  fromPartial<I extends Exact<DeepPartial<HashedParams>, I>>(object: I): HashedParams {
     const message = { ...baseHashedParams } as HashedParams;
     message.blockMaxBytes =
       object.blockMaxBytes !== undefined && object.blockMaxBytes !== null
@@ -518,6 +518,7 @@ export const HashedParams = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -529,6 +530,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

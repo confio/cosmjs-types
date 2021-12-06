@@ -148,9 +148,9 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = { ...baseParams } as Params;
-    message.sendEnabled = (object.sendEnabled ?? []).map((e) => SendEnabled.fromPartial(e));
+    message.sendEnabled = object.sendEnabled?.map((e) => SendEnabled.fromPartial(e)) || [];
     message.defaultSendEnabled = object.defaultSendEnabled ?? false;
     return message;
   },
@@ -205,7 +205,7 @@ export const SendEnabled = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SendEnabled>): SendEnabled {
+  fromPartial<I extends Exact<DeepPartial<SendEnabled>, I>>(object: I): SendEnabled {
     const message = { ...baseSendEnabled } as SendEnabled;
     message.denom = object.denom ?? "";
     message.enabled = object.enabled ?? false;
@@ -266,10 +266,10 @@ export const Input = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Input>): Input {
+  fromPartial<I extends Exact<DeepPartial<Input>, I>>(object: I): Input {
     const message = { ...baseInput } as Input;
     message.address = object.address ?? "";
-    message.coins = (object.coins ?? []).map((e) => Coin.fromPartial(e));
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -327,10 +327,10 @@ export const Output = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Output>): Output {
+  fromPartial<I extends Exact<DeepPartial<Output>, I>>(object: I): Output {
     const message = { ...baseOutput } as Output;
     message.address = object.address ?? "";
-    message.coins = (object.coins ?? []).map((e) => Coin.fromPartial(e));
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -380,9 +380,9 @@ export const Supply = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Supply>): Supply {
+  fromPartial<I extends Exact<DeepPartial<Supply>, I>>(object: I): Supply {
     const message = { ...baseSupply } as Supply;
-    message.total = (object.total ?? []).map((e) => Coin.fromPartial(e));
+    message.total = object.total?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -449,11 +449,11 @@ export const DenomUnit = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DenomUnit>): DenomUnit {
+  fromPartial<I extends Exact<DeepPartial<DenomUnit>, I>>(object: I): DenomUnit {
     const message = { ...baseDenomUnit } as DenomUnit;
     message.denom = object.denom ?? "";
     message.exponent = object.exponent ?? 0;
-    message.aliases = (object.aliases ?? []).map((e) => e);
+    message.aliases = object.aliases?.map((e) => e) || [];
     return message;
   },
 };
@@ -544,10 +544,10 @@ export const Metadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Metadata>): Metadata {
+  fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {
     const message = { ...baseMetadata } as Metadata;
     message.description = object.description ?? "";
-    message.denomUnits = (object.denomUnits ?? []).map((e) => DenomUnit.fromPartial(e));
+    message.denomUnits = object.denomUnits?.map((e) => DenomUnit.fromPartial(e)) || [];
     message.base = object.base ?? "";
     message.display = object.display ?? "";
     message.name = object.name ?? "";
@@ -557,6 +557,7 @@ export const Metadata = {
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -568,6 +569,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

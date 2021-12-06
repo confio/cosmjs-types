@@ -168,7 +168,7 @@ export const QueryBalanceRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryBalanceRequest>): QueryBalanceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryBalanceRequest>, I>>(object: I): QueryBalanceRequest {
     const message = { ...baseQueryBalanceRequest } as QueryBalanceRequest;
     message.address = object.address ?? "";
     message.denom = object.denom ?? "";
@@ -218,7 +218,7 @@ export const QueryBalanceResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryBalanceResponse>): QueryBalanceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryBalanceResponse>, I>>(object: I): QueryBalanceResponse {
     const message = { ...baseQueryBalanceResponse } as QueryBalanceResponse;
     message.balance =
       object.balance !== undefined && object.balance !== null ? Coin.fromPartial(object.balance) : undefined;
@@ -278,7 +278,7 @@ export const QueryAllBalancesRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllBalancesRequest>): QueryAllBalancesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllBalancesRequest>, I>>(object: I): QueryAllBalancesRequest {
     const message = { ...baseQueryAllBalancesRequest } as QueryAllBalancesRequest;
     message.address = object.address ?? "";
     message.pagination =
@@ -346,9 +346,11 @@ export const QueryAllBalancesResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAllBalancesResponse>): QueryAllBalancesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllBalancesResponse>, I>>(
+    object: I,
+  ): QueryAllBalancesResponse {
     const message = { ...baseQueryAllBalancesResponse } as QueryAllBalancesResponse;
-    message.balances = (object.balances ?? []).map((e) => Coin.fromPartial(e));
+    message.balances = object.balances?.map((e) => Coin.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -401,7 +403,7 @@ export const QueryTotalSupplyRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryTotalSupplyRequest>): QueryTotalSupplyRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryTotalSupplyRequest>, I>>(object: I): QueryTotalSupplyRequest {
     const message = { ...baseQueryTotalSupplyRequest } as QueryTotalSupplyRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -468,9 +470,11 @@ export const QueryTotalSupplyResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryTotalSupplyResponse>): QueryTotalSupplyResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryTotalSupplyResponse>, I>>(
+    object: I,
+  ): QueryTotalSupplyResponse {
     const message = { ...baseQueryTotalSupplyResponse } as QueryTotalSupplyResponse;
-    message.supply = (object.supply ?? []).map((e) => Coin.fromPartial(e));
+    message.supply = object.supply?.map((e) => Coin.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -519,7 +523,7 @@ export const QuerySupplyOfRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySupplyOfRequest>): QuerySupplyOfRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySupplyOfRequest>, I>>(object: I): QuerySupplyOfRequest {
     const message = { ...baseQuerySupplyOfRequest } as QuerySupplyOfRequest;
     message.denom = object.denom ?? "";
     return message;
@@ -567,7 +571,7 @@ export const QuerySupplyOfResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySupplyOfResponse>): QuerySupplyOfResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySupplyOfResponse>, I>>(object: I): QuerySupplyOfResponse {
     const message = { ...baseQuerySupplyOfResponse } as QuerySupplyOfResponse;
     message.amount =
       object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
@@ -607,7 +611,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
     return message;
   },
@@ -654,7 +658,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -706,7 +710,9 @@ export const QueryDenomsMetadataRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDenomsMetadataRequest>): QueryDenomsMetadataRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDenomsMetadataRequest>, I>>(
+    object: I,
+  ): QueryDenomsMetadataRequest {
     const message = { ...baseQueryDenomsMetadataRequest } as QueryDenomsMetadataRequest;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -773,9 +779,11 @@ export const QueryDenomsMetadataResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDenomsMetadataResponse>): QueryDenomsMetadataResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDenomsMetadataResponse>, I>>(
+    object: I,
+  ): QueryDenomsMetadataResponse {
     const message = { ...baseQueryDenomsMetadataResponse } as QueryDenomsMetadataResponse;
-    message.metadatas = (object.metadatas ?? []).map((e) => Metadata.fromPartial(e));
+    message.metadatas = object.metadatas?.map((e) => Metadata.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -824,7 +832,9 @@ export const QueryDenomMetadataRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDenomMetadataRequest>): QueryDenomMetadataRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryDenomMetadataRequest>, I>>(
+    object: I,
+  ): QueryDenomMetadataRequest {
     const message = { ...baseQueryDenomMetadataRequest } as QueryDenomMetadataRequest;
     message.denom = object.denom ?? "";
     return message;
@@ -875,7 +885,9 @@ export const QueryDenomMetadataResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryDenomMetadataResponse>): QueryDenomMetadataResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryDenomMetadataResponse>, I>>(
+    object: I,
+  ): QueryDenomMetadataResponse {
     const message = { ...baseQueryDenomMetadataResponse } as QueryDenomMetadataResponse;
     message.metadata =
       object.metadata !== undefined && object.metadata !== null
@@ -963,6 +975,7 @@ interface Rpc {
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Long
@@ -974,6 +987,11 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
