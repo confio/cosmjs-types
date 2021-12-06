@@ -1,6 +1,6 @@
 {
   "name": "cosmjs-types",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos-SDK and other related projects",
   "contributors": [
     "Will Clark <willclarktech@users.noreply.github.com>"
