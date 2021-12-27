@@ -29,6 +29,7 @@ protoc \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/genesis.proto" \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/query.proto" \
   "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/tx.proto" \
+  "$COSMOS_SDK_DIR/cosmos/bank/v1beta1/authz.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/abci/v1beta1/abci.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/kv/v1beta1/kv.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/query/v1beta1/pagination.proto" \
@@ -76,6 +77,7 @@ protoc \
   "$COSMOS_SDK_DIR/cosmos/staking/v1beta1/query.proto" \
   "$COSMOS_SDK_DIR/cosmos/staking/v1beta1/staking.proto" \
   "$COSMOS_SDK_DIR/cosmos/staking/v1beta1/tx.proto" \
+  "$COSMOS_SDK_DIR/cosmos/staking/v1beta1/authz.proto" \
   "$COSMOS_SDK_DIR/cosmos/tx/signing/v1beta1/signing.proto" \
   "$COSMOS_SDK_DIR/cosmos/tx/v1beta1/service.proto" \
   "$COSMOS_SDK_DIR/cosmos/tx/v1beta1/tx.proto" \
