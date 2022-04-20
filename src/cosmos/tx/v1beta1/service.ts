@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { TxResponse, GasInfo, Result } from "../../../cosmos/base/abci/v1beta1/abci";
 import { Tx } from "../../../cosmos/tx/v1beta1/tx";
@@ -228,7 +228,9 @@ export interface GetBlockWithTxsResponse {
   pagination?: PageResponse;
 }
 
-const baseGetTxsEventRequest: object = { events: "", orderBy: 0 };
+function createBaseGetTxsEventRequest(): GetTxsEventRequest {
+  return { events: [], pagination: undefined, orderBy: 0 };
+}
 
 export const GetTxsEventRequest = {
   encode(message: GetTxsEventRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -247,8 +249,7 @@ export const GetTxsEventRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxsEventRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
-    message.events = [];
+    const message = createBaseGetTxsEventRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -270,15 +271,11 @@ export const GetTxsEventRequest = {
   },
 
   fromJSON(object: any): GetTxsEventRequest {
-    const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
-    message.events = (object.events ?? []).map((e: any) => String(e));
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined;
-    message.orderBy =
-      object.orderBy !== undefined && object.orderBy !== null ? orderByFromJSON(object.orderBy) : 0;
-    return message;
+    return {
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => String(e)) : [],
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+      orderBy: isSet(object.orderBy) ? orderByFromJSON(object.orderBy) : 0,
+    };
   },
 
   toJSON(message: GetTxsEventRequest): unknown {
@@ -295,7 +292,7 @@ export const GetTxsEventRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxsEventRequest>, I>>(object: I): GetTxsEventRequest {
-    const message = { ...baseGetTxsEventRequest } as GetTxsEventRequest;
+    const message = createBaseGetTxsEventRequest();
     message.events = object.events?.map((e) => e) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -306,7 +303,9 @@ export const GetTxsEventRequest = {
   },
 };
 
-const baseGetTxsEventResponse: object = {};
+function createBaseGetTxsEventResponse(): GetTxsEventResponse {
+  return { txs: [], txResponses: [], pagination: undefined };
+}
 
 export const GetTxsEventResponse = {
   encode(message: GetTxsEventResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -325,9 +324,7 @@ export const GetTxsEventResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxsEventResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
-    message.txs = [];
-    message.txResponses = [];
+    const message = createBaseGetTxsEventResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -349,14 +346,13 @@ export const GetTxsEventResponse = {
   },
 
   fromJSON(object: any): GetTxsEventResponse {
-    const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
-    message.txs = (object.txs ?? []).map((e: any) => Tx.fromJSON(e));
-    message.txResponses = (object.txResponses ?? []).map((e: any) => TxResponse.fromJSON(e));
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined;
-    return message;
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromJSON(e)) : [],
+      txResponses: Array.isArray(object?.txResponses)
+        ? object.txResponses.map((e: any) => TxResponse.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: GetTxsEventResponse): unknown {
@@ -377,7 +373,7 @@ export const GetTxsEventResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxsEventResponse>, I>>(object: I): GetTxsEventResponse {
-    const message = { ...baseGetTxsEventResponse } as GetTxsEventResponse;
+    const message = createBaseGetTxsEventResponse();
     message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
     message.txResponses = object.txResponses?.map((e) => TxResponse.fromPartial(e)) || [];
     message.pagination =
@@ -388,7 +384,9 @@ export const GetTxsEventResponse = {
   },
 };
 
-const baseBroadcastTxRequest: object = { mode: 0 };
+function createBaseBroadcastTxRequest(): BroadcastTxRequest {
+  return { txBytes: new Uint8Array(), mode: 0 };
+}
 
 export const BroadcastTxRequest = {
   encode(message: BroadcastTxRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -404,8 +402,7 @@ export const BroadcastTxRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): BroadcastTxRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
-    message.txBytes = new Uint8Array();
+    const message = createBaseBroadcastTxRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -424,13 +421,10 @@ export const BroadcastTxRequest = {
   },
 
   fromJSON(object: any): BroadcastTxRequest {
-    const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
-    message.txBytes =
-      object.txBytes !== undefined && object.txBytes !== null
-        ? bytesFromBase64(object.txBytes)
-        : new Uint8Array();
-    message.mode = object.mode !== undefined && object.mode !== null ? broadcastModeFromJSON(object.mode) : 0;
-    return message;
+    return {
+      txBytes: isSet(object.txBytes) ? bytesFromBase64(object.txBytes) : new Uint8Array(),
+      mode: isSet(object.mode) ? broadcastModeFromJSON(object.mode) : 0,
+    };
   },
 
   toJSON(message: BroadcastTxRequest): unknown {
@@ -442,14 +436,16 @@ export const BroadcastTxRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<BroadcastTxRequest>, I>>(object: I): BroadcastTxRequest {
-    const message = { ...baseBroadcastTxRequest } as BroadcastTxRequest;
+    const message = createBaseBroadcastTxRequest();
     message.txBytes = object.txBytes ?? new Uint8Array();
     message.mode = object.mode ?? 0;
     return message;
   },
 };
 
-const baseBroadcastTxResponse: object = {};
+function createBaseBroadcastTxResponse(): BroadcastTxResponse {
+  return { txResponse: undefined };
+}
 
 export const BroadcastTxResponse = {
   encode(message: BroadcastTxResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -462,7 +458,7 @@ export const BroadcastTxResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): BroadcastTxResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
+    const message = createBaseBroadcastTxResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -478,12 +474,9 @@ export const BroadcastTxResponse = {
   },
 
   fromJSON(object: any): BroadcastTxResponse {
-    const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
-    message.txResponse =
-      object.txResponse !== undefined && object.txResponse !== null
-        ? TxResponse.fromJSON(object.txResponse)
-        : undefined;
-    return message;
+    return {
+      txResponse: isSet(object.txResponse) ? TxResponse.fromJSON(object.txResponse) : undefined,
+    };
   },
 
   toJSON(message: BroadcastTxResponse): unknown {
@@ -494,7 +487,7 @@ export const BroadcastTxResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<BroadcastTxResponse>, I>>(object: I): BroadcastTxResponse {
-    const message = { ...baseBroadcastTxResponse } as BroadcastTxResponse;
+    const message = createBaseBroadcastTxResponse();
     message.txResponse =
       object.txResponse !== undefined && object.txResponse !== null
         ? TxResponse.fromPartial(object.txResponse)
@@ -503,7 +496,9 @@ export const BroadcastTxResponse = {
   },
 };
 
-const baseSimulateRequest: object = {};
+function createBaseSimulateRequest(): SimulateRequest {
+  return { tx: undefined, txBytes: new Uint8Array() };
+}
 
 export const SimulateRequest = {
   encode(message: SimulateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -519,8 +514,7 @@ export const SimulateRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SimulateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSimulateRequest } as SimulateRequest;
-    message.txBytes = new Uint8Array();
+    const message = createBaseSimulateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -539,13 +533,10 @@ export const SimulateRequest = {
   },
 
   fromJSON(object: any): SimulateRequest {
-    const message = { ...baseSimulateRequest } as SimulateRequest;
-    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromJSON(object.tx) : undefined;
-    message.txBytes =
-      object.txBytes !== undefined && object.txBytes !== null
-        ? bytesFromBase64(object.txBytes)
-        : new Uint8Array();
-    return message;
+    return {
+      tx: isSet(object.tx) ? Tx.fromJSON(object.tx) : undefined,
+      txBytes: isSet(object.txBytes) ? bytesFromBase64(object.txBytes) : new Uint8Array(),
+    };
   },
 
   toJSON(message: SimulateRequest): unknown {
@@ -557,14 +548,16 @@ export const SimulateRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<SimulateRequest>, I>>(object: I): SimulateRequest {
-    const message = { ...baseSimulateRequest } as SimulateRequest;
+    const message = createBaseSimulateRequest();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txBytes = object.txBytes ?? new Uint8Array();
     return message;
   },
 };
 
-const baseSimulateResponse: object = {};
+function createBaseSimulateResponse(): SimulateResponse {
+  return { gasInfo: undefined, result: undefined };
+}
 
 export const SimulateResponse = {
   encode(message: SimulateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -580,7 +573,7 @@ export const SimulateResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SimulateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSimulateResponse } as SimulateResponse;
+    const message = createBaseSimulateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -599,12 +592,10 @@ export const SimulateResponse = {
   },
 
   fromJSON(object: any): SimulateResponse {
-    const message = { ...baseSimulateResponse } as SimulateResponse;
-    message.gasInfo =
-      object.gasInfo !== undefined && object.gasInfo !== null ? GasInfo.fromJSON(object.gasInfo) : undefined;
-    message.result =
-      object.result !== undefined && object.result !== null ? Result.fromJSON(object.result) : undefined;
-    return message;
+    return {
+      gasInfo: isSet(object.gasInfo) ? GasInfo.fromJSON(object.gasInfo) : undefined,
+      result: isSet(object.result) ? Result.fromJSON(object.result) : undefined,
+    };
   },
 
   toJSON(message: SimulateResponse): unknown {
@@ -616,7 +607,7 @@ export const SimulateResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<SimulateResponse>, I>>(object: I): SimulateResponse {
-    const message = { ...baseSimulateResponse } as SimulateResponse;
+    const message = createBaseSimulateResponse();
     message.gasInfo =
       object.gasInfo !== undefined && object.gasInfo !== null
         ? GasInfo.fromPartial(object.gasInfo)
@@ -627,7 +618,9 @@ export const SimulateResponse = {
   },
 };
 
-const baseGetTxRequest: object = { hash: "" };
+function createBaseGetTxRequest(): GetTxRequest {
+  return { hash: "" };
+}
 
 export const GetTxRequest = {
   encode(message: GetTxRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -640,7 +633,7 @@ export const GetTxRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetTxRequest } as GetTxRequest;
+    const message = createBaseGetTxRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -656,9 +649,9 @@ export const GetTxRequest = {
   },
 
   fromJSON(object: any): GetTxRequest {
-    const message = { ...baseGetTxRequest } as GetTxRequest;
-    message.hash = object.hash !== undefined && object.hash !== null ? String(object.hash) : "";
-    return message;
+    return {
+      hash: isSet(object.hash) ? String(object.hash) : "",
+    };
   },
 
   toJSON(message: GetTxRequest): unknown {
@@ -668,13 +661,15 @@ export const GetTxRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxRequest>, I>>(object: I): GetTxRequest {
-    const message = { ...baseGetTxRequest } as GetTxRequest;
+    const message = createBaseGetTxRequest();
     message.hash = object.hash ?? "";
     return message;
   },
 };
 
-const baseGetTxResponse: object = {};
+function createBaseGetTxResponse(): GetTxResponse {
+  return { tx: undefined, txResponse: undefined };
+}
 
 export const GetTxResponse = {
   encode(message: GetTxResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -690,7 +685,7 @@ export const GetTxResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetTxResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetTxResponse } as GetTxResponse;
+    const message = createBaseGetTxResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -709,13 +704,10 @@ export const GetTxResponse = {
   },
 
   fromJSON(object: any): GetTxResponse {
-    const message = { ...baseGetTxResponse } as GetTxResponse;
-    message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromJSON(object.tx) : undefined;
-    message.txResponse =
-      object.txResponse !== undefined && object.txResponse !== null
-        ? TxResponse.fromJSON(object.txResponse)
-        : undefined;
-    return message;
+    return {
+      tx: isSet(object.tx) ? Tx.fromJSON(object.tx) : undefined,
+      txResponse: isSet(object.txResponse) ? TxResponse.fromJSON(object.txResponse) : undefined,
+    };
   },
 
   toJSON(message: GetTxResponse): unknown {
@@ -727,7 +719,7 @@ export const GetTxResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetTxResponse>, I>>(object: I): GetTxResponse {
-    const message = { ...baseGetTxResponse } as GetTxResponse;
+    const message = createBaseGetTxResponse();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txResponse =
       object.txResponse !== undefined && object.txResponse !== null
@@ -737,7 +729,9 @@ export const GetTxResponse = {
   },
 };
 
-const baseGetBlockWithTxsRequest: object = { height: Long.ZERO };
+function createBaseGetBlockWithTxsRequest(): GetBlockWithTxsRequest {
+  return { height: Long.ZERO, pagination: undefined };
+}
 
 export const GetBlockWithTxsRequest = {
   encode(message: GetBlockWithTxsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -753,7 +747,7 @@ export const GetBlockWithTxsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetBlockWithTxsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
+    const message = createBaseGetBlockWithTxsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -772,14 +766,10 @@ export const GetBlockWithTxsRequest = {
   },
 
   fromJSON(object: any): GetBlockWithTxsRequest {
-    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
-    message.height =
-      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined;
-    return message;
+    return {
+      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: GetBlockWithTxsRequest): unknown {
@@ -791,7 +781,7 @@ export const GetBlockWithTxsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetBlockWithTxsRequest>, I>>(object: I): GetBlockWithTxsRequest {
-    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
+    const message = createBaseGetBlockWithTxsRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     message.pagination =
@@ -802,7 +792,9 @@ export const GetBlockWithTxsRequest = {
   },
 };
 
-const baseGetBlockWithTxsResponse: object = {};
+function createBaseGetBlockWithTxsResponse(): GetBlockWithTxsResponse {
+  return { txs: [], blockId: undefined, block: undefined, pagination: undefined };
+}
 
 export const GetBlockWithTxsResponse = {
   encode(message: GetBlockWithTxsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -824,8 +816,7 @@ export const GetBlockWithTxsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetBlockWithTxsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
-    message.txs = [];
+    const message = createBaseGetBlockWithTxsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -850,17 +841,12 @@ export const GetBlockWithTxsResponse = {
   },
 
   fromJSON(object: any): GetBlockWithTxsResponse {
-    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
-    message.txs = (object.txs ?? []).map((e: any) => Tx.fromJSON(e));
-    message.blockId =
-      object.blockId !== undefined && object.blockId !== null ? BlockID.fromJSON(object.blockId) : undefined;
-    message.block =
-      object.block !== undefined && object.block !== null ? Block.fromJSON(object.block) : undefined;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined;
-    return message;
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromJSON(e)) : [],
+      blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined,
+      block: isSet(object.block) ? Block.fromJSON(object.block) : undefined,
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: GetBlockWithTxsResponse): unknown {
@@ -879,7 +865,7 @@ export const GetBlockWithTxsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GetBlockWithTxsResponse>, I>>(object: I): GetBlockWithTxsResponse {
-    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
+    const message = createBaseGetBlockWithTxsResponse();
     message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -984,9 +970,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -1012,4 +998,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

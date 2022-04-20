@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params, IdentifiedClientState, ClientConsensusStates } from "../../../../ibc/core/client/v1/client";
 
 export const protobufPackage = "ibc.core.client.v1";
@@ -40,7 +40,16 @@ export interface IdentifiedGenesisMetadata {
   clientMetadata: GenesisMetadata[];
 }
 
-const baseGenesisState: object = { createLocalhost: false, nextClientSequence: Long.UZERO };
+function createBaseGenesisState(): GenesisState {
+  return {
+    clients: [],
+    clientsConsensus: [],
+    clientsMetadata: [],
+    params: undefined,
+    createLocalhost: false,
+    nextClientSequence: Long.UZERO,
+  };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -68,10 +77,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.clients = [];
-    message.clientsConsensus = [];
-    message.clientsMetadata = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -102,25 +108,22 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.clients = (object.clients ?? []).map((e: any) => IdentifiedClientState.fromJSON(e));
-    message.clientsConsensus = (object.clientsConsensus ?? []).map((e: any) =>
-      ClientConsensusStates.fromJSON(e),
-    );
-    message.clientsMetadata = (object.clientsMetadata ?? []).map((e: any) =>
-      IdentifiedGenesisMetadata.fromJSON(e),
-    );
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
-    message.createLocalhost =
-      object.createLocalhost !== undefined && object.createLocalhost !== null
-        ? Boolean(object.createLocalhost)
-        : false;
-    message.nextClientSequence =
-      object.nextClientSequence !== undefined && object.nextClientSequence !== null
+    return {
+      clients: Array.isArray(object?.clients)
+        ? object.clients.map((e: any) => IdentifiedClientState.fromJSON(e))
+        : [],
+      clientsConsensus: Array.isArray(object?.clientsConsensus)
+        ? object.clientsConsensus.map((e: any) => ClientConsensusStates.fromJSON(e))
+        : [],
+      clientsMetadata: Array.isArray(object?.clientsMetadata)
+        ? object.clientsMetadata.map((e: any) => IdentifiedGenesisMetadata.fromJSON(e))
+        : [],
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      createLocalhost: isSet(object.createLocalhost) ? Boolean(object.createLocalhost) : false,
+      nextClientSequence: isSet(object.nextClientSequence)
         ? Long.fromString(object.nextClientSequence)
-        : Long.UZERO;
-    return message;
+        : Long.UZERO,
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -152,7 +155,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.clients = object.clients?.map((e) => IdentifiedClientState.fromPartial(e)) || [];
     message.clientsConsensus =
       object.clientsConsensus?.map((e) => ClientConsensusStates.fromPartial(e)) || [];
@@ -169,7 +172,9 @@ export const GenesisState = {
   },
 };
 
-const baseGenesisMetadata: object = {};
+function createBaseGenesisMetadata(): GenesisMetadata {
+  return { key: new Uint8Array(), value: new Uint8Array() };
+}
 
 export const GenesisMetadata = {
   encode(message: GenesisMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -185,9 +190,7 @@ export const GenesisMetadata = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisMetadata {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisMetadata } as GenesisMetadata;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
+    const message = createBaseGenesisMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -206,12 +209,10 @@ export const GenesisMetadata = {
   },
 
   fromJSON(object: any): GenesisMetadata {
-    const message = { ...baseGenesisMetadata } as GenesisMetadata;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
-    return message;
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
   },
 
   toJSON(message: GenesisMetadata): unknown {
@@ -224,14 +225,16 @@ export const GenesisMetadata = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisMetadata>, I>>(object: I): GenesisMetadata {
-    const message = { ...baseGenesisMetadata } as GenesisMetadata;
+    const message = createBaseGenesisMetadata();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
-const baseIdentifiedGenesisMetadata: object = { clientId: "" };
+function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
+  return { clientId: "", clientMetadata: [] };
+}
 
 export const IdentifiedGenesisMetadata = {
   encode(message: IdentifiedGenesisMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -247,8 +250,7 @@ export const IdentifiedGenesisMetadata = {
   decode(input: _m0.Reader | Uint8Array, length?: number): IdentifiedGenesisMetadata {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseIdentifiedGenesisMetadata } as IdentifiedGenesisMetadata;
-    message.clientMetadata = [];
+    const message = createBaseIdentifiedGenesisMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -267,11 +269,12 @@ export const IdentifiedGenesisMetadata = {
   },
 
   fromJSON(object: any): IdentifiedGenesisMetadata {
-    const message = { ...baseIdentifiedGenesisMetadata } as IdentifiedGenesisMetadata;
-    message.clientId =
-      object.clientId !== undefined && object.clientId !== null ? String(object.clientId) : "";
-    message.clientMetadata = (object.clientMetadata ?? []).map((e: any) => GenesisMetadata.fromJSON(e));
-    return message;
+    return {
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      clientMetadata: Array.isArray(object?.clientMetadata)
+        ? object.clientMetadata.map((e: any) => GenesisMetadata.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: IdentifiedGenesisMetadata): unknown {
@@ -288,7 +291,7 @@ export const IdentifiedGenesisMetadata = {
   fromPartial<I extends Exact<DeepPartial<IdentifiedGenesisMetadata>, I>>(
     object: I,
   ): IdentifiedGenesisMetadata {
-    const message = { ...baseIdentifiedGenesisMetadata } as IdentifiedGenesisMetadata;
+    const message = createBaseIdentifiedGenesisMetadata();
     message.clientId = object.clientId ?? "";
     message.clientMetadata = object.clientMetadata?.map((e) => GenesisMetadata.fromPartial(e)) || [];
     return message;
@@ -321,9 +324,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -349,4 +352,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

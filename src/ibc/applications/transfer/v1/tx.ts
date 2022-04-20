@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { Height } from "../../../../ibc/core/client/v1/client";
 
@@ -37,13 +37,17 @@ export interface MsgTransfer {
 /** MsgTransferResponse defines the Msg/Transfer response type. */
 export interface MsgTransferResponse {}
 
-const baseMsgTransfer: object = {
-  sourcePort: "",
-  sourceChannel: "",
-  sender: "",
-  receiver: "",
-  timeoutTimestamp: Long.UZERO,
-};
+function createBaseMsgTransfer(): MsgTransfer {
+  return {
+    sourcePort: "",
+    sourceChannel: "",
+    token: undefined,
+    sender: "",
+    receiver: "",
+    timeoutHeight: undefined,
+    timeoutTimestamp: Long.UZERO,
+  };
+}
 
 export const MsgTransfer = {
   encode(message: MsgTransfer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -74,7 +78,7 @@ export const MsgTransfer = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransfer {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgTransfer } as MsgTransfer;
+    const message = createBaseMsgTransfer();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -108,25 +112,17 @@ export const MsgTransfer = {
   },
 
   fromJSON(object: any): MsgTransfer {
-    const message = { ...baseMsgTransfer } as MsgTransfer;
-    message.sourcePort =
-      object.sourcePort !== undefined && object.sourcePort !== null ? String(object.sourcePort) : "";
-    message.sourceChannel =
-      object.sourceChannel !== undefined && object.sourceChannel !== null ? String(object.sourceChannel) : "";
-    message.token =
-      object.token !== undefined && object.token !== null ? Coin.fromJSON(object.token) : undefined;
-    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
-    message.receiver =
-      object.receiver !== undefined && object.receiver !== null ? String(object.receiver) : "";
-    message.timeoutHeight =
-      object.timeoutHeight !== undefined && object.timeoutHeight !== null
-        ? Height.fromJSON(object.timeoutHeight)
-        : undefined;
-    message.timeoutTimestamp =
-      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
+    return {
+      sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : "",
+      sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : "",
+      token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      receiver: isSet(object.receiver) ? String(object.receiver) : "",
+      timeoutHeight: isSet(object.timeoutHeight) ? Height.fromJSON(object.timeoutHeight) : undefined,
+      timeoutTimestamp: isSet(object.timeoutTimestamp)
         ? Long.fromString(object.timeoutTimestamp)
-        : Long.UZERO;
-    return message;
+        : Long.UZERO,
+    };
   },
 
   toJSON(message: MsgTransfer): unknown {
@@ -144,7 +140,7 @@ export const MsgTransfer = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgTransfer>, I>>(object: I): MsgTransfer {
-    const message = { ...baseMsgTransfer } as MsgTransfer;
+    const message = createBaseMsgTransfer();
     message.sourcePort = object.sourcePort ?? "";
     message.sourceChannel = object.sourceChannel ?? "";
     message.token =
@@ -163,7 +159,9 @@ export const MsgTransfer = {
   },
 };
 
-const baseMsgTransferResponse: object = {};
+function createBaseMsgTransferResponse(): MsgTransferResponse {
+  return {};
+}
 
 export const MsgTransferResponse = {
   encode(_: MsgTransferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -173,7 +171,7 @@ export const MsgTransferResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgTransferResponse } as MsgTransferResponse;
+    const message = createBaseMsgTransferResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -186,8 +184,7 @@ export const MsgTransferResponse = {
   },
 
   fromJSON(_: any): MsgTransferResponse {
-    const message = { ...baseMsgTransferResponse } as MsgTransferResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgTransferResponse): unknown {
@@ -196,7 +193,7 @@ export const MsgTransferResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgTransferResponse>, I>>(_: I): MsgTransferResponse {
-    const message = { ...baseMsgTransferResponse } as MsgTransferResponse;
+    const message = createBaseMsgTransferResponse();
     return message;
   },
 };
@@ -246,4 +243,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

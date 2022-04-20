@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 
 export const protobufPackage = "cosmos.evidence.v1beta1";
@@ -20,7 +20,9 @@ export interface MsgSubmitEvidenceResponse {
   hash: Uint8Array;
 }
 
-const baseMsgSubmitEvidence: object = { submitter: "" };
+function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
+  return { submitter: "", evidence: undefined };
+}
 
 export const MsgSubmitEvidence = {
   encode(message: MsgSubmitEvidence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -36,7 +38,7 @@ export const MsgSubmitEvidence = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSubmitEvidence {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
+    const message = createBaseMsgSubmitEvidence();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -55,12 +57,10 @@ export const MsgSubmitEvidence = {
   },
 
   fromJSON(object: any): MsgSubmitEvidence {
-    const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
-    message.submitter =
-      object.submitter !== undefined && object.submitter !== null ? String(object.submitter) : "";
-    message.evidence =
-      object.evidence !== undefined && object.evidence !== null ? Any.fromJSON(object.evidence) : undefined;
-    return message;
+    return {
+      submitter: isSet(object.submitter) ? String(object.submitter) : "",
+      evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
+    };
   },
 
   toJSON(message: MsgSubmitEvidence): unknown {
@@ -72,7 +72,7 @@ export const MsgSubmitEvidence = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(object: I): MsgSubmitEvidence {
-    const message = { ...baseMsgSubmitEvidence } as MsgSubmitEvidence;
+    const message = createBaseMsgSubmitEvidence();
     message.submitter = object.submitter ?? "";
     message.evidence =
       object.evidence !== undefined && object.evidence !== null
@@ -82,7 +82,9 @@ export const MsgSubmitEvidence = {
   },
 };
 
-const baseMsgSubmitEvidenceResponse: object = {};
+function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
+  return { hash: new Uint8Array() };
+}
 
 export const MsgSubmitEvidenceResponse = {
   encode(message: MsgSubmitEvidenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -95,8 +97,7 @@ export const MsgSubmitEvidenceResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSubmitEvidenceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSubmitEvidenceResponse } as MsgSubmitEvidenceResponse;
-    message.hash = new Uint8Array();
+    const message = createBaseMsgSubmitEvidenceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -112,10 +113,9 @@ export const MsgSubmitEvidenceResponse = {
   },
 
   fromJSON(object: any): MsgSubmitEvidenceResponse {
-    const message = { ...baseMsgSubmitEvidenceResponse } as MsgSubmitEvidenceResponse;
-    message.hash =
-      object.hash !== undefined && object.hash !== null ? bytesFromBase64(object.hash) : new Uint8Array();
-    return message;
+    return {
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+    };
   },
 
   toJSON(message: MsgSubmitEvidenceResponse): unknown {
@@ -128,7 +128,7 @@ export const MsgSubmitEvidenceResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidenceResponse>, I>>(
     object: I,
   ): MsgSubmitEvidenceResponse {
-    const message = { ...baseMsgSubmitEvidenceResponse } as MsgSubmitEvidenceResponse;
+    const message = createBaseMsgSubmitEvidenceResponse();
     message.hash = object.hash ?? new Uint8Array();
     return message;
   },
@@ -186,9 +186,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -214,4 +214,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

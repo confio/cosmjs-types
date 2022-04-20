@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "ibc.applications.transfer.v2";
 
@@ -20,7 +20,9 @@ export interface FungibleTokenPacketData {
   receiver: string;
 }
 
-const baseFungibleTokenPacketData: object = { denom: "", amount: "", sender: "", receiver: "" };
+function createBaseFungibleTokenPacketData(): FungibleTokenPacketData {
+  return { denom: "", amount: "", sender: "", receiver: "" };
+}
 
 export const FungibleTokenPacketData = {
   encode(message: FungibleTokenPacketData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -42,7 +44,7 @@ export const FungibleTokenPacketData = {
   decode(input: _m0.Reader | Uint8Array, length?: number): FungibleTokenPacketData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
+    const message = createBaseFungibleTokenPacketData();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -67,13 +69,12 @@ export const FungibleTokenPacketData = {
   },
 
   fromJSON(object: any): FungibleTokenPacketData {
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
-    message.denom = object.denom !== undefined && object.denom !== null ? String(object.denom) : "";
-    message.amount = object.amount !== undefined && object.amount !== null ? String(object.amount) : "";
-    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
-    message.receiver =
-      object.receiver !== undefined && object.receiver !== null ? String(object.receiver) : "";
-    return message;
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      receiver: isSet(object.receiver) ? String(object.receiver) : "",
+    };
   },
 
   toJSON(message: FungibleTokenPacketData): unknown {
@@ -86,7 +87,7 @@ export const FungibleTokenPacketData = {
   },
 
   fromPartial<I extends Exact<DeepPartial<FungibleTokenPacketData>, I>>(object: I): FungibleTokenPacketData {
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
+    const message = createBaseFungibleTokenPacketData();
     message.denom = object.denom ?? "";
     message.amount = object.amount ?? "";
     message.sender = object.sender ?? "";
@@ -117,4 +118,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

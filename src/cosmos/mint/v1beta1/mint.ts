@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.mint.v1beta1";
 
@@ -28,7 +28,9 @@ export interface Params {
   blocksPerYear: Long;
 }
 
-const baseMinter: object = { inflation: "", annualProvisions: "" };
+function createBaseMinter(): Minter {
+  return { inflation: "", annualProvisions: "" };
+}
 
 export const Minter = {
   encode(message: Minter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -44,7 +46,7 @@ export const Minter = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Minter {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMinter } as Minter;
+    const message = createBaseMinter();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -63,14 +65,10 @@ export const Minter = {
   },
 
   fromJSON(object: any): Minter {
-    const message = { ...baseMinter } as Minter;
-    message.inflation =
-      object.inflation !== undefined && object.inflation !== null ? String(object.inflation) : "";
-    message.annualProvisions =
-      object.annualProvisions !== undefined && object.annualProvisions !== null
-        ? String(object.annualProvisions)
-        : "";
-    return message;
+    return {
+      inflation: isSet(object.inflation) ? String(object.inflation) : "",
+      annualProvisions: isSet(object.annualProvisions) ? String(object.annualProvisions) : "",
+    };
   },
 
   toJSON(message: Minter): unknown {
@@ -81,21 +79,23 @@ export const Minter = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Minter>, I>>(object: I): Minter {
-    const message = { ...baseMinter } as Minter;
+    const message = createBaseMinter();
     message.inflation = object.inflation ?? "";
     message.annualProvisions = object.annualProvisions ?? "";
     return message;
   },
 };
 
-const baseParams: object = {
-  mintDenom: "",
-  inflationRateChange: "",
-  inflationMax: "",
-  inflationMin: "",
-  goalBonded: "",
-  blocksPerYear: Long.UZERO,
-};
+function createBaseParams(): Params {
+  return {
+    mintDenom: "",
+    inflationRateChange: "",
+    inflationMax: "",
+    inflationMin: "",
+    goalBonded: "",
+    blocksPerYear: Long.UZERO,
+  };
+}
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -123,7 +123,7 @@ export const Params = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseParams } as Params;
+    const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -154,24 +154,14 @@ export const Params = {
   },
 
   fromJSON(object: any): Params {
-    const message = { ...baseParams } as Params;
-    message.mintDenom =
-      object.mintDenom !== undefined && object.mintDenom !== null ? String(object.mintDenom) : "";
-    message.inflationRateChange =
-      object.inflationRateChange !== undefined && object.inflationRateChange !== null
-        ? String(object.inflationRateChange)
-        : "";
-    message.inflationMax =
-      object.inflationMax !== undefined && object.inflationMax !== null ? String(object.inflationMax) : "";
-    message.inflationMin =
-      object.inflationMin !== undefined && object.inflationMin !== null ? String(object.inflationMin) : "";
-    message.goalBonded =
-      object.goalBonded !== undefined && object.goalBonded !== null ? String(object.goalBonded) : "";
-    message.blocksPerYear =
-      object.blocksPerYear !== undefined && object.blocksPerYear !== null
-        ? Long.fromString(object.blocksPerYear)
-        : Long.UZERO;
-    return message;
+    return {
+      mintDenom: isSet(object.mintDenom) ? String(object.mintDenom) : "",
+      inflationRateChange: isSet(object.inflationRateChange) ? String(object.inflationRateChange) : "",
+      inflationMax: isSet(object.inflationMax) ? String(object.inflationMax) : "",
+      inflationMin: isSet(object.inflationMin) ? String(object.inflationMin) : "",
+      goalBonded: isSet(object.goalBonded) ? String(object.goalBonded) : "",
+      blocksPerYear: isSet(object.blocksPerYear) ? Long.fromString(object.blocksPerYear) : Long.UZERO,
+    };
   },
 
   toJSON(message: Params): unknown {
@@ -187,7 +177,7 @@ export const Params = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = { ...baseParams } as Params;
+    const message = createBaseParams();
     message.mintDenom = object.mintDenom ?? "";
     message.inflationRateChange = object.inflationRateChange ?? "";
     message.inflationMax = object.inflationMax ?? "";
@@ -223,4 +213,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

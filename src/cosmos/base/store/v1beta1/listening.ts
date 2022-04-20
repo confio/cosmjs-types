@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.base.store.v1beta1";
 
@@ -20,7 +20,9 @@ export interface StoreKVPair {
   value: Uint8Array;
 }
 
-const baseStoreKVPair: object = { storeKey: "", delete: false };
+function createBaseStoreKVPair(): StoreKVPair {
+  return { storeKey: "", delete: false, key: new Uint8Array(), value: new Uint8Array() };
+}
 
 export const StoreKVPair = {
   encode(message: StoreKVPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -42,9 +44,7 @@ export const StoreKVPair = {
   decode(input: _m0.Reader | Uint8Array, length?: number): StoreKVPair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseStoreKVPair } as StoreKVPair;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
+    const message = createBaseStoreKVPair();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -69,15 +69,12 @@ export const StoreKVPair = {
   },
 
   fromJSON(object: any): StoreKVPair {
-    const message = { ...baseStoreKVPair } as StoreKVPair;
-    message.storeKey =
-      object.storeKey !== undefined && object.storeKey !== null ? String(object.storeKey) : "";
-    message.delete = object.delete !== undefined && object.delete !== null ? Boolean(object.delete) : false;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
-    return message;
+    return {
+      storeKey: isSet(object.storeKey) ? String(object.storeKey) : "",
+      delete: isSet(object.delete) ? Boolean(object.delete) : false,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
   },
 
   toJSON(message: StoreKVPair): unknown {
@@ -92,7 +89,7 @@ export const StoreKVPair = {
   },
 
   fromPartial<I extends Exact<DeepPartial<StoreKVPair>, I>>(object: I): StoreKVPair {
-    const message = { ...baseStoreKVPair } as StoreKVPair;
+    const message = createBaseStoreKVPair();
     message.storeKey = object.storeKey ?? "";
     message.delete = object.delete ?? false;
     message.key = object.key ?? new Uint8Array();
@@ -127,9 +124,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -155,4 +152,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

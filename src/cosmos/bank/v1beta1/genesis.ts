@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params, Metadata } from "../../../cosmos/bank/v1beta1/bank";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
@@ -32,7 +32,9 @@ export interface Balance {
   coins: Coin[];
 }
 
-const baseGenesisState: object = {};
+function createBaseGenesisState(): GenesisState {
+  return { params: undefined, balances: [], supply: [], denomMetadata: [] };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -54,10 +56,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.balances = [];
-    message.supply = [];
-    message.denomMetadata = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -82,13 +81,14 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
-    message.balances = (object.balances ?? []).map((e: any) => Balance.fromJSON(e));
-    message.supply = (object.supply ?? []).map((e: any) => Coin.fromJSON(e));
-    message.denomMetadata = (object.denomMetadata ?? []).map((e: any) => Metadata.fromJSON(e));
-    return message;
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      balances: Array.isArray(object?.balances) ? object.balances.map((e: any) => Balance.fromJSON(e)) : [],
+      supply: Array.isArray(object?.supply) ? object.supply.map((e: any) => Coin.fromJSON(e)) : [],
+      denomMetadata: Array.isArray(object?.denomMetadata)
+        ? object.denomMetadata.map((e: any) => Metadata.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -113,7 +113,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     message.balances = object.balances?.map((e) => Balance.fromPartial(e)) || [];
@@ -123,7 +123,9 @@ export const GenesisState = {
   },
 };
 
-const baseBalance: object = { address: "" };
+function createBaseBalance(): Balance {
+  return { address: "", coins: [] };
+}
 
 export const Balance = {
   encode(message: Balance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -139,8 +141,7 @@ export const Balance = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Balance {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBalance } as Balance;
-    message.coins = [];
+    const message = createBaseBalance();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -159,10 +160,10 @@ export const Balance = {
   },
 
   fromJSON(object: any): Balance {
-    const message = { ...baseBalance } as Balance;
-    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
-    message.coins = (object.coins ?? []).map((e: any) => Coin.fromJSON(e));
-    return message;
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: Balance): unknown {
@@ -177,7 +178,7 @@ export const Balance = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Balance>, I>>(object: I): Balance {
-    const message = { ...baseBalance } as Balance;
+    const message = createBaseBalance();
     message.address = object.address ?? "";
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
@@ -206,4 +207,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

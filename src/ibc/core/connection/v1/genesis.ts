@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params, IdentifiedConnection, ConnectionPaths } from "../../../../ibc/core/connection/v1/connection";
 
 export const protobufPackage = "ibc.core.connection.v1";
@@ -14,7 +14,14 @@ export interface GenesisState {
   params?: Params;
 }
 
-const baseGenesisState: object = { nextConnectionSequence: Long.UZERO };
+function createBaseGenesisState(): GenesisState {
+  return {
+    connections: [],
+    clientConnectionPaths: [],
+    nextConnectionSequence: Long.UZERO,
+    params: undefined,
+  };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -36,9 +43,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.connections = [];
-    message.clientConnectionPaths = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -63,18 +68,18 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.connections = (object.connections ?? []).map((e: any) => IdentifiedConnection.fromJSON(e));
-    message.clientConnectionPaths = (object.clientConnectionPaths ?? []).map((e: any) =>
-      ConnectionPaths.fromJSON(e),
-    );
-    message.nextConnectionSequence =
-      object.nextConnectionSequence !== undefined && object.nextConnectionSequence !== null
+    return {
+      connections: Array.isArray(object?.connections)
+        ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e))
+        : [],
+      clientConnectionPaths: Array.isArray(object?.clientConnectionPaths)
+        ? object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e))
+        : [],
+      nextConnectionSequence: isSet(object.nextConnectionSequence)
         ? Long.fromString(object.nextConnectionSequence)
-        : Long.UZERO;
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
-    return message;
+        : Long.UZERO,
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -98,7 +103,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.connections = object.connections?.map((e) => IdentifiedConnection.fromPartial(e)) || [];
     message.clientConnectionPaths =
       object.clientConnectionPaths?.map((e) => ConnectionPaths.fromPartial(e)) || [];
@@ -134,4 +139,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

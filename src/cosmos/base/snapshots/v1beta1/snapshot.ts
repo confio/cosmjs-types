@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.base.snapshots.v1beta1";
 
@@ -53,7 +53,9 @@ export interface SnapshotExtensionPayload {
   payload: Uint8Array;
 }
 
-const baseSnapshot: object = { height: Long.UZERO, format: 0, chunks: 0 };
+function createBaseSnapshot(): Snapshot {
+  return { height: Long.UZERO, format: 0, chunks: 0, hash: new Uint8Array(), metadata: undefined };
+}
 
 export const Snapshot = {
   encode(message: Snapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -78,8 +80,7 @@ export const Snapshot = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Snapshot {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshot } as Snapshot;
-    message.hash = new Uint8Array();
+    const message = createBaseSnapshot();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -107,25 +108,20 @@ export const Snapshot = {
   },
 
   fromJSON(object: any): Snapshot {
-    const message = { ...baseSnapshot } as Snapshot;
-    message.height =
-      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.UZERO;
-    message.format = object.format !== undefined && object.format !== null ? Number(object.format) : 0;
-    message.chunks = object.chunks !== undefined && object.chunks !== null ? Number(object.chunks) : 0;
-    message.hash =
-      object.hash !== undefined && object.hash !== null ? bytesFromBase64(object.hash) : new Uint8Array();
-    message.metadata =
-      object.metadata !== undefined && object.metadata !== null
-        ? Metadata.fromJSON(object.metadata)
-        : undefined;
-    return message;
+    return {
+      height: isSet(object.height) ? Long.fromString(object.height) : Long.UZERO,
+      format: isSet(object.format) ? Number(object.format) : 0,
+      chunks: isSet(object.chunks) ? Number(object.chunks) : 0,
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+      metadata: isSet(object.metadata) ? Metadata.fromJSON(object.metadata) : undefined,
+    };
   },
 
   toJSON(message: Snapshot): unknown {
     const obj: any = {};
     message.height !== undefined && (obj.height = (message.height || Long.UZERO).toString());
-    message.format !== undefined && (obj.format = message.format);
-    message.chunks !== undefined && (obj.chunks = message.chunks);
+    message.format !== undefined && (obj.format = Math.round(message.format));
+    message.chunks !== undefined && (obj.chunks = Math.round(message.chunks));
     message.hash !== undefined &&
       (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
     message.metadata !== undefined &&
@@ -134,7 +130,7 @@ export const Snapshot = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Snapshot>, I>>(object: I): Snapshot {
-    const message = { ...baseSnapshot } as Snapshot;
+    const message = createBaseSnapshot();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
     message.format = object.format ?? 0;
@@ -148,7 +144,9 @@ export const Snapshot = {
   },
 };
 
-const baseMetadata: object = {};
+function createBaseMetadata(): Metadata {
+  return { chunkHashes: [] };
+}
 
 export const Metadata = {
   encode(message: Metadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -161,8 +159,7 @@ export const Metadata = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Metadata {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMetadata } as Metadata;
-    message.chunkHashes = [];
+    const message = createBaseMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -178,9 +175,11 @@ export const Metadata = {
   },
 
   fromJSON(object: any): Metadata {
-    const message = { ...baseMetadata } as Metadata;
-    message.chunkHashes = (object.chunkHashes ?? []).map((e: any) => bytesFromBase64(e));
-    return message;
+    return {
+      chunkHashes: Array.isArray(object?.chunkHashes)
+        ? object.chunkHashes.map((e: any) => bytesFromBase64(e))
+        : [],
+    };
   },
 
   toJSON(message: Metadata): unknown {
@@ -196,13 +195,15 @@ export const Metadata = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {
-    const message = { ...baseMetadata } as Metadata;
+    const message = createBaseMetadata();
     message.chunkHashes = object.chunkHashes?.map((e) => e) || [];
     return message;
   },
 };
 
-const baseSnapshotItem: object = {};
+function createBaseSnapshotItem(): SnapshotItem {
+  return { store: undefined, iavl: undefined, extension: undefined, extensionPayload: undefined };
+}
 
 export const SnapshotItem = {
   encode(message: SnapshotItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -224,7 +225,7 @@ export const SnapshotItem = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SnapshotItem {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshotItem } as SnapshotItem;
+    const message = createBaseSnapshotItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -249,22 +250,14 @@ export const SnapshotItem = {
   },
 
   fromJSON(object: any): SnapshotItem {
-    const message = { ...baseSnapshotItem } as SnapshotItem;
-    message.store =
-      object.store !== undefined && object.store !== null
-        ? SnapshotStoreItem.fromJSON(object.store)
-        : undefined;
-    message.iavl =
-      object.iavl !== undefined && object.iavl !== null ? SnapshotIAVLItem.fromJSON(object.iavl) : undefined;
-    message.extension =
-      object.extension !== undefined && object.extension !== null
-        ? SnapshotExtensionMeta.fromJSON(object.extension)
-        : undefined;
-    message.extensionPayload =
-      object.extensionPayload !== undefined && object.extensionPayload !== null
+    return {
+      store: isSet(object.store) ? SnapshotStoreItem.fromJSON(object.store) : undefined,
+      iavl: isSet(object.iavl) ? SnapshotIAVLItem.fromJSON(object.iavl) : undefined,
+      extension: isSet(object.extension) ? SnapshotExtensionMeta.fromJSON(object.extension) : undefined,
+      extensionPayload: isSet(object.extensionPayload)
         ? SnapshotExtensionPayload.fromJSON(object.extensionPayload)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: SnapshotItem): unknown {
@@ -283,7 +276,7 @@ export const SnapshotItem = {
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotItem>, I>>(object: I): SnapshotItem {
-    const message = { ...baseSnapshotItem } as SnapshotItem;
+    const message = createBaseSnapshotItem();
     message.store =
       object.store !== undefined && object.store !== null
         ? SnapshotStoreItem.fromPartial(object.store)
@@ -304,7 +297,9 @@ export const SnapshotItem = {
   },
 };
 
-const baseSnapshotStoreItem: object = { name: "" };
+function createBaseSnapshotStoreItem(): SnapshotStoreItem {
+  return { name: "" };
+}
 
 export const SnapshotStoreItem = {
   encode(message: SnapshotStoreItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -317,7 +312,7 @@ export const SnapshotStoreItem = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SnapshotStoreItem {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshotStoreItem } as SnapshotStoreItem;
+    const message = createBaseSnapshotStoreItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -333,9 +328,9 @@ export const SnapshotStoreItem = {
   },
 
   fromJSON(object: any): SnapshotStoreItem {
-    const message = { ...baseSnapshotStoreItem } as SnapshotStoreItem;
-    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
-    return message;
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+    };
   },
 
   toJSON(message: SnapshotStoreItem): unknown {
@@ -345,13 +340,15 @@ export const SnapshotStoreItem = {
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
-    const message = { ...baseSnapshotStoreItem } as SnapshotStoreItem;
+    const message = createBaseSnapshotStoreItem();
     message.name = object.name ?? "";
     return message;
   },
 };
 
-const baseSnapshotIAVLItem: object = { version: Long.ZERO, height: 0 };
+function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
+  return { key: new Uint8Array(), value: new Uint8Array(), version: Long.ZERO, height: 0 };
+}
 
 export const SnapshotIAVLItem = {
   encode(message: SnapshotIAVLItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -373,9 +370,7 @@ export const SnapshotIAVLItem = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SnapshotIAVLItem {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
+    const message = createBaseSnapshotIAVLItem();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -400,15 +395,12 @@ export const SnapshotIAVLItem = {
   },
 
   fromJSON(object: any): SnapshotIAVLItem {
-    const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
-    message.version =
-      object.version !== undefined && object.version !== null ? Long.fromString(object.version) : Long.ZERO;
-    message.height = object.height !== undefined && object.height !== null ? Number(object.height) : 0;
-    return message;
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      height: isSet(object.height) ? Number(object.height) : 0,
+    };
   },
 
   toJSON(message: SnapshotIAVLItem): unknown {
@@ -418,12 +410,12 @@ export const SnapshotIAVLItem = {
     message.value !== undefined &&
       (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
-    message.height !== undefined && (obj.height = message.height);
+    message.height !== undefined && (obj.height = Math.round(message.height));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {
-    const message = { ...baseSnapshotIAVLItem } as SnapshotIAVLItem;
+    const message = createBaseSnapshotIAVLItem();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     message.version =
@@ -433,7 +425,9 @@ export const SnapshotIAVLItem = {
   },
 };
 
-const baseSnapshotExtensionMeta: object = { name: "", format: 0 };
+function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
+  return { name: "", format: 0 };
+}
 
 export const SnapshotExtensionMeta = {
   encode(message: SnapshotExtensionMeta, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -449,7 +443,7 @@ export const SnapshotExtensionMeta = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SnapshotExtensionMeta {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshotExtensionMeta } as SnapshotExtensionMeta;
+    const message = createBaseSnapshotExtensionMeta();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -468,28 +462,30 @@ export const SnapshotExtensionMeta = {
   },
 
   fromJSON(object: any): SnapshotExtensionMeta {
-    const message = { ...baseSnapshotExtensionMeta } as SnapshotExtensionMeta;
-    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
-    message.format = object.format !== undefined && object.format !== null ? Number(object.format) : 0;
-    return message;
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      format: isSet(object.format) ? Number(object.format) : 0,
+    };
   },
 
   toJSON(message: SnapshotExtensionMeta): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
-    message.format !== undefined && (obj.format = message.format);
+    message.format !== undefined && (obj.format = Math.round(message.format));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotExtensionMeta>, I>>(object: I): SnapshotExtensionMeta {
-    const message = { ...baseSnapshotExtensionMeta } as SnapshotExtensionMeta;
+    const message = createBaseSnapshotExtensionMeta();
     message.name = object.name ?? "";
     message.format = object.format ?? 0;
     return message;
   },
 };
 
-const baseSnapshotExtensionPayload: object = {};
+function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
+  return { payload: new Uint8Array() };
+}
 
 export const SnapshotExtensionPayload = {
   encode(message: SnapshotExtensionPayload, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -502,8 +498,7 @@ export const SnapshotExtensionPayload = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SnapshotExtensionPayload {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSnapshotExtensionPayload } as SnapshotExtensionPayload;
-    message.payload = new Uint8Array();
+    const message = createBaseSnapshotExtensionPayload();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -519,12 +514,9 @@ export const SnapshotExtensionPayload = {
   },
 
   fromJSON(object: any): SnapshotExtensionPayload {
-    const message = { ...baseSnapshotExtensionPayload } as SnapshotExtensionPayload;
-    message.payload =
-      object.payload !== undefined && object.payload !== null
-        ? bytesFromBase64(object.payload)
-        : new Uint8Array();
-    return message;
+    return {
+      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
+    };
   },
 
   toJSON(message: SnapshotExtensionPayload): unknown {
@@ -537,7 +529,7 @@ export const SnapshotExtensionPayload = {
   fromPartial<I extends Exact<DeepPartial<SnapshotExtensionPayload>, I>>(
     object: I,
   ): SnapshotExtensionPayload {
-    const message = { ...baseSnapshotExtensionPayload } as SnapshotExtensionPayload;
+    const message = createBaseSnapshotExtensionPayload();
     message.payload = object.payload ?? new Uint8Array();
     return message;
   },
@@ -569,9 +561,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -597,4 +589,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

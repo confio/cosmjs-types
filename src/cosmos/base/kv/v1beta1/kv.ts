@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.base.kv.v1beta1";
 
@@ -15,7 +15,9 @@ export interface Pair {
   value: Uint8Array;
 }
 
-const basePairs: object = {};
+function createBasePairs(): Pairs {
+  return { pairs: [] };
+}
 
 export const Pairs = {
   encode(message: Pairs, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -28,8 +30,7 @@ export const Pairs = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Pairs {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePairs } as Pairs;
-    message.pairs = [];
+    const message = createBasePairs();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -45,9 +46,9 @@ export const Pairs = {
   },
 
   fromJSON(object: any): Pairs {
-    const message = { ...basePairs } as Pairs;
-    message.pairs = (object.pairs ?? []).map((e: any) => Pair.fromJSON(e));
-    return message;
+    return {
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => Pair.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: Pairs): unknown {
@@ -61,13 +62,15 @@ export const Pairs = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Pairs>, I>>(object: I): Pairs {
-    const message = { ...basePairs } as Pairs;
+    const message = createBasePairs();
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
   },
 };
 
-const basePair: object = {};
+function createBasePair(): Pair {
+  return { key: new Uint8Array(), value: new Uint8Array() };
+}
 
 export const Pair = {
   encode(message: Pair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -83,9 +86,7 @@ export const Pair = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Pair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePair } as Pair;
-    message.key = new Uint8Array();
-    message.value = new Uint8Array();
+    const message = createBasePair();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -104,12 +105,10 @@ export const Pair = {
   },
 
   fromJSON(object: any): Pair {
-    const message = { ...basePair } as Pair;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null ? bytesFromBase64(object.value) : new Uint8Array();
-    return message;
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
   },
 
   toJSON(message: Pair): unknown {
@@ -122,7 +121,7 @@ export const Pair = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
-    const message = { ...basePair } as Pair;
+    const message = createBasePair();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
@@ -155,9 +154,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -183,4 +182,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

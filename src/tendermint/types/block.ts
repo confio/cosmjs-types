@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Header, Data, Commit } from "../../tendermint/types/types";
 import { EvidenceList } from "../../tendermint/types/evidence";
 
@@ -13,7 +13,9 @@ export interface Block {
   lastCommit?: Commit;
 }
 
-const baseBlock: object = {};
+function createBaseBlock(): Block {
+  return { header: undefined, data: undefined, evidence: undefined, lastCommit: undefined };
+}
 
 export const Block = {
   encode(message: Block, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -35,7 +37,7 @@ export const Block = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Block {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseBlock } as Block;
+    const message = createBaseBlock();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -60,19 +62,12 @@ export const Block = {
   },
 
   fromJSON(object: any): Block {
-    const message = { ...baseBlock } as Block;
-    message.header =
-      object.header !== undefined && object.header !== null ? Header.fromJSON(object.header) : undefined;
-    message.data = object.data !== undefined && object.data !== null ? Data.fromJSON(object.data) : undefined;
-    message.evidence =
-      object.evidence !== undefined && object.evidence !== null
-        ? EvidenceList.fromJSON(object.evidence)
-        : undefined;
-    message.lastCommit =
-      object.lastCommit !== undefined && object.lastCommit !== null
-        ? Commit.fromJSON(object.lastCommit)
-        : undefined;
-    return message;
+    return {
+      header: isSet(object.header) ? Header.fromJSON(object.header) : undefined,
+      data: isSet(object.data) ? Data.fromJSON(object.data) : undefined,
+      evidence: isSet(object.evidence) ? EvidenceList.fromJSON(object.evidence) : undefined,
+      lastCommit: isSet(object.lastCommit) ? Commit.fromJSON(object.lastCommit) : undefined,
+    };
   },
 
   toJSON(message: Block): unknown {
@@ -87,7 +82,7 @@ export const Block = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Block>, I>>(object: I): Block {
-    const message = { ...baseBlock } as Block;
+    const message = createBaseBlock();
     message.header =
       object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;
     message.data =
@@ -126,4 +121,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

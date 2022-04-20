@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params, DenomTrace } from "../../../../ibc/applications/transfer/v1/transfer";
 
 export const protobufPackage = "ibc.applications.transfer.v1";
@@ -12,7 +12,9 @@ export interface GenesisState {
   params?: Params;
 }
 
-const baseGenesisState: object = { portId: "" };
+function createBaseGenesisState(): GenesisState {
+  return { portId: "", denomTraces: [], params: undefined };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -31,8 +33,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.denomTraces = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -54,12 +55,13 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
-    message.denomTraces = (object.denomTraces ?? []).map((e: any) => DenomTrace.fromJSON(e));
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
-    return message;
+    return {
+      portId: isSet(object.portId) ? String(object.portId) : "",
+      denomTraces: Array.isArray(object?.denomTraces)
+        ? object.denomTraces.map((e: any) => DenomTrace.fromJSON(e))
+        : [],
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -75,7 +77,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.portId = object.portId ?? "";
     message.denomTraces = object.denomTraces?.map((e) => DenomTrace.fromPartial(e)) || [];
     message.params =
@@ -106,4 +108,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

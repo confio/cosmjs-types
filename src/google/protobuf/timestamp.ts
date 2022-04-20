@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "google.protobuf";
 
@@ -113,7 +113,9 @@ export interface Timestamp {
   nanos: number;
 }
 
-const baseTimestamp: object = { seconds: Long.ZERO, nanos: 0 };
+function createBaseTimestamp(): Timestamp {
+  return { seconds: Long.ZERO, nanos: 0 };
+}
 
 export const Timestamp = {
   encode(message: Timestamp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -129,7 +131,7 @@ export const Timestamp = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Timestamp {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseTimestamp } as Timestamp;
+    const message = createBaseTimestamp();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -148,22 +150,21 @@ export const Timestamp = {
   },
 
   fromJSON(object: any): Timestamp {
-    const message = { ...baseTimestamp } as Timestamp;
-    message.seconds =
-      object.seconds !== undefined && object.seconds !== null ? Long.fromString(object.seconds) : Long.ZERO;
-    message.nanos = object.nanos !== undefined && object.nanos !== null ? Number(object.nanos) : 0;
-    return message;
+    return {
+      seconds: isSet(object.seconds) ? Long.fromString(object.seconds) : Long.ZERO,
+      nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
+    };
   },
 
   toJSON(message: Timestamp): unknown {
     const obj: any = {};
     message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString());
-    message.nanos !== undefined && (obj.nanos = message.nanos);
+    message.nanos !== undefined && (obj.nanos = Math.round(message.nanos));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Timestamp>, I>>(object: I): Timestamp {
-    const message = { ...baseTimestamp } as Timestamp;
+    const message = createBaseTimestamp();
     message.seconds =
       object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;
     message.nanos = object.nanos ?? 0;
@@ -193,4 +194,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

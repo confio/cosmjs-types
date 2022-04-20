@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
 import { Params } from "../../../cosmos/auth/v1beta1/auth";
@@ -50,7 +50,9 @@ export interface QueryParamsResponse {
   params?: Params;
 }
 
-const baseQueryAccountsRequest: object = {};
+function createBaseQueryAccountsRequest(): QueryAccountsRequest {
+  return { pagination: undefined };
+}
 
 export const QueryAccountsRequest = {
   encode(message: QueryAccountsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -63,7 +65,7 @@ export const QueryAccountsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAccountsRequest } as QueryAccountsRequest;
+    const message = createBaseQueryAccountsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -79,12 +81,9 @@ export const QueryAccountsRequest = {
   },
 
   fromJSON(object: any): QueryAccountsRequest {
-    const message = { ...baseQueryAccountsRequest } as QueryAccountsRequest;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined;
-    return message;
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: QueryAccountsRequest): unknown {
@@ -95,7 +94,7 @@ export const QueryAccountsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAccountsRequest>, I>>(object: I): QueryAccountsRequest {
-    const message = { ...baseQueryAccountsRequest } as QueryAccountsRequest;
+    const message = createBaseQueryAccountsRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -104,7 +103,9 @@ export const QueryAccountsRequest = {
   },
 };
 
-const baseQueryAccountsResponse: object = {};
+function createBaseQueryAccountsResponse(): QueryAccountsResponse {
+  return { accounts: [], pagination: undefined };
+}
 
 export const QueryAccountsResponse = {
   encode(message: QueryAccountsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -120,8 +121,7 @@ export const QueryAccountsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAccountsResponse } as QueryAccountsResponse;
-    message.accounts = [];
+    const message = createBaseQueryAccountsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -140,13 +140,10 @@ export const QueryAccountsResponse = {
   },
 
   fromJSON(object: any): QueryAccountsResponse {
-    const message = { ...baseQueryAccountsResponse } as QueryAccountsResponse;
-    message.accounts = (object.accounts ?? []).map((e: any) => Any.fromJSON(e));
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined;
-    return message;
+    return {
+      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Any.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: QueryAccountsResponse): unknown {
@@ -162,7 +159,7 @@ export const QueryAccountsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAccountsResponse>, I>>(object: I): QueryAccountsResponse {
-    const message = { ...baseQueryAccountsResponse } as QueryAccountsResponse;
+    const message = createBaseQueryAccountsResponse();
     message.accounts = object.accounts?.map((e) => Any.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -172,7 +169,9 @@ export const QueryAccountsResponse = {
   },
 };
 
-const baseQueryAccountRequest: object = { address: "" };
+function createBaseQueryAccountRequest(): QueryAccountRequest {
+  return { address: "" };
+}
 
 export const QueryAccountRequest = {
   encode(message: QueryAccountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -185,7 +184,7 @@ export const QueryAccountRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAccountRequest } as QueryAccountRequest;
+    const message = createBaseQueryAccountRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -201,9 +200,9 @@ export const QueryAccountRequest = {
   },
 
   fromJSON(object: any): QueryAccountRequest {
-    const message = { ...baseQueryAccountRequest } as QueryAccountRequest;
-    message.address = object.address !== undefined && object.address !== null ? String(object.address) : "";
-    return message;
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+    };
   },
 
   toJSON(message: QueryAccountRequest): unknown {
@@ -213,13 +212,15 @@ export const QueryAccountRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(object: I): QueryAccountRequest {
-    const message = { ...baseQueryAccountRequest } as QueryAccountRequest;
+    const message = createBaseQueryAccountRequest();
     message.address = object.address ?? "";
     return message;
   },
 };
 
-const baseQueryAccountResponse: object = {};
+function createBaseQueryAccountResponse(): QueryAccountResponse {
+  return { account: undefined };
+}
 
 export const QueryAccountResponse = {
   encode(message: QueryAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -232,7 +233,7 @@ export const QueryAccountResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAccountResponse } as QueryAccountResponse;
+    const message = createBaseQueryAccountResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -248,10 +249,9 @@ export const QueryAccountResponse = {
   },
 
   fromJSON(object: any): QueryAccountResponse {
-    const message = { ...baseQueryAccountResponse } as QueryAccountResponse;
-    message.account =
-      object.account !== undefined && object.account !== null ? Any.fromJSON(object.account) : undefined;
-    return message;
+    return {
+      account: isSet(object.account) ? Any.fromJSON(object.account) : undefined,
+    };
   },
 
   toJSON(message: QueryAccountResponse): unknown {
@@ -262,14 +262,16 @@ export const QueryAccountResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAccountResponse>, I>>(object: I): QueryAccountResponse {
-    const message = { ...baseQueryAccountResponse } as QueryAccountResponse;
+    const message = createBaseQueryAccountResponse();
     message.account =
       object.account !== undefined && object.account !== null ? Any.fromPartial(object.account) : undefined;
     return message;
   },
 };
 
-const baseQueryParamsRequest: object = {};
+function createBaseQueryParamsRequest(): QueryParamsRequest {
+  return {};
+}
 
 export const QueryParamsRequest = {
   encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -279,7 +281,7 @@ export const QueryParamsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -292,8 +294,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(_: any): QueryParamsRequest {
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
-    return message;
+    return {};
   },
 
   toJSON(_: QueryParamsRequest): unknown {
@@ -302,12 +303,14 @@ export const QueryParamsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    const message = createBaseQueryParamsRequest();
     return message;
   },
 };
 
-const baseQueryParamsResponse: object = {};
+function createBaseQueryParamsResponse(): QueryParamsResponse {
+  return { params: undefined };
+}
 
 export const QueryParamsResponse = {
   encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -320,7 +323,7 @@ export const QueryParamsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -336,10 +339,9 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
-    return message;
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -349,7 +351,7 @@ export const QueryParamsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    const message = createBaseQueryParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
@@ -423,4 +425,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

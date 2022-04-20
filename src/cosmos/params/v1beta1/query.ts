@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { ParamChange } from "../../../cosmos/params/v1beta1/params";
 
 export const protobufPackage = "cosmos.params.v1beta1";
@@ -19,7 +19,9 @@ export interface QueryParamsResponse {
   param?: ParamChange;
 }
 
-const baseQueryParamsRequest: object = { subspace: "", key: "" };
+function createBaseQueryParamsRequest(): QueryParamsRequest {
+  return { subspace: "", key: "" };
+}
 
 export const QueryParamsRequest = {
   encode(message: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -35,7 +37,7 @@ export const QueryParamsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -54,11 +56,10 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(object: any): QueryParamsRequest {
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
-    message.subspace =
-      object.subspace !== undefined && object.subspace !== null ? String(object.subspace) : "";
-    message.key = object.key !== undefined && object.key !== null ? String(object.key) : "";
-    return message;
+    return {
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
+    };
   },
 
   toJSON(message: QueryParamsRequest): unknown {
@@ -69,14 +70,16 @@ export const QueryParamsRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
-    const message = { ...baseQueryParamsRequest } as QueryParamsRequest;
+    const message = createBaseQueryParamsRequest();
     message.subspace = object.subspace ?? "";
     message.key = object.key ?? "";
     return message;
   },
 };
 
-const baseQueryParamsResponse: object = {};
+function createBaseQueryParamsResponse(): QueryParamsResponse {
+  return { param: undefined };
+}
 
 export const QueryParamsResponse = {
   encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -89,7 +92,7 @@ export const QueryParamsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -105,10 +108,9 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
-    message.param =
-      object.param !== undefined && object.param !== null ? ParamChange.fromJSON(object.param) : undefined;
-    return message;
+    return {
+      param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined,
+    };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -119,7 +121,7 @@ export const QueryParamsResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
-    const message = { ...baseQueryParamsResponse } as QueryParamsResponse;
+    const message = createBaseQueryParamsResponse();
     message.param =
       object.param !== undefined && object.param !== null ? ParamChange.fromPartial(object.param) : undefined;
     return message;
@@ -174,4 +176,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

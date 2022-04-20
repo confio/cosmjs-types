@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -39,7 +39,9 @@ export interface GrantAuthorization {
   expiration?: Timestamp;
 }
 
-const baseGenericAuthorization: object = { msg: "" };
+function createBaseGenericAuthorization(): GenericAuthorization {
+  return { msg: "" };
+}
 
 export const GenericAuthorization = {
   encode(message: GenericAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -52,7 +54,7 @@ export const GenericAuthorization = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenericAuthorization {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenericAuthorization } as GenericAuthorization;
+    const message = createBaseGenericAuthorization();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -68,9 +70,9 @@ export const GenericAuthorization = {
   },
 
   fromJSON(object: any): GenericAuthorization {
-    const message = { ...baseGenericAuthorization } as GenericAuthorization;
-    message.msg = object.msg !== undefined && object.msg !== null ? String(object.msg) : "";
-    return message;
+    return {
+      msg: isSet(object.msg) ? String(object.msg) : "",
+    };
   },
 
   toJSON(message: GenericAuthorization): unknown {
@@ -80,13 +82,15 @@ export const GenericAuthorization = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenericAuthorization>, I>>(object: I): GenericAuthorization {
-    const message = { ...baseGenericAuthorization } as GenericAuthorization;
+    const message = createBaseGenericAuthorization();
     message.msg = object.msg ?? "";
     return message;
   },
 };
 
-const baseGrant: object = {};
+function createBaseGrant(): Grant {
+  return { authorization: undefined, expiration: undefined };
+}
 
 export const Grant = {
   encode(message: Grant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -102,7 +106,7 @@ export const Grant = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Grant {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGrant } as Grant;
+    const message = createBaseGrant();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -121,16 +125,10 @@ export const Grant = {
   },
 
   fromJSON(object: any): Grant {
-    const message = { ...baseGrant } as Grant;
-    message.authorization =
-      object.authorization !== undefined && object.authorization !== null
-        ? Any.fromJSON(object.authorization)
-        : undefined;
-    message.expiration =
-      object.expiration !== undefined && object.expiration !== null
-        ? fromJsonTimestamp(object.expiration)
-        : undefined;
-    return message;
+    return {
+      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
+      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
+    };
   },
 
   toJSON(message: Grant): unknown {
@@ -142,7 +140,7 @@ export const Grant = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
-    const message = { ...baseGrant } as Grant;
+    const message = createBaseGrant();
     message.authorization =
       object.authorization !== undefined && object.authorization !== null
         ? Any.fromPartial(object.authorization)
@@ -155,7 +153,9 @@ export const Grant = {
   },
 };
 
-const baseGrantAuthorization: object = { granter: "", grantee: "" };
+function createBaseGrantAuthorization(): GrantAuthorization {
+  return { granter: "", grantee: "", authorization: undefined, expiration: undefined };
+}
 
 export const GrantAuthorization = {
   encode(message: GrantAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -177,7 +177,7 @@ export const GrantAuthorization = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GrantAuthorization {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGrantAuthorization } as GrantAuthorization;
+    const message = createBaseGrantAuthorization();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -202,18 +202,12 @@ export const GrantAuthorization = {
   },
 
   fromJSON(object: any): GrantAuthorization {
-    const message = { ...baseGrantAuthorization } as GrantAuthorization;
-    message.granter = object.granter !== undefined && object.granter !== null ? String(object.granter) : "";
-    message.grantee = object.grantee !== undefined && object.grantee !== null ? String(object.grantee) : "";
-    message.authorization =
-      object.authorization !== undefined && object.authorization !== null
-        ? Any.fromJSON(object.authorization)
-        : undefined;
-    message.expiration =
-      object.expiration !== undefined && object.expiration !== null
-        ? fromJsonTimestamp(object.expiration)
-        : undefined;
-    return message;
+    return {
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
+      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
+      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
+    };
   },
 
   toJSON(message: GrantAuthorization): unknown {
@@ -227,7 +221,7 @@ export const GrantAuthorization = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GrantAuthorization>, I>>(object: I): GrantAuthorization {
-    const message = { ...baseGrantAuthorization } as GrantAuthorization;
+    const message = createBaseGrantAuthorization();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
     message.authorization =
@@ -290,4 +284,8 @@ function numberToLong(number: number) {
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

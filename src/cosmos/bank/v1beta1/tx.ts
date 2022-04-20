@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Input, Output } from "../../../cosmos/bank/v1beta1/bank";
 
@@ -25,7 +25,9 @@ export interface MsgMultiSend {
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
 export interface MsgMultiSendResponse {}
 
-const baseMsgSend: object = { fromAddress: "", toAddress: "" };
+function createBaseMsgSend(): MsgSend {
+  return { fromAddress: "", toAddress: "", amount: [] };
+}
 
 export const MsgSend = {
   encode(message: MsgSend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -44,8 +46,7 @@ export const MsgSend = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSend {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSend } as MsgSend;
-    message.amount = [];
+    const message = createBaseMsgSend();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -67,13 +68,11 @@ export const MsgSend = {
   },
 
   fromJSON(object: any): MsgSend {
-    const message = { ...baseMsgSend } as MsgSend;
-    message.fromAddress =
-      object.fromAddress !== undefined && object.fromAddress !== null ? String(object.fromAddress) : "";
-    message.toAddress =
-      object.toAddress !== undefined && object.toAddress !== null ? String(object.toAddress) : "";
-    message.amount = (object.amount ?? []).map((e: any) => Coin.fromJSON(e));
-    return message;
+    return {
+      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: MsgSend): unknown {
@@ -89,7 +88,7 @@ export const MsgSend = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSend>, I>>(object: I): MsgSend {
-    const message = { ...baseMsgSend } as MsgSend;
+    const message = createBaseMsgSend();
     message.fromAddress = object.fromAddress ?? "";
     message.toAddress = object.toAddress ?? "";
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
@@ -97,7 +96,9 @@ export const MsgSend = {
   },
 };
 
-const baseMsgSendResponse: object = {};
+function createBaseMsgSendResponse(): MsgSendResponse {
+  return {};
+}
 
 export const MsgSendResponse = {
   encode(_: MsgSendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -107,7 +108,7 @@ export const MsgSendResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgSendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgSendResponse } as MsgSendResponse;
+    const message = createBaseMsgSendResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -120,8 +121,7 @@ export const MsgSendResponse = {
   },
 
   fromJSON(_: any): MsgSendResponse {
-    const message = { ...baseMsgSendResponse } as MsgSendResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgSendResponse): unknown {
@@ -130,12 +130,14 @@ export const MsgSendResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
-    const message = { ...baseMsgSendResponse } as MsgSendResponse;
+    const message = createBaseMsgSendResponse();
     return message;
   },
 };
 
-const baseMsgMultiSend: object = {};
+function createBaseMsgMultiSend(): MsgMultiSend {
+  return { inputs: [], outputs: [] };
+}
 
 export const MsgMultiSend = {
   encode(message: MsgMultiSend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -151,9 +153,7 @@ export const MsgMultiSend = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiSend {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgMultiSend } as MsgMultiSend;
-    message.inputs = [];
-    message.outputs = [];
+    const message = createBaseMsgMultiSend();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -172,10 +172,10 @@ export const MsgMultiSend = {
   },
 
   fromJSON(object: any): MsgMultiSend {
-    const message = { ...baseMsgMultiSend } as MsgMultiSend;
-    message.inputs = (object.inputs ?? []).map((e: any) => Input.fromJSON(e));
-    message.outputs = (object.outputs ?? []).map((e: any) => Output.fromJSON(e));
-    return message;
+    return {
+      inputs: Array.isArray(object?.inputs) ? object.inputs.map((e: any) => Input.fromJSON(e)) : [],
+      outputs: Array.isArray(object?.outputs) ? object.outputs.map((e: any) => Output.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: MsgMultiSend): unknown {
@@ -194,14 +194,16 @@ export const MsgMultiSend = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiSend>, I>>(object: I): MsgMultiSend {
-    const message = { ...baseMsgMultiSend } as MsgMultiSend;
+    const message = createBaseMsgMultiSend();
     message.inputs = object.inputs?.map((e) => Input.fromPartial(e)) || [];
     message.outputs = object.outputs?.map((e) => Output.fromPartial(e)) || [];
     return message;
   },
 };
 
-const baseMsgMultiSendResponse: object = {};
+function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
+  return {};
+}
 
 export const MsgMultiSendResponse = {
   encode(_: MsgMultiSendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -211,7 +213,7 @@ export const MsgMultiSendResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgMultiSendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgMultiSendResponse } as MsgMultiSendResponse;
+    const message = createBaseMsgMultiSendResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -224,8 +226,7 @@ export const MsgMultiSendResponse = {
   },
 
   fromJSON(_: any): MsgMultiSendResponse {
-    const message = { ...baseMsgMultiSendResponse } as MsgMultiSendResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgMultiSendResponse): unknown {
@@ -234,7 +235,7 @@ export const MsgMultiSendResponse = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(_: I): MsgMultiSendResponse {
-    const message = { ...baseMsgMultiSendResponse } as MsgMultiSendResponse;
+    const message = createBaseMsgMultiSendResponse();
     return message;
   },
 };
@@ -293,4 +294,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
