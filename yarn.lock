@@ -106,13 +106,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^1.19.0":
-  version: 1.19.1
-  resolution: "@types/prettier@npm:1.19.1"
-  checksum: d34229c37d3419b01efa31968b68c33b8b9b717bdf961e48f68e89821864b1329c45323d28e1200a204e7b2eefca1dabdac4aa0c3d698dbc8c60247322103b11
-  languageName: node
-  linkType: hard
-
 "cosmjs-types@workspace:.":
   version: 0.0.0-use.local
   resolution: "cosmjs-types@workspace:."
@@ -120,10 +113,10 @@ __metadata:
     "@types/long": ^4.0.1
     "@types/node": ^15.6.2
     long: ^4.0.0
-    prettier: ^2.5.0
+    prettier: ^2.6
     protobufjs: ~6.11.2
-    ts-proto: ^1.92.1
-    typescript: ~4.2
+    ts-proto: ^1.110
+    typescript: ~4.4
   languageName: unknown
   linkType: soft
 
@@ -155,12 +148,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.0.2, prettier@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "prettier@npm:2.5.0"
+"prettier@npm:^2.5.1, prettier@npm:^2.6":
+  version: 2.6.2
+  resolution: "prettier@npm:2.6.2"
   bin:
     prettier: bin-prettier.js
-  checksum: aad1b35b73e7c14596d389d90977a83dad0db689ba5802a0ef319c357b7867f55b885db197972aa6a56c30f53088c9f8e0d7f7930ae074c275a4e9cbe091d21d
+  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
   languageName: node
   linkType: hard
 
@@ -188,59 +181,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-poet@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "ts-poet@npm:4.5.0"
+"ts-poet@npm:^4.11.0":
+  version: 4.11.0
+  resolution: "ts-poet@npm:4.11.0"
   dependencies:
-    "@types/prettier": ^1.19.0
     lodash: ^4.17.15
-    prettier: ^2.0.2
-  checksum: 3d3d620449bf002ff684887d45078fdd35889d2e6d90b93872eab5c3cc4565a0bc2520ad83a14d08b2ed474d093d071b20c813a0ff6c4a100719f73485ce53d9
+    prettier: ^2.5.1
+  checksum: 58141523080aafdce397338c8db435a6055385ed919d77c9c77bed76f2f8f2bbe924f26e69d2681ca27270519ea0ec7e041fbadc765a4a25528fcbf2548822f5
   languageName: node
   linkType: hard
 
-"ts-proto-descriptors@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "ts-proto-descriptors@npm:1.2.1"
+"ts-proto-descriptors@npm:1.6.0":
+  version: 1.6.0
+  resolution: "ts-proto-descriptors@npm:1.6.0"
   dependencies:
     long: ^4.0.0
     protobufjs: ^6.8.8
-  checksum: b77a32b35d6fe8e943c0475754a3aa2951279a3f1b1c689b88e1de5472c940895209cbe587716e324533458d51e385d27bab2be8546571a0df57c6b0b6d203c1
+  checksum: 72de9826c2408efb979495c66add49200ea550c6540ebbf05c144cf5d66d21c09722a56cd183e25936196e04a24258e6af2dbdc2ef9e47e8dd19f094de681e89
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.92.1":
-  version: 1.92.1
-  resolution: "ts-proto@npm:1.92.1"
+"ts-proto@npm:^1.110":
+  version: 1.110.4
+  resolution: "ts-proto@npm:1.110.4"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
     object-hash: ^1.3.1
     protobufjs: ^6.8.8
-    ts-poet: ^4.5.0
-    ts-proto-descriptors: ^1.2.1
+    ts-poet: ^4.11.0
+    ts-proto-descriptors: 1.6.0
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: 3f5f66fdbba45a3e7549da62609dbc8ae8c5fc34f11c7230e59c8185e83d2bb2a1f714845b9a04e2def246e909104993deb1295db0ef42fb536bf4c4a08271d7
+  checksum: e7fda49ab5ef089bc54569399cce2b40eab18598bf28d1357d593c28796cde4c1d185fa02d7380743da0e47caaea2087fb77419c954ceb76bd4d11642a489fe2
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~4.2#~builtin<compat/typescript>":
-  version: 4.2.4
-  resolution: "typescript@patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=ddd1e8"
+"typescript@npm:~4.4":
+  version: 4.4.4
+  resolution: "typescript@npm:4.4.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bafcad6990f5d8ea9ccff09e440ce42630b2e42a5752dde5455b55c806ae43f8726a03770577d4fc6c2aa624597f796725cc6fe2c173f558a753a2f23a5198a4
+  checksum: 89ecb8436bb48ef5594d49289f5f89103071716b6e4844278f4fb3362856e31203e187a9c76d205c3f0b674d221a058fd28310dbcbcf5d95e9a57229bb5203f1
   languageName: node
   linkType: hard
 
-typescript@~4.2:
-  version: 4.2.4
-  resolution: "typescript@npm:4.2.4"
+"typescript@patch:typescript@~4.4#~builtin<compat/typescript>":
+  version: 4.4.4
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=ddd1e8"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 89c397df192f239359ad798b96d8e8d552e12c0c189ac5676cec4c20c410d6eec636b8e59a88f2aef0a56d961a9678d99c400099be9b7cae2f7b062eb4b7b171
+  checksum: bd629ad0da4a15d79aaad56baf3ee7d96f6a181760d430ae77f8c5325df7bffd9edee57544a3970e3651e8b796fe03a5838a7eb39c6d46cc3866c0b23d36a0dd
   languageName: node
   linkType: hard

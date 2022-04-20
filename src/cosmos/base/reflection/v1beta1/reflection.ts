@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.base.reflection.v1beta1";
 
@@ -30,7 +30,9 @@ export interface ListImplementationsResponse {
   implementationMessageNames: string[];
 }
 
-const baseListAllInterfacesRequest: object = {};
+function createBaseListAllInterfacesRequest(): ListAllInterfacesRequest {
+  return {};
+}
 
 export const ListAllInterfacesRequest = {
   encode(_: ListAllInterfacesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -40,7 +42,7 @@ export const ListAllInterfacesRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ListAllInterfacesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseListAllInterfacesRequest } as ListAllInterfacesRequest;
+    const message = createBaseListAllInterfacesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -53,8 +55,7 @@ export const ListAllInterfacesRequest = {
   },
 
   fromJSON(_: any): ListAllInterfacesRequest {
-    const message = { ...baseListAllInterfacesRequest } as ListAllInterfacesRequest;
-    return message;
+    return {};
   },
 
   toJSON(_: ListAllInterfacesRequest): unknown {
@@ -63,12 +64,14 @@ export const ListAllInterfacesRequest = {
   },
 
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(_: I): ListAllInterfacesRequest {
-    const message = { ...baseListAllInterfacesRequest } as ListAllInterfacesRequest;
+    const message = createBaseListAllInterfacesRequest();
     return message;
   },
 };
 
-const baseListAllInterfacesResponse: object = { interfaceNames: "" };
+function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
+  return { interfaceNames: [] };
+}
 
 export const ListAllInterfacesResponse = {
   encode(message: ListAllInterfacesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -81,8 +84,7 @@ export const ListAllInterfacesResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ListAllInterfacesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
-    message.interfaceNames = [];
+    const message = createBaseListAllInterfacesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -98,9 +100,11 @@ export const ListAllInterfacesResponse = {
   },
 
   fromJSON(object: any): ListAllInterfacesResponse {
-    const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
-    message.interfaceNames = (object.interfaceNames ?? []).map((e: any) => String(e));
-    return message;
+    return {
+      interfaceNames: Array.isArray(object?.interfaceNames)
+        ? object.interfaceNames.map((e: any) => String(e))
+        : [],
+    };
   },
 
   toJSON(message: ListAllInterfacesResponse): unknown {
@@ -116,13 +120,15 @@ export const ListAllInterfacesResponse = {
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(
     object: I,
   ): ListAllInterfacesResponse {
-    const message = { ...baseListAllInterfacesResponse } as ListAllInterfacesResponse;
+    const message = createBaseListAllInterfacesResponse();
     message.interfaceNames = object.interfaceNames?.map((e) => e) || [];
     return message;
   },
 };
 
-const baseListImplementationsRequest: object = { interfaceName: "" };
+function createBaseListImplementationsRequest(): ListImplementationsRequest {
+  return { interfaceName: "" };
+}
 
 export const ListImplementationsRequest = {
   encode(message: ListImplementationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -135,7 +141,7 @@ export const ListImplementationsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ListImplementationsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseListImplementationsRequest } as ListImplementationsRequest;
+    const message = createBaseListImplementationsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -151,10 +157,9 @@ export const ListImplementationsRequest = {
   },
 
   fromJSON(object: any): ListImplementationsRequest {
-    const message = { ...baseListImplementationsRequest } as ListImplementationsRequest;
-    message.interfaceName =
-      object.interfaceName !== undefined && object.interfaceName !== null ? String(object.interfaceName) : "";
-    return message;
+    return {
+      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "",
+    };
   },
 
   toJSON(message: ListImplementationsRequest): unknown {
@@ -166,13 +171,15 @@ export const ListImplementationsRequest = {
   fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(
     object: I,
   ): ListImplementationsRequest {
-    const message = { ...baseListImplementationsRequest } as ListImplementationsRequest;
+    const message = createBaseListImplementationsRequest();
     message.interfaceName = object.interfaceName ?? "";
     return message;
   },
 };
 
-const baseListImplementationsResponse: object = { implementationMessageNames: "" };
+function createBaseListImplementationsResponse(): ListImplementationsResponse {
+  return { implementationMessageNames: [] };
+}
 
 export const ListImplementationsResponse = {
   encode(message: ListImplementationsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -185,8 +192,7 @@ export const ListImplementationsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ListImplementationsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
-    message.implementationMessageNames = [];
+    const message = createBaseListImplementationsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -202,9 +208,11 @@ export const ListImplementationsResponse = {
   },
 
   fromJSON(object: any): ListImplementationsResponse {
-    const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
-    message.implementationMessageNames = (object.implementationMessageNames ?? []).map((e: any) => String(e));
-    return message;
+    return {
+      implementationMessageNames: Array.isArray(object?.implementationMessageNames)
+        ? object.implementationMessageNames.map((e: any) => String(e))
+        : [],
+    };
   },
 
   toJSON(message: ListImplementationsResponse): unknown {
@@ -220,7 +228,7 @@ export const ListImplementationsResponse = {
   fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(
     object: I,
   ): ListImplementationsResponse {
-    const message = { ...baseListImplementationsResponse } as ListImplementationsResponse;
+    const message = createBaseListImplementationsResponse();
     message.implementationMessageNames = object.implementationMessageNames?.map((e) => e) || [];
     return message;
   },
@@ -294,4 +302,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Height } from "../../../../ibc/core/client/v1/client";
 
 export const protobufPackage = "ibc.lightclients.localhost.v1";
@@ -16,7 +16,9 @@ export interface ClientState {
   height?: Height;
 }
 
-const baseClientState: object = { chainId: "" };
+function createBaseClientState(): ClientState {
+  return { chainId: "", height: undefined };
+}
 
 export const ClientState = {
   encode(message: ClientState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -32,7 +34,7 @@ export const ClientState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ClientState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseClientState } as ClientState;
+    const message = createBaseClientState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -51,11 +53,10 @@ export const ClientState = {
   },
 
   fromJSON(object: any): ClientState {
-    const message = { ...baseClientState } as ClientState;
-    message.chainId = object.chainId !== undefined && object.chainId !== null ? String(object.chainId) : "";
-    message.height =
-      object.height !== undefined && object.height !== null ? Height.fromJSON(object.height) : undefined;
-    return message;
+    return {
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
+    };
   },
 
   toJSON(message: ClientState): unknown {
@@ -66,7 +67,7 @@ export const ClientState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
-    const message = { ...baseClientState } as ClientState;
+    const message = createBaseClientState();
     message.chainId = object.chainId ?? "";
     message.height =
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
@@ -96,4 +97,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

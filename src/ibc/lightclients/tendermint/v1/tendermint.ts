@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../../google/protobuf/duration";
 import { Height } from "../../../../ibc/core/client/v1/client";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
@@ -35,10 +35,12 @@ export interface ClientState {
   proofSpecs: ProofSpec[];
   /**
    * Path at which next upgraded client will be committed.
-   * Each element corresponds to the key for a single CommitmentProof in the chained proof.
-   * NOTE: ClientState must stored under `{upgradePath}/{upgradeHeight}/clientState`
-   * ConsensusState must be stored under `{upgradepath}/{upgradeHeight}/consensusState`
-   * For SDK chains using the default upgrade module, upgrade_path should be []string{"upgrade", "upgradedIBCState"}`
+   * Each element corresponds to the key for a single CommitmentProof in the
+   * chained proof. NOTE: ClientState must stored under
+   * `{upgradePath}/{upgradeHeight}/clientState` ConsensusState must be stored
+   * under `{upgradepath}/{upgradeHeight}/consensusState` For SDK chains using
+   * the default upgrade module, upgrade_path should be []string{"upgrade",
+   * "upgradedIBCState"}`
    */
   upgradePath: string[];
   /**
@@ -96,18 +98,30 @@ export interface Header {
   trustedValidators?: ValidatorSet;
 }
 
-/** Fraction defines the protobuf message type for tmmath.Fraction that only supports positive values. */
+/**
+ * Fraction defines the protobuf message type for tmmath.Fraction that only
+ * supports positive values.
+ */
 export interface Fraction {
   numerator: Long;
   denominator: Long;
 }
 
-const baseClientState: object = {
-  chainId: "",
-  upgradePath: "",
-  allowUpdateAfterExpiry: false,
-  allowUpdateAfterMisbehaviour: false,
-};
+function createBaseClientState(): ClientState {
+  return {
+    chainId: "",
+    trustLevel: undefined,
+    trustingPeriod: undefined,
+    unbondingPeriod: undefined,
+    maxClockDrift: undefined,
+    frozenHeight: undefined,
+    latestHeight: undefined,
+    proofSpecs: [],
+    upgradePath: [],
+    allowUpdateAfterExpiry: false,
+    allowUpdateAfterMisbehaviour: false,
+  };
+}
 
 export const ClientState = {
   encode(message: ClientState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -150,9 +164,7 @@ export const ClientState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ClientState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseClientState } as ClientState;
-    message.proofSpecs = [];
-    message.upgradePath = [];
+    const message = createBaseClientState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -198,43 +210,25 @@ export const ClientState = {
   },
 
   fromJSON(object: any): ClientState {
-    const message = { ...baseClientState } as ClientState;
-    message.chainId = object.chainId !== undefined && object.chainId !== null ? String(object.chainId) : "";
-    message.trustLevel =
-      object.trustLevel !== undefined && object.trustLevel !== null
-        ? Fraction.fromJSON(object.trustLevel)
-        : undefined;
-    message.trustingPeriod =
-      object.trustingPeriod !== undefined && object.trustingPeriod !== null
-        ? Duration.fromJSON(object.trustingPeriod)
-        : undefined;
-    message.unbondingPeriod =
-      object.unbondingPeriod !== undefined && object.unbondingPeriod !== null
-        ? Duration.fromJSON(object.unbondingPeriod)
-        : undefined;
-    message.maxClockDrift =
-      object.maxClockDrift !== undefined && object.maxClockDrift !== null
-        ? Duration.fromJSON(object.maxClockDrift)
-        : undefined;
-    message.frozenHeight =
-      object.frozenHeight !== undefined && object.frozenHeight !== null
-        ? Height.fromJSON(object.frozenHeight)
-        : undefined;
-    message.latestHeight =
-      object.latestHeight !== undefined && object.latestHeight !== null
-        ? Height.fromJSON(object.latestHeight)
-        : undefined;
-    message.proofSpecs = (object.proofSpecs ?? []).map((e: any) => ProofSpec.fromJSON(e));
-    message.upgradePath = (object.upgradePath ?? []).map((e: any) => String(e));
-    message.allowUpdateAfterExpiry =
-      object.allowUpdateAfterExpiry !== undefined && object.allowUpdateAfterExpiry !== null
+    return {
+      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      trustLevel: isSet(object.trustLevel) ? Fraction.fromJSON(object.trustLevel) : undefined,
+      trustingPeriod: isSet(object.trustingPeriod) ? Duration.fromJSON(object.trustingPeriod) : undefined,
+      unbondingPeriod: isSet(object.unbondingPeriod) ? Duration.fromJSON(object.unbondingPeriod) : undefined,
+      maxClockDrift: isSet(object.maxClockDrift) ? Duration.fromJSON(object.maxClockDrift) : undefined,
+      frozenHeight: isSet(object.frozenHeight) ? Height.fromJSON(object.frozenHeight) : undefined,
+      latestHeight: isSet(object.latestHeight) ? Height.fromJSON(object.latestHeight) : undefined,
+      proofSpecs: Array.isArray(object?.proofSpecs)
+        ? object.proofSpecs.map((e: any) => ProofSpec.fromJSON(e))
+        : [],
+      upgradePath: Array.isArray(object?.upgradePath) ? object.upgradePath.map((e: any) => String(e)) : [],
+      allowUpdateAfterExpiry: isSet(object.allowUpdateAfterExpiry)
         ? Boolean(object.allowUpdateAfterExpiry)
-        : false;
-    message.allowUpdateAfterMisbehaviour =
-      object.allowUpdateAfterMisbehaviour !== undefined && object.allowUpdateAfterMisbehaviour !== null
+        : false,
+      allowUpdateAfterMisbehaviour: isSet(object.allowUpdateAfterMisbehaviour)
         ? Boolean(object.allowUpdateAfterMisbehaviour)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: ClientState): unknown {
@@ -270,7 +264,7 @@ export const ClientState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
-    const message = { ...baseClientState } as ClientState;
+    const message = createBaseClientState();
     message.chainId = object.chainId ?? "";
     message.trustLevel =
       object.trustLevel !== undefined && object.trustLevel !== null
@@ -304,7 +298,9 @@ export const ClientState = {
   },
 };
 
-const baseConsensusState: object = {};
+function createBaseConsensusState(): ConsensusState {
+  return { timestamp: undefined, root: undefined, nextValidatorsHash: new Uint8Array() };
+}
 
 export const ConsensusState = {
   encode(message: ConsensusState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -323,8 +319,7 @@ export const ConsensusState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): ConsensusState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseConsensusState } as ConsensusState;
-    message.nextValidatorsHash = new Uint8Array();
+    const message = createBaseConsensusState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -346,18 +341,13 @@ export const ConsensusState = {
   },
 
   fromJSON(object: any): ConsensusState {
-    const message = { ...baseConsensusState } as ConsensusState;
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? fromJsonTimestamp(object.timestamp)
-        : undefined;
-    message.root =
-      object.root !== undefined && object.root !== null ? MerkleRoot.fromJSON(object.root) : undefined;
-    message.nextValidatorsHash =
-      object.nextValidatorsHash !== undefined && object.nextValidatorsHash !== null
+    return {
+      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
+      root: isSet(object.root) ? MerkleRoot.fromJSON(object.root) : undefined,
+      nextValidatorsHash: isSet(object.nextValidatorsHash)
         ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: ConsensusState): unknown {
@@ -372,7 +362,7 @@ export const ConsensusState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<ConsensusState>, I>>(object: I): ConsensusState {
-    const message = { ...baseConsensusState } as ConsensusState;
+    const message = createBaseConsensusState();
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
         ? Timestamp.fromPartial(object.timestamp)
@@ -384,7 +374,9 @@ export const ConsensusState = {
   },
 };
 
-const baseMisbehaviour: object = { clientId: "" };
+function createBaseMisbehaviour(): Misbehaviour {
+  return { clientId: "", header1: undefined, header2: undefined };
+}
 
 export const Misbehaviour = {
   encode(message: Misbehaviour, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -403,7 +395,7 @@ export const Misbehaviour = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Misbehaviour {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMisbehaviour } as Misbehaviour;
+    const message = createBaseMisbehaviour();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -425,14 +417,11 @@ export const Misbehaviour = {
   },
 
   fromJSON(object: any): Misbehaviour {
-    const message = { ...baseMisbehaviour } as Misbehaviour;
-    message.clientId =
-      object.clientId !== undefined && object.clientId !== null ? String(object.clientId) : "";
-    message.header1 =
-      object.header1 !== undefined && object.header1 !== null ? Header.fromJSON(object.header1) : undefined;
-    message.header2 =
-      object.header2 !== undefined && object.header2 !== null ? Header.fromJSON(object.header2) : undefined;
-    return message;
+    return {
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      header1: isSet(object.header1) ? Header.fromJSON(object.header1) : undefined,
+      header2: isSet(object.header2) ? Header.fromJSON(object.header2) : undefined,
+    };
   },
 
   toJSON(message: Misbehaviour): unknown {
@@ -446,7 +435,7 @@ export const Misbehaviour = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
-    const message = { ...baseMisbehaviour } as Misbehaviour;
+    const message = createBaseMisbehaviour();
     message.clientId = object.clientId ?? "";
     message.header1 =
       object.header1 !== undefined && object.header1 !== null
@@ -460,7 +449,14 @@ export const Misbehaviour = {
   },
 };
 
-const baseHeader: object = {};
+function createBaseHeader(): Header {
+  return {
+    signedHeader: undefined,
+    validatorSet: undefined,
+    trustedHeight: undefined,
+    trustedValidators: undefined,
+  };
+}
 
 export const Header = {
   encode(message: Header, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -482,7 +478,7 @@ export const Header = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Header {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseHeader } as Header;
+    const message = createBaseHeader();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -507,24 +503,14 @@ export const Header = {
   },
 
   fromJSON(object: any): Header {
-    const message = { ...baseHeader } as Header;
-    message.signedHeader =
-      object.signedHeader !== undefined && object.signedHeader !== null
-        ? SignedHeader.fromJSON(object.signedHeader)
-        : undefined;
-    message.validatorSet =
-      object.validatorSet !== undefined && object.validatorSet !== null
-        ? ValidatorSet.fromJSON(object.validatorSet)
-        : undefined;
-    message.trustedHeight =
-      object.trustedHeight !== undefined && object.trustedHeight !== null
-        ? Height.fromJSON(object.trustedHeight)
-        : undefined;
-    message.trustedValidators =
-      object.trustedValidators !== undefined && object.trustedValidators !== null
+    return {
+      signedHeader: isSet(object.signedHeader) ? SignedHeader.fromJSON(object.signedHeader) : undefined,
+      validatorSet: isSet(object.validatorSet) ? ValidatorSet.fromJSON(object.validatorSet) : undefined,
+      trustedHeight: isSet(object.trustedHeight) ? Height.fromJSON(object.trustedHeight) : undefined,
+      trustedValidators: isSet(object.trustedValidators)
         ? ValidatorSet.fromJSON(object.trustedValidators)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: Header): unknown {
@@ -543,7 +529,7 @@ export const Header = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
-    const message = { ...baseHeader } as Header;
+    const message = createBaseHeader();
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
         ? SignedHeader.fromPartial(object.signedHeader)
@@ -564,7 +550,9 @@ export const Header = {
   },
 };
 
-const baseFraction: object = { numerator: Long.UZERO, denominator: Long.UZERO };
+function createBaseFraction(): Fraction {
+  return { numerator: Long.UZERO, denominator: Long.UZERO };
+}
 
 export const Fraction = {
   encode(message: Fraction, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -580,7 +568,7 @@ export const Fraction = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Fraction {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseFraction } as Fraction;
+    const message = createBaseFraction();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -599,16 +587,10 @@ export const Fraction = {
   },
 
   fromJSON(object: any): Fraction {
-    const message = { ...baseFraction } as Fraction;
-    message.numerator =
-      object.numerator !== undefined && object.numerator !== null
-        ? Long.fromString(object.numerator)
-        : Long.UZERO;
-    message.denominator =
-      object.denominator !== undefined && object.denominator !== null
-        ? Long.fromString(object.denominator)
-        : Long.UZERO;
-    return message;
+    return {
+      numerator: isSet(object.numerator) ? Long.fromString(object.numerator) : Long.UZERO,
+      denominator: isSet(object.denominator) ? Long.fromString(object.denominator) : Long.UZERO,
+    };
   },
 
   toJSON(message: Fraction): unknown {
@@ -619,7 +601,7 @@ export const Fraction = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Fraction>, I>>(object: I): Fraction {
-    const message = { ...baseFraction } as Fraction;
+    const message = createBaseFraction();
     message.numerator =
       object.numerator !== undefined && object.numerator !== null
         ? Long.fromValue(object.numerator)
@@ -658,9 +640,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -712,4 +694,8 @@ function numberToLong(number: number) {
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

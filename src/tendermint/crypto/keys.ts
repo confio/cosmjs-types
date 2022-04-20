@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "tendermint.crypto";
 
@@ -10,7 +10,9 @@ export interface PublicKey {
   secp256k1: Uint8Array | undefined;
 }
 
-const basePublicKey: object = {};
+function createBasePublicKey(): PublicKey {
+  return { ed25519: undefined, secp256k1: undefined };
+}
 
 export const PublicKey = {
   encode(message: PublicKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -26,7 +28,7 @@ export const PublicKey = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PublicKey {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePublicKey } as PublicKey;
+    const message = createBasePublicKey();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -45,14 +47,10 @@ export const PublicKey = {
   },
 
   fromJSON(object: any): PublicKey {
-    const message = { ...basePublicKey } as PublicKey;
-    message.ed25519 =
-      object.ed25519 !== undefined && object.ed25519 !== null ? bytesFromBase64(object.ed25519) : undefined;
-    message.secp256k1 =
-      object.secp256k1 !== undefined && object.secp256k1 !== null
-        ? bytesFromBase64(object.secp256k1)
-        : undefined;
-    return message;
+    return {
+      ed25519: isSet(object.ed25519) ? bytesFromBase64(object.ed25519) : undefined,
+      secp256k1: isSet(object.secp256k1) ? bytesFromBase64(object.secp256k1) : undefined,
+    };
   },
 
   toJSON(message: PublicKey): unknown {
@@ -65,7 +63,7 @@ export const PublicKey = {
   },
 
   fromPartial<I extends Exact<DeepPartial<PublicKey>, I>>(object: I): PublicKey {
-    const message = { ...basePublicKey } as PublicKey;
+    const message = createBasePublicKey();
     message.ed25519 = object.ed25519 ?? undefined;
     message.secp256k1 = object.secp256k1 ?? undefined;
     return message;
@@ -98,9 +96,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -126,4 +124,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

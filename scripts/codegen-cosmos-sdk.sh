@@ -2,11 +2,11 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=true,useDate=false"
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,useDate=false"
 
 OUT_DIR="./src"
-COSMOS_SDK_DIR="./cosmos-sdk-0.44/proto"
-COSMOS_SDK_THIRD_PARTY_DIR="./cosmos-sdk-0.44/third_party/proto"
+COSMOS_SDK_DIR="./cosmos-sdk-0.45/proto"
+COSMOS_SDK_THIRD_PARTY_DIR="./cosmos-sdk-0.45/third_party/proto"
 
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
@@ -36,7 +36,7 @@ protoc \
   "$COSMOS_SDK_DIR/cosmos/base/reflection/v1beta1/reflection.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/snapshots/v1beta1/snapshot.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/store/v1beta1/commit_info.proto" \
-  "$COSMOS_SDK_DIR/cosmos/base/store/v1beta1/snapshot.proto" \
+  "$COSMOS_SDK_DIR/cosmos/base/store/v1beta1/listening.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/tendermint/v1beta1/query.proto" \
   "$COSMOS_SDK_DIR/cosmos/base/v1beta1/coin.proto" \
   "$COSMOS_SDK_DIR/cosmos/capability/v1beta1/capability.proto" \

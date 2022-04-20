@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.crypto.multisig.v1beta1";
 
@@ -24,7 +24,9 @@ export interface CompactBitArray {
   elems: Uint8Array;
 }
 
-const baseMultiSignature: object = {};
+function createBaseMultiSignature(): MultiSignature {
+  return { signatures: [] };
+}
 
 export const MultiSignature = {
   encode(message: MultiSignature, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -37,8 +39,7 @@ export const MultiSignature = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MultiSignature {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMultiSignature } as MultiSignature;
-    message.signatures = [];
+    const message = createBaseMultiSignature();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -54,9 +55,11 @@ export const MultiSignature = {
   },
 
   fromJSON(object: any): MultiSignature {
-    const message = { ...baseMultiSignature } as MultiSignature;
-    message.signatures = (object.signatures ?? []).map((e: any) => bytesFromBase64(e));
-    return message;
+    return {
+      signatures: Array.isArray(object?.signatures)
+        ? object.signatures.map((e: any) => bytesFromBase64(e))
+        : [],
+    };
   },
 
   toJSON(message: MultiSignature): unknown {
@@ -70,13 +73,15 @@ export const MultiSignature = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MultiSignature>, I>>(object: I): MultiSignature {
-    const message = { ...baseMultiSignature } as MultiSignature;
+    const message = createBaseMultiSignature();
     message.signatures = object.signatures?.map((e) => e) || [];
     return message;
   },
 };
 
-const baseCompactBitArray: object = { extraBitsStored: 0 };
+function createBaseCompactBitArray(): CompactBitArray {
+  return { extraBitsStored: 0, elems: new Uint8Array() };
+}
 
 export const CompactBitArray = {
   encode(message: CompactBitArray, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -92,8 +97,7 @@ export const CompactBitArray = {
   decode(input: _m0.Reader | Uint8Array, length?: number): CompactBitArray {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCompactBitArray } as CompactBitArray;
-    message.elems = new Uint8Array();
+    const message = createBaseCompactBitArray();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -112,26 +116,22 @@ export const CompactBitArray = {
   },
 
   fromJSON(object: any): CompactBitArray {
-    const message = { ...baseCompactBitArray } as CompactBitArray;
-    message.extraBitsStored =
-      object.extraBitsStored !== undefined && object.extraBitsStored !== null
-        ? Number(object.extraBitsStored)
-        : 0;
-    message.elems =
-      object.elems !== undefined && object.elems !== null ? bytesFromBase64(object.elems) : new Uint8Array();
-    return message;
+    return {
+      extraBitsStored: isSet(object.extraBitsStored) ? Number(object.extraBitsStored) : 0,
+      elems: isSet(object.elems) ? bytesFromBase64(object.elems) : new Uint8Array(),
+    };
   },
 
   toJSON(message: CompactBitArray): unknown {
     const obj: any = {};
-    message.extraBitsStored !== undefined && (obj.extraBitsStored = message.extraBitsStored);
+    message.extraBitsStored !== undefined && (obj.extraBitsStored = Math.round(message.extraBitsStored));
     message.elems !== undefined &&
       (obj.elems = base64FromBytes(message.elems !== undefined ? message.elems : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CompactBitArray>, I>>(object: I): CompactBitArray {
-    const message = { ...baseCompactBitArray } as CompactBitArray;
+    const message = createBaseCompactBitArray();
     message.extraBitsStored = object.extraBitsStored ?? 0;
     message.elems = object.elems ?? new Uint8Array();
     return message;
@@ -164,9 +164,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -192,4 +192,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

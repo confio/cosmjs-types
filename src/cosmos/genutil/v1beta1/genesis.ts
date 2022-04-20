@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.genutil.v1beta1";
 
@@ -10,7 +10,9 @@ export interface GenesisState {
   genTxs: Uint8Array[];
 }
 
-const baseGenesisState: object = {};
+function createBaseGenesisState(): GenesisState {
+  return { genTxs: [] };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -23,8 +25,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.genTxs = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -40,9 +41,9 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.genTxs = (object.genTxs ?? []).map((e: any) => bytesFromBase64(e));
-    return message;
+    return {
+      genTxs: Array.isArray(object?.genTxs) ? object.genTxs.map((e: any) => bytesFromBase64(e)) : [],
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -56,7 +57,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.genTxs = object.genTxs?.map((e) => e) || [];
     return message;
   },
@@ -88,9 +89,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 

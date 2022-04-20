@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { CapabilityOwners } from "../../../cosmos/capability/v1beta1/capability";
 
 export const protobufPackage = "cosmos.capability.v1beta1";
@@ -24,7 +24,9 @@ export interface GenesisState {
   owners: GenesisOwners[];
 }
 
-const baseGenesisOwners: object = { index: Long.UZERO };
+function createBaseGenesisOwners(): GenesisOwners {
+  return { index: Long.UZERO, indexOwners: undefined };
+}
 
 export const GenesisOwners = {
   encode(message: GenesisOwners, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -40,7 +42,7 @@ export const GenesisOwners = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisOwners {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisOwners } as GenesisOwners;
+    const message = createBaseGenesisOwners();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -59,14 +61,10 @@ export const GenesisOwners = {
   },
 
   fromJSON(object: any): GenesisOwners {
-    const message = { ...baseGenesisOwners } as GenesisOwners;
-    message.index =
-      object.index !== undefined && object.index !== null ? Long.fromString(object.index) : Long.UZERO;
-    message.indexOwners =
-      object.indexOwners !== undefined && object.indexOwners !== null
-        ? CapabilityOwners.fromJSON(object.indexOwners)
-        : undefined;
-    return message;
+    return {
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      indexOwners: isSet(object.indexOwners) ? CapabilityOwners.fromJSON(object.indexOwners) : undefined,
+    };
   },
 
   toJSON(message: GenesisOwners): unknown {
@@ -78,7 +76,7 @@ export const GenesisOwners = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisOwners>, I>>(object: I): GenesisOwners {
-    const message = { ...baseGenesisOwners } as GenesisOwners;
+    const message = createBaseGenesisOwners();
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.indexOwners =
@@ -89,7 +87,9 @@ export const GenesisOwners = {
   },
 };
 
-const baseGenesisState: object = { index: Long.UZERO };
+function createBaseGenesisState(): GenesisState {
+  return { index: Long.UZERO, owners: [] };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -105,8 +105,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.owners = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -125,11 +124,10 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.index =
-      object.index !== undefined && object.index !== null ? Long.fromString(object.index) : Long.UZERO;
-    message.owners = (object.owners ?? []).map((e: any) => GenesisOwners.fromJSON(e));
-    return message;
+    return {
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => GenesisOwners.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -144,7 +142,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.owners = object.owners?.map((e) => GenesisOwners.fromPartial(e)) || [];
@@ -174,4 +172,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

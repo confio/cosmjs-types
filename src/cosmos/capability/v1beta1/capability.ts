@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.capability.v1beta1";
 
@@ -29,7 +29,9 @@ export interface CapabilityOwners {
   owners: Owner[];
 }
 
-const baseCapability: object = { index: Long.UZERO };
+function createBaseCapability(): Capability {
+  return { index: Long.UZERO };
+}
 
 export const Capability = {
   encode(message: Capability, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -42,7 +44,7 @@ export const Capability = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Capability {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCapability } as Capability;
+    const message = createBaseCapability();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -58,10 +60,9 @@ export const Capability = {
   },
 
   fromJSON(object: any): Capability {
-    const message = { ...baseCapability } as Capability;
-    message.index =
-      object.index !== undefined && object.index !== null ? Long.fromString(object.index) : Long.UZERO;
-    return message;
+    return {
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+    };
   },
 
   toJSON(message: Capability): unknown {
@@ -71,14 +72,16 @@ export const Capability = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Capability>, I>>(object: I): Capability {
-    const message = { ...baseCapability } as Capability;
+    const message = createBaseCapability();
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     return message;
   },
 };
 
-const baseOwner: object = { module: "", name: "" };
+function createBaseOwner(): Owner {
+  return { module: "", name: "" };
+}
 
 export const Owner = {
   encode(message: Owner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -94,7 +97,7 @@ export const Owner = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Owner {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseOwner } as Owner;
+    const message = createBaseOwner();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -113,10 +116,10 @@ export const Owner = {
   },
 
   fromJSON(object: any): Owner {
-    const message = { ...baseOwner } as Owner;
-    message.module = object.module !== undefined && object.module !== null ? String(object.module) : "";
-    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
-    return message;
+    return {
+      module: isSet(object.module) ? String(object.module) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+    };
   },
 
   toJSON(message: Owner): unknown {
@@ -127,14 +130,16 @@ export const Owner = {
   },
 
   fromPartial<I extends Exact<DeepPartial<Owner>, I>>(object: I): Owner {
-    const message = { ...baseOwner } as Owner;
+    const message = createBaseOwner();
     message.module = object.module ?? "";
     message.name = object.name ?? "";
     return message;
   },
 };
 
-const baseCapabilityOwners: object = {};
+function createBaseCapabilityOwners(): CapabilityOwners {
+  return { owners: [] };
+}
 
 export const CapabilityOwners = {
   encode(message: CapabilityOwners, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -147,8 +152,7 @@ export const CapabilityOwners = {
   decode(input: _m0.Reader | Uint8Array, length?: number): CapabilityOwners {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCapabilityOwners } as CapabilityOwners;
-    message.owners = [];
+    const message = createBaseCapabilityOwners();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -164,9 +168,9 @@ export const CapabilityOwners = {
   },
 
   fromJSON(object: any): CapabilityOwners {
-    const message = { ...baseCapabilityOwners } as CapabilityOwners;
-    message.owners = (object.owners ?? []).map((e: any) => Owner.fromJSON(e));
-    return message;
+    return {
+      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: CapabilityOwners): unknown {
@@ -180,7 +184,7 @@ export const CapabilityOwners = {
   },
 
   fromPartial<I extends Exact<DeepPartial<CapabilityOwners>, I>>(object: I): CapabilityOwners {
-    const message = { ...baseCapabilityOwners } as CapabilityOwners;
+    const message = createBaseCapabilityOwners();
     message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || [];
     return message;
   },
@@ -208,4 +212,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

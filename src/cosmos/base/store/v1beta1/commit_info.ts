@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.base.store.v1beta1";
 
@@ -31,7 +31,9 @@ export interface CommitID {
   hash: Uint8Array;
 }
 
-const baseCommitInfo: object = { version: Long.ZERO };
+function createBaseCommitInfo(): CommitInfo {
+  return { version: Long.ZERO, storeInfos: [] };
+}
 
 export const CommitInfo = {
   encode(message: CommitInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -47,8 +49,7 @@ export const CommitInfo = {
   decode(input: _m0.Reader | Uint8Array, length?: number): CommitInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCommitInfo } as CommitInfo;
-    message.storeInfos = [];
+    const message = createBaseCommitInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -67,11 +68,12 @@ export const CommitInfo = {
   },
 
   fromJSON(object: any): CommitInfo {
-    const message = { ...baseCommitInfo } as CommitInfo;
-    message.version =
-      object.version !== undefined && object.version !== null ? Long.fromString(object.version) : Long.ZERO;
-    message.storeInfos = (object.storeInfos ?? []).map((e: any) => StoreInfo.fromJSON(e));
-    return message;
+    return {
+      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      storeInfos: Array.isArray(object?.storeInfos)
+        ? object.storeInfos.map((e: any) => StoreInfo.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: CommitInfo): unknown {
@@ -86,7 +88,7 @@ export const CommitInfo = {
   },
 
   fromPartial<I extends Exact<DeepPartial<CommitInfo>, I>>(object: I): CommitInfo {
-    const message = { ...baseCommitInfo } as CommitInfo;
+    const message = createBaseCommitInfo();
     message.version =
       object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
     message.storeInfos = object.storeInfos?.map((e) => StoreInfo.fromPartial(e)) || [];
@@ -94,7 +96,9 @@ export const CommitInfo = {
   },
 };
 
-const baseStoreInfo: object = { name: "" };
+function createBaseStoreInfo(): StoreInfo {
+  return { name: "", commitId: undefined };
+}
 
 export const StoreInfo = {
   encode(message: StoreInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -110,7 +114,7 @@ export const StoreInfo = {
   decode(input: _m0.Reader | Uint8Array, length?: number): StoreInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseStoreInfo } as StoreInfo;
+    const message = createBaseStoreInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -129,13 +133,10 @@ export const StoreInfo = {
   },
 
   fromJSON(object: any): StoreInfo {
-    const message = { ...baseStoreInfo } as StoreInfo;
-    message.name = object.name !== undefined && object.name !== null ? String(object.name) : "";
-    message.commitId =
-      object.commitId !== undefined && object.commitId !== null
-        ? CommitID.fromJSON(object.commitId)
-        : undefined;
-    return message;
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      commitId: isSet(object.commitId) ? CommitID.fromJSON(object.commitId) : undefined,
+    };
   },
 
   toJSON(message: StoreInfo): unknown {
@@ -147,7 +148,7 @@ export const StoreInfo = {
   },
 
   fromPartial<I extends Exact<DeepPartial<StoreInfo>, I>>(object: I): StoreInfo {
-    const message = { ...baseStoreInfo } as StoreInfo;
+    const message = createBaseStoreInfo();
     message.name = object.name ?? "";
     message.commitId =
       object.commitId !== undefined && object.commitId !== null
@@ -157,7 +158,9 @@ export const StoreInfo = {
   },
 };
 
-const baseCommitID: object = { version: Long.ZERO };
+function createBaseCommitID(): CommitID {
+  return { version: Long.ZERO, hash: new Uint8Array() };
+}
 
 export const CommitID = {
   encode(message: CommitID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -173,8 +176,7 @@ export const CommitID = {
   decode(input: _m0.Reader | Uint8Array, length?: number): CommitID {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCommitID } as CommitID;
-    message.hash = new Uint8Array();
+    const message = createBaseCommitID();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -193,12 +195,10 @@ export const CommitID = {
   },
 
   fromJSON(object: any): CommitID {
-    const message = { ...baseCommitID } as CommitID;
-    message.version =
-      object.version !== undefined && object.version !== null ? Long.fromString(object.version) : Long.ZERO;
-    message.hash =
-      object.hash !== undefined && object.hash !== null ? bytesFromBase64(object.hash) : new Uint8Array();
-    return message;
+    return {
+      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+    };
   },
 
   toJSON(message: CommitID): unknown {
@@ -210,7 +210,7 @@ export const CommitID = {
   },
 
   fromPartial<I extends Exact<DeepPartial<CommitID>, I>>(object: I): CommitID {
-    const message = { ...baseCommitID } as CommitID;
+    const message = createBaseCommitID();
     message.version =
       object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
     message.hash = object.hash ?? new Uint8Array();
@@ -244,9 +244,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -272,4 +272,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

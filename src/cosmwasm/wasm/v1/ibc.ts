@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -18,7 +18,10 @@ export interface MsgIBCSend {
    * The timeout is disabled when set to 0.
    */
   timeoutTimestamp: Long;
-  /** data is the payload to transfer */
+  /**
+   * Data is the payload to transfer. We must not make assumption what format or
+   * content is in here.
+   */
   data: Uint8Array;
 }
 
@@ -27,7 +30,9 @@ export interface MsgIBCCloseChannel {
   channel: string;
 }
 
-const baseMsgIBCSend: object = { channel: "", timeoutHeight: Long.UZERO, timeoutTimestamp: Long.UZERO };
+function createBaseMsgIBCSend(): MsgIBCSend {
+  return { channel: "", timeoutHeight: Long.UZERO, timeoutTimestamp: Long.UZERO, data: new Uint8Array() };
+}
 
 export const MsgIBCSend = {
   encode(message: MsgIBCSend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -49,8 +54,7 @@ export const MsgIBCSend = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgIBCSend {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgIBCSend } as MsgIBCSend;
-    message.data = new Uint8Array();
+    const message = createBaseMsgIBCSend();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -75,19 +79,14 @@ export const MsgIBCSend = {
   },
 
   fromJSON(object: any): MsgIBCSend {
-    const message = { ...baseMsgIBCSend } as MsgIBCSend;
-    message.channel = object.channel !== undefined && object.channel !== null ? String(object.channel) : "";
-    message.timeoutHeight =
-      object.timeoutHeight !== undefined && object.timeoutHeight !== null
-        ? Long.fromString(object.timeoutHeight)
-        : Long.UZERO;
-    message.timeoutTimestamp =
-      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
+    return {
+      channel: isSet(object.channel) ? String(object.channel) : "",
+      timeoutHeight: isSet(object.timeoutHeight) ? Long.fromString(object.timeoutHeight) : Long.UZERO,
+      timeoutTimestamp: isSet(object.timeoutTimestamp)
         ? Long.fromString(object.timeoutTimestamp)
-        : Long.UZERO;
-    message.data =
-      object.data !== undefined && object.data !== null ? bytesFromBase64(object.data) : new Uint8Array();
-    return message;
+        : Long.UZERO,
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+    };
   },
 
   toJSON(message: MsgIBCSend): unknown {
@@ -103,7 +102,7 @@ export const MsgIBCSend = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgIBCSend>, I>>(object: I): MsgIBCSend {
-    const message = { ...baseMsgIBCSend } as MsgIBCSend;
+    const message = createBaseMsgIBCSend();
     message.channel = object.channel ?? "";
     message.timeoutHeight =
       object.timeoutHeight !== undefined && object.timeoutHeight !== null
@@ -118,7 +117,9 @@ export const MsgIBCSend = {
   },
 };
 
-const baseMsgIBCCloseChannel: object = { channel: "" };
+function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
+  return { channel: "" };
+}
 
 export const MsgIBCCloseChannel = {
   encode(message: MsgIBCCloseChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -131,7 +132,7 @@ export const MsgIBCCloseChannel = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgIBCCloseChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
+    const message = createBaseMsgIBCCloseChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -147,9 +148,9 @@ export const MsgIBCCloseChannel = {
   },
 
   fromJSON(object: any): MsgIBCCloseChannel {
-    const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
-    message.channel = object.channel !== undefined && object.channel !== null ? String(object.channel) : "";
-    return message;
+    return {
+      channel: isSet(object.channel) ? String(object.channel) : "",
+    };
   },
 
   toJSON(message: MsgIBCCloseChannel): unknown {
@@ -159,7 +160,7 @@ export const MsgIBCCloseChannel = {
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgIBCCloseChannel>, I>>(object: I): MsgIBCCloseChannel {
-    const message = { ...baseMsgIBCCloseChannel } as MsgIBCCloseChannel;
+    const message = createBaseMsgIBCCloseChannel();
     message.channel = object.channel ?? "";
     return message;
   },
@@ -191,9 +192,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -219,4 +220,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

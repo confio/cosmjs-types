@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.bank.v1beta1";
@@ -15,7 +15,9 @@ export interface SendAuthorization {
   spendLimit: Coin[];
 }
 
-const baseSendAuthorization: object = {};
+function createBaseSendAuthorization(): SendAuthorization {
+  return { spendLimit: [] };
+}
 
 export const SendAuthorization = {
   encode(message: SendAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -28,8 +30,7 @@ export const SendAuthorization = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SendAuthorization {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSendAuthorization } as SendAuthorization;
-    message.spendLimit = [];
+    const message = createBaseSendAuthorization();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -45,9 +46,11 @@ export const SendAuthorization = {
   },
 
   fromJSON(object: any): SendAuthorization {
-    const message = { ...baseSendAuthorization } as SendAuthorization;
-    message.spendLimit = (object.spendLimit ?? []).map((e: any) => Coin.fromJSON(e));
-    return message;
+    return {
+      spendLimit: Array.isArray(object?.spendLimit)
+        ? object.spendLimit.map((e: any) => Coin.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: SendAuthorization): unknown {
@@ -61,7 +64,7 @@ export const SendAuthorization = {
   },
 
   fromPartial<I extends Exact<DeepPartial<SendAuthorization>, I>>(object: I): SendAuthorization {
-    const message = { ...baseSendAuthorization } as SendAuthorization;
+    const message = createBaseSendAuthorization();
     message.spendLimit = object.spendLimit?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },

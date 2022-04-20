@@ -2,16 +2,16 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=true,useDate=false"
+TS_PROTO_OPTS="esModuleInterop=true,forceLong=long,useOptionals=messages,useDate=false"
 
 OUT_DIR="./src"
 PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
 mkdir -p "$OUT_DIR"
 
-echo "Processing wasmd 0.16 proto files ..."
-WASMD_DIR="./wasmd-0.16/proto"
-WASMD_THIRD_PARTY_DIR="./wasmd-0.16/third_party/proto"
+echo "Processing wasmd 0.18 proto files ..."
+WASMD_DIR="./wasmd-0.18/proto"
+WASMD_THIRD_PARTY_DIR="./wasmd-0.18/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos"
 IBC_DIR="$WASMD_THIRD_PARTY_DIR/ibc"
@@ -100,16 +100,16 @@ protoc \
   "$IBC_DIR/core/connection/v1/query.proto" \
   "$IBC_DIR/core/connection/v1/tx.proto" \
   "$IBC_DIR/core/types/v1/genesis.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/genesis.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/ibc.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/proposal.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/query.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/tx.proto" \
-  "$WASMD_DIR/cosmwasm/wasm/v1beta1/types.proto"
+  "$WASMD_DIR/cosmwasm/wasm/v1/genesis.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1/ibc.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1/proposal.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1/query.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1/tx.proto" \
+  "$WASMD_DIR/cosmwasm/wasm/v1/types.proto"
 
-echo "Processing wasmd 0.18 proto files ..."
-WASMD_DIR="./wasmd-0.18/proto"
-WASMD_THIRD_PARTY_DIR="./wasmd-0.18/third_party/proto"
+echo "Processing wasmd 0.25 proto files ..."
+WASMD_DIR="./wasmd-0.25/proto"
+WASMD_THIRD_PARTY_DIR="./wasmd-0.25/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos"
 IBC_DIR="$WASMD_THIRD_PARTY_DIR/ibc"
@@ -181,6 +181,7 @@ protoc \
   "$IBC_DIR/applications/transfer/v1/query.proto" \
   "$IBC_DIR/applications/transfer/v1/transfer.proto" \
   "$IBC_DIR/applications/transfer/v1/tx.proto" \
+  "$IBC_DIR/applications/transfer/v2/packet.proto" \
   "$IBC_DIR/core/channel/v1/channel.proto" \
   "$IBC_DIR/core/channel/v1/genesis.proto" \
   "$IBC_DIR/core/channel/v1/query.proto" \

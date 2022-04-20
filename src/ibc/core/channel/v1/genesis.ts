@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { IdentifiedChannel, PacketState } from "../../../../ibc/core/channel/v1/channel";
 
 export const protobufPackage = "ibc.core.channel.v1";
@@ -28,7 +28,18 @@ export interface PacketSequence {
   sequence: Long;
 }
 
-const baseGenesisState: object = { nextChannelSequence: Long.UZERO };
+function createBaseGenesisState(): GenesisState {
+  return {
+    channels: [],
+    acknowledgements: [],
+    commitments: [],
+    receipts: [],
+    sendSequences: [],
+    recvSequences: [],
+    ackSequences: [],
+    nextChannelSequence: Long.UZERO,
+  };
+}
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -62,14 +73,7 @@ export const GenesisState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenesisState } as GenesisState;
-    message.channels = [];
-    message.acknowledgements = [];
-    message.commitments = [];
-    message.receipts = [];
-    message.sendSequences = [];
-    message.recvSequences = [];
-    message.ackSequences = [];
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -106,19 +110,32 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
-    message.channels = (object.channels ?? []).map((e: any) => IdentifiedChannel.fromJSON(e));
-    message.acknowledgements = (object.acknowledgements ?? []).map((e: any) => PacketState.fromJSON(e));
-    message.commitments = (object.commitments ?? []).map((e: any) => PacketState.fromJSON(e));
-    message.receipts = (object.receipts ?? []).map((e: any) => PacketState.fromJSON(e));
-    message.sendSequences = (object.sendSequences ?? []).map((e: any) => PacketSequence.fromJSON(e));
-    message.recvSequences = (object.recvSequences ?? []).map((e: any) => PacketSequence.fromJSON(e));
-    message.ackSequences = (object.ackSequences ?? []).map((e: any) => PacketSequence.fromJSON(e));
-    message.nextChannelSequence =
-      object.nextChannelSequence !== undefined && object.nextChannelSequence !== null
+    return {
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
+        : [],
+      acknowledgements: Array.isArray(object?.acknowledgements)
+        ? object.acknowledgements.map((e: any) => PacketState.fromJSON(e))
+        : [],
+      commitments: Array.isArray(object?.commitments)
+        ? object.commitments.map((e: any) => PacketState.fromJSON(e))
+        : [],
+      receipts: Array.isArray(object?.receipts)
+        ? object.receipts.map((e: any) => PacketState.fromJSON(e))
+        : [],
+      sendSequences: Array.isArray(object?.sendSequences)
+        ? object.sendSequences.map((e: any) => PacketSequence.fromJSON(e))
+        : [],
+      recvSequences: Array.isArray(object?.recvSequences)
+        ? object.recvSequences.map((e: any) => PacketSequence.fromJSON(e))
+        : [],
+      ackSequences: Array.isArray(object?.ackSequences)
+        ? object.ackSequences.map((e: any) => PacketSequence.fromJSON(e))
+        : [],
+      nextChannelSequence: isSet(object.nextChannelSequence)
         ? Long.fromString(object.nextChannelSequence)
-        : Long.UZERO;
-    return message;
+        : Long.UZERO,
+    };
   },
 
   toJSON(message: GenesisState): unknown {
@@ -164,7 +181,7 @@ export const GenesisState = {
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
-    const message = { ...baseGenesisState } as GenesisState;
+    const message = createBaseGenesisState();
     message.channels = object.channels?.map((e) => IdentifiedChannel.fromPartial(e)) || [];
     message.acknowledgements = object.acknowledgements?.map((e) => PacketState.fromPartial(e)) || [];
     message.commitments = object.commitments?.map((e) => PacketState.fromPartial(e)) || [];
@@ -180,7 +197,9 @@ export const GenesisState = {
   },
 };
 
-const basePacketSequence: object = { portId: "", channelId: "", sequence: Long.UZERO };
+function createBasePacketSequence(): PacketSequence {
+  return { portId: "", channelId: "", sequence: Long.UZERO };
+}
 
 export const PacketSequence = {
   encode(message: PacketSequence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -199,7 +218,7 @@ export const PacketSequence = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PacketSequence {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePacketSequence } as PacketSequence;
+    const message = createBasePacketSequence();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -221,15 +240,11 @@ export const PacketSequence = {
   },
 
   fromJSON(object: any): PacketSequence {
-    const message = { ...basePacketSequence } as PacketSequence;
-    message.portId = object.portId !== undefined && object.portId !== null ? String(object.portId) : "";
-    message.channelId =
-      object.channelId !== undefined && object.channelId !== null ? String(object.channelId) : "";
-    message.sequence =
-      object.sequence !== undefined && object.sequence !== null
-        ? Long.fromString(object.sequence)
-        : Long.UZERO;
-    return message;
+    return {
+      portId: isSet(object.portId) ? String(object.portId) : "",
+      channelId: isSet(object.channelId) ? String(object.channelId) : "",
+      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+    };
   },
 
   toJSON(message: PacketSequence): unknown {
@@ -241,7 +256,7 @@ export const PacketSequence = {
   },
 
   fromPartial<I extends Exact<DeepPartial<PacketSequence>, I>>(object: I): PacketSequence {
-    const message = { ...basePacketSequence } as PacketSequence;
+    const message = createBasePacketSequence();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
     message.sequence =
@@ -274,4 +289,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

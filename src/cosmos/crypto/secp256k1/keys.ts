@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.crypto.secp256k1";
 
@@ -20,7 +20,9 @@ export interface PrivKey {
   key: Uint8Array;
 }
 
-const basePubKey: object = {};
+function createBasePubKey(): PubKey {
+  return { key: new Uint8Array() };
+}
 
 export const PubKey = {
   encode(message: PubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -33,8 +35,7 @@ export const PubKey = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PubKey {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePubKey } as PubKey;
-    message.key = new Uint8Array();
+    const message = createBasePubKey();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -50,10 +51,9 @@ export const PubKey = {
   },
 
   fromJSON(object: any): PubKey {
-    const message = { ...basePubKey } as PubKey;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    return message;
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+    };
   },
 
   toJSON(message: PubKey): unknown {
@@ -64,13 +64,15 @@ export const PubKey = {
   },
 
   fromPartial<I extends Exact<DeepPartial<PubKey>, I>>(object: I): PubKey {
-    const message = { ...basePubKey } as PubKey;
+    const message = createBasePubKey();
     message.key = object.key ?? new Uint8Array();
     return message;
   },
 };
 
-const basePrivKey: object = {};
+function createBasePrivKey(): PrivKey {
+  return { key: new Uint8Array() };
+}
 
 export const PrivKey = {
   encode(message: PrivKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -83,8 +85,7 @@ export const PrivKey = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PrivKey {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePrivKey } as PrivKey;
-    message.key = new Uint8Array();
+    const message = createBasePrivKey();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -100,10 +101,9 @@ export const PrivKey = {
   },
 
   fromJSON(object: any): PrivKey {
-    const message = { ...basePrivKey } as PrivKey;
-    message.key =
-      object.key !== undefined && object.key !== null ? bytesFromBase64(object.key) : new Uint8Array();
-    return message;
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+    };
   },
 
   toJSON(message: PrivKey): unknown {
@@ -114,7 +114,7 @@ export const PrivKey = {
   },
 
   fromPartial<I extends Exact<DeepPartial<PrivKey>, I>>(object: I): PrivKey {
-    const message = { ...basePrivKey } as PrivKey;
+    const message = createBasePrivKey();
     message.key = object.key ?? new Uint8Array();
     return message;
   },
@@ -146,9 +146,9 @@ const btoa: (bin: string) => string =
   globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  arr.forEach((byte) => {
     bin.push(String.fromCharCode(byte));
-  }
+  });
   return btoa(bin.join(""));
 }
 
@@ -174,4 +174,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
