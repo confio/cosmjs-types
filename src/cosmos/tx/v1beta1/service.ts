@@ -4,6 +4,8 @@ import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { TxResponse, GasInfo, Result } from "../../../cosmos/base/abci/v1beta1/abci";
 import { Tx } from "../../../cosmos/tx/v1beta1/tx";
+import { BlockID } from "../../../tendermint/types/types";
+import { Block } from "../../../tendermint/types/block";
 
 export const protobufPackage = "cosmos.tx.v1beta1";
 
@@ -114,7 +116,7 @@ export function broadcastModeToJSON(object: BroadcastMode): string {
 export interface GetTxsEventRequest {
   /** events is the list of transaction event type. */
   events: string[];
-  /** pagination defines an pagination for the request. */
+  /** pagination defines a pagination for the request. */
   pagination?: PageRequest;
   orderBy: OrderBy;
 }
@@ -128,7 +130,7 @@ export interface GetTxsEventResponse {
   txs: Tx[];
   /** tx_responses is the list of queried TxResponses. */
   txResponses: TxResponse[];
-  /** pagination defines an pagination for the response. */
+  /** pagination defines a pagination for the response. */
   pagination?: PageResponse;
 }
 
@@ -197,6 +199,33 @@ export interface GetTxResponse {
   tx?: Tx;
   /** tx_response is the queried TxResponses. */
   txResponse?: TxResponse;
+}
+
+/**
+ * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
+ * RPC method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsRequest {
+  /** height is the height of the block to query. */
+  height: Long;
+  /** pagination defines a pagination for the request. */
+  pagination?: PageRequest;
+}
+
+/**
+ * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
+ *
+ * Since: cosmos-sdk 0.45.2
+ */
+export interface GetBlockWithTxsResponse {
+  /** txs are the transactions in the block. */
+  txs: Tx[];
+  blockId?: BlockID;
+  block?: Block;
+  /** pagination defines a pagination for the response. */
+  pagination?: PageResponse;
 }
 
 const baseGetTxsEventRequest: object = { events: "", orderBy: 0 };
@@ -708,6 +737,164 @@ export const GetTxResponse = {
   },
 };
 
+const baseGetBlockWithTxsRequest: object = { height: Long.ZERO };
+
+export const GetBlockWithTxsRequest = {
+  encode(message: GetBlockWithTxsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.height.isZero()) {
+      writer.uint32(8).int64(message.height);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetBlockWithTxsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.height = reader.int64() as Long;
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetBlockWithTxsRequest {
+    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromString(object.height) : Long.ZERO;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
+    return message;
+  },
+
+  toJSON(message: GetBlockWithTxsRequest): unknown {
+    const obj: any = {};
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GetBlockWithTxsRequest>, I>>(object: I): GetBlockWithTxsRequest {
+    const message = { ...baseGetBlockWithTxsRequest } as GetBlockWithTxsRequest;
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+const baseGetBlockWithTxsResponse: object = {};
+
+export const GetBlockWithTxsResponse = {
+  encode(message: GetBlockWithTxsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.txs) {
+      Tx.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.blockId !== undefined) {
+      BlockID.encode(message.blockId, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.block !== undefined) {
+      Block.encode(message.block, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetBlockWithTxsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
+    message.txs = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.txs.push(Tx.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.blockId = BlockID.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.block = Block.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): GetBlockWithTxsResponse {
+    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
+    message.txs = (object.txs ?? []).map((e: any) => Tx.fromJSON(e));
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null ? BlockID.fromJSON(object.blockId) : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromJSON(object.block) : undefined;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
+    return message;
+  },
+
+  toJSON(message: GetBlockWithTxsResponse): unknown {
+    const obj: any = {};
+    if (message.txs) {
+      obj.txs = message.txs.map((e) => (e ? Tx.toJSON(e) : undefined));
+    } else {
+      obj.txs = [];
+    }
+    message.blockId !== undefined &&
+      (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined);
+    message.block !== undefined && (obj.block = message.block ? Block.toJSON(message.block) : undefined);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GetBlockWithTxsResponse>, I>>(object: I): GetBlockWithTxsResponse {
+    const message = { ...baseGetBlockWithTxsResponse } as GetBlockWithTxsResponse;
+    message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
+    message.blockId =
+      object.blockId !== undefined && object.blockId !== null
+        ? BlockID.fromPartial(object.blockId)
+        : undefined;
+    message.block =
+      object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 /** Service defines a gRPC service for interacting with transactions. */
 export interface Service {
   /** Simulate simulates executing a transaction for estimating gas usage. */
@@ -718,6 +905,12 @@ export interface Service {
   BroadcastTx(request: BroadcastTxRequest): Promise<BroadcastTxResponse>;
   /** GetTxsEvent fetches txs by event. */
   GetTxsEvent(request: GetTxsEventRequest): Promise<GetTxsEventResponse>;
+  /**
+   * GetBlockWithTxs fetches a block with decoded txs.
+   *
+   * Since: cosmos-sdk 0.45.2
+   */
+  GetBlockWithTxs(request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse>;
 }
 
 export class ServiceClientImpl implements Service {
@@ -728,6 +921,7 @@ export class ServiceClientImpl implements Service {
     this.GetTx = this.GetTx.bind(this);
     this.BroadcastTx = this.BroadcastTx.bind(this);
     this.GetTxsEvent = this.GetTxsEvent.bind(this);
+    this.GetBlockWithTxs = this.GetBlockWithTxs.bind(this);
   }
   Simulate(request: SimulateRequest): Promise<SimulateResponse> {
     const data = SimulateRequest.encode(request).finish();
@@ -751,6 +945,12 @@ export class ServiceClientImpl implements Service {
     const data = GetTxsEventRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "GetTxsEvent", data);
     return promise.then((data) => GetTxsEventResponse.decode(new _m0.Reader(data)));
+  }
+
+  GetBlockWithTxs(request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse> {
+    const data = GetBlockWithTxsRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "GetBlockWithTxs", data);
+    return promise.then((data) => GetBlockWithTxsResponse.decode(new _m0.Reader(data)));
   }
 }
 
