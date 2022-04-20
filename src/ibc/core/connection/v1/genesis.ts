@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { IdentifiedConnection, ConnectionPaths } from "../../../../ibc/core/connection/v1/connection";
+import { Params, IdentifiedConnection, ConnectionPaths } from "../../../../ibc/core/connection/v1/connection";
 
 export const protobufPackage = "ibc.core.connection.v1";
 
@@ -11,6 +11,7 @@ export interface GenesisState {
   clientConnectionPaths: ConnectionPaths[];
   /** the sequence for the next generated connection identifier */
   nextConnectionSequence: Long;
+  params?: Params;
 }
 
 const baseGenesisState: object = { nextConnectionSequence: Long.UZERO };
@@ -25,6 +26,9 @@ export const GenesisState = {
     }
     if (!message.nextConnectionSequence.isZero()) {
       writer.uint32(24).uint64(message.nextConnectionSequence);
+    }
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -47,6 +51,9 @@ export const GenesisState = {
         case 3:
           message.nextConnectionSequence = reader.uint64() as Long;
           break;
+        case 4:
+          message.params = Params.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -65,6 +72,8 @@ export const GenesisState = {
       object.nextConnectionSequence !== undefined && object.nextConnectionSequence !== null
         ? Long.fromString(object.nextConnectionSequence)
         : Long.UZERO;
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromJSON(object.params) : undefined;
     return message;
   },
 
@@ -84,6 +93,7 @@ export const GenesisState = {
     }
     message.nextConnectionSequence !== undefined &&
       (obj.nextConnectionSequence = (message.nextConnectionSequence || Long.UZERO).toString());
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
@@ -96,6 +106,8 @@ export const GenesisState = {
       object.nextConnectionSequence !== undefined && object.nextConnectionSequence !== null
         ? Long.fromValue(object.nextConnectionSequence)
         : Long.UZERO;
+    message.params =
+      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
 };

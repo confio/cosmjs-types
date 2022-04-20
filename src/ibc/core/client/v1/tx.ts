@@ -37,13 +37,19 @@ export interface MsgUpdateClient {
 /** MsgUpdateClientResponse defines the Msg/UpdateClient response type. */
 export interface MsgUpdateClientResponse {}
 
-/** MsgUpgradeClient defines an sdk.Msg to upgrade an IBC client to a new client state */
+/**
+ * MsgUpgradeClient defines an sdk.Msg to upgrade an IBC client to a new client
+ * state
+ */
 export interface MsgUpgradeClient {
   /** client unique identifier */
   clientId: string;
   /** upgraded client state */
   clientState?: Any;
-  /** upgraded consensus state, only contains enough information to serve as a basis of trust in update logic */
+  /**
+   * upgraded consensus state, only contains enough information to serve as a
+   * basis of trust in update logic
+   */
   consensusState?: Any;
   /** proof that old chain committed to new client */
   proofUpgradeClient: Uint8Array;
@@ -69,7 +75,10 @@ export interface MsgSubmitMisbehaviour {
   signer: string;
 }
 
-/** MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response type. */
+/**
+ * MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
+ * type.
+ */
 export interface MsgSubmitMisbehaviourResponse {}
 
 const baseMsgCreateClient: object = { signer: "" };

@@ -26,8 +26,8 @@ export interface MsgChannelOpenInitResponse {}
 export interface MsgChannelOpenTry {
   portId: string;
   /**
-   * in the case of crossing hello's, when both chains call OpenInit, we need the channel identifier
-   * of the previous channel in state INIT
+   * in the case of crossing hello's, when both chains call OpenInit, we need
+   * the channel identifier of the previous channel in state INIT
    */
   previousChannelId: string;
   channel?: Channel;
@@ -69,7 +69,10 @@ export interface MsgChannelOpenConfirm {
   signer: string;
 }
 
-/** MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response type. */
+/**
+ * MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
+ * type.
+ */
 export interface MsgChannelOpenConfirmResponse {}
 
 /**
@@ -97,7 +100,10 @@ export interface MsgChannelCloseConfirm {
   signer: string;
 }
 
-/** MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response type. */
+/**
+ * MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
+ * type.
+ */
 export interface MsgChannelCloseConfirmResponse {}
 
 /** MsgRecvPacket receives incoming IBC packet */
@@ -1558,7 +1564,10 @@ export interface Msg {
   ChannelOpenConfirm(request: MsgChannelOpenConfirm): Promise<MsgChannelOpenConfirmResponse>;
   /** ChannelCloseInit defines a rpc handler method for MsgChannelCloseInit. */
   ChannelCloseInit(request: MsgChannelCloseInit): Promise<MsgChannelCloseInitResponse>;
-  /** ChannelCloseConfirm defines a rpc handler method for MsgChannelCloseConfirm. */
+  /**
+   * ChannelCloseConfirm defines a rpc handler method for
+   * MsgChannelCloseConfirm.
+   */
   ChannelCloseConfirm(request: MsgChannelCloseConfirm): Promise<MsgChannelCloseConfirmResponse>;
   /** RecvPacket defines a rpc handler method for MsgRecvPacket. */
   RecvPacket(request: MsgRecvPacket): Promise<MsgRecvPacketResponse>;

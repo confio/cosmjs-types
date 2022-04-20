@@ -31,7 +31,10 @@ export interface GenesisMetadata {
   value: Uint8Array;
 }
 
-/** IdentifiedGenesisMetadata has the client metadata with the corresponding client id. */
+/**
+ * IdentifiedGenesisMetadata has the client metadata with the corresponding
+ * client id.
+ */
 export interface IdentifiedGenesisMetadata {
   clientId: string;
   clientMetadata: GenesisMetadata[];

@@ -5,22 +5,6 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "ibc.applications.transfer.v1";
 
 /**
- * FungibleTokenPacketData defines a struct for the packet payload
- * See FungibleTokenPacketData spec:
- * https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
- */
-export interface FungibleTokenPacketData {
-  /** the token denomination to be transferred */
-  denom: string;
-  /** the token amount to be transferred */
-  amount: Long;
-  /** the sender address */
-  sender: string;
-  /** the recipient address on the destination chain */
-  receiver: string;
-}
-
-/**
  * DenomTrace contains the base denomination for ICS20 fungible tokens and the
  * source tracing information path.
  */
@@ -52,83 +36,6 @@ export interface Params {
    */
   receiveEnabled: boolean;
 }
-
-const baseFungibleTokenPacketData: object = { denom: "", amount: Long.UZERO, sender: "", receiver: "" };
-
-export const FungibleTokenPacketData = {
-  encode(message: FungibleTokenPacketData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== "") {
-      writer.uint32(10).string(message.denom);
-    }
-    if (!message.amount.isZero()) {
-      writer.uint32(16).uint64(message.amount);
-    }
-    if (message.sender !== "") {
-      writer.uint32(26).string(message.sender);
-    }
-    if (message.receiver !== "") {
-      writer.uint32(34).string(message.receiver);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): FungibleTokenPacketData {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.denom = reader.string();
-          break;
-        case 2:
-          message.amount = reader.uint64() as Long;
-          break;
-        case 3:
-          message.sender = reader.string();
-          break;
-        case 4:
-          message.receiver = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): FungibleTokenPacketData {
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
-    message.denom = object.denom !== undefined && object.denom !== null ? String(object.denom) : "";
-    message.amount =
-      object.amount !== undefined && object.amount !== null ? Long.fromString(object.amount) : Long.UZERO;
-    message.sender = object.sender !== undefined && object.sender !== null ? String(object.sender) : "";
-    message.receiver =
-      object.receiver !== undefined && object.receiver !== null ? String(object.receiver) : "";
-    return message;
-  },
-
-  toJSON(message: FungibleTokenPacketData): unknown {
-    const obj: any = {};
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.amount !== undefined && (obj.amount = (message.amount || Long.UZERO).toString());
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.receiver !== undefined && (obj.receiver = message.receiver);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<FungibleTokenPacketData>, I>>(object: I): FungibleTokenPacketData {
-    const message = { ...baseFungibleTokenPacketData } as FungibleTokenPacketData;
-    message.denom = object.denom ?? "";
-    message.amount =
-      object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
-    message.sender = object.sender ?? "";
-    message.receiver = object.receiver ?? "";
-    return message;
-  },
-};
 
 const baseDenomTrace: object = { path: "", baseDenom: "" };
 

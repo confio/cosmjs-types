@@ -79,8 +79,9 @@ export interface ConnectionEnd {
   /** counterparty chain associated with this connection. */
   counterparty?: Counterparty;
   /**
-   * delay period that must pass before a consensus state can be used for packet-verification
-   * NOTE: delay period logic is only implemented by some clients.
+   * delay period that must pass before a consensus state can be used for
+   * packet-verification NOTE: delay period logic is only implemented by some
+   * clients.
    */
   delayPeriod: Long;
 }
@@ -146,6 +147,16 @@ export interface Version {
   identifier: string;
   /** list of features compatible with the specified identifier */
   features: string[];
+}
+
+/** Params defines the set of Connection parameters. */
+export interface Params {
+  /**
+   * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
+   * largest amount of time that the chain might reasonably take to produce the next block under normal operating
+   * conditions. A safe choice is 3-5x the expected time per block.
+   */
+  maxExpectedTimePerBlock: Long;
 }
 
 const baseConnectionEnd: object = { clientId: "", state: 0, delayPeriod: Long.UZERO };
@@ -607,6 +618,60 @@ export const Version = {
     const message = { ...baseVersion } as Version;
     message.identifier = object.identifier ?? "";
     message.features = object.features?.map((e) => e) || [];
+    return message;
+  },
+};
+
+const baseParams: object = { maxExpectedTimePerBlock: Long.UZERO };
+
+export const Params = {
+  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.maxExpectedTimePerBlock.isZero()) {
+      writer.uint32(8).uint64(message.maxExpectedTimePerBlock);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseParams } as Params;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.maxExpectedTimePerBlock = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Params {
+    const message = { ...baseParams } as Params;
+    message.maxExpectedTimePerBlock =
+      object.maxExpectedTimePerBlock !== undefined && object.maxExpectedTimePerBlock !== null
+        ? Long.fromString(object.maxExpectedTimePerBlock)
+        : Long.UZERO;
+    return message;
+  },
+
+  toJSON(message: Params): unknown {
+    const obj: any = {};
+    message.maxExpectedTimePerBlock !== undefined &&
+      (obj.maxExpectedTimePerBlock = (message.maxExpectedTimePerBlock || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+    const message = { ...baseParams } as Params;
+    message.maxExpectedTimePerBlock =
+      object.maxExpectedTimePerBlock !== undefined && object.maxExpectedTimePerBlock !== null
+        ? Long.fromValue(object.maxExpectedTimePerBlock)
+        : Long.UZERO;
     return message;
   },
 };

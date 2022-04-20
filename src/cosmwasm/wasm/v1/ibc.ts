@@ -18,7 +18,10 @@ export interface MsgIBCSend {
    * The timeout is disabled when set to 0.
    */
   timeoutTimestamp: Long;
-  /** data is the payload to transfer */
+  /**
+   * Data is the payload to transfer. We must not make assumption what format or
+   * content is in here.
+   */
   data: Uint8Array;
 }
 

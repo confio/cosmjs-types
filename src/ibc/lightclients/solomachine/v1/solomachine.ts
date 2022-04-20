@@ -8,8 +8,8 @@ import { Channel } from "../../../../ibc/core/channel/v1/channel";
 export const protobufPackage = "ibc.lightclients.solomachine.v1";
 
 /**
- * DataType defines the type of solo machine proof being created. This is done to preserve uniqueness of different
- * data sign byte encodings.
+ * DataType defines the type of solo machine proof being created. This is done
+ * to preserve uniqueness of different data sign byte encodings.
  */
 export enum DataType {
   /** DATA_TYPE_UNINITIALIZED_UNSPECIFIED - Default State */
@@ -119,15 +119,17 @@ export interface ClientState {
 }
 
 /**
- * ConsensusState defines a solo machine consensus state. The sequence of a consensus state
- * is contained in the "height" key used in storing the consensus state.
+ * ConsensusState defines a solo machine consensus state. The sequence of a
+ * consensus state is contained in the "height" key used in storing the
+ * consensus state.
  */
 export interface ConsensusState {
   /** public key of the solo machine */
   publicKey?: Any;
   /**
-   * diversifier allows the same public key to be re-used across different solo machine clients
-   * (potentially on different chains) without being considered misbehaviour.
+   * diversifier allows the same public key to be re-used across different solo
+   * machine clients (potentially on different chains) without being considered
+   * misbehaviour.
    */
   diversifier: string;
   timestamp: Long;

@@ -35,10 +35,12 @@ export interface ClientState {
   proofSpecs: ProofSpec[];
   /**
    * Path at which next upgraded client will be committed.
-   * Each element corresponds to the key for a single CommitmentProof in the chained proof.
-   * NOTE: ClientState must stored under `{upgradePath}/{upgradeHeight}/clientState`
-   * ConsensusState must be stored under `{upgradepath}/{upgradeHeight}/consensusState`
-   * For SDK chains using the default upgrade module, upgrade_path should be []string{"upgrade", "upgradedIBCState"}`
+   * Each element corresponds to the key for a single CommitmentProof in the
+   * chained proof. NOTE: ClientState must stored under
+   * `{upgradePath}/{upgradeHeight}/clientState` ConsensusState must be stored
+   * under `{upgradepath}/{upgradeHeight}/consensusState` For SDK chains using
+   * the default upgrade module, upgrade_path should be []string{"upgrade",
+   * "upgradedIBCState"}`
    */
   upgradePath: string[];
   /**
@@ -96,7 +98,10 @@ export interface Header {
   trustedValidators?: ValidatorSet;
 }
 
-/** Fraction defines the protobuf message type for tmmath.Fraction that only supports positive values. */
+/**
+ * Fraction defines the protobuf message type for tmmath.Fraction that only
+ * supports positive values.
+ */
 export interface Fraction {
   numerator: Long;
   denominator: Long;

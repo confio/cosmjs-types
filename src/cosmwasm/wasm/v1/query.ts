@@ -161,6 +161,25 @@ export interface QueryCodesResponse {
   pagination?: PageResponse;
 }
 
+/**
+ * QueryPinnedCodesRequest is the request type for the Query/PinnedCodes
+ * RPC method
+ */
+export interface QueryPinnedCodesRequest {
+  /** pagination defines an optional pagination for the request. */
+  pagination?: PageRequest;
+}
+
+/**
+ * QueryPinnedCodesResponse is the response type for the
+ * Query/PinnedCodes RPC method
+ */
+export interface QueryPinnedCodesResponse {
+  codeIds: Long[];
+  /** pagination defines the pagination in the response. */
+  pagination?: PageResponse;
+}
+
 const baseQueryContractInfoRequest: object = { address: "" };
 
 export const QueryContractInfoRequest = {
@@ -1225,6 +1244,139 @@ export const QueryCodesResponse = {
   },
 };
 
+const baseQueryPinnedCodesRequest: object = {};
+
+export const QueryPinnedCodesRequest = {
+  encode(message: QueryPinnedCodesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPinnedCodesRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryPinnedCodesRequest } as QueryPinnedCodesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPinnedCodesRequest {
+    const message = { ...baseQueryPinnedCodesRequest } as QueryPinnedCodesRequest;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined;
+    return message;
+  },
+
+  toJSON(message: QueryPinnedCodesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPinnedCodesRequest>, I>>(object: I): QueryPinnedCodesRequest {
+    const message = { ...baseQueryPinnedCodesRequest } as QueryPinnedCodesRequest;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+const baseQueryPinnedCodesResponse: object = { codeIds: Long.UZERO };
+
+export const QueryPinnedCodesResponse = {
+  encode(message: QueryPinnedCodesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    writer.uint32(10).fork();
+    for (const v of message.codeIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPinnedCodesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryPinnedCodesResponse } as QueryPinnedCodesResponse;
+    message.codeIds = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.codeIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.codeIds.push(reader.uint64() as Long);
+          }
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryPinnedCodesResponse {
+    const message = { ...baseQueryPinnedCodesResponse } as QueryPinnedCodesResponse;
+    message.codeIds = (object.codeIds ?? []).map((e: any) => Long.fromString(e));
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined;
+    return message;
+  },
+
+  toJSON(message: QueryPinnedCodesResponse): unknown {
+    const obj: any = {};
+    if (message.codeIds) {
+      obj.codeIds = message.codeIds.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.codeIds = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPinnedCodesResponse>, I>>(
+    object: I,
+  ): QueryPinnedCodesResponse {
+    const message = { ...baseQueryPinnedCodesResponse } as QueryPinnedCodesResponse;
+    message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** ContractInfo gets the contract meta data */
@@ -1243,6 +1395,8 @@ export interface Query {
   Code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
   /** Codes gets the metadata for all stored wasm codes */
   Codes(request: QueryCodesRequest): Promise<QueryCodesResponse>;
+  /** PinnedCodes gets the pinned code ids */
+  PinnedCodes(request: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1257,6 +1411,7 @@ export class QueryClientImpl implements Query {
     this.SmartContractState = this.SmartContractState.bind(this);
     this.Code = this.Code.bind(this);
     this.Codes = this.Codes.bind(this);
+    this.PinnedCodes = this.PinnedCodes.bind(this);
   }
   ContractInfo(request: QueryContractInfoRequest): Promise<QueryContractInfoResponse> {
     const data = QueryContractInfoRequest.encode(request).finish();
@@ -1304,6 +1459,12 @@ export class QueryClientImpl implements Query {
     const data = QueryCodesRequest.encode(request).finish();
     const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "Codes", data);
     return promise.then((data) => QueryCodesResponse.decode(new _m0.Reader(data)));
+  }
+
+  PinnedCodes(request: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse> {
+    const data = QueryPinnedCodesRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "PinnedCodes", data);
+    return promise.then((data) => QueryPinnedCodesResponse.decode(new _m0.Reader(data)));
   }
 }
 

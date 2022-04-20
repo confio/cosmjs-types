@@ -19,7 +19,10 @@ export interface MsgConnectionOpenInit {
   signer: string;
 }
 
-/** MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response type. */
+/**
+ * MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
+ * type.
+ */
 export interface MsgConnectionOpenInitResponse {}
 
 /**
@@ -29,8 +32,8 @@ export interface MsgConnectionOpenInitResponse {}
 export interface MsgConnectionOpenTry {
   clientId: string;
   /**
-   * in the case of crossing hello's, when both chains call OpenInit, we need the connection identifier
-   * of the previous connection in state INIT
+   * in the case of crossing hello's, when both chains call OpenInit, we need
+   * the connection identifier of the previous connection in state INIT
    */
   previousConnectionId: string;
   clientState?: Any;
@@ -92,7 +95,10 @@ export interface MsgConnectionOpenConfirm {
   signer: string;
 }
 
-/** MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm response type. */
+/**
+ * MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
+ * response type.
+ */
 export interface MsgConnectionOpenConfirmResponse {}
 
 const baseMsgConnectionOpenInit: object = { clientId: "", delayPeriod: Long.UZERO, signer: "" };
@@ -847,7 +853,10 @@ export interface Msg {
   ConnectionOpenTry(request: MsgConnectionOpenTry): Promise<MsgConnectionOpenTryResponse>;
   /** ConnectionOpenAck defines a rpc handler method for MsgConnectionOpenAck. */
   ConnectionOpenAck(request: MsgConnectionOpenAck): Promise<MsgConnectionOpenAckResponse>;
-  /** ConnectionOpenConfirm defines a rpc handler method for MsgConnectionOpenConfirm. */
+  /**
+   * ConnectionOpenConfirm defines a rpc handler method for
+   * MsgConnectionOpenConfirm.
+   */
   ConnectionOpenConfirm(request: MsgConnectionOpenConfirm): Promise<MsgConnectionOpenConfirmResponse>;
 }
 
