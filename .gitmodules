@@ -1,6 +1,3 @@
-[submodule "wasmd"]
-	path = wasmd-0.16
-	url = https://github.com/cosmwasm/wasmd
 [submodule "wasmd-0.18"]
 	path = wasmd-0.18
 	url = https://github.com/CosmWasm/wasmd.git
