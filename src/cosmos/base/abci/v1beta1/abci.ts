@@ -1,10 +1,7 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
-
-export const protobufPackage = "cosmos.base.abci.v1beta1";
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, Exact, DeepPartial, bytesFromBase64, base64FromBytes } from "@osmonauts/helpers";
 
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
@@ -13,35 +10,47 @@ export const protobufPackage = "cosmos.base.abci.v1beta1";
 export interface TxResponse {
   /** The block height */
   height: Long;
+
   /** The transaction hash. */
   txhash: string;
+
   /** Namespace for the Code */
   codespace: string;
+
   /** Response code. */
   code: number;
+
   /** Result bytes, if any. */
   data: string;
+
   /**
    * The output of the application's logger (raw string). May be
    * non-deterministic.
    */
   rawLog: string;
+
   /** The output of the application's logger (typed). May be non-deterministic. */
   logs: ABCIMessageLog[];
+
   /** Additional information. May be non-deterministic. */
   info: string;
+
   /** Amount of gas requested for transaction. */
   gasWanted: Long;
+
   /** Amount of gas consumed by transaction. */
   gasUsed: Long;
+
   /** The request transaction bytes. */
-  tx?: Any;
+  tx: Any;
+
   /**
    * Time of the previous block. For heights > 1, it's the weighted median of
    * the timestamps of the valid votes in the block.LastCommit. For height == 1,
    * it's genesis time.
    */
   timestamp: string;
+
   /**
    * Events defines all the events emitted by processing a transaction. Note,
    * these events include those emitted by processing all the messages and those
@@ -57,6 +66,7 @@ export interface TxResponse {
 export interface ABCIMessageLog {
   msgIndex: number;
   log: string;
+
   /**
    * Events contains a slice of Event objects that were emitted during some
    * execution.
@@ -86,6 +96,7 @@ export interface Attribute {
 export interface GasInfo {
   /** GasWanted is the maximum units of work we allow this tx to perform. */
   gasWanted: Long;
+
   /** GasUsed is the amount of gas actually consumed. */
   gasUsed: Long;
 }
@@ -97,8 +108,10 @@ export interface Result {
    * length prefixed in order to separate data from multiple message executions.
    */
   data: Uint8Array;
+
   /** Log contains the log information from message or handler execution. */
   log: string;
+
   /**
    * Events contains a slice of Event objects that were emitted during message
    * or handler execution.
@@ -111,8 +124,8 @@ export interface Result {
  * successfully simulated.
  */
 export interface SimulationResponse {
-  gasInfo?: GasInfo;
-  result?: Result;
+  gasInfo: GasInfo;
+  result: Result;
 }
 
 /**
@@ -136,14 +149,19 @@ export interface TxMsgData {
 export interface SearchTxsResult {
   /** Count of all txs */
   totalCount: Long;
+
   /** Count of txs in current page */
   count: Long;
+
   /** Index of current page, start from 1 */
   pageNumber: Long;
+
   /** Count of total pages */
   pageTotal: Long;
+
   /** Max count txs per page */
   limit: Long;
+
   /** List of txs in current page */
   txs: TxResponse[];
 }
@@ -171,42 +189,55 @@ export const TxResponse = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     if (message.txhash !== "") {
       writer.uint32(18).string(message.txhash);
     }
+
     if (message.codespace !== "") {
       writer.uint32(26).string(message.codespace);
     }
+
     if (message.code !== 0) {
       writer.uint32(32).uint32(message.code);
     }
+
     if (message.data !== "") {
       writer.uint32(42).string(message.data);
     }
+
     if (message.rawLog !== "") {
       writer.uint32(50).string(message.rawLog);
     }
+
     for (const v of message.logs) {
       ABCIMessageLog.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.info !== "") {
       writer.uint32(66).string(message.info);
     }
+
     if (!message.gasWanted.isZero()) {
       writer.uint32(72).int64(message.gasWanted);
     }
+
     if (!message.gasUsed.isZero()) {
       writer.uint32(80).int64(message.gasUsed);
     }
+
     if (message.tx !== undefined) {
       Any.encode(message.tx, writer.uint32(90).fork()).ldelim();
     }
+
     if (message.timestamp !== "") {
       writer.uint32(98).string(message.timestamp);
     }
+
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(106).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -214,53 +245,69 @@ export const TxResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         case 2:
           message.txhash = reader.string();
           break;
+
         case 3:
           message.codespace = reader.string();
           break;
+
         case 4:
           message.code = reader.uint32();
           break;
+
         case 5:
           message.data = reader.string();
           break;
+
         case 6:
           message.rawLog = reader.string();
           break;
+
         case 7:
           message.logs.push(ABCIMessageLog.decode(reader, reader.uint32()));
           break;
+
         case 8:
           message.info = reader.string();
           break;
+
         case 9:
           message.gasWanted = reader.int64() as Long;
           break;
+
         case 10:
           message.gasUsed = reader.int64() as Long;
           break;
+
         case 11:
           message.tx = Any.decode(reader, reader.uint32());
           break;
+
         case 12:
           message.timestamp = reader.string();
           break;
+
         case 13:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -290,21 +337,25 @@ export const TxResponse = {
     message.code !== undefined && (obj.code = Math.round(message.code));
     message.data !== undefined && (obj.data = message.data);
     message.rawLog !== undefined && (obj.rawLog = message.rawLog);
+
     if (message.logs) {
       obj.logs = message.logs.map((e) => (e ? ABCIMessageLog.toJSON(e) : undefined));
     } else {
       obj.logs = [];
     }
+
     message.info !== undefined && (obj.info = message.info);
     message.gasWanted !== undefined && (obj.gasWanted = (message.gasWanted || Long.ZERO).toString());
     message.gasUsed !== undefined && (obj.gasUsed = (message.gasUsed || Long.ZERO).toString());
     message.tx !== undefined && (obj.tx = message.tx ? Any.toJSON(message.tx) : undefined);
     message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     return obj;
   },
 
@@ -333,7 +384,11 @@ export const TxResponse = {
 };
 
 function createBaseABCIMessageLog(): ABCIMessageLog {
-  return { msgIndex: 0, log: "", events: [] };
+  return {
+    msgIndex: 0,
+    log: "",
+    events: [],
+  };
 }
 
 export const ABCIMessageLog = {
@@ -341,12 +396,15 @@ export const ABCIMessageLog = {
     if (message.msgIndex !== 0) {
       writer.uint32(8).uint32(message.msgIndex);
     }
+
     if (message.log !== "") {
       writer.uint32(18).string(message.log);
     }
+
     for (const v of message.events) {
       StringEvent.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -354,23 +412,29 @@ export const ABCIMessageLog = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseABCIMessageLog();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.msgIndex = reader.uint32();
           break;
+
         case 2:
           message.log = reader.string();
           break;
+
         case 3:
           message.events.push(StringEvent.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -386,11 +450,13 @@ export const ABCIMessageLog = {
     const obj: any = {};
     message.msgIndex !== undefined && (obj.msgIndex = Math.round(message.msgIndex));
     message.log !== undefined && (obj.log = message.log);
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? StringEvent.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     return obj;
   },
 
@@ -404,7 +470,10 @@ export const ABCIMessageLog = {
 };
 
 function createBaseStringEvent(): StringEvent {
-  return { type: "", attributes: [] };
+  return {
+    type: "",
+    attributes: [],
+  };
 }
 
 export const StringEvent = {
@@ -412,9 +481,11 @@ export const StringEvent = {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
+
     for (const v of message.attributes) {
       Attribute.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -422,20 +493,25 @@ export const StringEvent = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStringEvent();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.string();
           break;
+
         case 2:
           message.attributes.push(Attribute.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -451,11 +527,13 @@ export const StringEvent = {
   toJSON(message: StringEvent): unknown {
     const obj: any = {};
     message.type !== undefined && (obj.type = message.type);
+
     if (message.attributes) {
       obj.attributes = message.attributes.map((e) => (e ? Attribute.toJSON(e) : undefined));
     } else {
       obj.attributes = [];
     }
+
     return obj;
   },
 
@@ -468,7 +546,10 @@ export const StringEvent = {
 };
 
 function createBaseAttribute(): Attribute {
-  return { key: "", value: "" };
+  return {
+    key: "",
+    value: "",
+  };
 }
 
 export const Attribute = {
@@ -476,9 +557,11 @@ export const Attribute = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== "") {
       writer.uint32(18).string(message.value);
     }
+
     return writer;
   },
 
@@ -486,20 +569,25 @@ export const Attribute = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAttribute();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.string();
           break;
+
         case 2:
           message.value = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -526,7 +614,10 @@ export const Attribute = {
 };
 
 function createBaseGasInfo(): GasInfo {
-  return { gasWanted: Long.UZERO, gasUsed: Long.UZERO };
+  return {
+    gasWanted: Long.UZERO,
+    gasUsed: Long.UZERO,
+  };
 }
 
 export const GasInfo = {
@@ -534,9 +625,11 @@ export const GasInfo = {
     if (!message.gasWanted.isZero()) {
       writer.uint32(8).uint64(message.gasWanted);
     }
+
     if (!message.gasUsed.isZero()) {
       writer.uint32(16).uint64(message.gasUsed);
     }
+
     return writer;
   },
 
@@ -544,20 +637,25 @@ export const GasInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGasInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.gasWanted = reader.uint64() as Long;
           break;
+
         case 2:
           message.gasUsed = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -588,7 +686,11 @@ export const GasInfo = {
 };
 
 function createBaseResult(): Result {
-  return { data: new Uint8Array(), log: "", events: [] };
+  return {
+    data: new Uint8Array(),
+    log: "",
+    events: [],
+  };
 }
 
 export const Result = {
@@ -596,12 +698,15 @@ export const Result = {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
+
     if (message.log !== "") {
       writer.uint32(18).string(message.log);
     }
+
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -609,23 +714,29 @@ export const Result = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResult();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data = reader.bytes();
           break;
+
         case 2:
           message.log = reader.string();
           break;
+
         case 3:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -642,11 +753,13 @@ export const Result = {
     message.data !== undefined &&
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
     message.log !== undefined && (obj.log = message.log);
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     return obj;
   },
 
@@ -660,7 +773,10 @@ export const Result = {
 };
 
 function createBaseSimulationResponse(): SimulationResponse {
-  return { gasInfo: undefined, result: undefined };
+  return {
+    gasInfo: undefined,
+    result: undefined,
+  };
 }
 
 export const SimulationResponse = {
@@ -668,9 +784,11 @@ export const SimulationResponse = {
     if (message.gasInfo !== undefined) {
       GasInfo.encode(message.gasInfo, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.result !== undefined) {
       Result.encode(message.result, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -678,20 +796,25 @@ export const SimulationResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSimulationResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.gasInfo = GasInfo.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.result = Result.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -723,7 +846,10 @@ export const SimulationResponse = {
 };
 
 function createBaseMsgData(): MsgData {
-  return { msgType: "", data: new Uint8Array() };
+  return {
+    msgType: "",
+    data: new Uint8Array(),
+  };
 }
 
 export const MsgData = {
@@ -731,9 +857,11 @@ export const MsgData = {
     if (message.msgType !== "") {
       writer.uint32(10).string(message.msgType);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -741,20 +869,25 @@ export const MsgData = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgData();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.msgType = reader.string();
           break;
+
         case 2:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -782,7 +915,9 @@ export const MsgData = {
 };
 
 function createBaseTxMsgData(): TxMsgData {
-  return { data: [] };
+  return {
+    data: [],
+  };
 }
 
 export const TxMsgData = {
@@ -790,6 +925,7 @@ export const TxMsgData = {
     for (const v of message.data) {
       MsgData.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -797,17 +933,21 @@ export const TxMsgData = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxMsgData();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data.push(MsgData.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -819,11 +959,13 @@ export const TxMsgData = {
 
   toJSON(message: TxMsgData): unknown {
     const obj: any = {};
+
     if (message.data) {
       obj.data = message.data.map((e) => (e ? MsgData.toJSON(e) : undefined));
     } else {
       obj.data = [];
     }
+
     return obj;
   },
 
@@ -850,21 +992,27 @@ export const SearchTxsResult = {
     if (!message.totalCount.isZero()) {
       writer.uint32(8).uint64(message.totalCount);
     }
+
     if (!message.count.isZero()) {
       writer.uint32(16).uint64(message.count);
     }
+
     if (!message.pageNumber.isZero()) {
       writer.uint32(24).uint64(message.pageNumber);
     }
+
     if (!message.pageTotal.isZero()) {
       writer.uint32(32).uint64(message.pageTotal);
     }
+
     if (!message.limit.isZero()) {
       writer.uint32(40).uint64(message.limit);
     }
+
     for (const v of message.txs) {
       TxResponse.encode(v!, writer.uint32(50).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -872,32 +1020,41 @@ export const SearchTxsResult = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSearchTxsResult();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.totalCount = reader.uint64() as Long;
           break;
+
         case 2:
           message.count = reader.uint64() as Long;
           break;
+
         case 3:
           message.pageNumber = reader.uint64() as Long;
           break;
+
         case 4:
           message.pageTotal = reader.uint64() as Long;
           break;
+
         case 5:
           message.limit = reader.uint64() as Long;
           break;
+
         case 6:
           message.txs.push(TxResponse.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -919,11 +1076,13 @@ export const SearchTxsResult = {
     message.pageNumber !== undefined && (obj.pageNumber = (message.pageNumber || Long.UZERO).toString());
     message.pageTotal !== undefined && (obj.pageTotal = (message.pageTotal || Long.UZERO).toString());
     message.limit !== undefined && (obj.limit = (message.limit || Long.UZERO).toString());
+
     if (message.txs) {
       obj.txs = message.txs.map((e) => (e ? TxResponse.toJSON(e) : undefined));
     } else {
       obj.txs = [];
     }
+
     return obj;
   },
 
@@ -949,63 +1108,3 @@ export const SearchTxsResult = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

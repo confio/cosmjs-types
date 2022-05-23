@@ -1,22 +1,21 @@
-/* eslint-disable */
-import Long from "long";
+import { CapabilityOwners } from "./capability";
 import * as _m0 from "protobufjs/minimal";
-import { CapabilityOwners } from "../../../cosmos/capability/v1beta1/capability";
-
-export const protobufPackage = "cosmos.capability.v1beta1";
+import { Long, isSet, Exact, DeepPartial } from "@osmonauts/helpers";
 
 /** GenesisOwners defines the capability owners with their corresponding index. */
 export interface GenesisOwners {
   /** index is the index of the capability owner. */
   index: Long;
+
   /** index_owners are the owners at the given index. */
-  indexOwners?: CapabilityOwners;
+  indexOwners: CapabilityOwners;
 }
 
 /** GenesisState defines the capability module's genesis state. */
 export interface GenesisState {
   /** index is the capability global index. */
   index: Long;
+
   /**
    * owners represents a map from index to owners of the capability index
    * index key is string to allow amino marshalling.
@@ -25,7 +24,10 @@ export interface GenesisState {
 }
 
 function createBaseGenesisOwners(): GenesisOwners {
-  return { index: Long.UZERO, indexOwners: undefined };
+  return {
+    index: Long.UZERO,
+    indexOwners: undefined,
+  };
 }
 
 export const GenesisOwners = {
@@ -33,9 +35,11 @@ export const GenesisOwners = {
     if (!message.index.isZero()) {
       writer.uint32(8).uint64(message.index);
     }
+
     if (message.indexOwners !== undefined) {
       CapabilityOwners.encode(message.indexOwners, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -43,20 +47,25 @@ export const GenesisOwners = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisOwners();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.index = reader.uint64() as Long;
           break;
+
         case 2:
           message.indexOwners = CapabilityOwners.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -88,7 +97,10 @@ export const GenesisOwners = {
 };
 
 function createBaseGenesisState(): GenesisState {
-  return { index: Long.UZERO, owners: [] };
+  return {
+    index: Long.UZERO,
+    owners: [],
+  };
 }
 
 export const GenesisState = {
@@ -96,9 +108,11 @@ export const GenesisState = {
     if (!message.index.isZero()) {
       writer.uint32(8).uint64(message.index);
     }
+
     for (const v of message.owners) {
       GenesisOwners.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -106,20 +120,25 @@ export const GenesisState = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisState();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.index = reader.uint64() as Long;
           break;
+
         case 2:
           message.owners.push(GenesisOwners.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -133,11 +152,13 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
+
     if (message.owners) {
       obj.owners = message.owners.map((e) => (e ? GenesisOwners.toJSON(e) : undefined));
     } else {
       obj.owners = [];
     }
+
     return obj;
   },
 
@@ -149,31 +170,3 @@ export const GenesisState = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

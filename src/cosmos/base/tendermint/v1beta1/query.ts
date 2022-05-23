@@ -1,47 +1,47 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../query/v1beta1/pagination";
 import { Any } from "../../../../google/protobuf/any";
 import { BlockID } from "../../../../tendermint/types/types";
 import { Block } from "../../../../tendermint/types/block";
 import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
-
-export const protobufPackage = "cosmos.base.tendermint.v1beta1";
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, Exact, DeepPartial } from "@osmonauts/helpers";
 
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightRequest {
   height: Long;
+
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /** GetValidatorSetByHeightResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightResponse {
   blockHeight: Long;
   validators: Validator[];
+
   /** pagination defines an pagination for the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** GetLatestValidatorSetRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetRequest {
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /** GetLatestValidatorSetResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetResponse {
   blockHeight: Long;
   validators: Validator[];
+
   /** pagination defines an pagination for the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** Validator is the type for the validator-set. */
 export interface Validator {
   address: string;
-  pubKey?: Any;
+  pubKey: Any;
   votingPower: Long;
   proposerPriority: Long;
 }
@@ -53,8 +53,8 @@ export interface GetBlockByHeightRequest {
 
 /** GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method. */
 export interface GetBlockByHeightResponse {
-  blockId?: BlockID;
-  block?: Block;
+  blockId: BlockID;
+  block: Block;
 }
 
 /** GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method. */
@@ -62,8 +62,8 @@ export interface GetLatestBlockRequest {}
 
 /** GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method. */
 export interface GetLatestBlockResponse {
-  blockId?: BlockID;
-  block?: Block;
+  blockId: BlockID;
+  block: Block;
 }
 
 /** GetSyncingRequest is the request type for the Query/GetSyncing RPC method. */
@@ -79,8 +79,8 @@ export interface GetNodeInfoRequest {}
 
 /** GetNodeInfoResponse is the request type for the Query/GetNodeInfo RPC method. */
 export interface GetNodeInfoResponse {
-  defaultNodeInfo?: DefaultNodeInfo;
-  applicationVersion?: VersionInfo;
+  defaultNodeInfo: DefaultNodeInfo;
+  applicationVersion: VersionInfo;
 }
 
 /** VersionInfo is the type for the GetNodeInfoResponse message. */
@@ -92,6 +92,7 @@ export interface VersionInfo {
   buildTags: string;
   goVersion: string;
   buildDeps: Module[];
+
   /** Since: cosmos-sdk 0.43 */
   cosmosSdkVersion: string;
 }
@@ -100,14 +101,19 @@ export interface VersionInfo {
 export interface Module {
   /** module path */
   path: string;
+
   /** module version */
   version: string;
+
   /** checksum */
   sum: string;
 }
 
 function createBaseGetValidatorSetByHeightRequest(): GetValidatorSetByHeightRequest {
-  return { height: Long.ZERO, pagination: undefined };
+  return {
+    height: Long.ZERO,
+    pagination: undefined,
+  };
 }
 
 export const GetValidatorSetByHeightRequest = {
@@ -115,9 +121,11 @@ export const GetValidatorSetByHeightRequest = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -125,20 +133,25 @@ export const GetValidatorSetByHeightRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetValidatorSetByHeightRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         case 2:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -172,7 +185,11 @@ export const GetValidatorSetByHeightRequest = {
 };
 
 function createBaseGetValidatorSetByHeightResponse(): GetValidatorSetByHeightResponse {
-  return { blockHeight: Long.ZERO, validators: [], pagination: undefined };
+  return {
+    blockHeight: Long.ZERO,
+    validators: [],
+    pagination: undefined,
+  };
 }
 
 export const GetValidatorSetByHeightResponse = {
@@ -180,12 +197,15 @@ export const GetValidatorSetByHeightResponse = {
     if (!message.blockHeight.isZero()) {
       writer.uint32(8).int64(message.blockHeight);
     }
+
     for (const v of message.validators) {
       Validator.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -193,23 +213,29 @@ export const GetValidatorSetByHeightResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetValidatorSetByHeightResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockHeight = reader.int64() as Long;
           break;
+
         case 2:
           message.validators.push(Validator.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -226,11 +252,13 @@ export const GetValidatorSetByHeightResponse = {
   toJSON(message: GetValidatorSetByHeightResponse): unknown {
     const obj: any = {};
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+
     if (message.validators) {
       obj.validators = message.validators.map((e) => (e ? Validator.toJSON(e) : undefined));
     } else {
       obj.validators = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -254,7 +282,9 @@ export const GetValidatorSetByHeightResponse = {
 };
 
 function createBaseGetLatestValidatorSetRequest(): GetLatestValidatorSetRequest {
-  return { pagination: undefined };
+  return {
+    pagination: undefined,
+  };
 }
 
 export const GetLatestValidatorSetRequest = {
@@ -262,6 +292,7 @@ export const GetLatestValidatorSetRequest = {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -269,17 +300,21 @@ export const GetLatestValidatorSetRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetLatestValidatorSetRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -309,7 +344,11 @@ export const GetLatestValidatorSetRequest = {
 };
 
 function createBaseGetLatestValidatorSetResponse(): GetLatestValidatorSetResponse {
-  return { blockHeight: Long.ZERO, validators: [], pagination: undefined };
+  return {
+    blockHeight: Long.ZERO,
+    validators: [],
+    pagination: undefined,
+  };
 }
 
 export const GetLatestValidatorSetResponse = {
@@ -317,12 +356,15 @@ export const GetLatestValidatorSetResponse = {
     if (!message.blockHeight.isZero()) {
       writer.uint32(8).int64(message.blockHeight);
     }
+
     for (const v of message.validators) {
       Validator.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -330,23 +372,29 @@ export const GetLatestValidatorSetResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetLatestValidatorSetResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockHeight = reader.int64() as Long;
           break;
+
         case 2:
           message.validators.push(Validator.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -363,11 +411,13 @@ export const GetLatestValidatorSetResponse = {
   toJSON(message: GetLatestValidatorSetResponse): unknown {
     const obj: any = {};
     message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+
     if (message.validators) {
       obj.validators = message.validators.map((e) => (e ? Validator.toJSON(e) : undefined));
     } else {
       obj.validators = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -391,7 +441,12 @@ export const GetLatestValidatorSetResponse = {
 };
 
 function createBaseValidator(): Validator {
-  return { address: "", pubKey: undefined, votingPower: Long.ZERO, proposerPriority: Long.ZERO };
+  return {
+    address: "",
+    pubKey: undefined,
+    votingPower: Long.ZERO,
+    proposerPriority: Long.ZERO,
+  };
 }
 
 export const Validator = {
@@ -399,15 +454,19 @@ export const Validator = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     if (message.pubKey !== undefined) {
       Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
     }
+
     if (!message.votingPower.isZero()) {
       writer.uint32(24).int64(message.votingPower);
     }
+
     if (!message.proposerPriority.isZero()) {
       writer.uint32(32).int64(message.proposerPriority);
     }
+
     return writer;
   },
 
@@ -415,26 +474,33 @@ export const Validator = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidator();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         case 2:
           message.pubKey = Any.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.votingPower = reader.int64() as Long;
           break;
+
         case 4:
           message.proposerPriority = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -475,7 +541,9 @@ export const Validator = {
 };
 
 function createBaseGetBlockByHeightRequest(): GetBlockByHeightRequest {
-  return { height: Long.ZERO };
+  return {
+    height: Long.ZERO,
+  };
 }
 
 export const GetBlockByHeightRequest = {
@@ -483,6 +551,7 @@ export const GetBlockByHeightRequest = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     return writer;
   },
 
@@ -490,17 +559,21 @@ export const GetBlockByHeightRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetBlockByHeightRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -525,7 +598,10 @@ export const GetBlockByHeightRequest = {
 };
 
 function createBaseGetBlockByHeightResponse(): GetBlockByHeightResponse {
-  return { blockId: undefined, block: undefined };
+  return {
+    blockId: undefined,
+    block: undefined,
+  };
 }
 
 export const GetBlockByHeightResponse = {
@@ -533,9 +609,11 @@ export const GetBlockByHeightResponse = {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.block !== undefined) {
       Block.encode(message.block, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -543,20 +621,25 @@ export const GetBlockByHeightResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetBlockByHeightResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.block = Block.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -602,14 +685,17 @@ export const GetLatestBlockRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetLatestBlockRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -629,7 +715,10 @@ export const GetLatestBlockRequest = {
 };
 
 function createBaseGetLatestBlockResponse(): GetLatestBlockResponse {
-  return { blockId: undefined, block: undefined };
+  return {
+    blockId: undefined,
+    block: undefined,
+  };
 }
 
 export const GetLatestBlockResponse = {
@@ -637,9 +726,11 @@ export const GetLatestBlockResponse = {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.block !== undefined) {
       Block.encode(message.block, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -647,20 +738,25 @@ export const GetLatestBlockResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetLatestBlockResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.block = Block.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -704,14 +800,17 @@ export const GetSyncingRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetSyncingRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -731,7 +830,9 @@ export const GetSyncingRequest = {
 };
 
 function createBaseGetSyncingResponse(): GetSyncingResponse {
-  return { syncing: false };
+  return {
+    syncing: false,
+  };
 }
 
 export const GetSyncingResponse = {
@@ -739,6 +840,7 @@ export const GetSyncingResponse = {
     if (message.syncing === true) {
       writer.uint32(8).bool(message.syncing);
     }
+
     return writer;
   },
 
@@ -746,17 +848,21 @@ export const GetSyncingResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetSyncingResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.syncing = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -792,14 +898,17 @@ export const GetNodeInfoRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetNodeInfoRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -819,7 +928,10 @@ export const GetNodeInfoRequest = {
 };
 
 function createBaseGetNodeInfoResponse(): GetNodeInfoResponse {
-  return { defaultNodeInfo: undefined, applicationVersion: undefined };
+  return {
+    defaultNodeInfo: undefined,
+    applicationVersion: undefined,
+  };
 }
 
 export const GetNodeInfoResponse = {
@@ -827,9 +939,11 @@ export const GetNodeInfoResponse = {
     if (message.defaultNodeInfo !== undefined) {
       DefaultNodeInfo.encode(message.defaultNodeInfo, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.applicationVersion !== undefined) {
       VersionInfo.encode(message.applicationVersion, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -837,20 +951,25 @@ export const GetNodeInfoResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetNodeInfoResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.defaultNodeInfo = DefaultNodeInfo.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.applicationVersion = VersionInfo.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -910,27 +1029,35 @@ export const VersionInfo = {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
+
     if (message.appName !== "") {
       writer.uint32(18).string(message.appName);
     }
+
     if (message.version !== "") {
       writer.uint32(26).string(message.version);
     }
+
     if (message.gitCommit !== "") {
       writer.uint32(34).string(message.gitCommit);
     }
+
     if (message.buildTags !== "") {
       writer.uint32(42).string(message.buildTags);
     }
+
     if (message.goVersion !== "") {
       writer.uint32(50).string(message.goVersion);
     }
+
     for (const v of message.buildDeps) {
       Module.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.cosmosSdkVersion !== "") {
       writer.uint32(66).string(message.cosmosSdkVersion);
     }
+
     return writer;
   },
 
@@ -938,38 +1065,49 @@ export const VersionInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVersionInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.name = reader.string();
           break;
+
         case 2:
           message.appName = reader.string();
           break;
+
         case 3:
           message.version = reader.string();
           break;
+
         case 4:
           message.gitCommit = reader.string();
           break;
+
         case 5:
           message.buildTags = reader.string();
           break;
+
         case 6:
           message.goVersion = reader.string();
           break;
+
         case 7:
           message.buildDeps.push(Module.decode(reader, reader.uint32()));
           break;
+
         case 8:
           message.cosmosSdkVersion = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -994,11 +1132,13 @@ export const VersionInfo = {
     message.gitCommit !== undefined && (obj.gitCommit = message.gitCommit);
     message.buildTags !== undefined && (obj.buildTags = message.buildTags);
     message.goVersion !== undefined && (obj.goVersion = message.goVersion);
+
     if (message.buildDeps) {
       obj.buildDeps = message.buildDeps.map((e) => (e ? Module.toJSON(e) : undefined));
     } else {
       obj.buildDeps = [];
     }
+
     message.cosmosSdkVersion !== undefined && (obj.cosmosSdkVersion = message.cosmosSdkVersion);
     return obj;
   },
@@ -1018,7 +1158,11 @@ export const VersionInfo = {
 };
 
 function createBaseModule(): Module {
-  return { path: "", version: "", sum: "" };
+  return {
+    path: "",
+    version: "",
+    sum: "",
+  };
 }
 
 export const Module = {
@@ -1026,12 +1170,15 @@ export const Module = {
     if (message.path !== "") {
       writer.uint32(10).string(message.path);
     }
+
     if (message.version !== "") {
       writer.uint32(18).string(message.version);
     }
+
     if (message.sum !== "") {
       writer.uint32(26).string(message.sum);
     }
+
     return writer;
   },
 
@@ -1039,23 +1186,29 @@ export const Module = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModule();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.path = reader.string();
           break;
+
         case 2:
           message.version = reader.string();
           break;
+
         case 3:
           message.sum = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1083,103 +1236,3 @@ export const Module = {
     return message;
   },
 };
-
-/** Service defines the gRPC querier service for tendermint queries. */
-export interface Service {
-  /** GetNodeInfo queries the current node info. */
-  GetNodeInfo(request: GetNodeInfoRequest): Promise<GetNodeInfoResponse>;
-  /** GetSyncing queries node syncing. */
-  GetSyncing(request: GetSyncingRequest): Promise<GetSyncingResponse>;
-  /** GetLatestBlock returns the latest block. */
-  GetLatestBlock(request: GetLatestBlockRequest): Promise<GetLatestBlockResponse>;
-  /** GetBlockByHeight queries block for given height. */
-  GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse>;
-  /** GetLatestValidatorSet queries latest validator-set. */
-  GetLatestValidatorSet(request: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse>;
-  /** GetValidatorSetByHeight queries validator-set at a given height. */
-  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
-}
-
-export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.GetNodeInfo = this.GetNodeInfo.bind(this);
-    this.GetSyncing = this.GetSyncing.bind(this);
-    this.GetLatestBlock = this.GetLatestBlock.bind(this);
-    this.GetBlockByHeight = this.GetBlockByHeight.bind(this);
-    this.GetLatestValidatorSet = this.GetLatestValidatorSet.bind(this);
-    this.GetValidatorSetByHeight = this.GetValidatorSetByHeight.bind(this);
-  }
-  GetNodeInfo(request: GetNodeInfoRequest): Promise<GetNodeInfoResponse> {
-    const data = GetNodeInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "GetNodeInfo", data);
-    return promise.then((data) => GetNodeInfoResponse.decode(new _m0.Reader(data)));
-  }
-
-  GetSyncing(request: GetSyncingRequest): Promise<GetSyncingResponse> {
-    const data = GetSyncingRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "GetSyncing", data);
-    return promise.then((data) => GetSyncingResponse.decode(new _m0.Reader(data)));
-  }
-
-  GetLatestBlock(request: GetLatestBlockRequest): Promise<GetLatestBlockResponse> {
-    const data = GetLatestBlockRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "GetLatestBlock", data);
-    return promise.then((data) => GetLatestBlockResponse.decode(new _m0.Reader(data)));
-  }
-
-  GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse> {
-    const data = GetBlockByHeightRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "GetBlockByHeight", data);
-    return promise.then((data) => GetBlockByHeightResponse.decode(new _m0.Reader(data)));
-  }
-
-  GetLatestValidatorSet(request: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse> {
-    const data = GetLatestValidatorSetRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "GetLatestValidatorSet", data);
-    return promise.then((data) => GetLatestValidatorSetResponse.decode(new _m0.Reader(data)));
-  }
-
-  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse> {
-    const data = GetValidatorSetByHeightRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.tendermint.v1beta1.Service",
-      "GetValidatorSetByHeight",
-      data,
-    );
-    return promise.then((data) => GetValidatorSetByHeightResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

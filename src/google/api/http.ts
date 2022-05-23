@@ -1,8 +1,5 @@
-/* eslint-disable */
-import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-
-export const protobufPackage = "google.api";
+import { isSet, Exact, DeepPartial } from "@osmonauts/helpers";
 
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
@@ -16,6 +13,7 @@ export interface Http {
    * **NOTE:** All service configuration rules follow "last one wins" order.
    */
   rules: HttpRule[];
+
   /**
    * When set to true, URL path parmeters will be fully URI-decoded except in
    * cases of single segment matches in reserved expansion, where "%2F" will be
@@ -41,29 +39,29 @@ export interface Http {
  * operation on a resource collection of messages:
  *
  *
- *     service Messaging {
- *       rpc GetMessage(GetMessageRequest) returns (Message) {
- *         option (google.api.http).get = "/v1/messages/{message_id}/{sub.subfield}";
- *       }
- *     }
- *     message GetMessageRequest {
- *       message SubMessage {
- *         string subfield = 1;
- *       }
- *       string message_id = 1; // mapped to the URL
- *       SubMessage sub = 2;    // `sub.subfield` is url-mapped
- *     }
- *     message Message {
- *       string text = 1; // content of the resource
- *     }
+ * service Messaging {
+ * rpc GetMessage(GetMessageRequest) returns (Message) {
+ * option (google.api.http).get = "/v1/messages/{message_id}/{sub.subfield}";
+ * }
+ * }
+ * message GetMessageRequest {
+ * message SubMessage {
+ * string subfield = 1;
+ * }
+ * string message_id = 1; // mapped to the URL
+ * SubMessage sub = 2;    // `sub.subfield` is url-mapped
+ * }
+ * message Message {
+ * string text = 1; // content of the resource
+ * }
  *
  * The same http annotation can alternatively be expressed inside the
  * `GRPC API Configuration` YAML file.
  *
- *     http:
- *       rules:
- *         - selector: <proto_package_name>.Messaging.GetMessage
- *           get: /v1/messages/{message_id}/{sub.subfield}
+ * http:
+ * rules:
+ * - selector: <proto_package_name>.Messaging.GetMessage
+ * get: /v1/messages/{message_id}/{sub.subfield}
  *
  * This definition enables an automatic, bidrectional mapping of HTTP
  * JSON to RPC. Example:
@@ -81,19 +79,19 @@ export interface Http {
  * parameters. Assume the following definition of the request message:
  *
  *
- *     service Messaging {
- *       rpc GetMessage(GetMessageRequest) returns (Message) {
- *         option (google.api.http).get = "/v1/messages/{message_id}";
- *       }
- *     }
- *     message GetMessageRequest {
- *       message SubMessage {
- *         string subfield = 1;
- *       }
- *       string message_id = 1; // mapped to the URL
- *       int64 revision = 2;    // becomes a parameter
- *       SubMessage sub = 3;    // `sub.subfield` becomes a parameter
- *     }
+ * service Messaging {
+ * rpc GetMessage(GetMessageRequest) returns (Message) {
+ * option (google.api.http).get = "/v1/messages/{message_id}";
+ * }
+ * }
+ * message GetMessageRequest {
+ * message SubMessage {
+ * string subfield = 1;
+ * }
+ * string message_id = 1; // mapped to the URL
+ * int64 revision = 2;    // becomes a parameter
+ * SubMessage sub = 3;    // `sub.subfield` becomes a parameter
+ * }
  *
  *
  * This enables a HTTP JSON to RPC mapping as below:
@@ -112,18 +110,18 @@ export interface Http {
  * message resource collection:
  *
  *
- *     service Messaging {
- *       rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
- *         option (google.api.http) = {
- *           put: "/v1/messages/{message_id}"
- *           body: "message"
- *         };
- *       }
- *     }
- *     message UpdateMessageRequest {
- *       string message_id = 1; // mapped to the URL
- *       Message message = 2;   // mapped to the body
- *     }
+ * service Messaging {
+ * rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
+ * option (google.api.http) = {
+ * put: "/v1/messages/{message_id}"
+ * body: "message"
+ * };
+ * }
+ * }
+ * message UpdateMessageRequest {
+ * string message_id = 1; // mapped to the URL
+ * Message message = 2;   // mapped to the body
+ * }
  *
  *
  * The following HTTP JSON to RPC mapping is enabled, where the
@@ -139,18 +137,18 @@ export interface Http {
  * request body.  This enables the following alternative definition of
  * the update method:
  *
- *     service Messaging {
- *       rpc UpdateMessage(Message) returns (Message) {
- *         option (google.api.http) = {
- *           put: "/v1/messages/{message_id}"
- *           body: "*"
- *         };
- *       }
- *     }
- *     message Message {
- *       string message_id = 1;
- *       string text = 2;
- *     }
+ * service Messaging {
+ * rpc UpdateMessage(Message) returns (Message) {
+ * option (google.api.http) = {
+ * put: "/v1/messages/{message_id}"
+ * body: "*"
+ * };
+ * }
+ * }
+ * message Message {
+ * string message_id = 1;
+ * string text = 2;
+ * }
  *
  *
  * The following HTTP JSON to RPC mapping is enabled:
@@ -168,20 +166,20 @@ export interface Http {
  * It is possible to define multiple HTTP methods for one RPC by using
  * the `additional_bindings` option. Example:
  *
- *     service Messaging {
- *       rpc GetMessage(GetMessageRequest) returns (Message) {
- *         option (google.api.http) = {
- *           get: "/v1/messages/{message_id}"
- *           additional_bindings {
- *             get: "/v1/users/{user_id}/messages/{message_id}"
- *           }
- *         };
- *       }
- *     }
- *     message GetMessageRequest {
- *       string message_id = 1;
- *       string user_id = 2;
- *     }
+ * service Messaging {
+ * rpc GetMessage(GetMessageRequest) returns (Message) {
+ * option (google.api.http) = {
+ * get: "/v1/messages/{message_id}"
+ * additional_bindings {
+ * get: "/v1/users/{user_id}/messages/{message_id}"
+ * }
+ * };
+ * }
+ * }
+ * message GetMessageRequest {
+ * string message_id = 1;
+ * string user_id = 2;
+ * }
  *
  *
  * This enables the following two alternative HTTP JSON to RPC
@@ -198,24 +196,24 @@ export interface Http {
  * to the request message are as follows:
  *
  * 1. The `body` field specifies either `*` or a field path, or is
- *    omitted. If omitted, it indicates there is no HTTP request body.
+ * omitted. If omitted, it indicates there is no HTTP request body.
  * 2. Leaf fields (recursive expansion of nested messages in the
- *    request) can be classified into three types:
- *     (a) Matched in the URL template.
- *     (b) Covered by body (if body is `*`, everything except (a) fields;
- *         else everything under the body field)
- *     (c) All other fields.
+ * request) can be classified into three types:
+ * (a) Matched in the URL template.
+ * (b) Covered by body (if body is `*`, everything except (a) fields;
+ * else everything under the body field)
+ * (c) All other fields.
  * 3. URL query parameters found in the HTTP request are mapped to (c) fields.
  * 4. Any body sent with an HTTP request can contain only (b) fields.
  *
  * The syntax of the path template is as follows:
  *
- *     Template = "/" Segments [ Verb ] ;
- *     Segments = Segment { "/" Segment } ;
- *     Segment  = "*" | "**" | LITERAL | Variable ;
- *     Variable = "{" FieldPath [ "=" Segments ] "}" ;
- *     FieldPath = IDENT { "." IDENT } ;
- *     Verb     = ":" LITERAL ;
+ * Template = "/" Segments [ Verb ] ;
+ * Segments = Segment { "/" Segment } ;
+ * Segment  = "*" | "**" | LITERAL | Variable ;
+ * Variable = "{" FieldPath [ "=" Segments ] "}" ;
+ * FieldPath = IDENT { "." IDENT } ;
+ * Verb     = ":" LITERAL ;
  *
  * The syntax `*` matches a single path segment. The syntax `**` matches zero
  * or more path segments, which must be the last part of the path except the
@@ -253,23 +251,30 @@ export interface HttpRule {
    * Refer to [selector][google.api.DocumentationRule.selector] for syntax details.
    */
   selector: string;
+
   /** Used for listing and getting information about resources. */
-  get: string | undefined;
+  get?: string;
+
   /** Used for updating a resource. */
-  put: string | undefined;
+  put?: string;
+
   /** Used for creating a resource. */
-  post: string | undefined;
+  post?: string;
+
   /** Used for deleting a resource. */
-  delete: string | undefined;
+  delete?: string;
+
   /** Used for updating a resource. */
-  patch: string | undefined;
+  patch?: string;
+
   /**
    * The custom pattern is used for specifying an HTTP method that is not
    * included in the `pattern` field, such as HEAD, or "*" to leave the
    * HTTP method unspecified for this rule. The wild-card rule is useful
    * for services that provide content to Web (HTML) clients.
    */
-  custom?: CustomHttpPattern | undefined;
+  custom?: CustomHttpPattern;
+
   /**
    * The name of the request field whose value is mapped to the HTTP body, or
    * `*` for mapping all fields not captured by the path pattern to the HTTP
@@ -277,12 +282,14 @@ export interface HttpRule {
    * present at the top-level of request message type.
    */
   body: string;
+
   /**
    * Optional. The name of the response field whose value is mapped to the HTTP
    * body of response. Other response fields are ignored. When
    * not set, the response message will be used as HTTP body of response.
    */
   responseBody: string;
+
   /**
    * Additional HTTP bindings for the selector. Nested bindings must
    * not contain an `additional_bindings` field themselves (that is,
@@ -295,12 +302,16 @@ export interface HttpRule {
 export interface CustomHttpPattern {
   /** The name of this custom HTTP verb. */
   kind: string;
+
   /** The path matched by this custom verb. */
   path: string;
 }
 
 function createBaseHttp(): Http {
-  return { rules: [], fullyDecodeReservedExpansion: false };
+  return {
+    rules: [],
+    fullyDecodeReservedExpansion: false,
+  };
 }
 
 export const Http = {
@@ -308,9 +319,11 @@ export const Http = {
     for (const v of message.rules) {
       HttpRule.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.fullyDecodeReservedExpansion === true) {
       writer.uint32(16).bool(message.fullyDecodeReservedExpansion);
     }
+
     return writer;
   },
 
@@ -318,20 +331,25 @@ export const Http = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHttp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rules.push(HttpRule.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.fullyDecodeReservedExpansion = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -346,11 +364,13 @@ export const Http = {
 
   toJSON(message: Http): unknown {
     const obj: any = {};
+
     if (message.rules) {
       obj.rules = message.rules.map((e) => (e ? HttpRule.toJSON(e) : undefined));
     } else {
       obj.rules = [];
     }
+
     message.fullyDecodeReservedExpansion !== undefined &&
       (obj.fullyDecodeReservedExpansion = message.fullyDecodeReservedExpansion);
     return obj;
@@ -384,33 +404,43 @@ export const HttpRule = {
     if (message.selector !== "") {
       writer.uint32(10).string(message.selector);
     }
+
     if (message.get !== undefined) {
       writer.uint32(18).string(message.get);
     }
+
     if (message.put !== undefined) {
       writer.uint32(26).string(message.put);
     }
+
     if (message.post !== undefined) {
       writer.uint32(34).string(message.post);
     }
+
     if (message.delete !== undefined) {
       writer.uint32(42).string(message.delete);
     }
+
     if (message.patch !== undefined) {
       writer.uint32(50).string(message.patch);
     }
+
     if (message.custom !== undefined) {
       CustomHttpPattern.encode(message.custom, writer.uint32(66).fork()).ldelim();
     }
+
     if (message.body !== "") {
       writer.uint32(58).string(message.body);
     }
+
     if (message.responseBody !== "") {
       writer.uint32(98).string(message.responseBody);
     }
+
     for (const v of message.additionalBindings) {
       HttpRule.encode(v!, writer.uint32(90).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -418,44 +448,57 @@ export const HttpRule = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHttpRule();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.selector = reader.string();
           break;
+
         case 2:
           message.get = reader.string();
           break;
+
         case 3:
           message.put = reader.string();
           break;
+
         case 4:
           message.post = reader.string();
           break;
+
         case 5:
           message.delete = reader.string();
           break;
+
         case 6:
           message.patch = reader.string();
           break;
+
         case 8:
           message.custom = CustomHttpPattern.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.body = reader.string();
           break;
+
         case 12:
           message.responseBody = reader.string();
           break;
+
         case 11:
           message.additionalBindings.push(HttpRule.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -488,11 +531,13 @@ export const HttpRule = {
       (obj.custom = message.custom ? CustomHttpPattern.toJSON(message.custom) : undefined);
     message.body !== undefined && (obj.body = message.body);
     message.responseBody !== undefined && (obj.responseBody = message.responseBody);
+
     if (message.additionalBindings) {
       obj.additionalBindings = message.additionalBindings.map((e) => (e ? HttpRule.toJSON(e) : undefined));
     } else {
       obj.additionalBindings = [];
     }
+
     return obj;
   },
 
@@ -516,7 +561,10 @@ export const HttpRule = {
 };
 
 function createBaseCustomHttpPattern(): CustomHttpPattern {
-  return { kind: "", path: "" };
+  return {
+    kind: "",
+    path: "",
+  };
 }
 
 export const CustomHttpPattern = {
@@ -524,9 +572,11 @@ export const CustomHttpPattern = {
     if (message.kind !== "") {
       writer.uint32(10).string(message.kind);
     }
+
     if (message.path !== "") {
       writer.uint32(18).string(message.path);
     }
+
     return writer;
   },
 
@@ -534,20 +584,25 @@ export const CustomHttpPattern = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomHttpPattern();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.kind = reader.string();
           break;
+
         case 2:
           message.path = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -572,31 +627,3 @@ export const CustomHttpPattern = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
