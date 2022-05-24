@@ -1,11 +1,8 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
-import { Params } from "../../../cosmos/auth/v1beta1/auth";
-
-export const protobufPackage = "cosmos.auth.v1beta1";
+import { Params } from "./auth";
+import * as _m0 from "protobufjs/minimal";
+import { isSet, Exact, DeepPartial } from "@osmonauts/helpers";
 
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
@@ -14,7 +11,7 @@ export const protobufPackage = "cosmos.auth.v1beta1";
  */
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -25,8 +22,9 @@ export interface QueryAccountsRequest {
 export interface QueryAccountsResponse {
   /** accounts are the existing accounts */
   accounts: Any[];
+
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
@@ -38,7 +36,7 @@ export interface QueryAccountRequest {
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
 export interface QueryAccountResponse {
   /** account defines the account of the corresponding address. */
-  account?: Any;
+  account: Any;
 }
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
@@ -47,11 +45,13 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params?: Params;
+  params: Params;
 }
 
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
-  return { pagination: undefined };
+  return {
+    pagination: undefined,
+  };
 }
 
 export const QueryAccountsRequest = {
@@ -59,6 +59,7 @@ export const QueryAccountsRequest = {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -66,17 +67,21 @@ export const QueryAccountsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAccountsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -104,7 +109,10 @@ export const QueryAccountsRequest = {
 };
 
 function createBaseQueryAccountsResponse(): QueryAccountsResponse {
-  return { accounts: [], pagination: undefined };
+  return {
+    accounts: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryAccountsResponse = {
@@ -112,9 +120,11 @@ export const QueryAccountsResponse = {
     for (const v of message.accounts) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -122,20 +132,25 @@ export const QueryAccountsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAccountsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.accounts.push(Any.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -148,11 +163,13 @@ export const QueryAccountsResponse = {
 
   toJSON(message: QueryAccountsResponse): unknown {
     const obj: any = {};
+
     if (message.accounts) {
       obj.accounts = message.accounts.map((e) => (e ? Any.toJSON(e) : undefined));
     } else {
       obj.accounts = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -170,7 +187,9 @@ export const QueryAccountsResponse = {
 };
 
 function createBaseQueryAccountRequest(): QueryAccountRequest {
-  return { address: "" };
+  return {
+    address: "",
+  };
 }
 
 export const QueryAccountRequest = {
@@ -178,6 +197,7 @@ export const QueryAccountRequest = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     return writer;
   },
 
@@ -185,17 +205,21 @@ export const QueryAccountRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAccountRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -219,7 +243,9 @@ export const QueryAccountRequest = {
 };
 
 function createBaseQueryAccountResponse(): QueryAccountResponse {
-  return { account: undefined };
+  return {
+    account: undefined,
+  };
 }
 
 export const QueryAccountResponse = {
@@ -227,6 +253,7 @@ export const QueryAccountResponse = {
     if (message.account !== undefined) {
       Any.encode(message.account, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -234,17 +261,21 @@ export const QueryAccountResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAccountResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.account = Any.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -282,14 +313,17 @@ export const QueryParamsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -309,7 +343,9 @@ export const QueryParamsRequest = {
 };
 
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { params: undefined };
+  return {
+    params: undefined,
+  };
 }
 
 export const QueryParamsResponse = {
@@ -317,6 +353,7 @@ export const QueryParamsResponse = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -324,17 +361,21 @@ export const QueryParamsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.params = Params.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -357,76 +398,3 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /**
-   * Accounts returns all the existing accounts
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  Accounts(request: QueryAccountsRequest): Promise<QueryAccountsResponse>;
-  /** Account returns account details based on address. */
-  Account(request: QueryAccountRequest): Promise<QueryAccountResponse>;
-  /** Params queries all parameters. */
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-}
-
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Accounts = this.Accounts.bind(this);
-    this.Account = this.Account.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  Accounts(request: QueryAccountsRequest): Promise<QueryAccountsResponse> {
-    const data = QueryAccountsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Accounts", data);
-    return promise.then((data) => QueryAccountsResponse.decode(new _m0.Reader(data)));
-  }
-
-  Account(request: QueryAccountRequest): Promise<QueryAccountResponse> {
-    const data = QueryAccountRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Account", data);
-    return promise.then((data) => QueryAccountResponse.decode(new _m0.Reader(data)));
-  }
-
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.auth.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

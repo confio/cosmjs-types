@@ -1,8 +1,5 @@
-/* eslint-disable */
-import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-
-export const protobufPackage = "google.protobuf";
+import { Long, isSet, Exact, DeepPartial } from "@osmonauts/helpers";
 
 /**
  * A Timestamp represents a point in time independent of any time zone or local
@@ -23,52 +20,43 @@ export const protobufPackage = "google.protobuf";
  *
  * Example 1: Compute Timestamp from POSIX `time()`.
  *
- *     Timestamp timestamp;
- *     timestamp.set_seconds(time(NULL));
- *     timestamp.set_nanos(0);
+ * Timestamp timestamp;
+ * timestamp.set_seconds(time(NULL));
+ * timestamp.set_nanos(0);
  *
  * Example 2: Compute Timestamp from POSIX `gettimeofday()`.
  *
- *     struct timeval tv;
- *     gettimeofday(&tv, NULL);
+ * struct timeval tv;
+ * gettimeofday(&tv, NULL);
  *
- *     Timestamp timestamp;
- *     timestamp.set_seconds(tv.tv_sec);
- *     timestamp.set_nanos(tv.tv_usec * 1000);
+ * Timestamp timestamp;
+ * timestamp.set_seconds(tv.tv_sec);
+ * timestamp.set_nanos(tv.tv_usec * 1000);
  *
  * Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
  *
- *     FILETIME ft;
- *     GetSystemTimeAsFileTime(&ft);
- *     UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+ * FILETIME ft;
+ * GetSystemTimeAsFileTime(&ft);
+ * UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
  *
- *     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
- *     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
- *     Timestamp timestamp;
- *     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
- *     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+ * // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+ * // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+ * Timestamp timestamp;
+ * timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+ * timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
  *
  * Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
  *
- *     long millis = System.currentTimeMillis();
+ * long millis = System.currentTimeMillis();
  *
- *     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
- *         .setNanos((int) ((millis % 1000) * 1000000)).build();
- *
- *
- * Example 5: Compute Timestamp from Java `Instant.now()`.
- *
- *     Instant now = Instant.now();
- *
- *     Timestamp timestamp =
- *         Timestamp.newBuilder().setSeconds(now.getEpochSecond())
- *             .setNanos(now.getNano()).build();
+ * Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+ * .setNanos((int) ((millis % 1000) * 1000000)).build();
  *
  *
- * Example 6: Compute Timestamp from current time in Python.
+ * Example 5: Compute Timestamp from current time in Python.
  *
- *     timestamp = Timestamp()
- *     timestamp.GetCurrentTime()
+ * timestamp = Timestamp()
+ * timestamp.GetCurrentTime()
  *
  * # JSON Mapping
  *
@@ -104,6 +92,7 @@ export interface Timestamp {
    * 9999-12-31T23:59:59Z inclusive.
    */
   seconds: Long;
+
   /**
    * Non-negative fractions of a second at nanosecond resolution. Negative
    * second values with fractions must still have non-negative nanos values
@@ -114,7 +103,10 @@ export interface Timestamp {
 }
 
 function createBaseTimestamp(): Timestamp {
-  return { seconds: Long.ZERO, nanos: 0 };
+  return {
+    seconds: Long.ZERO,
+    nanos: 0,
+  };
 }
 
 export const Timestamp = {
@@ -122,9 +114,11 @@ export const Timestamp = {
     if (!message.seconds.isZero()) {
       writer.uint32(8).int64(message.seconds);
     }
+
     if (message.nanos !== 0) {
       writer.uint32(16).int32(message.nanos);
     }
+
     return writer;
   },
 
@@ -132,20 +126,25 @@ export const Timestamp = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimestamp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.seconds = reader.int64() as Long;
           break;
+
         case 2:
           message.nanos = reader.int32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -171,31 +170,3 @@ export const Timestamp = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
