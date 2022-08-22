@@ -36,7 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@osmonauts/helpers", "npm:0.4.1"],
-            ["@osmonauts/telescope", "npm:0.12.1"],
+            ["@osmonauts/telescope", "npm:0.14.1"],
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:15.6.2"],
             ["long", "npm:4.0.0"],
@@ -2795,14 +2795,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@osmonauts/ast", [
-        ["npm:0.9.6", {
-          "packageLocation": "./.yarn/cache/@osmonauts-ast-npm-0.9.6-cf54045fdd-6fc7066645.zip/node_modules/@osmonauts/ast/",
+        ["npm:0.10.0", {
+          "packageLocation": "./.yarn/cache/@osmonauts-ast-npm-0.10.0-17a01fca8f-97be56b874.zip/node_modules/@osmonauts/ast/",
           "packageDependencies": [
-            ["@osmonauts/ast", "npm:0.9.6"],
+            ["@osmonauts/ast", "npm:0.10.0"],
             ["@babel/runtime", "npm:7.18.9"],
             ["@babel/types", "npm:7.18.10"],
-            ["@osmonauts/proto-parser", "npm:0.9.5"],
-            ["@osmonauts/types", "npm:0.7.3"],
+            ["@osmonauts/proto-parser", "npm:0.10.0"],
+            ["@osmonauts/types", "npm:0.8.0"],
             ["@osmonauts/utils", "npm:0.3.12"],
             ["case", "npm:1.6.3"],
             ["dotty", "npm:0.1.2"]
@@ -2828,12 +2828,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@osmonauts/proto-parser", [
-        ["npm:0.9.5", {
-          "packageLocation": "./.yarn/cache/@osmonauts-proto-parser-npm-0.9.5-e820c2a8fa-084b456bc9.zip/node_modules/@osmonauts/proto-parser/",
+        ["npm:0.10.0", {
+          "packageLocation": "./.yarn/cache/@osmonauts-proto-parser-npm-0.10.0-2750edbb7b-b7ed74bbfe.zip/node_modules/@osmonauts/proto-parser/",
           "packageDependencies": [
-            ["@osmonauts/proto-parser", "npm:0.9.5"],
+            ["@osmonauts/proto-parser", "npm:0.10.0"],
             ["@babel/runtime", "npm:7.18.9"],
-            ["@osmonauts/types", "npm:0.7.3"],
+            ["@osmonauts/types", "npm:0.8.0"],
             ["@pyramation/protobufjs", "npm:6.11.3"],
             ["dotty", "npm:0.1.2"],
             ["glob", "npm:8.0.3"],
@@ -2843,10 +2843,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@osmonauts/telescope", [
-        ["npm:0.12.1", {
-          "packageLocation": "./.yarn/cache/@osmonauts-telescope-npm-0.12.1-c40575dca7-fa2a0a5b1f.zip/node_modules/@osmonauts/telescope/",
+        ["npm:0.14.1", {
+          "packageLocation": "./.yarn/cache/@osmonauts-telescope-npm-0.14.1-ebac7ea5bb-6ddbe70c51.zip/node_modules/@osmonauts/telescope/",
           "packageDependencies": [
-            ["@osmonauts/telescope", "npm:0.12.1"],
+            ["@osmonauts/telescope", "npm:0.14.1"],
             ["@babel/core", "npm:7.18.10"],
             ["@babel/generator", "npm:7.18.12"],
             ["@babel/parser", "npm:7.18.13"],
@@ -2860,9 +2860,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/traverse", "npm:7.18.11"],
             ["@babel/types", "npm:7.18.10"],
             ["@cosmwasm/ts-codegen", "npm:0.12.0"],
-            ["@osmonauts/ast", "npm:0.9.6"],
-            ["@osmonauts/proto-parser", "npm:0.9.5"],
-            ["@osmonauts/types", "npm:0.7.3"],
+            ["@osmonauts/ast", "npm:0.10.0"],
+            ["@osmonauts/proto-parser", "npm:0.10.0"],
+            ["@osmonauts/types", "npm:0.8.0"],
             ["@osmonauts/utils", "npm:0.3.12"],
             ["@types/parse-package-name", "npm:0.1.0"],
             ["case", "npm:1.6.3"],
@@ -2883,10 +2883,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@osmonauts/types", [
-        ["npm:0.7.3", {
-          "packageLocation": "./.yarn/cache/@osmonauts-types-npm-0.7.3-0310558cb5-5eb820e62e.zip/node_modules/@osmonauts/types/",
+        ["npm:0.8.0", {
+          "packageLocation": "./.yarn/cache/@osmonauts-types-npm-0.8.0-e358ed214e-520ac6c0a1.zip/node_modules/@osmonauts/types/",
           "packageDependencies": [
-            ["@osmonauts/types", "npm:0.7.3"],
+            ["@osmonauts/types", "npm:0.8.0"],
             ["@babel/runtime", "npm:7.18.9"],
             ["@osmonauts/utils", "npm:0.3.12"],
             ["case", "npm:1.6.3"]
@@ -3898,7 +3898,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["cosmjs-types", "workspace:."],
             ["@osmonauts/helpers", "npm:0.4.1"],
-            ["@osmonauts/telescope", "npm:0.12.1"],
+            ["@osmonauts/telescope", "npm:0.14.1"],
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:15.6.2"],
             ["long", "npm:4.0.0"],
