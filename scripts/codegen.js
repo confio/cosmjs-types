@@ -17,7 +17,7 @@ telescope({
         },
         prototypes: {
             includePackageVar: true,
-            defaultFieldOptionality: true,
+            defaultFieldOptionality: false,
             useOptionalNullable: false,
             excluded: {
                 protos: [
