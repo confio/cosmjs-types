@@ -1,9 +1,7 @@
-/* eslint-disable */
-import Long from "long";
+import { Channel, Packet } from "./channel";
+import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
-import { Channel, Packet } from "../../../../ibc/core/channel/v1/channel";
-import { Height } from "../../../../ibc/core/client/v1/client";
-
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "@osmonauts/helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 
 /**
@@ -12,7 +10,7 @@ export const protobufPackage = "ibc.core.channel.v1";
  */
 export interface MsgChannelOpenInit {
   portId: string;
-  channel?: Channel;
+  channel: Channel;
   signer: string;
 }
 
@@ -25,15 +23,16 @@ export interface MsgChannelOpenInitResponse {}
  */
 export interface MsgChannelOpenTry {
   portId: string;
+
   /**
    * in the case of crossing hello's, when both chains call OpenInit, we need
    * the channel identifier of the previous channel in state INIT
    */
   previousChannelId: string;
-  channel?: Channel;
+  channel: Channel;
   counterpartyVersion: string;
   proofInit: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -50,7 +49,7 @@ export interface MsgChannelOpenAck {
   counterpartyChannelId: string;
   counterpartyVersion: string;
   proofTry: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -65,7 +64,7 @@ export interface MsgChannelOpenConfirm {
   portId: string;
   channelId: string;
   proofAck: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -96,7 +95,7 @@ export interface MsgChannelCloseConfirm {
   portId: string;
   channelId: string;
   proofInit: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -108,9 +107,9 @@ export interface MsgChannelCloseConfirmResponse {}
 
 /** MsgRecvPacket receives incoming IBC packet */
 export interface MsgRecvPacket {
-  packet?: Packet;
+  packet: Packet;
   proofCommitment: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -119,9 +118,9 @@ export interface MsgRecvPacketResponse {}
 
 /** MsgTimeout receives timed-out packet */
 export interface MsgTimeout {
-  packet?: Packet;
+  packet: Packet;
   proofUnreceived: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   nextSequenceRecv: Long;
   signer: string;
 }
@@ -131,10 +130,10 @@ export interface MsgTimeoutResponse {}
 
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 export interface MsgTimeoutOnClose {
-  packet?: Packet;
+  packet: Packet;
   proofUnreceived: Uint8Array;
   proofClose: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   nextSequenceRecv: Long;
   signer: string;
 }
@@ -144,10 +143,10 @@ export interface MsgTimeoutOnCloseResponse {}
 
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 export interface MsgAcknowledgement {
-  packet?: Packet;
+  packet: Packet;
   acknowledgement: Uint8Array;
   proofAcked: Uint8Array;
-  proofHeight?: Height;
+  proofHeight: Height;
   signer: string;
 }
 
@@ -155,7 +154,11 @@ export interface MsgAcknowledgement {
 export interface MsgAcknowledgementResponse {}
 
 function createBaseMsgChannelOpenInit(): MsgChannelOpenInit {
-  return { portId: "", channel: undefined, signer: "" };
+  return {
+    portId: "",
+    channel: undefined,
+    signer: "",
+  };
 }
 
 export const MsgChannelOpenInit = {
@@ -163,12 +166,15 @@ export const MsgChannelOpenInit = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channel !== undefined) {
       Channel.encode(message.channel, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(26).string(message.signer);
     }
+
     return writer;
   },
 
@@ -176,23 +182,29 @@ export const MsgChannelOpenInit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenInit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channel = Channel.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -238,14 +250,17 @@ export const MsgChannelOpenInitResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenInitResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -281,24 +296,31 @@ export const MsgChannelOpenTry = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.previousChannelId !== "") {
       writer.uint32(18).string(message.previousChannelId);
     }
+
     if (message.channel !== undefined) {
       Channel.encode(message.channel, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.counterpartyVersion !== "") {
       writer.uint32(34).string(message.counterpartyVersion);
     }
+
     if (message.proofInit.length !== 0) {
       writer.uint32(42).bytes(message.proofInit);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(58).string(message.signer);
     }
+
     return writer;
   },
 
@@ -306,35 +328,45 @@ export const MsgChannelOpenTry = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenTry();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.previousChannelId = reader.string();
           break;
+
         case 3:
           message.channel = Channel.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.counterpartyVersion = reader.string();
           break;
+
         case 5:
           message.proofInit = reader.bytes();
           break;
+
         case 6:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -399,14 +431,17 @@ export const MsgChannelOpenTryResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenTryResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -442,24 +477,31 @@ export const MsgChannelOpenAck = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.counterpartyChannelId !== "") {
       writer.uint32(26).string(message.counterpartyChannelId);
     }
+
     if (message.counterpartyVersion !== "") {
       writer.uint32(34).string(message.counterpartyVersion);
     }
+
     if (message.proofTry.length !== 0) {
       writer.uint32(42).bytes(message.proofTry);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(58).string(message.signer);
     }
+
     return writer;
   },
 
@@ -467,35 +509,45 @@ export const MsgChannelOpenAck = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenAck();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.counterpartyChannelId = reader.string();
           break;
+
         case 4:
           message.counterpartyVersion = reader.string();
           break;
+
         case 5:
           message.proofTry = reader.bytes();
           break;
+
         case 6:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -555,14 +607,17 @@ export const MsgChannelOpenAckResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenAckResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -582,7 +637,13 @@ export const MsgChannelOpenAckResponse = {
 };
 
 function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
-  return { portId: "", channelId: "", proofAck: new Uint8Array(), proofHeight: undefined, signer: "" };
+  return {
+    portId: "",
+    channelId: "",
+    proofAck: new Uint8Array(),
+    proofHeight: undefined,
+    signer: "",
+  };
 }
 
 export const MsgChannelOpenConfirm = {
@@ -590,18 +651,23 @@ export const MsgChannelOpenConfirm = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.proofAck.length !== 0) {
       writer.uint32(26).bytes(message.proofAck);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(42).string(message.signer);
     }
+
     return writer;
   },
 
@@ -609,29 +675,37 @@ export const MsgChannelOpenConfirm = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenConfirm();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.proofAck = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -684,14 +758,17 @@ export const MsgChannelOpenConfirmResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelOpenConfirmResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -713,7 +790,11 @@ export const MsgChannelOpenConfirmResponse = {
 };
 
 function createBaseMsgChannelCloseInit(): MsgChannelCloseInit {
-  return { portId: "", channelId: "", signer: "" };
+  return {
+    portId: "",
+    channelId: "",
+    signer: "",
+  };
 }
 
 export const MsgChannelCloseInit = {
@@ -721,12 +802,15 @@ export const MsgChannelCloseInit = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.signer !== "") {
       writer.uint32(26).string(message.signer);
     }
+
     return writer;
   },
 
@@ -734,23 +818,29 @@ export const MsgChannelCloseInit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelCloseInit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -792,14 +882,17 @@ export const MsgChannelCloseInitResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelCloseInitResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -821,7 +914,13 @@ export const MsgChannelCloseInitResponse = {
 };
 
 function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
-  return { portId: "", channelId: "", proofInit: new Uint8Array(), proofHeight: undefined, signer: "" };
+  return {
+    portId: "",
+    channelId: "",
+    proofInit: new Uint8Array(),
+    proofHeight: undefined,
+    signer: "",
+  };
 }
 
 export const MsgChannelCloseConfirm = {
@@ -829,18 +928,23 @@ export const MsgChannelCloseConfirm = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.proofInit.length !== 0) {
       writer.uint32(26).bytes(message.proofInit);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(42).string(message.signer);
     }
+
     return writer;
   },
 
@@ -848,29 +952,37 @@ export const MsgChannelCloseConfirm = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelCloseConfirm();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.proofInit = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -925,14 +1037,17 @@ export const MsgChannelCloseConfirmResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgChannelCloseConfirmResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -954,7 +1069,12 @@ export const MsgChannelCloseConfirmResponse = {
 };
 
 function createBaseMsgRecvPacket(): MsgRecvPacket {
-  return { packet: undefined, proofCommitment: new Uint8Array(), proofHeight: undefined, signer: "" };
+  return {
+    packet: undefined,
+    proofCommitment: new Uint8Array(),
+    proofHeight: undefined,
+    signer: "",
+  };
 }
 
 export const MsgRecvPacket = {
@@ -962,15 +1082,19 @@ export const MsgRecvPacket = {
     if (message.packet !== undefined) {
       Packet.encode(message.packet, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.proofCommitment.length !== 0) {
       writer.uint32(18).bytes(message.proofCommitment);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(34).string(message.signer);
     }
+
     return writer;
   },
 
@@ -978,26 +1102,33 @@ export const MsgRecvPacket = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRecvPacket();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.packet = Packet.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.proofCommitment = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1052,14 +1183,17 @@ export const MsgRecvPacketResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRecvPacketResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1093,18 +1227,23 @@ export const MsgTimeout = {
     if (message.packet !== undefined) {
       Packet.encode(message.packet, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.proofUnreceived.length !== 0) {
       writer.uint32(18).bytes(message.proofUnreceived);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     if (!message.nextSequenceRecv.isZero()) {
       writer.uint32(32).uint64(message.nextSequenceRecv);
     }
+
     if (message.signer !== "") {
       writer.uint32(42).string(message.signer);
     }
+
     return writer;
   },
 
@@ -1112,29 +1251,37 @@ export const MsgTimeout = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTimeout();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.packet = Packet.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.proofUnreceived = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.nextSequenceRecv = reader.uint64() as Long;
           break;
+
         case 5:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1198,14 +1345,17 @@ export const MsgTimeoutResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTimeoutResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1240,21 +1390,27 @@ export const MsgTimeoutOnClose = {
     if (message.packet !== undefined) {
       Packet.encode(message.packet, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.proofUnreceived.length !== 0) {
       writer.uint32(18).bytes(message.proofUnreceived);
     }
+
     if (message.proofClose.length !== 0) {
       writer.uint32(26).bytes(message.proofClose);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     if (!message.nextSequenceRecv.isZero()) {
       writer.uint32(40).uint64(message.nextSequenceRecv);
     }
+
     if (message.signer !== "") {
       writer.uint32(50).string(message.signer);
     }
+
     return writer;
   },
 
@@ -1262,32 +1418,41 @@ export const MsgTimeoutOnClose = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTimeoutOnClose();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.packet = Packet.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.proofUnreceived = reader.bytes();
           break;
+
         case 3:
           message.proofClose = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.nextSequenceRecv = reader.uint64() as Long;
           break;
+
         case 6:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1357,14 +1522,17 @@ export const MsgTimeoutOnCloseResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTimeoutOnCloseResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1398,18 +1566,23 @@ export const MsgAcknowledgement = {
     if (message.packet !== undefined) {
       Packet.encode(message.packet, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.acknowledgement.length !== 0) {
       writer.uint32(18).bytes(message.acknowledgement);
     }
+
     if (message.proofAcked.length !== 0) {
       writer.uint32(26).bytes(message.proofAcked);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.signer !== "") {
       writer.uint32(42).string(message.signer);
     }
+
     return writer;
   },
 
@@ -1417,29 +1590,37 @@ export const MsgAcknowledgement = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAcknowledgement();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.packet = Packet.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.acknowledgement = reader.bytes();
           break;
+
         case 3:
           message.proofAcked = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.signer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1500,14 +1681,17 @@ export const MsgAcknowledgementResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAcknowledgementResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1525,170 +1709,3 @@ export const MsgAcknowledgementResponse = {
     return message;
   },
 };
-
-/** Msg defines the ibc/channel Msg service. */
-export interface Msg {
-  /** ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit. */
-  ChannelOpenInit(request: MsgChannelOpenInit): Promise<MsgChannelOpenInitResponse>;
-  /** ChannelOpenTry defines a rpc handler method for MsgChannelOpenTry. */
-  ChannelOpenTry(request: MsgChannelOpenTry): Promise<MsgChannelOpenTryResponse>;
-  /** ChannelOpenAck defines a rpc handler method for MsgChannelOpenAck. */
-  ChannelOpenAck(request: MsgChannelOpenAck): Promise<MsgChannelOpenAckResponse>;
-  /** ChannelOpenConfirm defines a rpc handler method for MsgChannelOpenConfirm. */
-  ChannelOpenConfirm(request: MsgChannelOpenConfirm): Promise<MsgChannelOpenConfirmResponse>;
-  /** ChannelCloseInit defines a rpc handler method for MsgChannelCloseInit. */
-  ChannelCloseInit(request: MsgChannelCloseInit): Promise<MsgChannelCloseInitResponse>;
-  /**
-   * ChannelCloseConfirm defines a rpc handler method for
-   * MsgChannelCloseConfirm.
-   */
-  ChannelCloseConfirm(request: MsgChannelCloseConfirm): Promise<MsgChannelCloseConfirmResponse>;
-  /** RecvPacket defines a rpc handler method for MsgRecvPacket. */
-  RecvPacket(request: MsgRecvPacket): Promise<MsgRecvPacketResponse>;
-  /** Timeout defines a rpc handler method for MsgTimeout. */
-  Timeout(request: MsgTimeout): Promise<MsgTimeoutResponse>;
-  /** TimeoutOnClose defines a rpc handler method for MsgTimeoutOnClose. */
-  TimeoutOnClose(request: MsgTimeoutOnClose): Promise<MsgTimeoutOnCloseResponse>;
-  /** Acknowledgement defines a rpc handler method for MsgAcknowledgement. */
-  Acknowledgement(request: MsgAcknowledgement): Promise<MsgAcknowledgementResponse>;
-}
-
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.ChannelOpenInit = this.ChannelOpenInit.bind(this);
-    this.ChannelOpenTry = this.ChannelOpenTry.bind(this);
-    this.ChannelOpenAck = this.ChannelOpenAck.bind(this);
-    this.ChannelOpenConfirm = this.ChannelOpenConfirm.bind(this);
-    this.ChannelCloseInit = this.ChannelCloseInit.bind(this);
-    this.ChannelCloseConfirm = this.ChannelCloseConfirm.bind(this);
-    this.RecvPacket = this.RecvPacket.bind(this);
-    this.Timeout = this.Timeout.bind(this);
-    this.TimeoutOnClose = this.TimeoutOnClose.bind(this);
-    this.Acknowledgement = this.Acknowledgement.bind(this);
-  }
-  ChannelOpenInit(request: MsgChannelOpenInit): Promise<MsgChannelOpenInitResponse> {
-    const data = MsgChannelOpenInit.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenInit", data);
-    return promise.then((data) => MsgChannelOpenInitResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelOpenTry(request: MsgChannelOpenTry): Promise<MsgChannelOpenTryResponse> {
-    const data = MsgChannelOpenTry.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenTry", data);
-    return promise.then((data) => MsgChannelOpenTryResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelOpenAck(request: MsgChannelOpenAck): Promise<MsgChannelOpenAckResponse> {
-    const data = MsgChannelOpenAck.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenAck", data);
-    return promise.then((data) => MsgChannelOpenAckResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelOpenConfirm(request: MsgChannelOpenConfirm): Promise<MsgChannelOpenConfirmResponse> {
-    const data = MsgChannelOpenConfirm.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelOpenConfirm", data);
-    return promise.then((data) => MsgChannelOpenConfirmResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelCloseInit(request: MsgChannelCloseInit): Promise<MsgChannelCloseInitResponse> {
-    const data = MsgChannelCloseInit.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelCloseInit", data);
-    return promise.then((data) => MsgChannelCloseInitResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelCloseConfirm(request: MsgChannelCloseConfirm): Promise<MsgChannelCloseConfirmResponse> {
-    const data = MsgChannelCloseConfirm.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "ChannelCloseConfirm", data);
-    return promise.then((data) => MsgChannelCloseConfirmResponse.decode(new _m0.Reader(data)));
-  }
-
-  RecvPacket(request: MsgRecvPacket): Promise<MsgRecvPacketResponse> {
-    const data = MsgRecvPacket.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "RecvPacket", data);
-    return promise.then((data) => MsgRecvPacketResponse.decode(new _m0.Reader(data)));
-  }
-
-  Timeout(request: MsgTimeout): Promise<MsgTimeoutResponse> {
-    const data = MsgTimeout.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "Timeout", data);
-    return promise.then((data) => MsgTimeoutResponse.decode(new _m0.Reader(data)));
-  }
-
-  TimeoutOnClose(request: MsgTimeoutOnClose): Promise<MsgTimeoutOnCloseResponse> {
-    const data = MsgTimeoutOnClose.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "TimeoutOnClose", data);
-    return promise.then((data) => MsgTimeoutOnCloseResponse.decode(new _m0.Reader(data)));
-  }
-
-  Acknowledgement(request: MsgAcknowledgement): Promise<MsgAcknowledgementResponse> {
-    const data = MsgAcknowledgement.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Msg", "Acknowledgement", data);
-    return promise.then((data) => MsgAcknowledgementResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

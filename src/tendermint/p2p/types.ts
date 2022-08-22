@@ -1,39 +1,37 @@
-/* eslint-disable */
-import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-
+import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "@osmonauts/helpers";
 export const protobufPackage = "tendermint.p2p";
-
 export interface NetAddress {
   id: string;
   ip: string;
   port: number;
 }
-
 export interface ProtocolVersion {
   p2p: Long;
   block: Long;
   app: Long;
 }
-
 export interface DefaultNodeInfo {
-  protocolVersion?: ProtocolVersion;
+  protocolVersion: ProtocolVersion;
   defaultNodeId: string;
   listenAddr: string;
   network: string;
   version: string;
   channels: Uint8Array;
   moniker: string;
-  other?: DefaultNodeInfoOther;
+  other: DefaultNodeInfoOther;
 }
-
 export interface DefaultNodeInfoOther {
   txIndex: string;
   rpcAddress: string;
 }
 
 function createBaseNetAddress(): NetAddress {
-  return { id: "", ip: "", port: 0 };
+  return {
+    id: "",
+    ip: "",
+    port: 0,
+  };
 }
 
 export const NetAddress = {
@@ -41,12 +39,15 @@ export const NetAddress = {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
+
     if (message.ip !== "") {
       writer.uint32(18).string(message.ip);
     }
+
     if (message.port !== 0) {
       writer.uint32(24).uint32(message.port);
     }
+
     return writer;
   },
 
@@ -54,23 +55,29 @@ export const NetAddress = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetAddress();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.id = reader.string();
           break;
+
         case 2:
           message.ip = reader.string();
           break;
+
         case 3:
           message.port = reader.uint32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -100,7 +107,11 @@ export const NetAddress = {
 };
 
 function createBaseProtocolVersion(): ProtocolVersion {
-  return { p2p: Long.UZERO, block: Long.UZERO, app: Long.UZERO };
+  return {
+    p2p: Long.UZERO,
+    block: Long.UZERO,
+    app: Long.UZERO,
+  };
 }
 
 export const ProtocolVersion = {
@@ -108,12 +119,15 @@ export const ProtocolVersion = {
     if (!message.p2p.isZero()) {
       writer.uint32(8).uint64(message.p2p);
     }
+
     if (!message.block.isZero()) {
       writer.uint32(16).uint64(message.block);
     }
+
     if (!message.app.isZero()) {
       writer.uint32(24).uint64(message.app);
     }
+
     return writer;
   },
 
@@ -121,23 +135,29 @@ export const ProtocolVersion = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProtocolVersion();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.p2p = reader.uint64() as Long;
           break;
+
         case 2:
           message.block = reader.uint64() as Long;
           break;
+
         case 3:
           message.app = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -185,27 +205,35 @@ export const DefaultNodeInfo = {
     if (message.protocolVersion !== undefined) {
       ProtocolVersion.encode(message.protocolVersion, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.defaultNodeId !== "") {
       writer.uint32(18).string(message.defaultNodeId);
     }
+
     if (message.listenAddr !== "") {
       writer.uint32(26).string(message.listenAddr);
     }
+
     if (message.network !== "") {
       writer.uint32(34).string(message.network);
     }
+
     if (message.version !== "") {
       writer.uint32(42).string(message.version);
     }
+
     if (message.channels.length !== 0) {
       writer.uint32(50).bytes(message.channels);
     }
+
     if (message.moniker !== "") {
       writer.uint32(58).string(message.moniker);
     }
+
     if (message.other !== undefined) {
       DefaultNodeInfoOther.encode(message.other, writer.uint32(66).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -213,38 +241,49 @@ export const DefaultNodeInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDefaultNodeInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.protocolVersion = ProtocolVersion.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.defaultNodeId = reader.string();
           break;
+
         case 3:
           message.listenAddr = reader.string();
           break;
+
         case 4:
           message.network = reader.string();
           break;
+
         case 5:
           message.version = reader.string();
           break;
+
         case 6:
           message.channels = reader.bytes();
           break;
+
         case 7:
           message.moniker = reader.string();
           break;
+
         case 8:
           message.other = DefaultNodeInfoOther.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -302,7 +341,10 @@ export const DefaultNodeInfo = {
 };
 
 function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
-  return { txIndex: "", rpcAddress: "" };
+  return {
+    txIndex: "",
+    rpcAddress: "",
+  };
 }
 
 export const DefaultNodeInfoOther = {
@@ -310,9 +352,11 @@ export const DefaultNodeInfoOther = {
     if (message.txIndex !== "") {
       writer.uint32(10).string(message.txIndex);
     }
+
     if (message.rpcAddress !== "") {
       writer.uint32(18).string(message.rpcAddress);
     }
+
     return writer;
   },
 
@@ -320,20 +364,25 @@ export const DefaultNodeInfoOther = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDefaultNodeInfoOther();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.txIndex = reader.string();
           break;
+
         case 2:
           message.rpcAddress = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -358,63 +407,3 @@ export const DefaultNodeInfoOther = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

@@ -1,8 +1,6 @@
-/* eslint-disable */
-import Long from "long";
+import { DecCoin, Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { DecCoin, Coin } from "../../../cosmos/base/v1beta1/coin";
-
+import { isSet, DeepPartial, Exact, Long } from "@osmonauts/helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 
 /** Params defines the set of params for the distribution module. */
@@ -21,11 +19,11 @@ export interface Params {
  * The reference count indicates the number of objects
  * which might need to reference this historical entry at any point.
  * ReferenceCount =
- *    number of outstanding delegations which ended the associated period (and
- *    might need to read that record)
- *  + number of slashes which ended the associated period (and might need to
- *  read that record)
- *  + one per validator for the zeroeth period, set on initialization
+ * number of outstanding delegations which ended the associated period (and
+ * might need to read that record)
+ * + number of slashes which ended the associated period (and might need to
+ * read that record)
+ * + one per validator for the zeroeth period, set on initialization
  */
 export interface ValidatorHistoricalRewards {
   cumulativeRewardRatio: DecCoin[];
@@ -127,7 +125,12 @@ export interface CommunityPoolSpendProposalWithDeposit {
 }
 
 function createBaseParams(): Params {
-  return { communityTax: "", baseProposerReward: "", bonusProposerReward: "", withdrawAddrEnabled: false };
+  return {
+    communityTax: "",
+    baseProposerReward: "",
+    bonusProposerReward: "",
+    withdrawAddrEnabled: false,
+  };
 }
 
 export const Params = {
@@ -135,15 +138,19 @@ export const Params = {
     if (message.communityTax !== "") {
       writer.uint32(10).string(message.communityTax);
     }
+
     if (message.baseProposerReward !== "") {
       writer.uint32(18).string(message.baseProposerReward);
     }
+
     if (message.bonusProposerReward !== "") {
       writer.uint32(26).string(message.bonusProposerReward);
     }
+
     if (message.withdrawAddrEnabled === true) {
       writer.uint32(32).bool(message.withdrawAddrEnabled);
     }
+
     return writer;
   },
 
@@ -151,26 +158,33 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.communityTax = reader.string();
           break;
+
         case 2:
           message.baseProposerReward = reader.string();
           break;
+
         case 3:
           message.bonusProposerReward = reader.string();
           break;
+
         case 4:
           message.withdrawAddrEnabled = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -203,7 +217,10 @@ export const Params = {
 };
 
 function createBaseValidatorHistoricalRewards(): ValidatorHistoricalRewards {
-  return { cumulativeRewardRatio: [], referenceCount: 0 };
+  return {
+    cumulativeRewardRatio: [],
+    referenceCount: 0,
+  };
 }
 
 export const ValidatorHistoricalRewards = {
@@ -211,9 +228,11 @@ export const ValidatorHistoricalRewards = {
     for (const v of message.cumulativeRewardRatio) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.referenceCount !== 0) {
       writer.uint32(16).uint32(message.referenceCount);
     }
+
     return writer;
   },
 
@@ -221,20 +240,25 @@ export const ValidatorHistoricalRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorHistoricalRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.cumulativeRewardRatio.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.referenceCount = reader.uint32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -249,6 +273,7 @@ export const ValidatorHistoricalRewards = {
 
   toJSON(message: ValidatorHistoricalRewards): unknown {
     const obj: any = {};
+
     if (message.cumulativeRewardRatio) {
       obj.cumulativeRewardRatio = message.cumulativeRewardRatio.map((e) =>
         e ? DecCoin.toJSON(e) : undefined,
@@ -256,6 +281,7 @@ export const ValidatorHistoricalRewards = {
     } else {
       obj.cumulativeRewardRatio = [];
     }
+
     message.referenceCount !== undefined && (obj.referenceCount = Math.round(message.referenceCount));
     return obj;
   },
@@ -271,7 +297,10 @@ export const ValidatorHistoricalRewards = {
 };
 
 function createBaseValidatorCurrentRewards(): ValidatorCurrentRewards {
-  return { rewards: [], period: Long.UZERO };
+  return {
+    rewards: [],
+    period: Long.UZERO,
+  };
 }
 
 export const ValidatorCurrentRewards = {
@@ -279,9 +308,11 @@ export const ValidatorCurrentRewards = {
     for (const v of message.rewards) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (!message.period.isZero()) {
       writer.uint32(16).uint64(message.period);
     }
+
     return writer;
   },
 
@@ -289,20 +320,25 @@ export const ValidatorCurrentRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorCurrentRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rewards.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.period = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -315,11 +351,13 @@ export const ValidatorCurrentRewards = {
 
   toJSON(message: ValidatorCurrentRewards): unknown {
     const obj: any = {};
+
     if (message.rewards) {
       obj.rewards = message.rewards.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.rewards = [];
     }
+
     message.period !== undefined && (obj.period = (message.period || Long.UZERO).toString());
     return obj;
   },
@@ -334,7 +372,9 @@ export const ValidatorCurrentRewards = {
 };
 
 function createBaseValidatorAccumulatedCommission(): ValidatorAccumulatedCommission {
-  return { commission: [] };
+  return {
+    commission: [],
+  };
 }
 
 export const ValidatorAccumulatedCommission = {
@@ -342,6 +382,7 @@ export const ValidatorAccumulatedCommission = {
     for (const v of message.commission) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -349,17 +390,21 @@ export const ValidatorAccumulatedCommission = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorAccumulatedCommission();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.commission.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -373,11 +418,13 @@ export const ValidatorAccumulatedCommission = {
 
   toJSON(message: ValidatorAccumulatedCommission): unknown {
     const obj: any = {};
+
     if (message.commission) {
       obj.commission = message.commission.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.commission = [];
     }
+
     return obj;
   },
 
@@ -391,7 +438,9 @@ export const ValidatorAccumulatedCommission = {
 };
 
 function createBaseValidatorOutstandingRewards(): ValidatorOutstandingRewards {
-  return { rewards: [] };
+  return {
+    rewards: [],
+  };
 }
 
 export const ValidatorOutstandingRewards = {
@@ -399,6 +448,7 @@ export const ValidatorOutstandingRewards = {
     for (const v of message.rewards) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -406,17 +456,21 @@ export const ValidatorOutstandingRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorOutstandingRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rewards.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -428,11 +482,13 @@ export const ValidatorOutstandingRewards = {
 
   toJSON(message: ValidatorOutstandingRewards): unknown {
     const obj: any = {};
+
     if (message.rewards) {
       obj.rewards = message.rewards.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.rewards = [];
     }
+
     return obj;
   },
 
@@ -446,7 +502,10 @@ export const ValidatorOutstandingRewards = {
 };
 
 function createBaseValidatorSlashEvent(): ValidatorSlashEvent {
-  return { validatorPeriod: Long.UZERO, fraction: "" };
+  return {
+    validatorPeriod: Long.UZERO,
+    fraction: "",
+  };
 }
 
 export const ValidatorSlashEvent = {
@@ -454,9 +513,11 @@ export const ValidatorSlashEvent = {
     if (!message.validatorPeriod.isZero()) {
       writer.uint32(8).uint64(message.validatorPeriod);
     }
+
     if (message.fraction !== "") {
       writer.uint32(18).string(message.fraction);
     }
+
     return writer;
   },
 
@@ -464,20 +525,25 @@ export const ValidatorSlashEvent = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorSlashEvent();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorPeriod = reader.uint64() as Long;
           break;
+
         case 2:
           message.fraction = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -508,7 +574,9 @@ export const ValidatorSlashEvent = {
 };
 
 function createBaseValidatorSlashEvents(): ValidatorSlashEvents {
-  return { validatorSlashEvents: [] };
+  return {
+    validatorSlashEvents: [],
+  };
 }
 
 export const ValidatorSlashEvents = {
@@ -516,6 +584,7 @@ export const ValidatorSlashEvents = {
     for (const v of message.validatorSlashEvents) {
       ValidatorSlashEvent.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -523,17 +592,21 @@ export const ValidatorSlashEvents = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorSlashEvents();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorSlashEvents.push(ValidatorSlashEvent.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -547,6 +620,7 @@ export const ValidatorSlashEvents = {
 
   toJSON(message: ValidatorSlashEvents): unknown {
     const obj: any = {};
+
     if (message.validatorSlashEvents) {
       obj.validatorSlashEvents = message.validatorSlashEvents.map((e) =>
         e ? ValidatorSlashEvent.toJSON(e) : undefined,
@@ -554,6 +628,7 @@ export const ValidatorSlashEvents = {
     } else {
       obj.validatorSlashEvents = [];
     }
+
     return obj;
   },
 
@@ -566,7 +641,9 @@ export const ValidatorSlashEvents = {
 };
 
 function createBaseFeePool(): FeePool {
-  return { communityPool: [] };
+  return {
+    communityPool: [],
+  };
 }
 
 export const FeePool = {
@@ -574,6 +651,7 @@ export const FeePool = {
     for (const v of message.communityPool) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -581,17 +659,21 @@ export const FeePool = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeePool();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.communityPool.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -605,11 +687,13 @@ export const FeePool = {
 
   toJSON(message: FeePool): unknown {
     const obj: any = {};
+
     if (message.communityPool) {
       obj.communityPool = message.communityPool.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.communityPool = [];
     }
+
     return obj;
   },
 
@@ -621,7 +705,12 @@ export const FeePool = {
 };
 
 function createBaseCommunityPoolSpendProposal(): CommunityPoolSpendProposal {
-  return { title: "", description: "", recipient: "", amount: [] };
+  return {
+    title: "",
+    description: "",
+    recipient: "",
+    amount: [],
+  };
 }
 
 export const CommunityPoolSpendProposal = {
@@ -629,15 +718,19 @@ export const CommunityPoolSpendProposal = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.recipient !== "") {
       writer.uint32(26).string(message.recipient);
     }
+
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -645,26 +738,33 @@ export const CommunityPoolSpendProposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommunityPoolSpendProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.recipient = reader.string();
           break;
+
         case 4:
           message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -682,11 +782,13 @@ export const CommunityPoolSpendProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined && (obj.description = message.description);
     message.recipient !== undefined && (obj.recipient = message.recipient);
+
     if (message.amount) {
       obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.amount = [];
     }
+
     return obj;
   },
 
@@ -703,7 +805,11 @@ export const CommunityPoolSpendProposal = {
 };
 
 function createBaseDelegatorStartingInfo(): DelegatorStartingInfo {
-  return { previousPeriod: Long.UZERO, stake: "", height: Long.UZERO };
+  return {
+    previousPeriod: Long.UZERO,
+    stake: "",
+    height: Long.UZERO,
+  };
 }
 
 export const DelegatorStartingInfo = {
@@ -711,12 +817,15 @@ export const DelegatorStartingInfo = {
     if (!message.previousPeriod.isZero()) {
       writer.uint32(8).uint64(message.previousPeriod);
     }
+
     if (message.stake !== "") {
       writer.uint32(18).string(message.stake);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(24).uint64(message.height);
     }
+
     return writer;
   },
 
@@ -724,23 +833,29 @@ export const DelegatorStartingInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDelegatorStartingInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.previousPeriod = reader.uint64() as Long;
           break;
+
         case 2:
           message.stake = reader.string();
           break;
+
         case 3:
           message.height = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -775,7 +890,10 @@ export const DelegatorStartingInfo = {
 };
 
 function createBaseDelegationDelegatorReward(): DelegationDelegatorReward {
-  return { validatorAddress: "", reward: [] };
+  return {
+    validatorAddress: "",
+    reward: [],
+  };
 }
 
 export const DelegationDelegatorReward = {
@@ -783,9 +901,11 @@ export const DelegationDelegatorReward = {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress);
     }
+
     for (const v of message.reward) {
       DecCoin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -793,20 +913,25 @@ export const DelegationDelegatorReward = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDelegationDelegatorReward();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorAddress = reader.string();
           break;
+
         case 2:
           message.reward.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -820,11 +945,13 @@ export const DelegationDelegatorReward = {
   toJSON(message: DelegationDelegatorReward): unknown {
     const obj: any = {};
     message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
+
     if (message.reward) {
       obj.reward = message.reward.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.reward = [];
     }
+
     return obj;
   },
 
@@ -839,7 +966,13 @@ export const DelegationDelegatorReward = {
 };
 
 function createBaseCommunityPoolSpendProposalWithDeposit(): CommunityPoolSpendProposalWithDeposit {
-  return { title: "", description: "", recipient: "", amount: "", deposit: "" };
+  return {
+    title: "",
+    description: "",
+    recipient: "",
+    amount: "",
+    deposit: "",
+  };
 }
 
 export const CommunityPoolSpendProposalWithDeposit = {
@@ -850,18 +983,23 @@ export const CommunityPoolSpendProposalWithDeposit = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.recipient !== "") {
       writer.uint32(26).string(message.recipient);
     }
+
     if (message.amount !== "") {
       writer.uint32(34).string(message.amount);
     }
+
     if (message.deposit !== "") {
       writer.uint32(42).string(message.deposit);
     }
+
     return writer;
   },
 
@@ -869,29 +1007,37 @@ export const CommunityPoolSpendProposalWithDeposit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommunityPoolSpendProposalWithDeposit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.recipient = reader.string();
           break;
+
         case 4:
           message.amount = reader.string();
           break;
+
         case 5:
           message.deposit = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -927,31 +1073,3 @@ export const CommunityPoolSpendProposalWithDeposit = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

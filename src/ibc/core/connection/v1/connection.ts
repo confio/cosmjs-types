@@ -1,8 +1,6 @@
-/* eslint-disable */
-import Long from "long";
+import { MerklePrefix } from "../../commitment/v1/commitment";
 import * as _m0 from "protobufjs/minimal";
-import { MerklePrefix } from "../../../../ibc/core/commitment/v1/commitment";
-
+import { Long, isSet, DeepPartial, Exact } from "@osmonauts/helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 
 /**
@@ -12,49 +10,58 @@ export const protobufPackage = "ibc.core.connection.v1";
 export enum State {
   /** STATE_UNINITIALIZED_UNSPECIFIED - Default State */
   STATE_UNINITIALIZED_UNSPECIFIED = 0,
+
   /** STATE_INIT - A connection end has just started the opening handshake. */
   STATE_INIT = 1,
+
   /**
    * STATE_TRYOPEN - A connection end has acknowledged the handshake step on the counterparty
    * chain.
    */
   STATE_TRYOPEN = 2,
+
   /** STATE_OPEN - A connection end has completed the handshake. */
   STATE_OPEN = 3,
   UNRECOGNIZED = -1,
 }
-
 export function stateFromJSON(object: any): State {
   switch (object) {
     case 0:
     case "STATE_UNINITIALIZED_UNSPECIFIED":
       return State.STATE_UNINITIALIZED_UNSPECIFIED;
+
     case 1:
     case "STATE_INIT":
       return State.STATE_INIT;
+
     case 2:
     case "STATE_TRYOPEN":
       return State.STATE_TRYOPEN;
+
     case 3:
     case "STATE_OPEN":
       return State.STATE_OPEN;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return State.UNRECOGNIZED;
   }
 }
-
 export function stateToJSON(object: State): string {
   switch (object) {
     case State.STATE_UNINITIALIZED_UNSPECIFIED:
       return "STATE_UNINITIALIZED_UNSPECIFIED";
+
     case State.STATE_INIT:
       return "STATE_INIT";
+
     case State.STATE_TRYOPEN:
       return "STATE_TRYOPEN";
+
     case State.STATE_OPEN:
       return "STATE_OPEN";
+
     default:
       return "UNKNOWN";
   }
@@ -69,15 +76,19 @@ export function stateToJSON(object: State): string {
 export interface ConnectionEnd {
   /** client associated with this connection. */
   clientId: string;
+
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection.
    */
   versions: Version[];
+
   /** current state of the connection end. */
   state: State;
+
   /** counterparty chain associated with this connection. */
-  counterparty?: Counterparty;
+  counterparty: Counterparty;
+
   /**
    * delay period that must pass before a consensus state can be used for
    * packet-verification NOTE: delay period logic is only implemented by some
@@ -93,17 +104,22 @@ export interface ConnectionEnd {
 export interface IdentifiedConnection {
   /** connection identifier. */
   id: string;
+
   /** client associated with this connection. */
   clientId: string;
+
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection
    */
   versions: Version[];
+
   /** current state of the connection end. */
   state: State;
+
   /** counterparty chain associated with this connection. */
-  counterparty?: Counterparty;
+  counterparty: Counterparty;
+
   /** delay period associated with this connection. */
   delayPeriod: Long;
 }
@@ -115,13 +131,15 @@ export interface Counterparty {
    * connection.
    */
   clientId: string;
+
   /**
    * identifies the connection end on the counterparty chain associated with a
    * given connection.
    */
   connectionId: string;
+
   /** commitment merkle prefix of the counterparty chain. */
-  prefix?: MerklePrefix;
+  prefix: MerklePrefix;
 }
 
 /** ClientPaths define all the connection paths for a client state. */
@@ -134,6 +152,7 @@ export interface ClientPaths {
 export interface ConnectionPaths {
   /** client state unique identifier */
   clientId: string;
+
   /** list of connection paths */
   paths: string[];
 }
@@ -145,6 +164,7 @@ export interface ConnectionPaths {
 export interface Version {
   /** unique version identifier */
   identifier: string;
+
   /** list of features compatible with the specified identifier */
   features: string[];
 }
@@ -160,7 +180,13 @@ export interface Params {
 }
 
 function createBaseConnectionEnd(): ConnectionEnd {
-  return { clientId: "", versions: [], state: 0, counterparty: undefined, delayPeriod: Long.UZERO };
+  return {
+    clientId: "",
+    versions: [],
+    state: 0,
+    counterparty: undefined,
+    delayPeriod: Long.UZERO,
+  };
 }
 
 export const ConnectionEnd = {
@@ -168,18 +194,23 @@ export const ConnectionEnd = {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
+
     for (const v of message.versions) {
       Version.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.state !== 0) {
       writer.uint32(24).int32(message.state);
     }
+
     if (message.counterparty !== undefined) {
       Counterparty.encode(message.counterparty, writer.uint32(34).fork()).ldelim();
     }
+
     if (!message.delayPeriod.isZero()) {
       writer.uint32(40).uint64(message.delayPeriod);
     }
+
     return writer;
   },
 
@@ -187,29 +218,37 @@ export const ConnectionEnd = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectionEnd();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientId = reader.string();
           break;
+
         case 2:
           message.versions.push(Version.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.state = reader.int32() as any;
           break;
+
         case 4:
           message.counterparty = Counterparty.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.delayPeriod = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -226,11 +265,13 @@ export const ConnectionEnd = {
   toJSON(message: ConnectionEnd): unknown {
     const obj: any = {};
     message.clientId !== undefined && (obj.clientId = message.clientId);
+
     if (message.versions) {
       obj.versions = message.versions.map((e) => (e ? Version.toJSON(e) : undefined));
     } else {
       obj.versions = [];
     }
+
     message.state !== undefined && (obj.state = stateToJSON(message.state));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
@@ -256,7 +297,14 @@ export const ConnectionEnd = {
 };
 
 function createBaseIdentifiedConnection(): IdentifiedConnection {
-  return { id: "", clientId: "", versions: [], state: 0, counterparty: undefined, delayPeriod: Long.UZERO };
+  return {
+    id: "",
+    clientId: "",
+    versions: [],
+    state: 0,
+    counterparty: undefined,
+    delayPeriod: Long.UZERO,
+  };
 }
 
 export const IdentifiedConnection = {
@@ -264,21 +312,27 @@ export const IdentifiedConnection = {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
+
     if (message.clientId !== "") {
       writer.uint32(18).string(message.clientId);
     }
+
     for (const v of message.versions) {
       Version.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.state !== 0) {
       writer.uint32(32).int32(message.state);
     }
+
     if (message.counterparty !== undefined) {
       Counterparty.encode(message.counterparty, writer.uint32(42).fork()).ldelim();
     }
+
     if (!message.delayPeriod.isZero()) {
       writer.uint32(48).uint64(message.delayPeriod);
     }
+
     return writer;
   },
 
@@ -286,32 +340,41 @@ export const IdentifiedConnection = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIdentifiedConnection();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.id = reader.string();
           break;
+
         case 2:
           message.clientId = reader.string();
           break;
+
         case 3:
           message.versions.push(Version.decode(reader, reader.uint32()));
           break;
+
         case 4:
           message.state = reader.int32() as any;
           break;
+
         case 5:
           message.counterparty = Counterparty.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.delayPeriod = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -330,11 +393,13 @@ export const IdentifiedConnection = {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.clientId !== undefined && (obj.clientId = message.clientId);
+
     if (message.versions) {
       obj.versions = message.versions.map((e) => (e ? Version.toJSON(e) : undefined));
     } else {
       obj.versions = [];
     }
+
     message.state !== undefined && (obj.state = stateToJSON(message.state));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
@@ -361,7 +426,11 @@ export const IdentifiedConnection = {
 };
 
 function createBaseCounterparty(): Counterparty {
-  return { clientId: "", connectionId: "", prefix: undefined };
+  return {
+    clientId: "",
+    connectionId: "",
+    prefix: undefined,
+  };
 }
 
 export const Counterparty = {
@@ -369,12 +438,15 @@ export const Counterparty = {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
+
     if (message.connectionId !== "") {
       writer.uint32(18).string(message.connectionId);
     }
+
     if (message.prefix !== undefined) {
       MerklePrefix.encode(message.prefix, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -382,23 +454,29 @@ export const Counterparty = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCounterparty();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientId = reader.string();
           break;
+
         case 2:
           message.connectionId = reader.string();
           break;
+
         case 3:
           message.prefix = MerklePrefix.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -432,7 +510,9 @@ export const Counterparty = {
 };
 
 function createBaseClientPaths(): ClientPaths {
-  return { paths: [] };
+  return {
+    paths: [],
+  };
 }
 
 export const ClientPaths = {
@@ -440,6 +520,7 @@ export const ClientPaths = {
     for (const v of message.paths) {
       writer.uint32(10).string(v!);
     }
+
     return writer;
   },
 
@@ -447,17 +528,21 @@ export const ClientPaths = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClientPaths();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.paths.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -469,11 +554,13 @@ export const ClientPaths = {
 
   toJSON(message: ClientPaths): unknown {
     const obj: any = {};
+
     if (message.paths) {
       obj.paths = message.paths.map((e) => e);
     } else {
       obj.paths = [];
     }
+
     return obj;
   },
 
@@ -485,7 +572,10 @@ export const ClientPaths = {
 };
 
 function createBaseConnectionPaths(): ConnectionPaths {
-  return { clientId: "", paths: [] };
+  return {
+    clientId: "",
+    paths: [],
+  };
 }
 
 export const ConnectionPaths = {
@@ -493,9 +583,11 @@ export const ConnectionPaths = {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
+
     for (const v of message.paths) {
       writer.uint32(18).string(v!);
     }
+
     return writer;
   },
 
@@ -503,20 +595,25 @@ export const ConnectionPaths = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectionPaths();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientId = reader.string();
           break;
+
         case 2:
           message.paths.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -530,11 +627,13 @@ export const ConnectionPaths = {
   toJSON(message: ConnectionPaths): unknown {
     const obj: any = {};
     message.clientId !== undefined && (obj.clientId = message.clientId);
+
     if (message.paths) {
       obj.paths = message.paths.map((e) => e);
     } else {
       obj.paths = [];
     }
+
     return obj;
   },
 
@@ -547,7 +646,10 @@ export const ConnectionPaths = {
 };
 
 function createBaseVersion(): Version {
-  return { identifier: "", features: [] };
+  return {
+    identifier: "",
+    features: [],
+  };
 }
 
 export const Version = {
@@ -555,9 +657,11 @@ export const Version = {
     if (message.identifier !== "") {
       writer.uint32(10).string(message.identifier);
     }
+
     for (const v of message.features) {
       writer.uint32(18).string(v!);
     }
+
     return writer;
   },
 
@@ -565,20 +669,25 @@ export const Version = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVersion();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.identifier = reader.string();
           break;
+
         case 2:
           message.features.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -592,11 +701,13 @@ export const Version = {
   toJSON(message: Version): unknown {
     const obj: any = {};
     message.identifier !== undefined && (obj.identifier = message.identifier);
+
     if (message.features) {
       obj.features = message.features.map((e) => e);
     } else {
       obj.features = [];
     }
+
     return obj;
   },
 
@@ -609,7 +720,9 @@ export const Version = {
 };
 
 function createBaseParams(): Params {
-  return { maxExpectedTimePerBlock: Long.UZERO };
+  return {
+    maxExpectedTimePerBlock: Long.UZERO,
+  };
 }
 
 export const Params = {
@@ -617,6 +730,7 @@ export const Params = {
     if (!message.maxExpectedTimePerBlock.isZero()) {
       writer.uint32(8).uint64(message.maxExpectedTimePerBlock);
     }
+
     return writer;
   },
 
@@ -624,17 +738,21 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.maxExpectedTimePerBlock = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -662,31 +780,3 @@ export const Params = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

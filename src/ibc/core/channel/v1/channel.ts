@@ -1,8 +1,6 @@
-/* eslint-disable */
-import Long from "long";
+import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
-import { Height } from "../../../../ibc/core/client/v1/client";
-
+import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "@osmonauts/helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 
 /**
@@ -12,15 +10,19 @@ export const protobufPackage = "ibc.core.channel.v1";
 export enum State {
   /** STATE_UNINITIALIZED_UNSPECIFIED - Default State */
   STATE_UNINITIALIZED_UNSPECIFIED = 0,
+
   /** STATE_INIT - A channel has just started the opening handshake. */
   STATE_INIT = 1,
+
   /** STATE_TRYOPEN - A channel has acknowledged the handshake step on the counterparty chain. */
   STATE_TRYOPEN = 2,
+
   /**
    * STATE_OPEN - A channel has completed the handshake. Open channels are
    * ready to send and receive packets.
    */
   STATE_OPEN = 3,
+
   /**
    * STATE_CLOSED - A channel has been closed and can no longer be used to send or receive
    * packets.
@@ -28,43 +30,51 @@ export enum State {
   STATE_CLOSED = 4,
   UNRECOGNIZED = -1,
 }
-
 export function stateFromJSON(object: any): State {
   switch (object) {
     case 0:
     case "STATE_UNINITIALIZED_UNSPECIFIED":
       return State.STATE_UNINITIALIZED_UNSPECIFIED;
+
     case 1:
     case "STATE_INIT":
       return State.STATE_INIT;
+
     case 2:
     case "STATE_TRYOPEN":
       return State.STATE_TRYOPEN;
+
     case 3:
     case "STATE_OPEN":
       return State.STATE_OPEN;
+
     case 4:
     case "STATE_CLOSED":
       return State.STATE_CLOSED;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return State.UNRECOGNIZED;
   }
 }
-
 export function stateToJSON(object: State): string {
   switch (object) {
     case State.STATE_UNINITIALIZED_UNSPECIFIED:
       return "STATE_UNINITIALIZED_UNSPECIFIED";
+
     case State.STATE_INIT:
       return "STATE_INIT";
+
     case State.STATE_TRYOPEN:
       return "STATE_TRYOPEN";
+
     case State.STATE_OPEN:
       return "STATE_OPEN";
+
     case State.STATE_CLOSED:
       return "STATE_CLOSED";
+
     default:
       return "UNKNOWN";
   }
@@ -74,42 +84,48 @@ export function stateToJSON(object: State): string {
 export enum Order {
   /** ORDER_NONE_UNSPECIFIED - zero-value for channel ordering */
   ORDER_NONE_UNSPECIFIED = 0,
+
   /**
    * ORDER_UNORDERED - packets can be delivered in any order, which may differ from the order in
    * which they were sent.
    */
   ORDER_UNORDERED = 1,
+
   /** ORDER_ORDERED - packets are delivered exactly in the order which they were sent */
   ORDER_ORDERED = 2,
   UNRECOGNIZED = -1,
 }
-
 export function orderFromJSON(object: any): Order {
   switch (object) {
     case 0:
     case "ORDER_NONE_UNSPECIFIED":
       return Order.ORDER_NONE_UNSPECIFIED;
+
     case 1:
     case "ORDER_UNORDERED":
       return Order.ORDER_UNORDERED;
+
     case 2:
     case "ORDER_ORDERED":
       return Order.ORDER_ORDERED;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return Order.UNRECOGNIZED;
   }
 }
-
 export function orderToJSON(object: Order): string {
   switch (object) {
     case Order.ORDER_NONE_UNSPECIFIED:
       return "ORDER_NONE_UNSPECIFIED";
+
     case Order.ORDER_UNORDERED:
       return "ORDER_UNORDERED";
+
     case Order.ORDER_ORDERED:
       return "ORDER_ORDERED";
+
     default:
       return "UNKNOWN";
   }
@@ -123,15 +139,19 @@ export function orderToJSON(object: Order): string {
 export interface Channel {
   /** current state of the channel end */
   state: State;
+
   /** whether the channel is ordered or unordered */
   ordering: Order;
+
   /** counterparty channel end */
-  counterparty?: Counterparty;
+  counterparty: Counterparty;
+
   /**
    * list of connection identifiers, in order, along which packets sent on
    * this channel will travel
    */
   connectionHops: string[];
+
   /** opaque channel version, which is agreed upon during the handshake */
   version: string;
 }
@@ -143,19 +163,25 @@ export interface Channel {
 export interface IdentifiedChannel {
   /** current state of the channel end */
   state: State;
+
   /** whether the channel is ordered or unordered */
   ordering: Order;
+
   /** counterparty channel end */
-  counterparty?: Counterparty;
+  counterparty: Counterparty;
+
   /**
    * list of connection identifiers, in order, along which packets sent on
    * this channel will travel
    */
   connectionHops: string[];
+
   /** opaque channel version, which is agreed upon during the handshake */
   version: string;
+
   /** port identifier */
   portId: string;
+
   /** channel identifier */
   channelId: string;
 }
@@ -164,6 +190,7 @@ export interface IdentifiedChannel {
 export interface Counterparty {
   /** port on the counterparty chain which owns the other end of the channel. */
   portId: string;
+
   /** channel end on the counterparty chain */
   channelId: string;
 }
@@ -176,18 +203,25 @@ export interface Packet {
    * with a later sequence number.
    */
   sequence: Long;
+
   /** identifies the port on the sending chain. */
   sourcePort: string;
+
   /** identifies the channel end on the sending chain. */
   sourceChannel: string;
+
   /** identifies the port on the receiving chain. */
   destinationPort: string;
+
   /** identifies the channel end on the receiving chain. */
   destinationChannel: string;
+
   /** actual opaque bytes transferred directly to the application module */
   data: Uint8Array;
+
   /** block height after which the packet times out */
-  timeoutHeight?: Height;
+  timeoutHeight: Height;
+
   /** block timestamp (in nanoseconds) after which the packet times out */
   timeoutTimestamp: Long;
 }
@@ -201,10 +235,13 @@ export interface Packet {
 export interface PacketState {
   /** channel port identifier. */
   portId: string;
+
   /** channel unique identifier. */
   channelId: string;
+
   /** packet sequence. */
   sequence: Long;
+
   /** embedded data that represents packet state. */
   data: Uint8Array;
 }
@@ -219,12 +256,18 @@ export interface PacketState {
  * https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope
  */
 export interface Acknowledgement {
-  result: Uint8Array | undefined;
-  error: string | undefined;
+  result?: Uint8Array;
+  error?: string;
 }
 
 function createBaseChannel(): Channel {
-  return { state: 0, ordering: 0, counterparty: undefined, connectionHops: [], version: "" };
+  return {
+    state: 0,
+    ordering: 0,
+    counterparty: undefined,
+    connectionHops: [],
+    version: "",
+  };
 }
 
 export const Channel = {
@@ -232,18 +275,23 @@ export const Channel = {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
+
     if (message.ordering !== 0) {
       writer.uint32(16).int32(message.ordering);
     }
+
     if (message.counterparty !== undefined) {
       Counterparty.encode(message.counterparty, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.connectionHops) {
       writer.uint32(34).string(v!);
     }
+
     if (message.version !== "") {
       writer.uint32(42).string(message.version);
     }
+
     return writer;
   },
 
@@ -251,29 +299,37 @@ export const Channel = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannel();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.state = reader.int32() as any;
           break;
+
         case 2:
           message.ordering = reader.int32() as any;
           break;
+
         case 3:
           message.counterparty = Counterparty.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.connectionHops.push(reader.string());
           break;
+
         case 5:
           message.version = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -295,11 +351,13 @@ export const Channel = {
     message.ordering !== undefined && (obj.ordering = orderToJSON(message.ordering));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
+
     if (message.connectionHops) {
       obj.connectionHops = message.connectionHops.map((e) => e);
     } else {
       obj.connectionHops = [];
     }
+
     message.version !== undefined && (obj.version = message.version);
     return obj;
   },
@@ -335,24 +393,31 @@ export const IdentifiedChannel = {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
+
     if (message.ordering !== 0) {
       writer.uint32(16).int32(message.ordering);
     }
+
     if (message.counterparty !== undefined) {
       Counterparty.encode(message.counterparty, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.connectionHops) {
       writer.uint32(34).string(v!);
     }
+
     if (message.version !== "") {
       writer.uint32(42).string(message.version);
     }
+
     if (message.portId !== "") {
       writer.uint32(50).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(58).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -360,35 +425,45 @@ export const IdentifiedChannel = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIdentifiedChannel();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.state = reader.int32() as any;
           break;
+
         case 2:
           message.ordering = reader.int32() as any;
           break;
+
         case 3:
           message.counterparty = Counterparty.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.connectionHops.push(reader.string());
           break;
+
         case 5:
           message.version = reader.string();
           break;
+
         case 6:
           message.portId = reader.string();
           break;
+
         case 7:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -412,11 +487,13 @@ export const IdentifiedChannel = {
     message.ordering !== undefined && (obj.ordering = orderToJSON(message.ordering));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
+
     if (message.connectionHops) {
       obj.connectionHops = message.connectionHops.map((e) => e);
     } else {
       obj.connectionHops = [];
     }
+
     message.version !== undefined && (obj.version = message.version);
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
@@ -440,7 +517,10 @@ export const IdentifiedChannel = {
 };
 
 function createBaseCounterparty(): Counterparty {
-  return { portId: "", channelId: "" };
+  return {
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const Counterparty = {
@@ -448,9 +528,11 @@ export const Counterparty = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -458,20 +540,25 @@ export const Counterparty = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCounterparty();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -515,27 +602,35 @@ export const Packet = {
     if (!message.sequence.isZero()) {
       writer.uint32(8).uint64(message.sequence);
     }
+
     if (message.sourcePort !== "") {
       writer.uint32(18).string(message.sourcePort);
     }
+
     if (message.sourceChannel !== "") {
       writer.uint32(26).string(message.sourceChannel);
     }
+
     if (message.destinationPort !== "") {
       writer.uint32(34).string(message.destinationPort);
     }
+
     if (message.destinationChannel !== "") {
       writer.uint32(42).string(message.destinationChannel);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(50).bytes(message.data);
     }
+
     if (message.timeoutHeight !== undefined) {
       Height.encode(message.timeoutHeight, writer.uint32(58).fork()).ldelim();
     }
+
     if (!message.timeoutTimestamp.isZero()) {
       writer.uint32(64).uint64(message.timeoutTimestamp);
     }
+
     return writer;
   },
 
@@ -543,38 +638,49 @@ export const Packet = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacket();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sequence = reader.uint64() as Long;
           break;
+
         case 2:
           message.sourcePort = reader.string();
           break;
+
         case 3:
           message.sourceChannel = reader.string();
           break;
+
         case 4:
           message.destinationPort = reader.string();
           break;
+
         case 5:
           message.destinationChannel = reader.string();
           break;
+
         case 6:
           message.data = reader.bytes();
           break;
+
         case 7:
           message.timeoutHeight = Height.decode(reader, reader.uint32());
           break;
+
         case 8:
           message.timeoutTimestamp = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -633,7 +739,12 @@ export const Packet = {
 };
 
 function createBasePacketState(): PacketState {
-  return { portId: "", channelId: "", sequence: Long.UZERO, data: new Uint8Array() };
+  return {
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
+    data: new Uint8Array(),
+  };
 }
 
 export const PacketState = {
@@ -641,15 +752,19 @@ export const PacketState = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(34).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -657,26 +772,33 @@ export const PacketState = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketState();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.sequence = reader.uint64() as Long;
           break;
+
         case 4:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -713,7 +835,10 @@ export const PacketState = {
 };
 
 function createBaseAcknowledgement(): Acknowledgement {
-  return { result: undefined, error: undefined };
+  return {
+    result: undefined,
+    error: undefined,
+  };
 }
 
 export const Acknowledgement = {
@@ -721,9 +846,11 @@ export const Acknowledgement = {
     if (message.result !== undefined) {
       writer.uint32(170).bytes(message.result);
     }
+
     if (message.error !== undefined) {
       writer.uint32(178).string(message.error);
     }
+
     return writer;
   },
 
@@ -731,20 +858,25 @@ export const Acknowledgement = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcknowledgement();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 21:
           message.result = reader.bytes();
           break;
+
         case 22:
           message.error = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -770,63 +902,3 @@ export const Acknowledgement = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

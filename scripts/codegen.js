@@ -19,9 +19,11 @@ telescope({
         excluded: {
             protos: [
                 'cosmos/authz/v1beta1/event.proto',
+                'cosmos/crypto/secp256r1/keys.proto',
+                'google/api/httpbody.proto',
+                'ibc/core/port/v1/query.proto',
                 'ibc/lightclients/solomachine/v2/solomachine.proto',
                 'tendermint/libs/bits/types.proto',
-                'cosmos/crypto/secp256r1/keys.proto'
             ]
         },
         typingsFormat: {

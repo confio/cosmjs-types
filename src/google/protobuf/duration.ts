@@ -1,7 +1,5 @@
-/* eslint-disable */
-import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-
+import { Long, isSet, DeepPartial, Exact } from "@osmonauts/helpers";
 export const protobufPackage = "google.protobuf";
 
 /**
@@ -16,43 +14,43 @@ export const protobufPackage = "google.protobuf";
  *
  * Example 1: Compute Duration from two Timestamps in pseudo code.
  *
- *     Timestamp start = ...;
- *     Timestamp end = ...;
- *     Duration duration = ...;
+ * Timestamp start = ...;
+ * Timestamp end = ...;
+ * Duration duration = ...;
  *
- *     duration.seconds = end.seconds - start.seconds;
- *     duration.nanos = end.nanos - start.nanos;
+ * duration.seconds = end.seconds - start.seconds;
+ * duration.nanos = end.nanos - start.nanos;
  *
- *     if (duration.seconds < 0 && duration.nanos > 0) {
- *       duration.seconds += 1;
- *       duration.nanos -= 1000000000;
- *     } else if (duration.seconds > 0 && duration.nanos < 0) {
- *       duration.seconds -= 1;
- *       duration.nanos += 1000000000;
- *     }
+ * if (duration.seconds < 0 && duration.nanos > 0) {
+ * duration.seconds += 1;
+ * duration.nanos -= 1000000000;
+ * } else if (durations.seconds > 0 && duration.nanos < 0) {
+ * duration.seconds -= 1;
+ * duration.nanos += 1000000000;
+ * }
  *
  * Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.
  *
- *     Timestamp start = ...;
- *     Duration duration = ...;
- *     Timestamp end = ...;
+ * Timestamp start = ...;
+ * Duration duration = ...;
+ * Timestamp end = ...;
  *
- *     end.seconds = start.seconds + duration.seconds;
- *     end.nanos = start.nanos + duration.nanos;
+ * end.seconds = start.seconds + duration.seconds;
+ * end.nanos = start.nanos + duration.nanos;
  *
- *     if (end.nanos < 0) {
- *       end.seconds -= 1;
- *       end.nanos += 1000000000;
- *     } else if (end.nanos >= 1000000000) {
- *       end.seconds += 1;
- *       end.nanos -= 1000000000;
- *     }
+ * if (end.nanos < 0) {
+ * end.seconds -= 1;
+ * end.nanos += 1000000000;
+ * } else if (end.nanos >= 1000000000) {
+ * end.seconds += 1;
+ * end.nanos -= 1000000000;
+ * }
  *
  * Example 3: Compute Duration from datetime.timedelta in Python.
  *
- *     td = datetime.timedelta(days=3, minutes=10)
- *     duration = Duration()
- *     duration.FromTimedelta(td)
+ * td = datetime.timedelta(days=3, minutes=10)
+ * duration = Duration()
+ * duration.FromTimedelta(td)
  *
  * # JSON Mapping
  *
@@ -71,6 +69,7 @@ export interface Duration {
    * 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
    */
   seconds: Long;
+
   /**
    * Signed fractions of a second at nanosecond resolution of the span
    * of time. Durations less than one second are represented with a 0
@@ -83,7 +82,10 @@ export interface Duration {
 }
 
 function createBaseDuration(): Duration {
-  return { seconds: Long.ZERO, nanos: 0 };
+  return {
+    seconds: Long.ZERO,
+    nanos: 0,
+  };
 }
 
 export const Duration = {
@@ -91,9 +93,11 @@ export const Duration = {
     if (!message.seconds.isZero()) {
       writer.uint32(8).int64(message.seconds);
     }
+
     if (message.nanos !== 0) {
       writer.uint32(16).int32(message.nanos);
     }
+
     return writer;
   },
 
@@ -101,20 +105,25 @@ export const Duration = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDuration();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.seconds = reader.int64() as Long;
           break;
+
         case 2:
           message.nanos = reader.int32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -140,31 +149,3 @@ export const Duration = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

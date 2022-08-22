@@ -1,9 +1,7 @@
-/* eslint-disable */
-import Long from "long";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
-import { Params, ValidatorSigningInfo } from "../../../cosmos/slashing/v1beta1/slashing";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-
+import { DeepPartial, Exact, isSet } from "@osmonauts/helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
@@ -11,7 +9,7 @@ export interface QueryParamsRequest {}
 
 /** QueryParamsResponse is the response type for the Query/Params RPC method */
 export interface QueryParamsResponse {
-  params?: Params;
+  params: Params;
 }
 
 /**
@@ -29,7 +27,7 @@ export interface QuerySigningInfoRequest {
  */
 export interface QuerySigningInfoResponse {
   /** val_signing_info is the signing info of requested val cons address */
-  valSigningInfo?: ValidatorSigningInfo;
+  valSigningInfo: ValidatorSigningInfo;
 }
 
 /**
@@ -37,7 +35,7 @@ export interface QuerySigningInfoResponse {
  * method
  */
 export interface QuerySigningInfosRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -47,7 +45,7 @@ export interface QuerySigningInfosRequest {
 export interface QuerySigningInfosResponse {
   /** info is the signing info of all validators */
   info: ValidatorSigningInfo[];
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -63,14 +61,17 @@ export const QueryParamsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -90,7 +91,9 @@ export const QueryParamsRequest = {
 };
 
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { params: undefined };
+  return {
+    params: undefined,
+  };
 }
 
 export const QueryParamsResponse = {
@@ -98,6 +101,7 @@ export const QueryParamsResponse = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -105,17 +109,21 @@ export const QueryParamsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.params = Params.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -140,7 +148,9 @@ export const QueryParamsResponse = {
 };
 
 function createBaseQuerySigningInfoRequest(): QuerySigningInfoRequest {
-  return { consAddress: "" };
+  return {
+    consAddress: "",
+  };
 }
 
 export const QuerySigningInfoRequest = {
@@ -148,6 +158,7 @@ export const QuerySigningInfoRequest = {
     if (message.consAddress !== "") {
       writer.uint32(10).string(message.consAddress);
     }
+
     return writer;
   },
 
@@ -155,17 +166,21 @@ export const QuerySigningInfoRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQuerySigningInfoRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.consAddress = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -189,7 +204,9 @@ export const QuerySigningInfoRequest = {
 };
 
 function createBaseQuerySigningInfoResponse(): QuerySigningInfoResponse {
-  return { valSigningInfo: undefined };
+  return {
+    valSigningInfo: undefined,
+  };
 }
 
 export const QuerySigningInfoResponse = {
@@ -197,6 +214,7 @@ export const QuerySigningInfoResponse = {
     if (message.valSigningInfo !== undefined) {
       ValidatorSigningInfo.encode(message.valSigningInfo, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -204,17 +222,21 @@ export const QuerySigningInfoResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQuerySigningInfoResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.valSigningInfo = ValidatorSigningInfo.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -248,7 +270,9 @@ export const QuerySigningInfoResponse = {
 };
 
 function createBaseQuerySigningInfosRequest(): QuerySigningInfosRequest {
-  return { pagination: undefined };
+  return {
+    pagination: undefined,
+  };
 }
 
 export const QuerySigningInfosRequest = {
@@ -256,6 +280,7 @@ export const QuerySigningInfosRequest = {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -263,17 +288,21 @@ export const QuerySigningInfosRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQuerySigningInfosRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -303,7 +332,10 @@ export const QuerySigningInfosRequest = {
 };
 
 function createBaseQuerySigningInfosResponse(): QuerySigningInfosResponse {
-  return { info: [], pagination: undefined };
+  return {
+    info: [],
+    pagination: undefined,
+  };
 }
 
 export const QuerySigningInfosResponse = {
@@ -311,9 +343,11 @@ export const QuerySigningInfosResponse = {
     for (const v of message.info) {
       ValidatorSigningInfo.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -321,20 +355,25 @@ export const QuerySigningInfosResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQuerySigningInfosResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.info.push(ValidatorSigningInfo.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -347,11 +386,13 @@ export const QuerySigningInfosResponse = {
 
   toJSON(message: QuerySigningInfosResponse): unknown {
     const obj: any = {};
+
     if (message.info) {
       obj.info = message.info.map((e) => (e ? ValidatorSigningInfo.toJSON(e) : undefined));
     } else {
       obj.info = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -369,72 +410,3 @@ export const QuerySigningInfosResponse = {
     return message;
   },
 };
-
-/** Query provides defines the gRPC querier service */
-export interface Query {
-  /** Params queries the parameters of slashing module */
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** SigningInfo queries the signing info of given cons address */
-  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse>;
-  /** SigningInfos queries signing info of all validators */
-  SigningInfos(request: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
-}
-
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.SigningInfo = this.SigningInfo.bind(this);
-    this.SigningInfos = this.SigningInfos.bind(this);
-  }
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
-  }
-
-  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse> {
-    const data = QuerySigningInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "SigningInfo", data);
-    return promise.then((data) => QuerySigningInfoResponse.decode(new _m0.Reader(data)));
-  }
-
-  SigningInfos(request: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse> {
-    const data = QuerySigningInfosRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "SigningInfos", data);
-    return promise.then((data) => QuerySigningInfosResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

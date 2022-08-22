@@ -1,54 +1,61 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "@osmonauts/helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 
 /** AccessType permission types */
 export enum AccessType {
   /** ACCESS_TYPE_UNSPECIFIED - AccessTypeUnspecified placeholder for empty value */
   ACCESS_TYPE_UNSPECIFIED = 0,
+
   /** ACCESS_TYPE_NOBODY - AccessTypeNobody forbidden */
   ACCESS_TYPE_NOBODY = 1,
+
   /** ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to an address */
   ACCESS_TYPE_ONLY_ADDRESS = 2,
+
   /** ACCESS_TYPE_EVERYBODY - AccessTypeEverybody unrestricted */
   ACCESS_TYPE_EVERYBODY = 3,
   UNRECOGNIZED = -1,
 }
-
 export function accessTypeFromJSON(object: any): AccessType {
   switch (object) {
     case 0:
     case "ACCESS_TYPE_UNSPECIFIED":
       return AccessType.ACCESS_TYPE_UNSPECIFIED;
+
     case 1:
     case "ACCESS_TYPE_NOBODY":
       return AccessType.ACCESS_TYPE_NOBODY;
+
     case 2:
     case "ACCESS_TYPE_ONLY_ADDRESS":
       return AccessType.ACCESS_TYPE_ONLY_ADDRESS;
+
     case 3:
     case "ACCESS_TYPE_EVERYBODY":
       return AccessType.ACCESS_TYPE_EVERYBODY;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return AccessType.UNRECOGNIZED;
   }
 }
-
 export function accessTypeToJSON(object: AccessType): string {
   switch (object) {
     case AccessType.ACCESS_TYPE_UNSPECIFIED:
       return "ACCESS_TYPE_UNSPECIFIED";
+
     case AccessType.ACCESS_TYPE_NOBODY:
       return "ACCESS_TYPE_NOBODY";
+
     case AccessType.ACCESS_TYPE_ONLY_ADDRESS:
       return "ACCESS_TYPE_ONLY_ADDRESS";
+
     case AccessType.ACCESS_TYPE_EVERYBODY:
       return "ACCESS_TYPE_EVERYBODY";
+
     default:
       return "UNKNOWN";
   }
@@ -58,46 +65,55 @@ export function accessTypeToJSON(object: AccessType): string {
 export enum ContractCodeHistoryOperationType {
   /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED - ContractCodeHistoryOperationTypeUnspecified placeholder for empty value */
   CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED = 0,
+
   /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT - ContractCodeHistoryOperationTypeInit on chain contract instantiation */
   CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT = 1,
+
   /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE - ContractCodeHistoryOperationTypeMigrate code migration */
   CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE = 2,
+
   /** CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS - ContractCodeHistoryOperationTypeGenesis based on genesis data */
   CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS = 3,
   UNRECOGNIZED = -1,
 }
-
 export function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType {
   switch (object) {
     case 0:
     case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED":
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED;
+
     case 1:
     case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT":
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT;
+
     case 2:
     case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE":
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE;
+
     case 3:
     case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS":
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return ContractCodeHistoryOperationType.UNRECOGNIZED;
   }
 }
-
 export function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string {
   switch (object) {
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED:
       return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED";
+
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT:
       return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT";
+
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE:
       return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE";
+
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS:
       return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS";
+
     default:
       return "UNKNOWN";
   }
@@ -116,7 +132,7 @@ export interface AccessConfig {
 
 /** Params defines the set of wasm parameters. */
 export interface Params {
-  codeUploadAccess?: AccessConfig;
+  codeUploadAccess: AccessConfig;
   instantiateDefaultPermission: AccessType;
   maxWasmCodeSize: Long;
 }
@@ -125,43 +141,52 @@ export interface Params {
 export interface CodeInfo {
   /** CodeHash is the unique identifier created by wasmvm */
   codeHash: Uint8Array;
+
   /** Creator address who initially stored the code */
   creator: string;
+
   /** InstantiateConfig access control to apply on contract creation, optional */
-  instantiateConfig?: AccessConfig;
+  instantiateConfig: AccessConfig;
 }
 
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
   /** CodeID is the reference to the stored Wasm code */
   codeId: Long;
+
   /** Creator address who initially instantiated the contract */
   creator: string;
+
   /** Admin is an optional address that can execute migrations */
   admin: string;
+
   /** Label is optional metadata to be stored with a contract instance. */
   label: string;
+
   /**
    * Created Tx position when the contract was instantiated.
    * This data should kept internal and not be exposed via query results. Just
    * use for sorting
    */
-  created?: AbsoluteTxPosition;
+  created: AbsoluteTxPosition;
   ibcPortId: string;
+
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
    */
-  extension?: Any;
+  extension: Any;
 }
 
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntry {
   operation: ContractCodeHistoryOperationType;
+
   /** CodeID is the reference to the stored WASM code */
   codeId: Long;
+
   /** Updated Tx position when the operation was executed. */
-  updated?: AbsoluteTxPosition;
+  updated: AbsoluteTxPosition;
   msg: Uint8Array;
 }
 
@@ -172,6 +197,7 @@ export interface ContractCodeHistoryEntry {
 export interface AbsoluteTxPosition {
   /** BlockHeight is the block the contract was created at */
   blockHeight: Long;
+
   /**
    * TxIndex is a monotonic counter within the block (actual transaction index,
    * or gas consumed)
@@ -183,12 +209,15 @@ export interface AbsoluteTxPosition {
 export interface Model {
   /** hex-encode key to read it better (this is often ascii) */
   key: Uint8Array;
+
   /** base64-encode raw value */
   value: Uint8Array;
 }
 
 function createBaseAccessTypeParam(): AccessTypeParam {
-  return { value: 0 };
+  return {
+    value: 0,
+  };
 }
 
 export const AccessTypeParam = {
@@ -196,6 +225,7 @@ export const AccessTypeParam = {
     if (message.value !== 0) {
       writer.uint32(8).int32(message.value);
     }
+
     return writer;
   },
 
@@ -203,17 +233,21 @@ export const AccessTypeParam = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAccessTypeParam();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.value = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -237,7 +271,10 @@ export const AccessTypeParam = {
 };
 
 function createBaseAccessConfig(): AccessConfig {
-  return { permission: 0, address: "" };
+  return {
+    permission: 0,
+    address: "",
+  };
 }
 
 export const AccessConfig = {
@@ -245,9 +282,11 @@ export const AccessConfig = {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
     }
+
     if (message.address !== "") {
       writer.uint32(18).string(message.address);
     }
+
     return writer;
   },
 
@@ -255,20 +294,25 @@ export const AccessConfig = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAccessConfig();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.permission = reader.int32() as any;
           break;
+
         case 2:
           message.address = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -295,7 +339,11 @@ export const AccessConfig = {
 };
 
 function createBaseParams(): Params {
-  return { codeUploadAccess: undefined, instantiateDefaultPermission: 0, maxWasmCodeSize: Long.UZERO };
+  return {
+    codeUploadAccess: undefined,
+    instantiateDefaultPermission: 0,
+    maxWasmCodeSize: Long.UZERO,
+  };
 }
 
 export const Params = {
@@ -303,12 +351,15 @@ export const Params = {
     if (message.codeUploadAccess !== undefined) {
       AccessConfig.encode(message.codeUploadAccess, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.instantiateDefaultPermission !== 0) {
       writer.uint32(16).int32(message.instantiateDefaultPermission);
     }
+
     if (!message.maxWasmCodeSize.isZero()) {
       writer.uint32(24).uint64(message.maxWasmCodeSize);
     }
+
     return writer;
   },
 
@@ -316,23 +367,29 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.codeUploadAccess = AccessConfig.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.instantiateDefaultPermission = reader.int32() as any;
           break;
+
         case 3:
           message.maxWasmCodeSize = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -377,7 +434,11 @@ export const Params = {
 };
 
 function createBaseCodeInfo(): CodeInfo {
-  return { codeHash: new Uint8Array(), creator: "", instantiateConfig: undefined };
+  return {
+    codeHash: new Uint8Array(),
+    creator: "",
+    instantiateConfig: undefined,
+  };
 }
 
 export const CodeInfo = {
@@ -385,12 +446,15 @@ export const CodeInfo = {
     if (message.codeHash.length !== 0) {
       writer.uint32(10).bytes(message.codeHash);
     }
+
     if (message.creator !== "") {
       writer.uint32(18).string(message.creator);
     }
+
     if (message.instantiateConfig !== undefined) {
       AccessConfig.encode(message.instantiateConfig, writer.uint32(42).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -398,23 +462,29 @@ export const CodeInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCodeInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.codeHash = reader.bytes();
           break;
+
         case 2:
           message.creator = reader.string();
           break;
+
         case 5:
           message.instantiateConfig = AccessConfig.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -469,24 +539,31 @@ export const ContractInfo = {
     if (!message.codeId.isZero()) {
       writer.uint32(8).uint64(message.codeId);
     }
+
     if (message.creator !== "") {
       writer.uint32(18).string(message.creator);
     }
+
     if (message.admin !== "") {
       writer.uint32(26).string(message.admin);
     }
+
     if (message.label !== "") {
       writer.uint32(34).string(message.label);
     }
+
     if (message.created !== undefined) {
       AbsoluteTxPosition.encode(message.created, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.ibcPortId !== "") {
       writer.uint32(50).string(message.ibcPortId);
     }
+
     if (message.extension !== undefined) {
       Any.encode(message.extension, writer.uint32(58).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -494,35 +571,45 @@ export const ContractInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.codeId = reader.uint64() as Long;
           break;
+
         case 2:
           message.creator = reader.string();
           break;
+
         case 3:
           message.admin = reader.string();
           break;
+
         case 4:
           message.label = reader.string();
           break;
+
         case 5:
           message.created = AbsoluteTxPosition.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.ibcPortId = reader.string();
           break;
+
         case 7:
           message.extension = Any.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -573,7 +660,12 @@ export const ContractInfo = {
 };
 
 function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
-  return { operation: 0, codeId: Long.UZERO, updated: undefined, msg: new Uint8Array() };
+  return {
+    operation: 0,
+    codeId: Long.UZERO,
+    updated: undefined,
+    msg: new Uint8Array(),
+  };
 }
 
 export const ContractCodeHistoryEntry = {
@@ -581,15 +673,19 @@ export const ContractCodeHistoryEntry = {
     if (message.operation !== 0) {
       writer.uint32(8).int32(message.operation);
     }
+
     if (!message.codeId.isZero()) {
       writer.uint32(16).uint64(message.codeId);
     }
+
     if (message.updated !== undefined) {
       AbsoluteTxPosition.encode(message.updated, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.msg.length !== 0) {
       writer.uint32(34).bytes(message.msg);
     }
+
     return writer;
   },
 
@@ -597,26 +693,33 @@ export const ContractCodeHistoryEntry = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractCodeHistoryEntry();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.operation = reader.int32() as any;
           break;
+
         case 2:
           message.codeId = reader.uint64() as Long;
           break;
+
         case 3:
           message.updated = AbsoluteTxPosition.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.msg = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -658,7 +761,10 @@ export const ContractCodeHistoryEntry = {
 };
 
 function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
-  return { blockHeight: Long.UZERO, txIndex: Long.UZERO };
+  return {
+    blockHeight: Long.UZERO,
+    txIndex: Long.UZERO,
+  };
 }
 
 export const AbsoluteTxPosition = {
@@ -666,9 +772,11 @@ export const AbsoluteTxPosition = {
     if (!message.blockHeight.isZero()) {
       writer.uint32(8).uint64(message.blockHeight);
     }
+
     if (!message.txIndex.isZero()) {
       writer.uint32(16).uint64(message.txIndex);
     }
+
     return writer;
   },
 
@@ -676,20 +784,25 @@ export const AbsoluteTxPosition = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbsoluteTxPosition();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockHeight = reader.uint64() as Long;
           break;
+
         case 2:
           message.txIndex = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -720,7 +833,10 @@ export const AbsoluteTxPosition = {
 };
 
 function createBaseModel(): Model {
-  return { key: new Uint8Array(), value: new Uint8Array() };
+  return {
+    key: new Uint8Array(),
+    value: new Uint8Array(),
+  };
 }
 
 export const Model = {
@@ -728,9 +844,11 @@ export const Model = {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
+
     if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     return writer;
   },
 
@@ -738,20 +856,25 @@ export const Model = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModel();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.bytes();
           break;
+
         case 2:
           message.value = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -778,63 +901,3 @@ export const Model = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

@@ -1,108 +1,267 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../google/protobuf/timestamp";
-import { Header } from "../../tendermint/types/types";
-import { ProofOps } from "../../tendermint/crypto/proof";
-import { EvidenceParams, ValidatorParams, VersionParams } from "../../tendermint/types/params";
-import { PublicKey } from "../../tendermint/crypto/keys";
-
+import { Header } from "../types/types";
+import { ProofOps } from "../crypto/proof";
+import { EvidenceParams, ValidatorParams, VersionParams } from "../types/params";
+import { PublicKey } from "../crypto/keys";
+import * as _m0 from "protobufjs/minimal";
+import {
+  isSet,
+  DeepPartial,
+  Exact,
+  Long,
+  fromJsonTimestamp,
+  bytesFromBase64,
+  fromTimestamp,
+  base64FromBytes,
+} from "@osmonauts/helpers";
 export const protobufPackage = "tendermint.abci";
-
 export enum CheckTxType {
   NEW = 0,
   RECHECK = 1,
   UNRECOGNIZED = -1,
 }
-
 export function checkTxTypeFromJSON(object: any): CheckTxType {
   switch (object) {
     case 0:
     case "NEW":
       return CheckTxType.NEW;
+
     case 1:
     case "RECHECK":
       return CheckTxType.RECHECK;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return CheckTxType.UNRECOGNIZED;
   }
 }
-
 export function checkTxTypeToJSON(object: CheckTxType): string {
   switch (object) {
     case CheckTxType.NEW:
       return "NEW";
+
     case CheckTxType.RECHECK:
       return "RECHECK";
+
     default:
       return "UNKNOWN";
   }
 }
+export enum ResponseOfferSnapshot_Result {
+  /** UNKNOWN - Unknown result, abort all snapshot restoration */
+  UNKNOWN = 0,
 
+  /** ACCEPT - Snapshot accepted, apply chunks */
+  ACCEPT = 1,
+
+  /** ABORT - Abort all snapshot restoration */
+  ABORT = 2,
+
+  /** REJECT - Reject this specific snapshot, try others */
+  REJECT = 3,
+
+  /** REJECT_FORMAT - Reject all snapshots of this format, try others */
+  REJECT_FORMAT = 4,
+
+  /** REJECT_SENDER - Reject all snapshots from the sender(s), try others */
+  REJECT_SENDER = 5,
+  UNRECOGNIZED = -1,
+}
+export function responseOfferSnapshot_ResultFromJSON(object: any): ResponseOfferSnapshot_Result {
+  switch (object) {
+    case 0:
+    case "UNKNOWN":
+      return ResponseOfferSnapshot_Result.UNKNOWN;
+
+    case 1:
+    case "ACCEPT":
+      return ResponseOfferSnapshot_Result.ACCEPT;
+
+    case 2:
+    case "ABORT":
+      return ResponseOfferSnapshot_Result.ABORT;
+
+    case 3:
+    case "REJECT":
+      return ResponseOfferSnapshot_Result.REJECT;
+
+    case 4:
+    case "REJECT_FORMAT":
+      return ResponseOfferSnapshot_Result.REJECT_FORMAT;
+
+    case 5:
+    case "REJECT_SENDER":
+      return ResponseOfferSnapshot_Result.REJECT_SENDER;
+
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseOfferSnapshot_Result.UNRECOGNIZED;
+  }
+}
+export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot_Result): string {
+  switch (object) {
+    case ResponseOfferSnapshot_Result.UNKNOWN:
+      return "UNKNOWN";
+
+    case ResponseOfferSnapshot_Result.ACCEPT:
+      return "ACCEPT";
+
+    case ResponseOfferSnapshot_Result.ABORT:
+      return "ABORT";
+
+    case ResponseOfferSnapshot_Result.REJECT:
+      return "REJECT";
+
+    case ResponseOfferSnapshot_Result.REJECT_FORMAT:
+      return "REJECT_FORMAT";
+
+    case ResponseOfferSnapshot_Result.REJECT_SENDER:
+      return "REJECT_SENDER";
+
+    default:
+      return "UNKNOWN";
+  }
+}
+export enum ResponseApplySnapshotChunk_Result {
+  /** UNKNOWN - Unknown result, abort all snapshot restoration */
+  UNKNOWN = 0,
+
+  /** ACCEPT - Chunk successfully accepted */
+  ACCEPT = 1,
+
+  /** ABORT - Abort all snapshot restoration */
+  ABORT = 2,
+
+  /** RETRY - Retry chunk (combine with refetch and reject) */
+  RETRY = 3,
+
+  /** RETRY_SNAPSHOT - Retry snapshot (combine with refetch and reject) */
+  RETRY_SNAPSHOT = 4,
+
+  /** REJECT_SNAPSHOT - Reject this snapshot, try others */
+  REJECT_SNAPSHOT = 5,
+  UNRECOGNIZED = -1,
+}
+export function responseApplySnapshotChunk_ResultFromJSON(object: any): ResponseApplySnapshotChunk_Result {
+  switch (object) {
+    case 0:
+    case "UNKNOWN":
+      return ResponseApplySnapshotChunk_Result.UNKNOWN;
+
+    case 1:
+    case "ACCEPT":
+      return ResponseApplySnapshotChunk_Result.ACCEPT;
+
+    case 2:
+    case "ABORT":
+      return ResponseApplySnapshotChunk_Result.ABORT;
+
+    case 3:
+    case "RETRY":
+      return ResponseApplySnapshotChunk_Result.RETRY;
+
+    case 4:
+    case "RETRY_SNAPSHOT":
+      return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
+
+    case 5:
+    case "REJECT_SNAPSHOT":
+      return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
+
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
+  }
+}
+export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySnapshotChunk_Result): string {
+  switch (object) {
+    case ResponseApplySnapshotChunk_Result.UNKNOWN:
+      return "UNKNOWN";
+
+    case ResponseApplySnapshotChunk_Result.ACCEPT:
+      return "ACCEPT";
+
+    case ResponseApplySnapshotChunk_Result.ABORT:
+      return "ABORT";
+
+    case ResponseApplySnapshotChunk_Result.RETRY:
+      return "RETRY";
+
+    case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
+      return "RETRY_SNAPSHOT";
+
+    case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
+      return "REJECT_SNAPSHOT";
+
+    default:
+      return "UNKNOWN";
+  }
+}
 export enum EvidenceType {
   UNKNOWN = 0,
   DUPLICATE_VOTE = 1,
   LIGHT_CLIENT_ATTACK = 2,
   UNRECOGNIZED = -1,
 }
-
 export function evidenceTypeFromJSON(object: any): EvidenceType {
   switch (object) {
     case 0:
     case "UNKNOWN":
       return EvidenceType.UNKNOWN;
+
     case 1:
     case "DUPLICATE_VOTE":
       return EvidenceType.DUPLICATE_VOTE;
+
     case 2:
     case "LIGHT_CLIENT_ATTACK":
       return EvidenceType.LIGHT_CLIENT_ATTACK;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return EvidenceType.UNRECOGNIZED;
   }
 }
-
 export function evidenceTypeToJSON(object: EvidenceType): string {
   switch (object) {
     case EvidenceType.UNKNOWN:
       return "UNKNOWN";
+
     case EvidenceType.DUPLICATE_VOTE:
       return "DUPLICATE_VOTE";
+
     case EvidenceType.LIGHT_CLIENT_ATTACK:
       return "LIGHT_CLIENT_ATTACK";
+
     default:
       return "UNKNOWN";
   }
 }
-
 export interface Request {
-  echo?: RequestEcho | undefined;
-  flush?: RequestFlush | undefined;
-  info?: RequestInfo | undefined;
-  setOption?: RequestSetOption | undefined;
-  initChain?: RequestInitChain | undefined;
-  query?: RequestQuery | undefined;
-  beginBlock?: RequestBeginBlock | undefined;
-  checkTx?: RequestCheckTx | undefined;
-  deliverTx?: RequestDeliverTx | undefined;
-  endBlock?: RequestEndBlock | undefined;
-  commit?: RequestCommit | undefined;
-  listSnapshots?: RequestListSnapshots | undefined;
-  offerSnapshot?: RequestOfferSnapshot | undefined;
-  loadSnapshotChunk?: RequestLoadSnapshotChunk | undefined;
-  applySnapshotChunk?: RequestApplySnapshotChunk | undefined;
+  echo?: RequestEcho;
+  flush?: RequestFlush;
+  info?: RequestInfo;
+  setOption?: RequestSetOption;
+  initChain?: RequestInitChain;
+  query?: RequestQuery;
+  beginBlock?: RequestBeginBlock;
+  checkTx?: RequestCheckTx;
+  deliverTx?: RequestDeliverTx;
+  endBlock?: RequestEndBlock;
+  commit?: RequestCommit;
+  listSnapshots?: RequestListSnapshots;
+  offerSnapshot?: RequestOfferSnapshot;
+  loadSnapshotChunk?: RequestLoadSnapshotChunk;
+  applySnapshotChunk?: RequestApplySnapshotChunk;
 }
-
 export interface RequestEcho {
   message: string;
 }
-
 export interface RequestFlush {}
-
 export interface RequestInfo {
   version: string;
   blockVersion: Long;
@@ -114,43 +273,36 @@ export interface RequestSetOption {
   key: string;
   value: string;
 }
-
 export interface RequestInitChain {
-  time?: Timestamp;
+  time: Timestamp;
   chainId: string;
-  consensusParams?: ConsensusParams;
+  consensusParams: ConsensusParams;
   validators: ValidatorUpdate[];
   appStateBytes: Uint8Array;
   initialHeight: Long;
 }
-
 export interface RequestQuery {
   data: Uint8Array;
   path: string;
   height: Long;
   prove: boolean;
 }
-
 export interface RequestBeginBlock {
   hash: Uint8Array;
-  header?: Header;
-  lastCommitInfo?: LastCommitInfo;
+  header: Header;
+  lastCommitInfo: LastCommitInfo;
   byzantineValidators: Evidence[];
 }
-
 export interface RequestCheckTx {
   tx: Uint8Array;
   type: CheckTxType;
 }
-
 export interface RequestDeliverTx {
   tx: Uint8Array;
 }
-
 export interface RequestEndBlock {
   height: Long;
 }
-
 export interface RequestCommit {}
 
 /** lists available snapshots */
@@ -159,7 +311,8 @@ export interface RequestListSnapshots {}
 /** offers a snapshot to the application */
 export interface RequestOfferSnapshot {
   /** snapshot offered by peers */
-  snapshot?: Snapshot;
+  snapshot: Snapshot;
+
   /** light client-verified app hash for snapshot height */
   appHash: Uint8Array;
 }
@@ -177,37 +330,33 @@ export interface RequestApplySnapshotChunk {
   chunk: Uint8Array;
   sender: string;
 }
-
 export interface Response {
-  exception?: ResponseException | undefined;
-  echo?: ResponseEcho | undefined;
-  flush?: ResponseFlush | undefined;
-  info?: ResponseInfo | undefined;
-  setOption?: ResponseSetOption | undefined;
-  initChain?: ResponseInitChain | undefined;
-  query?: ResponseQuery | undefined;
-  beginBlock?: ResponseBeginBlock | undefined;
-  checkTx?: ResponseCheckTx | undefined;
-  deliverTx?: ResponseDeliverTx | undefined;
-  endBlock?: ResponseEndBlock | undefined;
-  commit?: ResponseCommit | undefined;
-  listSnapshots?: ResponseListSnapshots | undefined;
-  offerSnapshot?: ResponseOfferSnapshot | undefined;
-  loadSnapshotChunk?: ResponseLoadSnapshotChunk | undefined;
-  applySnapshotChunk?: ResponseApplySnapshotChunk | undefined;
+  exception?: ResponseException;
+  echo?: ResponseEcho;
+  flush?: ResponseFlush;
+  info?: ResponseInfo;
+  setOption?: ResponseSetOption;
+  initChain?: ResponseInitChain;
+  query?: ResponseQuery;
+  beginBlock?: ResponseBeginBlock;
+  checkTx?: ResponseCheckTx;
+  deliverTx?: ResponseDeliverTx;
+  endBlock?: ResponseEndBlock;
+  commit?: ResponseCommit;
+  listSnapshots?: ResponseListSnapshots;
+  offerSnapshot?: ResponseOfferSnapshot;
+  loadSnapshotChunk?: ResponseLoadSnapshotChunk;
+  applySnapshotChunk?: ResponseApplySnapshotChunk;
 }
 
 /** nondeterministic */
 export interface ResponseException {
   error: string;
 }
-
 export interface ResponseEcho {
   message: string;
 }
-
 export interface ResponseFlush {}
-
 export interface ResponseInfo {
   data: string;
   version: string;
@@ -219,40 +368,41 @@ export interface ResponseInfo {
 /** nondeterministic */
 export interface ResponseSetOption {
   code: number;
+
   /** bytes data = 2; */
   log: string;
   info: string;
 }
-
 export interface ResponseInitChain {
-  consensusParams?: ConsensusParams;
+  consensusParams: ConsensusParams;
   validators: ValidatorUpdate[];
   appHash: Uint8Array;
 }
-
 export interface ResponseQuery {
   code: number;
+
   /** bytes data = 2; // use "value" instead. */
   log: string;
+
   /** nondeterministic */
   info: string;
   index: Long;
   key: Uint8Array;
   value: Uint8Array;
-  proofOps?: ProofOps;
+  proofOps: ProofOps;
   height: Long;
   codespace: string;
 }
-
 export interface ResponseBeginBlock {
   events: Event[];
 }
-
 export interface ResponseCheckTx {
   code: number;
   data: Uint8Array;
+
   /** nondeterministic */
   log: string;
+
   /** nondeterministic */
   info: string;
   gasWanted: Long;
@@ -260,12 +410,13 @@ export interface ResponseCheckTx {
   events: Event[];
   codespace: string;
 }
-
 export interface ResponseDeliverTx {
   code: number;
   data: Uint8Array;
+
   /** nondeterministic */
   log: string;
+
   /** nondeterministic */
   info: string;
   gasWanted: Long;
@@ -273,161 +424,33 @@ export interface ResponseDeliverTx {
   events: Event[];
   codespace: string;
 }
-
 export interface ResponseEndBlock {
   validatorUpdates: ValidatorUpdate[];
-  consensusParamUpdates?: ConsensusParams;
+  consensusParamUpdates: ConsensusParams;
   events: Event[];
 }
-
 export interface ResponseCommit {
   /** reserve 1 */
   data: Uint8Array;
   retainHeight: Long;
 }
-
 export interface ResponseListSnapshots {
   snapshots: Snapshot[];
 }
-
 export interface ResponseOfferSnapshot {
   result: ResponseOfferSnapshot_Result;
 }
-
-export enum ResponseOfferSnapshot_Result {
-  /** UNKNOWN - Unknown result, abort all snapshot restoration */
-  UNKNOWN = 0,
-  /** ACCEPT - Snapshot accepted, apply chunks */
-  ACCEPT = 1,
-  /** ABORT - Abort all snapshot restoration */
-  ABORT = 2,
-  /** REJECT - Reject this specific snapshot, try others */
-  REJECT = 3,
-  /** REJECT_FORMAT - Reject all snapshots of this format, try others */
-  REJECT_FORMAT = 4,
-  /** REJECT_SENDER - Reject all snapshots from the sender(s), try others */
-  REJECT_SENDER = 5,
-  UNRECOGNIZED = -1,
-}
-
-export function responseOfferSnapshot_ResultFromJSON(object: any): ResponseOfferSnapshot_Result {
-  switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseOfferSnapshot_Result.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseOfferSnapshot_Result.ACCEPT;
-    case 2:
-    case "ABORT":
-      return ResponseOfferSnapshot_Result.ABORT;
-    case 3:
-    case "REJECT":
-      return ResponseOfferSnapshot_Result.REJECT;
-    case 4:
-    case "REJECT_FORMAT":
-      return ResponseOfferSnapshot_Result.REJECT_FORMAT;
-    case 5:
-    case "REJECT_SENDER":
-      return ResponseOfferSnapshot_Result.REJECT_SENDER;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseOfferSnapshot_Result.UNRECOGNIZED;
-  }
-}
-
-export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot_Result): string {
-  switch (object) {
-    case ResponseOfferSnapshot_Result.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseOfferSnapshot_Result.ACCEPT:
-      return "ACCEPT";
-    case ResponseOfferSnapshot_Result.ABORT:
-      return "ABORT";
-    case ResponseOfferSnapshot_Result.REJECT:
-      return "REJECT";
-    case ResponseOfferSnapshot_Result.REJECT_FORMAT:
-      return "REJECT_FORMAT";
-    case ResponseOfferSnapshot_Result.REJECT_SENDER:
-      return "REJECT_SENDER";
-    default:
-      return "UNKNOWN";
-  }
-}
-
 export interface ResponseLoadSnapshotChunk {
   chunk: Uint8Array;
 }
-
 export interface ResponseApplySnapshotChunk {
   result: ResponseApplySnapshotChunk_Result;
+
   /** Chunks to refetch and reapply */
   refetchChunks: number[];
+
   /** Chunk senders to reject and ban */
   rejectSenders: string[];
-}
-
-export enum ResponseApplySnapshotChunk_Result {
-  /** UNKNOWN - Unknown result, abort all snapshot restoration */
-  UNKNOWN = 0,
-  /** ACCEPT - Chunk successfully accepted */
-  ACCEPT = 1,
-  /** ABORT - Abort all snapshot restoration */
-  ABORT = 2,
-  /** RETRY - Retry chunk (combine with refetch and reject) */
-  RETRY = 3,
-  /** RETRY_SNAPSHOT - Retry snapshot (combine with refetch and reject) */
-  RETRY_SNAPSHOT = 4,
-  /** REJECT_SNAPSHOT - Reject this snapshot, try others */
-  REJECT_SNAPSHOT = 5,
-  UNRECOGNIZED = -1,
-}
-
-export function responseApplySnapshotChunk_ResultFromJSON(object: any): ResponseApplySnapshotChunk_Result {
-  switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseApplySnapshotChunk_Result.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseApplySnapshotChunk_Result.ACCEPT;
-    case 2:
-    case "ABORT":
-      return ResponseApplySnapshotChunk_Result.ABORT;
-    case 3:
-    case "RETRY":
-      return ResponseApplySnapshotChunk_Result.RETRY;
-    case 4:
-    case "RETRY_SNAPSHOT":
-      return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
-    case 5:
-    case "REJECT_SNAPSHOT":
-      return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
-  }
-}
-
-export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySnapshotChunk_Result): string {
-  switch (object) {
-    case ResponseApplySnapshotChunk_Result.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseApplySnapshotChunk_Result.ACCEPT:
-      return "ACCEPT";
-    case ResponseApplySnapshotChunk_Result.ABORT:
-      return "ABORT";
-    case ResponseApplySnapshotChunk_Result.RETRY:
-      return "RETRY";
-    case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
-      return "RETRY_SNAPSHOT";
-    case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
-      return "REJECT_SNAPSHOT";
-    default:
-      return "UNKNOWN";
-  }
 }
 
 /**
@@ -435,20 +458,20 @@ export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySna
  * that can be adjusted by the abci app
  */
 export interface ConsensusParams {
-  block?: BlockParams;
-  evidence?: EvidenceParams;
-  validator?: ValidatorParams;
-  version?: VersionParams;
+  block: BlockParams;
+  evidence: EvidenceParams;
+  validator: ValidatorParams;
+  version: VersionParams;
 }
 
 /** BlockParams contains limits on the block size. */
 export interface BlockParams {
   /** Note: must be greater than 0 */
   maxBytes: Long;
+
   /** Note: must be greater or equal to -1 */
   maxGas: Long;
 }
-
 export interface LastCommitInfo {
   round: number;
   votes: VoteInfo[];
@@ -468,6 +491,7 @@ export interface Event {
 export interface EventAttribute {
   key: Uint8Array;
   value: Uint8Array;
+
   /** nondeterministic */
   index: boolean;
 }
@@ -481,37 +505,44 @@ export interface TxResult {
   height: Long;
   index: number;
   tx: Uint8Array;
-  result?: ResponseDeliverTx;
+  result: ResponseDeliverTx;
 }
 
 /** Validator */
 export interface Validator {
-  /** The first 20 bytes of SHA256(public key) */
+  /**
+   * The first 20 bytes of SHA256(public key)
+   * PubKey pub_key = 2 [(gogoproto.nullable)=false];
+   */
   address: Uint8Array;
-  /** PubKey pub_key = 2 [(gogoproto.nullable)=false]; */
+
+  /** The voting power */
   power: Long;
 }
 
 /** ValidatorUpdate */
 export interface ValidatorUpdate {
-  pubKey?: PublicKey;
+  pubKey: PublicKey;
   power: Long;
 }
 
 /** VoteInfo */
 export interface VoteInfo {
-  validator?: Validator;
+  validator: Validator;
   signedLastBlock: boolean;
 }
-
 export interface Evidence {
   type: EvidenceType;
+
   /** The offending validator */
-  validator?: Validator;
+  validator: Validator;
+
   /** The height when the offense occurred */
   height: Long;
+
   /** The corresponding time where the offense occurred */
-  time?: Timestamp;
+  time: Timestamp;
+
   /**
    * Total voting power of the validator set in case the ABCI application does
    * not store historical validators.
@@ -519,16 +550,19 @@ export interface Evidence {
    */
   totalVotingPower: Long;
 }
-
 export interface Snapshot {
   /** The height at which the snapshot was taken */
   height: Long;
+
   /** The application-specific snapshot format */
   format: number;
+
   /** Number of chunks in the snapshot */
   chunks: number;
+
   /** Arbitrary snapshot hash, equal only if identical */
   hash: Uint8Array;
+
   /** Arbitrary application metadata */
   metadata: Uint8Array;
 }
@@ -558,48 +592,63 @@ export const Request = {
     if (message.echo !== undefined) {
       RequestEcho.encode(message.echo, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.flush !== undefined) {
       RequestFlush.encode(message.flush, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.info !== undefined) {
       RequestInfo.encode(message.info, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.setOption !== undefined) {
       RequestSetOption.encode(message.setOption, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.initChain !== undefined) {
       RequestInitChain.encode(message.initChain, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.query !== undefined) {
       RequestQuery.encode(message.query, writer.uint32(50).fork()).ldelim();
     }
+
     if (message.beginBlock !== undefined) {
       RequestBeginBlock.encode(message.beginBlock, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.checkTx !== undefined) {
       RequestCheckTx.encode(message.checkTx, writer.uint32(66).fork()).ldelim();
     }
+
     if (message.deliverTx !== undefined) {
       RequestDeliverTx.encode(message.deliverTx, writer.uint32(74).fork()).ldelim();
     }
+
     if (message.endBlock !== undefined) {
       RequestEndBlock.encode(message.endBlock, writer.uint32(82).fork()).ldelim();
     }
+
     if (message.commit !== undefined) {
       RequestCommit.encode(message.commit, writer.uint32(90).fork()).ldelim();
     }
+
     if (message.listSnapshots !== undefined) {
       RequestListSnapshots.encode(message.listSnapshots, writer.uint32(98).fork()).ldelim();
     }
+
     if (message.offerSnapshot !== undefined) {
       RequestOfferSnapshot.encode(message.offerSnapshot, writer.uint32(106).fork()).ldelim();
     }
+
     if (message.loadSnapshotChunk !== undefined) {
       RequestLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(114).fork()).ldelim();
     }
+
     if (message.applySnapshotChunk !== undefined) {
       RequestApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(122).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -607,59 +656,77 @@ export const Request = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.echo = RequestEcho.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.flush = RequestFlush.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.info = RequestInfo.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.setOption = RequestSetOption.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.initChain = RequestInitChain.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.query = RequestQuery.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.beginBlock = RequestBeginBlock.decode(reader, reader.uint32());
           break;
+
         case 8:
           message.checkTx = RequestCheckTx.decode(reader, reader.uint32());
           break;
+
         case 9:
           message.deliverTx = RequestDeliverTx.decode(reader, reader.uint32());
           break;
+
         case 10:
           message.endBlock = RequestEndBlock.decode(reader, reader.uint32());
           break;
+
         case 11:
           message.commit = RequestCommit.decode(reader, reader.uint32());
           break;
+
         case 12:
           message.listSnapshots = RequestListSnapshots.decode(reader, reader.uint32());
           break;
+
         case 13:
           message.offerSnapshot = RequestOfferSnapshot.decode(reader, reader.uint32());
           break;
+
         case 14:
           message.loadSnapshotChunk = RequestLoadSnapshotChunk.decode(reader, reader.uint32());
           break;
+
         case 15:
           message.applySnapshotChunk = RequestApplySnapshotChunk.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -795,7 +862,9 @@ export const Request = {
 };
 
 function createBaseRequestEcho(): RequestEcho {
-  return { message: "" };
+  return {
+    message: "",
+  };
 }
 
 export const RequestEcho = {
@@ -803,6 +872,7 @@ export const RequestEcho = {
     if (message.message !== "") {
       writer.uint32(10).string(message.message);
     }
+
     return writer;
   },
 
@@ -810,17 +880,21 @@ export const RequestEcho = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestEcho();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.message = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -856,14 +930,17 @@ export const RequestFlush = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestFlush();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -883,7 +960,11 @@ export const RequestFlush = {
 };
 
 function createBaseRequestInfo(): RequestInfo {
-  return { version: "", blockVersion: Long.UZERO, p2pVersion: Long.UZERO };
+  return {
+    version: "",
+    blockVersion: Long.UZERO,
+    p2pVersion: Long.UZERO,
+  };
 }
 
 export const RequestInfo = {
@@ -891,12 +972,15 @@ export const RequestInfo = {
     if (message.version !== "") {
       writer.uint32(10).string(message.version);
     }
+
     if (!message.blockVersion.isZero()) {
       writer.uint32(16).uint64(message.blockVersion);
     }
+
     if (!message.p2pVersion.isZero()) {
       writer.uint32(24).uint64(message.p2pVersion);
     }
+
     return writer;
   },
 
@@ -904,23 +988,29 @@ export const RequestInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.version = reader.string();
           break;
+
         case 2:
           message.blockVersion = reader.uint64() as Long;
           break;
+
         case 3:
           message.p2pVersion = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -957,7 +1047,10 @@ export const RequestInfo = {
 };
 
 function createBaseRequestSetOption(): RequestSetOption {
-  return { key: "", value: "" };
+  return {
+    key: "",
+    value: "",
+  };
 }
 
 export const RequestSetOption = {
@@ -965,9 +1058,11 @@ export const RequestSetOption = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== "") {
       writer.uint32(18).string(message.value);
     }
+
     return writer;
   },
 
@@ -975,20 +1070,25 @@ export const RequestSetOption = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestSetOption();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.string();
           break;
+
         case 2:
           message.value = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1030,21 +1130,27 @@ export const RequestInitChain = {
     if (message.time !== undefined) {
       Timestamp.encode(message.time, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.chainId !== "") {
       writer.uint32(18).string(message.chainId);
     }
+
     if (message.consensusParams !== undefined) {
       ConsensusParams.encode(message.consensusParams, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.validators) {
       ValidatorUpdate.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.appStateBytes.length !== 0) {
       writer.uint32(42).bytes(message.appStateBytes);
     }
+
     if (!message.initialHeight.isZero()) {
       writer.uint32(48).int64(message.initialHeight);
     }
+
     return writer;
   },
 
@@ -1052,32 +1158,41 @@ export const RequestInitChain = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestInitChain();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.time = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.chainId = reader.string();
           break;
+
         case 3:
           message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
           break;
+
         case 5:
           message.appStateBytes = reader.bytes();
           break;
+
         case 6:
           message.initialHeight = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1104,11 +1219,13 @@ export const RequestInitChain = {
       (obj.consensusParams = message.consensusParams
         ? ConsensusParams.toJSON(message.consensusParams)
         : undefined);
+
     if (message.validators) {
       obj.validators = message.validators.map((e) => (e ? ValidatorUpdate.toJSON(e) : undefined));
     } else {
       obj.validators = [];
     }
+
     message.appStateBytes !== undefined &&
       (obj.appStateBytes = base64FromBytes(
         message.appStateBytes !== undefined ? message.appStateBytes : new Uint8Array(),
@@ -1138,7 +1255,12 @@ export const RequestInitChain = {
 };
 
 function createBaseRequestQuery(): RequestQuery {
-  return { data: new Uint8Array(), path: "", height: Long.ZERO, prove: false };
+  return {
+    data: new Uint8Array(),
+    path: "",
+    height: Long.ZERO,
+    prove: false,
+  };
 }
 
 export const RequestQuery = {
@@ -1146,15 +1268,19 @@ export const RequestQuery = {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
+
     if (message.path !== "") {
       writer.uint32(18).string(message.path);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
+
     if (message.prove === true) {
       writer.uint32(32).bool(message.prove);
     }
+
     return writer;
   },
 
@@ -1162,26 +1288,33 @@ export const RequestQuery = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestQuery();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data = reader.bytes();
           break;
+
         case 2:
           message.path = reader.string();
           break;
+
         case 3:
           message.height = reader.int64() as Long;
           break;
+
         case 4:
           message.prove = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1216,7 +1349,12 @@ export const RequestQuery = {
 };
 
 function createBaseRequestBeginBlock(): RequestBeginBlock {
-  return { hash: new Uint8Array(), header: undefined, lastCommitInfo: undefined, byzantineValidators: [] };
+  return {
+    hash: new Uint8Array(),
+    header: undefined,
+    lastCommitInfo: undefined,
+    byzantineValidators: [],
+  };
 }
 
 export const RequestBeginBlock = {
@@ -1224,15 +1362,19 @@ export const RequestBeginBlock = {
     if (message.hash.length !== 0) {
       writer.uint32(10).bytes(message.hash);
     }
+
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.lastCommitInfo !== undefined) {
       LastCommitInfo.encode(message.lastCommitInfo, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.byzantineValidators) {
       Evidence.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1240,26 +1382,33 @@ export const RequestBeginBlock = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestBeginBlock();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.hash = reader.bytes();
           break;
+
         case 2:
           message.header = Header.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.lastCommitInfo = LastCommitInfo.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.byzantineValidators.push(Evidence.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1285,11 +1434,13 @@ export const RequestBeginBlock = {
       (obj.lastCommitInfo = message.lastCommitInfo
         ? LastCommitInfo.toJSON(message.lastCommitInfo)
         : undefined);
+
     if (message.byzantineValidators) {
       obj.byzantineValidators = message.byzantineValidators.map((e) => (e ? Evidence.toJSON(e) : undefined));
     } else {
       obj.byzantineValidators = [];
     }
+
     return obj;
   },
 
@@ -1308,7 +1459,10 @@ export const RequestBeginBlock = {
 };
 
 function createBaseRequestCheckTx(): RequestCheckTx {
-  return { tx: new Uint8Array(), type: 0 };
+  return {
+    tx: new Uint8Array(),
+    type: 0,
+  };
 }
 
 export const RequestCheckTx = {
@@ -1316,9 +1470,11 @@ export const RequestCheckTx = {
     if (message.tx.length !== 0) {
       writer.uint32(10).bytes(message.tx);
     }
+
     if (message.type !== 0) {
       writer.uint32(16).int32(message.type);
     }
+
     return writer;
   },
 
@@ -1326,20 +1482,25 @@ export const RequestCheckTx = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestCheckTx();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.tx = reader.bytes();
           break;
+
         case 2:
           message.type = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1367,7 +1528,9 @@ export const RequestCheckTx = {
 };
 
 function createBaseRequestDeliverTx(): RequestDeliverTx {
-  return { tx: new Uint8Array() };
+  return {
+    tx: new Uint8Array(),
+  };
 }
 
 export const RequestDeliverTx = {
@@ -1375,6 +1538,7 @@ export const RequestDeliverTx = {
     if (message.tx.length !== 0) {
       writer.uint32(10).bytes(message.tx);
     }
+
     return writer;
   },
 
@@ -1382,17 +1546,21 @@ export const RequestDeliverTx = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestDeliverTx();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.tx = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1417,7 +1585,9 @@ export const RequestDeliverTx = {
 };
 
 function createBaseRequestEndBlock(): RequestEndBlock {
-  return { height: Long.ZERO };
+  return {
+    height: Long.ZERO,
+  };
 }
 
 export const RequestEndBlock = {
@@ -1425,6 +1595,7 @@ export const RequestEndBlock = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     return writer;
   },
 
@@ -1432,17 +1603,21 @@ export const RequestEndBlock = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestEndBlock();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1479,14 +1654,17 @@ export const RequestCommit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestCommit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1518,14 +1696,17 @@ export const RequestListSnapshots = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestListSnapshots();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1545,7 +1726,10 @@ export const RequestListSnapshots = {
 };
 
 function createBaseRequestOfferSnapshot(): RequestOfferSnapshot {
-  return { snapshot: undefined, appHash: new Uint8Array() };
+  return {
+    snapshot: undefined,
+    appHash: new Uint8Array(),
+  };
 }
 
 export const RequestOfferSnapshot = {
@@ -1553,9 +1737,11 @@ export const RequestOfferSnapshot = {
     if (message.snapshot !== undefined) {
       Snapshot.encode(message.snapshot, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.appHash.length !== 0) {
       writer.uint32(18).bytes(message.appHash);
     }
+
     return writer;
   },
 
@@ -1563,20 +1749,25 @@ export const RequestOfferSnapshot = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestOfferSnapshot();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.snapshot = Snapshot.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.appHash = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1608,7 +1799,11 @@ export const RequestOfferSnapshot = {
 };
 
 function createBaseRequestLoadSnapshotChunk(): RequestLoadSnapshotChunk {
-  return { height: Long.UZERO, format: 0, chunk: 0 };
+  return {
+    height: Long.UZERO,
+    format: 0,
+    chunk: 0,
+  };
 }
 
 export const RequestLoadSnapshotChunk = {
@@ -1616,12 +1811,15 @@ export const RequestLoadSnapshotChunk = {
     if (!message.height.isZero()) {
       writer.uint32(8).uint64(message.height);
     }
+
     if (message.format !== 0) {
       writer.uint32(16).uint32(message.format);
     }
+
     if (message.chunk !== 0) {
       writer.uint32(24).uint32(message.chunk);
     }
+
     return writer;
   },
 
@@ -1629,23 +1827,29 @@ export const RequestLoadSnapshotChunk = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestLoadSnapshotChunk();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.uint64() as Long;
           break;
+
         case 2:
           message.format = reader.uint32();
           break;
+
         case 3:
           message.chunk = reader.uint32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1678,7 +1882,11 @@ export const RequestLoadSnapshotChunk = {
 };
 
 function createBaseRequestApplySnapshotChunk(): RequestApplySnapshotChunk {
-  return { index: 0, chunk: new Uint8Array(), sender: "" };
+  return {
+    index: 0,
+    chunk: new Uint8Array(),
+    sender: "",
+  };
 }
 
 export const RequestApplySnapshotChunk = {
@@ -1686,12 +1894,15 @@ export const RequestApplySnapshotChunk = {
     if (message.index !== 0) {
       writer.uint32(8).uint32(message.index);
     }
+
     if (message.chunk.length !== 0) {
       writer.uint32(18).bytes(message.chunk);
     }
+
     if (message.sender !== "") {
       writer.uint32(26).string(message.sender);
     }
+
     return writer;
   },
 
@@ -1699,23 +1910,29 @@ export const RequestApplySnapshotChunk = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestApplySnapshotChunk();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.index = reader.uint32();
           break;
+
         case 2:
           message.chunk = reader.bytes();
           break;
+
         case 3:
           message.sender = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1773,51 +1990,67 @@ export const Response = {
     if (message.exception !== undefined) {
       ResponseException.encode(message.exception, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.echo !== undefined) {
       ResponseEcho.encode(message.echo, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.flush !== undefined) {
       ResponseFlush.encode(message.flush, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.info !== undefined) {
       ResponseInfo.encode(message.info, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.setOption !== undefined) {
       ResponseSetOption.encode(message.setOption, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.initChain !== undefined) {
       ResponseInitChain.encode(message.initChain, writer.uint32(50).fork()).ldelim();
     }
+
     if (message.query !== undefined) {
       ResponseQuery.encode(message.query, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.beginBlock !== undefined) {
       ResponseBeginBlock.encode(message.beginBlock, writer.uint32(66).fork()).ldelim();
     }
+
     if (message.checkTx !== undefined) {
       ResponseCheckTx.encode(message.checkTx, writer.uint32(74).fork()).ldelim();
     }
+
     if (message.deliverTx !== undefined) {
       ResponseDeliverTx.encode(message.deliverTx, writer.uint32(82).fork()).ldelim();
     }
+
     if (message.endBlock !== undefined) {
       ResponseEndBlock.encode(message.endBlock, writer.uint32(90).fork()).ldelim();
     }
+
     if (message.commit !== undefined) {
       ResponseCommit.encode(message.commit, writer.uint32(98).fork()).ldelim();
     }
+
     if (message.listSnapshots !== undefined) {
       ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(106).fork()).ldelim();
     }
+
     if (message.offerSnapshot !== undefined) {
       ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(114).fork()).ldelim();
     }
+
     if (message.loadSnapshotChunk !== undefined) {
       ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(122).fork()).ldelim();
     }
+
     if (message.applySnapshotChunk !== undefined) {
       ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(130).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1825,62 +2058,81 @@ export const Response = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.exception = ResponseException.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.echo = ResponseEcho.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.flush = ResponseFlush.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.info = ResponseInfo.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.setOption = ResponseSetOption.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.initChain = ResponseInitChain.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.query = ResponseQuery.decode(reader, reader.uint32());
           break;
+
         case 8:
           message.beginBlock = ResponseBeginBlock.decode(reader, reader.uint32());
           break;
+
         case 9:
           message.checkTx = ResponseCheckTx.decode(reader, reader.uint32());
           break;
+
         case 10:
           message.deliverTx = ResponseDeliverTx.decode(reader, reader.uint32());
           break;
+
         case 11:
           message.endBlock = ResponseEndBlock.decode(reader, reader.uint32());
           break;
+
         case 12:
           message.commit = ResponseCommit.decode(reader, reader.uint32());
           break;
+
         case 13:
           message.listSnapshots = ResponseListSnapshots.decode(reader, reader.uint32());
           break;
+
         case 14:
           message.offerSnapshot = ResponseOfferSnapshot.decode(reader, reader.uint32());
           break;
+
         case 15:
           message.loadSnapshotChunk = ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
           break;
+
         case 16:
           message.applySnapshotChunk = ResponseApplySnapshotChunk.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2023,7 +2275,9 @@ export const Response = {
 };
 
 function createBaseResponseException(): ResponseException {
-  return { error: "" };
+  return {
+    error: "",
+  };
 }
 
 export const ResponseException = {
@@ -2031,6 +2285,7 @@ export const ResponseException = {
     if (message.error !== "") {
       writer.uint32(10).string(message.error);
     }
+
     return writer;
   },
 
@@ -2038,17 +2293,21 @@ export const ResponseException = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseException();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.error = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2072,7 +2331,9 @@ export const ResponseException = {
 };
 
 function createBaseResponseEcho(): ResponseEcho {
-  return { message: "" };
+  return {
+    message: "",
+  };
 }
 
 export const ResponseEcho = {
@@ -2080,6 +2341,7 @@ export const ResponseEcho = {
     if (message.message !== "") {
       writer.uint32(10).string(message.message);
     }
+
     return writer;
   },
 
@@ -2087,17 +2349,21 @@ export const ResponseEcho = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseEcho();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.message = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2133,14 +2399,17 @@ export const ResponseFlush = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseFlush();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2174,18 +2443,23 @@ export const ResponseInfo = {
     if (message.data !== "") {
       writer.uint32(10).string(message.data);
     }
+
     if (message.version !== "") {
       writer.uint32(18).string(message.version);
     }
+
     if (!message.appVersion.isZero()) {
       writer.uint32(24).uint64(message.appVersion);
     }
+
     if (!message.lastBlockHeight.isZero()) {
       writer.uint32(32).int64(message.lastBlockHeight);
     }
+
     if (message.lastBlockAppHash.length !== 0) {
       writer.uint32(42).bytes(message.lastBlockAppHash);
     }
+
     return writer;
   },
 
@@ -2193,29 +2467,37 @@ export const ResponseInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data = reader.string();
           break;
+
         case 2:
           message.version = reader.string();
           break;
+
         case 3:
           message.appVersion = reader.uint64() as Long;
           break;
+
         case 4:
           message.lastBlockHeight = reader.int64() as Long;
           break;
+
         case 5:
           message.lastBlockAppHash = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2263,7 +2545,11 @@ export const ResponseInfo = {
 };
 
 function createBaseResponseSetOption(): ResponseSetOption {
-  return { code: 0, log: "", info: "" };
+  return {
+    code: 0,
+    log: "",
+    info: "",
+  };
 }
 
 export const ResponseSetOption = {
@@ -2271,12 +2557,15 @@ export const ResponseSetOption = {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
     }
+
     if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
+
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
+
     return writer;
   },
 
@@ -2284,23 +2573,29 @@ export const ResponseSetOption = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseSetOption();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.code = reader.uint32();
           break;
+
         case 3:
           message.log = reader.string();
           break;
+
         case 4:
           message.info = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2330,7 +2625,11 @@ export const ResponseSetOption = {
 };
 
 function createBaseResponseInitChain(): ResponseInitChain {
-  return { consensusParams: undefined, validators: [], appHash: new Uint8Array() };
+  return {
+    consensusParams: undefined,
+    validators: [],
+    appHash: new Uint8Array(),
+  };
 }
 
 export const ResponseInitChain = {
@@ -2338,12 +2637,15 @@ export const ResponseInitChain = {
     if (message.consensusParams !== undefined) {
       ConsensusParams.encode(message.consensusParams, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.validators) {
       ValidatorUpdate.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.appHash.length !== 0) {
       writer.uint32(26).bytes(message.appHash);
     }
+
     return writer;
   },
 
@@ -2351,23 +2653,29 @@ export const ResponseInitChain = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseInitChain();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.appHash = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2389,11 +2697,13 @@ export const ResponseInitChain = {
       (obj.consensusParams = message.consensusParams
         ? ConsensusParams.toJSON(message.consensusParams)
         : undefined);
+
     if (message.validators) {
       obj.validators = message.validators.map((e) => (e ? ValidatorUpdate.toJSON(e) : undefined));
     } else {
       obj.validators = [];
     }
+
     message.appHash !== undefined &&
       (obj.appHash = base64FromBytes(message.appHash !== undefined ? message.appHash : new Uint8Array()));
     return obj;
@@ -2430,30 +2740,39 @@ export const ResponseQuery = {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
     }
+
     if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
+
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
+
     if (!message.index.isZero()) {
       writer.uint32(40).int64(message.index);
     }
+
     if (message.key.length !== 0) {
       writer.uint32(50).bytes(message.key);
     }
+
     if (message.value.length !== 0) {
       writer.uint32(58).bytes(message.value);
     }
+
     if (message.proofOps !== undefined) {
       ProofOps.encode(message.proofOps, writer.uint32(66).fork()).ldelim();
     }
+
     if (!message.height.isZero()) {
       writer.uint32(72).int64(message.height);
     }
+
     if (message.codespace !== "") {
       writer.uint32(82).string(message.codespace);
     }
+
     return writer;
   },
 
@@ -2461,41 +2780,53 @@ export const ResponseQuery = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseQuery();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.code = reader.uint32();
           break;
+
         case 3:
           message.log = reader.string();
           break;
+
         case 4:
           message.info = reader.string();
           break;
+
         case 5:
           message.index = reader.int64() as Long;
           break;
+
         case 6:
           message.key = reader.bytes();
           break;
+
         case 7:
           message.value = reader.bytes();
           break;
+
         case 8:
           message.proofOps = ProofOps.decode(reader, reader.uint32());
           break;
+
         case 9:
           message.height = reader.int64() as Long;
           break;
+
         case 10:
           message.codespace = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2551,7 +2882,9 @@ export const ResponseQuery = {
 };
 
 function createBaseResponseBeginBlock(): ResponseBeginBlock {
-  return { events: [] };
+  return {
+    events: [],
+  };
 }
 
 export const ResponseBeginBlock = {
@@ -2559,6 +2892,7 @@ export const ResponseBeginBlock = {
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -2566,17 +2900,21 @@ export const ResponseBeginBlock = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseBeginBlock();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2588,11 +2926,13 @@ export const ResponseBeginBlock = {
 
   toJSON(message: ResponseBeginBlock): unknown {
     const obj: any = {};
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     return obj;
   },
 
@@ -2621,27 +2961,35 @@ export const ResponseCheckTx = {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
+
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
+
     if (!message.gasWanted.isZero()) {
       writer.uint32(40).int64(message.gasWanted);
     }
+
     if (!message.gasUsed.isZero()) {
       writer.uint32(48).int64(message.gasUsed);
     }
+
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.codespace !== "") {
       writer.uint32(66).string(message.codespace);
     }
+
     return writer;
   },
 
@@ -2649,38 +2997,49 @@ export const ResponseCheckTx = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseCheckTx();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.code = reader.uint32();
           break;
+
         case 2:
           message.data = reader.bytes();
           break;
+
         case 3:
           message.log = reader.string();
           break;
+
         case 4:
           message.info = reader.string();
           break;
+
         case 5:
           message.gasWanted = reader.int64() as Long;
           break;
+
         case 6:
           message.gasUsed = reader.int64() as Long;
           break;
+
         case 7:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         case 8:
           message.codespace = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2690,8 +3049,8 @@ export const ResponseCheckTx = {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       log: isSet(object.log) ? String(object.log) : "",
       info: isSet(object.info) ? String(object.info) : "",
-      gasWanted: isSet(object.gas_wanted) ? Long.fromString(object.gas_wanted) : Long.ZERO,
-      gasUsed: isSet(object.gas_used) ? Long.fromString(object.gas_used) : Long.ZERO,
+      gasWanted: isSet(object.gasWanted) ? Long.fromString(object.gasWanted) : Long.ZERO,
+      gasUsed: isSet(object.gasUsed) ? Long.fromString(object.gasUsed) : Long.ZERO,
       events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
       codespace: isSet(object.codespace) ? String(object.codespace) : "",
     };
@@ -2704,13 +3063,15 @@ export const ResponseCheckTx = {
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
     message.log !== undefined && (obj.log = message.log);
     message.info !== undefined && (obj.info = message.info);
-    message.gasWanted !== undefined && (obj.gas_wanted = (message.gasWanted || Long.ZERO).toString());
-    message.gasUsed !== undefined && (obj.gas_used = (message.gasUsed || Long.ZERO).toString());
+    message.gasWanted !== undefined && (obj.gasWanted = (message.gasWanted || Long.ZERO).toString());
+    message.gasUsed !== undefined && (obj.gasUsed = (message.gasUsed || Long.ZERO).toString());
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     message.codespace !== undefined && (obj.codespace = message.codespace);
     return obj;
   },
@@ -2751,27 +3112,35 @@ export const ResponseDeliverTx = {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
+
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
+
     if (!message.gasWanted.isZero()) {
       writer.uint32(40).int64(message.gasWanted);
     }
+
     if (!message.gasUsed.isZero()) {
       writer.uint32(48).int64(message.gasUsed);
     }
+
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+
     if (message.codespace !== "") {
       writer.uint32(66).string(message.codespace);
     }
+
     return writer;
   },
 
@@ -2779,38 +3148,49 @@ export const ResponseDeliverTx = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseDeliverTx();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.code = reader.uint32();
           break;
+
         case 2:
           message.data = reader.bytes();
           break;
+
         case 3:
           message.log = reader.string();
           break;
+
         case 4:
           message.info = reader.string();
           break;
+
         case 5:
           message.gasWanted = reader.int64() as Long;
           break;
+
         case 6:
           message.gasUsed = reader.int64() as Long;
           break;
+
         case 7:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         case 8:
           message.codespace = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2820,8 +3200,8 @@ export const ResponseDeliverTx = {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       log: isSet(object.log) ? String(object.log) : "",
       info: isSet(object.info) ? String(object.info) : "",
-      gasWanted: isSet(object.gas_wanted) ? Long.fromString(object.gas_wanted) : Long.ZERO,
-      gasUsed: isSet(object.gas_used) ? Long.fromString(object.gas_used) : Long.ZERO,
+      gasWanted: isSet(object.gasWanted) ? Long.fromString(object.gasWanted) : Long.ZERO,
+      gasUsed: isSet(object.gasUsed) ? Long.fromString(object.gasUsed) : Long.ZERO,
       events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
       codespace: isSet(object.codespace) ? String(object.codespace) : "",
     };
@@ -2834,13 +3214,15 @@ export const ResponseDeliverTx = {
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
     message.log !== undefined && (obj.log = message.log);
     message.info !== undefined && (obj.info = message.info);
-    message.gasWanted !== undefined && (obj.gas_wanted = (message.gasWanted || Long.ZERO).toString());
-    message.gasUsed !== undefined && (obj.gas_used = (message.gasUsed || Long.ZERO).toString());
+    message.gasWanted !== undefined && (obj.gasWanted = (message.gasWanted || Long.ZERO).toString());
+    message.gasUsed !== undefined && (obj.gasUsed = (message.gasUsed || Long.ZERO).toString());
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     message.codespace !== undefined && (obj.codespace = message.codespace);
     return obj;
   },
@@ -2864,7 +3246,11 @@ export const ResponseDeliverTx = {
 };
 
 function createBaseResponseEndBlock(): ResponseEndBlock {
-  return { validatorUpdates: [], consensusParamUpdates: undefined, events: [] };
+  return {
+    validatorUpdates: [],
+    consensusParamUpdates: undefined,
+    events: [],
+  };
 }
 
 export const ResponseEndBlock = {
@@ -2872,12 +3258,15 @@ export const ResponseEndBlock = {
     for (const v of message.validatorUpdates) {
       ValidatorUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.consensusParamUpdates !== undefined) {
       ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(18).fork()).ldelim();
     }
+
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -2885,23 +3274,29 @@ export const ResponseEndBlock = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseEndBlock();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorUpdates.push(ValidatorUpdate.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.consensusParamUpdates = ConsensusParams.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.events.push(Event.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2919,20 +3314,24 @@ export const ResponseEndBlock = {
 
   toJSON(message: ResponseEndBlock): unknown {
     const obj: any = {};
+
     if (message.validatorUpdates) {
       obj.validatorUpdates = message.validatorUpdates.map((e) => (e ? ValidatorUpdate.toJSON(e) : undefined));
     } else {
       obj.validatorUpdates = [];
     }
+
     message.consensusParamUpdates !== undefined &&
       (obj.consensusParamUpdates = message.consensusParamUpdates
         ? ConsensusParams.toJSON(message.consensusParamUpdates)
         : undefined);
+
     if (message.events) {
       obj.events = message.events.map((e) => (e ? Event.toJSON(e) : undefined));
     } else {
       obj.events = [];
     }
+
     return obj;
   },
 
@@ -2949,7 +3348,10 @@ export const ResponseEndBlock = {
 };
 
 function createBaseResponseCommit(): ResponseCommit {
-  return { data: new Uint8Array(), retainHeight: Long.ZERO };
+  return {
+    data: new Uint8Array(),
+    retainHeight: Long.ZERO,
+  };
 }
 
 export const ResponseCommit = {
@@ -2957,9 +3359,11 @@ export const ResponseCommit = {
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     if (!message.retainHeight.isZero()) {
       writer.uint32(24).int64(message.retainHeight);
     }
+
     return writer;
   },
 
@@ -2967,20 +3371,25 @@ export const ResponseCommit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseCommit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 2:
           message.data = reader.bytes();
           break;
+
         case 3:
           message.retainHeight = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3011,7 +3420,9 @@ export const ResponseCommit = {
 };
 
 function createBaseResponseListSnapshots(): ResponseListSnapshots {
-  return { snapshots: [] };
+  return {
+    snapshots: [],
+  };
 }
 
 export const ResponseListSnapshots = {
@@ -3019,6 +3430,7 @@ export const ResponseListSnapshots = {
     for (const v of message.snapshots) {
       Snapshot.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -3026,17 +3438,21 @@ export const ResponseListSnapshots = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseListSnapshots();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.snapshots.push(Snapshot.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3050,11 +3466,13 @@ export const ResponseListSnapshots = {
 
   toJSON(message: ResponseListSnapshots): unknown {
     const obj: any = {};
+
     if (message.snapshots) {
       obj.snapshots = message.snapshots.map((e) => (e ? Snapshot.toJSON(e) : undefined));
     } else {
       obj.snapshots = [];
     }
+
     return obj;
   },
 
@@ -3066,7 +3484,9 @@ export const ResponseListSnapshots = {
 };
 
 function createBaseResponseOfferSnapshot(): ResponseOfferSnapshot {
-  return { result: 0 };
+  return {
+    result: 0,
+  };
 }
 
 export const ResponseOfferSnapshot = {
@@ -3074,6 +3494,7 @@ export const ResponseOfferSnapshot = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     return writer;
   },
 
@@ -3081,17 +3502,21 @@ export const ResponseOfferSnapshot = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseOfferSnapshot();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3115,7 +3540,9 @@ export const ResponseOfferSnapshot = {
 };
 
 function createBaseResponseLoadSnapshotChunk(): ResponseLoadSnapshotChunk {
-  return { chunk: new Uint8Array() };
+  return {
+    chunk: new Uint8Array(),
+  };
 }
 
 export const ResponseLoadSnapshotChunk = {
@@ -3123,6 +3550,7 @@ export const ResponseLoadSnapshotChunk = {
     if (message.chunk.length !== 0) {
       writer.uint32(10).bytes(message.chunk);
     }
+
     return writer;
   },
 
@@ -3130,17 +3558,21 @@ export const ResponseLoadSnapshotChunk = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseLoadSnapshotChunk();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.chunk = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3167,7 +3599,11 @@ export const ResponseLoadSnapshotChunk = {
 };
 
 function createBaseResponseApplySnapshotChunk(): ResponseApplySnapshotChunk {
-  return { result: 0, refetchChunks: [], rejectSenders: [] };
+  return {
+    result: 0,
+    refetchChunks: [],
+    rejectSenders: [],
+  };
 }
 
 export const ResponseApplySnapshotChunk = {
@@ -3175,14 +3611,19 @@ export const ResponseApplySnapshotChunk = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     writer.uint32(18).fork();
+
     for (const v of message.refetchChunks) {
       writer.uint32(v);
     }
+
     writer.ldelim();
+
     for (const v of message.rejectSenders) {
       writer.uint32(26).string(v!);
     }
+
     return writer;
   },
 
@@ -3190,30 +3631,38 @@ export const ResponseApplySnapshotChunk = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseApplySnapshotChunk();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         case 2:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.refetchChunks.push(reader.uint32());
             }
           } else {
             message.refetchChunks.push(reader.uint32());
           }
+
           break;
+
         case 3:
           message.rejectSenders.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3232,16 +3681,19 @@ export const ResponseApplySnapshotChunk = {
   toJSON(message: ResponseApplySnapshotChunk): unknown {
     const obj: any = {};
     message.result !== undefined && (obj.result = responseApplySnapshotChunk_ResultToJSON(message.result));
+
     if (message.refetchChunks) {
       obj.refetchChunks = message.refetchChunks.map((e) => Math.round(e));
     } else {
       obj.refetchChunks = [];
     }
+
     if (message.rejectSenders) {
       obj.rejectSenders = message.rejectSenders.map((e) => e);
     } else {
       obj.rejectSenders = [];
     }
+
     return obj;
   },
 
@@ -3257,7 +3709,12 @@ export const ResponseApplySnapshotChunk = {
 };
 
 function createBaseConsensusParams(): ConsensusParams {
-  return { block: undefined, evidence: undefined, validator: undefined, version: undefined };
+  return {
+    block: undefined,
+    evidence: undefined,
+    validator: undefined,
+    version: undefined,
+  };
 }
 
 export const ConsensusParams = {
@@ -3265,15 +3722,19 @@ export const ConsensusParams = {
     if (message.block !== undefined) {
       BlockParams.encode(message.block, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.evidence !== undefined) {
       EvidenceParams.encode(message.evidence, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.validator !== undefined) {
       ValidatorParams.encode(message.validator, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.version !== undefined) {
       VersionParams.encode(message.version, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -3281,26 +3742,33 @@ export const ConsensusParams = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConsensusParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.block = BlockParams.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.evidence = EvidenceParams.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.validator = ValidatorParams.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.version = VersionParams.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3347,7 +3815,10 @@ export const ConsensusParams = {
 };
 
 function createBaseBlockParams(): BlockParams {
-  return { maxBytes: Long.ZERO, maxGas: Long.ZERO };
+  return {
+    maxBytes: Long.ZERO,
+    maxGas: Long.ZERO,
+  };
 }
 
 export const BlockParams = {
@@ -3355,9 +3826,11 @@ export const BlockParams = {
     if (!message.maxBytes.isZero()) {
       writer.uint32(8).int64(message.maxBytes);
     }
+
     if (!message.maxGas.isZero()) {
       writer.uint32(16).int64(message.maxGas);
     }
+
     return writer;
   },
 
@@ -3365,20 +3838,25 @@ export const BlockParams = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.maxBytes = reader.int64() as Long;
           break;
+
         case 2:
           message.maxGas = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3407,7 +3885,10 @@ export const BlockParams = {
 };
 
 function createBaseLastCommitInfo(): LastCommitInfo {
-  return { round: 0, votes: [] };
+  return {
+    round: 0,
+    votes: [],
+  };
 }
 
 export const LastCommitInfo = {
@@ -3415,9 +3896,11 @@ export const LastCommitInfo = {
     if (message.round !== 0) {
       writer.uint32(8).int32(message.round);
     }
+
     for (const v of message.votes) {
       VoteInfo.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -3425,20 +3908,25 @@ export const LastCommitInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLastCommitInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.round = reader.int32();
           break;
+
         case 2:
           message.votes.push(VoteInfo.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3452,11 +3940,13 @@ export const LastCommitInfo = {
   toJSON(message: LastCommitInfo): unknown {
     const obj: any = {};
     message.round !== undefined && (obj.round = Math.round(message.round));
+
     if (message.votes) {
       obj.votes = message.votes.map((e) => (e ? VoteInfo.toJSON(e) : undefined));
     } else {
       obj.votes = [];
     }
+
     return obj;
   },
 
@@ -3469,7 +3959,10 @@ export const LastCommitInfo = {
 };
 
 function createBaseEvent(): Event {
-  return { type: "", attributes: [] };
+  return {
+    type: "",
+    attributes: [],
+  };
 }
 
 export const Event = {
@@ -3477,9 +3970,11 @@ export const Event = {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
+
     for (const v of message.attributes) {
       EventAttribute.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -3487,20 +3982,25 @@ export const Event = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvent();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.string();
           break;
+
         case 2:
           message.attributes.push(EventAttribute.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3516,11 +4016,13 @@ export const Event = {
   toJSON(message: Event): unknown {
     const obj: any = {};
     message.type !== undefined && (obj.type = message.type);
+
     if (message.attributes) {
       obj.attributes = message.attributes.map((e) => (e ? EventAttribute.toJSON(e) : undefined));
     } else {
       obj.attributes = [];
     }
+
     return obj;
   },
 
@@ -3533,7 +4035,11 @@ export const Event = {
 };
 
 function createBaseEventAttribute(): EventAttribute {
-  return { key: new Uint8Array(), value: new Uint8Array(), index: false };
+  return {
+    key: new Uint8Array(),
+    value: new Uint8Array(),
+    index: false,
+  };
 }
 
 export const EventAttribute = {
@@ -3541,12 +4047,15 @@ export const EventAttribute = {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
+
     if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     if (message.index === true) {
       writer.uint32(24).bool(message.index);
     }
+
     return writer;
   },
 
@@ -3554,23 +4063,29 @@ export const EventAttribute = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventAttribute();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.bytes();
           break;
+
         case 2:
           message.value = reader.bytes();
           break;
+
         case 3:
           message.index = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3602,7 +4117,12 @@ export const EventAttribute = {
 };
 
 function createBaseTxResult(): TxResult {
-  return { height: Long.ZERO, index: 0, tx: new Uint8Array(), result: undefined };
+  return {
+    height: Long.ZERO,
+    index: 0,
+    tx: new Uint8Array(),
+    result: undefined,
+  };
 }
 
 export const TxResult = {
@@ -3610,15 +4130,19 @@ export const TxResult = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     if (message.index !== 0) {
       writer.uint32(16).uint32(message.index);
     }
+
     if (message.tx.length !== 0) {
       writer.uint32(26).bytes(message.tx);
     }
+
     if (message.result !== undefined) {
       ResponseDeliverTx.encode(message.result, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -3626,26 +4150,33 @@ export const TxResult = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxResult();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         case 2:
           message.index = reader.uint32();
           break;
+
         case 3:
           message.tx = reader.bytes();
           break;
+
         case 4:
           message.result = ResponseDeliverTx.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3684,7 +4215,10 @@ export const TxResult = {
 };
 
 function createBaseValidator(): Validator {
-  return { address: new Uint8Array(), power: Long.ZERO };
+  return {
+    address: new Uint8Array(),
+    power: Long.ZERO,
+  };
 }
 
 export const Validator = {
@@ -3692,9 +4226,11 @@ export const Validator = {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
     }
+
     if (!message.power.isZero()) {
       writer.uint32(24).int64(message.power);
     }
+
     return writer;
   },
 
@@ -3702,20 +4238,25 @@ export const Validator = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidator();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.bytes();
           break;
+
         case 3:
           message.power = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3744,7 +4285,10 @@ export const Validator = {
 };
 
 function createBaseValidatorUpdate(): ValidatorUpdate {
-  return { pubKey: undefined, power: Long.ZERO };
+  return {
+    pubKey: undefined,
+    power: Long.ZERO,
+  };
 }
 
 export const ValidatorUpdate = {
@@ -3752,9 +4296,11 @@ export const ValidatorUpdate = {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
     }
+
     if (!message.power.isZero()) {
       writer.uint32(16).int64(message.power);
     }
+
     return writer;
   },
 
@@ -3762,20 +4308,25 @@ export const ValidatorUpdate = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorUpdate();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pubKey = PublicKey.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.power = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3807,7 +4358,10 @@ export const ValidatorUpdate = {
 };
 
 function createBaseVoteInfo(): VoteInfo {
-  return { validator: undefined, signedLastBlock: false };
+  return {
+    validator: undefined,
+    signedLastBlock: false,
+  };
 }
 
 export const VoteInfo = {
@@ -3815,9 +4369,11 @@ export const VoteInfo = {
     if (message.validator !== undefined) {
       Validator.encode(message.validator, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.signedLastBlock === true) {
       writer.uint32(16).bool(message.signedLastBlock);
     }
+
     return writer;
   },
 
@@ -3825,20 +4381,25 @@ export const VoteInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVoteInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validator = Validator.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.signedLastBlock = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3869,7 +4430,13 @@ export const VoteInfo = {
 };
 
 function createBaseEvidence(): Evidence {
-  return { type: 0, validator: undefined, height: Long.ZERO, time: undefined, totalVotingPower: Long.ZERO };
+  return {
+    type: 0,
+    validator: undefined,
+    height: Long.ZERO,
+    time: undefined,
+    totalVotingPower: Long.ZERO,
+  };
 }
 
 export const Evidence = {
@@ -3877,18 +4444,23 @@ export const Evidence = {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
+
     if (message.validator !== undefined) {
       Validator.encode(message.validator, writer.uint32(18).fork()).ldelim();
     }
+
     if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
+
     if (message.time !== undefined) {
       Timestamp.encode(message.time, writer.uint32(34).fork()).ldelim();
     }
+
     if (!message.totalVotingPower.isZero()) {
       writer.uint32(40).int64(message.totalVotingPower);
     }
+
     return writer;
   },
 
@@ -3896,29 +4468,37 @@ export const Evidence = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvidence();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.int32() as any;
           break;
+
         case 2:
           message.validator = Validator.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.height = reader.int64() as Long;
           break;
+
         case 4:
           message.time = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.totalVotingPower = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -3964,7 +4544,13 @@ export const Evidence = {
 };
 
 function createBaseSnapshot(): Snapshot {
-  return { height: Long.UZERO, format: 0, chunks: 0, hash: new Uint8Array(), metadata: new Uint8Array() };
+  return {
+    height: Long.UZERO,
+    format: 0,
+    chunks: 0,
+    hash: new Uint8Array(),
+    metadata: new Uint8Array(),
+  };
 }
 
 export const Snapshot = {
@@ -3972,18 +4558,23 @@ export const Snapshot = {
     if (!message.height.isZero()) {
       writer.uint32(8).uint64(message.height);
     }
+
     if (message.format !== 0) {
       writer.uint32(16).uint32(message.format);
     }
+
     if (message.chunks !== 0) {
       writer.uint32(24).uint32(message.chunks);
     }
+
     if (message.hash.length !== 0) {
       writer.uint32(34).bytes(message.hash);
     }
+
     if (message.metadata.length !== 0) {
       writer.uint32(42).bytes(message.metadata);
     }
+
     return writer;
   },
 
@@ -3991,29 +4582,37 @@ export const Snapshot = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshot();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.uint64() as Long;
           break;
+
         case 2:
           message.format = reader.uint32();
           break;
+
         case 3:
           message.chunks = reader.uint32();
           break;
+
         case 4:
           message.hash = reader.bytes();
           break;
+
         case 5:
           message.metadata = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -4050,222 +4649,3 @@ export const Snapshot = {
     return message;
   },
 };
-
-export interface ABCIApplication {
-  Echo(request: RequestEcho): Promise<ResponseEcho>;
-  Flush(request: RequestFlush): Promise<ResponseFlush>;
-  Info(request: RequestInfo): Promise<ResponseInfo>;
-  SetOption(request: RequestSetOption): Promise<ResponseSetOption>;
-  DeliverTx(request: RequestDeliverTx): Promise<ResponseDeliverTx>;
-  CheckTx(request: RequestCheckTx): Promise<ResponseCheckTx>;
-  Query(request: RequestQuery): Promise<ResponseQuery>;
-  Commit(request: RequestCommit): Promise<ResponseCommit>;
-  InitChain(request: RequestInitChain): Promise<ResponseInitChain>;
-  BeginBlock(request: RequestBeginBlock): Promise<ResponseBeginBlock>;
-  EndBlock(request: RequestEndBlock): Promise<ResponseEndBlock>;
-  ListSnapshots(request: RequestListSnapshots): Promise<ResponseListSnapshots>;
-  OfferSnapshot(request: RequestOfferSnapshot): Promise<ResponseOfferSnapshot>;
-  LoadSnapshotChunk(request: RequestLoadSnapshotChunk): Promise<ResponseLoadSnapshotChunk>;
-  ApplySnapshotChunk(request: RequestApplySnapshotChunk): Promise<ResponseApplySnapshotChunk>;
-}
-
-export class ABCIApplicationClientImpl implements ABCIApplication {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Echo = this.Echo.bind(this);
-    this.Flush = this.Flush.bind(this);
-    this.Info = this.Info.bind(this);
-    this.SetOption = this.SetOption.bind(this);
-    this.DeliverTx = this.DeliverTx.bind(this);
-    this.CheckTx = this.CheckTx.bind(this);
-    this.Query = this.Query.bind(this);
-    this.Commit = this.Commit.bind(this);
-    this.InitChain = this.InitChain.bind(this);
-    this.BeginBlock = this.BeginBlock.bind(this);
-    this.EndBlock = this.EndBlock.bind(this);
-    this.ListSnapshots = this.ListSnapshots.bind(this);
-    this.OfferSnapshot = this.OfferSnapshot.bind(this);
-    this.LoadSnapshotChunk = this.LoadSnapshotChunk.bind(this);
-    this.ApplySnapshotChunk = this.ApplySnapshotChunk.bind(this);
-  }
-  Echo(request: RequestEcho): Promise<ResponseEcho> {
-    const data = RequestEcho.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Echo", data);
-    return promise.then((data) => ResponseEcho.decode(new _m0.Reader(data)));
-  }
-
-  Flush(request: RequestFlush): Promise<ResponseFlush> {
-    const data = RequestFlush.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Flush", data);
-    return promise.then((data) => ResponseFlush.decode(new _m0.Reader(data)));
-  }
-
-  Info(request: RequestInfo): Promise<ResponseInfo> {
-    const data = RequestInfo.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Info", data);
-    return promise.then((data) => ResponseInfo.decode(new _m0.Reader(data)));
-  }
-
-  SetOption(request: RequestSetOption): Promise<ResponseSetOption> {
-    const data = RequestSetOption.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "SetOption", data);
-    return promise.then((data) => ResponseSetOption.decode(new _m0.Reader(data)));
-  }
-
-  DeliverTx(request: RequestDeliverTx): Promise<ResponseDeliverTx> {
-    const data = RequestDeliverTx.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "DeliverTx", data);
-    return promise.then((data) => ResponseDeliverTx.decode(new _m0.Reader(data)));
-  }
-
-  CheckTx(request: RequestCheckTx): Promise<ResponseCheckTx> {
-    const data = RequestCheckTx.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "CheckTx", data);
-    return promise.then((data) => ResponseCheckTx.decode(new _m0.Reader(data)));
-  }
-
-  Query(request: RequestQuery): Promise<ResponseQuery> {
-    const data = RequestQuery.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Query", data);
-    return promise.then((data) => ResponseQuery.decode(new _m0.Reader(data)));
-  }
-
-  Commit(request: RequestCommit): Promise<ResponseCommit> {
-    const data = RequestCommit.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "Commit", data);
-    return promise.then((data) => ResponseCommit.decode(new _m0.Reader(data)));
-  }
-
-  InitChain(request: RequestInitChain): Promise<ResponseInitChain> {
-    const data = RequestInitChain.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "InitChain", data);
-    return promise.then((data) => ResponseInitChain.decode(new _m0.Reader(data)));
-  }
-
-  BeginBlock(request: RequestBeginBlock): Promise<ResponseBeginBlock> {
-    const data = RequestBeginBlock.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "BeginBlock", data);
-    return promise.then((data) => ResponseBeginBlock.decode(new _m0.Reader(data)));
-  }
-
-  EndBlock(request: RequestEndBlock): Promise<ResponseEndBlock> {
-    const data = RequestEndBlock.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "EndBlock", data);
-    return promise.then((data) => ResponseEndBlock.decode(new _m0.Reader(data)));
-  }
-
-  ListSnapshots(request: RequestListSnapshots): Promise<ResponseListSnapshots> {
-    const data = RequestListSnapshots.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "ListSnapshots", data);
-    return promise.then((data) => ResponseListSnapshots.decode(new _m0.Reader(data)));
-  }
-
-  OfferSnapshot(request: RequestOfferSnapshot): Promise<ResponseOfferSnapshot> {
-    const data = RequestOfferSnapshot.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "OfferSnapshot", data);
-    return promise.then((data) => ResponseOfferSnapshot.decode(new _m0.Reader(data)));
-  }
-
-  LoadSnapshotChunk(request: RequestLoadSnapshotChunk): Promise<ResponseLoadSnapshotChunk> {
-    const data = RequestLoadSnapshotChunk.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "LoadSnapshotChunk", data);
-    return promise.then((data) => ResponseLoadSnapshotChunk.decode(new _m0.Reader(data)));
-  }
-
-  ApplySnapshotChunk(request: RequestApplySnapshotChunk): Promise<ResponseApplySnapshotChunk> {
-    const data = RequestApplySnapshotChunk.encode(request).finish();
-    const promise = this.rpc.request("tendermint.abci.ABCIApplication", "ApplySnapshotChunk", data);
-    return promise.then((data) => ResponseApplySnapshotChunk.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-function toTimestamp(date: Date): Timestamp {
-  const seconds = numberToLong(date.getTime() / 1_000);
-  const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
-}
-
-function fromTimestamp(t: Timestamp): Date {
-  let millis = t.seconds.toNumber() * 1_000;
-  millis += t.nanos / 1_000_000;
-  return new Date(millis);
-}
-
-function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof Date) {
-    return toTimestamp(o);
-  } else if (typeof o === "string") {
-    return toTimestamp(new Date(o));
-  } else {
-    return Timestamp.fromJSON(o);
-  }
-}
-
-function numberToLong(number: number) {
-  return Long.fromNumber(number);
-}
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

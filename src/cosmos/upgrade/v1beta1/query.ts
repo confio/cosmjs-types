@@ -1,8 +1,6 @@
-/* eslint-disable */
-import Long from "long";
+import { Plan, ModuleVersion } from "./upgrade";
 import * as _m0 from "protobufjs/minimal";
-import { Plan, ModuleVersion } from "../../../cosmos/upgrade/v1beta1/upgrade";
-
+import { DeepPartial, Exact, isSet, Long, bytesFromBase64, base64FromBytes } from "@osmonauts/helpers";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 
 /**
@@ -17,7 +15,7 @@ export interface QueryCurrentPlanRequest {}
  */
 export interface QueryCurrentPlanResponse {
   /** plan is the current upgrade plan. */
-  plan?: Plan;
+  plan: Plan;
 }
 
 /**
@@ -41,9 +39,9 @@ export interface QueryAppliedPlanResponse {
 /**
  * QueryUpgradedConsensusStateRequest is the request type for the Query/UpgradedConsensusState
  * RPC method.
- *
- * @deprecated
  */
+
+/** @deprecated */
 export interface QueryUpgradedConsensusStateRequest {
   /**
    * last height of the current chain must be sent in request
@@ -55,9 +53,9 @@ export interface QueryUpgradedConsensusStateRequest {
 /**
  * QueryUpgradedConsensusStateResponse is the response type for the Query/UpgradedConsensusState
  * RPC method.
- *
- * @deprecated
  */
+
+/** @deprecated */
 export interface QueryUpgradedConsensusStateResponse {
   /** Since: cosmos-sdk 0.43 */
   upgradedConsensusState: Uint8Array;
@@ -102,14 +100,17 @@ export const QueryCurrentPlanRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCurrentPlanRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -129,7 +130,9 @@ export const QueryCurrentPlanRequest = {
 };
 
 function createBaseQueryCurrentPlanResponse(): QueryCurrentPlanResponse {
-  return { plan: undefined };
+  return {
+    plan: undefined,
+  };
 }
 
 export const QueryCurrentPlanResponse = {
@@ -137,6 +140,7 @@ export const QueryCurrentPlanResponse = {
     if (message.plan !== undefined) {
       Plan.encode(message.plan, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -144,17 +148,21 @@ export const QueryCurrentPlanResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryCurrentPlanResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.plan = Plan.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -181,7 +189,9 @@ export const QueryCurrentPlanResponse = {
 };
 
 function createBaseQueryAppliedPlanRequest(): QueryAppliedPlanRequest {
-  return { name: "" };
+  return {
+    name: "",
+  };
 }
 
 export const QueryAppliedPlanRequest = {
@@ -189,6 +199,7 @@ export const QueryAppliedPlanRequest = {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
+
     return writer;
   },
 
@@ -196,17 +207,21 @@ export const QueryAppliedPlanRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAppliedPlanRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.name = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -230,7 +245,9 @@ export const QueryAppliedPlanRequest = {
 };
 
 function createBaseQueryAppliedPlanResponse(): QueryAppliedPlanResponse {
-  return { height: Long.ZERO };
+  return {
+    height: Long.ZERO,
+  };
 }
 
 export const QueryAppliedPlanResponse = {
@@ -238,6 +255,7 @@ export const QueryAppliedPlanResponse = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     return writer;
   },
 
@@ -245,17 +263,21 @@ export const QueryAppliedPlanResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAppliedPlanResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -282,7 +304,9 @@ export const QueryAppliedPlanResponse = {
 };
 
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
-  return { lastHeight: Long.ZERO };
+  return {
+    lastHeight: Long.ZERO,
+  };
 }
 
 export const QueryUpgradedConsensusStateRequest = {
@@ -290,6 +314,7 @@ export const QueryUpgradedConsensusStateRequest = {
     if (!message.lastHeight.isZero()) {
       writer.uint32(8).int64(message.lastHeight);
     }
+
     return writer;
   },
 
@@ -297,17 +322,21 @@ export const QueryUpgradedConsensusStateRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUpgradedConsensusStateRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.lastHeight = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -336,7 +365,9 @@ export const QueryUpgradedConsensusStateRequest = {
 };
 
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
-  return { upgradedConsensusState: new Uint8Array() };
+  return {
+    upgradedConsensusState: new Uint8Array(),
+  };
 }
 
 export const QueryUpgradedConsensusStateResponse = {
@@ -344,6 +375,7 @@ export const QueryUpgradedConsensusStateResponse = {
     if (message.upgradedConsensusState.length !== 0) {
       writer.uint32(18).bytes(message.upgradedConsensusState);
     }
+
     return writer;
   },
 
@@ -351,17 +383,21 @@ export const QueryUpgradedConsensusStateResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUpgradedConsensusStateResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 2:
           message.upgradedConsensusState = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -392,7 +428,9 @@ export const QueryUpgradedConsensusStateResponse = {
 };
 
 function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
-  return { moduleName: "" };
+  return {
+    moduleName: "",
+  };
 }
 
 export const QueryModuleVersionsRequest = {
@@ -400,6 +438,7 @@ export const QueryModuleVersionsRequest = {
     if (message.moduleName !== "") {
       writer.uint32(10).string(message.moduleName);
     }
+
     return writer;
   },
 
@@ -407,17 +446,21 @@ export const QueryModuleVersionsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleVersionsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.moduleName = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -443,7 +486,9 @@ export const QueryModuleVersionsRequest = {
 };
 
 function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
-  return { moduleVersions: [] };
+  return {
+    moduleVersions: [],
+  };
 }
 
 export const QueryModuleVersionsResponse = {
@@ -451,6 +496,7 @@ export const QueryModuleVersionsResponse = {
     for (const v of message.moduleVersions) {
       ModuleVersion.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -458,17 +504,21 @@ export const QueryModuleVersionsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleVersionsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.moduleVersions.push(ModuleVersion.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -482,11 +532,13 @@ export const QueryModuleVersionsResponse = {
 
   toJSON(message: QueryModuleVersionsResponse): unknown {
     const obj: any = {};
+
     if (message.moduleVersions) {
       obj.moduleVersions = message.moduleVersions.map((e) => (e ? ModuleVersion.toJSON(e) : undefined));
     } else {
       obj.moduleVersions = [];
     }
+
     return obj;
   },
 
@@ -498,130 +550,3 @@ export const QueryModuleVersionsResponse = {
     return message;
   },
 };
-
-/** Query defines the gRPC upgrade querier service. */
-export interface Query {
-  /** CurrentPlan queries the current upgrade plan. */
-  CurrentPlan(request: QueryCurrentPlanRequest): Promise<QueryCurrentPlanResponse>;
-  /** AppliedPlan queries a previously applied upgrade plan by its name. */
-  AppliedPlan(request: QueryAppliedPlanRequest): Promise<QueryAppliedPlanResponse>;
-  /**
-   * UpgradedConsensusState queries the consensus state that will serve
-   * as a trusted kernel for the next version of this chain. It will only be
-   * stored at the last height of this chain.
-   * UpgradedConsensusState RPC not supported with legacy querier
-   * This rpc is deprecated now that IBC has its own replacement
-   * (https://github.com/cosmos/ibc-go/blob/2c880a22e9f9cc75f62b527ca94aa75ce1106001/proto/ibc/core/client/v1/query.proto#L54)
-   *
-   * @deprecated
-   */
-  UpgradedConsensusState(
-    request: QueryUpgradedConsensusStateRequest,
-  ): Promise<QueryUpgradedConsensusStateResponse>;
-  /**
-   * ModuleVersions queries the list of module versions from state.
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  ModuleVersions(request: QueryModuleVersionsRequest): Promise<QueryModuleVersionsResponse>;
-}
-
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.CurrentPlan = this.CurrentPlan.bind(this);
-    this.AppliedPlan = this.AppliedPlan.bind(this);
-    this.UpgradedConsensusState = this.UpgradedConsensusState.bind(this);
-    this.ModuleVersions = this.ModuleVersions.bind(this);
-  }
-  CurrentPlan(request: QueryCurrentPlanRequest): Promise<QueryCurrentPlanResponse> {
-    const data = QueryCurrentPlanRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Query", "CurrentPlan", data);
-    return promise.then((data) => QueryCurrentPlanResponse.decode(new _m0.Reader(data)));
-  }
-
-  AppliedPlan(request: QueryAppliedPlanRequest): Promise<QueryAppliedPlanResponse> {
-    const data = QueryAppliedPlanRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Query", "AppliedPlan", data);
-    return promise.then((data) => QueryAppliedPlanResponse.decode(new _m0.Reader(data)));
-  }
-
-  UpgradedConsensusState(
-    request: QueryUpgradedConsensusStateRequest,
-  ): Promise<QueryUpgradedConsensusStateResponse> {
-    const data = QueryUpgradedConsensusStateRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Query", "UpgradedConsensusState", data);
-    return promise.then((data) => QueryUpgradedConsensusStateResponse.decode(new _m0.Reader(data)));
-  }
-
-  ModuleVersions(request: QueryModuleVersionsRequest): Promise<QueryModuleVersionsResponse> {
-    const data = QueryModuleVersionsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Query", "ModuleVersions", data);
-    return promise.then((data) => QueryModuleVersionsResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

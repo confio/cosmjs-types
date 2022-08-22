@@ -1,7 +1,5 @@
-/* eslint-disable */
-import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-
+import { isSet, DeepPartial, Exact } from "@osmonauts/helpers";
 export const protobufPackage = "cosmos.base.v1beta1";
 
 /**
@@ -37,7 +35,10 @@ export interface DecProto {
 }
 
 function createBaseCoin(): Coin {
-  return { denom: "", amount: "" };
+  return {
+    denom: "",
+    amount: "",
+  };
 }
 
 export const Coin = {
@@ -45,9 +46,11 @@ export const Coin = {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
+
     if (message.amount !== "") {
       writer.uint32(18).string(message.amount);
     }
+
     return writer;
   },
 
@@ -55,20 +58,25 @@ export const Coin = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCoin();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denom = reader.string();
           break;
+
         case 2:
           message.amount = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -95,7 +103,10 @@ export const Coin = {
 };
 
 function createBaseDecCoin(): DecCoin {
-  return { denom: "", amount: "" };
+  return {
+    denom: "",
+    amount: "",
+  };
 }
 
 export const DecCoin = {
@@ -103,9 +114,11 @@ export const DecCoin = {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
+
     if (message.amount !== "") {
       writer.uint32(18).string(message.amount);
     }
+
     return writer;
   },
 
@@ -113,20 +126,25 @@ export const DecCoin = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDecCoin();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denom = reader.string();
           break;
+
         case 2:
           message.amount = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -153,7 +171,9 @@ export const DecCoin = {
 };
 
 function createBaseIntProto(): IntProto {
-  return { int: "" };
+  return {
+    int: "",
+  };
 }
 
 export const IntProto = {
@@ -161,6 +181,7 @@ export const IntProto = {
     if (message.int !== "") {
       writer.uint32(10).string(message.int);
     }
+
     return writer;
   },
 
@@ -168,17 +189,21 @@ export const IntProto = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIntProto();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.int = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -202,7 +227,9 @@ export const IntProto = {
 };
 
 function createBaseDecProto(): DecProto {
-  return { dec: "" };
+  return {
+    dec: "",
+  };
 }
 
 export const DecProto = {
@@ -210,6 +237,7 @@ export const DecProto = {
     if (message.dec !== "") {
       writer.uint32(10).string(message.dec);
     }
+
     return writer;
   },
 
@@ -217,17 +245,21 @@ export const DecProto = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDecProto();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.dec = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -249,31 +281,3 @@ export const DecProto = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

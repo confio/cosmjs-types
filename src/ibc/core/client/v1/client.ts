@@ -1,9 +1,7 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../../google/protobuf/any";
 import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, Long } from "@osmonauts/helpers";
 export const protobufPackage = "ibc.core.client.v1";
 
 /**
@@ -13,8 +11,9 @@ export const protobufPackage = "ibc.core.client.v1";
 export interface IdentifiedClientState {
   /** client identifier */
   clientId: string;
+
   /** client state */
-  clientState?: Any;
+  clientState: Any;
 }
 
 /**
@@ -23,9 +22,10 @@ export interface IdentifiedClientState {
  */
 export interface ConsensusStateWithHeight {
   /** consensus state height */
-  height?: Height;
+  height: Height;
+
   /** consensus state */
-  consensusState?: Any;
+  consensusState: Any;
 }
 
 /**
@@ -35,6 +35,7 @@ export interface ConsensusStateWithHeight {
 export interface ClientConsensusStates {
   /** client identifier */
   clientId: string;
+
   /** consensus states and their heights associated with the client */
   consensusStates: ConsensusStateWithHeight[];
 }
@@ -48,10 +49,13 @@ export interface ClientConsensusStates {
 export interface ClientUpdateProposal {
   /** the title of the update proposal */
   title: string;
+
   /** the description of the proposal */
   description: string;
+
   /** the client identifier for the client to be updated if the proposal passes */
   subjectClientId: string;
+
   /**
    * the substitute client identifier for the client standing in for the subject
    * client
@@ -66,7 +70,8 @@ export interface ClientUpdateProposal {
 export interface UpgradeProposal {
   title: string;
   description: string;
-  plan?: Plan;
+  plan: Plan;
+
   /**
    * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
    * This will make the chain commit to the correct upgraded (self) client state
@@ -75,7 +80,7 @@ export interface UpgradeProposal {
    * of the chain. This will allow IBC connections to persist smoothly across
    * planned chain upgrades
    */
-  upgradedClientState?: Any;
+  upgradedClientState: Any;
 }
 
 /**
@@ -93,6 +98,7 @@ export interface UpgradeProposal {
 export interface Height {
   /** the revision that the client is currently on */
   revisionNumber: Long;
+
   /** the height within the given revision */
   revisionHeight: Long;
 }
@@ -104,7 +110,10 @@ export interface Params {
 }
 
 function createBaseIdentifiedClientState(): IdentifiedClientState {
-  return { clientId: "", clientState: undefined };
+  return {
+    clientId: "",
+    clientState: undefined,
+  };
 }
 
 export const IdentifiedClientState = {
@@ -112,9 +121,11 @@ export const IdentifiedClientState = {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
+
     if (message.clientState !== undefined) {
       Any.encode(message.clientState, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -122,20 +133,25 @@ export const IdentifiedClientState = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIdentifiedClientState();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientId = reader.string();
           break;
+
         case 2:
           message.clientState = Any.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -166,7 +182,10 @@ export const IdentifiedClientState = {
 };
 
 function createBaseConsensusStateWithHeight(): ConsensusStateWithHeight {
-  return { height: undefined, consensusState: undefined };
+  return {
+    height: undefined,
+    consensusState: undefined,
+  };
 }
 
 export const ConsensusStateWithHeight = {
@@ -174,9 +193,11 @@ export const ConsensusStateWithHeight = {
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.consensusState !== undefined) {
       Any.encode(message.consensusState, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -184,20 +205,25 @@ export const ConsensusStateWithHeight = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConsensusStateWithHeight();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.consensusState = Any.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -231,7 +257,10 @@ export const ConsensusStateWithHeight = {
 };
 
 function createBaseClientConsensusStates(): ClientConsensusStates {
-  return { clientId: "", consensusStates: [] };
+  return {
+    clientId: "",
+    consensusStates: [],
+  };
 }
 
 export const ClientConsensusStates = {
@@ -239,9 +268,11 @@ export const ClientConsensusStates = {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
+
     for (const v of message.consensusStates) {
       ConsensusStateWithHeight.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -249,20 +280,25 @@ export const ClientConsensusStates = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClientConsensusStates();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientId = reader.string();
           break;
+
         case 2:
           message.consensusStates.push(ConsensusStateWithHeight.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -278,6 +314,7 @@ export const ClientConsensusStates = {
   toJSON(message: ClientConsensusStates): unknown {
     const obj: any = {};
     message.clientId !== undefined && (obj.clientId = message.clientId);
+
     if (message.consensusStates) {
       obj.consensusStates = message.consensusStates.map((e) =>
         e ? ConsensusStateWithHeight.toJSON(e) : undefined,
@@ -285,6 +322,7 @@ export const ClientConsensusStates = {
     } else {
       obj.consensusStates = [];
     }
+
     return obj;
   },
 
@@ -298,7 +336,12 @@ export const ClientConsensusStates = {
 };
 
 function createBaseClientUpdateProposal(): ClientUpdateProposal {
-  return { title: "", description: "", subjectClientId: "", substituteClientId: "" };
+  return {
+    title: "",
+    description: "",
+    subjectClientId: "",
+    substituteClientId: "",
+  };
 }
 
 export const ClientUpdateProposal = {
@@ -306,15 +349,19 @@ export const ClientUpdateProposal = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.subjectClientId !== "") {
       writer.uint32(26).string(message.subjectClientId);
     }
+
     if (message.substituteClientId !== "") {
       writer.uint32(34).string(message.substituteClientId);
     }
+
     return writer;
   },
 
@@ -322,26 +369,33 @@ export const ClientUpdateProposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClientUpdateProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.subjectClientId = reader.string();
           break;
+
         case 4:
           message.substituteClientId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -374,7 +428,12 @@ export const ClientUpdateProposal = {
 };
 
 function createBaseUpgradeProposal(): UpgradeProposal {
-  return { title: "", description: "", plan: undefined, upgradedClientState: undefined };
+  return {
+    title: "",
+    description: "",
+    plan: undefined,
+    upgradedClientState: undefined,
+  };
 }
 
 export const UpgradeProposal = {
@@ -382,15 +441,19 @@ export const UpgradeProposal = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.plan !== undefined) {
       Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.upgradedClientState !== undefined) {
       Any.encode(message.upgradedClientState, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -398,26 +461,33 @@ export const UpgradeProposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpgradeProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.plan = Plan.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.upgradedClientState = Any.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -459,7 +529,10 @@ export const UpgradeProposal = {
 };
 
 function createBaseHeight(): Height {
-  return { revisionNumber: Long.UZERO, revisionHeight: Long.UZERO };
+  return {
+    revisionNumber: Long.UZERO,
+    revisionHeight: Long.UZERO,
+  };
 }
 
 export const Height = {
@@ -467,9 +540,11 @@ export const Height = {
     if (!message.revisionNumber.isZero()) {
       writer.uint32(8).uint64(message.revisionNumber);
     }
+
     if (!message.revisionHeight.isZero()) {
       writer.uint32(16).uint64(message.revisionHeight);
     }
+
     return writer;
   },
 
@@ -477,20 +552,25 @@ export const Height = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHeight();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.revisionNumber = reader.uint64() as Long;
           break;
+
         case 2:
           message.revisionHeight = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -525,7 +605,9 @@ export const Height = {
 };
 
 function createBaseParams(): Params {
-  return { allowedClients: [] };
+  return {
+    allowedClients: [],
+  };
 }
 
 export const Params = {
@@ -533,6 +615,7 @@ export const Params = {
     for (const v of message.allowedClients) {
       writer.uint32(10).string(v!);
     }
+
     return writer;
   },
 
@@ -540,17 +623,21 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.allowedClients.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -564,11 +651,13 @@ export const Params = {
 
   toJSON(message: Params): unknown {
     const obj: any = {};
+
     if (message.allowedClients) {
       obj.allowedClients = message.allowedClients.map((e) => e);
     } else {
       obj.allowedClients = [];
     }
+
     return obj;
   },
 
@@ -578,31 +667,3 @@ export const Params = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

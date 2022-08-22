@@ -1,17 +1,16 @@
-/* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Channel, IdentifiedChannel, PacketState } from "../../../../ibc/core/channel/v1/channel";
-import { Height, IdentifiedClientState } from "../../../../ibc/core/client/v1/client";
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { Channel, IdentifiedChannel, PacketState } from "./channel";
+import { Height, IdentifiedClientState } from "../../client/v1/client";
 import { Any } from "../../../../google/protobuf/any";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "@osmonauts/helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 export interface QueryChannelRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
 }
@@ -23,27 +22,31 @@ export interface QueryChannelRequest {
  */
 export interface QueryChannelResponse {
   /** channel associated with the request identifiers */
-  channel?: Channel;
+  channel: Channel;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
   /** list of stored channels of the chain. */
   channels: IdentifiedChannel[];
+
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -53,8 +56,9 @@ export interface QueryChannelsResponse {
 export interface QueryConnectionChannelsRequest {
   /** connection unique identifier */
   connection: string;
+
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -64,10 +68,12 @@ export interface QueryConnectionChannelsRequest {
 export interface QueryConnectionChannelsResponse {
   /** list of channels associated with a connection. */
   channels: IdentifiedChannel[];
+
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -77,6 +83,7 @@ export interface QueryConnectionChannelsResponse {
 export interface QueryChannelClientStateRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
 }
@@ -87,11 +94,13 @@ export interface QueryChannelClientStateRequest {
  */
 export interface QueryChannelClientStateResponse {
   /** client state associated with the channel */
-  identifiedClientState?: IdentifiedClientState;
+  identifiedClientState: IdentifiedClientState;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -101,10 +110,13 @@ export interface QueryChannelClientStateResponse {
 export interface QueryChannelConsensusStateRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** revision number of the consensus state */
   revisionNumber: Long;
+
   /** revision height of the consensus state */
   revisionHeight: Long;
 }
@@ -115,13 +127,16 @@ export interface QueryChannelConsensusStateRequest {
  */
 export interface QueryChannelConsensusStateResponse {
   /** consensus state associated with the channel */
-  consensusState?: Any;
+  consensusState: Any;
+
   /** client ID associated with the consensus state */
   clientId: string;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -131,8 +146,10 @@ export interface QueryChannelConsensusStateResponse {
 export interface QueryPacketCommitmentRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** packet sequence */
   sequence: Long;
 }
@@ -145,10 +162,12 @@ export interface QueryPacketCommitmentRequest {
 export interface QueryPacketCommitmentResponse {
   /** packet associated with the request fields */
   commitment: Uint8Array;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -158,10 +177,12 @@ export interface QueryPacketCommitmentResponse {
 export interface QueryPacketCommitmentsRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -170,10 +191,12 @@ export interface QueryPacketCommitmentsRequest {
  */
 export interface QueryPacketCommitmentsResponse {
   commitments: PacketState[];
+
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -183,8 +206,10 @@ export interface QueryPacketCommitmentsResponse {
 export interface QueryPacketReceiptRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** packet sequence */
   sequence: Long;
 }
@@ -197,10 +222,12 @@ export interface QueryPacketReceiptRequest {
 export interface QueryPacketReceiptResponse {
   /** success flag for if receipt exists */
   received: boolean;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -210,8 +237,10 @@ export interface QueryPacketReceiptResponse {
 export interface QueryPacketAcknowledgementRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** packet sequence */
   sequence: Long;
 }
@@ -224,10 +253,12 @@ export interface QueryPacketAcknowledgementRequest {
 export interface QueryPacketAcknowledgementResponse {
   /** packet associated with the request fields */
   acknowledgement: Uint8Array;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -237,10 +268,13 @@ export interface QueryPacketAcknowledgementResponse {
 export interface QueryPacketAcknowledgementsRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
+
   /** list of packet sequences */
   packetCommitmentSequences: Long[];
 }
@@ -251,10 +285,12 @@ export interface QueryPacketAcknowledgementsRequest {
  */
 export interface QueryPacketAcknowledgementsResponse {
   acknowledgements: PacketState[];
+
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -264,8 +300,10 @@ export interface QueryPacketAcknowledgementsResponse {
 export interface QueryUnreceivedPacketsRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** list of packet sequences */
   packetCommitmentSequences: Long[];
 }
@@ -277,8 +315,9 @@ export interface QueryUnreceivedPacketsRequest {
 export interface QueryUnreceivedPacketsResponse {
   /** list of unreceived packet sequences */
   sequences: Long[];
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -288,8 +327,10 @@ export interface QueryUnreceivedPacketsResponse {
 export interface QueryUnreceivedAcksRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
+
   /** list of acknowledgement sequences */
   packetAckSequences: Long[];
 }
@@ -301,8 +342,9 @@ export interface QueryUnreceivedAcksRequest {
 export interface QueryUnreceivedAcksResponse {
   /** list of unreceived acknowledgement sequences */
   sequences: Long[];
+
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -312,6 +354,7 @@ export interface QueryUnreceivedAcksResponse {
 export interface QueryNextSequenceReceiveRequest {
   /** port unique identifier */
   portId: string;
+
   /** channel unique identifier */
   channelId: string;
 }
@@ -323,14 +366,19 @@ export interface QueryNextSequenceReceiveRequest {
 export interface QueryNextSequenceReceiveResponse {
   /** next sequence receive number */
   nextSequenceReceive: Long;
+
   /** merkle proof of existence */
   proof: Uint8Array;
+
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 function createBaseQueryChannelRequest(): QueryChannelRequest {
-  return { portId: "", channelId: "" };
+  return {
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const QueryChannelRequest = {
@@ -338,9 +386,11 @@ export const QueryChannelRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -348,20 +398,25 @@ export const QueryChannelRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -388,7 +443,11 @@ export const QueryChannelRequest = {
 };
 
 function createBaseQueryChannelResponse(): QueryChannelResponse {
-  return { channel: undefined, proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    channel: undefined,
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryChannelResponse = {
@@ -396,12 +455,15 @@ export const QueryChannelResponse = {
     if (message.channel !== undefined) {
       Channel.encode(message.channel, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -409,23 +471,29 @@ export const QueryChannelResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.channel = Channel.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.proof = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -464,7 +532,9 @@ export const QueryChannelResponse = {
 };
 
 function createBaseQueryChannelsRequest(): QueryChannelsRequest {
-  return { pagination: undefined };
+  return {
+    pagination: undefined,
+  };
 }
 
 export const QueryChannelsRequest = {
@@ -472,6 +542,7 @@ export const QueryChannelsRequest = {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -479,17 +550,21 @@ export const QueryChannelsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -517,7 +592,11 @@ export const QueryChannelsRequest = {
 };
 
 function createBaseQueryChannelsResponse(): QueryChannelsResponse {
-  return { channels: [], pagination: undefined, height: undefined };
+  return {
+    channels: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryChannelsResponse = {
@@ -525,12 +604,15 @@ export const QueryChannelsResponse = {
     for (const v of message.channels) {
       IdentifiedChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -538,23 +620,29 @@ export const QueryChannelsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.channels.push(IdentifiedChannel.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -570,11 +658,13 @@ export const QueryChannelsResponse = {
 
   toJSON(message: QueryChannelsResponse): unknown {
     const obj: any = {};
+
     if (message.channels) {
       obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toJSON(e) : undefined));
     } else {
       obj.channels = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
@@ -595,7 +685,10 @@ export const QueryChannelsResponse = {
 };
 
 function createBaseQueryConnectionChannelsRequest(): QueryConnectionChannelsRequest {
-  return { connection: "", pagination: undefined };
+  return {
+    connection: "",
+    pagination: undefined,
+  };
 }
 
 export const QueryConnectionChannelsRequest = {
@@ -603,9 +696,11 @@ export const QueryConnectionChannelsRequest = {
     if (message.connection !== "") {
       writer.uint32(10).string(message.connection);
     }
+
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -613,20 +708,25 @@ export const QueryConnectionChannelsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryConnectionChannelsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.connection = reader.string();
           break;
+
         case 2:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -659,7 +759,11 @@ export const QueryConnectionChannelsRequest = {
 };
 
 function createBaseQueryConnectionChannelsResponse(): QueryConnectionChannelsResponse {
-  return { channels: [], pagination: undefined, height: undefined };
+  return {
+    channels: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryConnectionChannelsResponse = {
@@ -667,12 +771,15 @@ export const QueryConnectionChannelsResponse = {
     for (const v of message.channels) {
       IdentifiedChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -680,23 +787,29 @@ export const QueryConnectionChannelsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryConnectionChannelsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.channels.push(IdentifiedChannel.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -712,11 +825,13 @@ export const QueryConnectionChannelsResponse = {
 
   toJSON(message: QueryConnectionChannelsResponse): unknown {
     const obj: any = {};
+
     if (message.channels) {
       obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toJSON(e) : undefined));
     } else {
       obj.channels = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
@@ -739,7 +854,10 @@ export const QueryConnectionChannelsResponse = {
 };
 
 function createBaseQueryChannelClientStateRequest(): QueryChannelClientStateRequest {
-  return { portId: "", channelId: "" };
+  return {
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const QueryChannelClientStateRequest = {
@@ -747,9 +865,11 @@ export const QueryChannelClientStateRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -757,20 +877,25 @@ export const QueryChannelClientStateRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelClientStateRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -799,7 +924,11 @@ export const QueryChannelClientStateRequest = {
 };
 
 function createBaseQueryChannelClientStateResponse(): QueryChannelClientStateResponse {
-  return { identifiedClientState: undefined, proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    identifiedClientState: undefined,
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryChannelClientStateResponse = {
@@ -807,12 +936,15 @@ export const QueryChannelClientStateResponse = {
     if (message.identifiedClientState !== undefined) {
       IdentifiedClientState.encode(message.identifiedClientState, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -820,23 +952,29 @@ export const QueryChannelClientStateResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelClientStateResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.identifiedClientState = IdentifiedClientState.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.proof = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -881,7 +1019,12 @@ export const QueryChannelClientStateResponse = {
 };
 
 function createBaseQueryChannelConsensusStateRequest(): QueryChannelConsensusStateRequest {
-  return { portId: "", channelId: "", revisionNumber: Long.UZERO, revisionHeight: Long.UZERO };
+  return {
+    portId: "",
+    channelId: "",
+    revisionNumber: Long.UZERO,
+    revisionHeight: Long.UZERO,
+  };
 }
 
 export const QueryChannelConsensusStateRequest = {
@@ -889,15 +1032,19 @@ export const QueryChannelConsensusStateRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.revisionNumber.isZero()) {
       writer.uint32(24).uint64(message.revisionNumber);
     }
+
     if (!message.revisionHeight.isZero()) {
       writer.uint32(32).uint64(message.revisionHeight);
     }
+
     return writer;
   },
 
@@ -905,26 +1052,33 @@ export const QueryChannelConsensusStateRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelConsensusStateRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.revisionNumber = reader.uint64() as Long;
           break;
+
         case 4:
           message.revisionHeight = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -967,7 +1121,12 @@ export const QueryChannelConsensusStateRequest = {
 };
 
 function createBaseQueryChannelConsensusStateResponse(): QueryChannelConsensusStateResponse {
-  return { consensusState: undefined, clientId: "", proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    consensusState: undefined,
+    clientId: "",
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryChannelConsensusStateResponse = {
@@ -975,15 +1134,19 @@ export const QueryChannelConsensusStateResponse = {
     if (message.consensusState !== undefined) {
       Any.encode(message.consensusState, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.clientId !== "") {
       writer.uint32(18).string(message.clientId);
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(26).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -991,26 +1154,33 @@ export const QueryChannelConsensusStateResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryChannelConsensusStateResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.consensusState = Any.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.clientId = reader.string();
           break;
+
         case 3:
           message.proof = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1054,7 +1224,11 @@ export const QueryChannelConsensusStateResponse = {
 };
 
 function createBaseQueryPacketCommitmentRequest(): QueryPacketCommitmentRequest {
-  return { portId: "", channelId: "", sequence: Long.UZERO };
+  return {
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketCommitmentRequest = {
@@ -1062,12 +1236,15 @@ export const QueryPacketCommitmentRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
+
     return writer;
   },
 
@@ -1075,23 +1252,29 @@ export const QueryPacketCommitmentRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketCommitmentRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.sequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1126,7 +1309,11 @@ export const QueryPacketCommitmentRequest = {
 };
 
 function createBaseQueryPacketCommitmentResponse(): QueryPacketCommitmentResponse {
-  return { commitment: new Uint8Array(), proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    commitment: new Uint8Array(),
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryPacketCommitmentResponse = {
@@ -1134,12 +1321,15 @@ export const QueryPacketCommitmentResponse = {
     if (message.commitment.length !== 0) {
       writer.uint32(10).bytes(message.commitment);
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1147,23 +1337,29 @@ export const QueryPacketCommitmentResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketCommitmentResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.commitment = reader.bytes();
           break;
+
         case 2:
           message.proof = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1203,7 +1399,11 @@ export const QueryPacketCommitmentResponse = {
 };
 
 function createBaseQueryPacketCommitmentsRequest(): QueryPacketCommitmentsRequest {
-  return { portId: "", channelId: "", pagination: undefined };
+  return {
+    portId: "",
+    channelId: "",
+    pagination: undefined,
+  };
 }
 
 export const QueryPacketCommitmentsRequest = {
@@ -1211,12 +1411,15 @@ export const QueryPacketCommitmentsRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1224,23 +1427,29 @@ export const QueryPacketCommitmentsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketCommitmentsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1276,7 +1485,11 @@ export const QueryPacketCommitmentsRequest = {
 };
 
 function createBaseQueryPacketCommitmentsResponse(): QueryPacketCommitmentsResponse {
-  return { commitments: [], pagination: undefined, height: undefined };
+  return {
+    commitments: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryPacketCommitmentsResponse = {
@@ -1284,12 +1497,15 @@ export const QueryPacketCommitmentsResponse = {
     for (const v of message.commitments) {
       PacketState.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1297,23 +1513,29 @@ export const QueryPacketCommitmentsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketCommitmentsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.commitments.push(PacketState.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1329,11 +1551,13 @@ export const QueryPacketCommitmentsResponse = {
 
   toJSON(message: QueryPacketCommitmentsResponse): unknown {
     const obj: any = {};
+
     if (message.commitments) {
       obj.commitments = message.commitments.map((e) => (e ? PacketState.toJSON(e) : undefined));
     } else {
       obj.commitments = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
@@ -1356,7 +1580,11 @@ export const QueryPacketCommitmentsResponse = {
 };
 
 function createBaseQueryPacketReceiptRequest(): QueryPacketReceiptRequest {
-  return { portId: "", channelId: "", sequence: Long.UZERO };
+  return {
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketReceiptRequest = {
@@ -1364,12 +1592,15 @@ export const QueryPacketReceiptRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
+
     return writer;
   },
 
@@ -1377,23 +1608,29 @@ export const QueryPacketReceiptRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketReceiptRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.sequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1428,7 +1665,11 @@ export const QueryPacketReceiptRequest = {
 };
 
 function createBaseQueryPacketReceiptResponse(): QueryPacketReceiptResponse {
-  return { received: false, proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    received: false,
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryPacketReceiptResponse = {
@@ -1436,12 +1677,15 @@ export const QueryPacketReceiptResponse = {
     if (message.received === true) {
       writer.uint32(16).bool(message.received);
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(26).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1449,23 +1693,29 @@ export const QueryPacketReceiptResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketReceiptResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 2:
           message.received = reader.bool();
           break;
+
         case 3:
           message.proof = reader.bytes();
           break;
+
         case 4:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1502,7 +1752,11 @@ export const QueryPacketReceiptResponse = {
 };
 
 function createBaseQueryPacketAcknowledgementRequest(): QueryPacketAcknowledgementRequest {
-  return { portId: "", channelId: "", sequence: Long.UZERO };
+  return {
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
+  };
 }
 
 export const QueryPacketAcknowledgementRequest = {
@@ -1510,12 +1764,15 @@ export const QueryPacketAcknowledgementRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
+
     return writer;
   },
 
@@ -1523,23 +1780,29 @@ export const QueryPacketAcknowledgementRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketAcknowledgementRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.sequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1574,7 +1837,11 @@ export const QueryPacketAcknowledgementRequest = {
 };
 
 function createBaseQueryPacketAcknowledgementResponse(): QueryPacketAcknowledgementResponse {
-  return { acknowledgement: new Uint8Array(), proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    acknowledgement: new Uint8Array(),
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryPacketAcknowledgementResponse = {
@@ -1582,12 +1849,15 @@ export const QueryPacketAcknowledgementResponse = {
     if (message.acknowledgement.length !== 0) {
       writer.uint32(10).bytes(message.acknowledgement);
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1595,23 +1865,29 @@ export const QueryPacketAcknowledgementResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketAcknowledgementResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.acknowledgement = reader.bytes();
           break;
+
         case 2:
           message.proof = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1653,7 +1929,12 @@ export const QueryPacketAcknowledgementResponse = {
 };
 
 function createBaseQueryPacketAcknowledgementsRequest(): QueryPacketAcknowledgementsRequest {
-  return { portId: "", channelId: "", pagination: undefined, packetCommitmentSequences: [] };
+  return {
+    portId: "",
+    channelId: "",
+    pagination: undefined,
+    packetCommitmentSequences: [],
+  };
 }
 
 export const QueryPacketAcknowledgementsRequest = {
@@ -1661,16 +1942,21 @@ export const QueryPacketAcknowledgementsRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
+
     writer.uint32(34).fork();
+
     for (const v of message.packetCommitmentSequences) {
       writer.uint64(v);
     }
+
     writer.ldelim();
     return writer;
   },
@@ -1679,33 +1965,42 @@ export const QueryPacketAcknowledgementsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketAcknowledgementsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         case 4:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.packetCommitmentSequences.push(reader.uint64() as Long);
             }
           } else {
             message.packetCommitmentSequences.push(reader.uint64() as Long);
           }
+
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1726,6 +2021,7 @@ export const QueryPacketAcknowledgementsRequest = {
     message.channelId !== undefined && (obj.channelId = message.channelId);
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+
     if (message.packetCommitmentSequences) {
       obj.packetCommitmentSequences = message.packetCommitmentSequences.map((e) =>
         (e || Long.UZERO).toString(),
@@ -1733,6 +2029,7 @@ export const QueryPacketAcknowledgementsRequest = {
     } else {
       obj.packetCommitmentSequences = [];
     }
+
     return obj;
   },
 
@@ -1752,7 +2049,11 @@ export const QueryPacketAcknowledgementsRequest = {
 };
 
 function createBaseQueryPacketAcknowledgementsResponse(): QueryPacketAcknowledgementsResponse {
-  return { acknowledgements: [], pagination: undefined, height: undefined };
+  return {
+    acknowledgements: [],
+    pagination: undefined,
+    height: undefined,
+  };
 }
 
 export const QueryPacketAcknowledgementsResponse = {
@@ -1760,12 +2061,15 @@ export const QueryPacketAcknowledgementsResponse = {
     for (const v of message.acknowledgements) {
       PacketState.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1773,23 +2077,29 @@ export const QueryPacketAcknowledgementsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPacketAcknowledgementsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.acknowledgements.push(PacketState.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1805,11 +2115,13 @@ export const QueryPacketAcknowledgementsResponse = {
 
   toJSON(message: QueryPacketAcknowledgementsResponse): unknown {
     const obj: any = {};
+
     if (message.acknowledgements) {
       obj.acknowledgements = message.acknowledgements.map((e) => (e ? PacketState.toJSON(e) : undefined));
     } else {
       obj.acknowledgements = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
@@ -1832,7 +2144,11 @@ export const QueryPacketAcknowledgementsResponse = {
 };
 
 function createBaseQueryUnreceivedPacketsRequest(): QueryUnreceivedPacketsRequest {
-  return { portId: "", channelId: "", packetCommitmentSequences: [] };
+  return {
+    portId: "",
+    channelId: "",
+    packetCommitmentSequences: [],
+  };
 }
 
 export const QueryUnreceivedPacketsRequest = {
@@ -1840,13 +2156,17 @@ export const QueryUnreceivedPacketsRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     writer.uint32(26).fork();
+
     for (const v of message.packetCommitmentSequences) {
       writer.uint64(v);
     }
+
     writer.ldelim();
     return writer;
   },
@@ -1855,30 +2175,38 @@ export const QueryUnreceivedPacketsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUnreceivedPacketsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.packetCommitmentSequences.push(reader.uint64() as Long);
             }
           } else {
             message.packetCommitmentSequences.push(reader.uint64() as Long);
           }
+
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1896,6 +2224,7 @@ export const QueryUnreceivedPacketsRequest = {
     const obj: any = {};
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
+
     if (message.packetCommitmentSequences) {
       obj.packetCommitmentSequences = message.packetCommitmentSequences.map((e) =>
         (e || Long.UZERO).toString(),
@@ -1903,6 +2232,7 @@ export const QueryUnreceivedPacketsRequest = {
     } else {
       obj.packetCommitmentSequences = [];
     }
+
     return obj;
   },
 
@@ -1918,19 +2248,26 @@ export const QueryUnreceivedPacketsRequest = {
 };
 
 function createBaseQueryUnreceivedPacketsResponse(): QueryUnreceivedPacketsResponse {
-  return { sequences: [], height: undefined };
+  return {
+    sequences: [],
+    height: undefined,
+  };
 }
 
 export const QueryUnreceivedPacketsResponse = {
   encode(message: QueryUnreceivedPacketsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
+
     for (const v of message.sequences) {
       writer.uint64(v);
     }
+
     writer.ldelim();
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1938,27 +2275,34 @@ export const QueryUnreceivedPacketsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUnreceivedPacketsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.sequences.push(reader.uint64() as Long);
             }
           } else {
             message.sequences.push(reader.uint64() as Long);
           }
+
           break;
+
         case 2:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1971,11 +2315,13 @@ export const QueryUnreceivedPacketsResponse = {
 
   toJSON(message: QueryUnreceivedPacketsResponse): unknown {
     const obj: any = {};
+
     if (message.sequences) {
       obj.sequences = message.sequences.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.sequences = [];
     }
+
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
     return obj;
   },
@@ -1992,7 +2338,11 @@ export const QueryUnreceivedPacketsResponse = {
 };
 
 function createBaseQueryUnreceivedAcksRequest(): QueryUnreceivedAcksRequest {
-  return { portId: "", channelId: "", packetAckSequences: [] };
+  return {
+    portId: "",
+    channelId: "",
+    packetAckSequences: [],
+  };
 }
 
 export const QueryUnreceivedAcksRequest = {
@@ -2000,13 +2350,17 @@ export const QueryUnreceivedAcksRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     writer.uint32(26).fork();
+
     for (const v of message.packetAckSequences) {
       writer.uint64(v);
     }
+
     writer.ldelim();
     return writer;
   },
@@ -2015,30 +2369,38 @@ export const QueryUnreceivedAcksRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUnreceivedAcksRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.packetAckSequences.push(reader.uint64() as Long);
             }
           } else {
             message.packetAckSequences.push(reader.uint64() as Long);
           }
+
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2056,11 +2418,13 @@ export const QueryUnreceivedAcksRequest = {
     const obj: any = {};
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
+
     if (message.packetAckSequences) {
       obj.packetAckSequences = message.packetAckSequences.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.packetAckSequences = [];
     }
+
     return obj;
   },
 
@@ -2076,19 +2440,26 @@ export const QueryUnreceivedAcksRequest = {
 };
 
 function createBaseQueryUnreceivedAcksResponse(): QueryUnreceivedAcksResponse {
-  return { sequences: [], height: undefined };
+  return {
+    sequences: [],
+    height: undefined,
+  };
 }
 
 export const QueryUnreceivedAcksResponse = {
   encode(message: QueryUnreceivedAcksResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
+
     for (const v of message.sequences) {
       writer.uint64(v);
     }
+
     writer.ldelim();
+
     if (message.height !== undefined) {
       Height.encode(message.height, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -2096,27 +2467,34 @@ export const QueryUnreceivedAcksResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryUnreceivedAcksResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
+
             while (reader.pos < end2) {
               message.sequences.push(reader.uint64() as Long);
             }
           } else {
             message.sequences.push(reader.uint64() as Long);
           }
+
           break;
+
         case 2:
           message.height = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2129,11 +2507,13 @@ export const QueryUnreceivedAcksResponse = {
 
   toJSON(message: QueryUnreceivedAcksResponse): unknown {
     const obj: any = {};
+
     if (message.sequences) {
       obj.sequences = message.sequences.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.sequences = [];
     }
+
     message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
     return obj;
   },
@@ -2150,7 +2530,10 @@ export const QueryUnreceivedAcksResponse = {
 };
 
 function createBaseQueryNextSequenceReceiveRequest(): QueryNextSequenceReceiveRequest {
-  return { portId: "", channelId: "" };
+  return {
+    portId: "",
+    channelId: "",
+  };
 }
 
 export const QueryNextSequenceReceiveRequest = {
@@ -2158,9 +2541,11 @@ export const QueryNextSequenceReceiveRequest = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -2168,20 +2553,25 @@ export const QueryNextSequenceReceiveRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryNextSequenceReceiveRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2210,7 +2600,11 @@ export const QueryNextSequenceReceiveRequest = {
 };
 
 function createBaseQueryNextSequenceReceiveResponse(): QueryNextSequenceReceiveResponse {
-  return { nextSequenceReceive: Long.UZERO, proof: new Uint8Array(), proofHeight: undefined };
+  return {
+    nextSequenceReceive: Long.UZERO,
+    proof: new Uint8Array(),
+    proofHeight: undefined,
+  };
 }
 
 export const QueryNextSequenceReceiveResponse = {
@@ -2218,12 +2612,15 @@ export const QueryNextSequenceReceiveResponse = {
     if (!message.nextSequenceReceive.isZero()) {
       writer.uint32(8).uint64(message.nextSequenceReceive);
     }
+
     if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
+
     if (message.proofHeight !== undefined) {
       Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -2231,23 +2628,29 @@ export const QueryNextSequenceReceiveResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryNextSequenceReceiveResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.nextSequenceReceive = reader.uint64() as Long;
           break;
+
         case 2:
           message.proof = reader.bytes();
           break;
+
         case 3:
           message.proofHeight = Height.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -2288,230 +2691,3 @@ export const QueryNextSequenceReceiveResponse = {
     return message;
   },
 };
-
-/** Query provides defines the gRPC querier service */
-export interface Query {
-  /** Channel queries an IBC Channel. */
-  Channel(request: QueryChannelRequest): Promise<QueryChannelResponse>;
-  /** Channels queries all the IBC channels of a chain. */
-  Channels(request: QueryChannelsRequest): Promise<QueryChannelsResponse>;
-  /**
-   * ConnectionChannels queries all the channels associated with a connection
-   * end.
-   */
-  ConnectionChannels(request: QueryConnectionChannelsRequest): Promise<QueryConnectionChannelsResponse>;
-  /**
-   * ChannelClientState queries for the client state for the channel associated
-   * with the provided channel identifiers.
-   */
-  ChannelClientState(request: QueryChannelClientStateRequest): Promise<QueryChannelClientStateResponse>;
-  /**
-   * ChannelConsensusState queries for the consensus state for the channel
-   * associated with the provided channel identifiers.
-   */
-  ChannelConsensusState(
-    request: QueryChannelConsensusStateRequest,
-  ): Promise<QueryChannelConsensusStateResponse>;
-  /** PacketCommitment queries a stored packet commitment hash. */
-  PacketCommitment(request: QueryPacketCommitmentRequest): Promise<QueryPacketCommitmentResponse>;
-  /**
-   * PacketCommitments returns all the packet commitments hashes associated
-   * with a channel.
-   */
-  PacketCommitments(request: QueryPacketCommitmentsRequest): Promise<QueryPacketCommitmentsResponse>;
-  /**
-   * PacketReceipt queries if a given packet sequence has been received on the
-   * queried chain
-   */
-  PacketReceipt(request: QueryPacketReceiptRequest): Promise<QueryPacketReceiptResponse>;
-  /** PacketAcknowledgement queries a stored packet acknowledgement hash. */
-  PacketAcknowledgement(
-    request: QueryPacketAcknowledgementRequest,
-  ): Promise<QueryPacketAcknowledgementResponse>;
-  /**
-   * PacketAcknowledgements returns all the packet acknowledgements associated
-   * with a channel.
-   */
-  PacketAcknowledgements(
-    request: QueryPacketAcknowledgementsRequest,
-  ): Promise<QueryPacketAcknowledgementsResponse>;
-  /**
-   * UnreceivedPackets returns all the unreceived IBC packets associated with a
-   * channel and sequences.
-   */
-  UnreceivedPackets(request: QueryUnreceivedPacketsRequest): Promise<QueryUnreceivedPacketsResponse>;
-  /**
-   * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
-   * with a channel and sequences.
-   */
-  UnreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse>;
-  /** NextSequenceReceive returns the next receive sequence for a given channel. */
-  NextSequenceReceive(request: QueryNextSequenceReceiveRequest): Promise<QueryNextSequenceReceiveResponse>;
-}
-
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Channel = this.Channel.bind(this);
-    this.Channels = this.Channels.bind(this);
-    this.ConnectionChannels = this.ConnectionChannels.bind(this);
-    this.ChannelClientState = this.ChannelClientState.bind(this);
-    this.ChannelConsensusState = this.ChannelConsensusState.bind(this);
-    this.PacketCommitment = this.PacketCommitment.bind(this);
-    this.PacketCommitments = this.PacketCommitments.bind(this);
-    this.PacketReceipt = this.PacketReceipt.bind(this);
-    this.PacketAcknowledgement = this.PacketAcknowledgement.bind(this);
-    this.PacketAcknowledgements = this.PacketAcknowledgements.bind(this);
-    this.UnreceivedPackets = this.UnreceivedPackets.bind(this);
-    this.UnreceivedAcks = this.UnreceivedAcks.bind(this);
-    this.NextSequenceReceive = this.NextSequenceReceive.bind(this);
-  }
-  Channel(request: QueryChannelRequest): Promise<QueryChannelResponse> {
-    const data = QueryChannelRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "Channel", data);
-    return promise.then((data) => QueryChannelResponse.decode(new _m0.Reader(data)));
-  }
-
-  Channels(request: QueryChannelsRequest): Promise<QueryChannelsResponse> {
-    const data = QueryChannelsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "Channels", data);
-    return promise.then((data) => QueryChannelsResponse.decode(new _m0.Reader(data)));
-  }
-
-  ConnectionChannels(request: QueryConnectionChannelsRequest): Promise<QueryConnectionChannelsResponse> {
-    const data = QueryConnectionChannelsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "ConnectionChannels", data);
-    return promise.then((data) => QueryConnectionChannelsResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelClientState(request: QueryChannelClientStateRequest): Promise<QueryChannelClientStateResponse> {
-    const data = QueryChannelClientStateRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "ChannelClientState", data);
-    return promise.then((data) => QueryChannelClientStateResponse.decode(new _m0.Reader(data)));
-  }
-
-  ChannelConsensusState(
-    request: QueryChannelConsensusStateRequest,
-  ): Promise<QueryChannelConsensusStateResponse> {
-    const data = QueryChannelConsensusStateRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "ChannelConsensusState", data);
-    return promise.then((data) => QueryChannelConsensusStateResponse.decode(new _m0.Reader(data)));
-  }
-
-  PacketCommitment(request: QueryPacketCommitmentRequest): Promise<QueryPacketCommitmentResponse> {
-    const data = QueryPacketCommitmentRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "PacketCommitment", data);
-    return promise.then((data) => QueryPacketCommitmentResponse.decode(new _m0.Reader(data)));
-  }
-
-  PacketCommitments(request: QueryPacketCommitmentsRequest): Promise<QueryPacketCommitmentsResponse> {
-    const data = QueryPacketCommitmentsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "PacketCommitments", data);
-    return promise.then((data) => QueryPacketCommitmentsResponse.decode(new _m0.Reader(data)));
-  }
-
-  PacketReceipt(request: QueryPacketReceiptRequest): Promise<QueryPacketReceiptResponse> {
-    const data = QueryPacketReceiptRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "PacketReceipt", data);
-    return promise.then((data) => QueryPacketReceiptResponse.decode(new _m0.Reader(data)));
-  }
-
-  PacketAcknowledgement(
-    request: QueryPacketAcknowledgementRequest,
-  ): Promise<QueryPacketAcknowledgementResponse> {
-    const data = QueryPacketAcknowledgementRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "PacketAcknowledgement", data);
-    return promise.then((data) => QueryPacketAcknowledgementResponse.decode(new _m0.Reader(data)));
-  }
-
-  PacketAcknowledgements(
-    request: QueryPacketAcknowledgementsRequest,
-  ): Promise<QueryPacketAcknowledgementsResponse> {
-    const data = QueryPacketAcknowledgementsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "PacketAcknowledgements", data);
-    return promise.then((data) => QueryPacketAcknowledgementsResponse.decode(new _m0.Reader(data)));
-  }
-
-  UnreceivedPackets(request: QueryUnreceivedPacketsRequest): Promise<QueryUnreceivedPacketsResponse> {
-    const data = QueryUnreceivedPacketsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "UnreceivedPackets", data);
-    return promise.then((data) => QueryUnreceivedPacketsResponse.decode(new _m0.Reader(data)));
-  }
-
-  UnreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse> {
-    const data = QueryUnreceivedAcksRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "UnreceivedAcks", data);
-    return promise.then((data) => QueryUnreceivedAcksResponse.decode(new _m0.Reader(data)));
-  }
-
-  NextSequenceReceive(request: QueryNextSequenceReceiveRequest): Promise<QueryNextSequenceReceiveResponse> {
-    const data = QueryNextSequenceReceiveRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.core.channel.v1.Query", "NextSequenceReceive", data);
-    return promise.then((data) => QueryNextSequenceReceiveResponse.decode(new _m0.Reader(data)));
-  }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

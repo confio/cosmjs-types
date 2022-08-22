@@ -1,8 +1,6 @@
-/* eslint-disable */
-import Long from "long";
+import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-
+import { isSet, DeepPartial, Exact } from "@osmonauts/helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
 
 /** Params defines the parameters for the bank module. */
@@ -36,9 +34,9 @@ export interface Output {
  * Supply represents a struct that passively keeps track of the total supply
  * amounts in the network.
  * This message is deprecated now that supply is indexed by denom.
- *
- * @deprecated
  */
+
+/** @deprecated */
 export interface Supply {
   total: Coin[];
 }
@@ -50,6 +48,7 @@ export interface Supply {
 export interface DenomUnit {
   /** denom represents the string name of the given denom unit (e.g uatom). */
   denom: string;
+
   /**
    * exponent represents power of 10 exponent that one must
    * raise the base_denom to in order to equal the given DenomUnit's denom
@@ -58,6 +57,7 @@ export interface DenomUnit {
    * exponent = 6, thus: 1 atom = 10^6 uatom).
    */
   exponent: number;
+
   /** aliases is a list of string aliases for the given denom */
   aliases: string[];
 }
@@ -68,21 +68,26 @@ export interface DenomUnit {
  */
 export interface Metadata {
   description: string;
+
   /** denom_units represents the list of DenomUnit's for a given coin */
   denomUnits: DenomUnit[];
+
   /** base represents the base denom (should be the DenomUnit with exponent = 0). */
   base: string;
+
   /**
    * display indicates the suggested denom that should be
    * displayed in clients.
    */
   display: string;
+
   /**
    * name defines the name of the token (eg: Cosmos Atom)
    *
    * Since: cosmos-sdk 0.43
    */
   name: string;
+
   /**
    * symbol is the token symbol usually shown on exchanges (eg: ATOM). This can
    * be the same as the display.
@@ -93,7 +98,10 @@ export interface Metadata {
 }
 
 function createBaseParams(): Params {
-  return { sendEnabled: [], defaultSendEnabled: false };
+  return {
+    sendEnabled: [],
+    defaultSendEnabled: false,
+  };
 }
 
 export const Params = {
@@ -101,9 +109,11 @@ export const Params = {
     for (const v of message.sendEnabled) {
       SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.defaultSendEnabled === true) {
       writer.uint32(16).bool(message.defaultSendEnabled);
     }
+
     return writer;
   },
 
@@ -111,20 +121,25 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.defaultSendEnabled = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -139,11 +154,13 @@ export const Params = {
 
   toJSON(message: Params): unknown {
     const obj: any = {};
+
     if (message.sendEnabled) {
       obj.sendEnabled = message.sendEnabled.map((e) => (e ? SendEnabled.toJSON(e) : undefined));
     } else {
       obj.sendEnabled = [];
     }
+
     message.defaultSendEnabled !== undefined && (obj.defaultSendEnabled = message.defaultSendEnabled);
     return obj;
   },
@@ -157,7 +174,10 @@ export const Params = {
 };
 
 function createBaseSendEnabled(): SendEnabled {
-  return { denom: "", enabled: false };
+  return {
+    denom: "",
+    enabled: false,
+  };
 }
 
 export const SendEnabled = {
@@ -165,9 +185,11 @@ export const SendEnabled = {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
+
     if (message.enabled === true) {
       writer.uint32(16).bool(message.enabled);
     }
+
     return writer;
   },
 
@@ -175,20 +197,25 @@ export const SendEnabled = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendEnabled();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denom = reader.string();
           break;
+
         case 2:
           message.enabled = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -215,7 +242,10 @@ export const SendEnabled = {
 };
 
 function createBaseInput(): Input {
-  return { address: "", coins: [] };
+  return {
+    address: "",
+    coins: [],
+  };
 }
 
 export const Input = {
@@ -223,9 +253,11 @@ export const Input = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     for (const v of message.coins) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -233,20 +265,25 @@ export const Input = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInput();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         case 2:
           message.coins.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -260,11 +297,13 @@ export const Input = {
   toJSON(message: Input): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
+
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.coins = [];
     }
+
     return obj;
   },
 
@@ -277,7 +316,10 @@ export const Input = {
 };
 
 function createBaseOutput(): Output {
-  return { address: "", coins: [] };
+  return {
+    address: "",
+    coins: [],
+  };
 }
 
 export const Output = {
@@ -285,9 +327,11 @@ export const Output = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     for (const v of message.coins) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -295,20 +339,25 @@ export const Output = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOutput();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         case 2:
           message.coins.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -322,11 +371,13 @@ export const Output = {
   toJSON(message: Output): unknown {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
+
     if (message.coins) {
       obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.coins = [];
     }
+
     return obj;
   },
 
@@ -339,7 +390,9 @@ export const Output = {
 };
 
 function createBaseSupply(): Supply {
-  return { total: [] };
+  return {
+    total: [],
+  };
 }
 
 export const Supply = {
@@ -347,6 +400,7 @@ export const Supply = {
     for (const v of message.total) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -354,17 +408,21 @@ export const Supply = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSupply();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.total.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -376,11 +434,13 @@ export const Supply = {
 
   toJSON(message: Supply): unknown {
     const obj: any = {};
+
     if (message.total) {
       obj.total = message.total.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.total = [];
     }
+
     return obj;
   },
 
@@ -392,7 +452,11 @@ export const Supply = {
 };
 
 function createBaseDenomUnit(): DenomUnit {
-  return { denom: "", exponent: 0, aliases: [] };
+  return {
+    denom: "",
+    exponent: 0,
+    aliases: [],
+  };
 }
 
 export const DenomUnit = {
@@ -400,12 +464,15 @@ export const DenomUnit = {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
+
     if (message.exponent !== 0) {
       writer.uint32(16).uint32(message.exponent);
     }
+
     for (const v of message.aliases) {
       writer.uint32(26).string(v!);
     }
+
     return writer;
   },
 
@@ -413,23 +480,29 @@ export const DenomUnit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDenomUnit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denom = reader.string();
           break;
+
         case 2:
           message.exponent = reader.uint32();
           break;
+
         case 3:
           message.aliases.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -445,11 +518,13 @@ export const DenomUnit = {
     const obj: any = {};
     message.denom !== undefined && (obj.denom = message.denom);
     message.exponent !== undefined && (obj.exponent = Math.round(message.exponent));
+
     if (message.aliases) {
       obj.aliases = message.aliases.map((e) => e);
     } else {
       obj.aliases = [];
     }
+
     return obj;
   },
 
@@ -463,7 +538,14 @@ export const DenomUnit = {
 };
 
 function createBaseMetadata(): Metadata {
-  return { description: "", denomUnits: [], base: "", display: "", name: "", symbol: "" };
+  return {
+    description: "",
+    denomUnits: [],
+    base: "",
+    display: "",
+    name: "",
+    symbol: "",
+  };
 }
 
 export const Metadata = {
@@ -471,21 +553,27 @@ export const Metadata = {
     if (message.description !== "") {
       writer.uint32(10).string(message.description);
     }
+
     for (const v of message.denomUnits) {
       DenomUnit.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.base !== "") {
       writer.uint32(26).string(message.base);
     }
+
     if (message.display !== "") {
       writer.uint32(34).string(message.display);
     }
+
     if (message.name !== "") {
       writer.uint32(42).string(message.name);
     }
+
     if (message.symbol !== "") {
       writer.uint32(50).string(message.symbol);
     }
+
     return writer;
   },
 
@@ -493,32 +581,41 @@ export const Metadata = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMetadata();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.description = reader.string();
           break;
+
         case 2:
           message.denomUnits.push(DenomUnit.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.base = reader.string();
           break;
+
         case 4:
           message.display = reader.string();
           break;
+
         case 5:
           message.name = reader.string();
           break;
+
         case 6:
           message.symbol = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -538,11 +635,13 @@ export const Metadata = {
   toJSON(message: Metadata): unknown {
     const obj: any = {};
     message.description !== undefined && (obj.description = message.description);
+
     if (message.denomUnits) {
       obj.denomUnits = message.denomUnits.map((e) => (e ? DenomUnit.toJSON(e) : undefined));
     } else {
       obj.denomUnits = [];
     }
+
     message.base !== undefined && (obj.base = message.base);
     message.display !== undefined && (obj.display = message.display);
     message.name !== undefined && (obj.name = message.name);
@@ -561,31 +660,3 @@ export const Metadata = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
