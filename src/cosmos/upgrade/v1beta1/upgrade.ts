@@ -15,7 +15,7 @@ export interface Plan {
    * assumed that the software is out-of-date when the upgrade Time or Height is
    * reached and the software will exit.
    */
-  name?: string;
+  name: string;
 
   /**
    * Deprecated: Time based upgrades have been deprecated. Time based upgrade logic
@@ -24,19 +24,19 @@ export interface Plan {
    */
 
   /** @deprecated */
-  time?: Timestamp;
+  time: Timestamp;
 
   /**
    * The height at which the upgrade must be performed.
    * Only used if Time is not set.
    */
-  height?: Long;
+  height: Long;
 
   /**
    * Any application specific upgrade info to be included on-chain
    * such as a git commit that validators could automatically upgrade to
    */
-  info?: string;
+  info: string;
 
   /**
    * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
@@ -45,7 +45,7 @@ export interface Plan {
    */
 
   /** @deprecated */
-  upgradedClientState?: Any;
+  upgradedClientState: Any;
 }
 
 /**
@@ -53,9 +53,9 @@ export interface Plan {
  * upgrade.
  */
 export interface SoftwareUpgradeProposal {
-  title?: string;
-  description?: string;
-  plan?: Plan;
+  title: string;
+  description: string;
+  plan: Plan;
 }
 
 /**
@@ -63,8 +63,8 @@ export interface SoftwareUpgradeProposal {
  * upgrade.
  */
 export interface CancelSoftwareUpgradeProposal {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
 }
 
 /**
@@ -74,25 +74,25 @@ export interface CancelSoftwareUpgradeProposal {
  */
 export interface ModuleVersion {
   /** name of the app module */
-  name?: string;
+  name: string;
 
   /** consensus version of the app module */
-  version?: Long;
+  version: Long;
 }
 
 function createBasePlan(): Plan {
   return {
-    name: undefined,
+    name: "",
     time: undefined,
-    height: undefined,
-    info: undefined,
+    height: Long.ZERO,
+    info: "",
     upgradedClientState: undefined,
   };
 }
 
 export const Plan = {
   encode(message: Plan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== undefined) {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
 
@@ -100,11 +100,11 @@ export const Plan = {
       Timestamp.encode(message.time, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.height !== undefined) {
+    if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
 
-    if (message.info !== undefined) {
+    if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
 
@@ -155,10 +155,10 @@ export const Plan = {
 
   fromJSON(object: any): Plan {
     return {
-      name: isSet(object.name) ? String(object.name) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      height: isSet(object.height) ? Long.fromString(object.height) : undefined,
-      info: isSet(object.info) ? String(object.info) : undefined,
+      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      info: isSet(object.info) ? String(object.info) : "",
       upgradedClientState: isSet(object.upgradedClientState)
         ? Any.fromJSON(object.upgradedClientState)
         : undefined,
@@ -169,7 +169,7 @@ export const Plan = {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     message.time !== undefined && (obj.time = fromTimestamp(message.time).toISOString());
-    message.height !== undefined && (obj.height = (message.height || undefined).toString());
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
     message.info !== undefined && (obj.info = message.info);
     message.upgradedClientState !== undefined &&
       (obj.upgradedClientState = message.upgradedClientState
@@ -180,12 +180,12 @@ export const Plan = {
 
   fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
     const message = createBasePlan();
-    message.name = object.name ?? undefined;
+    message.name = object.name ?? "";
     message.time =
       object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
     message.height =
-      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : undefined;
-    message.info = object.info ?? undefined;
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.info = object.info ?? "";
     message.upgradedClientState =
       object.upgradedClientState !== undefined && object.upgradedClientState !== null
         ? Any.fromPartial(object.upgradedClientState)
@@ -196,19 +196,19 @@ export const Plan = {
 
 function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   return {
-    title: undefined,
-    description: undefined,
+    title: "",
+    description: "",
     plan: undefined,
   };
 }
 
 export const SoftwareUpgradeProposal = {
   encode(message: SoftwareUpgradeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.title !== undefined) {
+    if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
 
-    if (message.description !== undefined) {
+    if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
 
@@ -251,8 +251,8 @@ export const SoftwareUpgradeProposal = {
 
   fromJSON(object: any): SoftwareUpgradeProposal {
     return {
-      title: isSet(object.title) ? String(object.title) : undefined,
-      description: isSet(object.description) ? String(object.description) : undefined,
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
       plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
     };
   },
@@ -267,8 +267,8 @@ export const SoftwareUpgradeProposal = {
 
   fromPartial<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(object: I): SoftwareUpgradeProposal {
     const message = createBaseSoftwareUpgradeProposal();
-    message.title = object.title ?? undefined;
-    message.description = object.description ?? undefined;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     message.plan =
       object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
     return message;
@@ -277,18 +277,18 @@ export const SoftwareUpgradeProposal = {
 
 function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposal {
   return {
-    title: undefined,
-    description: undefined,
+    title: "",
+    description: "",
   };
 }
 
 export const CancelSoftwareUpgradeProposal = {
   encode(message: CancelSoftwareUpgradeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.title !== undefined) {
+    if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
 
-    if (message.description !== undefined) {
+    if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
 
@@ -323,8 +323,8 @@ export const CancelSoftwareUpgradeProposal = {
 
   fromJSON(object: any): CancelSoftwareUpgradeProposal {
     return {
-      title: isSet(object.title) ? String(object.title) : undefined,
-      description: isSet(object.description) ? String(object.description) : undefined,
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
     };
   },
 
@@ -339,26 +339,26 @@ export const CancelSoftwareUpgradeProposal = {
     object: I,
   ): CancelSoftwareUpgradeProposal {
     const message = createBaseCancelSoftwareUpgradeProposal();
-    message.title = object.title ?? undefined;
-    message.description = object.description ?? undefined;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     return message;
   },
 };
 
 function createBaseModuleVersion(): ModuleVersion {
   return {
-    name: undefined,
-    version: undefined,
+    name: "",
+    version: Long.UZERO,
   };
 }
 
 export const ModuleVersion = {
   encode(message: ModuleVersion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== undefined) {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
 
-    if (message.version !== undefined) {
+    if (!message.version.isZero()) {
       writer.uint32(16).uint64(message.version);
     }
 
@@ -393,23 +393,23 @@ export const ModuleVersion = {
 
   fromJSON(object: any): ModuleVersion {
     return {
-      name: isSet(object.name) ? String(object.name) : undefined,
-      version: isSet(object.version) ? Long.fromString(object.version) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
+      version: isSet(object.version) ? Long.fromString(object.version) : Long.UZERO,
     };
   },
 
   toJSON(message: ModuleVersion): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
-    message.version !== undefined && (obj.version = (message.version || undefined).toString());
+    message.version !== undefined && (obj.version = (message.version || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ModuleVersion>, I>>(object: I): ModuleVersion {
     const message = createBaseModuleVersion();
-    message.name = object.name ?? undefined;
+    message.name = object.name ?? "";
     message.version =
-      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : undefined;
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.UZERO;
     return message;
   },
 };

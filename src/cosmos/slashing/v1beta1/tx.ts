@@ -4,7 +4,7 @@ export const protobufPackage = "cosmos.slashing.v1beta1";
 
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjail {
-  validatorAddr?: string;
+  validatorAddr: string;
 }
 
 /** MsgUnjailResponse defines the Msg/Unjail response type */
@@ -12,13 +12,13 @@ export interface MsgUnjailResponse {}
 
 function createBaseMsgUnjail(): MsgUnjail {
   return {
-    validatorAddr: undefined,
+    validatorAddr: "",
   };
 }
 
 export const MsgUnjail = {
   encode(message: MsgUnjail, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
 
@@ -49,7 +49,7 @@ export const MsgUnjail = {
 
   fromJSON(object: any): MsgUnjail {
     return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     };
   },
 
@@ -61,7 +61,7 @@ export const MsgUnjail = {
 
   fromPartial<I extends Exact<DeepPartial<MsgUnjail>, I>>(object: I): MsgUnjail {
     const message = createBaseMsgUnjail();
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };

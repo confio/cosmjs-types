@@ -9,14 +9,14 @@ export const protobufPackage = "cosmos.authz.v1beta1";
  * on behalf of the granter with the provided expiration time.
  */
 export interface MsgGrant {
-  granter?: string;
-  grantee?: string;
-  grant?: Grant;
+  granter: string;
+  grantee: string;
+  grant: Grant;
 }
 
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
 export interface MsgExecResponse {
-  results?: Uint8Array[];
+  results: Uint8Array[];
 }
 
 /**
@@ -25,14 +25,14 @@ export interface MsgExecResponse {
  * one signer corresponding to the granter of the authorization.
  */
 export interface MsgExec {
-  grantee?: string;
+  grantee: string;
 
   /**
    * Authorization Msg requests to execute. Each msg must implement Authorization interface
    * The x/authz will try to find a grant matching (msg.signers[0], grantee, MsgTypeURL(msg))
    * triple and validate it.
    */
-  msgs?: Any[];
+  msgs: Any[];
 }
 
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
@@ -43,9 +43,9 @@ export interface MsgGrantResponse {}
  * granter's account with that has been granted to the grantee.
  */
 export interface MsgRevoke {
-  granter?: string;
-  grantee?: string;
-  msgTypeUrl?: string;
+  granter: string;
+  grantee: string;
+  msgTypeUrl: string;
 }
 
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
@@ -53,19 +53,19 @@ export interface MsgRevokeResponse {}
 
 function createBaseMsgGrant(): MsgGrant {
   return {
-    granter: undefined,
-    grantee: undefined,
+    granter: "",
+    grantee: "",
     grant: undefined,
   };
 }
 
 export const MsgGrant = {
   encode(message: MsgGrant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== undefined) {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
 
@@ -108,8 +108,8 @@ export const MsgGrant = {
 
   fromJSON(object: any): MsgGrant {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : undefined,
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
       grant: isSet(object.grant) ? Grant.fromJSON(object.grant) : undefined,
     };
   },
@@ -124,8 +124,8 @@ export const MsgGrant = {
 
   fromPartial<I extends Exact<DeepPartial<MsgGrant>, I>>(object: I): MsgGrant {
     const message = createBaseMsgGrant();
-    message.granter = object.granter ?? undefined;
-    message.grantee = object.grantee ?? undefined;
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     message.grant =
       object.grant !== undefined && object.grant !== null ? Grant.fromPartial(object.grant) : undefined;
     return message;
@@ -134,7 +134,7 @@ export const MsgGrant = {
 
 function createBaseMsgExecResponse(): MsgExecResponse {
   return {
-    results: undefined,
+    results: [],
   };
 }
 
@@ -179,7 +179,7 @@ export const MsgExecResponse = {
     const obj: any = {};
 
     if (message.results) {
-      obj.results = message.results.map((e) => base64FromBytes(e !== undefined ? e : undefined));
+      obj.results = message.results.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
     } else {
       obj.results = [];
     }
@@ -196,14 +196,14 @@ export const MsgExecResponse = {
 
 function createBaseMsgExec(): MsgExec {
   return {
-    grantee: undefined,
-    msgs: undefined,
+    grantee: "",
+    msgs: [],
   };
 }
 
 export const MsgExec = {
   encode(message: MsgExec, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(10).string(message.grantee);
     }
 
@@ -242,7 +242,7 @@ export const MsgExec = {
 
   fromJSON(object: any): MsgExec {
     return {
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
       msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Any.fromJSON(e)) : [],
     };
   },
@@ -262,7 +262,7 @@ export const MsgExec = {
 
   fromPartial<I extends Exact<DeepPartial<MsgExec>, I>>(object: I): MsgExec {
     const message = createBaseMsgExec();
-    message.grantee = object.grantee ?? undefined;
+    message.grantee = object.grantee ?? "";
     message.msgs = object.msgs?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
@@ -312,23 +312,23 @@ export const MsgGrantResponse = {
 
 function createBaseMsgRevoke(): MsgRevoke {
   return {
-    granter: undefined,
-    grantee: undefined,
-    msgTypeUrl: undefined,
+    granter: "",
+    grantee: "",
+    msgTypeUrl: "",
   };
 }
 
 export const MsgRevoke = {
   encode(message: MsgRevoke, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== undefined) {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
 
-    if (message.msgTypeUrl !== undefined) {
+    if (message.msgTypeUrl !== "") {
       writer.uint32(26).string(message.msgTypeUrl);
     }
 
@@ -367,9 +367,9 @@ export const MsgRevoke = {
 
   fromJSON(object: any): MsgRevoke {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : undefined,
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : undefined,
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
+      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
     };
   },
 
@@ -383,9 +383,9 @@ export const MsgRevoke = {
 
   fromPartial<I extends Exact<DeepPartial<MsgRevoke>, I>>(object: I): MsgRevoke {
     const message = createBaseMsgRevoke();
-    message.granter = object.granter ?? undefined;
-    message.grantee = object.grantee ?? undefined;
-    message.msgTypeUrl = object.msgTypeUrl ?? undefined;
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
+    message.msgTypeUrl = object.msgTypeUrl ?? "";
     return message;
   },
 };

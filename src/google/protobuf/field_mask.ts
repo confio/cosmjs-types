@@ -205,12 +205,12 @@ export const protobufPackage = "google.protobuf";
  */
 export interface FieldMask {
   /** The set of field mask paths. */
-  paths?: string[];
+  paths: string[];
 }
 
 function createBaseFieldMask(): FieldMask {
   return {
-    paths: undefined,
+    paths: [],
   };
 }
 

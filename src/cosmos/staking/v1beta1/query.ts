@@ -15,31 +15,31 @@ export const protobufPackage = "cosmos.staking.v1beta1";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {
   /** status enables to query for validators matching a given status. */
-  status?: string;
+  status: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponse {
   /** validators contains all the queried validators. */
-  validators?: Validator[];
+  validators: Validator[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** QueryValidatorRequest is response type for the Query/Validator RPC method */
 export interface QueryValidatorRequest {
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 }
 
 /** QueryValidatorResponse is response type for the Query/Validator RPC method */
 export interface QueryValidatorResponse {
   /** validator defines the the validator info. */
-  validator?: Validator;
+  validator: Validator;
 }
 
 /**
@@ -48,10 +48,10 @@ export interface QueryValidatorResponse {
  */
 export interface QueryValidatorDelegationsRequest {
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -59,10 +59,10 @@ export interface QueryValidatorDelegationsRequest {
  * Query/ValidatorDelegations RPC method
  */
 export interface QueryValidatorDelegationsResponse {
-  delegationResponses?: DelegationResponse[];
+  delegationResponses: DelegationResponse[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /**
@@ -71,10 +71,10 @@ export interface QueryValidatorDelegationsResponse {
  */
 export interface QueryValidatorUnbondingDelegationsRequest {
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -82,25 +82,25 @@ export interface QueryValidatorUnbondingDelegationsRequest {
  * Query/ValidatorUnbondingDelegations RPC method.
  */
 export interface QueryValidatorUnbondingDelegationsResponse {
-  unbondingResponses?: UnbondingDelegation[];
+  unbondingResponses: UnbondingDelegation[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
 export interface QueryDelegationRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 }
 
 /** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
 export interface QueryDelegationResponse {
   /** delegation_responses defines the delegation info of a delegation. */
-  delegationResponse?: DelegationResponse;
+  delegationResponse: DelegationResponse;
 }
 
 /**
@@ -109,10 +109,10 @@ export interface QueryDelegationResponse {
  */
 export interface QueryUnbondingDelegationRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 }
 
 /**
@@ -121,7 +121,7 @@ export interface QueryUnbondingDelegationRequest {
  */
 export interface QueryUnbondingDelegationResponse {
   /** unbond defines the unbonding information of a delegation. */
-  unbond?: UnbondingDelegation;
+  unbond: UnbondingDelegation;
 }
 
 /**
@@ -130,10 +130,10 @@ export interface QueryUnbondingDelegationResponse {
  */
 export interface QueryDelegatorDelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -142,10 +142,10 @@ export interface QueryDelegatorDelegationsRequest {
  */
 export interface QueryDelegatorDelegationsResponse {
   /** delegation_responses defines all the delegations' info of a delegator. */
-  delegationResponses?: DelegationResponse[];
+  delegationResponses: DelegationResponse[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /**
@@ -154,10 +154,10 @@ export interface QueryDelegatorDelegationsResponse {
  */
 export interface QueryDelegatorUnbondingDelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -165,10 +165,10 @@ export interface QueryDelegatorUnbondingDelegationsRequest {
  * Query/UnbondingDelegatorDelegations RPC method.
  */
 export interface QueryDelegatorUnbondingDelegationsResponse {
-  unbondingResponses?: UnbondingDelegation[];
+  unbondingResponses: UnbondingDelegation[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /**
@@ -177,16 +177,16 @@ export interface QueryDelegatorUnbondingDelegationsResponse {
  */
 export interface QueryRedelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** src_validator_addr defines the validator address to redelegate from. */
-  srcValidatorAddr?: string;
+  srcValidatorAddr: string;
 
   /** dst_validator_addr defines the validator address to redelegate to. */
-  dstValidatorAddr?: string;
+  dstValidatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -194,10 +194,10 @@ export interface QueryRedelegationsRequest {
  * method.
  */
 export interface QueryRedelegationsResponse {
-  redelegationResponses?: RedelegationResponse[];
+  redelegationResponses: RedelegationResponse[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /**
@@ -206,10 +206,10 @@ export interface QueryRedelegationsResponse {
  */
 export interface QueryDelegatorValidatorsRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -218,10 +218,10 @@ export interface QueryDelegatorValidatorsRequest {
  */
 export interface QueryDelegatorValidatorsResponse {
   /** validators defines the the validators' info of a delegator. */
-  validators?: Validator[];
+  validators: Validator[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /**
@@ -230,10 +230,10 @@ export interface QueryDelegatorValidatorsResponse {
  */
 export interface QueryDelegatorValidatorRequest {
   /** delegator_addr defines the delegator address to query for. */
-  delegatorAddr?: string;
+  delegatorAddr: string;
 
   /** validator_addr defines the validator address to query for. */
-  validatorAddr?: string;
+  validatorAddr: string;
 }
 
 /**
@@ -242,7 +242,7 @@ export interface QueryDelegatorValidatorRequest {
  */
 export interface QueryDelegatorValidatorResponse {
   /** validator defines the the validator info. */
-  validator?: Validator;
+  validator: Validator;
 }
 
 /**
@@ -251,7 +251,7 @@ export interface QueryDelegatorValidatorResponse {
  */
 export interface QueryHistoricalInfoRequest {
   /** height defines at which height to query the historical info. */
-  height?: Long;
+  height: Long;
 }
 
 /**
@@ -260,7 +260,7 @@ export interface QueryHistoricalInfoRequest {
  */
 export interface QueryHistoricalInfoResponse {
   /** hist defines the historical info at the given height. */
-  hist?: HistoricalInfo;
+  hist: HistoricalInfo;
 }
 
 /** QueryPoolRequest is request type for the Query/Pool RPC method. */
@@ -269,7 +269,7 @@ export interface QueryPoolRequest {}
 /** QueryPoolResponse is response type for the Query/Pool RPC method. */
 export interface QueryPoolResponse {
   /** pool defines the pool info. */
-  pool?: Pool;
+  pool: Pool;
 }
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
@@ -278,19 +278,19 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
-  params?: Params;
+  params: Params;
 }
 
 function createBaseQueryValidatorsRequest(): QueryValidatorsRequest {
   return {
-    status: undefined,
+    status: "",
     pagination: undefined,
   };
 }
 
 export const QueryValidatorsRequest = {
   encode(message: QueryValidatorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.status !== undefined) {
+    if (message.status !== "") {
       writer.uint32(10).string(message.status);
     }
 
@@ -329,7 +329,7 @@ export const QueryValidatorsRequest = {
 
   fromJSON(object: any): QueryValidatorsRequest {
     return {
-      status: isSet(object.status) ? String(object.status) : undefined,
+      status: isSet(object.status) ? String(object.status) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -344,7 +344,7 @@ export const QueryValidatorsRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryValidatorsRequest>, I>>(object: I): QueryValidatorsRequest {
     const message = createBaseQueryValidatorsRequest();
-    message.status = object.status ?? undefined;
+    message.status = object.status ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -355,7 +355,7 @@ export const QueryValidatorsRequest = {
 
 function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
   return {
-    validators: undefined,
+    validators: [],
     pagination: undefined,
   };
 }
@@ -435,13 +435,13 @@ export const QueryValidatorsResponse = {
 
 function createBaseQueryValidatorRequest(): QueryValidatorRequest {
   return {
-    validatorAddr: undefined,
+    validatorAddr: "",
   };
 }
 
 export const QueryValidatorRequest = {
   encode(message: QueryValidatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
 
@@ -472,7 +472,7 @@ export const QueryValidatorRequest = {
 
   fromJSON(object: any): QueryValidatorRequest {
     return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     };
   },
 
@@ -484,7 +484,7 @@ export const QueryValidatorRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryValidatorRequest>, I>>(object: I): QueryValidatorRequest {
     const message = createBaseQueryValidatorRequest();
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -551,14 +551,14 @@ export const QueryValidatorResponse = {
 
 function createBaseQueryValidatorDelegationsRequest(): QueryValidatorDelegationsRequest {
   return {
-    validatorAddr: undefined,
+    validatorAddr: "",
     pagination: undefined,
   };
 }
 
 export const QueryValidatorDelegationsRequest = {
   encode(message: QueryValidatorDelegationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
 
@@ -597,7 +597,7 @@ export const QueryValidatorDelegationsRequest = {
 
   fromJSON(object: any): QueryValidatorDelegationsRequest {
     return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -614,7 +614,7 @@ export const QueryValidatorDelegationsRequest = {
     object: I,
   ): QueryValidatorDelegationsRequest {
     const message = createBaseQueryValidatorDelegationsRequest();
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.validatorAddr = object.validatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -625,7 +625,7 @@ export const QueryValidatorDelegationsRequest = {
 
 function createBaseQueryValidatorDelegationsResponse(): QueryValidatorDelegationsResponse {
   return {
-    delegationResponses: undefined,
+    delegationResponses: [],
     pagination: undefined,
   };
 }
@@ -710,7 +710,7 @@ export const QueryValidatorDelegationsResponse = {
 
 function createBaseQueryValidatorUnbondingDelegationsRequest(): QueryValidatorUnbondingDelegationsRequest {
   return {
-    validatorAddr: undefined,
+    validatorAddr: "",
     pagination: undefined,
   };
 }
@@ -720,7 +720,7 @@ export const QueryValidatorUnbondingDelegationsRequest = {
     message: QueryValidatorUnbondingDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(10).string(message.validatorAddr);
     }
 
@@ -759,7 +759,7 @@ export const QueryValidatorUnbondingDelegationsRequest = {
 
   fromJSON(object: any): QueryValidatorUnbondingDelegationsRequest {
     return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -776,7 +776,7 @@ export const QueryValidatorUnbondingDelegationsRequest = {
     object: I,
   ): QueryValidatorUnbondingDelegationsRequest {
     const message = createBaseQueryValidatorUnbondingDelegationsRequest();
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.validatorAddr = object.validatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -787,7 +787,7 @@ export const QueryValidatorUnbondingDelegationsRequest = {
 
 function createBaseQueryValidatorUnbondingDelegationsResponse(): QueryValidatorUnbondingDelegationsResponse {
   return {
-    unbondingResponses: undefined,
+    unbondingResponses: [],
     pagination: undefined,
   };
 }
@@ -875,18 +875,18 @@ export const QueryValidatorUnbondingDelegationsResponse = {
 
 function createBaseQueryDelegationRequest(): QueryDelegationRequest {
   return {
-    delegatorAddr: undefined,
-    validatorAddr: undefined,
+    delegatorAddr: "",
+    validatorAddr: "",
   };
 }
 
 export const QueryDelegationRequest = {
   encode(message: QueryDelegationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(18).string(message.validatorAddr);
     }
 
@@ -921,8 +921,8 @@ export const QueryDelegationRequest = {
 
   fromJSON(object: any): QueryDelegationRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     };
   },
 
@@ -935,8 +935,8 @@ export const QueryDelegationRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryDelegationRequest>, I>>(object: I): QueryDelegationRequest {
     const message = createBaseQueryDelegationRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -1007,18 +1007,18 @@ export const QueryDelegationResponse = {
 
 function createBaseQueryUnbondingDelegationRequest(): QueryUnbondingDelegationRequest {
   return {
-    delegatorAddr: undefined,
-    validatorAddr: undefined,
+    delegatorAddr: "",
+    validatorAddr: "",
   };
 }
 
 export const QueryUnbondingDelegationRequest = {
   encode(message: QueryUnbondingDelegationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(18).string(message.validatorAddr);
     }
 
@@ -1053,8 +1053,8 @@ export const QueryUnbondingDelegationRequest = {
 
   fromJSON(object: any): QueryUnbondingDelegationRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     };
   },
 
@@ -1069,8 +1069,8 @@ export const QueryUnbondingDelegationRequest = {
     object: I,
   ): QueryUnbondingDelegationRequest {
     const message = createBaseQueryUnbondingDelegationRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -1139,14 +1139,14 @@ export const QueryUnbondingDelegationResponse = {
 
 function createBaseQueryDelegatorDelegationsRequest(): QueryDelegatorDelegationsRequest {
   return {
-    delegatorAddr: undefined,
+    delegatorAddr: "",
     pagination: undefined,
   };
 }
 
 export const QueryDelegatorDelegationsRequest = {
   encode(message: QueryDelegatorDelegationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
@@ -1185,7 +1185,7 @@ export const QueryDelegatorDelegationsRequest = {
 
   fromJSON(object: any): QueryDelegatorDelegationsRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1202,7 +1202,7 @@ export const QueryDelegatorDelegationsRequest = {
     object: I,
   ): QueryDelegatorDelegationsRequest {
     const message = createBaseQueryDelegatorDelegationsRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1213,7 +1213,7 @@ export const QueryDelegatorDelegationsRequest = {
 
 function createBaseQueryDelegatorDelegationsResponse(): QueryDelegatorDelegationsResponse {
   return {
-    delegationResponses: undefined,
+    delegationResponses: [],
     pagination: undefined,
   };
 }
@@ -1298,7 +1298,7 @@ export const QueryDelegatorDelegationsResponse = {
 
 function createBaseQueryDelegatorUnbondingDelegationsRequest(): QueryDelegatorUnbondingDelegationsRequest {
   return {
-    delegatorAddr: undefined,
+    delegatorAddr: "",
     pagination: undefined,
   };
 }
@@ -1308,7 +1308,7 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
     message: QueryDelegatorUnbondingDelegationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
@@ -1347,7 +1347,7 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
 
   fromJSON(object: any): QueryDelegatorUnbondingDelegationsRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1364,7 +1364,7 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
     object: I,
   ): QueryDelegatorUnbondingDelegationsRequest {
     const message = createBaseQueryDelegatorUnbondingDelegationsRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1375,7 +1375,7 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
 
 function createBaseQueryDelegatorUnbondingDelegationsResponse(): QueryDelegatorUnbondingDelegationsResponse {
   return {
-    unbondingResponses: undefined,
+    unbondingResponses: [],
     pagination: undefined,
   };
 }
@@ -1463,24 +1463,24 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
 
 function createBaseQueryRedelegationsRequest(): QueryRedelegationsRequest {
   return {
-    delegatorAddr: undefined,
-    srcValidatorAddr: undefined,
-    dstValidatorAddr: undefined,
+    delegatorAddr: "",
+    srcValidatorAddr: "",
+    dstValidatorAddr: "",
     pagination: undefined,
   };
 }
 
 export const QueryRedelegationsRequest = {
   encode(message: QueryRedelegationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
-    if (message.srcValidatorAddr !== undefined) {
+    if (message.srcValidatorAddr !== "") {
       writer.uint32(18).string(message.srcValidatorAddr);
     }
 
-    if (message.dstValidatorAddr !== undefined) {
+    if (message.dstValidatorAddr !== "") {
       writer.uint32(26).string(message.dstValidatorAddr);
     }
 
@@ -1527,9 +1527,9 @@ export const QueryRedelegationsRequest = {
 
   fromJSON(object: any): QueryRedelegationsRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
-      srcValidatorAddr: isSet(object.srcValidatorAddr) ? String(object.srcValidatorAddr) : undefined,
-      dstValidatorAddr: isSet(object.dstValidatorAddr) ? String(object.dstValidatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
+      srcValidatorAddr: isSet(object.srcValidatorAddr) ? String(object.srcValidatorAddr) : "",
+      dstValidatorAddr: isSet(object.dstValidatorAddr) ? String(object.dstValidatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1548,9 +1548,9 @@ export const QueryRedelegationsRequest = {
     object: I,
   ): QueryRedelegationsRequest {
     const message = createBaseQueryRedelegationsRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
-    message.srcValidatorAddr = object.srcValidatorAddr ?? undefined;
-    message.dstValidatorAddr = object.dstValidatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.srcValidatorAddr = object.srcValidatorAddr ?? "";
+    message.dstValidatorAddr = object.dstValidatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1561,7 +1561,7 @@ export const QueryRedelegationsRequest = {
 
 function createBaseQueryRedelegationsResponse(): QueryRedelegationsResponse {
   return {
-    redelegationResponses: undefined,
+    redelegationResponses: [],
     pagination: undefined,
   };
 }
@@ -1646,14 +1646,14 @@ export const QueryRedelegationsResponse = {
 
 function createBaseQueryDelegatorValidatorsRequest(): QueryDelegatorValidatorsRequest {
   return {
-    delegatorAddr: undefined,
+    delegatorAddr: "",
     pagination: undefined,
   };
 }
 
 export const QueryDelegatorValidatorsRequest = {
   encode(message: QueryDelegatorValidatorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
@@ -1692,7 +1692,7 @@ export const QueryDelegatorValidatorsRequest = {
 
   fromJSON(object: any): QueryDelegatorValidatorsRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1709,7 +1709,7 @@ export const QueryDelegatorValidatorsRequest = {
     object: I,
   ): QueryDelegatorValidatorsRequest {
     const message = createBaseQueryDelegatorValidatorsRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1720,7 +1720,7 @@ export const QueryDelegatorValidatorsRequest = {
 
 function createBaseQueryDelegatorValidatorsResponse(): QueryDelegatorValidatorsResponse {
   return {
-    validators: undefined,
+    validators: [],
     pagination: undefined,
   };
 }
@@ -1802,18 +1802,18 @@ export const QueryDelegatorValidatorsResponse = {
 
 function createBaseQueryDelegatorValidatorRequest(): QueryDelegatorValidatorRequest {
   return {
-    delegatorAddr: undefined,
-    validatorAddr: undefined,
+    delegatorAddr: "",
+    validatorAddr: "",
   };
 }
 
 export const QueryDelegatorValidatorRequest = {
   encode(message: QueryDelegatorValidatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.delegatorAddr !== undefined) {
+    if (message.delegatorAddr !== "") {
       writer.uint32(10).string(message.delegatorAddr);
     }
 
-    if (message.validatorAddr !== undefined) {
+    if (message.validatorAddr !== "") {
       writer.uint32(18).string(message.validatorAddr);
     }
 
@@ -1848,8 +1848,8 @@ export const QueryDelegatorValidatorRequest = {
 
   fromJSON(object: any): QueryDelegatorValidatorRequest {
     return {
-      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : undefined,
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : undefined,
+      delegatorAddr: isSet(object.delegatorAddr) ? String(object.delegatorAddr) : "",
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
     };
   },
 
@@ -1864,8 +1864,8 @@ export const QueryDelegatorValidatorRequest = {
     object: I,
   ): QueryDelegatorValidatorRequest {
     const message = createBaseQueryDelegatorValidatorRequest();
-    message.delegatorAddr = object.delegatorAddr ?? undefined;
-    message.validatorAddr = object.validatorAddr ?? undefined;
+    message.delegatorAddr = object.delegatorAddr ?? "";
+    message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
 };
@@ -1934,13 +1934,13 @@ export const QueryDelegatorValidatorResponse = {
 
 function createBaseQueryHistoricalInfoRequest(): QueryHistoricalInfoRequest {
   return {
-    height: undefined,
+    height: Long.ZERO,
   };
 }
 
 export const QueryHistoricalInfoRequest = {
   encode(message: QueryHistoricalInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.height !== undefined) {
+    if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
 
@@ -1971,13 +1971,13 @@ export const QueryHistoricalInfoRequest = {
 
   fromJSON(object: any): QueryHistoricalInfoRequest {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : undefined,
+      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
     };
   },
 
   toJSON(message: QueryHistoricalInfoRequest): unknown {
     const obj: any = {};
-    message.height !== undefined && (obj.height = (message.height || undefined).toString());
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
     return obj;
   },
 
@@ -1986,7 +1986,7 @@ export const QueryHistoricalInfoRequest = {
   ): QueryHistoricalInfoRequest {
     const message = createBaseQueryHistoricalInfoRequest();
     message.height =
-      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : undefined;
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     return message;
   },
 };

@@ -8,26 +8,26 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
  * Evidence of misbehavior such as equivocation or counterfactual signing.
  */
 export interface MsgSubmitEvidence {
-  submitter?: string;
-  evidence?: Any;
+  submitter: string;
+  evidence: Any;
 }
 
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponse {
   /** hash defines the hash of the evidence. */
-  hash?: Uint8Array;
+  hash: Uint8Array;
 }
 
 function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
   return {
-    submitter: undefined,
+    submitter: "",
     evidence: undefined,
   };
 }
 
 export const MsgSubmitEvidence = {
   encode(message: MsgSubmitEvidence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.submitter !== undefined) {
+    if (message.submitter !== "") {
       writer.uint32(10).string(message.submitter);
     }
 
@@ -66,7 +66,7 @@ export const MsgSubmitEvidence = {
 
   fromJSON(object: any): MsgSubmitEvidence {
     return {
-      submitter: isSet(object.submitter) ? String(object.submitter) : undefined,
+      submitter: isSet(object.submitter) ? String(object.submitter) : "",
       evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
     };
   },
@@ -81,7 +81,7 @@ export const MsgSubmitEvidence = {
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(object: I): MsgSubmitEvidence {
     const message = createBaseMsgSubmitEvidence();
-    message.submitter = object.submitter ?? undefined;
+    message.submitter = object.submitter ?? "";
     message.evidence =
       object.evidence !== undefined && object.evidence !== null
         ? Any.fromPartial(object.evidence)
@@ -92,13 +92,13 @@ export const MsgSubmitEvidence = {
 
 function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
   return {
-    hash: undefined,
+    hash: new Uint8Array(),
   };
 }
 
 export const MsgSubmitEvidenceResponse = {
   encode(message: MsgSubmitEvidenceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.hash !== undefined) {
+    if (message.hash.length !== 0) {
       writer.uint32(34).bytes(message.hash);
     }
 
@@ -129,14 +129,14 @@ export const MsgSubmitEvidenceResponse = {
 
   fromJSON(object: any): MsgSubmitEvidenceResponse {
     return {
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : undefined,
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
     };
   },
 
   toJSON(message: MsgSubmitEvidenceResponse): unknown {
     const obj: any = {};
     message.hash !== undefined &&
-      (obj.hash = message.hash !== undefined ? base64FromBytes(message.hash) : undefined);
+      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
     return obj;
   },
 
@@ -144,7 +144,7 @@ export const MsgSubmitEvidenceResponse = {
     object: I,
   ): MsgSubmitEvidenceResponse {
     const message = createBaseMsgSubmitEvidenceResponse();
-    message.hash = object.hash ?? undefined;
+    message.hash = object.hash ?? new Uint8Array();
     return message;
   },
 };

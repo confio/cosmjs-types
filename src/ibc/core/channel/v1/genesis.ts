@@ -5,16 +5,16 @@ export const protobufPackage = "ibc.core.channel.v1";
 
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {
-  channels?: IdentifiedChannel[];
-  acknowledgements?: PacketState[];
-  commitments?: PacketState[];
-  receipts?: PacketState[];
-  sendSequences?: PacketSequence[];
-  recvSequences?: PacketSequence[];
-  ackSequences?: PacketSequence[];
+  channels: IdentifiedChannel[];
+  acknowledgements: PacketState[];
+  commitments: PacketState[];
+  receipts: PacketState[];
+  sendSequences: PacketSequence[];
+  recvSequences: PacketSequence[];
+  ackSequences: PacketSequence[];
 
   /** the sequence for the next generated channel identifier */
-  nextChannelSequence?: Long;
+  nextChannelSequence: Long;
 }
 
 /**
@@ -22,21 +22,21 @@ export interface GenesisState {
  * next send and receive sequences.
  */
 export interface PacketSequence {
-  portId?: string;
-  channelId?: string;
-  sequence?: Long;
+  portId: string;
+  channelId: string;
+  sequence: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    channels: undefined,
-    acknowledgements: undefined,
-    commitments: undefined,
-    receipts: undefined,
-    sendSequences: undefined,
-    recvSequences: undefined,
-    ackSequences: undefined,
-    nextChannelSequence: undefined,
+    channels: [],
+    acknowledgements: [],
+    commitments: [],
+    receipts: [],
+    sendSequences: [],
+    recvSequences: [],
+    ackSequences: [],
+    nextChannelSequence: Long.UZERO,
   };
 }
 
@@ -70,7 +70,7 @@ export const GenesisState = {
       PacketSequence.encode(v!, writer.uint32(58).fork()).ldelim();
     }
 
-    if (message.nextChannelSequence !== undefined) {
+    if (!message.nextChannelSequence.isZero()) {
       writer.uint32(64).uint64(message.nextChannelSequence);
     }
 
@@ -152,7 +152,7 @@ export const GenesisState = {
         : [],
       nextChannelSequence: isSet(object.nextChannelSequence)
         ? Long.fromString(object.nextChannelSequence)
-        : undefined,
+        : Long.UZERO,
     };
   },
 
@@ -202,7 +202,7 @@ export const GenesisState = {
     }
 
     message.nextChannelSequence !== undefined &&
-      (obj.nextChannelSequence = (message.nextChannelSequence || undefined).toString());
+      (obj.nextChannelSequence = (message.nextChannelSequence || Long.UZERO).toString());
     return obj;
   },
 
@@ -218,30 +218,30 @@ export const GenesisState = {
     message.nextChannelSequence =
       object.nextChannelSequence !== undefined && object.nextChannelSequence !== null
         ? Long.fromValue(object.nextChannelSequence)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };
 
 function createBasePacketSequence(): PacketSequence {
   return {
-    portId: undefined,
-    channelId: undefined,
-    sequence: undefined,
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
   };
 }
 
 export const PacketSequence = {
   encode(message: PacketSequence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.portId !== undefined) {
+    if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
 
-    if (message.channelId !== undefined) {
+    if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
 
-    if (message.sequence !== undefined) {
+    if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
 
@@ -280,9 +280,9 @@ export const PacketSequence = {
 
   fromJSON(object: any): PacketSequence {
     return {
-      portId: isSet(object.portId) ? String(object.portId) : undefined,
-      channelId: isSet(object.channelId) ? String(object.channelId) : undefined,
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : undefined,
+      portId: isSet(object.portId) ? String(object.portId) : "",
+      channelId: isSet(object.channelId) ? String(object.channelId) : "",
+      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
     };
   },
 
@@ -290,16 +290,18 @@ export const PacketSequence = {
     const obj: any = {};
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = (message.sequence || undefined).toString());
+    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PacketSequence>, I>>(object: I): PacketSequence {
     const message = createBasePacketSequence();
-    message.portId = object.portId ?? undefined;
-    message.channelId = object.channelId ?? undefined;
+    message.portId = object.portId ?? "";
+    message.channelId = object.channelId ?? "";
     message.sequence =
-      object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : undefined;
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };

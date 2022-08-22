@@ -11,10 +11,10 @@ export interface DenomTrace {
    * path defines the chain of port/channel identifiers used for tracing the
    * source of the fungible token.
    */
-  path?: string;
+  path: string;
 
   /** base denomination of the relayed fungible token. */
-  baseDenom?: string;
+  baseDenom: string;
 }
 
 /**
@@ -28,29 +28,29 @@ export interface Params {
    * send_enabled enables or disables all cross-chain token transfers from this
    * chain.
    */
-  sendEnabled?: boolean;
+  sendEnabled: boolean;
 
   /**
    * receive_enabled enables or disables all cross-chain token transfers to this
    * chain.
    */
-  receiveEnabled?: boolean;
+  receiveEnabled: boolean;
 }
 
 function createBaseDenomTrace(): DenomTrace {
   return {
-    path: undefined,
-    baseDenom: undefined,
+    path: "",
+    baseDenom: "",
   };
 }
 
 export const DenomTrace = {
   encode(message: DenomTrace, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.path !== undefined) {
+    if (message.path !== "") {
       writer.uint32(10).string(message.path);
     }
 
-    if (message.baseDenom !== undefined) {
+    if (message.baseDenom !== "") {
       writer.uint32(18).string(message.baseDenom);
     }
 
@@ -85,8 +85,8 @@ export const DenomTrace = {
 
   fromJSON(object: any): DenomTrace {
     return {
-      path: isSet(object.path) ? String(object.path) : undefined,
-      baseDenom: isSet(object.baseDenom) ? String(object.baseDenom) : undefined,
+      path: isSet(object.path) ? String(object.path) : "",
+      baseDenom: isSet(object.baseDenom) ? String(object.baseDenom) : "",
     };
   },
 
@@ -99,26 +99,26 @@ export const DenomTrace = {
 
   fromPartial<I extends Exact<DeepPartial<DenomTrace>, I>>(object: I): DenomTrace {
     const message = createBaseDenomTrace();
-    message.path = object.path ?? undefined;
-    message.baseDenom = object.baseDenom ?? undefined;
+    message.path = object.path ?? "";
+    message.baseDenom = object.baseDenom ?? "";
     return message;
   },
 };
 
 function createBaseParams(): Params {
   return {
-    sendEnabled: undefined,
-    receiveEnabled: undefined,
+    sendEnabled: false,
+    receiveEnabled: false,
   };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sendEnabled !== undefined) {
+    if (message.sendEnabled === true) {
       writer.uint32(8).bool(message.sendEnabled);
     }
 
-    if (message.receiveEnabled !== undefined) {
+    if (message.receiveEnabled === true) {
       writer.uint32(16).bool(message.receiveEnabled);
     }
 
@@ -153,8 +153,8 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      sendEnabled: isSet(object.sendEnabled) ? Boolean(object.sendEnabled) : undefined,
-      receiveEnabled: isSet(object.receiveEnabled) ? Boolean(object.receiveEnabled) : undefined,
+      sendEnabled: isSet(object.sendEnabled) ? Boolean(object.sendEnabled) : false,
+      receiveEnabled: isSet(object.receiveEnabled) ? Boolean(object.receiveEnabled) : false,
     };
   },
 
@@ -167,8 +167,8 @@ export const Params = {
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.sendEnabled = object.sendEnabled ?? undefined;
-    message.receiveEnabled = object.receiveEnabled ?? undefined;
+    message.sendEnabled = object.sendEnabled ?? false;
+    message.receiveEnabled = object.receiveEnabled ?? false;
     return message;
   },
 };

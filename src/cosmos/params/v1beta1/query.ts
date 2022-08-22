@@ -6,32 +6,32 @@ export const protobufPackage = "cosmos.params.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
   /** subspace defines the module to query the parameter for. */
-  subspace?: string;
+  subspace: string;
 
   /** key defines the key of the parameter in the subspace. */
-  key?: string;
+  key: string;
 }
 
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** param defines the queried parameter. */
-  param?: ParamChange;
+  param: ParamChange;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {
-    subspace: undefined,
-    key: undefined,
+    subspace: "",
+    key: "",
   };
 }
 
 export const QueryParamsRequest = {
   encode(message: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.subspace !== undefined) {
+    if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
 
-    if (message.key !== undefined) {
+    if (message.key !== "") {
       writer.uint32(18).string(message.key);
     }
 
@@ -66,8 +66,8 @@ export const QueryParamsRequest = {
 
   fromJSON(object: any): QueryParamsRequest {
     return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : undefined,
-      key: isSet(object.key) ? String(object.key) : undefined,
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
     };
   },
 
@@ -80,8 +80,8 @@ export const QueryParamsRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
-    message.subspace = object.subspace ?? undefined;
-    message.key = object.key ?? undefined;
+    message.subspace = object.subspace ?? "";
+    message.key = object.key ?? "";
     return message;
   },
 };

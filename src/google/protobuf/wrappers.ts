@@ -9,7 +9,7 @@ export const protobufPackage = "google.protobuf";
  */
 export interface DoubleValue {
   /** The double value. */
-  value?: number;
+  value: number;
 }
 
 /**
@@ -19,7 +19,7 @@ export interface DoubleValue {
  */
 export interface FloatValue {
   /** The float value. */
-  value?: number;
+  value: number;
 }
 
 /**
@@ -29,7 +29,7 @@ export interface FloatValue {
  */
 export interface Int64Value {
   /** The int64 value. */
-  value?: Long;
+  value: Long;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface Int64Value {
  */
 export interface UInt64Value {
   /** The uint64 value. */
-  value?: Long;
+  value: Long;
 }
 
 /**
@@ -49,7 +49,7 @@ export interface UInt64Value {
  */
 export interface Int32Value {
   /** The int32 value. */
-  value?: number;
+  value: number;
 }
 
 /**
@@ -59,7 +59,7 @@ export interface Int32Value {
  */
 export interface UInt32Value {
   /** The uint32 value. */
-  value?: number;
+  value: number;
 }
 
 /**
@@ -69,7 +69,7 @@ export interface UInt32Value {
  */
 export interface BoolValue {
   /** The bool value. */
-  value?: boolean;
+  value: boolean;
 }
 
 /**
@@ -79,7 +79,7 @@ export interface BoolValue {
  */
 export interface StringValue {
   /** The string value. */
-  value?: string;
+  value: string;
 }
 
 /**
@@ -89,18 +89,18 @@ export interface StringValue {
  */
 export interface BytesValue {
   /** The bytes value. */
-  value?: Uint8Array;
+  value: Uint8Array;
 }
 
 function createBaseDoubleValue(): DoubleValue {
   return {
-    value: undefined,
+    value: 0,
   };
 }
 
 export const DoubleValue = {
   encode(message: DoubleValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value !== 0) {
       writer.uint32(9).double(message.value);
     }
 
@@ -131,7 +131,7 @@ export const DoubleValue = {
 
   fromJSON(object: any): DoubleValue {
     return {
-      value: isSet(object.value) ? Number(object.value) : undefined,
+      value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
@@ -143,20 +143,20 @@ export const DoubleValue = {
 
   fromPartial<I extends Exact<DeepPartial<DoubleValue>, I>>(object: I): DoubleValue {
     const message = createBaseDoubleValue();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? 0;
     return message;
   },
 };
 
 function createBaseFloatValue(): FloatValue {
   return {
-    value: undefined,
+    value: 0,
   };
 }
 
 export const FloatValue = {
   encode(message: FloatValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value !== 0) {
       writer.uint32(13).float(message.value);
     }
 
@@ -187,7 +187,7 @@ export const FloatValue = {
 
   fromJSON(object: any): FloatValue {
     return {
-      value: isSet(object.value) ? Number(object.value) : undefined,
+      value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
@@ -199,20 +199,20 @@ export const FloatValue = {
 
   fromPartial<I extends Exact<DeepPartial<FloatValue>, I>>(object: I): FloatValue {
     const message = createBaseFloatValue();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? 0;
     return message;
   },
 };
 
 function createBaseInt64Value(): Int64Value {
   return {
-    value: undefined,
+    value: Long.ZERO,
   };
 }
 
 export const Int64Value = {
   encode(message: Int64Value, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (!message.value.isZero()) {
       writer.uint32(8).int64(message.value);
     }
 
@@ -243,33 +243,33 @@ export const Int64Value = {
 
   fromJSON(object: any): Int64Value {
     return {
-      value: isSet(object.value) ? Long.fromString(object.value) : undefined,
+      value: isSet(object.value) ? Long.fromString(object.value) : Long.ZERO,
     };
   },
 
   toJSON(message: Int64Value): unknown {
     const obj: any = {};
-    message.value !== undefined && (obj.value = (message.value || undefined).toString());
+    message.value !== undefined && (obj.value = (message.value || Long.ZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Int64Value>, I>>(object: I): Int64Value {
     const message = createBaseInt64Value();
     message.value =
-      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : undefined;
+      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.ZERO;
     return message;
   },
 };
 
 function createBaseUInt64Value(): UInt64Value {
   return {
-    value: undefined,
+    value: Long.UZERO,
   };
 }
 
 export const UInt64Value = {
   encode(message: UInt64Value, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (!message.value.isZero()) {
       writer.uint32(8).uint64(message.value);
     }
 
@@ -300,33 +300,33 @@ export const UInt64Value = {
 
   fromJSON(object: any): UInt64Value {
     return {
-      value: isSet(object.value) ? Long.fromString(object.value) : undefined,
+      value: isSet(object.value) ? Long.fromString(object.value) : Long.UZERO,
     };
   },
 
   toJSON(message: UInt64Value): unknown {
     const obj: any = {};
-    message.value !== undefined && (obj.value = (message.value || undefined).toString());
+    message.value !== undefined && (obj.value = (message.value || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<UInt64Value>, I>>(object: I): UInt64Value {
     const message = createBaseUInt64Value();
     message.value =
-      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : undefined;
+      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.UZERO;
     return message;
   },
 };
 
 function createBaseInt32Value(): Int32Value {
   return {
-    value: undefined,
+    value: 0,
   };
 }
 
 export const Int32Value = {
   encode(message: Int32Value, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value !== 0) {
       writer.uint32(8).int32(message.value);
     }
 
@@ -357,7 +357,7 @@ export const Int32Value = {
 
   fromJSON(object: any): Int32Value {
     return {
-      value: isSet(object.value) ? Number(object.value) : undefined,
+      value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
@@ -369,20 +369,20 @@ export const Int32Value = {
 
   fromPartial<I extends Exact<DeepPartial<Int32Value>, I>>(object: I): Int32Value {
     const message = createBaseInt32Value();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? 0;
     return message;
   },
 };
 
 function createBaseUInt32Value(): UInt32Value {
   return {
-    value: undefined,
+    value: 0,
   };
 }
 
 export const UInt32Value = {
   encode(message: UInt32Value, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value !== 0) {
       writer.uint32(8).uint32(message.value);
     }
 
@@ -413,7 +413,7 @@ export const UInt32Value = {
 
   fromJSON(object: any): UInt32Value {
     return {
-      value: isSet(object.value) ? Number(object.value) : undefined,
+      value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
@@ -425,20 +425,20 @@ export const UInt32Value = {
 
   fromPartial<I extends Exact<DeepPartial<UInt32Value>, I>>(object: I): UInt32Value {
     const message = createBaseUInt32Value();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? 0;
     return message;
   },
 };
 
 function createBaseBoolValue(): BoolValue {
   return {
-    value: undefined,
+    value: false,
   };
 }
 
 export const BoolValue = {
   encode(message: BoolValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value === true) {
       writer.uint32(8).bool(message.value);
     }
 
@@ -469,7 +469,7 @@ export const BoolValue = {
 
   fromJSON(object: any): BoolValue {
     return {
-      value: isSet(object.value) ? Boolean(object.value) : undefined,
+      value: isSet(object.value) ? Boolean(object.value) : false,
     };
   },
 
@@ -481,20 +481,20 @@ export const BoolValue = {
 
   fromPartial<I extends Exact<DeepPartial<BoolValue>, I>>(object: I): BoolValue {
     const message = createBaseBoolValue();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? false;
     return message;
   },
 };
 
 function createBaseStringValue(): StringValue {
   return {
-    value: undefined,
+    value: "",
   };
 }
 
 export const StringValue = {
   encode(message: StringValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value !== "") {
       writer.uint32(10).string(message.value);
     }
 
@@ -525,7 +525,7 @@ export const StringValue = {
 
   fromJSON(object: any): StringValue {
     return {
-      value: isSet(object.value) ? String(object.value) : undefined,
+      value: isSet(object.value) ? String(object.value) : "",
     };
   },
 
@@ -537,20 +537,20 @@ export const StringValue = {
 
   fromPartial<I extends Exact<DeepPartial<StringValue>, I>>(object: I): StringValue {
     const message = createBaseStringValue();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? "";
     return message;
   },
 };
 
 function createBaseBytesValue(): BytesValue {
   return {
-    value: undefined,
+    value: new Uint8Array(),
   };
 }
 
 export const BytesValue = {
   encode(message: BytesValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.value !== undefined) {
+    if (message.value.length !== 0) {
       writer.uint32(10).bytes(message.value);
     }
 
@@ -581,20 +581,20 @@ export const BytesValue = {
 
   fromJSON(object: any): BytesValue {
     return {
-      value: isSet(object.value) ? bytesFromBase64(object.value) : undefined,
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
   toJSON(message: BytesValue): unknown {
     const obj: any = {};
     message.value !== undefined &&
-      (obj.value = message.value !== undefined ? base64FromBytes(message.value) : undefined);
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<BytesValue>, I>>(object: I): BytesValue {
     const message = createBaseBytesValue();
-    message.value = object.value ?? undefined;
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };

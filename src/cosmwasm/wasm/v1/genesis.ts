@@ -6,11 +6,11 @@ export const protobufPackage = "cosmwasm.wasm.v1";
 
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
-  params?: Params;
-  codes?: Code[];
-  contracts?: Contract[];
-  sequences?: Sequence[];
-  genMsgs?: GenesisState_GenMsgs[];
+  params: Params;
+  codes: Code[];
+  contracts: Contract[];
+  sequences: Sequence[];
+  genMsgs: GenesisState_GenMsgs[];
 }
 
 /**
@@ -25,34 +25,34 @@ export interface GenesisState_GenMsgs {
 
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface Code {
-  codeId?: Long;
-  codeInfo?: CodeInfo;
-  codeBytes?: Uint8Array;
+  codeId: Long;
+  codeInfo: CodeInfo;
+  codeBytes: Uint8Array;
 
   /** Pinned to wasmvm cache */
-  pinned?: boolean;
+  pinned: boolean;
 }
 
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface Contract {
-  contractAddress?: string;
-  contractInfo?: ContractInfo;
-  contractState?: Model[];
+  contractAddress: string;
+  contractInfo: ContractInfo;
+  contractState: Model[];
 }
 
 /** Sequence key and value of an id generation counter */
 export interface Sequence {
-  idKey?: Uint8Array;
-  value?: Long;
+  idKey: Uint8Array;
+  value: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    codes: undefined,
-    contracts: undefined,
-    sequences: undefined,
-    genMsgs: undefined,
+    codes: [],
+    contracts: [],
+    sequences: [],
+    genMsgs: [],
   };
 }
 
@@ -280,16 +280,16 @@ export const GenesisState_GenMsgs = {
 
 function createBaseCode(): Code {
   return {
-    codeId: undefined,
+    codeId: Long.UZERO,
     codeInfo: undefined,
-    codeBytes: undefined,
-    pinned: undefined,
+    codeBytes: new Uint8Array(),
+    pinned: false,
   };
 }
 
 export const Code = {
   encode(message: Code, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.codeId !== undefined) {
+    if (!message.codeId.isZero()) {
       writer.uint32(8).uint64(message.codeId);
     }
 
@@ -297,11 +297,11 @@ export const Code = {
       CodeInfo.encode(message.codeInfo, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.codeBytes !== undefined) {
+    if (message.codeBytes.length !== 0) {
       writer.uint32(26).bytes(message.codeBytes);
     }
 
-    if (message.pinned !== undefined) {
+    if (message.pinned === true) {
       writer.uint32(32).bool(message.pinned);
     }
 
@@ -344,20 +344,22 @@ export const Code = {
 
   fromJSON(object: any): Code {
     return {
-      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : undefined,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
       codeInfo: isSet(object.codeInfo) ? CodeInfo.fromJSON(object.codeInfo) : undefined,
-      codeBytes: isSet(object.codeBytes) ? bytesFromBase64(object.codeBytes) : undefined,
-      pinned: isSet(object.pinned) ? Boolean(object.pinned) : undefined,
+      codeBytes: isSet(object.codeBytes) ? bytesFromBase64(object.codeBytes) : new Uint8Array(),
+      pinned: isSet(object.pinned) ? Boolean(object.pinned) : false,
     };
   },
 
   toJSON(message: Code): unknown {
     const obj: any = {};
-    message.codeId !== undefined && (obj.codeId = (message.codeId || undefined).toString());
+    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
     message.codeInfo !== undefined &&
       (obj.codeInfo = message.codeInfo ? CodeInfo.toJSON(message.codeInfo) : undefined);
     message.codeBytes !== undefined &&
-      (obj.codeBytes = message.codeBytes !== undefined ? base64FromBytes(message.codeBytes) : undefined);
+      (obj.codeBytes = base64FromBytes(
+        message.codeBytes !== undefined ? message.codeBytes : new Uint8Array(),
+      ));
     message.pinned !== undefined && (obj.pinned = message.pinned);
     return obj;
   },
@@ -365,28 +367,28 @@ export const Code = {
   fromPartial<I extends Exact<DeepPartial<Code>, I>>(object: I): Code {
     const message = createBaseCode();
     message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : undefined;
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.codeInfo =
       object.codeInfo !== undefined && object.codeInfo !== null
         ? CodeInfo.fromPartial(object.codeInfo)
         : undefined;
-    message.codeBytes = object.codeBytes ?? undefined;
-    message.pinned = object.pinned ?? undefined;
+    message.codeBytes = object.codeBytes ?? new Uint8Array();
+    message.pinned = object.pinned ?? false;
     return message;
   },
 };
 
 function createBaseContract(): Contract {
   return {
-    contractAddress: undefined,
+    contractAddress: "",
     contractInfo: undefined,
-    contractState: undefined,
+    contractState: [],
   };
 }
 
 export const Contract = {
   encode(message: Contract, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.contractAddress !== undefined) {
+    if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
     }
 
@@ -433,7 +435,7 @@ export const Contract = {
 
   fromJSON(object: any): Contract {
     return {
-      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : undefined,
+      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
       contractInfo: isSet(object.contractInfo) ? ContractInfo.fromJSON(object.contractInfo) : undefined,
       contractState: Array.isArray(object?.contractState)
         ? object.contractState.map((e: any) => Model.fromJSON(e))
@@ -458,7 +460,7 @@ export const Contract = {
 
   fromPartial<I extends Exact<DeepPartial<Contract>, I>>(object: I): Contract {
     const message = createBaseContract();
-    message.contractAddress = object.contractAddress ?? undefined;
+    message.contractAddress = object.contractAddress ?? "";
     message.contractInfo =
       object.contractInfo !== undefined && object.contractInfo !== null
         ? ContractInfo.fromPartial(object.contractInfo)
@@ -470,18 +472,18 @@ export const Contract = {
 
 function createBaseSequence(): Sequence {
   return {
-    idKey: undefined,
-    value: undefined,
+    idKey: new Uint8Array(),
+    value: Long.UZERO,
   };
 }
 
 export const Sequence = {
   encode(message: Sequence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.idKey !== undefined) {
+    if (message.idKey.length !== 0) {
       writer.uint32(10).bytes(message.idKey);
     }
 
-    if (message.value !== undefined) {
+    if (!message.value.isZero()) {
       writer.uint32(16).uint64(message.value);
     }
 
@@ -516,24 +518,24 @@ export const Sequence = {
 
   fromJSON(object: any): Sequence {
     return {
-      idKey: isSet(object.idKey) ? bytesFromBase64(object.idKey) : undefined,
-      value: isSet(object.value) ? Long.fromString(object.value) : undefined,
+      idKey: isSet(object.idKey) ? bytesFromBase64(object.idKey) : new Uint8Array(),
+      value: isSet(object.value) ? Long.fromString(object.value) : Long.UZERO,
     };
   },
 
   toJSON(message: Sequence): unknown {
     const obj: any = {};
     message.idKey !== undefined &&
-      (obj.idKey = message.idKey !== undefined ? base64FromBytes(message.idKey) : undefined);
-    message.value !== undefined && (obj.value = (message.value || undefined).toString());
+      (obj.idKey = base64FromBytes(message.idKey !== undefined ? message.idKey : new Uint8Array()));
+    message.value !== undefined && (obj.value = (message.value || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Sequence>, I>>(object: I): Sequence {
     const message = createBaseSequence();
-    message.idKey = object.idKey ?? undefined;
+    message.idKey = object.idKey ?? new Uint8Array();
     message.value =
-      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : undefined;
+      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.UZERO;
     return message;
   },
 };

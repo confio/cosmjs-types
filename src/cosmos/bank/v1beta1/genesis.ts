@@ -7,19 +7,19 @@ export const protobufPackage = "cosmos.bank.v1beta1";
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
   /** params defines all the paramaters of the module. */
-  params?: Params;
+  params: Params;
 
   /** balances is an array containing the balances of all the accounts. */
-  balances?: Balance[];
+  balances: Balance[];
 
   /**
    * supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
    * balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
    */
-  supply?: Coin[];
+  supply: Coin[];
 
   /** denom_metadata defines the metadata of the differents coins. */
-  denomMetadata?: Metadata[];
+  denomMetadata: Metadata[];
 }
 
 /**
@@ -28,18 +28,18 @@ export interface GenesisState {
  */
 export interface Balance {
   /** address is the address of the balance holder. */
-  address?: string;
+  address: string;
 
   /** coins defines the different coins this balance holds. */
-  coins?: Coin[];
+  coins: Coin[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    balances: undefined,
-    supply: undefined,
-    denomMetadata: undefined,
+    balances: [],
+    supply: [],
+    denomMetadata: [],
   };
 }
 
@@ -147,14 +147,14 @@ export const GenesisState = {
 
 function createBaseBalance(): Balance {
   return {
-    address: undefined,
-    coins: undefined,
+    address: "",
+    coins: [],
   };
 }
 
 export const Balance = {
   encode(message: Balance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== undefined) {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
 
@@ -193,7 +193,7 @@ export const Balance = {
 
   fromJSON(object: any): Balance {
     return {
-      address: isSet(object.address) ? String(object.address) : undefined,
+      address: isSet(object.address) ? String(object.address) : "",
       coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
@@ -213,7 +213,7 @@ export const Balance = {
 
   fromPartial<I extends Exact<DeepPartial<Balance>, I>>(object: I): Balance {
     const message = createBaseBalance();
-    message.address = object.address ?? undefined;
+    message.address = object.address ?? "";
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },

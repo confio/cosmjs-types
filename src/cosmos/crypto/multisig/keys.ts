@@ -9,20 +9,20 @@ export const protobufPackage = "cosmos.crypto.multisig";
  * it uses legacy amino address rules.
  */
 export interface LegacyAminoPubKey {
-  threshold?: number;
-  publicKeys?: Any[];
+  threshold: number;
+  publicKeys: Any[];
 }
 
 function createBaseLegacyAminoPubKey(): LegacyAminoPubKey {
   return {
-    threshold: undefined,
-    publicKeys: undefined,
+    threshold: 0,
+    publicKeys: [],
   };
 }
 
 export const LegacyAminoPubKey = {
   encode(message: LegacyAminoPubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.threshold !== undefined) {
+    if (message.threshold !== 0) {
       writer.uint32(8).uint32(message.threshold);
     }
 
@@ -61,7 +61,7 @@ export const LegacyAminoPubKey = {
 
   fromJSON(object: any): LegacyAminoPubKey {
     return {
-      threshold: isSet(object.threshold) ? Number(object.threshold) : undefined,
+      threshold: isSet(object.threshold) ? Number(object.threshold) : 0,
       publicKeys: Array.isArray(object?.publicKeys) ? object.publicKeys.map((e: any) => Any.fromJSON(e)) : [],
     };
   },
@@ -81,7 +81,7 @@ export const LegacyAminoPubKey = {
 
   fromPartial<I extends Exact<DeepPartial<LegacyAminoPubKey>, I>>(object: I): LegacyAminoPubKey {
     const message = createBaseLegacyAminoPubKey();
-    message.threshold = object.threshold ?? undefined;
+    message.threshold = object.threshold ?? 0;
     message.publicKeys = object.publicKeys?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },

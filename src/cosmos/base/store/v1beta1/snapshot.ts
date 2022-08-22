@@ -10,15 +10,15 @@ export interface SnapshotItem {
 
 /** SnapshotStoreItem contains metadata about a snapshotted store. */
 export interface SnapshotStoreItem {
-  name?: string;
+  name: string;
 }
 
 /** SnapshotIAVLItem is an exported IAVL node. */
 export interface SnapshotIAVLItem {
-  key?: Uint8Array;
-  value?: Uint8Array;
-  version?: Long;
-  height?: number;
+  key: Uint8Array;
+  value: Uint8Array;
+  version: Long;
+  height: number;
 }
 
 function createBaseSnapshotItem(): SnapshotItem {
@@ -99,13 +99,13 @@ export const SnapshotItem = {
 
 function createBaseSnapshotStoreItem(): SnapshotStoreItem {
   return {
-    name: undefined,
+    name: "",
   };
 }
 
 export const SnapshotStoreItem = {
   encode(message: SnapshotStoreItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== undefined) {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
 
@@ -136,7 +136,7 @@ export const SnapshotStoreItem = {
 
   fromJSON(object: any): SnapshotStoreItem {
     return {
-      name: isSet(object.name) ? String(object.name) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
@@ -148,35 +148,35 @@ export const SnapshotStoreItem = {
 
   fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
     const message = createBaseSnapshotStoreItem();
-    message.name = object.name ?? undefined;
+    message.name = object.name ?? "";
     return message;
   },
 };
 
 function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
   return {
-    key: undefined,
-    value: undefined,
-    version: undefined,
-    height: undefined,
+    key: new Uint8Array(),
+    value: new Uint8Array(),
+    version: Long.ZERO,
+    height: 0,
   };
 }
 
 export const SnapshotIAVLItem = {
   encode(message: SnapshotIAVLItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== undefined) {
+    if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
 
-    if (message.value !== undefined) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
 
-    if (message.version !== undefined) {
+    if (!message.version.isZero()) {
       writer.uint32(24).int64(message.version);
     }
 
-    if (message.height !== undefined) {
+    if (message.height !== 0) {
       writer.uint32(32).int32(message.height);
     }
 
@@ -219,31 +219,31 @@ export const SnapshotIAVLItem = {
 
   fromJSON(object: any): SnapshotIAVLItem {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
-      value: isSet(object.value) ? bytesFromBase64(object.value) : undefined,
-      version: isSet(object.version) ? Long.fromString(object.version) : undefined,
-      height: isSet(object.height) ? Number(object.height) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      height: isSet(object.height) ? Number(object.height) : 0,
     };
   },
 
   toJSON(message: SnapshotIAVLItem): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
     message.value !== undefined &&
-      (obj.value = message.value !== undefined ? base64FromBytes(message.value) : undefined);
-    message.version !== undefined && (obj.version = (message.version || undefined).toString());
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
     message.height !== undefined && (obj.height = Math.round(message.height));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {
     const message = createBaseSnapshotIAVLItem();
-    message.key = object.key ?? undefined;
-    message.value = object.value ?? undefined;
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     message.version =
-      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : undefined;
-    message.height = object.height ?? undefined;
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
+    message.height = object.height ?? 0;
     return message;
   },
 };

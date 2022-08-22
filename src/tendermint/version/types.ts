@@ -8,8 +8,8 @@ export const protobufPackage = "tendermint.version";
  * updated in ResponseEndBlock.
  */
 export interface App {
-  protocol?: Long;
-  software?: string;
+  protocol: Long;
+  software: string;
 }
 
 /**
@@ -18,24 +18,24 @@ export interface App {
  * state transition machine.
  */
 export interface Consensus {
-  block?: Long;
-  app?: Long;
+  block: Long;
+  app: Long;
 }
 
 function createBaseApp(): App {
   return {
-    protocol: undefined,
-    software: undefined,
+    protocol: Long.UZERO,
+    software: "",
   };
 }
 
 export const App = {
   encode(message: App, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.protocol !== undefined) {
+    if (!message.protocol.isZero()) {
       writer.uint32(8).uint64(message.protocol);
     }
 
-    if (message.software !== undefined) {
+    if (message.software !== "") {
       writer.uint32(18).string(message.software);
     }
 
@@ -70,14 +70,14 @@ export const App = {
 
   fromJSON(object: any): App {
     return {
-      protocol: isSet(object.protocol) ? Long.fromString(object.protocol) : undefined,
-      software: isSet(object.software) ? String(object.software) : undefined,
+      protocol: isSet(object.protocol) ? Long.fromString(object.protocol) : Long.UZERO,
+      software: isSet(object.software) ? String(object.software) : "",
     };
   },
 
   toJSON(message: App): unknown {
     const obj: any = {};
-    message.protocol !== undefined && (obj.protocol = (message.protocol || undefined).toString());
+    message.protocol !== undefined && (obj.protocol = (message.protocol || Long.UZERO).toString());
     message.software !== undefined && (obj.software = message.software);
     return obj;
   },
@@ -85,26 +85,28 @@ export const App = {
   fromPartial<I extends Exact<DeepPartial<App>, I>>(object: I): App {
     const message = createBaseApp();
     message.protocol =
-      object.protocol !== undefined && object.protocol !== null ? Long.fromValue(object.protocol) : undefined;
-    message.software = object.software ?? undefined;
+      object.protocol !== undefined && object.protocol !== null
+        ? Long.fromValue(object.protocol)
+        : Long.UZERO;
+    message.software = object.software ?? "";
     return message;
   },
 };
 
 function createBaseConsensus(): Consensus {
   return {
-    block: undefined,
-    app: undefined,
+    block: Long.UZERO,
+    app: Long.UZERO,
   };
 }
 
 export const Consensus = {
   encode(message: Consensus, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.block !== undefined) {
+    if (!message.block.isZero()) {
       writer.uint32(8).uint64(message.block);
     }
 
-    if (message.app !== undefined) {
+    if (!message.app.isZero()) {
       writer.uint32(16).uint64(message.app);
     }
 
@@ -139,23 +141,23 @@ export const Consensus = {
 
   fromJSON(object: any): Consensus {
     return {
-      block: isSet(object.block) ? Long.fromString(object.block) : undefined,
-      app: isSet(object.app) ? Long.fromString(object.app) : undefined,
+      block: isSet(object.block) ? Long.fromString(object.block) : Long.UZERO,
+      app: isSet(object.app) ? Long.fromString(object.app) : Long.UZERO,
     };
   },
 
   toJSON(message: Consensus): unknown {
     const obj: any = {};
-    message.block !== undefined && (obj.block = (message.block || undefined).toString());
-    message.app !== undefined && (obj.app = (message.app || undefined).toString());
+    message.block !== undefined && (obj.block = (message.block || Long.UZERO).toString());
+    message.app !== undefined && (obj.app = (message.app || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Consensus>, I>>(object: I): Consensus {
     const message = createBaseConsensus();
     message.block =
-      object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : undefined;
-    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : undefined;
+      object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
+    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
     return message;
   },
 };

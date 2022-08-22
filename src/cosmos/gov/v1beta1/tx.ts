@@ -10,21 +10,21 @@ export const protobufPackage = "cosmos.gov.v1beta1";
  * proposal Content.
  */
 export interface MsgSubmitProposal {
-  content?: Any;
-  initialDeposit?: Coin[];
-  proposer?: string;
+  content: Any;
+  initialDeposit: Coin[];
+  proposer: string;
 }
 
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
 export interface MsgSubmitProposalResponse {
-  proposalId?: Long;
+  proposalId: Long;
 }
 
 /** MsgVote defines a message to cast a vote. */
 export interface MsgVote {
-  proposalId?: Long;
-  voter?: string;
-  option?: VoteOption;
+  proposalId: Long;
+  voter: string;
+  option: VoteOption;
 }
 
 /** MsgVoteResponse defines the Msg/Vote response type. */
@@ -36,9 +36,9 @@ export interface MsgVoteResponse {}
  * Since: cosmos-sdk 0.43
  */
 export interface MsgVoteWeighted {
-  proposalId?: Long;
-  voter?: string;
-  options?: WeightedVoteOption[];
+  proposalId: Long;
+  voter: string;
+  options: WeightedVoteOption[];
 }
 
 /**
@@ -50,9 +50,9 @@ export interface MsgVoteWeightedResponse {}
 
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDeposit {
-  proposalId?: Long;
-  depositor?: string;
-  amount?: Coin[];
+  proposalId: Long;
+  depositor: string;
+  amount: Coin[];
 }
 
 /** MsgDepositResponse defines the Msg/Deposit response type. */
@@ -61,8 +61,8 @@ export interface MsgDepositResponse {}
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   return {
     content: undefined,
-    initialDeposit: undefined,
-    proposer: undefined,
+    initialDeposit: [],
+    proposer: "",
   };
 }
 
@@ -76,7 +76,7 @@ export const MsgSubmitProposal = {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.proposer !== undefined) {
+    if (message.proposer !== "") {
       writer.uint32(26).string(message.proposer);
     }
 
@@ -119,7 +119,7 @@ export const MsgSubmitProposal = {
       initialDeposit: Array.isArray(object?.initialDeposit)
         ? object.initialDeposit.map((e: any) => Coin.fromJSON(e))
         : [],
-      proposer: isSet(object.proposer) ? String(object.proposer) : undefined,
+      proposer: isSet(object.proposer) ? String(object.proposer) : "",
     };
   },
 
@@ -143,20 +143,20 @@ export const MsgSubmitProposal = {
     message.content =
       object.content !== undefined && object.content !== null ? Any.fromPartial(object.content) : undefined;
     message.initialDeposit = object.initialDeposit?.map((e) => Coin.fromPartial(e)) || [];
-    message.proposer = object.proposer ?? undefined;
+    message.proposer = object.proposer ?? "";
     return message;
   },
 };
 
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
   return {
-    proposalId: undefined,
+    proposalId: Long.UZERO,
   };
 }
 
 export const MsgSubmitProposalResponse = {
   encode(message: MsgSubmitProposalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.proposalId !== undefined) {
+    if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
 
@@ -187,13 +187,13 @@ export const MsgSubmitProposalResponse = {
 
   fromJSON(object: any): MsgSubmitProposalResponse {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : undefined,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgSubmitProposalResponse): unknown {
     const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || undefined).toString());
+    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     return obj;
   },
 
@@ -204,30 +204,30 @@ export const MsgSubmitProposalResponse = {
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };
 
 function createBaseMsgVote(): MsgVote {
   return {
-    proposalId: undefined,
-    voter: undefined,
-    option: undefined,
+    proposalId: Long.UZERO,
+    voter: "",
+    option: 0,
   };
 }
 
 export const MsgVote = {
   encode(message: MsgVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.proposalId !== undefined) {
+    if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
 
-    if (message.voter !== undefined) {
+    if (message.voter !== "") {
       writer.uint32(18).string(message.voter);
     }
 
-    if (message.option !== undefined) {
+    if (message.option !== 0) {
       writer.uint32(24).int32(message.option);
     }
 
@@ -266,15 +266,15 @@ export const MsgVote = {
 
   fromJSON(object: any): MsgVote {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : undefined,
-      voter: isSet(object.voter) ? String(object.voter) : undefined,
-      option: isSet(object.option) ? voteOptionFromJSON(object.option) : undefined,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      voter: isSet(object.voter) ? String(object.voter) : "",
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
     };
   },
 
   toJSON(message: MsgVote): unknown {
     const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || undefined).toString());
+    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.voter !== undefined && (obj.voter = message.voter);
     message.option !== undefined && (obj.option = voteOptionToJSON(message.option));
     return obj;
@@ -285,9 +285,9 @@ export const MsgVote = {
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
-        : undefined;
-    message.voter = object.voter ?? undefined;
-    message.option = object.option ?? undefined;
+        : Long.UZERO;
+    message.voter = object.voter ?? "";
+    message.option = object.option ?? 0;
     return message;
   },
 };
@@ -336,19 +336,19 @@ export const MsgVoteResponse = {
 
 function createBaseMsgVoteWeighted(): MsgVoteWeighted {
   return {
-    proposalId: undefined,
-    voter: undefined,
-    options: undefined,
+    proposalId: Long.UZERO,
+    voter: "",
+    options: [],
   };
 }
 
 export const MsgVoteWeighted = {
   encode(message: MsgVoteWeighted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.proposalId !== undefined) {
+    if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
 
-    if (message.voter !== undefined) {
+    if (message.voter !== "") {
       writer.uint32(18).string(message.voter);
     }
 
@@ -391,8 +391,8 @@ export const MsgVoteWeighted = {
 
   fromJSON(object: any): MsgVoteWeighted {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : undefined,
-      voter: isSet(object.voter) ? String(object.voter) : undefined,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      voter: isSet(object.voter) ? String(object.voter) : "",
       options: Array.isArray(object?.options)
         ? object.options.map((e: any) => WeightedVoteOption.fromJSON(e))
         : [],
@@ -401,7 +401,7 @@ export const MsgVoteWeighted = {
 
   toJSON(message: MsgVoteWeighted): unknown {
     const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || undefined).toString());
+    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.voter !== undefined && (obj.voter = message.voter);
 
     if (message.options) {
@@ -418,8 +418,8 @@ export const MsgVoteWeighted = {
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
-        : undefined;
-    message.voter = object.voter ?? undefined;
+        : Long.UZERO;
+    message.voter = object.voter ?? "";
     message.options = object.options?.map((e) => WeightedVoteOption.fromPartial(e)) || [];
     return message;
   },
@@ -469,19 +469,19 @@ export const MsgVoteWeightedResponse = {
 
 function createBaseMsgDeposit(): MsgDeposit {
   return {
-    proposalId: undefined,
-    depositor: undefined,
-    amount: undefined,
+    proposalId: Long.UZERO,
+    depositor: "",
+    amount: [],
   };
 }
 
 export const MsgDeposit = {
   encode(message: MsgDeposit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.proposalId !== undefined) {
+    if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
 
-    if (message.depositor !== undefined) {
+    if (message.depositor !== "") {
       writer.uint32(18).string(message.depositor);
     }
 
@@ -524,15 +524,15 @@ export const MsgDeposit = {
 
   fromJSON(object: any): MsgDeposit {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : undefined,
-      depositor: isSet(object.depositor) ? String(object.depositor) : undefined,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: MsgDeposit): unknown {
     const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || undefined).toString());
+    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
 
     if (message.amount) {
@@ -549,8 +549,8 @@ export const MsgDeposit = {
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
         ? Long.fromValue(object.proposalId)
-        : undefined;
-    message.depositor = object.depositor ?? undefined;
+        : Long.UZERO;
+    message.depositor = object.depositor ?? "";
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },

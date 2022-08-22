@@ -4,12 +4,12 @@ export const protobufPackage = "cosmos.authz.v1beta1";
 
 /** GenesisState defines the authz module's genesis state. */
 export interface GenesisState {
-  authorization?: GrantAuthorization[];
+  authorization: GrantAuthorization[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    authorization: undefined,
+    authorization: [],
   };
 }
 

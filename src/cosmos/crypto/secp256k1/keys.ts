@@ -10,23 +10,23 @@ export const protobufPackage = "cosmos.crypto.secp256k1";
  * This prefix is followed with the x-coordinate.
  */
 export interface PubKey {
-  key?: Uint8Array;
+  key: Uint8Array;
 }
 
 /** PrivKey defines a secp256k1 private key. */
 export interface PrivKey {
-  key?: Uint8Array;
+  key: Uint8Array;
 }
 
 function createBasePubKey(): PubKey {
   return {
-    key: undefined,
+    key: new Uint8Array(),
   };
 }
 
 export const PubKey = {
   encode(message: PubKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== undefined) {
+    if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
 
@@ -57,33 +57,33 @@ export const PubKey = {
 
   fromJSON(object: any): PubKey {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
     };
   },
 
   toJSON(message: PubKey): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PubKey>, I>>(object: I): PubKey {
     const message = createBasePubKey();
-    message.key = object.key ?? undefined;
+    message.key = object.key ?? new Uint8Array();
     return message;
   },
 };
 
 function createBasePrivKey(): PrivKey {
   return {
-    key: undefined,
+    key: new Uint8Array(),
   };
 }
 
 export const PrivKey = {
   encode(message: PrivKey, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== undefined) {
+    if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
 
@@ -114,20 +114,20 @@ export const PrivKey = {
 
   fromJSON(object: any): PrivKey {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
     };
   },
 
   toJSON(message: PrivKey): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PrivKey>, I>>(object: I): PrivKey {
     const message = createBasePrivKey();
-    message.key = object.key ?? undefined;
+    message.key = object.key ?? new Uint8Array();
     return message;
   },
 };

@@ -9,13 +9,13 @@ export const protobufPackage = "cosmos.feegrant.v1beta1";
  */
 export interface MsgGrantAllowance {
   /** granter is the address of the user granting an allowance of their funds. */
-  granter?: string;
+  granter: string;
 
   /** grantee is the address of the user being granted an allowance of another user's funds. */
-  grantee?: string;
+  grantee: string;
 
   /** allowance can be any of basic and filtered fee allowance. */
-  allowance?: Any;
+  allowance: Any;
 }
 
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
@@ -24,10 +24,10 @@ export interface MsgGrantAllowanceResponse {}
 /** MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. */
 export interface MsgRevokeAllowance {
   /** granter is the address of the user granting an allowance of their funds. */
-  granter?: string;
+  granter: string;
 
   /** grantee is the address of the user being granted an allowance of another user's funds. */
-  grantee?: string;
+  grantee: string;
 }
 
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
@@ -35,19 +35,19 @@ export interface MsgRevokeAllowanceResponse {}
 
 function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   return {
-    granter: undefined,
-    grantee: undefined,
+    granter: "",
+    grantee: "",
     allowance: undefined,
   };
 }
 
 export const MsgGrantAllowance = {
   encode(message: MsgGrantAllowance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== undefined) {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
 
@@ -90,8 +90,8 @@ export const MsgGrantAllowance = {
 
   fromJSON(object: any): MsgGrantAllowance {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : undefined,
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
       allowance: isSet(object.allowance) ? Any.fromJSON(object.allowance) : undefined,
     };
   },
@@ -107,8 +107,8 @@ export const MsgGrantAllowance = {
 
   fromPartial<I extends Exact<DeepPartial<MsgGrantAllowance>, I>>(object: I): MsgGrantAllowance {
     const message = createBaseMsgGrantAllowance();
-    message.granter = object.granter ?? undefined;
-    message.grantee = object.grantee ?? undefined;
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
         ? Any.fromPartial(object.allowance)
@@ -161,18 +161,18 @@ export const MsgGrantAllowanceResponse = {
 
 function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
   return {
-    granter: undefined,
-    grantee: undefined,
+    granter: "",
+    grantee: "",
   };
 }
 
 export const MsgRevokeAllowance = {
   encode(message: MsgRevokeAllowance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== undefined) {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
 
@@ -207,8 +207,8 @@ export const MsgRevokeAllowance = {
 
   fromJSON(object: any): MsgRevokeAllowance {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : undefined,
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
     };
   },
 
@@ -221,8 +221,8 @@ export const MsgRevokeAllowance = {
 
   fromPartial<I extends Exact<DeepPartial<MsgRevokeAllowance>, I>>(object: I): MsgRevokeAllowance {
     const message = createBaseMsgRevokeAllowance();
-    message.granter = object.granter ?? undefined;
-    message.grantee = object.grantee ?? undefined;
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     return message;
   },
 };

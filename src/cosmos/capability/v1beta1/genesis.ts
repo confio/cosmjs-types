@@ -6,34 +6,34 @@ export const protobufPackage = "cosmos.capability.v1beta1";
 /** GenesisOwners defines the capability owners with their corresponding index. */
 export interface GenesisOwners {
   /** index is the index of the capability owner. */
-  index?: Long;
+  index: Long;
 
   /** index_owners are the owners at the given index. */
-  indexOwners?: CapabilityOwners;
+  indexOwners: CapabilityOwners;
 }
 
 /** GenesisState defines the capability module's genesis state. */
 export interface GenesisState {
   /** index is the capability global index. */
-  index?: Long;
+  index: Long;
 
   /**
    * owners represents a map from index to owners of the capability index
    * index key is string to allow amino marshalling.
    */
-  owners?: GenesisOwners[];
+  owners: GenesisOwners[];
 }
 
 function createBaseGenesisOwners(): GenesisOwners {
   return {
-    index: undefined,
+    index: Long.UZERO,
     indexOwners: undefined,
   };
 }
 
 export const GenesisOwners = {
   encode(message: GenesisOwners, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.index !== undefined) {
+    if (!message.index.isZero()) {
       writer.uint32(8).uint64(message.index);
     }
 
@@ -72,14 +72,14 @@ export const GenesisOwners = {
 
   fromJSON(object: any): GenesisOwners {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : undefined,
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
       indexOwners: isSet(object.indexOwners) ? CapabilityOwners.fromJSON(object.indexOwners) : undefined,
     };
   },
 
   toJSON(message: GenesisOwners): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || undefined).toString());
+    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
     message.indexOwners !== undefined &&
       (obj.indexOwners = message.indexOwners ? CapabilityOwners.toJSON(message.indexOwners) : undefined);
     return obj;
@@ -88,7 +88,7 @@ export const GenesisOwners = {
   fromPartial<I extends Exact<DeepPartial<GenesisOwners>, I>>(object: I): GenesisOwners {
     const message = createBaseGenesisOwners();
     message.index =
-      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : undefined;
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.indexOwners =
       object.indexOwners !== undefined && object.indexOwners !== null
         ? CapabilityOwners.fromPartial(object.indexOwners)
@@ -99,14 +99,14 @@ export const GenesisOwners = {
 
 function createBaseGenesisState(): GenesisState {
   return {
-    index: undefined,
-    owners: undefined,
+    index: Long.UZERO,
+    owners: [],
   };
 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.index !== undefined) {
+    if (!message.index.isZero()) {
       writer.uint32(8).uint64(message.index);
     }
 
@@ -145,14 +145,14 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : undefined,
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
       owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => GenesisOwners.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || undefined).toString());
+    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
 
     if (message.owners) {
       obj.owners = message.owners.map((e) => (e ? GenesisOwners.toJSON(e) : undefined));
@@ -166,7 +166,7 @@ export const GenesisState = {
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.index =
-      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : undefined;
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.owners = object.owners?.map((e) => GenesisOwners.fromPartial(e)) || [];
     return message;
   },

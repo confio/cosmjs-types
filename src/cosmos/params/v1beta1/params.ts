@@ -4,9 +4,9 @@ export const protobufPackage = "cosmos.params.v1beta1";
 
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposal {
-  title?: string;
-  description?: string;
-  changes?: ParamChange[];
+  title: string;
+  description: string;
+  changes: ParamChange[];
 }
 
 /**
@@ -14,26 +14,26 @@ export interface ParameterChangeProposal {
  * ParameterChangeProposal.
  */
 export interface ParamChange {
-  subspace?: string;
-  key?: string;
-  value?: string;
+  subspace: string;
+  key: string;
+  value: string;
 }
 
 function createBaseParameterChangeProposal(): ParameterChangeProposal {
   return {
-    title: undefined,
-    description: undefined,
-    changes: undefined,
+    title: "",
+    description: "",
+    changes: [],
   };
 }
 
 export const ParameterChangeProposal = {
   encode(message: ParameterChangeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.title !== undefined) {
+    if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
 
-    if (message.description !== undefined) {
+    if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
 
@@ -76,8 +76,8 @@ export const ParameterChangeProposal = {
 
   fromJSON(object: any): ParameterChangeProposal {
     return {
-      title: isSet(object.title) ? String(object.title) : undefined,
-      description: isSet(object.description) ? String(object.description) : undefined,
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
       changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromJSON(e)) : [],
     };
   },
@@ -98,8 +98,8 @@ export const ParameterChangeProposal = {
 
   fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
     const message = createBaseParameterChangeProposal();
-    message.title = object.title ?? undefined;
-    message.description = object.description ?? undefined;
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
     message.changes = object.changes?.map((e) => ParamChange.fromPartial(e)) || [];
     return message;
   },
@@ -107,23 +107,23 @@ export const ParameterChangeProposal = {
 
 function createBaseParamChange(): ParamChange {
   return {
-    subspace: undefined,
-    key: undefined,
-    value: undefined,
+    subspace: "",
+    key: "",
+    value: "",
   };
 }
 
 export const ParamChange = {
   encode(message: ParamChange, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.subspace !== undefined) {
+    if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);
     }
 
-    if (message.key !== undefined) {
+    if (message.key !== "") {
       writer.uint32(18).string(message.key);
     }
 
-    if (message.value !== undefined) {
+    if (message.value !== "") {
       writer.uint32(26).string(message.value);
     }
 
@@ -162,9 +162,9 @@ export const ParamChange = {
 
   fromJSON(object: any): ParamChange {
     return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : undefined,
-      key: isSet(object.key) ? String(object.key) : undefined,
-      value: isSet(object.value) ? String(object.value) : undefined,
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? String(object.value) : "",
     };
   },
 
@@ -178,9 +178,9 @@ export const ParamChange = {
 
   fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {
     const message = createBaseParamChange();
-    message.subspace = object.subspace ?? undefined;
-    message.key = object.key ?? undefined;
-    message.value = object.value ?? undefined;
+    message.subspace = object.subspace ?? "";
+    message.key = object.key ?? "";
+    message.value = object.value ?? "";
     return message;
   },
 };

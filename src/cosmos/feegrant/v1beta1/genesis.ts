@@ -5,12 +5,12 @@ export const protobufPackage = "cosmos.feegrant.v1beta1";
 
 /** GenesisState contains a set of fee allowances, persisted from the store */
 export interface GenesisState {
-  allowances?: Grant[];
+  allowances: Grant[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    allowances: undefined,
+    allowances: [],
   };
 }
 

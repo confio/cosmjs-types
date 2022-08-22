@@ -6,12 +6,12 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisState {
   /** evidence defines all the evidence at genesis. */
-  evidence?: Any[];
+  evidence: Any[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    evidence: undefined,
+    evidence: [],
   };
 }
 

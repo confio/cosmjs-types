@@ -6,9 +6,9 @@ export const protobufPackage = "cosmos.bank.v1beta1";
 
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
-  fromAddress?: string;
-  toAddress?: string;
-  amount?: Coin[];
+  fromAddress: string;
+  toAddress: string;
+  amount: Coin[];
 }
 
 /** MsgSendResponse defines the Msg/Send response type. */
@@ -16,8 +16,8 @@ export interface MsgSendResponse {}
 
 /** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
 export interface MsgMultiSend {
-  inputs?: Input[];
-  outputs?: Output[];
+  inputs: Input[];
+  outputs: Output[];
 }
 
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
@@ -25,19 +25,19 @@ export interface MsgMultiSendResponse {}
 
 function createBaseMsgSend(): MsgSend {
   return {
-    fromAddress: undefined,
-    toAddress: undefined,
-    amount: undefined,
+    fromAddress: "",
+    toAddress: "",
+    amount: [],
   };
 }
 
 export const MsgSend = {
   encode(message: MsgSend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fromAddress !== undefined) {
+    if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress);
     }
 
-    if (message.toAddress !== undefined) {
+    if (message.toAddress !== "") {
       writer.uint32(18).string(message.toAddress);
     }
 
@@ -80,8 +80,8 @@ export const MsgSend = {
 
   fromJSON(object: any): MsgSend {
     return {
-      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : undefined,
-      toAddress: isSet(object.toAddress) ? String(object.toAddress) : undefined,
+      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
@@ -102,8 +102,8 @@ export const MsgSend = {
 
   fromPartial<I extends Exact<DeepPartial<MsgSend>, I>>(object: I): MsgSend {
     const message = createBaseMsgSend();
-    message.fromAddress = object.fromAddress ?? undefined;
-    message.toAddress = object.toAddress ?? undefined;
+    message.fromAddress = object.fromAddress ?? "";
+    message.toAddress = object.toAddress ?? "";
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -153,8 +153,8 @@ export const MsgSendResponse = {
 
 function createBaseMsgMultiSend(): MsgMultiSend {
   return {
-    inputs: undefined,
-    outputs: undefined,
+    inputs: [],
+    outputs: [],
   };
 }
 

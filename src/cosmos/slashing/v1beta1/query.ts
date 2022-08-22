@@ -9,7 +9,7 @@ export interface QueryParamsRequest {}
 
 /** QueryParamsResponse is the response type for the Query/Params RPC method */
 export interface QueryParamsResponse {
-  params?: Params;
+  params: Params;
 }
 
 /**
@@ -18,7 +18,7 @@ export interface QueryParamsResponse {
  */
 export interface QuerySigningInfoRequest {
   /** cons_address is the address to query signing info of */
-  consAddress?: string;
+  consAddress: string;
 }
 
 /**
@@ -27,7 +27,7 @@ export interface QuerySigningInfoRequest {
  */
 export interface QuerySigningInfoResponse {
   /** val_signing_info is the signing info of requested val cons address */
-  valSigningInfo?: ValidatorSigningInfo;
+  valSigningInfo: ValidatorSigningInfo;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface QuerySigningInfoResponse {
  * method
  */
 export interface QuerySigningInfosRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -44,8 +44,8 @@ export interface QuerySigningInfosRequest {
  */
 export interface QuerySigningInfosResponse {
   /** info is the signing info of all validators */
-  info?: ValidatorSigningInfo[];
-  pagination?: PageResponse;
+  info: ValidatorSigningInfo[];
+  pagination: PageResponse;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -149,13 +149,13 @@ export const QueryParamsResponse = {
 
 function createBaseQuerySigningInfoRequest(): QuerySigningInfoRequest {
   return {
-    consAddress: undefined,
+    consAddress: "",
   };
 }
 
 export const QuerySigningInfoRequest = {
   encode(message: QuerySigningInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.consAddress !== undefined) {
+    if (message.consAddress !== "") {
       writer.uint32(10).string(message.consAddress);
     }
 
@@ -186,7 +186,7 @@ export const QuerySigningInfoRequest = {
 
   fromJSON(object: any): QuerySigningInfoRequest {
     return {
-      consAddress: isSet(object.consAddress) ? String(object.consAddress) : undefined,
+      consAddress: isSet(object.consAddress) ? String(object.consAddress) : "",
     };
   },
 
@@ -198,7 +198,7 @@ export const QuerySigningInfoRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest {
     const message = createBaseQuerySigningInfoRequest();
-    message.consAddress = object.consAddress ?? undefined;
+    message.consAddress = object.consAddress ?? "";
     return message;
   },
 };
@@ -333,7 +333,7 @@ export const QuerySigningInfosRequest = {
 
 function createBaseQuerySigningInfosResponse(): QuerySigningInfosResponse {
   return {
-    info: undefined,
+    info: [],
     pagination: undefined,
   };
 }

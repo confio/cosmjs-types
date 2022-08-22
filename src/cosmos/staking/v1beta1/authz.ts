@@ -75,7 +75,7 @@ export interface StakeAuthorization {
    * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
    * empty, there is no spend limit and any amount of coins can be delegated.
    */
-  maxTokens?: Coin;
+  maxTokens: Coin;
 
   /**
    * allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
@@ -87,12 +87,12 @@ export interface StakeAuthorization {
   denyList?: StakeAuthorization_Validators;
 
   /** authorization_type defines one of AuthorizationType. */
-  authorizationType?: AuthorizationType;
+  authorizationType: AuthorizationType;
 }
 
 /** Validators defines list of validator addresses. */
 export interface StakeAuthorization_Validators {
-  address?: string[];
+  address: string[];
 }
 
 function createBaseStakeAuthorization(): StakeAuthorization {
@@ -100,7 +100,7 @@ function createBaseStakeAuthorization(): StakeAuthorization {
     maxTokens: undefined,
     allowList: undefined,
     denyList: undefined,
-    authorizationType: undefined,
+    authorizationType: 0,
   };
 }
 
@@ -118,7 +118,7 @@ export const StakeAuthorization = {
       StakeAuthorization_Validators.encode(message.denyList, writer.uint32(26).fork()).ldelim();
     }
 
-    if (message.authorizationType !== undefined) {
+    if (message.authorizationType !== 0) {
       writer.uint32(32).int32(message.authorizationType);
     }
 
@@ -168,7 +168,7 @@ export const StakeAuthorization = {
       denyList: isSet(object.denyList) ? StakeAuthorization_Validators.fromJSON(object.denyList) : undefined,
       authorizationType: isSet(object.authorizationType)
         ? authorizationTypeFromJSON(object.authorizationType)
-        : undefined,
+        : 0,
     };
   },
 
@@ -201,14 +201,14 @@ export const StakeAuthorization = {
       object.denyList !== undefined && object.denyList !== null
         ? StakeAuthorization_Validators.fromPartial(object.denyList)
         : undefined;
-    message.authorizationType = object.authorizationType ?? undefined;
+    message.authorizationType = object.authorizationType ?? 0;
     return message;
   },
 };
 
 function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validators {
   return {
-    address: undefined,
+    address: [],
   };
 }
 

@@ -12,7 +12,7 @@ export const protobufPackage = "ibc.core.connection.v1";
  */
 export interface QueryConnectionRequest {
   /** connection unique identifier */
-  connectionId?: string;
+  connectionId: string;
 }
 
 /**
@@ -22,13 +22,13 @@ export interface QueryConnectionRequest {
  */
 export interface QueryConnectionResponse {
   /** connection associated with the request identifier */
-  connection?: ConnectionEnd;
+  connection: ConnectionEnd;
 
   /** merkle proof of existence */
-  proof?: Uint8Array;
+  proof: Uint8Array;
 
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface QueryConnectionResponse {
  * method
  */
 export interface QueryConnectionsRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -45,13 +45,13 @@ export interface QueryConnectionsRequest {
  */
 export interface QueryConnectionsResponse {
   /** list of stored connections of the chain. */
-  connections?: IdentifiedConnection[];
+  connections: IdentifiedConnection[];
 
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 
 /**
@@ -60,7 +60,7 @@ export interface QueryConnectionsResponse {
  */
 export interface QueryClientConnectionsRequest {
   /** client identifier associated with a connection */
-  clientId?: string;
+  clientId: string;
 }
 
 /**
@@ -69,13 +69,13 @@ export interface QueryClientConnectionsRequest {
  */
 export interface QueryClientConnectionsResponse {
   /** slice of all the connection paths associated with a client. */
-  connectionPaths?: string[];
+  connectionPaths: string[];
 
   /** merkle proof of existence */
-  proof?: Uint8Array;
+  proof: Uint8Array;
 
   /** height at which the proof was generated */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -84,7 +84,7 @@ export interface QueryClientConnectionsResponse {
  */
 export interface QueryConnectionClientStateRequest {
   /** connection identifier */
-  connectionId?: string;
+  connectionId: string;
 }
 
 /**
@@ -93,13 +93,13 @@ export interface QueryConnectionClientStateRequest {
  */
 export interface QueryConnectionClientStateResponse {
   /** client state associated with the channel */
-  identifiedClientState?: IdentifiedClientState;
+  identifiedClientState: IdentifiedClientState;
 
   /** merkle proof of existence */
-  proof?: Uint8Array;
+  proof: Uint8Array;
 
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 /**
@@ -108,9 +108,9 @@ export interface QueryConnectionClientStateResponse {
  */
 export interface QueryConnectionConsensusStateRequest {
   /** connection identifier */
-  connectionId?: string;
-  revisionNumber?: Long;
-  revisionHeight?: Long;
+  connectionId: string;
+  revisionNumber: Long;
+  revisionHeight: Long;
 }
 
 /**
@@ -119,27 +119,27 @@ export interface QueryConnectionConsensusStateRequest {
  */
 export interface QueryConnectionConsensusStateResponse {
   /** consensus state associated with the channel */
-  consensusState?: Any;
+  consensusState: Any;
 
   /** client ID associated with the consensus state */
-  clientId?: string;
+  clientId: string;
 
   /** merkle proof of existence */
-  proof?: Uint8Array;
+  proof: Uint8Array;
 
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 
 function createBaseQueryConnectionRequest(): QueryConnectionRequest {
   return {
-    connectionId: undefined,
+    connectionId: "",
   };
 }
 
 export const QueryConnectionRequest = {
   encode(message: QueryConnectionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.connectionId !== undefined) {
+    if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);
     }
 
@@ -170,7 +170,7 @@ export const QueryConnectionRequest = {
 
   fromJSON(object: any): QueryConnectionRequest {
     return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : undefined,
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
     };
   },
 
@@ -182,7 +182,7 @@ export const QueryConnectionRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionRequest>, I>>(object: I): QueryConnectionRequest {
     const message = createBaseQueryConnectionRequest();
-    message.connectionId = object.connectionId ?? undefined;
+    message.connectionId = object.connectionId ?? "";
     return message;
   },
 };
@@ -190,7 +190,7 @@ export const QueryConnectionRequest = {
 function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   return {
     connection: undefined,
-    proof: undefined,
+    proof: new Uint8Array(),
     proofHeight: undefined,
   };
 }
@@ -201,7 +201,7 @@ export const QueryConnectionResponse = {
       ConnectionEnd.encode(message.connection, writer.uint32(10).fork()).ldelim();
     }
 
-    if (message.proof !== undefined) {
+    if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
 
@@ -245,7 +245,7 @@ export const QueryConnectionResponse = {
   fromJSON(object: any): QueryConnectionResponse {
     return {
       connection: isSet(object.connection) ? ConnectionEnd.fromJSON(object.connection) : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : undefined,
+      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
     };
   },
@@ -255,7 +255,7 @@ export const QueryConnectionResponse = {
     message.connection !== undefined &&
       (obj.connection = message.connection ? ConnectionEnd.toJSON(message.connection) : undefined);
     message.proof !== undefined &&
-      (obj.proof = message.proof !== undefined ? base64FromBytes(message.proof) : undefined);
+      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
     message.proofHeight !== undefined &&
       (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
     return obj;
@@ -267,7 +267,7 @@ export const QueryConnectionResponse = {
       object.connection !== undefined && object.connection !== null
         ? ConnectionEnd.fromPartial(object.connection)
         : undefined;
-    message.proof = object.proof ?? undefined;
+    message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)
@@ -338,7 +338,7 @@ export const QueryConnectionsRequest = {
 
 function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
   return {
-    connections: undefined,
+    connections: [],
     pagination: undefined,
     height: undefined,
   };
@@ -433,13 +433,13 @@ export const QueryConnectionsResponse = {
 
 function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsRequest {
   return {
-    clientId: undefined,
+    clientId: "",
   };
 }
 
 export const QueryClientConnectionsRequest = {
   encode(message: QueryClientConnectionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== undefined) {
+    if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
 
@@ -470,7 +470,7 @@ export const QueryClientConnectionsRequest = {
 
   fromJSON(object: any): QueryClientConnectionsRequest {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
     };
   },
 
@@ -484,15 +484,15 @@ export const QueryClientConnectionsRequest = {
     object: I,
   ): QueryClientConnectionsRequest {
     const message = createBaseQueryClientConnectionsRequest();
-    message.clientId = object.clientId ?? undefined;
+    message.clientId = object.clientId ?? "";
     return message;
   },
 };
 
 function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsResponse {
   return {
-    connectionPaths: undefined,
-    proof: undefined,
+    connectionPaths: [],
+    proof: new Uint8Array(),
     proofHeight: undefined,
   };
 }
@@ -503,7 +503,7 @@ export const QueryClientConnectionsResponse = {
       writer.uint32(10).string(v!);
     }
 
-    if (message.proof !== undefined) {
+    if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
 
@@ -549,7 +549,7 @@ export const QueryClientConnectionsResponse = {
       connectionPaths: Array.isArray(object?.connectionPaths)
         ? object.connectionPaths.map((e: any) => String(e))
         : [],
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : undefined,
+      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
     };
   },
@@ -564,7 +564,7 @@ export const QueryClientConnectionsResponse = {
     }
 
     message.proof !== undefined &&
-      (obj.proof = message.proof !== undefined ? base64FromBytes(message.proof) : undefined);
+      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
     message.proofHeight !== undefined &&
       (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
     return obj;
@@ -575,7 +575,7 @@ export const QueryClientConnectionsResponse = {
   ): QueryClientConnectionsResponse {
     const message = createBaseQueryClientConnectionsResponse();
     message.connectionPaths = object.connectionPaths?.map((e) => e) || [];
-    message.proof = object.proof ?? undefined;
+    message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)
@@ -586,13 +586,13 @@ export const QueryClientConnectionsResponse = {
 
 function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientStateRequest {
   return {
-    connectionId: undefined,
+    connectionId: "",
   };
 }
 
 export const QueryConnectionClientStateRequest = {
   encode(message: QueryConnectionClientStateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.connectionId !== undefined) {
+    if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);
     }
 
@@ -623,7 +623,7 @@ export const QueryConnectionClientStateRequest = {
 
   fromJSON(object: any): QueryConnectionClientStateRequest {
     return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : undefined,
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
     };
   },
 
@@ -637,7 +637,7 @@ export const QueryConnectionClientStateRequest = {
     object: I,
   ): QueryConnectionClientStateRequest {
     const message = createBaseQueryConnectionClientStateRequest();
-    message.connectionId = object.connectionId ?? undefined;
+    message.connectionId = object.connectionId ?? "";
     return message;
   },
 };
@@ -645,7 +645,7 @@ export const QueryConnectionClientStateRequest = {
 function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientStateResponse {
   return {
     identifiedClientState: undefined,
-    proof: undefined,
+    proof: new Uint8Array(),
     proofHeight: undefined,
   };
 }
@@ -656,7 +656,7 @@ export const QueryConnectionClientStateResponse = {
       IdentifiedClientState.encode(message.identifiedClientState, writer.uint32(10).fork()).ldelim();
     }
 
-    if (message.proof !== undefined) {
+    if (message.proof.length !== 0) {
       writer.uint32(18).bytes(message.proof);
     }
 
@@ -702,7 +702,7 @@ export const QueryConnectionClientStateResponse = {
       identifiedClientState: isSet(object.identifiedClientState)
         ? IdentifiedClientState.fromJSON(object.identifiedClientState)
         : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : undefined,
+      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
     };
   },
@@ -714,7 +714,7 @@ export const QueryConnectionClientStateResponse = {
         ? IdentifiedClientState.toJSON(message.identifiedClientState)
         : undefined);
     message.proof !== undefined &&
-      (obj.proof = message.proof !== undefined ? base64FromBytes(message.proof) : undefined);
+      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
     message.proofHeight !== undefined &&
       (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
     return obj;
@@ -728,7 +728,7 @@ export const QueryConnectionClientStateResponse = {
       object.identifiedClientState !== undefined && object.identifiedClientState !== null
         ? IdentifiedClientState.fromPartial(object.identifiedClientState)
         : undefined;
-    message.proof = object.proof ?? undefined;
+    message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)
@@ -739,9 +739,9 @@ export const QueryConnectionClientStateResponse = {
 
 function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsensusStateRequest {
   return {
-    connectionId: undefined,
-    revisionNumber: undefined,
-    revisionHeight: undefined,
+    connectionId: "",
+    revisionNumber: Long.UZERO,
+    revisionHeight: Long.UZERO,
   };
 }
 
@@ -750,15 +750,15 @@ export const QueryConnectionConsensusStateRequest = {
     message: QueryConnectionConsensusStateRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.connectionId !== undefined) {
+    if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);
     }
 
-    if (message.revisionNumber !== undefined) {
+    if (!message.revisionNumber.isZero()) {
       writer.uint32(16).uint64(message.revisionNumber);
     }
 
-    if (message.revisionHeight !== undefined) {
+    if (!message.revisionHeight.isZero()) {
       writer.uint32(24).uint64(message.revisionHeight);
     }
 
@@ -797,9 +797,9 @@ export const QueryConnectionConsensusStateRequest = {
 
   fromJSON(object: any): QueryConnectionConsensusStateRequest {
     return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : undefined,
-      revisionNumber: isSet(object.revisionNumber) ? Long.fromString(object.revisionNumber) : undefined,
-      revisionHeight: isSet(object.revisionHeight) ? Long.fromString(object.revisionHeight) : undefined,
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
+      revisionNumber: isSet(object.revisionNumber) ? Long.fromString(object.revisionNumber) : Long.UZERO,
+      revisionHeight: isSet(object.revisionHeight) ? Long.fromString(object.revisionHeight) : Long.UZERO,
     };
   },
 
@@ -807,9 +807,9 @@ export const QueryConnectionConsensusStateRequest = {
     const obj: any = {};
     message.connectionId !== undefined && (obj.connectionId = message.connectionId);
     message.revisionNumber !== undefined &&
-      (obj.revisionNumber = (message.revisionNumber || undefined).toString());
+      (obj.revisionNumber = (message.revisionNumber || Long.UZERO).toString());
     message.revisionHeight !== undefined &&
-      (obj.revisionHeight = (message.revisionHeight || undefined).toString());
+      (obj.revisionHeight = (message.revisionHeight || Long.UZERO).toString());
     return obj;
   },
 
@@ -817,15 +817,15 @@ export const QueryConnectionConsensusStateRequest = {
     object: I,
   ): QueryConnectionConsensusStateRequest {
     const message = createBaseQueryConnectionConsensusStateRequest();
-    message.connectionId = object.connectionId ?? undefined;
+    message.connectionId = object.connectionId ?? "";
     message.revisionNumber =
       object.revisionNumber !== undefined && object.revisionNumber !== null
         ? Long.fromValue(object.revisionNumber)
-        : undefined;
+        : Long.UZERO;
     message.revisionHeight =
       object.revisionHeight !== undefined && object.revisionHeight !== null
         ? Long.fromValue(object.revisionHeight)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };
@@ -833,8 +833,8 @@ export const QueryConnectionConsensusStateRequest = {
 function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConsensusStateResponse {
   return {
     consensusState: undefined,
-    clientId: undefined,
-    proof: undefined,
+    clientId: "",
+    proof: new Uint8Array(),
     proofHeight: undefined,
   };
 }
@@ -848,11 +848,11 @@ export const QueryConnectionConsensusStateResponse = {
       Any.encode(message.consensusState, writer.uint32(10).fork()).ldelim();
     }
 
-    if (message.clientId !== undefined) {
+    if (message.clientId !== "") {
       writer.uint32(18).string(message.clientId);
     }
 
-    if (message.proof !== undefined) {
+    if (message.proof.length !== 0) {
       writer.uint32(26).bytes(message.proof);
     }
 
@@ -900,8 +900,8 @@ export const QueryConnectionConsensusStateResponse = {
   fromJSON(object: any): QueryConnectionConsensusStateResponse {
     return {
       consensusState: isSet(object.consensusState) ? Any.fromJSON(object.consensusState) : undefined,
-      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : undefined,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
     };
   },
@@ -912,7 +912,7 @@ export const QueryConnectionConsensusStateResponse = {
       (obj.consensusState = message.consensusState ? Any.toJSON(message.consensusState) : undefined);
     message.clientId !== undefined && (obj.clientId = message.clientId);
     message.proof !== undefined &&
-      (obj.proof = message.proof !== undefined ? base64FromBytes(message.proof) : undefined);
+      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
     message.proofHeight !== undefined &&
       (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
     return obj;
@@ -926,8 +926,8 @@ export const QueryConnectionConsensusStateResponse = {
       object.consensusState !== undefined && object.consensusState !== null
         ? Any.fromPartial(object.consensusState)
         : undefined;
-    message.clientId = object.clientId ?? undefined;
-    message.proof = object.proof ?? undefined;
+    message.clientId = object.clientId ?? "";
+    message.proof = object.proof ?? new Uint8Array();
     message.proofHeight =
       object.proofHeight !== undefined && object.proofHeight !== null
         ? Height.fromPartial(object.proofHeight)

@@ -6,20 +6,20 @@ export const protobufPackage = "ibc.core.client.v1";
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisState {
   /** client states with their corresponding identifiers */
-  clients?: IdentifiedClientState[];
+  clients: IdentifiedClientState[];
 
   /** consensus states from each client */
-  clientsConsensus?: ClientConsensusStates[];
+  clientsConsensus: ClientConsensusStates[];
 
   /** metadata from each client */
-  clientsMetadata?: IdentifiedGenesisMetadata[];
-  params?: Params;
+  clientsMetadata: IdentifiedGenesisMetadata[];
+  params: Params;
 
   /** create localhost on initialization */
-  createLocalhost?: boolean;
+  createLocalhost: boolean;
 
   /** the sequence for the next generated client identifier */
-  nextClientSequence?: Long;
+  nextClientSequence: Long;
 }
 
 /**
@@ -28,10 +28,10 @@ export interface GenesisState {
  */
 export interface GenesisMetadata {
   /** store key of metadata without clientID-prefix */
-  key?: Uint8Array;
+  key: Uint8Array;
 
   /** metadata value */
-  value?: Uint8Array;
+  value: Uint8Array;
 }
 
 /**
@@ -39,18 +39,18 @@ export interface GenesisMetadata {
  * client id.
  */
 export interface IdentifiedGenesisMetadata {
-  clientId?: string;
-  clientMetadata?: GenesisMetadata[];
+  clientId: string;
+  clientMetadata: GenesisMetadata[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    clients: undefined,
-    clientsConsensus: undefined,
-    clientsMetadata: undefined,
+    clients: [],
+    clientsConsensus: [],
+    clientsMetadata: [],
     params: undefined,
-    createLocalhost: undefined,
-    nextClientSequence: undefined,
+    createLocalhost: false,
+    nextClientSequence: Long.UZERO,
   };
 }
 
@@ -72,11 +72,11 @@ export const GenesisState = {
       Params.encode(message.params, writer.uint32(34).fork()).ldelim();
     }
 
-    if (message.createLocalhost !== undefined) {
+    if (message.createLocalhost === true) {
       writer.uint32(40).bool(message.createLocalhost);
     }
 
-    if (message.nextClientSequence !== undefined) {
+    if (!message.nextClientSequence.isZero()) {
       writer.uint32(48).uint64(message.nextClientSequence);
     }
 
@@ -137,10 +137,10 @@ export const GenesisState = {
         ? object.clientsMetadata.map((e: any) => IdentifiedGenesisMetadata.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      createLocalhost: isSet(object.createLocalhost) ? Boolean(object.createLocalhost) : undefined,
+      createLocalhost: isSet(object.createLocalhost) ? Boolean(object.createLocalhost) : false,
       nextClientSequence: isSet(object.nextClientSequence)
         ? Long.fromString(object.nextClientSequence)
-        : undefined,
+        : Long.UZERO,
     };
   },
 
@@ -172,7 +172,7 @@ export const GenesisState = {
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     message.createLocalhost !== undefined && (obj.createLocalhost = message.createLocalhost);
     message.nextClientSequence !== undefined &&
-      (obj.nextClientSequence = (message.nextClientSequence || undefined).toString());
+      (obj.nextClientSequence = (message.nextClientSequence || Long.UZERO).toString());
     return obj;
   },
 
@@ -185,29 +185,29 @@ export const GenesisState = {
       object.clientsMetadata?.map((e) => IdentifiedGenesisMetadata.fromPartial(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
-    message.createLocalhost = object.createLocalhost ?? undefined;
+    message.createLocalhost = object.createLocalhost ?? false;
     message.nextClientSequence =
       object.nextClientSequence !== undefined && object.nextClientSequence !== null
         ? Long.fromValue(object.nextClientSequence)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };
 
 function createBaseGenesisMetadata(): GenesisMetadata {
   return {
-    key: undefined,
-    value: undefined,
+    key: new Uint8Array(),
+    value: new Uint8Array(),
   };
 }
 
 export const GenesisMetadata = {
   encode(message: GenesisMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== undefined) {
+    if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
 
-    if (message.value !== undefined) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
 
@@ -242,38 +242,38 @@ export const GenesisMetadata = {
 
   fromJSON(object: any): GenesisMetadata {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
-      value: isSet(object.value) ? bytesFromBase64(object.value) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
   toJSON(message: GenesisMetadata): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
     message.value !== undefined &&
-      (obj.value = message.value !== undefined ? base64FromBytes(message.value) : undefined);
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisMetadata>, I>>(object: I): GenesisMetadata {
     const message = createBaseGenesisMetadata();
-    message.key = object.key ?? undefined;
-    message.value = object.value ?? undefined;
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
   return {
-    clientId: undefined,
-    clientMetadata: undefined,
+    clientId: "",
+    clientMetadata: [],
   };
 }
 
 export const IdentifiedGenesisMetadata = {
   encode(message: IdentifiedGenesisMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== undefined) {
+    if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
     }
 
@@ -312,7 +312,7 @@ export const IdentifiedGenesisMetadata = {
 
   fromJSON(object: any): IdentifiedGenesisMetadata {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "",
       clientMetadata: Array.isArray(object?.clientMetadata)
         ? object.clientMetadata.map((e: any) => GenesisMetadata.fromJSON(e))
         : [],
@@ -336,7 +336,7 @@ export const IdentifiedGenesisMetadata = {
     object: I,
   ): IdentifiedGenesisMetadata {
     const message = createBaseIdentifiedGenesisMetadata();
-    message.clientId = object.clientId ?? undefined;
+    message.clientId = object.clientId ?? "";
     message.clientMetadata = object.clientMetadata?.map((e) => GenesisMetadata.fromPartial(e)) || [];
     return message;
   },

@@ -4,18 +4,18 @@ export const protobufPackage = "cosmos.base.kv.v1beta1";
 
 /** Pairs defines a repeated slice of Pair objects. */
 export interface Pairs {
-  pairs?: Pair[];
+  pairs: Pair[];
 }
 
 /** Pair defines a key/value bytes tuple. */
 export interface Pair {
-  key?: Uint8Array;
-  value?: Uint8Array;
+  key: Uint8Array;
+  value: Uint8Array;
 }
 
 function createBasePairs(): Pairs {
   return {
-    pairs: undefined,
+    pairs: [],
   };
 }
 
@@ -77,18 +77,18 @@ export const Pairs = {
 
 function createBasePair(): Pair {
   return {
-    key: undefined,
-    value: undefined,
+    key: new Uint8Array(),
+    value: new Uint8Array(),
   };
 }
 
 export const Pair = {
   encode(message: Pair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== undefined) {
+    if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
 
-    if (message.value !== undefined) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
 
@@ -123,24 +123,24 @@ export const Pair = {
 
   fromJSON(object: any): Pair {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
-      value: isSet(object.value) ? bytesFromBase64(object.value) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
   toJSON(message: Pair): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
     message.value !== undefined &&
-      (obj.value = message.value !== undefined ? base64FromBytes(message.value) : undefined);
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
     const message = createBasePair();
-    message.key = object.key ?? undefined;
-    message.value = object.value ?? undefined;
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };

@@ -12,7 +12,7 @@ export const protobufPackage = "cosmos.auth.v1beta1";
  */
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -22,22 +22,22 @@ export interface QueryAccountsRequest {
  */
 export interface QueryAccountsResponse {
   /** accounts are the existing accounts */
-  accounts?: Any[];
+  accounts: Any[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
 export interface QueryAccountRequest {
   /** address defines the address to query for. */
-  address?: string;
+  address: string;
 }
 
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
 export interface QueryAccountResponse {
   /** account defines the account of the corresponding address. */
-  account?: Any;
+  account: Any;
 }
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
@@ -46,7 +46,7 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params?: Params;
+  params: Params;
 }
 
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
@@ -111,7 +111,7 @@ export const QueryAccountsRequest = {
 
 function createBaseQueryAccountsResponse(): QueryAccountsResponse {
   return {
-    accounts: undefined,
+    accounts: [],
     pagination: undefined,
   };
 }
@@ -189,13 +189,13 @@ export const QueryAccountsResponse = {
 
 function createBaseQueryAccountRequest(): QueryAccountRequest {
   return {
-    address: undefined,
+    address: "",
   };
 }
 
 export const QueryAccountRequest = {
   encode(message: QueryAccountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== undefined) {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
 
@@ -226,7 +226,7 @@ export const QueryAccountRequest = {
 
   fromJSON(object: any): QueryAccountRequest {
     return {
-      address: isSet(object.address) ? String(object.address) : undefined,
+      address: isSet(object.address) ? String(object.address) : "",
     };
   },
 
@@ -238,7 +238,7 @@ export const QueryAccountRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(object: I): QueryAccountRequest {
     const message = createBaseQueryAccountRequest();
-    message.address = object.address ?? undefined;
+    message.address = object.address ?? "";
     return message;
   },
 };

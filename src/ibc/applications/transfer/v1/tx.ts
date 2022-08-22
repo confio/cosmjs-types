@@ -11,31 +11,31 @@ export const protobufPackage = "ibc.applications.transfer.v1";
  */
 export interface MsgTransfer {
   /** the port on which the packet will be sent */
-  sourcePort?: string;
+  sourcePort: string;
 
   /** the channel by which the packet will be sent */
-  sourceChannel?: string;
+  sourceChannel: string;
 
   /** the tokens to be transferred */
-  token?: Coin;
+  token: Coin;
 
   /** the sender address */
-  sender?: string;
+  sender: string;
 
   /** the recipient address on the destination chain */
-  receiver?: string;
+  receiver: string;
 
   /**
    * Timeout height relative to the current block height.
    * The timeout is disabled when set to 0.
    */
-  timeoutHeight?: Height;
+  timeoutHeight: Height;
 
   /**
    * Timeout timestamp (in nanoseconds) relative to the current block timestamp.
    * The timeout is disabled when set to 0.
    */
-  timeoutTimestamp?: Long;
+  timeoutTimestamp: Long;
 }
 
 /** MsgTransferResponse defines the Msg/Transfer response type. */
@@ -43,23 +43,23 @@ export interface MsgTransferResponse {}
 
 function createBaseMsgTransfer(): MsgTransfer {
   return {
-    sourcePort: undefined,
-    sourceChannel: undefined,
+    sourcePort: "",
+    sourceChannel: "",
     token: undefined,
-    sender: undefined,
-    receiver: undefined,
+    sender: "",
+    receiver: "",
     timeoutHeight: undefined,
-    timeoutTimestamp: undefined,
+    timeoutTimestamp: Long.UZERO,
   };
 }
 
 export const MsgTransfer = {
   encode(message: MsgTransfer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sourcePort !== undefined) {
+    if (message.sourcePort !== "") {
       writer.uint32(10).string(message.sourcePort);
     }
 
-    if (message.sourceChannel !== undefined) {
+    if (message.sourceChannel !== "") {
       writer.uint32(18).string(message.sourceChannel);
     }
 
@@ -67,11 +67,11 @@ export const MsgTransfer = {
       Coin.encode(message.token, writer.uint32(26).fork()).ldelim();
     }
 
-    if (message.sender !== undefined) {
+    if (message.sender !== "") {
       writer.uint32(34).string(message.sender);
     }
 
-    if (message.receiver !== undefined) {
+    if (message.receiver !== "") {
       writer.uint32(42).string(message.receiver);
     }
 
@@ -79,7 +79,7 @@ export const MsgTransfer = {
       Height.encode(message.timeoutHeight, writer.uint32(50).fork()).ldelim();
     }
 
-    if (message.timeoutTimestamp !== undefined) {
+    if (!message.timeoutTimestamp.isZero()) {
       writer.uint32(56).uint64(message.timeoutTimestamp);
     }
 
@@ -134,13 +134,15 @@ export const MsgTransfer = {
 
   fromJSON(object: any): MsgTransfer {
     return {
-      sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : undefined,
-      sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : undefined,
+      sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : "",
+      sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : "",
       token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
-      sender: isSet(object.sender) ? String(object.sender) : undefined,
-      receiver: isSet(object.receiver) ? String(object.receiver) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      receiver: isSet(object.receiver) ? String(object.receiver) : "",
       timeoutHeight: isSet(object.timeoutHeight) ? Height.fromJSON(object.timeoutHeight) : undefined,
-      timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromString(object.timeoutTimestamp) : undefined,
+      timeoutTimestamp: isSet(object.timeoutTimestamp)
+        ? Long.fromString(object.timeoutTimestamp)
+        : Long.UZERO,
     };
   },
 
@@ -154,18 +156,18 @@ export const MsgTransfer = {
     message.timeoutHeight !== undefined &&
       (obj.timeoutHeight = message.timeoutHeight ? Height.toJSON(message.timeoutHeight) : undefined);
     message.timeoutTimestamp !== undefined &&
-      (obj.timeoutTimestamp = (message.timeoutTimestamp || undefined).toString());
+      (obj.timeoutTimestamp = (message.timeoutTimestamp || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgTransfer>, I>>(object: I): MsgTransfer {
     const message = createBaseMsgTransfer();
-    message.sourcePort = object.sourcePort ?? undefined;
-    message.sourceChannel = object.sourceChannel ?? undefined;
+    message.sourcePort = object.sourcePort ?? "";
+    message.sourceChannel = object.sourceChannel ?? "";
     message.token =
       object.token !== undefined && object.token !== null ? Coin.fromPartial(object.token) : undefined;
-    message.sender = object.sender ?? undefined;
-    message.receiver = object.receiver ?? undefined;
+    message.sender = object.sender ?? "";
+    message.receiver = object.receiver ?? "";
     message.timeoutHeight =
       object.timeoutHeight !== undefined && object.timeoutHeight !== null
         ? Height.fromPartial(object.timeoutHeight)
@@ -173,7 +175,7 @@ export const MsgTransfer = {
     message.timeoutTimestamp =
       object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
         ? Long.fromValue(object.timeoutTimestamp)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };

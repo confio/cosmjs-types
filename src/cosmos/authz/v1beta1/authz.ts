@@ -10,7 +10,7 @@ export const protobufPackage = "cosmos.authz.v1beta1";
  */
 export interface GenericAuthorization {
   /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
-  msg?: string;
+  msg: string;
 }
 
 /**
@@ -18,8 +18,8 @@ export interface GenericAuthorization {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: Any;
-  expiration?: Timestamp;
+  authorization: Any;
+  expiration: Timestamp;
 }
 
 /**
@@ -29,21 +29,21 @@ export interface Grant {
  * Since: cosmos-sdk 0.45.2
  */
 export interface GrantAuthorization {
-  granter?: string;
-  grantee?: string;
-  authorization?: Any;
-  expiration?: Timestamp;
+  granter: string;
+  grantee: string;
+  authorization: Any;
+  expiration: Timestamp;
 }
 
 function createBaseGenericAuthorization(): GenericAuthorization {
   return {
-    msg: undefined,
+    msg: "",
   };
 }
 
 export const GenericAuthorization = {
   encode(message: GenericAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.msg !== undefined) {
+    if (message.msg !== "") {
       writer.uint32(10).string(message.msg);
     }
 
@@ -74,7 +74,7 @@ export const GenericAuthorization = {
 
   fromJSON(object: any): GenericAuthorization {
     return {
-      msg: isSet(object.msg) ? String(object.msg) : undefined,
+      msg: isSet(object.msg) ? String(object.msg) : "",
     };
   },
 
@@ -86,7 +86,7 @@ export const GenericAuthorization = {
 
   fromPartial<I extends Exact<DeepPartial<GenericAuthorization>, I>>(object: I): GenericAuthorization {
     const message = createBaseGenericAuthorization();
-    message.msg = object.msg ?? undefined;
+    message.msg = object.msg ?? "";
     return message;
   },
 };
@@ -168,8 +168,8 @@ export const Grant = {
 
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
-    granter: undefined,
-    grantee: undefined,
+    granter: "",
+    grantee: "",
     authorization: undefined,
     expiration: undefined,
   };
@@ -177,11 +177,11 @@ function createBaseGrantAuthorization(): GrantAuthorization {
 
 export const GrantAuthorization = {
   encode(message: GrantAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== undefined) {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== undefined) {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
 
@@ -232,8 +232,8 @@ export const GrantAuthorization = {
 
   fromJSON(object: any): GrantAuthorization {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : undefined,
-      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
       authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
       expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
     };
@@ -251,8 +251,8 @@ export const GrantAuthorization = {
 
   fromPartial<I extends Exact<DeepPartial<GrantAuthorization>, I>>(object: I): GrantAuthorization {
     const message = createBaseGrantAuthorization();
-    message.granter = object.granter ?? undefined;
-    message.grantee = object.grantee ?? undefined;
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     message.authorization =
       object.authorization !== undefined && object.authorization !== null
         ? Any.fromPartial(object.authorization)

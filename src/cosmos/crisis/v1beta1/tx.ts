@@ -4,9 +4,9 @@ export const protobufPackage = "cosmos.crisis.v1beta1";
 
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariant {
-  sender?: string;
-  invariantModuleName?: string;
-  invariantRoute?: string;
+  sender: string;
+  invariantModuleName: string;
+  invariantRoute: string;
 }
 
 /** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
@@ -14,23 +14,23 @@ export interface MsgVerifyInvariantResponse {}
 
 function createBaseMsgVerifyInvariant(): MsgVerifyInvariant {
   return {
-    sender: undefined,
-    invariantModuleName: undefined,
-    invariantRoute: undefined,
+    sender: "",
+    invariantModuleName: "",
+    invariantRoute: "",
   };
 }
 
 export const MsgVerifyInvariant = {
   encode(message: MsgVerifyInvariant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== undefined) {
+    if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.invariantModuleName !== undefined) {
+    if (message.invariantModuleName !== "") {
       writer.uint32(18).string(message.invariantModuleName);
     }
 
-    if (message.invariantRoute !== undefined) {
+    if (message.invariantRoute !== "") {
       writer.uint32(26).string(message.invariantRoute);
     }
 
@@ -69,9 +69,9 @@ export const MsgVerifyInvariant = {
 
   fromJSON(object: any): MsgVerifyInvariant {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : undefined,
-      invariantModuleName: isSet(object.invariantModuleName) ? String(object.invariantModuleName) : undefined,
-      invariantRoute: isSet(object.invariantRoute) ? String(object.invariantRoute) : undefined,
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      invariantModuleName: isSet(object.invariantModuleName) ? String(object.invariantModuleName) : "",
+      invariantRoute: isSet(object.invariantRoute) ? String(object.invariantRoute) : "",
     };
   },
 
@@ -85,9 +85,9 @@ export const MsgVerifyInvariant = {
 
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariant>, I>>(object: I): MsgVerifyInvariant {
     const message = createBaseMsgVerifyInvariant();
-    message.sender = object.sender ?? undefined;
-    message.invariantModuleName = object.invariantModuleName ?? undefined;
-    message.invariantRoute = object.invariantRoute ?? undefined;
+    message.sender = object.sender ?? "";
+    message.invariantModuleName = object.invariantModuleName ?? "";
+    message.invariantRoute = object.invariantRoute ?? "";
     return message;
   },
 };

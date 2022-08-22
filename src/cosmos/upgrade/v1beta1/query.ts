@@ -15,7 +15,7 @@ export interface QueryCurrentPlanRequest {}
  */
 export interface QueryCurrentPlanResponse {
   /** plan is the current upgrade plan. */
-  plan?: Plan;
+  plan: Plan;
 }
 
 /**
@@ -24,7 +24,7 @@ export interface QueryCurrentPlanResponse {
  */
 export interface QueryAppliedPlanRequest {
   /** name is the name of the applied plan to query for. */
-  name?: string;
+  name: string;
 }
 
 /**
@@ -33,7 +33,7 @@ export interface QueryAppliedPlanRequest {
  */
 export interface QueryAppliedPlanResponse {
   /** height is the block height at which the plan was applied. */
-  height?: Long;
+  height: Long;
 }
 
 /**
@@ -47,7 +47,7 @@ export interface QueryUpgradedConsensusStateRequest {
    * last height of the current chain must be sent in request
    * as this is the height under which next consensus state is stored
    */
-  lastHeight?: Long;
+  lastHeight: Long;
 }
 
 /**
@@ -58,7 +58,7 @@ export interface QueryUpgradedConsensusStateRequest {
 /** @deprecated */
 export interface QueryUpgradedConsensusStateResponse {
   /** Since: cosmos-sdk 0.43 */
-  upgradedConsensusState?: Uint8Array;
+  upgradedConsensusState: Uint8Array;
 }
 
 /**
@@ -73,7 +73,7 @@ export interface QueryModuleVersionsRequest {
    * consensus version from state. Leaving this empty will
    * fetch the full list of module versions from state
    */
-  moduleName?: string;
+  moduleName: string;
 }
 
 /**
@@ -84,7 +84,7 @@ export interface QueryModuleVersionsRequest {
  */
 export interface QueryModuleVersionsResponse {
   /** module_versions is a list of module names with their consensus versions. */
-  moduleVersions?: ModuleVersion[];
+  moduleVersions: ModuleVersion[];
 }
 
 function createBaseQueryCurrentPlanRequest(): QueryCurrentPlanRequest {
@@ -190,13 +190,13 @@ export const QueryCurrentPlanResponse = {
 
 function createBaseQueryAppliedPlanRequest(): QueryAppliedPlanRequest {
   return {
-    name: undefined,
+    name: "",
   };
 }
 
 export const QueryAppliedPlanRequest = {
   encode(message: QueryAppliedPlanRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== undefined) {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
 
@@ -227,7 +227,7 @@ export const QueryAppliedPlanRequest = {
 
   fromJSON(object: any): QueryAppliedPlanRequest {
     return {
-      name: isSet(object.name) ? String(object.name) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
@@ -239,20 +239,20 @@ export const QueryAppliedPlanRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanRequest>, I>>(object: I): QueryAppliedPlanRequest {
     const message = createBaseQueryAppliedPlanRequest();
-    message.name = object.name ?? undefined;
+    message.name = object.name ?? "";
     return message;
   },
 };
 
 function createBaseQueryAppliedPlanResponse(): QueryAppliedPlanResponse {
   return {
-    height: undefined,
+    height: Long.ZERO,
   };
 }
 
 export const QueryAppliedPlanResponse = {
   encode(message: QueryAppliedPlanResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.height !== undefined) {
+    if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
 
@@ -283,13 +283,13 @@ export const QueryAppliedPlanResponse = {
 
   fromJSON(object: any): QueryAppliedPlanResponse {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : undefined,
+      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
     };
   },
 
   toJSON(message: QueryAppliedPlanResponse): unknown {
     const obj: any = {};
-    message.height !== undefined && (obj.height = (message.height || undefined).toString());
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
     return obj;
   },
 
@@ -298,20 +298,20 @@ export const QueryAppliedPlanResponse = {
   ): QueryAppliedPlanResponse {
     const message = createBaseQueryAppliedPlanResponse();
     message.height =
-      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : undefined;
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
     return message;
   },
 };
 
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
   return {
-    lastHeight: undefined,
+    lastHeight: Long.ZERO,
   };
 }
 
 export const QueryUpgradedConsensusStateRequest = {
   encode(message: QueryUpgradedConsensusStateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.lastHeight !== undefined) {
+    if (!message.lastHeight.isZero()) {
       writer.uint32(8).int64(message.lastHeight);
     }
 
@@ -342,13 +342,13 @@ export const QueryUpgradedConsensusStateRequest = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateRequest {
     return {
-      lastHeight: isSet(object.lastHeight) ? Long.fromString(object.lastHeight) : undefined,
+      lastHeight: isSet(object.lastHeight) ? Long.fromString(object.lastHeight) : Long.ZERO,
     };
   },
 
   toJSON(message: QueryUpgradedConsensusStateRequest): unknown {
     const obj: any = {};
-    message.lastHeight !== undefined && (obj.lastHeight = (message.lastHeight || undefined).toString());
+    message.lastHeight !== undefined && (obj.lastHeight = (message.lastHeight || Long.ZERO).toString());
     return obj;
   },
 
@@ -359,20 +359,20 @@ export const QueryUpgradedConsensusStateRequest = {
     message.lastHeight =
       object.lastHeight !== undefined && object.lastHeight !== null
         ? Long.fromValue(object.lastHeight)
-        : undefined;
+        : Long.ZERO;
     return message;
   },
 };
 
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
   return {
-    upgradedConsensusState: undefined,
+    upgradedConsensusState: new Uint8Array(),
   };
 }
 
 export const QueryUpgradedConsensusStateResponse = {
   encode(message: QueryUpgradedConsensusStateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.upgradedConsensusState !== undefined) {
+    if (message.upgradedConsensusState.length !== 0) {
       writer.uint32(18).bytes(message.upgradedConsensusState);
     }
 
@@ -405,17 +405,16 @@ export const QueryUpgradedConsensusStateResponse = {
     return {
       upgradedConsensusState: isSet(object.upgradedConsensusState)
         ? bytesFromBase64(object.upgradedConsensusState)
-        : undefined,
+        : new Uint8Array(),
     };
   },
 
   toJSON(message: QueryUpgradedConsensusStateResponse): unknown {
     const obj: any = {};
     message.upgradedConsensusState !== undefined &&
-      (obj.upgradedConsensusState =
-        message.upgradedConsensusState !== undefined
-          ? base64FromBytes(message.upgradedConsensusState)
-          : undefined);
+      (obj.upgradedConsensusState = base64FromBytes(
+        message.upgradedConsensusState !== undefined ? message.upgradedConsensusState : new Uint8Array(),
+      ));
     return obj;
   },
 
@@ -423,20 +422,20 @@ export const QueryUpgradedConsensusStateResponse = {
     object: I,
   ): QueryUpgradedConsensusStateResponse {
     const message = createBaseQueryUpgradedConsensusStateResponse();
-    message.upgradedConsensusState = object.upgradedConsensusState ?? undefined;
+    message.upgradedConsensusState = object.upgradedConsensusState ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
   return {
-    moduleName: undefined,
+    moduleName: "",
   };
 }
 
 export const QueryModuleVersionsRequest = {
   encode(message: QueryModuleVersionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.moduleName !== undefined) {
+    if (message.moduleName !== "") {
       writer.uint32(10).string(message.moduleName);
     }
 
@@ -467,7 +466,7 @@ export const QueryModuleVersionsRequest = {
 
   fromJSON(object: any): QueryModuleVersionsRequest {
     return {
-      moduleName: isSet(object.moduleName) ? String(object.moduleName) : undefined,
+      moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
     };
   },
 
@@ -481,14 +480,14 @@ export const QueryModuleVersionsRequest = {
     object: I,
   ): QueryModuleVersionsRequest {
     const message = createBaseQueryModuleVersionsRequest();
-    message.moduleName = object.moduleName ?? undefined;
+    message.moduleName = object.moduleName ?? "";
     return message;
   },
 };
 
 function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
   return {
-    moduleVersions: undefined,
+    moduleVersions: [],
   };
 }
 

@@ -7,13 +7,13 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
   /** evidence_hash defines the hash of the requested evidence. */
-  evidenceHash?: Uint8Array;
+  evidenceHash: Uint8Array;
 }
 
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
 export interface QueryEvidenceResponse {
   /** evidence returns the requested evidence. */
-  evidence?: Any;
+  evidence: Any;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface QueryEvidenceResponse {
  */
 export interface QueryAllEvidenceRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 
 /**
@@ -31,21 +31,21 @@ export interface QueryAllEvidenceRequest {
  */
 export interface QueryAllEvidenceResponse {
   /** evidence returns all evidences. */
-  evidence?: Any[];
+  evidence: Any[];
 
   /** pagination defines the pagination in the response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 
 function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
   return {
-    evidenceHash: undefined,
+    evidenceHash: new Uint8Array(),
   };
 }
 
 export const QueryEvidenceRequest = {
   encode(message: QueryEvidenceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.evidenceHash !== undefined) {
+    if (message.evidenceHash.length !== 0) {
       writer.uint32(10).bytes(message.evidenceHash);
     }
 
@@ -76,21 +76,22 @@ export const QueryEvidenceRequest = {
 
   fromJSON(object: any): QueryEvidenceRequest {
     return {
-      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : undefined,
+      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array(),
     };
   },
 
   toJSON(message: QueryEvidenceRequest): unknown {
     const obj: any = {};
     message.evidenceHash !== undefined &&
-      (obj.evidenceHash =
-        message.evidenceHash !== undefined ? base64FromBytes(message.evidenceHash) : undefined);
+      (obj.evidenceHash = base64FromBytes(
+        message.evidenceHash !== undefined ? message.evidenceHash : new Uint8Array(),
+      ));
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEvidenceRequest>, I>>(object: I): QueryEvidenceRequest {
     const message = createBaseQueryEvidenceRequest();
-    message.evidenceHash = object.evidenceHash ?? undefined;
+    message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     return message;
   },
 };
@@ -217,7 +218,7 @@ export const QueryAllEvidenceRequest = {
 
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
   return {
-    evidence: undefined,
+    evidence: [],
     pagination: undefined,
   };
 }

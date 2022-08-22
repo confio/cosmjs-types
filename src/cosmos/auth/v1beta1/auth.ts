@@ -9,40 +9,40 @@ export const protobufPackage = "cosmos.auth.v1beta1";
  * type for additional functionality (e.g. vesting).
  */
 export interface BaseAccount {
-  address?: string;
-  pubKey?: Any;
-  accountNumber?: Long;
-  sequence?: Long;
+  address: string;
+  pubKey: Any;
+  accountNumber: Long;
+  sequence: Long;
 }
 
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
 export interface ModuleAccount {
-  baseAccount?: BaseAccount;
-  name?: string;
-  permissions?: string[];
+  baseAccount: BaseAccount;
+  name: string;
+  permissions: string[];
 }
 
 /** Params defines the parameters for the auth module. */
 export interface Params {
-  maxMemoCharacters?: Long;
-  txSigLimit?: Long;
-  txSizeCostPerByte?: Long;
-  sigVerifyCostEd25519?: Long;
-  sigVerifyCostSecp256k1?: Long;
+  maxMemoCharacters: Long;
+  txSigLimit: Long;
+  txSizeCostPerByte: Long;
+  sigVerifyCostEd25519: Long;
+  sigVerifyCostSecp256k1: Long;
 }
 
 function createBaseBaseAccount(): BaseAccount {
   return {
-    address: undefined,
+    address: "",
     pubKey: undefined,
-    accountNumber: undefined,
-    sequence: undefined,
+    accountNumber: Long.UZERO,
+    sequence: Long.UZERO,
   };
 }
 
 export const BaseAccount = {
   encode(message: BaseAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== undefined) {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
 
@@ -50,11 +50,11 @@ export const BaseAccount = {
       Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.accountNumber !== undefined) {
+    if (!message.accountNumber.isZero()) {
       writer.uint32(24).uint64(message.accountNumber);
     }
 
-    if (message.sequence !== undefined) {
+    if (!message.sequence.isZero()) {
       writer.uint32(32).uint64(message.sequence);
     }
 
@@ -97,10 +97,10 @@ export const BaseAccount = {
 
   fromJSON(object: any): BaseAccount {
     return {
-      address: isSet(object.address) ? String(object.address) : undefined,
+      address: isSet(object.address) ? String(object.address) : "",
       pubKey: isSet(object.pubKey) ? Any.fromJSON(object.pubKey) : undefined,
-      accountNumber: isSet(object.accountNumber) ? Long.fromString(object.accountNumber) : undefined,
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : undefined,
+      accountNumber: isSet(object.accountNumber) ? Long.fromString(object.accountNumber) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
     };
   },
 
@@ -109,22 +109,24 @@ export const BaseAccount = {
     message.address !== undefined && (obj.address = message.address);
     message.pubKey !== undefined && (obj.pubKey = message.pubKey ? Any.toJSON(message.pubKey) : undefined);
     message.accountNumber !== undefined &&
-      (obj.accountNumber = (message.accountNumber || undefined).toString());
-    message.sequence !== undefined && (obj.sequence = (message.sequence || undefined).toString());
+      (obj.accountNumber = (message.accountNumber || Long.UZERO).toString());
+    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<BaseAccount>, I>>(object: I): BaseAccount {
     const message = createBaseBaseAccount();
-    message.address = object.address ?? undefined;
+    message.address = object.address ?? "";
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined;
     message.accountNumber =
       object.accountNumber !== undefined && object.accountNumber !== null
         ? Long.fromValue(object.accountNumber)
-        : undefined;
+        : Long.UZERO;
     message.sequence =
-      object.sequence !== undefined && object.sequence !== null ? Long.fromValue(object.sequence) : undefined;
+      object.sequence !== undefined && object.sequence !== null
+        ? Long.fromValue(object.sequence)
+        : Long.UZERO;
     return message;
   },
 };
@@ -132,8 +134,8 @@ export const BaseAccount = {
 function createBaseModuleAccount(): ModuleAccount {
   return {
     baseAccount: undefined,
-    name: undefined,
-    permissions: undefined,
+    name: "",
+    permissions: [],
   };
 }
 
@@ -143,7 +145,7 @@ export const ModuleAccount = {
       BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
     }
 
-    if (message.name !== undefined) {
+    if (message.name !== "") {
       writer.uint32(18).string(message.name);
     }
 
@@ -187,7 +189,7 @@ export const ModuleAccount = {
   fromJSON(object: any): ModuleAccount {
     return {
       baseAccount: isSet(object.baseAccount) ? BaseAccount.fromJSON(object.baseAccount) : undefined,
-      name: isSet(object.name) ? String(object.name) : undefined,
+      name: isSet(object.name) ? String(object.name) : "",
       permissions: Array.isArray(object?.permissions) ? object.permissions.map((e: any) => String(e)) : [],
     };
   },
@@ -213,7 +215,7 @@ export const ModuleAccount = {
       object.baseAccount !== undefined && object.baseAccount !== null
         ? BaseAccount.fromPartial(object.baseAccount)
         : undefined;
-    message.name = object.name ?? undefined;
+    message.name = object.name ?? "";
     message.permissions = object.permissions?.map((e) => e) || [];
     return message;
   },
@@ -221,33 +223,33 @@ export const ModuleAccount = {
 
 function createBaseParams(): Params {
   return {
-    maxMemoCharacters: undefined,
-    txSigLimit: undefined,
-    txSizeCostPerByte: undefined,
-    sigVerifyCostEd25519: undefined,
-    sigVerifyCostSecp256k1: undefined,
+    maxMemoCharacters: Long.UZERO,
+    txSigLimit: Long.UZERO,
+    txSizeCostPerByte: Long.UZERO,
+    sigVerifyCostEd25519: Long.UZERO,
+    sigVerifyCostSecp256k1: Long.UZERO,
   };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.maxMemoCharacters !== undefined) {
+    if (!message.maxMemoCharacters.isZero()) {
       writer.uint32(8).uint64(message.maxMemoCharacters);
     }
 
-    if (message.txSigLimit !== undefined) {
+    if (!message.txSigLimit.isZero()) {
       writer.uint32(16).uint64(message.txSigLimit);
     }
 
-    if (message.txSizeCostPerByte !== undefined) {
+    if (!message.txSizeCostPerByte.isZero()) {
       writer.uint32(24).uint64(message.txSizeCostPerByte);
     }
 
-    if (message.sigVerifyCostEd25519 !== undefined) {
+    if (!message.sigVerifyCostEd25519.isZero()) {
       writer.uint32(32).uint64(message.sigVerifyCostEd25519);
     }
 
-    if (message.sigVerifyCostSecp256k1 !== undefined) {
+    if (!message.sigVerifyCostSecp256k1.isZero()) {
       writer.uint32(40).uint64(message.sigVerifyCostSecp256k1);
     }
 
@@ -296,31 +298,31 @@ export const Params = {
     return {
       maxMemoCharacters: isSet(object.maxMemoCharacters)
         ? Long.fromString(object.maxMemoCharacters)
-        : undefined,
-      txSigLimit: isSet(object.txSigLimit) ? Long.fromString(object.txSigLimit) : undefined,
+        : Long.UZERO,
+      txSigLimit: isSet(object.txSigLimit) ? Long.fromString(object.txSigLimit) : Long.UZERO,
       txSizeCostPerByte: isSet(object.txSizeCostPerByte)
         ? Long.fromString(object.txSizeCostPerByte)
-        : undefined,
+        : Long.UZERO,
       sigVerifyCostEd25519: isSet(object.sigVerifyCostEd25519)
         ? Long.fromString(object.sigVerifyCostEd25519)
-        : undefined,
+        : Long.UZERO,
       sigVerifyCostSecp256k1: isSet(object.sigVerifyCostSecp256k1)
         ? Long.fromString(object.sigVerifyCostSecp256k1)
-        : undefined,
+        : Long.UZERO,
     };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
     message.maxMemoCharacters !== undefined &&
-      (obj.maxMemoCharacters = (message.maxMemoCharacters || undefined).toString());
-    message.txSigLimit !== undefined && (obj.txSigLimit = (message.txSigLimit || undefined).toString());
+      (obj.maxMemoCharacters = (message.maxMemoCharacters || Long.UZERO).toString());
+    message.txSigLimit !== undefined && (obj.txSigLimit = (message.txSigLimit || Long.UZERO).toString());
     message.txSizeCostPerByte !== undefined &&
-      (obj.txSizeCostPerByte = (message.txSizeCostPerByte || undefined).toString());
+      (obj.txSizeCostPerByte = (message.txSizeCostPerByte || Long.UZERO).toString());
     message.sigVerifyCostEd25519 !== undefined &&
-      (obj.sigVerifyCostEd25519 = (message.sigVerifyCostEd25519 || undefined).toString());
+      (obj.sigVerifyCostEd25519 = (message.sigVerifyCostEd25519 || Long.UZERO).toString());
     message.sigVerifyCostSecp256k1 !== undefined &&
-      (obj.sigVerifyCostSecp256k1 = (message.sigVerifyCostSecp256k1 || undefined).toString());
+      (obj.sigVerifyCostSecp256k1 = (message.sigVerifyCostSecp256k1 || Long.UZERO).toString());
     return obj;
   },
 
@@ -329,23 +331,23 @@ export const Params = {
     message.maxMemoCharacters =
       object.maxMemoCharacters !== undefined && object.maxMemoCharacters !== null
         ? Long.fromValue(object.maxMemoCharacters)
-        : undefined;
+        : Long.UZERO;
     message.txSigLimit =
       object.txSigLimit !== undefined && object.txSigLimit !== null
         ? Long.fromValue(object.txSigLimit)
-        : undefined;
+        : Long.UZERO;
     message.txSizeCostPerByte =
       object.txSizeCostPerByte !== undefined && object.txSizeCostPerByte !== null
         ? Long.fromValue(object.txSizeCostPerByte)
-        : undefined;
+        : Long.UZERO;
     message.sigVerifyCostEd25519 =
       object.sigVerifyCostEd25519 !== undefined && object.sigVerifyCostEd25519 !== null
         ? Long.fromValue(object.sigVerifyCostEd25519)
-        : undefined;
+        : Long.UZERO;
     message.sigVerifyCostSecp256k1 =
       object.sigVerifyCostSecp256k1 !== undefined && object.sigVerifyCostSecp256k1 !== null
         ? Long.fromValue(object.sigVerifyCostSecp256k1)
-        : undefined;
+        : Long.UZERO;
     return message;
   },
 };
