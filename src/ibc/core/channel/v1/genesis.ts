@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { IdentifiedChannel, PacketState } from "../../../../ibc/core/channel/v1/channel";
+import { IdentifiedChannel, PacketState } from "./channel";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "ibc.core.channel.v1";
 
@@ -133,7 +133,7 @@ export const GenesisState = {
         ? object.ackSequences.map((e: any) => PacketSequence.fromJSON(e))
         : [],
       nextChannelSequence: isSet(object.nextChannelSequence)
-        ? Long.fromString(object.nextChannelSequence)
+        ? Long.fromValue(object.nextChannelSequence)
         : Long.UZERO,
     };
   },
@@ -243,7 +243,7 @@ export const PacketSequence = {
     return {
       portId: isSet(object.portId) ? String(object.portId) : "",
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
     };
   },
 
@@ -284,7 +284,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

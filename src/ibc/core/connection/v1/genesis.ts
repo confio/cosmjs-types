@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { Params, IdentifiedConnection, ConnectionPaths } from "./connection";
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params, IdentifiedConnection, ConnectionPaths } from "../../../../ibc/core/connection/v1/connection";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "ibc.core.connection.v1";
 
@@ -76,7 +76,7 @@ export const GenesisState = {
         ? object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e))
         : [],
       nextConnectionSequence: isSet(object.nextConnectionSequence)
-        ? Long.fromString(object.nextConnectionSequence)
+        ? Long.fromValue(object.nextConnectionSequence)
         : Long.UZERO,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
@@ -134,7 +134,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

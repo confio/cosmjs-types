@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { CapabilityOwners } from "./capability";
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { CapabilityOwners } from "../../../cosmos/capability/v1beta1/capability";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.capability.v1beta1";
 
@@ -62,7 +62,7 @@ export const GenesisOwners = {
 
   fromJSON(object: any): GenesisOwners {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       indexOwners: isSet(object.indexOwners) ? CapabilityOwners.fromJSON(object.indexOwners) : undefined,
     };
   },
@@ -125,7 +125,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
       owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => GenesisOwners.fromJSON(e)) : [],
     };
   },
@@ -167,7 +167,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

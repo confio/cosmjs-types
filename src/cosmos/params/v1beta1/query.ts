@@ -1,7 +1,7 @@
 /* eslint-disable */
+import { ParamChange } from "./params";
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { ParamChange } from "../../../cosmos/params/v1beta1/params";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.params.v1beta1";
 
@@ -171,7 +171,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
