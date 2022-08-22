@@ -15,18 +15,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apidevtools/json-schema-ref-parser@https://github.com/bcherny/json-schema-ref-parser.git#984282d34a2993e5243aa35100fe32a63699164d":
-  version: 0.0.0-dev
-  resolution: "@apidevtools/json-schema-ref-parser@https://github.com/bcherny/json-schema-ref-parser.git#commit=984282d34a2993e5243aa35100fe32a63699164d"
-  dependencies:
-    "@jsdevtools/ono": ^7.1.3
-    "@types/json-schema": ^7.0.6
-    call-me-maybe: ^1.0.1
-    js-yaml: ^4.1.0
-  checksum: 9a7fa9625c443bfa8fe63acb2674814a344631c9229289446210991eee7c22c3bb254b4cdd7cf477d22af28a2f1ae2d90c345a221f83deff96e6e9865651e299
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.18.6":
   version: 7.18.6
   resolution: "@babel/code-frame@npm:7.18.6"
@@ -1413,9 +1401,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cosmwasm/ts-codegen@npm:0.11.2":
-  version: 0.11.2
-  resolution: "@cosmwasm/ts-codegen@npm:0.11.2"
+"@cosmwasm/ts-codegen@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@cosmwasm/ts-codegen@npm:0.12.0"
   dependencies:
     "@babel/core": 7.18.10
     "@babel/generator": 7.18.12
@@ -1429,6 +1417,7 @@ __metadata:
     "@babel/runtime": ^7.18.9
     "@babel/traverse": 7.18.11
     "@babel/types": 7.18.10
+    "@pyramation/json-schema-to-typescript": " 11.0.4"
     case: 1.6.3
     dargs: 7.0.0
     deepmerge: 4.2.2
@@ -1436,7 +1425,6 @@ __metadata:
     fuzzy: 0.1.3
     glob: 8.0.3
     inquirerer: 0.1.3
-    json-schema-to-typescript: 11.0.1
     long: ^5.2.0
     minimist: 1.2.6
     mkdirp: 1.0.4
@@ -1446,7 +1434,7 @@ __metadata:
     wasm-ast-types: ^0.8.2
   bin:
     cosmwasm-ts-codegen: main/ts-codegen.js
-  checksum: 7aa3a3e0a52381883b594b920d839fc70be29ba120c2b2278b94c380cd7e287182e3001e84a973b68699842f76e95a606f606a5f6cce059ad23587cab70d0c64
+  checksum: b94682909acbef267fe911f504c0cbe6cc4f9d1beeef01bac62262a68901f764721fdff51a67720233cfe483cf4454aef39c19d1a0fdb005b202e0c8825fbe98
   languageName: node
   linkType: hard
 
@@ -1631,9 +1619,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@osmonauts/telescope@npm:0.12.0":
-  version: 0.12.0
-  resolution: "@osmonauts/telescope@npm:0.12.0"
+"@osmonauts/telescope@npm:0.12.1":
+  version: 0.12.1
+  resolution: "@osmonauts/telescope@npm:0.12.1"
   dependencies:
     "@babel/core": 7.18.10
     "@babel/generator": 7.18.12
@@ -1647,7 +1635,7 @@ __metadata:
     "@babel/runtime": ^7.18.9
     "@babel/traverse": 7.18.11
     "@babel/types": 7.18.10
-    "@cosmwasm/ts-codegen": 0.11.2
+    "@cosmwasm/ts-codegen": 0.12.0
     "@osmonauts/ast": ^0.9.6
     "@osmonauts/proto-parser": ^0.9.5
     "@osmonauts/types": ^0.7.3
@@ -1668,7 +1656,7 @@ __metadata:
     shelljs: 0.8.5
   bin:
     telescope: main/telescope.js
-  checksum: 67c12b53fa91882276021b5525882ea4e5f9876d81535ec513600d06da3e3fcfbea01b2eeefea3b49940f65e244356549644ae22e360e7ac4e5ec366e8fa4134
+  checksum: fa2a0a5b1f604c3e6cf45ee67de1d739f14e8aecc12e9ab67ee94c5734ee62d48805d5345140875b77d8a8bc4f4efe47795baec30b1bfe484bb566e3844365a9
   languageName: node
   linkType: hard
 
@@ -1765,6 +1753,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pyramation/json-schema-ref-parser@npm:9.0.6":
+  version: 9.0.6
+  resolution: "@pyramation/json-schema-ref-parser@npm:9.0.6"
+  dependencies:
+    "@jsdevtools/ono": ^7.1.3
+    call-me-maybe: ^1.0.1
+    js-yaml: ^3.13.1
+  checksum: d3a19b72558a20b9c00819bb9be373f9ad471f024148ccde3c7fa378c70333812e8c9c1e4c8f035d6b92504fb18685ab22cacc609c62840b64e6373298908bae
+  languageName: node
+  linkType: hard
+
+"@pyramation/json-schema-to-typescript@npm: 11.0.4":
+  version: 11.0.4
+  resolution: "@pyramation/json-schema-to-typescript@npm:11.0.4"
+  dependencies:
+    "@pyramation/json-schema-ref-parser": 9.0.6
+    "@types/json-schema": ^7.0.11
+    "@types/lodash": ^4.14.182
+    "@types/prettier": ^2.6.1
+    cli-color: ^2.0.2
+    get-stdin: ^8.0.0
+    glob: ^7.1.6
+    glob-promise: ^4.2.2
+    is-glob: ^4.0.3
+    lodash: ^4.17.21
+    minimist: ^1.2.6
+    mkdirp: ^1.0.4
+    mz: ^2.7.0
+    prettier: ^2.6.2
+  bin:
+    json2ts: dist/src/cli.js
+  checksum: 8b965d0d46551fa985ef00ba4f64c26cd1ea7f63336db6f40722c77b9ba5574a99389ca58eca2294dc62b95ac045611ff0098f1bf2c141a4faf4808112ad6e88
+  languageName: node
+  linkType: hard
+
 "@pyramation/protobufjs@npm:6.11.3":
   version: 6.11.3
   resolution: "@pyramation/protobufjs@npm:6.11.3"
@@ -1847,7 +1870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.11, @types/json-schema@npm:^7.0.6":
+"@types/json-schema@npm:^7.0.11":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: 527bddfe62db9012fccd7627794bd4c71beb77601861055d87e3ee464f2217c85fca7a4b56ae677478367bbd248dbde13553312b7d4dbc702a2f2bbf60c4018d
@@ -2077,13 +2100,6 @@ __metadata:
   dependencies:
     sprintf-js: ~1.0.2
   checksum: 7ca6e45583a28de7258e39e13d81e925cfa25d7d4aacbf806a382d3c02fcb13403a07fb8aeef949f10a7cfe4a62da0e2e807b348a5980554cc28ee573ef95945
-  languageName: node
-  linkType: hard
-
-"argparse@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "argparse@npm:2.0.1"
-  checksum: 83644b56493e89a254bae05702abf3a1101b4fa4d0ca31df1c9985275a5a5bd47b3c27b7fa0b71098d41114d8ca000e6ed90cad764b306f8a503665e4d517ced
   languageName: node
   linkType: hard
 
@@ -2459,7 +2475,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cosmjs-types@workspace:."
   dependencies:
-    "@osmonauts/telescope": 0.12.0
+    "@osmonauts/telescope": 0.12.1
     "@types/long": ^4.0.1
     "@types/node": ^15.6.2
     long: ^4.0.0
@@ -3289,17 +3305,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "js-yaml@npm:4.1.0"
-  dependencies:
-    argparse: ^2.0.1
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: c7830dfd456c3ef2c6e355cc5a92e6700ceafa1d14bba54497b34a99f0376cecbb3e9ac14d3e5849b426d5a5140709a66237a8c991c675431271c4ce5504151a
-  languageName: node
-  linkType: hard
-
 "jsesc@npm:^2.5.1":
   version: 2.5.2
   resolution: "jsesc@npm:2.5.2"
@@ -3315,30 +3320,6 @@ __metadata:
   bin:
     jsesc: bin/jsesc
   checksum: b8b44cbfc92f198ad972fba706ee6a1dfa7485321ee8c0b25f5cedd538dcb20cde3197de16a7265430fce8277a12db066219369e3d51055038946039f6e20e17
-  languageName: node
-  linkType: hard
-
-"json-schema-to-typescript@npm:11.0.1":
-  version: 11.0.1
-  resolution: "json-schema-to-typescript@npm:11.0.1"
-  dependencies:
-    "@apidevtools/json-schema-ref-parser": "https://github.com/bcherny/json-schema-ref-parser.git#984282d34a2993e5243aa35100fe32a63699164d"
-    "@types/json-schema": ^7.0.11
-    "@types/lodash": ^4.14.182
-    "@types/prettier": ^2.6.1
-    cli-color: ^2.0.2
-    get-stdin: ^8.0.0
-    glob: ^7.1.6
-    glob-promise: ^4.2.2
-    is-glob: ^4.0.3
-    lodash: ^4.17.21
-    minimist: ^1.2.6
-    mkdirp: ^1.0.4
-    mz: ^2.7.0
-    prettier: ^2.6.2
-  bin:
-    json2ts: dist/src/cli.js
-  checksum: 55b112b5a7ea233bf8b4a807f23366bd8bfb08023232fd51c93cf68e5d7854705e5738d9c85546a4322ca44a14c95403edfe785795aa5b24751bbc6c6970d524
   languageName: node
   linkType: hard
 
