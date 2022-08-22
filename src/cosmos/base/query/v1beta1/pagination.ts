@@ -17,20 +17,20 @@ export interface PageRequest {
    * querying the next page most efficiently. Only one of offset or key
    * should be set.
    */
-  key: Uint8Array;
+  key?: Uint8Array;
 
   /**
    * offset is a numeric offset that can be used when key is unavailable.
    * It is less efficient than using key. Only one of offset or key should
    * be set.
    */
-  offset: Long;
+  offset?: Long;
 
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    */
-  limit: Long;
+  limit?: Long;
 
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -38,14 +38,14 @@ export interface PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  countTotal: boolean;
+  countTotal?: boolean;
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
    *
    * Since: cosmos-sdk 0.43
    */
-  reverse: boolean;
+  reverse?: boolean;
 }
 
 /**
@@ -62,44 +62,44 @@ export interface PageResponse {
    * next_key is the key to be passed to PageRequest.key to
    * query the next page most efficiently
    */
-  nextKey: Uint8Array;
+  nextKey?: Uint8Array;
 
   /**
    * total is total number of results available if PageRequest.count_total
    * was set, its value is undefined otherwise
    */
-  total: Long;
+  total?: Long;
 }
 
 function createBasePageRequest(): PageRequest {
   return {
-    key: new Uint8Array(),
-    offset: Long.UZERO,
-    limit: Long.UZERO,
-    countTotal: false,
-    reverse: false,
+    key: undefined,
+    offset: undefined,
+    limit: undefined,
+    countTotal: undefined,
+    reverse: undefined,
   };
 }
 
 export const PageRequest = {
   encode(message: PageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key.length !== 0) {
+    if (message.key !== undefined) {
       writer.uint32(10).bytes(message.key);
     }
 
-    if (!message.offset.isZero()) {
+    if (message.offset !== undefined) {
       writer.uint32(16).uint64(message.offset);
     }
 
-    if (!message.limit.isZero()) {
+    if (message.limit !== undefined) {
       writer.uint32(24).uint64(message.limit);
     }
 
-    if (message.countTotal === true) {
+    if (message.countTotal !== undefined) {
       writer.uint32(32).bool(message.countTotal);
     }
 
-    if (message.reverse === true) {
+    if (message.reverse !== undefined) {
       writer.uint32(40).bool(message.reverse);
     }
 
@@ -146,20 +146,20 @@ export const PageRequest = {
 
   fromJSON(object: any): PageRequest {
     return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      offset: isSet(object.offset) ? Long.fromString(object.offset) : Long.UZERO,
-      limit: isSet(object.limit) ? Long.fromString(object.limit) : Long.UZERO,
-      countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false,
-      reverse: isSet(object.reverse) ? Boolean(object.reverse) : false,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
+      offset: isSet(object.offset) ? Long.fromString(object.offset) : undefined,
+      limit: isSet(object.limit) ? Long.fromString(object.limit) : undefined,
+      countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : undefined,
+      reverse: isSet(object.reverse) ? Boolean(object.reverse) : undefined,
     };
   },
 
   toJSON(message: PageRequest): unknown {
     const obj: any = {};
     message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
-    message.offset !== undefined && (obj.offset = (message.offset || Long.UZERO).toString());
-    message.limit !== undefined && (obj.limit = (message.limit || Long.UZERO).toString());
+      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
+    message.offset !== undefined && (obj.offset = (message.offset || undefined).toString());
+    message.limit !== undefined && (obj.limit = (message.limit || undefined).toString());
     message.countTotal !== undefined && (obj.countTotal = message.countTotal);
     message.reverse !== undefined && (obj.reverse = message.reverse);
     return obj;
@@ -167,31 +167,31 @@ export const PageRequest = {
 
   fromPartial<I extends Exact<DeepPartial<PageRequest>, I>>(object: I): PageRequest {
     const message = createBasePageRequest();
-    message.key = object.key ?? new Uint8Array();
+    message.key = object.key ?? undefined;
     message.offset =
-      object.offset !== undefined && object.offset !== null ? Long.fromValue(object.offset) : Long.UZERO;
+      object.offset !== undefined && object.offset !== null ? Long.fromValue(object.offset) : undefined;
     message.limit =
-      object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
-    message.countTotal = object.countTotal ?? false;
-    message.reverse = object.reverse ?? false;
+      object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : undefined;
+    message.countTotal = object.countTotal ?? undefined;
+    message.reverse = object.reverse ?? undefined;
     return message;
   },
 };
 
 function createBasePageResponse(): PageResponse {
   return {
-    nextKey: new Uint8Array(),
-    total: Long.UZERO,
+    nextKey: undefined,
+    total: undefined,
   };
 }
 
 export const PageResponse = {
   encode(message: PageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.nextKey.length !== 0) {
+    if (message.nextKey !== undefined) {
       writer.uint32(10).bytes(message.nextKey);
     }
 
-    if (!message.total.isZero()) {
+    if (message.total !== undefined) {
       writer.uint32(16).uint64(message.total);
     }
 
@@ -226,24 +226,24 @@ export const PageResponse = {
 
   fromJSON(object: any): PageResponse {
     return {
-      nextKey: isSet(object.nextKey) ? bytesFromBase64(object.nextKey) : new Uint8Array(),
-      total: isSet(object.total) ? Long.fromString(object.total) : Long.UZERO,
+      nextKey: isSet(object.nextKey) ? bytesFromBase64(object.nextKey) : undefined,
+      total: isSet(object.total) ? Long.fromString(object.total) : undefined,
     };
   },
 
   toJSON(message: PageResponse): unknown {
     const obj: any = {};
     message.nextKey !== undefined &&
-      (obj.nextKey = base64FromBytes(message.nextKey !== undefined ? message.nextKey : new Uint8Array()));
-    message.total !== undefined && (obj.total = (message.total || Long.UZERO).toString());
+      (obj.nextKey = message.nextKey !== undefined ? base64FromBytes(message.nextKey) : undefined);
+    message.total !== undefined && (obj.total = (message.total || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PageResponse>, I>>(object: I): PageResponse {
     const message = createBasePageResponse();
-    message.nextKey = object.nextKey ?? new Uint8Array();
+    message.nextKey = object.nextKey ?? undefined;
     message.total =
-      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
+      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : undefined;
     return message;
   },
 };

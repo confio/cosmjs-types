@@ -7,22 +7,22 @@ export const protobufPackage = "cosmwasm.wasm.v1";
 /** MsgStoreCode submit Wasm code to the system */
 export interface MsgStoreCode {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** WASMByteCode can be raw or gzip compressed */
-  wasmByteCode: Uint8Array;
+  wasmByteCode?: Uint8Array;
 
   /**
    * InstantiatePermission access control to apply on contract creation,
    * optional
    */
-  instantiatePermission: AccessConfig;
+  instantiatePermission?: AccessConfig;
 }
 
 /** MsgStoreCodeResponse returns store result data. */
 export interface MsgStoreCodeResponse {
   /** CodeID is the reference to the stored WASM code */
-  codeId: Long;
+  codeId?: Long;
 }
 
 /**
@@ -31,67 +31,67 @@ export interface MsgStoreCodeResponse {
  */
 export interface MsgInstantiateContract {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** Admin is an optional address that can execute migrations */
-  admin: string;
+  admin?: string;
 
   /** CodeID is the reference to the stored WASM code */
-  codeId: Long;
+  codeId?: Long;
 
   /** Label is optional metadata to be stored with a contract instance. */
-  label: string;
+  label?: string;
 
   /** Msg json encoded message to be passed to the contract on instantiation */
-  msg: Uint8Array;
+  msg?: Uint8Array;
 
   /** Funds coins that are transferred to the contract on instantiation */
-  funds: Coin[];
+  funds?: Coin[];
 }
 
 /** MsgInstantiateContractResponse return instantiation result data */
 export interface MsgInstantiateContractResponse {
   /** Address is the bech32 address of the new contract instance. */
-  address: string;
+  address?: string;
 
   /** Data contains base64-encoded bytes to returned from the contract */
-  data: Uint8Array;
+  data?: Uint8Array;
 }
 
 /** MsgExecuteContract submits the given message data to a smart contract */
 export interface MsgExecuteContract {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** Contract is the address of the smart contract */
-  contract: string;
+  contract?: string;
 
   /** Msg json encoded message to be passed to the contract */
-  msg: Uint8Array;
+  msg?: Uint8Array;
 
   /** Funds coins that are transferred to the contract on execution */
-  funds: Coin[];
+  funds?: Coin[];
 }
 
 /** MsgExecuteContractResponse returns execution result data. */
 export interface MsgExecuteContractResponse {
   /** Data contains base64-encoded bytes to returned from the contract */
-  data: Uint8Array;
+  data?: Uint8Array;
 }
 
 /** MsgMigrateContract runs a code upgrade/ downgrade for a smart contract */
 export interface MsgMigrateContract {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** Contract is the address of the smart contract */
-  contract: string;
+  contract?: string;
 
   /** CodeID references the new WASM code */
-  codeId: Long;
+  codeId?: Long;
 
   /** Msg json encoded message to be passed to the contract on migration */
-  msg: Uint8Array;
+  msg?: Uint8Array;
 }
 
 /** MsgMigrateContractResponse returns contract migration result data. */
@@ -100,19 +100,19 @@ export interface MsgMigrateContractResponse {
    * Data contains same raw bytes returned as data from the wasm contract.
    * (May be empty)
    */
-  data: Uint8Array;
+  data?: Uint8Array;
 }
 
 /** MsgUpdateAdmin sets a new admin for a smart contract */
 export interface MsgUpdateAdmin {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** NewAdmin address to be set */
-  newAdmin: string;
+  newAdmin?: string;
 
   /** Contract is the address of the smart contract */
-  contract: string;
+  contract?: string;
 }
 
 /** MsgUpdateAdminResponse returns empty data */
@@ -121,10 +121,10 @@ export interface MsgUpdateAdminResponse {}
 /** MsgClearAdmin removes any admin stored for a smart contract */
 export interface MsgClearAdmin {
   /** Sender is the that actor that signed the messages */
-  sender: string;
+  sender?: string;
 
   /** Contract is the address of the smart contract */
-  contract: string;
+  contract?: string;
 }
 
 /** MsgClearAdminResponse returns empty data */
@@ -132,19 +132,19 @@ export interface MsgClearAdminResponse {}
 
 function createBaseMsgStoreCode(): MsgStoreCode {
   return {
-    sender: "",
-    wasmByteCode: new Uint8Array(),
+    sender: undefined,
+    wasmByteCode: undefined,
     instantiatePermission: undefined,
   };
 }
 
 export const MsgStoreCode = {
   encode(message: MsgStoreCode, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.wasmByteCode.length !== 0) {
+    if (message.wasmByteCode !== undefined) {
       writer.uint32(18).bytes(message.wasmByteCode);
     }
 
@@ -187,8 +187,8 @@ export const MsgStoreCode = {
 
   fromJSON(object: any): MsgStoreCode {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      wasmByteCode: isSet(object.wasmByteCode) ? bytesFromBase64(object.wasmByteCode) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      wasmByteCode: isSet(object.wasmByteCode) ? bytesFromBase64(object.wasmByteCode) : undefined,
       instantiatePermission: isSet(object.instantiatePermission)
         ? AccessConfig.fromJSON(object.instantiatePermission)
         : undefined,
@@ -199,9 +199,8 @@ export const MsgStoreCode = {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
     message.wasmByteCode !== undefined &&
-      (obj.wasmByteCode = base64FromBytes(
-        message.wasmByteCode !== undefined ? message.wasmByteCode : new Uint8Array(),
-      ));
+      (obj.wasmByteCode =
+        message.wasmByteCode !== undefined ? base64FromBytes(message.wasmByteCode) : undefined);
     message.instantiatePermission !== undefined &&
       (obj.instantiatePermission = message.instantiatePermission
         ? AccessConfig.toJSON(message.instantiatePermission)
@@ -211,8 +210,8 @@ export const MsgStoreCode = {
 
   fromPartial<I extends Exact<DeepPartial<MsgStoreCode>, I>>(object: I): MsgStoreCode {
     const message = createBaseMsgStoreCode();
-    message.sender = object.sender ?? "";
-    message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
+    message.sender = object.sender ?? undefined;
+    message.wasmByteCode = object.wasmByteCode ?? undefined;
     message.instantiatePermission =
       object.instantiatePermission !== undefined && object.instantiatePermission !== null
         ? AccessConfig.fromPartial(object.instantiatePermission)
@@ -223,13 +222,13 @@ export const MsgStoreCode = {
 
 function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
   return {
-    codeId: Long.UZERO,
+    codeId: undefined,
   };
 }
 
 export const MsgStoreCodeResponse = {
   encode(message: MsgStoreCodeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.codeId.isZero()) {
+    if (message.codeId !== undefined) {
       writer.uint32(8).uint64(message.codeId);
     }
 
@@ -260,54 +259,54 @@ export const MsgStoreCodeResponse = {
 
   fromJSON(object: any): MsgStoreCodeResponse {
     return {
-      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : undefined,
     };
   },
 
   toJSON(message: MsgStoreCodeResponse): unknown {
     const obj: any = {};
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
+    message.codeId !== undefined && (obj.codeId = (message.codeId || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgStoreCodeResponse>, I>>(object: I): MsgStoreCodeResponse {
     const message = createBaseMsgStoreCodeResponse();
     message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : undefined;
     return message;
   },
 };
 
 function createBaseMsgInstantiateContract(): MsgInstantiateContract {
   return {
-    sender: "",
-    admin: "",
-    codeId: Long.UZERO,
-    label: "",
-    msg: new Uint8Array(),
-    funds: [],
+    sender: undefined,
+    admin: undefined,
+    codeId: undefined,
+    label: undefined,
+    msg: undefined,
+    funds: undefined,
   };
 }
 
 export const MsgInstantiateContract = {
   encode(message: MsgInstantiateContract, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.admin !== "") {
+    if (message.admin !== undefined) {
       writer.uint32(18).string(message.admin);
     }
 
-    if (!message.codeId.isZero()) {
+    if (message.codeId !== undefined) {
       writer.uint32(24).uint64(message.codeId);
     }
 
-    if (message.label !== "") {
+    if (message.label !== undefined) {
       writer.uint32(34).string(message.label);
     }
 
-    if (message.msg.length !== 0) {
+    if (message.msg !== undefined) {
       writer.uint32(42).bytes(message.msg);
     }
 
@@ -362,11 +361,11 @@ export const MsgInstantiateContract = {
 
   fromJSON(object: any): MsgInstantiateContract {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      admin: isSet(object.admin) ? String(object.admin) : "",
-      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
-      label: isSet(object.label) ? String(object.label) : "",
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      admin: isSet(object.admin) ? String(object.admin) : undefined,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : undefined,
+      label: isSet(object.label) ? String(object.label) : undefined,
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : undefined,
       funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
@@ -375,10 +374,10 @@ export const MsgInstantiateContract = {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
     message.admin !== undefined && (obj.admin = message.admin);
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
+    message.codeId !== undefined && (obj.codeId = (message.codeId || undefined).toString());
     message.label !== undefined && (obj.label = message.label);
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
+      (obj.msg = message.msg !== undefined ? base64FromBytes(message.msg) : undefined);
 
     if (message.funds) {
       obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
@@ -391,12 +390,12 @@ export const MsgInstantiateContract = {
 
   fromPartial<I extends Exact<DeepPartial<MsgInstantiateContract>, I>>(object: I): MsgInstantiateContract {
     const message = createBaseMsgInstantiateContract();
-    message.sender = object.sender ?? "";
-    message.admin = object.admin ?? "";
+    message.sender = object.sender ?? undefined;
+    message.admin = object.admin ?? undefined;
     message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
-    message.label = object.label ?? "";
-    message.msg = object.msg ?? new Uint8Array();
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : undefined;
+    message.label = object.label ?? undefined;
+    message.msg = object.msg ?? undefined;
     message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -404,18 +403,18 @@ export const MsgInstantiateContract = {
 
 function createBaseMsgInstantiateContractResponse(): MsgInstantiateContractResponse {
   return {
-    address: "",
-    data: new Uint8Array(),
+    address: undefined,
+    data: undefined,
   };
 }
 
 export const MsgInstantiateContractResponse = {
   encode(message: MsgInstantiateContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
+    if (message.address !== undefined) {
       writer.uint32(10).string(message.address);
     }
 
-    if (message.data.length !== 0) {
+    if (message.data !== undefined) {
       writer.uint32(18).bytes(message.data);
     }
 
@@ -450,8 +449,8 @@ export const MsgInstantiateContractResponse = {
 
   fromJSON(object: any): MsgInstantiateContractResponse {
     return {
-      address: isSet(object.address) ? String(object.address) : "",
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      address: isSet(object.address) ? String(object.address) : undefined,
+      data: isSet(object.data) ? bytesFromBase64(object.data) : undefined,
     };
   },
 
@@ -459,7 +458,7 @@ export const MsgInstantiateContractResponse = {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+      (obj.data = message.data !== undefined ? base64FromBytes(message.data) : undefined);
     return obj;
   },
 
@@ -467,32 +466,32 @@ export const MsgInstantiateContractResponse = {
     object: I,
   ): MsgInstantiateContractResponse {
     const message = createBaseMsgInstantiateContractResponse();
-    message.address = object.address ?? "";
-    message.data = object.data ?? new Uint8Array();
+    message.address = object.address ?? undefined;
+    message.data = object.data ?? undefined;
     return message;
   },
 };
 
 function createBaseMsgExecuteContract(): MsgExecuteContract {
   return {
-    sender: "",
-    contract: "",
-    msg: new Uint8Array(),
-    funds: [],
+    sender: undefined,
+    contract: undefined,
+    msg: undefined,
+    funds: undefined,
   };
 }
 
 export const MsgExecuteContract = {
   encode(message: MsgExecuteContract, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.contract !== "") {
+    if (message.contract !== undefined) {
       writer.uint32(18).string(message.contract);
     }
 
-    if (message.msg.length !== 0) {
+    if (message.msg !== undefined) {
       writer.uint32(26).bytes(message.msg);
     }
 
@@ -539,9 +538,9 @@ export const MsgExecuteContract = {
 
   fromJSON(object: any): MsgExecuteContract {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      contract: isSet(object.contract) ? String(object.contract) : undefined,
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : undefined,
       funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
     };
   },
@@ -551,7 +550,7 @@ export const MsgExecuteContract = {
     message.sender !== undefined && (obj.sender = message.sender);
     message.contract !== undefined && (obj.contract = message.contract);
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
+      (obj.msg = message.msg !== undefined ? base64FromBytes(message.msg) : undefined);
 
     if (message.funds) {
       obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
@@ -564,9 +563,9 @@ export const MsgExecuteContract = {
 
   fromPartial<I extends Exact<DeepPartial<MsgExecuteContract>, I>>(object: I): MsgExecuteContract {
     const message = createBaseMsgExecuteContract();
-    message.sender = object.sender ?? "";
-    message.contract = object.contract ?? "";
-    message.msg = object.msg ?? new Uint8Array();
+    message.sender = object.sender ?? undefined;
+    message.contract = object.contract ?? undefined;
+    message.msg = object.msg ?? undefined;
     message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -574,13 +573,13 @@ export const MsgExecuteContract = {
 
 function createBaseMsgExecuteContractResponse(): MsgExecuteContractResponse {
   return {
-    data: new Uint8Array(),
+    data: undefined,
   };
 }
 
 export const MsgExecuteContractResponse = {
   encode(message: MsgExecuteContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.data.length !== 0) {
+    if (message.data !== undefined) {
       writer.uint32(10).bytes(message.data);
     }
 
@@ -611,14 +610,14 @@ export const MsgExecuteContractResponse = {
 
   fromJSON(object: any): MsgExecuteContractResponse {
     return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : undefined,
     };
   },
 
   toJSON(message: MsgExecuteContractResponse): unknown {
     const obj: any = {};
     message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+      (obj.data = message.data !== undefined ? base64FromBytes(message.data) : undefined);
     return obj;
   },
 
@@ -626,35 +625,35 @@ export const MsgExecuteContractResponse = {
     object: I,
   ): MsgExecuteContractResponse {
     const message = createBaseMsgExecuteContractResponse();
-    message.data = object.data ?? new Uint8Array();
+    message.data = object.data ?? undefined;
     return message;
   },
 };
 
 function createBaseMsgMigrateContract(): MsgMigrateContract {
   return {
-    sender: "",
-    contract: "",
-    codeId: Long.UZERO,
-    msg: new Uint8Array(),
+    sender: undefined,
+    contract: undefined,
+    codeId: undefined,
+    msg: undefined,
   };
 }
 
 export const MsgMigrateContract = {
   encode(message: MsgMigrateContract, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.contract !== "") {
+    if (message.contract !== undefined) {
       writer.uint32(18).string(message.contract);
     }
 
-    if (!message.codeId.isZero()) {
+    if (message.codeId !== undefined) {
       writer.uint32(24).uint64(message.codeId);
     }
 
-    if (message.msg.length !== 0) {
+    if (message.msg !== undefined) {
       writer.uint32(34).bytes(message.msg);
     }
 
@@ -697,10 +696,10 @@ export const MsgMigrateContract = {
 
   fromJSON(object: any): MsgMigrateContract {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      contract: isSet(object.contract) ? String(object.contract) : undefined,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : undefined,
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : undefined,
     };
   },
 
@@ -708,32 +707,32 @@ export const MsgMigrateContract = {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
     message.contract !== undefined && (obj.contract = message.contract);
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
+    message.codeId !== undefined && (obj.codeId = (message.codeId || undefined).toString());
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
+      (obj.msg = message.msg !== undefined ? base64FromBytes(message.msg) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMigrateContract>, I>>(object: I): MsgMigrateContract {
     const message = createBaseMsgMigrateContract();
-    message.sender = object.sender ?? "";
-    message.contract = object.contract ?? "";
+    message.sender = object.sender ?? undefined;
+    message.contract = object.contract ?? undefined;
     message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
-    message.msg = object.msg ?? new Uint8Array();
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : undefined;
+    message.msg = object.msg ?? undefined;
     return message;
   },
 };
 
 function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
   return {
-    data: new Uint8Array(),
+    data: undefined,
   };
 }
 
 export const MsgMigrateContractResponse = {
   encode(message: MsgMigrateContractResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.data.length !== 0) {
+    if (message.data !== undefined) {
       writer.uint32(10).bytes(message.data);
     }
 
@@ -764,14 +763,14 @@ export const MsgMigrateContractResponse = {
 
   fromJSON(object: any): MsgMigrateContractResponse {
     return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : undefined,
     };
   },
 
   toJSON(message: MsgMigrateContractResponse): unknown {
     const obj: any = {};
     message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+      (obj.data = message.data !== undefined ? base64FromBytes(message.data) : undefined);
     return obj;
   },
 
@@ -779,30 +778,30 @@ export const MsgMigrateContractResponse = {
     object: I,
   ): MsgMigrateContractResponse {
     const message = createBaseMsgMigrateContractResponse();
-    message.data = object.data ?? new Uint8Array();
+    message.data = object.data ?? undefined;
     return message;
   },
 };
 
 function createBaseMsgUpdateAdmin(): MsgUpdateAdmin {
   return {
-    sender: "",
-    newAdmin: "",
-    contract: "",
+    sender: undefined,
+    newAdmin: undefined,
+    contract: undefined,
   };
 }
 
 export const MsgUpdateAdmin = {
   encode(message: MsgUpdateAdmin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.newAdmin !== "") {
+    if (message.newAdmin !== undefined) {
       writer.uint32(18).string(message.newAdmin);
     }
 
-    if (message.contract !== "") {
+    if (message.contract !== undefined) {
       writer.uint32(26).string(message.contract);
     }
 
@@ -841,9 +840,9 @@ export const MsgUpdateAdmin = {
 
   fromJSON(object: any): MsgUpdateAdmin {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      newAdmin: isSet(object.newAdmin) ? String(object.newAdmin) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      newAdmin: isSet(object.newAdmin) ? String(object.newAdmin) : undefined,
+      contract: isSet(object.contract) ? String(object.contract) : undefined,
     };
   },
 
@@ -857,9 +856,9 @@ export const MsgUpdateAdmin = {
 
   fromPartial<I extends Exact<DeepPartial<MsgUpdateAdmin>, I>>(object: I): MsgUpdateAdmin {
     const message = createBaseMsgUpdateAdmin();
-    message.sender = object.sender ?? "";
-    message.newAdmin = object.newAdmin ?? "";
-    message.contract = object.contract ?? "";
+    message.sender = object.sender ?? undefined;
+    message.newAdmin = object.newAdmin ?? undefined;
+    message.contract = object.contract ?? undefined;
     return message;
   },
 };
@@ -908,18 +907,18 @@ export const MsgUpdateAdminResponse = {
 
 function createBaseMsgClearAdmin(): MsgClearAdmin {
   return {
-    sender: "",
-    contract: "",
+    sender: undefined,
+    contract: undefined,
   };
 }
 
 export const MsgClearAdmin = {
   encode(message: MsgClearAdmin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sender !== "") {
+    if (message.sender !== undefined) {
       writer.uint32(10).string(message.sender);
     }
 
-    if (message.contract !== "") {
+    if (message.contract !== undefined) {
       writer.uint32(26).string(message.contract);
     }
 
@@ -954,8 +953,8 @@ export const MsgClearAdmin = {
 
   fromJSON(object: any): MsgClearAdmin {
     return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
+      sender: isSet(object.sender) ? String(object.sender) : undefined,
+      contract: isSet(object.contract) ? String(object.contract) : undefined,
     };
   },
 
@@ -968,8 +967,8 @@ export const MsgClearAdmin = {
 
   fromPartial<I extends Exact<DeepPartial<MsgClearAdmin>, I>>(object: I): MsgClearAdmin {
     const message = createBaseMsgClearAdmin();
-    message.sender = object.sender ?? "";
-    message.contract = object.contract ?? "";
+    message.sender = object.sender ?? undefined;
+    message.contract = object.contract ?? undefined;
     return message;
   },
 };

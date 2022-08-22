@@ -11,38 +11,38 @@ export const protobufPackage = "cosmos.base.store.v1beta1";
  */
 export interface StoreKVPair {
   /** the store key for the KVStore this pair originates from */
-  storeKey: string;
+  storeKey?: string;
 
   /** true indicates a delete operation, false indicates a set operation */
-  delete: boolean;
-  key: Uint8Array;
-  value: Uint8Array;
+  delete?: boolean;
+  key?: Uint8Array;
+  value?: Uint8Array;
 }
 
 function createBaseStoreKVPair(): StoreKVPair {
   return {
-    storeKey: "",
-    delete: false,
-    key: new Uint8Array(),
-    value: new Uint8Array(),
+    storeKey: undefined,
+    delete: undefined,
+    key: undefined,
+    value: undefined,
   };
 }
 
 export const StoreKVPair = {
   encode(message: StoreKVPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.storeKey !== "") {
+    if (message.storeKey !== undefined) {
       writer.uint32(10).string(message.storeKey);
     }
 
-    if (message.delete === true) {
+    if (message.delete !== undefined) {
       writer.uint32(16).bool(message.delete);
     }
 
-    if (message.key.length !== 0) {
+    if (message.key !== undefined) {
       writer.uint32(26).bytes(message.key);
     }
 
-    if (message.value.length !== 0) {
+    if (message.value !== undefined) {
       writer.uint32(34).bytes(message.value);
     }
 
@@ -85,10 +85,10 @@ export const StoreKVPair = {
 
   fromJSON(object: any): StoreKVPair {
     return {
-      storeKey: isSet(object.storeKey) ? String(object.storeKey) : "",
-      delete: isSet(object.delete) ? Boolean(object.delete) : false,
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+      storeKey: isSet(object.storeKey) ? String(object.storeKey) : undefined,
+      delete: isSet(object.delete) ? Boolean(object.delete) : undefined,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : undefined,
+      value: isSet(object.value) ? bytesFromBase64(object.value) : undefined,
     };
   },
 
@@ -97,18 +97,18 @@ export const StoreKVPair = {
     message.storeKey !== undefined && (obj.storeKey = message.storeKey);
     message.delete !== undefined && (obj.delete = message.delete);
     message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+      (obj.key = message.key !== undefined ? base64FromBytes(message.key) : undefined);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+      (obj.value = message.value !== undefined ? base64FromBytes(message.value) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<StoreKVPair>, I>>(object: I): StoreKVPair {
     const message = createBaseStoreKVPair();
-    message.storeKey = object.storeKey ?? "";
-    message.delete = object.delete ?? false;
-    message.key = object.key ?? new Uint8Array();
-    message.value = object.value ?? new Uint8Array();
+    message.storeKey = object.storeKey ?? undefined;
+    message.delete = object.delete ?? undefined;
+    message.key = object.key ?? undefined;
+    message.value = object.value ?? undefined;
     return message;
   },
 };

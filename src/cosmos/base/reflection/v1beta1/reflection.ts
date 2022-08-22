@@ -8,7 +8,7 @@ export interface ListAllInterfacesRequest {}
 /** ListAllInterfacesResponse is the response type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesResponse {
   /** interface_names is an array of all the registered interfaces. */
-  interfaceNames: string[];
+  interfaceNames?: string[];
 }
 
 /**
@@ -17,7 +17,7 @@ export interface ListAllInterfacesResponse {
  */
 export interface ListImplementationsRequest {
   /** interface_name defines the interface to query the implementations for. */
-  interfaceName: string;
+  interfaceName?: string;
 }
 
 /**
@@ -25,7 +25,7 @@ export interface ListImplementationsRequest {
  * RPC.
  */
 export interface ListImplementationsResponse {
-  implementationMessageNames: string[];
+  implementationMessageNames?: string[];
 }
 
 function createBaseListAllInterfacesRequest(): ListAllInterfacesRequest {
@@ -72,7 +72,7 @@ export const ListAllInterfacesRequest = {
 
 function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
   return {
-    interfaceNames: [],
+    interfaceNames: undefined,
   };
 }
 
@@ -138,13 +138,13 @@ export const ListAllInterfacesResponse = {
 
 function createBaseListImplementationsRequest(): ListImplementationsRequest {
   return {
-    interfaceName: "",
+    interfaceName: undefined,
   };
 }
 
 export const ListImplementationsRequest = {
   encode(message: ListImplementationsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.interfaceName !== "") {
+    if (message.interfaceName !== undefined) {
       writer.uint32(10).string(message.interfaceName);
     }
 
@@ -175,7 +175,7 @@ export const ListImplementationsRequest = {
 
   fromJSON(object: any): ListImplementationsRequest {
     return {
-      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "",
+      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : undefined,
     };
   },
 
@@ -189,14 +189,14 @@ export const ListImplementationsRequest = {
     object: I,
   ): ListImplementationsRequest {
     const message = createBaseListImplementationsRequest();
-    message.interfaceName = object.interfaceName ?? "";
+    message.interfaceName = object.interfaceName ?? undefined;
     return message;
   },
 };
 
 function createBaseListImplementationsResponse(): ListImplementationsResponse {
   return {
-    implementationMessageNames: [],
+    implementationMessageNames: undefined,
   };
 }
 

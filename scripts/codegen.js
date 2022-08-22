@@ -17,6 +17,8 @@ telescope({
         },
         prototypes: {
             includePackageVar: true,
+            defaultFieldOptionality: true,
+            useOptionalNullable: false,
             excluded: {
                 protos: [
                     'cosmos/authz/v1beta1/event.proto',

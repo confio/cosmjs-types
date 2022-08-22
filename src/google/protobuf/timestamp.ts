@@ -92,7 +92,7 @@ export interface Timestamp {
    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
    * 9999-12-31T23:59:59Z inclusive.
    */
-  seconds: Long;
+  seconds?: Long;
 
   /**
    * Non-negative fractions of a second at nanosecond resolution. Negative
@@ -100,23 +100,23 @@ export interface Timestamp {
    * that count forward in time. Must be from 0 to 999,999,999
    * inclusive.
    */
-  nanos: number;
+  nanos?: number;
 }
 
 function createBaseTimestamp(): Timestamp {
   return {
-    seconds: Long.ZERO,
-    nanos: 0,
+    seconds: undefined,
+    nanos: undefined,
   };
 }
 
 export const Timestamp = {
   encode(message: Timestamp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.seconds.isZero()) {
+    if (message.seconds !== undefined) {
       writer.uint32(8).int64(message.seconds);
     }
 
-    if (message.nanos !== 0) {
+    if (message.nanos !== undefined) {
       writer.uint32(16).int32(message.nanos);
     }
 
@@ -151,14 +151,14 @@ export const Timestamp = {
 
   fromJSON(object: any): Timestamp {
     return {
-      seconds: isSet(object.seconds) ? Long.fromString(object.seconds) : Long.ZERO,
-      nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
+      seconds: isSet(object.seconds) ? Long.fromString(object.seconds) : undefined,
+      nanos: isSet(object.nanos) ? Number(object.nanos) : undefined,
     };
   },
 
   toJSON(message: Timestamp): unknown {
     const obj: any = {};
-    message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString());
+    message.seconds !== undefined && (obj.seconds = (message.seconds || undefined).toString());
     message.nanos !== undefined && (obj.nanos = Math.round(message.nanos));
     return obj;
   },
@@ -166,8 +166,8 @@ export const Timestamp = {
   fromPartial<I extends Exact<DeepPartial<Timestamp>, I>>(object: I): Timestamp {
     const message = createBaseTimestamp();
     message.seconds =
-      object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;
-    message.nanos = object.nanos ?? 0;
+      object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : undefined;
+    message.nanos = object.nanos ?? undefined;
     return message;
   },
 };

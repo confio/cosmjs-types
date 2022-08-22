@@ -10,7 +10,7 @@ export const protobufPackage = "ibc.applications.transfer.v1";
  */
 export interface QueryDenomTraceRequest {
   /** hash (in hex format) of the denomination trace information. */
-  hash: string;
+  hash?: string;
 }
 
 /**
@@ -19,7 +19,7 @@ export interface QueryDenomTraceRequest {
  */
 export interface QueryDenomTraceResponse {
   /** denom_trace returns the requested denomination trace information. */
-  denomTrace: DenomTrace;
+  denomTrace?: DenomTrace;
 }
 
 /**
@@ -28,7 +28,7 @@ export interface QueryDenomTraceResponse {
  */
 export interface QueryDenomTracesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 
 /**
@@ -37,10 +37,10 @@ export interface QueryDenomTracesRequest {
  */
 export interface QueryDenomTracesResponse {
   /** denom_traces returns all denominations trace information. */
-  denomTraces: DenomTrace[];
+  denomTraces?: DenomTrace[];
 
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
@@ -49,18 +49,18 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 
 function createBaseQueryDenomTraceRequest(): QueryDenomTraceRequest {
   return {
-    hash: "",
+    hash: undefined,
   };
 }
 
 export const QueryDenomTraceRequest = {
   encode(message: QueryDenomTraceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.hash !== "") {
+    if (message.hash !== undefined) {
       writer.uint32(10).string(message.hash);
     }
 
@@ -91,7 +91,7 @@ export const QueryDenomTraceRequest = {
 
   fromJSON(object: any): QueryDenomTraceRequest {
     return {
-      hash: isSet(object.hash) ? String(object.hash) : "",
+      hash: isSet(object.hash) ? String(object.hash) : undefined,
     };
   },
 
@@ -103,7 +103,7 @@ export const QueryDenomTraceRequest = {
 
   fromPartial<I extends Exact<DeepPartial<QueryDenomTraceRequest>, I>>(object: I): QueryDenomTraceRequest {
     const message = createBaseQueryDenomTraceRequest();
-    message.hash = object.hash ?? "";
+    message.hash = object.hash ?? undefined;
     return message;
   },
 };
@@ -230,7 +230,7 @@ export const QueryDenomTracesRequest = {
 
 function createBaseQueryDenomTracesResponse(): QueryDenomTracesResponse {
   return {
-    denomTraces: [],
+    denomTraces: undefined,
     pagination: undefined,
   };
 }

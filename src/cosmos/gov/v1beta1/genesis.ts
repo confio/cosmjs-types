@@ -6,33 +6,33 @@ export const protobufPackage = "cosmos.gov.v1beta1";
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {
   /** starting_proposal_id is the ID of the starting proposal. */
-  startingProposalId: Long;
+  startingProposalId?: Long;
 
   /** deposits defines all the deposits present at genesis. */
-  deposits: Deposit[];
+  deposits?: Deposit[];
 
   /** votes defines all the votes present at genesis. */
-  votes: Vote[];
+  votes?: Vote[];
 
   /** proposals defines all the proposals present at genesis. */
-  proposals: Proposal[];
+  proposals?: Proposal[];
 
   /** params defines all the paramaters of related to deposit. */
-  depositParams: DepositParams;
+  depositParams?: DepositParams;
 
   /** params defines all the paramaters of related to voting. */
-  votingParams: VotingParams;
+  votingParams?: VotingParams;
 
   /** params defines all the paramaters of related to tally. */
-  tallyParams: TallyParams;
+  tallyParams?: TallyParams;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    startingProposalId: Long.UZERO,
-    deposits: [],
-    votes: [],
-    proposals: [],
+    startingProposalId: undefined,
+    deposits: undefined,
+    votes: undefined,
+    proposals: undefined,
     depositParams: undefined,
     votingParams: undefined,
     tallyParams: undefined,
@@ -41,7 +41,7 @@ function createBaseGenesisState(): GenesisState {
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.startingProposalId.isZero()) {
+    if (message.startingProposalId !== undefined) {
       writer.uint32(8).uint64(message.startingProposalId);
     }
 
@@ -122,7 +122,7 @@ export const GenesisState = {
     return {
       startingProposalId: isSet(object.startingProposalId)
         ? Long.fromString(object.startingProposalId)
-        : Long.UZERO,
+        : undefined,
       deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
       votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
       proposals: Array.isArray(object?.proposals)
@@ -137,7 +137,7 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     message.startingProposalId !== undefined &&
-      (obj.startingProposalId = (message.startingProposalId || Long.UZERO).toString());
+      (obj.startingProposalId = (message.startingProposalId || undefined).toString());
 
     if (message.deposits) {
       obj.deposits = message.deposits.map((e) => (e ? Deposit.toJSON(e) : undefined));
@@ -171,7 +171,7 @@ export const GenesisState = {
     message.startingProposalId =
       object.startingProposalId !== undefined && object.startingProposalId !== null
         ? Long.fromValue(object.startingProposalId)
-        : Long.UZERO;
+        : undefined;
     message.deposits = object.deposits?.map((e) => Deposit.fromPartial(e)) || [];
     message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || [];
     message.proposals = object.proposals?.map((e) => Proposal.fromPartial(e)) || [];

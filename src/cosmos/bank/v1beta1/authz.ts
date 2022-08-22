@@ -10,12 +10,12 @@ export const protobufPackage = "cosmos.bank.v1beta1";
  * Since: cosmos-sdk 0.43
  */
 export interface SendAuthorization {
-  spendLimit: Coin[];
+  spendLimit?: Coin[];
 }
 
 function createBaseSendAuthorization(): SendAuthorization {
   return {
-    spendLimit: [],
+    spendLimit: undefined,
   };
 }
 

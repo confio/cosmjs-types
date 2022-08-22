@@ -7,8 +7,8 @@ export const protobufPackage = "cosmos.base.store.v1beta1";
  * a version/height.
  */
 export interface CommitInfo {
-  version: Long;
-  storeInfos: StoreInfo[];
+  version?: Long;
+  storeInfos?: StoreInfo[];
 }
 
 /**
@@ -16,8 +16,8 @@ export interface CommitInfo {
  * between a store name and the commit ID.
  */
 export interface StoreInfo {
-  name: string;
-  commitId: CommitID;
+  name?: string;
+  commitId?: CommitID;
 }
 
 /**
@@ -25,20 +25,20 @@ export interface StoreInfo {
  * committed.
  */
 export interface CommitID {
-  version: Long;
-  hash: Uint8Array;
+  version?: Long;
+  hash?: Uint8Array;
 }
 
 function createBaseCommitInfo(): CommitInfo {
   return {
-    version: Long.ZERO,
-    storeInfos: [],
+    version: undefined,
+    storeInfos: undefined,
   };
 }
 
 export const CommitInfo = {
   encode(message: CommitInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.version.isZero()) {
+    if (message.version !== undefined) {
       writer.uint32(8).int64(message.version);
     }
 
@@ -77,7 +77,7 @@ export const CommitInfo = {
 
   fromJSON(object: any): CommitInfo {
     return {
-      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      version: isSet(object.version) ? Long.fromString(object.version) : undefined,
       storeInfos: Array.isArray(object?.storeInfos)
         ? object.storeInfos.map((e: any) => StoreInfo.fromJSON(e))
         : [],
@@ -86,7 +86,7 @@ export const CommitInfo = {
 
   toJSON(message: CommitInfo): unknown {
     const obj: any = {};
-    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
+    message.version !== undefined && (obj.version = (message.version || undefined).toString());
 
     if (message.storeInfos) {
       obj.storeInfos = message.storeInfos.map((e) => (e ? StoreInfo.toJSON(e) : undefined));
@@ -100,7 +100,7 @@ export const CommitInfo = {
   fromPartial<I extends Exact<DeepPartial<CommitInfo>, I>>(object: I): CommitInfo {
     const message = createBaseCommitInfo();
     message.version =
-      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : undefined;
     message.storeInfos = object.storeInfos?.map((e) => StoreInfo.fromPartial(e)) || [];
     return message;
   },
@@ -108,14 +108,14 @@ export const CommitInfo = {
 
 function createBaseStoreInfo(): StoreInfo {
   return {
-    name: "",
+    name: undefined,
     commitId: undefined,
   };
 }
 
 export const StoreInfo = {
   encode(message: StoreInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== "") {
+    if (message.name !== undefined) {
       writer.uint32(10).string(message.name);
     }
 
@@ -154,7 +154,7 @@ export const StoreInfo = {
 
   fromJSON(object: any): StoreInfo {
     return {
-      name: isSet(object.name) ? String(object.name) : "",
+      name: isSet(object.name) ? String(object.name) : undefined,
       commitId: isSet(object.commitId) ? CommitID.fromJSON(object.commitId) : undefined,
     };
   },
@@ -169,7 +169,7 @@ export const StoreInfo = {
 
   fromPartial<I extends Exact<DeepPartial<StoreInfo>, I>>(object: I): StoreInfo {
     const message = createBaseStoreInfo();
-    message.name = object.name ?? "";
+    message.name = object.name ?? undefined;
     message.commitId =
       object.commitId !== undefined && object.commitId !== null
         ? CommitID.fromPartial(object.commitId)
@@ -180,18 +180,18 @@ export const StoreInfo = {
 
 function createBaseCommitID(): CommitID {
   return {
-    version: Long.ZERO,
-    hash: new Uint8Array(),
+    version: undefined,
+    hash: undefined,
   };
 }
 
 export const CommitID = {
   encode(message: CommitID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.version.isZero()) {
+    if (message.version !== undefined) {
       writer.uint32(8).int64(message.version);
     }
 
-    if (message.hash.length !== 0) {
+    if (message.hash !== undefined) {
       writer.uint32(18).bytes(message.hash);
     }
 
@@ -226,24 +226,24 @@ export const CommitID = {
 
   fromJSON(object: any): CommitID {
     return {
-      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+      version: isSet(object.version) ? Long.fromString(object.version) : undefined,
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : undefined,
     };
   },
 
   toJSON(message: CommitID): unknown {
     const obj: any = {};
-    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
+    message.version !== undefined && (obj.version = (message.version || undefined).toString());
     message.hash !== undefined &&
-      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+      (obj.hash = message.hash !== undefined ? base64FromBytes(message.hash) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CommitID>, I>>(object: I): CommitID {
     const message = createBaseCommitID();
     message.version =
-      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
-    message.hash = object.hash ?? new Uint8Array();
+      object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : undefined;
+    message.hash = object.hash ?? undefined;
     return message;
   },
 };

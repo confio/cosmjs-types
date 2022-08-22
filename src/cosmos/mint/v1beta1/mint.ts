@@ -5,47 +5,47 @@ export const protobufPackage = "cosmos.mint.v1beta1";
 /** Minter represents the minting state. */
 export interface Minter {
   /** current annual inflation rate */
-  inflation: string;
+  inflation?: string;
 
   /** current annual expected provisions */
-  annualProvisions: string;
+  annualProvisions?: string;
 }
 
 /** Params holds parameters for the mint module. */
 export interface Params {
   /** type of coin to mint */
-  mintDenom: string;
+  mintDenom?: string;
 
   /** maximum annual change in inflation rate */
-  inflationRateChange: string;
+  inflationRateChange?: string;
 
   /** maximum inflation rate */
-  inflationMax: string;
+  inflationMax?: string;
 
   /** minimum inflation rate */
-  inflationMin: string;
+  inflationMin?: string;
 
   /** goal of percent bonded atoms */
-  goalBonded: string;
+  goalBonded?: string;
 
   /** expected blocks per year */
-  blocksPerYear: Long;
+  blocksPerYear?: Long;
 }
 
 function createBaseMinter(): Minter {
   return {
-    inflation: "",
-    annualProvisions: "",
+    inflation: undefined,
+    annualProvisions: undefined,
   };
 }
 
 export const Minter = {
   encode(message: Minter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.inflation !== "") {
+    if (message.inflation !== undefined) {
       writer.uint32(10).string(message.inflation);
     }
 
-    if (message.annualProvisions !== "") {
+    if (message.annualProvisions !== undefined) {
       writer.uint32(18).string(message.annualProvisions);
     }
 
@@ -80,8 +80,8 @@ export const Minter = {
 
   fromJSON(object: any): Minter {
     return {
-      inflation: isSet(object.inflation) ? String(object.inflation) : "",
-      annualProvisions: isSet(object.annualProvisions) ? String(object.annualProvisions) : "",
+      inflation: isSet(object.inflation) ? String(object.inflation) : undefined,
+      annualProvisions: isSet(object.annualProvisions) ? String(object.annualProvisions) : undefined,
     };
   },
 
@@ -94,46 +94,46 @@ export const Minter = {
 
   fromPartial<I extends Exact<DeepPartial<Minter>, I>>(object: I): Minter {
     const message = createBaseMinter();
-    message.inflation = object.inflation ?? "";
-    message.annualProvisions = object.annualProvisions ?? "";
+    message.inflation = object.inflation ?? undefined;
+    message.annualProvisions = object.annualProvisions ?? undefined;
     return message;
   },
 };
 
 function createBaseParams(): Params {
   return {
-    mintDenom: "",
-    inflationRateChange: "",
-    inflationMax: "",
-    inflationMin: "",
-    goalBonded: "",
-    blocksPerYear: Long.UZERO,
+    mintDenom: undefined,
+    inflationRateChange: undefined,
+    inflationMax: undefined,
+    inflationMin: undefined,
+    goalBonded: undefined,
+    blocksPerYear: undefined,
   };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.mintDenom !== "") {
+    if (message.mintDenom !== undefined) {
       writer.uint32(10).string(message.mintDenom);
     }
 
-    if (message.inflationRateChange !== "") {
+    if (message.inflationRateChange !== undefined) {
       writer.uint32(18).string(message.inflationRateChange);
     }
 
-    if (message.inflationMax !== "") {
+    if (message.inflationMax !== undefined) {
       writer.uint32(26).string(message.inflationMax);
     }
 
-    if (message.inflationMin !== "") {
+    if (message.inflationMin !== undefined) {
       writer.uint32(34).string(message.inflationMin);
     }
 
-    if (message.goalBonded !== "") {
+    if (message.goalBonded !== undefined) {
       writer.uint32(42).string(message.goalBonded);
     }
 
-    if (!message.blocksPerYear.isZero()) {
+    if (message.blocksPerYear !== undefined) {
       writer.uint32(48).uint64(message.blocksPerYear);
     }
 
@@ -184,12 +184,12 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      mintDenom: isSet(object.mintDenom) ? String(object.mintDenom) : "",
-      inflationRateChange: isSet(object.inflationRateChange) ? String(object.inflationRateChange) : "",
-      inflationMax: isSet(object.inflationMax) ? String(object.inflationMax) : "",
-      inflationMin: isSet(object.inflationMin) ? String(object.inflationMin) : "",
-      goalBonded: isSet(object.goalBonded) ? String(object.goalBonded) : "",
-      blocksPerYear: isSet(object.blocksPerYear) ? Long.fromString(object.blocksPerYear) : Long.UZERO,
+      mintDenom: isSet(object.mintDenom) ? String(object.mintDenom) : undefined,
+      inflationRateChange: isSet(object.inflationRateChange) ? String(object.inflationRateChange) : undefined,
+      inflationMax: isSet(object.inflationMax) ? String(object.inflationMax) : undefined,
+      inflationMin: isSet(object.inflationMin) ? String(object.inflationMin) : undefined,
+      goalBonded: isSet(object.goalBonded) ? String(object.goalBonded) : undefined,
+      blocksPerYear: isSet(object.blocksPerYear) ? Long.fromString(object.blocksPerYear) : undefined,
     };
   },
 
@@ -201,21 +201,21 @@ export const Params = {
     message.inflationMin !== undefined && (obj.inflationMin = message.inflationMin);
     message.goalBonded !== undefined && (obj.goalBonded = message.goalBonded);
     message.blocksPerYear !== undefined &&
-      (obj.blocksPerYear = (message.blocksPerYear || Long.UZERO).toString());
+      (obj.blocksPerYear = (message.blocksPerYear || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.mintDenom = object.mintDenom ?? "";
-    message.inflationRateChange = object.inflationRateChange ?? "";
-    message.inflationMax = object.inflationMax ?? "";
-    message.inflationMin = object.inflationMin ?? "";
-    message.goalBonded = object.goalBonded ?? "";
+    message.mintDenom = object.mintDenom ?? undefined;
+    message.inflationRateChange = object.inflationRateChange ?? undefined;
+    message.inflationMax = object.inflationMax ?? undefined;
+    message.inflationMin = object.inflationMin ?? undefined;
+    message.goalBonded = object.goalBonded ?? undefined;
     message.blocksPerYear =
       object.blocksPerYear !== undefined && object.blocksPerYear !== null
         ? Long.fromValue(object.blocksPerYear)
-        : Long.UZERO;
+        : undefined;
     return message;
   },
 };

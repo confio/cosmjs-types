@@ -6,28 +6,28 @@ export const protobufPackage = "cosmos.slashing.v1beta1";
 /** GenesisState defines the slashing module's genesis state. */
 export interface GenesisState {
   /** params defines all the paramaters of related to deposit. */
-  params: Params;
+  params?: Params;
 
   /**
    * signing_infos represents a map between validator addresses and their
    * signing infos.
    */
-  signingInfos: SigningInfo[];
+  signingInfos?: SigningInfo[];
 
   /**
    * missed_blocks represents a map between validator addresses and their
    * missed blocks.
    */
-  missedBlocks: ValidatorMissedBlocks[];
+  missedBlocks?: ValidatorMissedBlocks[];
 }
 
 /** SigningInfo stores validator signing info of corresponding address. */
 export interface SigningInfo {
   /** address is the validator address. */
-  address: string;
+  address?: string;
 
   /** validator_signing_info represents the signing info of this validator. */
-  validatorSigningInfo: ValidatorSigningInfo;
+  validatorSigningInfo?: ValidatorSigningInfo;
 }
 
 /**
@@ -36,26 +36,26 @@ export interface SigningInfo {
  */
 export interface ValidatorMissedBlocks {
   /** address is the validator address. */
-  address: string;
+  address?: string;
 
   /** missed_blocks is an array of missed blocks by the validator. */
-  missedBlocks: MissedBlock[];
+  missedBlocks?: MissedBlock[];
 }
 
 /** MissedBlock contains height and missed status as boolean. */
 export interface MissedBlock {
   /** index is the height at which the block was missed. */
-  index: Long;
+  index?: Long;
 
   /** missed is the missed status. */
-  missed: boolean;
+  missed?: boolean;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     params: undefined,
-    signingInfos: [],
-    missedBlocks: [],
+    signingInfos: undefined,
+    missedBlocks: undefined,
   };
 }
 
@@ -149,14 +149,14 @@ export const GenesisState = {
 
 function createBaseSigningInfo(): SigningInfo {
   return {
-    address: "",
+    address: undefined,
     validatorSigningInfo: undefined,
   };
 }
 
 export const SigningInfo = {
   encode(message: SigningInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
+    if (message.address !== undefined) {
       writer.uint32(10).string(message.address);
     }
 
@@ -195,7 +195,7 @@ export const SigningInfo = {
 
   fromJSON(object: any): SigningInfo {
     return {
-      address: isSet(object.address) ? String(object.address) : "",
+      address: isSet(object.address) ? String(object.address) : undefined,
       validatorSigningInfo: isSet(object.validatorSigningInfo)
         ? ValidatorSigningInfo.fromJSON(object.validatorSigningInfo)
         : undefined,
@@ -214,7 +214,7 @@ export const SigningInfo = {
 
   fromPartial<I extends Exact<DeepPartial<SigningInfo>, I>>(object: I): SigningInfo {
     const message = createBaseSigningInfo();
-    message.address = object.address ?? "";
+    message.address = object.address ?? undefined;
     message.validatorSigningInfo =
       object.validatorSigningInfo !== undefined && object.validatorSigningInfo !== null
         ? ValidatorSigningInfo.fromPartial(object.validatorSigningInfo)
@@ -225,14 +225,14 @@ export const SigningInfo = {
 
 function createBaseValidatorMissedBlocks(): ValidatorMissedBlocks {
   return {
-    address: "",
-    missedBlocks: [],
+    address: undefined,
+    missedBlocks: undefined,
   };
 }
 
 export const ValidatorMissedBlocks = {
   encode(message: ValidatorMissedBlocks, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.address !== "") {
+    if (message.address !== undefined) {
       writer.uint32(10).string(message.address);
     }
 
@@ -271,7 +271,7 @@ export const ValidatorMissedBlocks = {
 
   fromJSON(object: any): ValidatorMissedBlocks {
     return {
-      address: isSet(object.address) ? String(object.address) : "",
+      address: isSet(object.address) ? String(object.address) : undefined,
       missedBlocks: Array.isArray(object?.missedBlocks)
         ? object.missedBlocks.map((e: any) => MissedBlock.fromJSON(e))
         : [],
@@ -293,7 +293,7 @@ export const ValidatorMissedBlocks = {
 
   fromPartial<I extends Exact<DeepPartial<ValidatorMissedBlocks>, I>>(object: I): ValidatorMissedBlocks {
     const message = createBaseValidatorMissedBlocks();
-    message.address = object.address ?? "";
+    message.address = object.address ?? undefined;
     message.missedBlocks = object.missedBlocks?.map((e) => MissedBlock.fromPartial(e)) || [];
     return message;
   },
@@ -301,18 +301,18 @@ export const ValidatorMissedBlocks = {
 
 function createBaseMissedBlock(): MissedBlock {
   return {
-    index: Long.ZERO,
-    missed: false,
+    index: undefined,
+    missed: undefined,
   };
 }
 
 export const MissedBlock = {
   encode(message: MissedBlock, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.index.isZero()) {
+    if (message.index !== undefined) {
       writer.uint32(8).int64(message.index);
     }
 
-    if (message.missed === true) {
+    if (message.missed !== undefined) {
       writer.uint32(16).bool(message.missed);
     }
 
@@ -347,14 +347,14 @@ export const MissedBlock = {
 
   fromJSON(object: any): MissedBlock {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : Long.ZERO,
-      missed: isSet(object.missed) ? Boolean(object.missed) : false,
+      index: isSet(object.index) ? Long.fromString(object.index) : undefined,
+      missed: isSet(object.missed) ? Boolean(object.missed) : undefined,
     };
   },
 
   toJSON(message: MissedBlock): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || Long.ZERO).toString());
+    message.index !== undefined && (obj.index = (message.index || undefined).toString());
     message.missed !== undefined && (obj.missed = message.missed);
     return obj;
   },
@@ -362,8 +362,8 @@ export const MissedBlock = {
   fromPartial<I extends Exact<DeepPartial<MissedBlock>, I>>(object: I): MissedBlock {
     const message = createBaseMissedBlock();
     message.index =
-      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
-    message.missed = object.missed ?? false;
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : undefined;
+    message.missed = object.missed ?? undefined;
     return message;
   },
 };

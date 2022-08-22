@@ -23,29 +23,29 @@ export const protobufPackage = "ibc.lightclients.tendermint.v1";
  * and a possible frozen height.
  */
 export interface ClientState {
-  chainId: string;
-  trustLevel: Fraction;
+  chainId?: string;
+  trustLevel?: Fraction;
 
   /**
    * duration of the period since the LastestTimestamp during which the
    * submitted headers are valid for upgrade
    */
-  trustingPeriod: Duration;
+  trustingPeriod?: Duration;
 
   /** duration of the staking unbonding period */
-  unbondingPeriod: Duration;
+  unbondingPeriod?: Duration;
 
   /** defines how much new (untrusted) header's Time can drift into the future. */
-  maxClockDrift: Duration;
+  maxClockDrift?: Duration;
 
   /** Block height when the client was frozen due to a misbehaviour */
-  frozenHeight: Height;
+  frozenHeight?: Height;
 
   /** Latest height the client was updated to */
-  latestHeight: Height;
+  latestHeight?: Height;
 
   /** Proof specifications used in verifying counterparty state */
-  proofSpecs: ProofSpec[];
+  proofSpecs?: ProofSpec[];
 
   /**
    * Path at which next upgraded client will be committed.
@@ -56,19 +56,19 @@ export interface ClientState {
    * the default upgrade module, upgrade_path should be []string{"upgrade",
    * "upgradedIBCState"}`
    */
-  upgradePath: string[];
+  upgradePath?: string[];
 
   /**
    * This flag, when set to true, will allow governance to recover a client
    * which has expired
    */
-  allowUpdateAfterExpiry: boolean;
+  allowUpdateAfterExpiry?: boolean;
 
   /**
    * This flag, when set to true, will allow governance to unfreeze a client
    * whose chain has experienced a misbehaviour event
    */
-  allowUpdateAfterMisbehaviour: boolean;
+  allowUpdateAfterMisbehaviour?: boolean;
 }
 
 /** ConsensusState defines the consensus state from Tendermint. */
@@ -77,11 +77,11 @@ export interface ConsensusState {
    * timestamp that corresponds to the block height in which the ConsensusState
    * was stored.
    */
-  timestamp: Timestamp;
+  timestamp?: Timestamp;
 
   /** commitment root (i.e app hash) */
-  root: MerkleRoot;
-  nextValidatorsHash: Uint8Array;
+  root?: MerkleRoot;
+  nextValidatorsHash?: Uint8Array;
 }
 
 /**
@@ -89,9 +89,9 @@ export interface ConsensusState {
  * that implements Misbehaviour interface expected by ICS-02
  */
 export interface Misbehaviour {
-  clientId: string;
-  header_1: Header;
-  header_2: Header;
+  clientId?: string;
+  header_1?: Header;
+  header_2?: Header;
 }
 
 /**
@@ -109,10 +109,10 @@ export interface Misbehaviour {
  * trusted validator set at the TrustedHeight.
  */
 export interface Header {
-  signedHeader: SignedHeader;
-  validatorSet: ValidatorSet;
-  trustedHeight: Height;
-  trustedValidators: ValidatorSet;
+  signedHeader?: SignedHeader;
+  validatorSet?: ValidatorSet;
+  trustedHeight?: Height;
+  trustedValidators?: ValidatorSet;
 }
 
 /**
@@ -120,29 +120,29 @@ export interface Header {
  * supports positive values.
  */
 export interface Fraction {
-  numerator: Long;
-  denominator: Long;
+  numerator?: Long;
+  denominator?: Long;
 }
 
 function createBaseClientState(): ClientState {
   return {
-    chainId: "",
+    chainId: undefined,
     trustLevel: undefined,
     trustingPeriod: undefined,
     unbondingPeriod: undefined,
     maxClockDrift: undefined,
     frozenHeight: undefined,
     latestHeight: undefined,
-    proofSpecs: [],
-    upgradePath: [],
-    allowUpdateAfterExpiry: false,
-    allowUpdateAfterMisbehaviour: false,
+    proofSpecs: undefined,
+    upgradePath: undefined,
+    allowUpdateAfterExpiry: undefined,
+    allowUpdateAfterMisbehaviour: undefined,
   };
 }
 
 export const ClientState = {
   encode(message: ClientState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chainId !== "") {
+    if (message.chainId !== undefined) {
       writer.uint32(10).string(message.chainId);
     }
 
@@ -178,11 +178,11 @@ export const ClientState = {
       writer.uint32(74).string(v!);
     }
 
-    if (message.allowUpdateAfterExpiry === true) {
+    if (message.allowUpdateAfterExpiry !== undefined) {
       writer.uint32(80).bool(message.allowUpdateAfterExpiry);
     }
 
-    if (message.allowUpdateAfterMisbehaviour === true) {
+    if (message.allowUpdateAfterMisbehaviour !== undefined) {
       writer.uint32(88).bool(message.allowUpdateAfterMisbehaviour);
     }
 
@@ -253,7 +253,7 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     return {
-      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : undefined,
       trustLevel: isSet(object.trustLevel) ? Fraction.fromJSON(object.trustLevel) : undefined,
       trustingPeriod: isSet(object.trustingPeriod) ? Duration.fromJSON(object.trustingPeriod) : undefined,
       unbondingPeriod: isSet(object.unbondingPeriod) ? Duration.fromJSON(object.unbondingPeriod) : undefined,
@@ -266,10 +266,10 @@ export const ClientState = {
       upgradePath: Array.isArray(object?.upgradePath) ? object.upgradePath.map((e: any) => String(e)) : [],
       allowUpdateAfterExpiry: isSet(object.allowUpdateAfterExpiry)
         ? Boolean(object.allowUpdateAfterExpiry)
-        : false,
+        : undefined,
       allowUpdateAfterMisbehaviour: isSet(object.allowUpdateAfterMisbehaviour)
         ? Boolean(object.allowUpdateAfterMisbehaviour)
-        : false,
+        : undefined,
     };
   },
 
@@ -307,7 +307,7 @@ export const ClientState = {
 
   fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
     const message = createBaseClientState();
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? undefined;
     message.trustLevel =
       object.trustLevel !== undefined && object.trustLevel !== null
         ? Fraction.fromPartial(object.trustLevel)
@@ -325,8 +325,8 @@ export const ClientState = {
         : undefined;
     message.proofSpecs = object.proofSpecs?.map((e) => ProofSpec.fromPartial(e)) || [];
     message.upgradePath = object.upgradePath?.map((e) => e) || [];
-    message.allowUpdateAfterExpiry = object.allowUpdateAfterExpiry ?? false;
-    message.allowUpdateAfterMisbehaviour = object.allowUpdateAfterMisbehaviour ?? false;
+    message.allowUpdateAfterExpiry = object.allowUpdateAfterExpiry ?? undefined;
+    message.allowUpdateAfterMisbehaviour = object.allowUpdateAfterMisbehaviour ?? undefined;
     return message;
   },
 };
@@ -335,7 +335,7 @@ function createBaseConsensusState(): ConsensusState {
   return {
     timestamp: undefined,
     root: undefined,
-    nextValidatorsHash: new Uint8Array(),
+    nextValidatorsHash: undefined,
   };
 }
 
@@ -349,7 +349,7 @@ export const ConsensusState = {
       MerkleRoot.encode(message.root, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.nextValidatorsHash.length !== 0) {
+    if (message.nextValidatorsHash !== undefined) {
       writer.uint32(26).bytes(message.nextValidatorsHash);
     }
 
@@ -392,7 +392,7 @@ export const ConsensusState = {
       root: isSet(object.root) ? MerkleRoot.fromJSON(object.root) : undefined,
       nextValidatorsHash: isSet(object.nextValidatorsHash)
         ? bytesFromBase64(object.nextValidatorsHash)
-        : new Uint8Array(),
+        : undefined,
     };
   },
 
@@ -401,9 +401,8 @@ export const ConsensusState = {
     message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
     message.root !== undefined && (obj.root = message.root ? MerkleRoot.toJSON(message.root) : undefined);
     message.nextValidatorsHash !== undefined &&
-      (obj.nextValidatorsHash = base64FromBytes(
-        message.nextValidatorsHash !== undefined ? message.nextValidatorsHash : new Uint8Array(),
-      ));
+      (obj.nextValidatorsHash =
+        message.nextValidatorsHash !== undefined ? base64FromBytes(message.nextValidatorsHash) : undefined);
     return obj;
   },
 
@@ -415,14 +414,14 @@ export const ConsensusState = {
         : undefined;
     message.root =
       object.root !== undefined && object.root !== null ? MerkleRoot.fromPartial(object.root) : undefined;
-    message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array();
+    message.nextValidatorsHash = object.nextValidatorsHash ?? undefined;
     return message;
   },
 };
 
 function createBaseMisbehaviour(): Misbehaviour {
   return {
-    clientId: "",
+    clientId: undefined,
     header_1: undefined,
     header_2: undefined,
   };
@@ -430,7 +429,7 @@ function createBaseMisbehaviour(): Misbehaviour {
 
 export const Misbehaviour = {
   encode(message: Misbehaviour, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== "") {
+    if (message.clientId !== undefined) {
       writer.uint32(10).string(message.clientId);
     }
 
@@ -477,7 +476,7 @@ export const Misbehaviour = {
 
   fromJSON(object: any): Misbehaviour {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
       header_1: isSet(object.header_1) ? Header.fromJSON(object.header_1) : undefined,
       header_2: isSet(object.header_2) ? Header.fromJSON(object.header_2) : undefined,
     };
@@ -495,7 +494,7 @@ export const Misbehaviour = {
 
   fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
     const message = createBaseMisbehaviour();
-    message.clientId = object.clientId ?? "";
+    message.clientId = object.clientId ?? undefined;
     message.header_1 =
       object.header_1 !== undefined && object.header_1 !== null
         ? Header.fromPartial(object.header_1)
@@ -622,18 +621,18 @@ export const Header = {
 
 function createBaseFraction(): Fraction {
   return {
-    numerator: Long.UZERO,
-    denominator: Long.UZERO,
+    numerator: undefined,
+    denominator: undefined,
   };
 }
 
 export const Fraction = {
   encode(message: Fraction, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.numerator.isZero()) {
+    if (message.numerator !== undefined) {
       writer.uint32(8).uint64(message.numerator);
     }
 
-    if (!message.denominator.isZero()) {
+    if (message.denominator !== undefined) {
       writer.uint32(16).uint64(message.denominator);
     }
 
@@ -668,15 +667,15 @@ export const Fraction = {
 
   fromJSON(object: any): Fraction {
     return {
-      numerator: isSet(object.numerator) ? Long.fromString(object.numerator) : Long.UZERO,
-      denominator: isSet(object.denominator) ? Long.fromString(object.denominator) : Long.UZERO,
+      numerator: isSet(object.numerator) ? Long.fromString(object.numerator) : undefined,
+      denominator: isSet(object.denominator) ? Long.fromString(object.denominator) : undefined,
     };
   },
 
   toJSON(message: Fraction): unknown {
     const obj: any = {};
-    message.numerator !== undefined && (obj.numerator = (message.numerator || Long.UZERO).toString());
-    message.denominator !== undefined && (obj.denominator = (message.denominator || Long.UZERO).toString());
+    message.numerator !== undefined && (obj.numerator = (message.numerator || undefined).toString());
+    message.denominator !== undefined && (obj.denominator = (message.denominator || undefined).toString());
     return obj;
   },
 
@@ -685,11 +684,11 @@ export const Fraction = {
     message.numerator =
       object.numerator !== undefined && object.numerator !== null
         ? Long.fromValue(object.numerator)
-        : Long.UZERO;
+        : undefined;
     message.denominator =
       object.denominator !== undefined && object.denominator !== null
         ? Long.fromValue(object.denominator)
-        : Long.UZERO;
+        : undefined;
     return message;
   },
 };

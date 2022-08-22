@@ -9,22 +9,22 @@ export const protobufPackage = "ibc.lightclients.localhost.v1";
  */
 export interface ClientState {
   /** self chain ID */
-  chainId: string;
+  chainId?: string;
 
   /** self latest block height */
-  height: Height;
+  height?: Height;
 }
 
 function createBaseClientState(): ClientState {
   return {
-    chainId: "",
+    chainId: undefined,
     height: undefined,
   };
 }
 
 export const ClientState = {
   encode(message: ClientState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chainId !== "") {
+    if (message.chainId !== undefined) {
       writer.uint32(10).string(message.chainId);
     }
 
@@ -63,7 +63,7 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     return {
-      chainId: isSet(object.chainId) ? String(object.chainId) : "",
+      chainId: isSet(object.chainId) ? String(object.chainId) : undefined,
       height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
     };
   },
@@ -77,7 +77,7 @@ export const ClientState = {
 
   fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
     const message = createBaseClientState();
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? undefined;
     message.height =
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
     return message;

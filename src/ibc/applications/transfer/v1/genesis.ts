@@ -5,22 +5,22 @@ export const protobufPackage = "ibc.applications.transfer.v1";
 
 /** GenesisState defines the ibc-transfer genesis state */
 export interface GenesisState {
-  portId: string;
-  denomTraces: DenomTrace[];
-  params: Params;
+  portId?: string;
+  denomTraces?: DenomTrace[];
+  params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
-    portId: "",
-    denomTraces: [],
+    portId: undefined,
+    denomTraces: undefined,
     params: undefined,
   };
 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.portId !== "") {
+    if (message.portId !== undefined) {
       writer.uint32(10).string(message.portId);
     }
 
@@ -67,7 +67,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
+      portId: isSet(object.portId) ? String(object.portId) : undefined,
       denomTraces: Array.isArray(object?.denomTraces)
         ? object.denomTraces.map((e: any) => DenomTrace.fromJSON(e))
         : [],
@@ -91,7 +91,7 @@ export const GenesisState = {
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.portId = object.portId ?? "";
+    message.portId = object.portId ?? undefined;
     message.denomTraces = object.denomTraces?.map((e) => DenomTrace.fromPartial(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;

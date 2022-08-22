@@ -8,22 +8,22 @@ export interface AppDescriptor {
    * AuthnDescriptor provides information on how to authenticate transactions on the application
    * NOTE: experimental and subject to change in future releases.
    */
-  authn: AuthnDescriptor;
+  authn?: AuthnDescriptor;
 
   /** chain provides the chain descriptor */
-  chain: ChainDescriptor;
+  chain?: ChainDescriptor;
 
   /** codec provides metadata information regarding codec related types */
-  codec: CodecDescriptor;
+  codec?: CodecDescriptor;
 
   /** configuration provides metadata information regarding the sdk.Config type */
-  configuration: ConfigurationDescriptor;
+  configuration?: ConfigurationDescriptor;
 
   /** query_services provides metadata information regarding the available queriable endpoints */
-  queryServices: QueryServicesDescriptor;
+  queryServices?: QueryServicesDescriptor;
 
   /** tx provides metadata information regarding how to send transactions to the given application */
-  tx: TxDescriptor;
+  tx?: TxDescriptor;
 }
 
 /** TxDescriptor describes the accepted transaction type */
@@ -33,10 +33,10 @@ export interface TxDescriptor {
    * it is not meant to support polymorphism of transaction types, it is supposed to be used by
    * reflection clients to understand if they can handle a specific transaction type in an application.
    */
-  fullname: string;
+  fullname?: string;
 
   /** msgs lists the accepted application messages (sdk.Msg) */
-  msgs: MsgDescriptor[];
+  msgs?: MsgDescriptor[];
 }
 
 /**
@@ -45,7 +45,7 @@ export interface TxDescriptor {
  */
 export interface AuthnDescriptor {
   /** sign_modes defines the supported signature algorithm */
-  signModes: SigningModeDescriptor[];
+  signModes?: SigningModeDescriptor[];
 }
 
 /**
@@ -56,49 +56,49 @@ export interface AuthnDescriptor {
  */
 export interface SigningModeDescriptor {
   /** name defines the unique name of the signing mode */
-  name: string;
+  name?: string;
 
   /** number is the unique int32 identifier for the sign_mode enum */
-  number: number;
+  number?: number;
 
   /**
    * authn_info_provider_method_fullname defines the fullname of the method to call to get
    * the metadata required to authenticate using the provided sign_modes
    */
-  authnInfoProviderMethodFullname: string;
+  authnInfoProviderMethodFullname?: string;
 }
 
 /** ChainDescriptor describes chain information of the application */
 export interface ChainDescriptor {
   /** id is the chain id */
-  id: string;
+  id?: string;
 }
 
 /** CodecDescriptor describes the registered interfaces and provides metadata information on the types */
 export interface CodecDescriptor {
   /** interfaces is a list of the registerted interfaces descriptors */
-  interfaces: InterfaceDescriptor[];
+  interfaces?: InterfaceDescriptor[];
 }
 
 /** InterfaceDescriptor describes the implementation of an interface */
 export interface InterfaceDescriptor {
   /** fullname is the name of the interface */
-  fullname: string;
+  fullname?: string;
 
   /**
    * interface_accepting_messages contains information regarding the proto messages which contain the interface as
    * google.protobuf.Any field
    */
-  interfaceAcceptingMessages: InterfaceAcceptingMessageDescriptor[];
+  interfaceAcceptingMessages?: InterfaceAcceptingMessageDescriptor[];
 
   /** interface_implementers is a list of the descriptors of the interface implementers */
-  interfaceImplementers: InterfaceImplementerDescriptor[];
+  interfaceImplementers?: InterfaceImplementerDescriptor[];
 }
 
 /** InterfaceImplementerDescriptor describes an interface implementer */
 export interface InterfaceImplementerDescriptor {
   /** fullname is the protobuf queryable name of the interface implementer */
-  fullname: string;
+  fullname?: string;
 
   /**
    * type_url defines the type URL used when marshalling the type as any
@@ -106,7 +106,7 @@ export interface InterfaceImplementerDescriptor {
    * unmarshalling, making sure that we don't accept just 'any' type
    * in our interface fields
    */
-  typeUrl: string;
+  typeUrl?: string;
 }
 
 /**
@@ -115,26 +115,26 @@ export interface InterfaceImplementerDescriptor {
  */
 export interface InterfaceAcceptingMessageDescriptor {
   /** fullname is the protobuf fullname of the type containing the interface */
-  fullname: string;
+  fullname?: string;
 
   /**
    * field_descriptor_names is a list of the protobuf name (not fullname) of the field
    * which contains the interface as google.protobuf.Any (the interface is the same, but
    * it can be in multiple fields of the same proto message)
    */
-  fieldDescriptorNames: string[];
+  fieldDescriptorNames?: string[];
 }
 
 /** ConfigurationDescriptor contains metadata information on the sdk.Config */
 export interface ConfigurationDescriptor {
   /** bech32_account_address_prefix is the account address prefix */
-  bech32AccountAddressPrefix: string;
+  bech32AccountAddressPrefix?: string;
 }
 
 /** MsgDescriptor describes a cosmos-sdk message that can be delivered with a transaction */
 export interface MsgDescriptor {
   /** msg_type_url contains the TypeURL of a sdk.Msg. */
-  msgTypeUrl: string;
+  msgTypeUrl?: string;
 }
 
 /** GetAuthnDescriptorRequest is the request used for the GetAuthnDescriptor RPC */
@@ -143,7 +143,7 @@ export interface GetAuthnDescriptorRequest {}
 /** GetAuthnDescriptorResponse is the response returned by the GetAuthnDescriptor RPC */
 export interface GetAuthnDescriptorResponse {
   /** authn describes how to authenticate to the application when sending transactions */
-  authn: AuthnDescriptor;
+  authn?: AuthnDescriptor;
 }
 
 /** GetChainDescriptorRequest is the request used for the GetChainDescriptor RPC */
@@ -152,7 +152,7 @@ export interface GetChainDescriptorRequest {}
 /** GetChainDescriptorResponse is the response returned by the GetChainDescriptor RPC */
 export interface GetChainDescriptorResponse {
   /** chain describes application chain information */
-  chain: ChainDescriptor;
+  chain?: ChainDescriptor;
 }
 
 /** GetCodecDescriptorRequest is the request used for the GetCodecDescriptor RPC */
@@ -161,7 +161,7 @@ export interface GetCodecDescriptorRequest {}
 /** GetCodecDescriptorResponse is the response returned by the GetCodecDescriptor RPC */
 export interface GetCodecDescriptorResponse {
   /** codec describes the application codec such as registered interfaces and implementations */
-  codec: CodecDescriptor;
+  codec?: CodecDescriptor;
 }
 
 /** GetConfigurationDescriptorRequest is the request used for the GetConfigurationDescriptor RPC */
@@ -170,7 +170,7 @@ export interface GetConfigurationDescriptorRequest {}
 /** GetConfigurationDescriptorResponse is the response returned by the GetConfigurationDescriptor RPC */
 export interface GetConfigurationDescriptorResponse {
   /** config describes the application's sdk.Config */
-  config: ConfigurationDescriptor;
+  config?: ConfigurationDescriptor;
 }
 
 /** GetQueryServicesDescriptorRequest is the request used for the GetQueryServicesDescriptor RPC */
@@ -179,7 +179,7 @@ export interface GetQueryServicesDescriptorRequest {}
 /** GetQueryServicesDescriptorResponse is the response returned by the GetQueryServicesDescriptor RPC */
 export interface GetQueryServicesDescriptorResponse {
   /** queries provides information on the available queryable services */
-  queries: QueryServicesDescriptor;
+  queries?: QueryServicesDescriptor;
 }
 
 /** GetTxDescriptorRequest is the request used for the GetTxDescriptor RPC */
@@ -191,25 +191,25 @@ export interface GetTxDescriptorResponse {
    * tx provides information on msgs that can be forwarded to the application
    * alongside the accepted transaction protobuf type
    */
-  tx: TxDescriptor;
+  tx?: TxDescriptor;
 }
 
 /** QueryServicesDescriptor contains the list of cosmos-sdk queriable services */
 export interface QueryServicesDescriptor {
   /** query_services is a list of cosmos-sdk QueryServiceDescriptor */
-  queryServices: QueryServiceDescriptor[];
+  queryServices?: QueryServiceDescriptor[];
 }
 
 /** QueryServiceDescriptor describes a cosmos-sdk queryable service */
 export interface QueryServiceDescriptor {
   /** fullname is the protobuf fullname of the service descriptor */
-  fullname: string;
+  fullname?: string;
 
   /** is_module describes if this service is actually exposed by an application's module */
-  isModule: boolean;
+  isModule?: boolean;
 
   /** methods provides a list of query service methods */
-  methods: QueryMethodDescriptor[];
+  methods?: QueryMethodDescriptor[];
 }
 
 /**
@@ -219,13 +219,13 @@ export interface QueryServiceDescriptor {
  */
 export interface QueryMethodDescriptor {
   /** name is the protobuf name (not fullname) of the method */
-  name: string;
+  name?: string;
 
   /**
    * full_query_path is the path that can be used to query
    * this method via tendermint abci.Query
    */
-  fullQueryPath: string;
+  fullQueryPath?: string;
 }
 
 function createBaseAppDescriptor(): AppDescriptor {
@@ -375,14 +375,14 @@ export const AppDescriptor = {
 
 function createBaseTxDescriptor(): TxDescriptor {
   return {
-    fullname: "",
-    msgs: [],
+    fullname: undefined,
+    msgs: undefined,
   };
 }
 
 export const TxDescriptor = {
   encode(message: TxDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fullname !== "") {
+    if (message.fullname !== undefined) {
       writer.uint32(10).string(message.fullname);
     }
 
@@ -421,7 +421,7 @@ export const TxDescriptor = {
 
   fromJSON(object: any): TxDescriptor {
     return {
-      fullname: isSet(object.fullname) ? String(object.fullname) : "",
+      fullname: isSet(object.fullname) ? String(object.fullname) : undefined,
       msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => MsgDescriptor.fromJSON(e)) : [],
     };
   },
@@ -441,7 +441,7 @@ export const TxDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<TxDescriptor>, I>>(object: I): TxDescriptor {
     const message = createBaseTxDescriptor();
-    message.fullname = object.fullname ?? "";
+    message.fullname = object.fullname ?? undefined;
     message.msgs = object.msgs?.map((e) => MsgDescriptor.fromPartial(e)) || [];
     return message;
   },
@@ -449,7 +449,7 @@ export const TxDescriptor = {
 
 function createBaseAuthnDescriptor(): AuthnDescriptor {
   return {
-    signModes: [],
+    signModes: undefined,
   };
 }
 
@@ -513,23 +513,23 @@ export const AuthnDescriptor = {
 
 function createBaseSigningModeDescriptor(): SigningModeDescriptor {
   return {
-    name: "",
-    number: 0,
-    authnInfoProviderMethodFullname: "",
+    name: undefined,
+    number: undefined,
+    authnInfoProviderMethodFullname: undefined,
   };
 }
 
 export const SigningModeDescriptor = {
   encode(message: SigningModeDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== "") {
+    if (message.name !== undefined) {
       writer.uint32(10).string(message.name);
     }
 
-    if (message.number !== 0) {
+    if (message.number !== undefined) {
       writer.uint32(16).int32(message.number);
     }
 
-    if (message.authnInfoProviderMethodFullname !== "") {
+    if (message.authnInfoProviderMethodFullname !== undefined) {
       writer.uint32(26).string(message.authnInfoProviderMethodFullname);
     }
 
@@ -568,11 +568,11 @@ export const SigningModeDescriptor = {
 
   fromJSON(object: any): SigningModeDescriptor {
     return {
-      name: isSet(object.name) ? String(object.name) : "",
-      number: isSet(object.number) ? Number(object.number) : 0,
+      name: isSet(object.name) ? String(object.name) : undefined,
+      number: isSet(object.number) ? Number(object.number) : undefined,
       authnInfoProviderMethodFullname: isSet(object.authnInfoProviderMethodFullname)
         ? String(object.authnInfoProviderMethodFullname)
-        : "",
+        : undefined,
     };
   },
 
@@ -587,22 +587,22 @@ export const SigningModeDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<SigningModeDescriptor>, I>>(object: I): SigningModeDescriptor {
     const message = createBaseSigningModeDescriptor();
-    message.name = object.name ?? "";
-    message.number = object.number ?? 0;
-    message.authnInfoProviderMethodFullname = object.authnInfoProviderMethodFullname ?? "";
+    message.name = object.name ?? undefined;
+    message.number = object.number ?? undefined;
+    message.authnInfoProviderMethodFullname = object.authnInfoProviderMethodFullname ?? undefined;
     return message;
   },
 };
 
 function createBaseChainDescriptor(): ChainDescriptor {
   return {
-    id: "",
+    id: undefined,
   };
 }
 
 export const ChainDescriptor = {
   encode(message: ChainDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
+    if (message.id !== undefined) {
       writer.uint32(10).string(message.id);
     }
 
@@ -633,7 +633,7 @@ export const ChainDescriptor = {
 
   fromJSON(object: any): ChainDescriptor {
     return {
-      id: isSet(object.id) ? String(object.id) : "",
+      id: isSet(object.id) ? String(object.id) : undefined,
     };
   },
 
@@ -645,14 +645,14 @@ export const ChainDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<ChainDescriptor>, I>>(object: I): ChainDescriptor {
     const message = createBaseChainDescriptor();
-    message.id = object.id ?? "";
+    message.id = object.id ?? undefined;
     return message;
   },
 };
 
 function createBaseCodecDescriptor(): CodecDescriptor {
   return {
-    interfaces: [],
+    interfaces: undefined,
   };
 }
 
@@ -716,15 +716,15 @@ export const CodecDescriptor = {
 
 function createBaseInterfaceDescriptor(): InterfaceDescriptor {
   return {
-    fullname: "",
-    interfaceAcceptingMessages: [],
-    interfaceImplementers: [],
+    fullname: undefined,
+    interfaceAcceptingMessages: undefined,
+    interfaceImplementers: undefined,
   };
 }
 
 export const InterfaceDescriptor = {
   encode(message: InterfaceDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fullname !== "") {
+    if (message.fullname !== undefined) {
       writer.uint32(10).string(message.fullname);
     }
 
@@ -773,7 +773,7 @@ export const InterfaceDescriptor = {
 
   fromJSON(object: any): InterfaceDescriptor {
     return {
-      fullname: isSet(object.fullname) ? String(object.fullname) : "",
+      fullname: isSet(object.fullname) ? String(object.fullname) : undefined,
       interfaceAcceptingMessages: Array.isArray(object?.interfaceAcceptingMessages)
         ? object.interfaceAcceptingMessages.map((e: any) => InterfaceAcceptingMessageDescriptor.fromJSON(e))
         : [],
@@ -808,7 +808,7 @@ export const InterfaceDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<InterfaceDescriptor>, I>>(object: I): InterfaceDescriptor {
     const message = createBaseInterfaceDescriptor();
-    message.fullname = object.fullname ?? "";
+    message.fullname = object.fullname ?? undefined;
     message.interfaceAcceptingMessages =
       object.interfaceAcceptingMessages?.map((e) => InterfaceAcceptingMessageDescriptor.fromPartial(e)) || [];
     message.interfaceImplementers =
@@ -819,18 +819,18 @@ export const InterfaceDescriptor = {
 
 function createBaseInterfaceImplementerDescriptor(): InterfaceImplementerDescriptor {
   return {
-    fullname: "",
-    typeUrl: "",
+    fullname: undefined,
+    typeUrl: undefined,
   };
 }
 
 export const InterfaceImplementerDescriptor = {
   encode(message: InterfaceImplementerDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fullname !== "") {
+    if (message.fullname !== undefined) {
       writer.uint32(10).string(message.fullname);
     }
 
-    if (message.typeUrl !== "") {
+    if (message.typeUrl !== undefined) {
       writer.uint32(18).string(message.typeUrl);
     }
 
@@ -865,8 +865,8 @@ export const InterfaceImplementerDescriptor = {
 
   fromJSON(object: any): InterfaceImplementerDescriptor {
     return {
-      fullname: isSet(object.fullname) ? String(object.fullname) : "",
-      typeUrl: isSet(object.typeUrl) ? String(object.typeUrl) : "",
+      fullname: isSet(object.fullname) ? String(object.fullname) : undefined,
+      typeUrl: isSet(object.typeUrl) ? String(object.typeUrl) : undefined,
     };
   },
 
@@ -881,22 +881,22 @@ export const InterfaceImplementerDescriptor = {
     object: I,
   ): InterfaceImplementerDescriptor {
     const message = createBaseInterfaceImplementerDescriptor();
-    message.fullname = object.fullname ?? "";
-    message.typeUrl = object.typeUrl ?? "";
+    message.fullname = object.fullname ?? undefined;
+    message.typeUrl = object.typeUrl ?? undefined;
     return message;
   },
 };
 
 function createBaseInterfaceAcceptingMessageDescriptor(): InterfaceAcceptingMessageDescriptor {
   return {
-    fullname: "",
-    fieldDescriptorNames: [],
+    fullname: undefined,
+    fieldDescriptorNames: undefined,
   };
 }
 
 export const InterfaceAcceptingMessageDescriptor = {
   encode(message: InterfaceAcceptingMessageDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fullname !== "") {
+    if (message.fullname !== undefined) {
       writer.uint32(10).string(message.fullname);
     }
 
@@ -935,7 +935,7 @@ export const InterfaceAcceptingMessageDescriptor = {
 
   fromJSON(object: any): InterfaceAcceptingMessageDescriptor {
     return {
-      fullname: isSet(object.fullname) ? String(object.fullname) : "",
+      fullname: isSet(object.fullname) ? String(object.fullname) : undefined,
       fieldDescriptorNames: Array.isArray(object?.fieldDescriptorNames)
         ? object.fieldDescriptorNames.map((e: any) => String(e))
         : [],
@@ -959,7 +959,7 @@ export const InterfaceAcceptingMessageDescriptor = {
     object: I,
   ): InterfaceAcceptingMessageDescriptor {
     const message = createBaseInterfaceAcceptingMessageDescriptor();
-    message.fullname = object.fullname ?? "";
+    message.fullname = object.fullname ?? undefined;
     message.fieldDescriptorNames = object.fieldDescriptorNames?.map((e) => e) || [];
     return message;
   },
@@ -967,13 +967,13 @@ export const InterfaceAcceptingMessageDescriptor = {
 
 function createBaseConfigurationDescriptor(): ConfigurationDescriptor {
   return {
-    bech32AccountAddressPrefix: "",
+    bech32AccountAddressPrefix: undefined,
   };
 }
 
 export const ConfigurationDescriptor = {
   encode(message: ConfigurationDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bech32AccountAddressPrefix !== "") {
+    if (message.bech32AccountAddressPrefix !== undefined) {
       writer.uint32(10).string(message.bech32AccountAddressPrefix);
     }
 
@@ -1006,7 +1006,7 @@ export const ConfigurationDescriptor = {
     return {
       bech32AccountAddressPrefix: isSet(object.bech32AccountAddressPrefix)
         ? String(object.bech32AccountAddressPrefix)
-        : "",
+        : undefined,
     };
   },
 
@@ -1019,20 +1019,20 @@ export const ConfigurationDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<ConfigurationDescriptor>, I>>(object: I): ConfigurationDescriptor {
     const message = createBaseConfigurationDescriptor();
-    message.bech32AccountAddressPrefix = object.bech32AccountAddressPrefix ?? "";
+    message.bech32AccountAddressPrefix = object.bech32AccountAddressPrefix ?? undefined;
     return message;
   },
 };
 
 function createBaseMsgDescriptor(): MsgDescriptor {
   return {
-    msgTypeUrl: "",
+    msgTypeUrl: undefined,
   };
 }
 
 export const MsgDescriptor = {
   encode(message: MsgDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.msgTypeUrl !== "") {
+    if (message.msgTypeUrl !== undefined) {
       writer.uint32(10).string(message.msgTypeUrl);
     }
 
@@ -1063,7 +1063,7 @@ export const MsgDescriptor = {
 
   fromJSON(object: any): MsgDescriptor {
     return {
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
+      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : undefined,
     };
   },
 
@@ -1075,7 +1075,7 @@ export const MsgDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<MsgDescriptor>, I>>(object: I): MsgDescriptor {
     const message = createBaseMsgDescriptor();
-    message.msgTypeUrl = object.msgTypeUrl ?? "";
+    message.msgTypeUrl = object.msgTypeUrl ?? undefined;
     return message;
   },
 };
@@ -1705,7 +1705,7 @@ export const GetTxDescriptorResponse = {
 
 function createBaseQueryServicesDescriptor(): QueryServicesDescriptor {
   return {
-    queryServices: [],
+    queryServices: undefined,
   };
 }
 
@@ -1771,19 +1771,19 @@ export const QueryServicesDescriptor = {
 
 function createBaseQueryServiceDescriptor(): QueryServiceDescriptor {
   return {
-    fullname: "",
-    isModule: false,
-    methods: [],
+    fullname: undefined,
+    isModule: undefined,
+    methods: undefined,
   };
 }
 
 export const QueryServiceDescriptor = {
   encode(message: QueryServiceDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fullname !== "") {
+    if (message.fullname !== undefined) {
       writer.uint32(10).string(message.fullname);
     }
 
-    if (message.isModule === true) {
+    if (message.isModule !== undefined) {
       writer.uint32(16).bool(message.isModule);
     }
 
@@ -1826,8 +1826,8 @@ export const QueryServiceDescriptor = {
 
   fromJSON(object: any): QueryServiceDescriptor {
     return {
-      fullname: isSet(object.fullname) ? String(object.fullname) : "",
-      isModule: isSet(object.isModule) ? Boolean(object.isModule) : false,
+      fullname: isSet(object.fullname) ? String(object.fullname) : undefined,
+      isModule: isSet(object.isModule) ? Boolean(object.isModule) : undefined,
       methods: Array.isArray(object?.methods)
         ? object.methods.map((e: any) => QueryMethodDescriptor.fromJSON(e))
         : [],
@@ -1850,8 +1850,8 @@ export const QueryServiceDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<QueryServiceDescriptor>, I>>(object: I): QueryServiceDescriptor {
     const message = createBaseQueryServiceDescriptor();
-    message.fullname = object.fullname ?? "";
-    message.isModule = object.isModule ?? false;
+    message.fullname = object.fullname ?? undefined;
+    message.isModule = object.isModule ?? undefined;
     message.methods = object.methods?.map((e) => QueryMethodDescriptor.fromPartial(e)) || [];
     return message;
   },
@@ -1859,18 +1859,18 @@ export const QueryServiceDescriptor = {
 
 function createBaseQueryMethodDescriptor(): QueryMethodDescriptor {
   return {
-    name: "",
-    fullQueryPath: "",
+    name: undefined,
+    fullQueryPath: undefined,
   };
 }
 
 export const QueryMethodDescriptor = {
   encode(message: QueryMethodDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.name !== "") {
+    if (message.name !== undefined) {
       writer.uint32(10).string(message.name);
     }
 
-    if (message.fullQueryPath !== "") {
+    if (message.fullQueryPath !== undefined) {
       writer.uint32(18).string(message.fullQueryPath);
     }
 
@@ -1905,8 +1905,8 @@ export const QueryMethodDescriptor = {
 
   fromJSON(object: any): QueryMethodDescriptor {
     return {
-      name: isSet(object.name) ? String(object.name) : "",
-      fullQueryPath: isSet(object.fullQueryPath) ? String(object.fullQueryPath) : "",
+      name: isSet(object.name) ? String(object.name) : undefined,
+      fullQueryPath: isSet(object.fullQueryPath) ? String(object.fullQueryPath) : undefined,
     };
   },
 
@@ -1919,8 +1919,8 @@ export const QueryMethodDescriptor = {
 
   fromPartial<I extends Exact<DeepPartial<QueryMethodDescriptor>, I>>(object: I): QueryMethodDescriptor {
     const message = createBaseQueryMethodDescriptor();
-    message.name = object.name ?? "";
-    message.fullQueryPath = object.fullQueryPath ?? "";
+    message.name = object.name ?? undefined;
+    message.fullQueryPath = object.fullQueryPath ?? undefined;
     return message;
   },
 };

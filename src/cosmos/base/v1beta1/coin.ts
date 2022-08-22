@@ -9,8 +9,8 @@ export const protobufPackage = "cosmos.base.v1beta1";
  * signatures required by gogoproto.
  */
 export interface Coin {
-  denom: string;
-  amount: string;
+  denom?: string;
+  amount?: string;
 }
 
 /**
@@ -20,34 +20,34 @@ export interface Coin {
  * signatures required by gogoproto.
  */
 export interface DecCoin {
-  denom: string;
-  amount: string;
+  denom?: string;
+  amount?: string;
 }
 
 /** IntProto defines a Protobuf wrapper around an Int object. */
 export interface IntProto {
-  int: string;
+  int?: string;
 }
 
 /** DecProto defines a Protobuf wrapper around a Dec object. */
 export interface DecProto {
-  dec: string;
+  dec?: string;
 }
 
 function createBaseCoin(): Coin {
   return {
-    denom: "",
-    amount: "",
+    denom: undefined,
+    amount: undefined,
   };
 }
 
 export const Coin = {
   encode(message: Coin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== "") {
+    if (message.denom !== undefined) {
       writer.uint32(10).string(message.denom);
     }
 
-    if (message.amount !== "") {
+    if (message.amount !== undefined) {
       writer.uint32(18).string(message.amount);
     }
 
@@ -82,8 +82,8 @@ export const Coin = {
 
   fromJSON(object: any): Coin {
     return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      amount: isSet(object.amount) ? String(object.amount) : "",
+      denom: isSet(object.denom) ? String(object.denom) : undefined,
+      amount: isSet(object.amount) ? String(object.amount) : undefined,
     };
   },
 
@@ -96,26 +96,26 @@ export const Coin = {
 
   fromPartial<I extends Exact<DeepPartial<Coin>, I>>(object: I): Coin {
     const message = createBaseCoin();
-    message.denom = object.denom ?? "";
-    message.amount = object.amount ?? "";
+    message.denom = object.denom ?? undefined;
+    message.amount = object.amount ?? undefined;
     return message;
   },
 };
 
 function createBaseDecCoin(): DecCoin {
   return {
-    denom: "",
-    amount: "",
+    denom: undefined,
+    amount: undefined,
   };
 }
 
 export const DecCoin = {
   encode(message: DecCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== "") {
+    if (message.denom !== undefined) {
       writer.uint32(10).string(message.denom);
     }
 
-    if (message.amount !== "") {
+    if (message.amount !== undefined) {
       writer.uint32(18).string(message.amount);
     }
 
@@ -150,8 +150,8 @@ export const DecCoin = {
 
   fromJSON(object: any): DecCoin {
     return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      amount: isSet(object.amount) ? String(object.amount) : "",
+      denom: isSet(object.denom) ? String(object.denom) : undefined,
+      amount: isSet(object.amount) ? String(object.amount) : undefined,
     };
   },
 
@@ -164,21 +164,21 @@ export const DecCoin = {
 
   fromPartial<I extends Exact<DeepPartial<DecCoin>, I>>(object: I): DecCoin {
     const message = createBaseDecCoin();
-    message.denom = object.denom ?? "";
-    message.amount = object.amount ?? "";
+    message.denom = object.denom ?? undefined;
+    message.amount = object.amount ?? undefined;
     return message;
   },
 };
 
 function createBaseIntProto(): IntProto {
   return {
-    int: "",
+    int: undefined,
   };
 }
 
 export const IntProto = {
   encode(message: IntProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.int !== "") {
+    if (message.int !== undefined) {
       writer.uint32(10).string(message.int);
     }
 
@@ -209,7 +209,7 @@ export const IntProto = {
 
   fromJSON(object: any): IntProto {
     return {
-      int: isSet(object.int) ? String(object.int) : "",
+      int: isSet(object.int) ? String(object.int) : undefined,
     };
   },
 
@@ -221,20 +221,20 @@ export const IntProto = {
 
   fromPartial<I extends Exact<DeepPartial<IntProto>, I>>(object: I): IntProto {
     const message = createBaseIntProto();
-    message.int = object.int ?? "";
+    message.int = object.int ?? undefined;
     return message;
   },
 };
 
 function createBaseDecProto(): DecProto {
   return {
-    dec: "",
+    dec: undefined,
   };
 }
 
 export const DecProto = {
   encode(message: DecProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.dec !== "") {
+    if (message.dec !== undefined) {
       writer.uint32(10).string(message.dec);
     }
 
@@ -265,7 +265,7 @@ export const DecProto = {
 
   fromJSON(object: any): DecProto {
     return {
-      dec: isSet(object.dec) ? String(object.dec) : "",
+      dec: isSet(object.dec) ? String(object.dec) : undefined,
     };
   },
 
@@ -277,7 +277,7 @@ export const DecProto = {
 
   fromPartial<I extends Exact<DeepPartial<DecProto>, I>>(object: I): DecProto {
     const message = createBaseDecProto();
-    message.dec = object.dec ?? "";
+    message.dec = object.dec ?? undefined;
     return message;
   },
 };

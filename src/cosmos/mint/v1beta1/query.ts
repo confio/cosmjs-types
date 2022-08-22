@@ -9,7 +9,7 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 
 /** QueryInflationRequest is the request type for the Query/Inflation RPC method. */
@@ -21,7 +21,7 @@ export interface QueryInflationRequest {}
  */
 export interface QueryInflationResponse {
   /** inflation is the current minting inflation value. */
-  inflation: Uint8Array;
+  inflation?: Uint8Array;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface QueryAnnualProvisionsRequest {}
  */
 export interface QueryAnnualProvisionsResponse {
   /** annual_provisions is the current minting annual provisions value. */
-  annualProvisions: Uint8Array;
+  annualProvisions?: Uint8Array;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -182,13 +182,13 @@ export const QueryInflationRequest = {
 
 function createBaseQueryInflationResponse(): QueryInflationResponse {
   return {
-    inflation: new Uint8Array(),
+    inflation: undefined,
   };
 }
 
 export const QueryInflationResponse = {
   encode(message: QueryInflationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.inflation.length !== 0) {
+    if (message.inflation !== undefined) {
       writer.uint32(10).bytes(message.inflation);
     }
 
@@ -219,22 +219,20 @@ export const QueryInflationResponse = {
 
   fromJSON(object: any): QueryInflationResponse {
     return {
-      inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array(),
+      inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : undefined,
     };
   },
 
   toJSON(message: QueryInflationResponse): unknown {
     const obj: any = {};
     message.inflation !== undefined &&
-      (obj.inflation = base64FromBytes(
-        message.inflation !== undefined ? message.inflation : new Uint8Array(),
-      ));
+      (obj.inflation = message.inflation !== undefined ? base64FromBytes(message.inflation) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryInflationResponse>, I>>(object: I): QueryInflationResponse {
     const message = createBaseQueryInflationResponse();
-    message.inflation = object.inflation ?? new Uint8Array();
+    message.inflation = object.inflation ?? undefined;
     return message;
   },
 };
@@ -285,13 +283,13 @@ export const QueryAnnualProvisionsRequest = {
 
 function createBaseQueryAnnualProvisionsResponse(): QueryAnnualProvisionsResponse {
   return {
-    annualProvisions: new Uint8Array(),
+    annualProvisions: undefined,
   };
 }
 
 export const QueryAnnualProvisionsResponse = {
   encode(message: QueryAnnualProvisionsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.annualProvisions.length !== 0) {
+    if (message.annualProvisions !== undefined) {
       writer.uint32(10).bytes(message.annualProvisions);
     }
 
@@ -322,18 +320,15 @@ export const QueryAnnualProvisionsResponse = {
 
   fromJSON(object: any): QueryAnnualProvisionsResponse {
     return {
-      annualProvisions: isSet(object.annualProvisions)
-        ? bytesFromBase64(object.annualProvisions)
-        : new Uint8Array(),
+      annualProvisions: isSet(object.annualProvisions) ? bytesFromBase64(object.annualProvisions) : undefined,
     };
   },
 
   toJSON(message: QueryAnnualProvisionsResponse): unknown {
     const obj: any = {};
     message.annualProvisions !== undefined &&
-      (obj.annualProvisions = base64FromBytes(
-        message.annualProvisions !== undefined ? message.annualProvisions : new Uint8Array(),
-      ));
+      (obj.annualProvisions =
+        message.annualProvisions !== undefined ? base64FromBytes(message.annualProvisions) : undefined);
     return obj;
   },
 
@@ -341,7 +336,7 @@ export const QueryAnnualProvisionsResponse = {
     object: I,
   ): QueryAnnualProvisionsResponse {
     const message = createBaseQueryAnnualProvisionsResponse();
-    message.annualProvisions = object.annualProvisions ?? new Uint8Array();
+    message.annualProvisions = object.annualProvisions ?? undefined;
     return message;
   },
 };

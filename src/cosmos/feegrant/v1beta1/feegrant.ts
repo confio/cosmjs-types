@@ -16,10 +16,10 @@ export interface BasicAllowance {
    * by this allowance and will be updated as tokens are spent. If it is
    * empty, there is no spend limit and any amount of coins can be spent.
    */
-  spendLimit: Coin[];
+  spendLimit?: Coin[];
 
   /** expiration specifies an optional time when this allowance expires */
-  expiration: Timestamp;
+  expiration?: Timestamp;
 }
 
 /**
@@ -28,55 +28,55 @@ export interface BasicAllowance {
  */
 export interface PeriodicAllowance {
   /** basic specifies a struct of `BasicAllowance` */
-  basic: BasicAllowance;
+  basic?: BasicAllowance;
 
   /**
    * period specifies the time duration in which period_spend_limit coins can
    * be spent before that allowance is reset
    */
-  period: Duration;
+  period?: Duration;
 
   /**
    * period_spend_limit specifies the maximum number of coins that can be spent
    * in the period
    */
-  periodSpendLimit: Coin[];
+  periodSpendLimit?: Coin[];
 
   /** period_can_spend is the number of coins left to be spent before the period_reset time */
-  periodCanSpend: Coin[];
+  periodCanSpend?: Coin[];
 
   /**
    * period_reset is the time at which this period resets and a new one begins,
    * it is calculated from the start time of the first transaction after the
    * last period ended
    */
-  periodReset: Timestamp;
+  periodReset?: Timestamp;
 }
 
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 export interface AllowedMsgAllowance {
   /** allowance can be any of basic and filtered fee allowance. */
-  allowance: Any;
+  allowance?: Any;
 
   /** allowed_messages are the messages for which the grantee has the access. */
-  allowedMessages: string[];
+  allowedMessages?: string[];
 }
 
 /** Grant is stored in the KVStore to record a grant with full context */
 export interface Grant {
   /** granter is the address of the user granting an allowance of their funds. */
-  granter: string;
+  granter?: string;
 
   /** grantee is the address of the user being granted an allowance of another user's funds. */
-  grantee: string;
+  grantee?: string;
 
   /** allowance can be any of basic and filtered fee allowance. */
-  allowance: Any;
+  allowance?: Any;
 }
 
 function createBaseBasicAllowance(): BasicAllowance {
   return {
-    spendLimit: [],
+    spendLimit: undefined,
     expiration: undefined,
   };
 }
@@ -157,8 +157,8 @@ function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
     basic: undefined,
     period: undefined,
-    periodSpendLimit: [],
-    periodCanSpend: [],
+    periodSpendLimit: undefined,
+    periodCanSpend: undefined,
     periodReset: undefined,
   };
 }
@@ -282,7 +282,7 @@ export const PeriodicAllowance = {
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
   return {
     allowance: undefined,
-    allowedMessages: [],
+    allowedMessages: undefined,
   };
 }
 
@@ -361,19 +361,19 @@ export const AllowedMsgAllowance = {
 
 function createBaseGrant(): Grant {
   return {
-    granter: "",
-    grantee: "",
+    granter: undefined,
+    grantee: undefined,
     allowance: undefined,
   };
 }
 
 export const Grant = {
   encode(message: Grant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.granter !== "") {
+    if (message.granter !== undefined) {
       writer.uint32(10).string(message.granter);
     }
 
-    if (message.grantee !== "") {
+    if (message.grantee !== undefined) {
       writer.uint32(18).string(message.grantee);
     }
 
@@ -416,8 +416,8 @@ export const Grant = {
 
   fromJSON(object: any): Grant {
     return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
+      granter: isSet(object.granter) ? String(object.granter) : undefined,
+      grantee: isSet(object.grantee) ? String(object.grantee) : undefined,
       allowance: isSet(object.allowance) ? Any.fromJSON(object.allowance) : undefined,
     };
   },
@@ -433,8 +433,8 @@ export const Grant = {
 
   fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
     const message = createBaseGrant();
-    message.granter = object.granter ?? "";
-    message.grantee = object.grantee ?? "";
+    message.granter = object.granter ?? undefined;
+    message.grantee = object.grantee ?? undefined;
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
         ? Any.fromPartial(object.allowance)

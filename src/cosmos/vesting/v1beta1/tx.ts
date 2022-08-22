@@ -8,11 +8,11 @@ export const protobufPackage = "cosmos.vesting.v1beta1";
  * account.
  */
 export interface MsgCreateVestingAccount {
-  fromAddress: string;
-  toAddress: string;
-  amount: Coin[];
-  endTime: Long;
-  delayed: boolean;
+  fromAddress?: string;
+  toAddress?: string;
+  amount?: Coin[];
+  endTime?: Long;
+  delayed?: boolean;
 }
 
 /** MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response type. */
@@ -20,21 +20,21 @@ export interface MsgCreateVestingAccountResponse {}
 
 function createBaseMsgCreateVestingAccount(): MsgCreateVestingAccount {
   return {
-    fromAddress: "",
-    toAddress: "",
-    amount: [],
-    endTime: Long.ZERO,
-    delayed: false,
+    fromAddress: undefined,
+    toAddress: undefined,
+    amount: undefined,
+    endTime: undefined,
+    delayed: undefined,
   };
 }
 
 export const MsgCreateVestingAccount = {
   encode(message: MsgCreateVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.fromAddress !== "") {
+    if (message.fromAddress !== undefined) {
       writer.uint32(10).string(message.fromAddress);
     }
 
-    if (message.toAddress !== "") {
+    if (message.toAddress !== undefined) {
       writer.uint32(18).string(message.toAddress);
     }
 
@@ -42,11 +42,11 @@ export const MsgCreateVestingAccount = {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
 
-    if (!message.endTime.isZero()) {
+    if (message.endTime !== undefined) {
       writer.uint32(32).int64(message.endTime);
     }
 
-    if (message.delayed === true) {
+    if (message.delayed !== undefined) {
       writer.uint32(40).bool(message.delayed);
     }
 
@@ -93,11 +93,11 @@ export const MsgCreateVestingAccount = {
 
   fromJSON(object: any): MsgCreateVestingAccount {
     return {
-      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
+      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : undefined,
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : undefined,
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      endTime: isSet(object.endTime) ? Long.fromString(object.endTime) : Long.ZERO,
-      delayed: isSet(object.delayed) ? Boolean(object.delayed) : false,
+      endTime: isSet(object.endTime) ? Long.fromString(object.endTime) : undefined,
+      delayed: isSet(object.delayed) ? Boolean(object.delayed) : undefined,
     };
   },
 
@@ -112,19 +112,19 @@ export const MsgCreateVestingAccount = {
       obj.amount = [];
     }
 
-    message.endTime !== undefined && (obj.endTime = (message.endTime || Long.ZERO).toString());
+    message.endTime !== undefined && (obj.endTime = (message.endTime || undefined).toString());
     message.delayed !== undefined && (obj.delayed = message.delayed);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreateVestingAccount>, I>>(object: I): MsgCreateVestingAccount {
     const message = createBaseMsgCreateVestingAccount();
-    message.fromAddress = object.fromAddress ?? "";
-    message.toAddress = object.toAddress ?? "";
+    message.fromAddress = object.fromAddress ?? undefined;
+    message.toAddress = object.toAddress ?? undefined;
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     message.endTime =
-      object.endTime !== undefined && object.endTime !== null ? Long.fromValue(object.endTime) : Long.ZERO;
-    message.delayed = object.delayed ?? false;
+      object.endTime !== undefined && object.endTime !== null ? Long.fromValue(object.endTime) : undefined;
+    message.delayed = object.delayed ?? undefined;
     return message;
   },
 };

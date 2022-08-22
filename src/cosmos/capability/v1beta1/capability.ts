@@ -7,7 +7,7 @@ export const protobufPackage = "cosmos.capability.v1beta1";
  * provided to a Capability must be globally unique.
  */
 export interface Capability {
-  index: Long;
+  index?: Long;
 }
 
 /**
@@ -15,8 +15,8 @@ export interface Capability {
  * capability and the module name.
  */
 export interface Owner {
-  module: string;
-  name: string;
+  module?: string;
+  name?: string;
 }
 
 /**
@@ -24,18 +24,18 @@ export interface Owner {
  * owners must be unique.
  */
 export interface CapabilityOwners {
-  owners: Owner[];
+  owners?: Owner[];
 }
 
 function createBaseCapability(): Capability {
   return {
-    index: Long.UZERO,
+    index: undefined,
   };
 }
 
 export const Capability = {
   encode(message: Capability, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.index.isZero()) {
+    if (message.index !== undefined) {
       writer.uint32(8).uint64(message.index);
     }
 
@@ -66,38 +66,38 @@ export const Capability = {
 
   fromJSON(object: any): Capability {
     return {
-      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      index: isSet(object.index) ? Long.fromString(object.index) : undefined,
     };
   },
 
   toJSON(message: Capability): unknown {
     const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
+    message.index !== undefined && (obj.index = (message.index || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Capability>, I>>(object: I): Capability {
     const message = createBaseCapability();
     message.index =
-      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : undefined;
     return message;
   },
 };
 
 function createBaseOwner(): Owner {
   return {
-    module: "",
-    name: "",
+    module: undefined,
+    name: undefined,
   };
 }
 
 export const Owner = {
   encode(message: Owner, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.module !== "") {
+    if (message.module !== undefined) {
       writer.uint32(10).string(message.module);
     }
 
-    if (message.name !== "") {
+    if (message.name !== undefined) {
       writer.uint32(18).string(message.name);
     }
 
@@ -132,8 +132,8 @@ export const Owner = {
 
   fromJSON(object: any): Owner {
     return {
-      module: isSet(object.module) ? String(object.module) : "",
-      name: isSet(object.name) ? String(object.name) : "",
+      module: isSet(object.module) ? String(object.module) : undefined,
+      name: isSet(object.name) ? String(object.name) : undefined,
     };
   },
 
@@ -146,15 +146,15 @@ export const Owner = {
 
   fromPartial<I extends Exact<DeepPartial<Owner>, I>>(object: I): Owner {
     const message = createBaseOwner();
-    message.module = object.module ?? "";
-    message.name = object.name ?? "";
+    message.module = object.module ?? undefined;
+    message.name = object.name ?? undefined;
     return message;
   },
 };
 
 function createBaseCapabilityOwners(): CapabilityOwners {
   return {
-    owners: [],
+    owners: undefined,
   };
 }
 

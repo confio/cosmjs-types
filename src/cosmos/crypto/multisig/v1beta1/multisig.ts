@@ -8,7 +8,7 @@ export const protobufPackage = "cosmos.crypto.multisig.v1beta1";
  * signed and with which modes.
  */
 export interface MultiSignature {
-  signatures: Uint8Array[];
+  signatures?: Uint8Array[];
 }
 
 /**
@@ -18,13 +18,13 @@ export interface MultiSignature {
  * This is not thread safe, and is not intended for concurrent usage.
  */
 export interface CompactBitArray {
-  extraBitsStored: number;
-  elems: Uint8Array;
+  extraBitsStored?: number;
+  elems?: Uint8Array;
 }
 
 function createBaseMultiSignature(): MultiSignature {
   return {
-    signatures: [],
+    signatures: undefined,
   };
 }
 
@@ -71,7 +71,7 @@ export const MultiSignature = {
     const obj: any = {};
 
     if (message.signatures) {
-      obj.signatures = message.signatures.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
+      obj.signatures = message.signatures.map((e) => base64FromBytes(e !== undefined ? e : undefined));
     } else {
       obj.signatures = [];
     }
@@ -88,18 +88,18 @@ export const MultiSignature = {
 
 function createBaseCompactBitArray(): CompactBitArray {
   return {
-    extraBitsStored: 0,
-    elems: new Uint8Array(),
+    extraBitsStored: undefined,
+    elems: undefined,
   };
 }
 
 export const CompactBitArray = {
   encode(message: CompactBitArray, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.extraBitsStored !== 0) {
+    if (message.extraBitsStored !== undefined) {
       writer.uint32(8).uint32(message.extraBitsStored);
     }
 
-    if (message.elems.length !== 0) {
+    if (message.elems !== undefined) {
       writer.uint32(18).bytes(message.elems);
     }
 
@@ -134,8 +134,8 @@ export const CompactBitArray = {
 
   fromJSON(object: any): CompactBitArray {
     return {
-      extraBitsStored: isSet(object.extraBitsStored) ? Number(object.extraBitsStored) : 0,
-      elems: isSet(object.elems) ? bytesFromBase64(object.elems) : new Uint8Array(),
+      extraBitsStored: isSet(object.extraBitsStored) ? Number(object.extraBitsStored) : undefined,
+      elems: isSet(object.elems) ? bytesFromBase64(object.elems) : undefined,
     };
   },
 
@@ -143,14 +143,14 @@ export const CompactBitArray = {
     const obj: any = {};
     message.extraBitsStored !== undefined && (obj.extraBitsStored = Math.round(message.extraBitsStored));
     message.elems !== undefined &&
-      (obj.elems = base64FromBytes(message.elems !== undefined ? message.elems : new Uint8Array()));
+      (obj.elems = message.elems !== undefined ? base64FromBytes(message.elems) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CompactBitArray>, I>>(object: I): CompactBitArray {
     const message = createBaseCompactBitArray();
-    message.extraBitsStored = object.extraBitsStored ?? 0;
-    message.elems = object.elems ?? new Uint8Array();
+    message.extraBitsStored = object.extraBitsStored ?? undefined;
+    message.elems = object.elems ?? undefined;
     return message;
   },
 };

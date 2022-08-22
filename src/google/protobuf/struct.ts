@@ -35,8 +35,8 @@ export function nullValueToJSON(object: NullValue): string {
   }
 }
 export interface Struct_FieldsEntry {
-  key: string;
-  value: Value;
+  key?: string;
+  value?: Value;
 }
 
 /**
@@ -51,7 +51,7 @@ export interface Struct_FieldsEntry {
  */
 export interface Struct {
   /** Unordered map of dynamically typed values. */
-  fields: {
+  fields?: {
     [key: string]: Value;
   };
 }
@@ -91,19 +91,19 @@ export interface Value {
  */
 export interface ListValue {
   /** Repeated field of dynamically typed values. */
-  values: Value[];
+  values?: Value[];
 }
 
 function createBaseStruct_FieldsEntry(): Struct_FieldsEntry {
   return {
-    key: "",
+    key: undefined,
     value: undefined,
   };
 }
 
 export const Struct_FieldsEntry = {
   encode(message: Struct_FieldsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== undefined) {
       writer.uint32(10).string(message.key);
     }
 
@@ -142,7 +142,7 @@ export const Struct_FieldsEntry = {
 
   fromJSON(object: any): Struct_FieldsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : "",
+      key: isSet(object.key) ? String(object.key) : undefined,
       value: isSet(object.value) ? Value.fromJSON(object.value) : undefined,
     };
   },
@@ -156,7 +156,7 @@ export const Struct_FieldsEntry = {
 
   fromPartial<I extends Exact<DeepPartial<Struct_FieldsEntry>, I>>(object: I): Struct_FieldsEntry {
     const message = createBaseStruct_FieldsEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? undefined;
     message.value =
       object.value !== undefined && object.value !== null ? Value.fromPartial(object.value) : undefined;
     return message;
@@ -165,7 +165,7 @@ export const Struct_FieldsEntry = {
 
 function createBaseStruct(): Struct {
   return {
-    fields: {},
+    fields: undefined,
   };
 }
 
@@ -377,7 +377,7 @@ export const Value = {
 
 function createBaseListValue(): ListValue {
   return {
-    values: [],
+    values: undefined,
   };
 }
 

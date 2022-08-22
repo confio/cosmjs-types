@@ -75,26 +75,26 @@ export function stateToJSON(object: State): string {
  */
 export interface ConnectionEnd {
   /** client associated with this connection. */
-  clientId: string;
+  clientId?: string;
 
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection.
    */
-  versions: Version[];
+  versions?: Version[];
 
   /** current state of the connection end. */
-  state: State;
+  state?: State;
 
   /** counterparty chain associated with this connection. */
-  counterparty: Counterparty;
+  counterparty?: Counterparty;
 
   /**
    * delay period that must pass before a consensus state can be used for
    * packet-verification NOTE: delay period logic is only implemented by some
    * clients.
    */
-  delayPeriod: Long;
+  delayPeriod?: Long;
 }
 
 /**
@@ -103,25 +103,25 @@ export interface ConnectionEnd {
  */
 export interface IdentifiedConnection {
   /** connection identifier. */
-  id: string;
+  id?: string;
 
   /** client associated with this connection. */
-  clientId: string;
+  clientId?: string;
 
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection
    */
-  versions: Version[];
+  versions?: Version[];
 
   /** current state of the connection end. */
-  state: State;
+  state?: State;
 
   /** counterparty chain associated with this connection. */
-  counterparty: Counterparty;
+  counterparty?: Counterparty;
 
   /** delay period associated with this connection. */
-  delayPeriod: Long;
+  delayPeriod?: Long;
 }
 
 /** Counterparty defines the counterparty chain associated with a connection end. */
@@ -130,31 +130,31 @@ export interface Counterparty {
    * identifies the client on the counterparty chain associated with a given
    * connection.
    */
-  clientId: string;
+  clientId?: string;
 
   /**
    * identifies the connection end on the counterparty chain associated with a
    * given connection.
    */
-  connectionId: string;
+  connectionId?: string;
 
   /** commitment merkle prefix of the counterparty chain. */
-  prefix: MerklePrefix;
+  prefix?: MerklePrefix;
 }
 
 /** ClientPaths define all the connection paths for a client state. */
 export interface ClientPaths {
   /** list of connection paths */
-  paths: string[];
+  paths?: string[];
 }
 
 /** ConnectionPaths define all the connection paths for a given client state. */
 export interface ConnectionPaths {
   /** client state unique identifier */
-  clientId: string;
+  clientId?: string;
 
   /** list of connection paths */
-  paths: string[];
+  paths?: string[];
 }
 
 /**
@@ -163,10 +163,10 @@ export interface ConnectionPaths {
  */
 export interface Version {
   /** unique version identifier */
-  identifier: string;
+  identifier?: string;
 
   /** list of features compatible with the specified identifier */
-  features: string[];
+  features?: string[];
 }
 
 /** Params defines the set of Connection parameters. */
@@ -176,22 +176,22 @@ export interface Params {
    * largest amount of time that the chain might reasonably take to produce the next block under normal operating
    * conditions. A safe choice is 3-5x the expected time per block.
    */
-  maxExpectedTimePerBlock: Long;
+  maxExpectedTimePerBlock?: Long;
 }
 
 function createBaseConnectionEnd(): ConnectionEnd {
   return {
-    clientId: "",
-    versions: [],
-    state: 0,
+    clientId: undefined,
+    versions: undefined,
+    state: undefined,
     counterparty: undefined,
-    delayPeriod: Long.UZERO,
+    delayPeriod: undefined,
   };
 }
 
 export const ConnectionEnd = {
   encode(message: ConnectionEnd, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== "") {
+    if (message.clientId !== undefined) {
       writer.uint32(10).string(message.clientId);
     }
 
@@ -199,7 +199,7 @@ export const ConnectionEnd = {
       Version.encode(v!, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.state !== 0) {
+    if (message.state !== undefined) {
       writer.uint32(24).int32(message.state);
     }
 
@@ -207,7 +207,7 @@ export const ConnectionEnd = {
       Counterparty.encode(message.counterparty, writer.uint32(34).fork()).ldelim();
     }
 
-    if (!message.delayPeriod.isZero()) {
+    if (message.delayPeriod !== undefined) {
       writer.uint32(40).uint64(message.delayPeriod);
     }
 
@@ -254,11 +254,11 @@ export const ConnectionEnd = {
 
   fromJSON(object: any): ConnectionEnd {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
       versions: Array.isArray(object?.versions) ? object.versions.map((e: any) => Version.fromJSON(e)) : [],
-      state: isSet(object.state) ? stateFromJSON(object.state) : 0,
+      state: isSet(object.state) ? stateFromJSON(object.state) : undefined,
       counterparty: isSet(object.counterparty) ? Counterparty.fromJSON(object.counterparty) : undefined,
-      delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : Long.UZERO,
+      delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : undefined,
     };
   },
 
@@ -275,15 +275,15 @@ export const ConnectionEnd = {
     message.state !== undefined && (obj.state = stateToJSON(message.state));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
-    message.delayPeriod !== undefined && (obj.delayPeriod = (message.delayPeriod || Long.UZERO).toString());
+    message.delayPeriod !== undefined && (obj.delayPeriod = (message.delayPeriod || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ConnectionEnd>, I>>(object: I): ConnectionEnd {
     const message = createBaseConnectionEnd();
-    message.clientId = object.clientId ?? "";
+    message.clientId = object.clientId ?? undefined;
     message.versions = object.versions?.map((e) => Version.fromPartial(e)) || [];
-    message.state = object.state ?? 0;
+    message.state = object.state ?? undefined;
     message.counterparty =
       object.counterparty !== undefined && object.counterparty !== null
         ? Counterparty.fromPartial(object.counterparty)
@@ -291,29 +291,29 @@ export const ConnectionEnd = {
     message.delayPeriod =
       object.delayPeriod !== undefined && object.delayPeriod !== null
         ? Long.fromValue(object.delayPeriod)
-        : Long.UZERO;
+        : undefined;
     return message;
   },
 };
 
 function createBaseIdentifiedConnection(): IdentifiedConnection {
   return {
-    id: "",
-    clientId: "",
-    versions: [],
-    state: 0,
+    id: undefined,
+    clientId: undefined,
+    versions: undefined,
+    state: undefined,
     counterparty: undefined,
-    delayPeriod: Long.UZERO,
+    delayPeriod: undefined,
   };
 }
 
 export const IdentifiedConnection = {
   encode(message: IdentifiedConnection, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
+    if (message.id !== undefined) {
       writer.uint32(10).string(message.id);
     }
 
-    if (message.clientId !== "") {
+    if (message.clientId !== undefined) {
       writer.uint32(18).string(message.clientId);
     }
 
@@ -321,7 +321,7 @@ export const IdentifiedConnection = {
       Version.encode(v!, writer.uint32(26).fork()).ldelim();
     }
 
-    if (message.state !== 0) {
+    if (message.state !== undefined) {
       writer.uint32(32).int32(message.state);
     }
 
@@ -329,7 +329,7 @@ export const IdentifiedConnection = {
       Counterparty.encode(message.counterparty, writer.uint32(42).fork()).ldelim();
     }
 
-    if (!message.delayPeriod.isZero()) {
+    if (message.delayPeriod !== undefined) {
       writer.uint32(48).uint64(message.delayPeriod);
     }
 
@@ -380,12 +380,12 @@ export const IdentifiedConnection = {
 
   fromJSON(object: any): IdentifiedConnection {
     return {
-      id: isSet(object.id) ? String(object.id) : "",
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      id: isSet(object.id) ? String(object.id) : undefined,
+      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
       versions: Array.isArray(object?.versions) ? object.versions.map((e: any) => Version.fromJSON(e)) : [],
-      state: isSet(object.state) ? stateFromJSON(object.state) : 0,
+      state: isSet(object.state) ? stateFromJSON(object.state) : undefined,
       counterparty: isSet(object.counterparty) ? Counterparty.fromJSON(object.counterparty) : undefined,
-      delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : Long.UZERO,
+      delayPeriod: isSet(object.delayPeriod) ? Long.fromString(object.delayPeriod) : undefined,
     };
   },
 
@@ -403,16 +403,16 @@ export const IdentifiedConnection = {
     message.state !== undefined && (obj.state = stateToJSON(message.state));
     message.counterparty !== undefined &&
       (obj.counterparty = message.counterparty ? Counterparty.toJSON(message.counterparty) : undefined);
-    message.delayPeriod !== undefined && (obj.delayPeriod = (message.delayPeriod || Long.UZERO).toString());
+    message.delayPeriod !== undefined && (obj.delayPeriod = (message.delayPeriod || undefined).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<IdentifiedConnection>, I>>(object: I): IdentifiedConnection {
     const message = createBaseIdentifiedConnection();
-    message.id = object.id ?? "";
-    message.clientId = object.clientId ?? "";
+    message.id = object.id ?? undefined;
+    message.clientId = object.clientId ?? undefined;
     message.versions = object.versions?.map((e) => Version.fromPartial(e)) || [];
-    message.state = object.state ?? 0;
+    message.state = object.state ?? undefined;
     message.counterparty =
       object.counterparty !== undefined && object.counterparty !== null
         ? Counterparty.fromPartial(object.counterparty)
@@ -420,26 +420,26 @@ export const IdentifiedConnection = {
     message.delayPeriod =
       object.delayPeriod !== undefined && object.delayPeriod !== null
         ? Long.fromValue(object.delayPeriod)
-        : Long.UZERO;
+        : undefined;
     return message;
   },
 };
 
 function createBaseCounterparty(): Counterparty {
   return {
-    clientId: "",
-    connectionId: "",
+    clientId: undefined,
+    connectionId: undefined,
     prefix: undefined,
   };
 }
 
 export const Counterparty = {
   encode(message: Counterparty, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== "") {
+    if (message.clientId !== undefined) {
       writer.uint32(10).string(message.clientId);
     }
 
-    if (message.connectionId !== "") {
+    if (message.connectionId !== undefined) {
       writer.uint32(18).string(message.connectionId);
     }
 
@@ -482,8 +482,8 @@ export const Counterparty = {
 
   fromJSON(object: any): Counterparty {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
+      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
+      connectionId: isSet(object.connectionId) ? String(object.connectionId) : undefined,
       prefix: isSet(object.prefix) ? MerklePrefix.fromJSON(object.prefix) : undefined,
     };
   },
@@ -499,8 +499,8 @@ export const Counterparty = {
 
   fromPartial<I extends Exact<DeepPartial<Counterparty>, I>>(object: I): Counterparty {
     const message = createBaseCounterparty();
-    message.clientId = object.clientId ?? "";
-    message.connectionId = object.connectionId ?? "";
+    message.clientId = object.clientId ?? undefined;
+    message.connectionId = object.connectionId ?? undefined;
     message.prefix =
       object.prefix !== undefined && object.prefix !== null
         ? MerklePrefix.fromPartial(object.prefix)
@@ -511,7 +511,7 @@ export const Counterparty = {
 
 function createBaseClientPaths(): ClientPaths {
   return {
-    paths: [],
+    paths: undefined,
   };
 }
 
@@ -573,14 +573,14 @@ export const ClientPaths = {
 
 function createBaseConnectionPaths(): ConnectionPaths {
   return {
-    clientId: "",
-    paths: [],
+    clientId: undefined,
+    paths: undefined,
   };
 }
 
 export const ConnectionPaths = {
   encode(message: ConnectionPaths, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== "") {
+    if (message.clientId !== undefined) {
       writer.uint32(10).string(message.clientId);
     }
 
@@ -619,7 +619,7 @@ export const ConnectionPaths = {
 
   fromJSON(object: any): ConnectionPaths {
     return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      clientId: isSet(object.clientId) ? String(object.clientId) : undefined,
       paths: Array.isArray(object?.paths) ? object.paths.map((e: any) => String(e)) : [],
     };
   },
@@ -639,7 +639,7 @@ export const ConnectionPaths = {
 
   fromPartial<I extends Exact<DeepPartial<ConnectionPaths>, I>>(object: I): ConnectionPaths {
     const message = createBaseConnectionPaths();
-    message.clientId = object.clientId ?? "";
+    message.clientId = object.clientId ?? undefined;
     message.paths = object.paths?.map((e) => e) || [];
     return message;
   },
@@ -647,14 +647,14 @@ export const ConnectionPaths = {
 
 function createBaseVersion(): Version {
   return {
-    identifier: "",
-    features: [],
+    identifier: undefined,
+    features: undefined,
   };
 }
 
 export const Version = {
   encode(message: Version, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.identifier !== "") {
+    if (message.identifier !== undefined) {
       writer.uint32(10).string(message.identifier);
     }
 
@@ -693,7 +693,7 @@ export const Version = {
 
   fromJSON(object: any): Version {
     return {
-      identifier: isSet(object.identifier) ? String(object.identifier) : "",
+      identifier: isSet(object.identifier) ? String(object.identifier) : undefined,
       features: Array.isArray(object?.features) ? object.features.map((e: any) => String(e)) : [],
     };
   },
@@ -713,7 +713,7 @@ export const Version = {
 
   fromPartial<I extends Exact<DeepPartial<Version>, I>>(object: I): Version {
     const message = createBaseVersion();
-    message.identifier = object.identifier ?? "";
+    message.identifier = object.identifier ?? undefined;
     message.features = object.features?.map((e) => e) || [];
     return message;
   },
@@ -721,13 +721,13 @@ export const Version = {
 
 function createBaseParams(): Params {
   return {
-    maxExpectedTimePerBlock: Long.UZERO,
+    maxExpectedTimePerBlock: undefined,
   };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.maxExpectedTimePerBlock.isZero()) {
+    if (message.maxExpectedTimePerBlock !== undefined) {
       writer.uint32(8).uint64(message.maxExpectedTimePerBlock);
     }
 
@@ -760,14 +760,14 @@ export const Params = {
     return {
       maxExpectedTimePerBlock: isSet(object.maxExpectedTimePerBlock)
         ? Long.fromString(object.maxExpectedTimePerBlock)
-        : Long.UZERO,
+        : undefined,
     };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
     message.maxExpectedTimePerBlock !== undefined &&
-      (obj.maxExpectedTimePerBlock = (message.maxExpectedTimePerBlock || Long.UZERO).toString());
+      (obj.maxExpectedTimePerBlock = (message.maxExpectedTimePerBlock || undefined).toString());
     return obj;
   },
 
@@ -776,7 +776,7 @@ export const Params = {
     message.maxExpectedTimePerBlock =
       object.maxExpectedTimePerBlock !== undefined && object.maxExpectedTimePerBlock !== null
         ? Long.fromValue(object.maxExpectedTimePerBlock)
-        : Long.UZERO;
+        : undefined;
     return message;
   },
 };
