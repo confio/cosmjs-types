@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 5
+  version: 6
   cacheKey: 8
 
 "@protobufjs/aspromise@npm:^1.1.1, @protobufjs/aspromise@npm:^1.1.2":
@@ -115,8 +115,8 @@ __metadata:
     long: ^4.0.0
     prettier: ^2.6
     protobufjs: ~6.11.2
-    ts-proto: ^1.110
-    typescript: ~4.4
+    ts-proto: ^1.122
+    typescript: ~4.7
   languageName: unknown
   linkType: soft
 
@@ -157,9 +157,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:^6.8.8, protobufjs@npm:~6.11.2":
-  version: 6.11.2
-  resolution: "protobufjs@npm:6.11.2"
+"protobufjs@npm:^6.11.3, protobufjs@npm:^6.8.8, protobufjs@npm:~6.11.2":
+  version: 6.11.3
+  resolution: "protobufjs@npm:6.11.3"
   dependencies:
     "@protobufjs/aspromise": ^1.1.2
     "@protobufjs/base64": ^1.1.2
@@ -177,62 +177,62 @@ __metadata:
   bin:
     pbjs: bin/pbjs
     pbts: bin/pbts
-  checksum: 80e9d9610c3eb66f9eae4e44a1ae30381cedb721b7d5f635d781fe4c507e2c77bb7c879addcd1dda79733d3ae589d9e66fd18d42baf99b35df7382a0f9920795
+  checksum: 4a6ce1964167e4c45c53fd8a312d7646415c777dd31b4ba346719947b88e61654912326101f927da387d6b6473ab52a7ea4f54d6f15d63b31130ce28e2e15070
   languageName: node
   linkType: hard
 
-"ts-poet@npm:^4.11.0":
-  version: 4.11.0
-  resolution: "ts-poet@npm:4.11.0"
+"ts-poet@npm:^4.15.0":
+  version: 4.15.0
+  resolution: "ts-poet@npm:4.15.0"
   dependencies:
     lodash: ^4.17.15
     prettier: ^2.5.1
-  checksum: 58141523080aafdce397338c8db435a6055385ed919d77c9c77bed76f2f8f2bbe924f26e69d2681ca27270519ea0ec7e041fbadc765a4a25528fcbf2548822f5
+  checksum: 93490e8b5921e23ac65afdecc00b4dd53f3560d7d9c19778a3f0bd9a300ba7ca71585a989d564508313bc73e8c431413714d513ebca2d5c428f909ec36bcf6e9
   languageName: node
   linkType: hard
 
-"ts-proto-descriptors@npm:1.6.0":
-  version: 1.6.0
-  resolution: "ts-proto-descriptors@npm:1.6.0"
+"ts-proto-descriptors@npm:1.7.1":
+  version: 1.7.1
+  resolution: "ts-proto-descriptors@npm:1.7.1"
   dependencies:
     long: ^4.0.0
     protobufjs: ^6.8.8
-  checksum: 72de9826c2408efb979495c66add49200ea550c6540ebbf05c144cf5d66d21c09722a56cd183e25936196e04a24258e6af2dbdc2ef9e47e8dd19f094de681e89
+  checksum: 51e6bd7aeb0527f2e5b9cf70611d653fc6b27a2aca20987217acfdd63dfc10de660c7431f378f6f1769d503fd8e4e334ed28d957b777720abc3ef02f50e7460a
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.110":
-  version: 1.110.4
-  resolution: "ts-proto@npm:1.110.4"
+"ts-proto@npm:^1.122":
+  version: 1.122.0
+  resolution: "ts-proto@npm:1.122.0"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
     object-hash: ^1.3.1
-    protobufjs: ^6.8.8
-    ts-poet: ^4.11.0
-    ts-proto-descriptors: 1.6.0
+    protobufjs: ^6.11.3
+    ts-poet: ^4.15.0
+    ts-proto-descriptors: 1.7.1
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: e7fda49ab5ef089bc54569399cce2b40eab18598bf28d1357d593c28796cde4c1d185fa02d7380743da0e47caaea2087fb77419c954ceb76bd4d11642a489fe2
+  checksum: ebf92402f3829d4a852cac90b75235e1402b13fd973fa97b955308f98ae8f75b4d2c46bd86eb166e378fe5a4d73d08ab51073574b698878ba625e2d5847252a9
   languageName: node
   linkType: hard
 
-"typescript@npm:~4.4":
-  version: 4.4.4
-  resolution: "typescript@npm:4.4.4"
+"typescript@npm:~4.7":
+  version: 4.7.4
+  resolution: "typescript@npm:4.7.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 89ecb8436bb48ef5594d49289f5f89103071716b6e4844278f4fb3362856e31203e187a9c76d205c3f0b674d221a058fd28310dbcbcf5d95e9a57229bb5203f1
+  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~4.4#~builtin<compat/typescript>":
-  version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=ddd1e8"
+"typescript@patch:typescript@~4.7#~builtin<compat/typescript>":
+  version: 4.7.4
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bd629ad0da4a15d79aaad56baf3ee7d96f6a181760d430ae77f8c5325df7bffd9edee57544a3970e3651e8b796fe03a5838a7eb39c6d46cc3866c0b23d36a0dd
+  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
   languageName: node
   linkType: hard

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration } from "../../../google/protobuf/duration";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.slashing.v1beta1";
 
@@ -113,12 +113,12 @@ export const ValidatorSigningInfo = {
   fromJSON(object: any): ValidatorSigningInfo {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      startHeight: isSet(object.startHeight) ? Long.fromString(object.startHeight) : Long.ZERO,
-      indexOffset: isSet(object.indexOffset) ? Long.fromString(object.indexOffset) : Long.ZERO,
+      startHeight: isSet(object.startHeight) ? Long.fromValue(object.startHeight) : Long.ZERO,
+      indexOffset: isSet(object.indexOffset) ? Long.fromValue(object.indexOffset) : Long.ZERO,
       jailedUntil: isSet(object.jailedUntil) ? fromJsonTimestamp(object.jailedUntil) : undefined,
       tombstoned: isSet(object.tombstoned) ? Boolean(object.tombstoned) : false,
       missedBlocksCounter: isSet(object.missedBlocksCounter)
-        ? Long.fromString(object.missedBlocksCounter)
+        ? Long.fromValue(object.missedBlocksCounter)
         : Long.ZERO,
     };
   },
@@ -222,7 +222,7 @@ export const Params = {
   fromJSON(object: any): Params {
     return {
       signedBlocksWindow: isSet(object.signedBlocksWindow)
-        ? Long.fromString(object.signedBlocksWindow)
+        ? Long.fromValue(object.signedBlocksWindow)
         : Long.ZERO,
       minSignedPerWindow: isSet(object.minSignedPerWindow)
         ? bytesFromBase64(object.minSignedPerWindow)
@@ -290,25 +290,29 @@ var globalThis: any = (() => {
   throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -328,7 +332,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

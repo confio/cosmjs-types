@@ -1,10 +1,10 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Description, CommissionRates } from "../../../cosmos/staking/v1beta1/staking";
+import { Description, CommissionRates } from "./staking";
 import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Coin } from "../../base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 
@@ -807,7 +807,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

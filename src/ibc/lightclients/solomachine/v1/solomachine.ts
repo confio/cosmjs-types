@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Any } from "../../../../google/protobuf/any";
-import { ConnectionEnd } from "../../../../ibc/core/connection/v1/connection";
-import { Channel } from "../../../../ibc/core/channel/v1/channel";
+import { ConnectionEnd } from "../../../core/connection/v1/connection";
+import { Channel } from "../../../core/channel/v1/channel";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "ibc.lightclients.solomachine.v1";
 
@@ -96,8 +96,9 @@ export function dataTypeToJSON(object: DataType): string {
       return "DATA_TYPE_NEXT_SEQUENCE_RECV";
     case DataType.DATA_TYPE_HEADER:
       return "DATA_TYPE_HEADER";
+    case DataType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -318,8 +319,8 @@ export const ClientState = {
 
   fromJSON(object: any): ClientState {
     return {
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
-      frozenSequence: isSet(object.frozenSequence) ? Long.fromString(object.frozenSequence) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      frozenSequence: isSet(object.frozenSequence) ? Long.fromValue(object.frozenSequence) : Long.UZERO,
       consensusState: isSet(object.consensusState)
         ? ConsensusState.fromJSON(object.consensusState)
         : undefined,
@@ -408,7 +409,7 @@ export const ConsensusState = {
     return {
       publicKey: isSet(object.publicKey) ? Any.fromJSON(object.publicKey) : undefined,
       diversifier: isSet(object.diversifier) ? String(object.diversifier) : "",
-      timestamp: isSet(object.timestamp) ? Long.fromString(object.timestamp) : Long.UZERO,
+      timestamp: isSet(object.timestamp) ? Long.fromValue(object.timestamp) : Long.UZERO,
     };
   },
 
@@ -498,8 +499,8 @@ export const Header = {
 
   fromJSON(object: any): Header {
     return {
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
-      timestamp: isSet(object.timestamp) ? Long.fromString(object.timestamp) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      timestamp: isSet(object.timestamp) ? Long.fromValue(object.timestamp) : Long.UZERO,
       signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
       newPublicKey: isSet(object.newPublicKey) ? Any.fromJSON(object.newPublicKey) : undefined,
       newDiversifier: isSet(object.newDiversifier) ? String(object.newDiversifier) : "",
@@ -591,7 +592,7 @@ export const Misbehaviour = {
   fromJSON(object: any): Misbehaviour {
     return {
       clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
       signatureOne: isSet(object.signatureOne) ? SignatureAndData.fromJSON(object.signatureOne) : undefined,
       signatureTwo: isSet(object.signatureTwo) ? SignatureAndData.fromJSON(object.signatureTwo) : undefined,
     };
@@ -680,7 +681,7 @@ export const SignatureAndData = {
       signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
       dataType: isSet(object.dataType) ? dataTypeFromJSON(object.dataType) : 0,
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-      timestamp: isSet(object.timestamp) ? Long.fromString(object.timestamp) : Long.UZERO,
+      timestamp: isSet(object.timestamp) ? Long.fromValue(object.timestamp) : Long.UZERO,
     };
   },
 
@@ -749,7 +750,7 @@ export const TimestampedSignatureData = {
   fromJSON(object: any): TimestampedSignatureData {
     return {
       signatureData: isSet(object.signatureData) ? bytesFromBase64(object.signatureData) : new Uint8Array(),
-      timestamp: isSet(object.timestamp) ? Long.fromString(object.timestamp) : Long.UZERO,
+      timestamp: isSet(object.timestamp) ? Long.fromValue(object.timestamp) : Long.UZERO,
     };
   },
 
@@ -838,8 +839,8 @@ export const SignBytes = {
 
   fromJSON(object: any): SignBytes {
     return {
-      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
-      timestamp: isSet(object.timestamp) ? Long.fromString(object.timestamp) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      timestamp: isSet(object.timestamp) ? Long.fromValue(object.timestamp) : Long.UZERO,
       diversifier: isSet(object.diversifier) ? String(object.diversifier) : "",
       dataType: isSet(object.dataType) ? dataTypeFromJSON(object.dataType) : 0,
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
@@ -1407,7 +1408,7 @@ export const NextSequenceRecvData = {
   fromJSON(object: any): NextSequenceRecvData {
     return {
       path: isSet(object.path) ? bytesFromBase64(object.path) : new Uint8Array(),
-      nextSeqRecv: isSet(object.nextSeqRecv) ? Long.fromString(object.nextSeqRecv) : Long.UZERO,
+      nextSeqRecv: isSet(object.nextSeqRecv) ? Long.fromValue(object.nextSeqRecv) : Long.UZERO,
     };
   },
 
@@ -1441,25 +1442,29 @@ var globalThis: any = (() => {
   throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -1479,7 +1484,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

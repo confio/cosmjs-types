@@ -1,11 +1,11 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../google/protobuf/timestamp";
-import { Header } from "../../tendermint/types/types";
-import { ProofOps } from "../../tendermint/crypto/proof";
-import { EvidenceParams, ValidatorParams, VersionParams } from "../../tendermint/types/params";
-import { PublicKey } from "../../tendermint/crypto/keys";
+import { Header } from "../types/types";
+import { ProofOps } from "../crypto/proof";
+import { EvidenceParams, ValidatorParams, VersionParams } from "../types/params";
+import { PublicKey } from "../crypto/keys";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "tendermint.abci";
 
@@ -36,8 +36,9 @@ export function checkTxTypeToJSON(object: CheckTxType): string {
       return "NEW";
     case CheckTxType.RECHECK:
       return "RECHECK";
+    case CheckTxType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -74,8 +75,9 @@ export function evidenceTypeToJSON(object: EvidenceType): string {
       return "DUPLICATE_VOTE";
     case EvidenceType.LIGHT_CLIENT_ATTACK:
       return "LIGHT_CLIENT_ATTACK";
+    case EvidenceType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -351,8 +353,9 @@ export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot
       return "REJECT_FORMAT";
     case ResponseOfferSnapshot_Result.REJECT_SENDER:
       return "REJECT_SENDER";
+    case ResponseOfferSnapshot_Result.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -425,8 +428,9 @@ export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySna
       return "RETRY_SNAPSHOT";
     case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
       return "REJECT_SNAPSHOT";
+    case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -927,8 +931,8 @@ export const RequestInfo = {
   fromJSON(object: any): RequestInfo {
     return {
       version: isSet(object.version) ? String(object.version) : "",
-      blockVersion: isSet(object.blockVersion) ? Long.fromString(object.blockVersion) : Long.UZERO,
-      p2pVersion: isSet(object.p2pVersion) ? Long.fromString(object.p2pVersion) : Long.UZERO,
+      blockVersion: isSet(object.blockVersion) ? Long.fromValue(object.blockVersion) : Long.UZERO,
+      p2pVersion: isSet(object.p2pVersion) ? Long.fromValue(object.p2pVersion) : Long.UZERO,
     };
   },
 
@@ -1092,7 +1096,7 @@ export const RequestInitChain = {
         ? object.validators.map((e: any) => ValidatorUpdate.fromJSON(e))
         : [],
       appStateBytes: isSet(object.appStateBytes) ? bytesFromBase64(object.appStateBytes) : new Uint8Array(),
-      initialHeight: isSet(object.initialHeight) ? Long.fromString(object.initialHeight) : Long.ZERO,
+      initialHeight: isSet(object.initialHeight) ? Long.fromValue(object.initialHeight) : Long.ZERO,
     };
   },
 
@@ -1189,7 +1193,7 @@ export const RequestQuery = {
     return {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       path: isSet(object.path) ? String(object.path) : "",
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       prove: isSet(object.prove) ? Boolean(object.prove) : false,
     };
   },
@@ -1448,7 +1452,7 @@ export const RequestEndBlock = {
 
   fromJSON(object: any): RequestEndBlock {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
     };
   },
 
@@ -1651,7 +1655,7 @@ export const RequestLoadSnapshotChunk = {
 
   fromJSON(object: any): RequestLoadSnapshotChunk {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.UZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
       format: isSet(object.format) ? Number(object.format) : 0,
       chunk: isSet(object.chunk) ? Number(object.chunk) : 0,
     };
@@ -2223,8 +2227,8 @@ export const ResponseInfo = {
     return {
       data: isSet(object.data) ? String(object.data) : "",
       version: isSet(object.version) ? String(object.version) : "",
-      appVersion: isSet(object.appVersion) ? Long.fromString(object.appVersion) : Long.UZERO,
-      lastBlockHeight: isSet(object.lastBlockHeight) ? Long.fromString(object.lastBlockHeight) : Long.ZERO,
+      appVersion: isSet(object.appVersion) ? Long.fromValue(object.appVersion) : Long.UZERO,
+      lastBlockHeight: isSet(object.lastBlockHeight) ? Long.fromValue(object.lastBlockHeight) : Long.ZERO,
       lastBlockAppHash: isSet(object.lastBlockAppHash)
         ? bytesFromBase64(object.lastBlockAppHash)
         : new Uint8Array(),
@@ -2504,11 +2508,11 @@ export const ResponseQuery = {
       code: isSet(object.code) ? Number(object.code) : 0,
       log: isSet(object.log) ? String(object.log) : "",
       info: isSet(object.info) ? String(object.info) : "",
-      index: isSet(object.index) ? Long.fromString(object.index) : Long.ZERO,
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
       proofOps: isSet(object.proofOps) ? ProofOps.fromJSON(object.proofOps) : undefined,
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       codespace: isSet(object.codespace) ? String(object.codespace) : "",
     };
   },
@@ -2690,8 +2694,8 @@ export const ResponseCheckTx = {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       log: isSet(object.log) ? String(object.log) : "",
       info: isSet(object.info) ? String(object.info) : "",
-      gasWanted: isSet(object.gas_wanted) ? Long.fromString(object.gas_wanted) : Long.ZERO,
-      gasUsed: isSet(object.gas_used) ? Long.fromString(object.gas_used) : Long.ZERO,
+      gasWanted: isSet(object.gas_wanted) ? Long.fromValue(object.gas_wanted) : Long.ZERO,
+      gasUsed: isSet(object.gas_used) ? Long.fromValue(object.gas_used) : Long.ZERO,
       events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
       codespace: isSet(object.codespace) ? String(object.codespace) : "",
     };
@@ -2820,8 +2824,8 @@ export const ResponseDeliverTx = {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
       log: isSet(object.log) ? String(object.log) : "",
       info: isSet(object.info) ? String(object.info) : "",
-      gasWanted: isSet(object.gas_wanted) ? Long.fromString(object.gas_wanted) : Long.ZERO,
-      gasUsed: isSet(object.gas_used) ? Long.fromString(object.gas_used) : Long.ZERO,
+      gasWanted: isSet(object.gas_wanted) ? Long.fromValue(object.gas_wanted) : Long.ZERO,
+      gasUsed: isSet(object.gas_used) ? Long.fromValue(object.gas_used) : Long.ZERO,
       events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
       codespace: isSet(object.codespace) ? String(object.codespace) : "",
     };
@@ -2987,7 +2991,7 @@ export const ResponseCommit = {
   fromJSON(object: any): ResponseCommit {
     return {
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-      retainHeight: isSet(object.retainHeight) ? Long.fromString(object.retainHeight) : Long.ZERO,
+      retainHeight: isSet(object.retainHeight) ? Long.fromValue(object.retainHeight) : Long.ZERO,
     };
   },
 
@@ -3384,8 +3388,8 @@ export const BlockParams = {
 
   fromJSON(object: any): BlockParams {
     return {
-      maxBytes: isSet(object.maxBytes) ? Long.fromString(object.maxBytes) : Long.ZERO,
-      maxGas: isSet(object.maxGas) ? Long.fromString(object.maxGas) : Long.ZERO,
+      maxBytes: isSet(object.maxBytes) ? Long.fromValue(object.maxBytes) : Long.ZERO,
+      maxGas: isSet(object.maxGas) ? Long.fromValue(object.maxGas) : Long.ZERO,
     };
   },
 
@@ -3651,7 +3655,7 @@ export const TxResult = {
 
   fromJSON(object: any): TxResult {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       index: isSet(object.index) ? Number(object.index) : 0,
       tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(),
       result: isSet(object.result) ? ResponseDeliverTx.fromJSON(object.result) : undefined,
@@ -3722,7 +3726,7 @@ export const Validator = {
   fromJSON(object: any): Validator {
     return {
       address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
-      power: isSet(object.power) ? Long.fromString(object.power) : Long.ZERO,
+      power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
     };
   },
 
@@ -3782,7 +3786,7 @@ export const ValidatorUpdate = {
   fromJSON(object: any): ValidatorUpdate {
     return {
       pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
-      power: isSet(object.power) ? Long.fromString(object.power) : Long.ZERO,
+      power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
     };
   },
 
@@ -3926,9 +3930,9 @@ export const Evidence = {
     return {
       type: isSet(object.type) ? evidenceTypeFromJSON(object.type) : 0,
       validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined,
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromString(object.totalVotingPower) : Long.ZERO,
+      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
     };
   },
 
@@ -4019,7 +4023,7 @@ export const Snapshot = {
 
   fromJSON(object: any): Snapshot {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.UZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
       format: isSet(object.format) ? Number(object.format) : 0,
       chunks: isSet(object.chunks) ? Number(object.chunks) : 0,
       hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
@@ -4195,25 +4199,29 @@ var globalThis: any = (() => {
   throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -4233,7 +4241,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

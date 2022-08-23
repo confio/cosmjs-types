@@ -1,7 +1,7 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../google/protobuf/duration";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "tendermint.types";
 
@@ -219,9 +219,9 @@ export const BlockParams = {
 
   fromJSON(object: any): BlockParams {
     return {
-      maxBytes: isSet(object.maxBytes) ? Long.fromString(object.maxBytes) : Long.ZERO,
-      maxGas: isSet(object.maxGas) ? Long.fromString(object.maxGas) : Long.ZERO,
-      timeIotaMs: isSet(object.timeIotaMs) ? Long.fromString(object.timeIotaMs) : Long.ZERO,
+      maxBytes: isSet(object.maxBytes) ? Long.fromValue(object.maxBytes) : Long.ZERO,
+      maxGas: isSet(object.maxGas) ? Long.fromValue(object.maxGas) : Long.ZERO,
+      timeIotaMs: isSet(object.timeIotaMs) ? Long.fromValue(object.timeIotaMs) : Long.ZERO,
     };
   },
 
@@ -291,9 +291,9 @@ export const EvidenceParams = {
 
   fromJSON(object: any): EvidenceParams {
     return {
-      maxAgeNumBlocks: isSet(object.maxAgeNumBlocks) ? Long.fromString(object.maxAgeNumBlocks) : Long.ZERO,
+      maxAgeNumBlocks: isSet(object.maxAgeNumBlocks) ? Long.fromValue(object.maxAgeNumBlocks) : Long.ZERO,
       maxAgeDuration: isSet(object.maxAgeDuration) ? Duration.fromJSON(object.maxAgeDuration) : undefined,
-      maxBytes: isSet(object.maxBytes) ? Long.fromString(object.maxBytes) : Long.ZERO,
+      maxBytes: isSet(object.maxBytes) ? Long.fromValue(object.maxBytes) : Long.ZERO,
     };
   },
 
@@ -408,7 +408,7 @@ export const VersionParams = {
 
   fromJSON(object: any): VersionParams {
     return {
-      appVersion: isSet(object.appVersion) ? Long.fromString(object.appVersion) : Long.UZERO,
+      appVersion: isSet(object.appVersion) ? Long.fromValue(object.appVersion) : Long.UZERO,
     };
   },
 
@@ -466,8 +466,8 @@ export const HashedParams = {
 
   fromJSON(object: any): HashedParams {
     return {
-      blockMaxBytes: isSet(object.blockMaxBytes) ? Long.fromString(object.blockMaxBytes) : Long.ZERO,
-      blockMaxGas: isSet(object.blockMaxGas) ? Long.fromString(object.blockMaxGas) : Long.ZERO,
+      blockMaxBytes: isSet(object.blockMaxBytes) ? Long.fromValue(object.blockMaxBytes) : Long.ZERO,
+      blockMaxGas: isSet(object.blockMaxGas) ? Long.fromValue(object.blockMaxGas) : Long.ZERO,
     };
   },
 
@@ -510,7 +510,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

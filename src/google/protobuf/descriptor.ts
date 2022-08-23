@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "google.protobuf";
 
@@ -305,8 +305,9 @@ export function fieldDescriptorProto_TypeToJSON(object: FieldDescriptorProto_Typ
       return "TYPE_SINT32";
     case FieldDescriptorProto_Type.TYPE_SINT64:
       return "TYPE_SINT64";
+    case FieldDescriptorProto_Type.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -344,8 +345,9 @@ export function fieldDescriptorProto_LabelToJSON(object: FieldDescriptorProto_La
       return "LABEL_REQUIRED";
     case FieldDescriptorProto_Label.LABEL_REPEATED:
       return "LABEL_REPEATED";
+    case FieldDescriptorProto_Label.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -576,8 +578,9 @@ export function fileOptions_OptimizeModeToJSON(object: FileOptions_OptimizeMode)
       return "CODE_SIZE";
     case FileOptions_OptimizeMode.LITE_RUNTIME:
       return "LITE_RUNTIME";
+    case FileOptions_OptimizeMode.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -752,8 +755,9 @@ export function fieldOptions_CTypeToJSON(object: FieldOptions_CType): string {
       return "CORD";
     case FieldOptions_CType.STRING_PIECE:
       return "STRING_PIECE";
+    case FieldOptions_CType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -793,8 +797,9 @@ export function fieldOptions_JSTypeToJSON(object: FieldOptions_JSType): string {
       return "JS_STRING";
     case FieldOptions_JSType.JS_NUMBER:
       return "JS_NUMBER";
+    case FieldOptions_JSType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -897,8 +902,9 @@ export function methodOptions_IdempotencyLevelToJSON(object: MethodOptions_Idemp
       return "NO_SIDE_EFFECTS";
     case MethodOptions_IdempotencyLevel.IDEMPOTENT:
       return "IDEMPOTENT";
+    case MethodOptions_IdempotencyLevel.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 
@@ -3341,10 +3347,8 @@ export const UninterpretedOption = {
         ? object.name.map((e: any) => UninterpretedOption_NamePart.fromJSON(e))
         : [],
       identifierValue: isSet(object.identifierValue) ? String(object.identifierValue) : "",
-      positiveIntValue: isSet(object.positiveIntValue)
-        ? Long.fromString(object.positiveIntValue)
-        : Long.UZERO,
-      negativeIntValue: isSet(object.negativeIntValue) ? Long.fromString(object.negativeIntValue) : Long.ZERO,
+      positiveIntValue: isSet(object.positiveIntValue) ? Long.fromValue(object.positiveIntValue) : Long.UZERO,
+      negativeIntValue: isSet(object.negativeIntValue) ? Long.fromValue(object.negativeIntValue) : Long.ZERO,
       doubleValue: isSet(object.doubleValue) ? Number(object.doubleValue) : 0,
       stringValue: isSet(object.stringValue) ? bytesFromBase64(object.stringValue) : new Uint8Array(),
       aggregateValue: isSet(object.aggregateValue) ? String(object.aggregateValue) : "",
@@ -3782,25 +3786,29 @@ var globalThis: any = (() => {
   throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob || ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa || ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  arr.forEach((byte) => {
-    bin.push(String.fromCharCode(byte));
-  });
-  return btoa(bin.join(""));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
+  }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -3820,7 +3828,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

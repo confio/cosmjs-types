@@ -1,6 +1,4 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import {
   ValidatorAccumulatedCommission,
   ValidatorHistoricalRewards,
@@ -9,8 +7,10 @@ import {
   ValidatorSlashEvent,
   Params,
   FeePool,
-} from "../../../cosmos/distribution/v1beta1/distribution";
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
+} from "./distribution";
+import Long from "long";
+import { DecCoin } from "../../base/v1beta1/coin";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 
@@ -352,7 +352,7 @@ export const ValidatorHistoricalRewardsRecord = {
   fromJSON(object: any): ValidatorHistoricalRewardsRecord {
     return {
       validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-      period: isSet(object.period) ? Long.fromString(object.period) : Long.UZERO,
+      period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
       rewards: isSet(object.rewards) ? ValidatorHistoricalRewards.fromJSON(object.rewards) : undefined,
     };
   },
@@ -573,8 +573,8 @@ export const ValidatorSlashEventRecord = {
   fromJSON(object: any): ValidatorSlashEventRecord {
     return {
       validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.UZERO,
-      period: isSet(object.period) ? Long.fromString(object.period) : Long.UZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
+      period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
       validatorSlashEvent: isSet(object.validatorSlashEvent)
         ? ValidatorSlashEvent.fromJSON(object.validatorSlashEvent)
         : undefined,
@@ -844,7 +844,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

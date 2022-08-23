@@ -1,15 +1,15 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import {
   Params,
   ValidatorOutstandingRewards,
   ValidatorAccumulatedCommission,
   ValidatorSlashEvent,
   DelegationDelegatorReward,
-} from "../../../cosmos/distribution/v1beta1/distribution";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
+} from "./distribution";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import Long from "long";
+import { DecCoin } from "../../base/v1beta1/coin";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 
@@ -541,8 +541,8 @@ export const QueryValidatorSlashesRequest = {
   fromJSON(object: any): QueryValidatorSlashesRequest {
     return {
       validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-      startingHeight: isSet(object.startingHeight) ? Long.fromString(object.startingHeight) : Long.UZERO,
-      endingHeight: isSet(object.endingHeight) ? Long.fromString(object.endingHeight) : Long.UZERO,
+      startingHeight: isSet(object.startingHeight) ? Long.fromValue(object.startingHeight) : Long.UZERO,
+      endingHeight: isSet(object.endingHeight) ? Long.fromValue(object.endingHeight) : Long.UZERO,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1325,7 +1325,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

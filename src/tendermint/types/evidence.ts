@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Vote, LightBlock } from "../../tendermint/types/types";
+import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
-import { Validator } from "../../tendermint/types/validator";
+import Long from "long";
+import { Validator } from "./validator";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "tendermint.types";
 
@@ -172,8 +172,8 @@ export const DuplicateVoteEvidence = {
     return {
       voteA: isSet(object.voteA) ? Vote.fromJSON(object.voteA) : undefined,
       voteB: isSet(object.voteB) ? Vote.fromJSON(object.voteB) : undefined,
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromString(object.totalVotingPower) : Long.ZERO,
-      validatorPower: isSet(object.validatorPower) ? Long.fromString(object.validatorPower) : Long.ZERO,
+      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
+      validatorPower: isSet(object.validatorPower) ? Long.fromValue(object.validatorPower) : Long.ZERO,
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
     };
   },
@@ -277,11 +277,11 @@ export const LightClientAttackEvidence = {
       conflictingBlock: isSet(object.conflictingBlock)
         ? LightBlock.fromJSON(object.conflictingBlock)
         : undefined,
-      commonHeight: isSet(object.commonHeight) ? Long.fromString(object.commonHeight) : Long.ZERO,
+      commonHeight: isSet(object.commonHeight) ? Long.fromValue(object.commonHeight) : Long.ZERO,
       byzantineValidators: Array.isArray(object?.byzantineValidators)
         ? object.byzantineValidators.map((e: any) => Validator.fromJSON(e))
         : [],
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromString(object.totalVotingPower) : Long.ZERO,
+      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
     };
   },
@@ -399,7 +399,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

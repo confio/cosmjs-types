@@ -1,7 +1,7 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.evidence.v1beta1";
 
@@ -66,9 +66,9 @@ export const Equivocation = {
 
   fromJSON(object: any): Equivocation {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      power: isSet(object.power) ? Long.fromString(object.power) : Long.ZERO,
+      power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
       consensusAddress: isSet(object.consensusAddress) ? String(object.consensusAddress) : "",
     };
   },
@@ -112,7 +112,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

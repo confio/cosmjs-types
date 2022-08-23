@@ -1,6 +1,4 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import {
   Proposal,
   ProposalStatus,
@@ -12,8 +10,10 @@ import {
   TallyResult,
   proposalStatusFromJSON,
   proposalStatusToJSON,
-} from "../../../cosmos/gov/v1beta1/gov";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+} from "./gov";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 
@@ -172,7 +172,7 @@ export const QueryProposalRequest = {
 
   fromJSON(object: any): QueryProposalRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
     };
   },
 
@@ -432,7 +432,7 @@ export const QueryVoteRequest = {
 
   fromJSON(object: any): QueryVoteRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
       voter: isSet(object.voter) ? String(object.voter) : "",
     };
   },
@@ -543,7 +543,7 @@ export const QueryVotesRequest = {
 
   fromJSON(object: any): QueryVotesRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -802,7 +802,7 @@ export const QueryDepositRequest = {
 
   fromJSON(object: any): QueryDepositRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
     };
   },
@@ -916,7 +916,7 @@ export const QueryDepositsRequest = {
 
   fromJSON(object: any): QueryDepositsRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
       pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
@@ -1041,7 +1041,7 @@ export const QueryTallyResultRequest = {
 
   fromJSON(object: any): QueryTallyResultRequest {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
     };
   },
 
@@ -1217,7 +1217,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

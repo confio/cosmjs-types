@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Coin } from "../../base/v1beta1/coin";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.vesting.v1beta1";
 
@@ -79,7 +79,7 @@ export const MsgCreateVestingAccount = {
       fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
       toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      endTime: isSet(object.endTime) ? Long.fromString(object.endTime) : Long.ZERO,
+      endTime: isSet(object.endTime) ? Long.fromValue(object.endTime) : Long.ZERO,
       delayed: isSet(object.delayed) ? Boolean(object.delayed) : false,
     };
   },
@@ -194,7 +194,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

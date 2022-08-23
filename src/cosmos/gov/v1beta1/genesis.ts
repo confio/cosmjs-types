@@ -1,14 +1,7 @@
 /* eslint-disable */
+import { DepositParams, VotingParams, TallyParams, Deposit, Vote, Proposal } from "./gov";
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import {
-  DepositParams,
-  VotingParams,
-  TallyParams,
-  Deposit,
-  Vote,
-  Proposal,
-} from "../../../cosmos/gov/v1beta1/gov";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 
@@ -107,7 +100,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       startingProposalId: isSet(object.startingProposalId)
-        ? Long.fromString(object.startingProposalId)
+        ? Long.fromValue(object.startingProposalId)
         : Long.UZERO,
       deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
       votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
@@ -190,7 +183,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

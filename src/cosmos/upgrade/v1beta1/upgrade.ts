@@ -1,8 +1,8 @@
 /* eslint-disable */
-import Long from "long";
-import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Any } from "../../../google/protobuf/any";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 
@@ -135,7 +135,7 @@ export const Plan = {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       info: isSet(object.info) ? String(object.info) : "",
       upgradedClientState: isSet(object.upgradedClientState)
         ? Any.fromJSON(object.upgradedClientState)
@@ -339,7 +339,7 @@ export const ModuleVersion = {
   fromJSON(object: any): ModuleVersion {
     return {
       name: isSet(object.name) ? String(object.name) : "",
-      version: isSet(object.version) ? Long.fromString(object.version) : Long.UZERO,
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO,
     };
   },
 
@@ -376,7 +376,7 @@ export type DeepPartial<T> = T extends Builtin
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
   ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);
