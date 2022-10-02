@@ -30,13 +30,13 @@ jobs:
           command: git submodule init && git submodule update
       - run:
           name: Version information
-          command: echo "node $(node --version)"; echo "yarn $(yarn --version)"
+          command: echo "node $(node --version)"; echo "npm $(npm --version)"
       - run:
           name: Install Dependencies
-          command: yarn install --immutable --immutable-cache --check-cache
+          command: npm install
       - run:
           name: Generate code (.proto -> .ts)
-          command: yarn codegen
+          command: npm run codegen
       - run:
           name: Ensure schemas are up-to-date
           command: |
@@ -48,4 +48,4 @@ jobs:
             fi
       - run:
           name: Build (.ts -> .js/.d.ts)
-          command: yarn build
+          command: npm run build
