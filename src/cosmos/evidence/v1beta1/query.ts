@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 
 export const protobufPackage = "cosmos.evidence.v1beta1";
 
@@ -121,9 +121,7 @@ export const QueryEvidenceResponse = {
   },
 
   fromJSON(object: any): QueryEvidenceResponse {
-    return {
-      evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
-    };
+    return { evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined };
   },
 
   toJSON(message: QueryEvidenceResponse): unknown {
@@ -174,9 +172,7 @@ export const QueryAllEvidenceRequest = {
   },
 
   fromJSON(object: any): QueryAllEvidenceRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryAllEvidenceRequest): unknown {
@@ -300,10 +296,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

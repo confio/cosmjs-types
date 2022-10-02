@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { Timestamp } from "../../../google/protobuf/timestamp";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "cosmos.authz.v1beta1";
 
@@ -70,9 +70,7 @@ export const GenericAuthorization = {
   },
 
   fromJSON(object: any): GenericAuthorization {
-    return {
-      msg: isSet(object.msg) ? String(object.msg) : "",
-    };
+    return { msg: isSet(object.msg) ? String(object.msg) : "" };
   },
 
   toJSON(message: GenericAuthorization): unknown {

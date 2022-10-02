@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { VoteOption, WeightedVoteOption, voteOptionFromJSON, voteOptionToJSON } from "./gov";
 import Long from "long";
-import { Coin } from "../../base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { Coin } from "../../base/v1beta1/coin";
+import { VoteOption, voteOptionFromJSON, voteOptionToJSON, WeightedVoteOption } from "./gov";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 
@@ -166,9 +166,7 @@ export const MsgSubmitProposalResponse = {
   },
 
   fromJSON(object: any): MsgSubmitProposalResponse {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    return { proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO };
   },
 
   toJSON(message: MsgSubmitProposalResponse): unknown {

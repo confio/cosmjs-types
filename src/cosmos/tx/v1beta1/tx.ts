@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { SignMode, signModeFromJSON, signModeToJSON } from "../signing/v1beta1/signing";
-import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig";
 import Long from "long";
-import { Coin } from "../../base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { Coin } from "../../base/v1beta1/coin";
+import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig";
+import { SignMode, signModeFromJSON, signModeToJSON } from "../signing/v1beta1/signing";
 
 export const protobufPackage = "cosmos.tx.v1beta1";
 
@@ -812,9 +812,7 @@ export const ModeInfo_Single = {
   },
 
   fromJSON(object: any): ModeInfo_Single {
-    return {
-      mode: isSet(object.mode) ? signModeFromJSON(object.mode) : 0,
-    };
+    return { mode: isSet(object.mode) ? signModeFromJSON(object.mode) : 0 };
   },
 
   toJSON(message: ModeInfo_Single): unknown {
@@ -985,10 +983,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

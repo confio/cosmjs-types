@@ -60,9 +60,7 @@ export const Capability = {
   },
 
   fromJSON(object: any): Capability {
-    return {
-      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
-    };
+    return { index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO };
   },
 
   toJSON(message: Capability): unknown {
@@ -168,9 +166,7 @@ export const CapabilityOwners = {
   },
 
   fromJSON(object: any): CapabilityOwners {
-    return {
-      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromJSON(e)) : [],
-    };
+    return { owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromJSON(e)) : [] };
   },
 
   toJSON(message: CapabilityOwners): unknown {

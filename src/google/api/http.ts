@@ -40,7 +40,6 @@ export interface Http {
  * message, as in the example below which describes a REST GET
  * operation on a resource collection of messages:
  *
- *
  *     service Messaging {
  *       rpc GetMessage(GetMessageRequest) returns (Message) {
  *         option (google.api.http).get = "/v1/messages/{message_id}/{sub.subfield}";
@@ -80,7 +79,6 @@ export interface Http {
  * pattern automatically become (optional) HTTP query
  * parameters. Assume the following definition of the request message:
  *
- *
  *     service Messaging {
  *       rpc GetMessage(GetMessageRequest) returns (Message) {
  *         option (google.api.http).get = "/v1/messages/{message_id}";
@@ -94,7 +92,6 @@ export interface Http {
  *       int64 revision = 2;    // becomes a parameter
  *       SubMessage sub = 3;    // `sub.subfield` becomes a parameter
  *     }
- *
  *
  * This enables a HTTP JSON to RPC mapping as below:
  *
@@ -111,7 +108,6 @@ export interface Http {
  * specifies the mapping. Consider a REST update method on the
  * message resource collection:
  *
- *
  *     service Messaging {
  *       rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
  *         option (google.api.http) = {
@@ -124,7 +120,6 @@ export interface Http {
  *       string message_id = 1; // mapped to the URL
  *       Message message = 2;   // mapped to the body
  *     }
- *
  *
  * The following HTTP JSON to RPC mapping is enabled, where the
  * representation of the JSON in the request body is determined by
@@ -151,7 +146,6 @@ export interface Http {
  *       string message_id = 1;
  *       string text = 2;
  *     }
- *
  *
  * The following HTTP JSON to RPC mapping is enabled:
  *
@@ -182,7 +176,6 @@ export interface Http {
  *       string message_id = 1;
  *       string user_id = 2;
  *     }
- *
  *
  * This enables the following two alternative HTTP JSON to RPC
  * mappings:

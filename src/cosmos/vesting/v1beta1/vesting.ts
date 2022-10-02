@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { BaseAccount } from "../../auth/v1beta1/auth";
 import Long from "long";
-import { Coin } from "../../base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { BaseAccount } from "../../auth/v1beta1/auth";
+import { Coin } from "../../base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.vesting.v1beta1";
 

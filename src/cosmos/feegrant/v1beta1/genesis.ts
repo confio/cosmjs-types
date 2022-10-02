@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import { Grant } from "./feegrant";
 import _m0 from "protobufjs/minimal";
+import { Grant } from "./feegrant";
 
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 

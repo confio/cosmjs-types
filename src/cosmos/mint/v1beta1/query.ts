@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Params } from "./mint";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Params } from "./mint";
 
 export const protobufPackage = "cosmos.mint.v1beta1";
 
@@ -111,9 +111,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -200,9 +198,7 @@ export const QueryInflationResponse = {
   },
 
   fromJSON(object: any): QueryInflationResponse {
-    return {
-      inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array(),
-    };
+    return { inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array() };
   },
 
   toJSON(message: QueryInflationResponse): unknown {
@@ -363,10 +359,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

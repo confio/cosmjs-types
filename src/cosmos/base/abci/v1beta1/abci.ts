@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
 import Long from "long";
-import { Event } from "../../../../tendermint/abci/types";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../../google/protobuf/any";
+import { Event } from "../../../../tendermint/abci/types";
 
 export const protobufPackage = "cosmos.base.abci.v1beta1";
 
@@ -812,9 +812,7 @@ export const TxMsgData = {
   },
 
   fromJSON(object: any): TxMsgData {
-    return {
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => MsgData.fromJSON(e)) : [],
-    };
+    return { data: Array.isArray(object?.data) ? object.data.map((e: any) => MsgData.fromJSON(e)) : [] };
   },
 
   toJSON(message: TxMsgData): unknown {
@@ -954,10 +952,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

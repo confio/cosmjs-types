@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { Proof } from "../crypto/proof";
-import { Consensus } from "../version/types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { ValidatorSet } from "./validator";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { Proof } from "../crypto/proof";
+import { Consensus } from "../version/types";
+import { ValidatorSet } from "./validator";
 
 export const protobufPackage = "tendermint.types";
 
@@ -671,9 +671,7 @@ export const Data = {
   },
 
   fromJSON(object: any): Data {
-    return {
-      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
-    };
+    return { txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [] };
   },
 
   toJSON(message: Data): unknown {
@@ -1416,10 +1414,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

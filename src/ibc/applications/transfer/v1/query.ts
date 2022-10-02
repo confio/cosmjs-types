@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { DenomTrace, Params } from "./transfer";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { DenomTrace, Params } from "./transfer";
 
 export const protobufPackage = "ibc.applications.transfer.v1";
 
@@ -84,9 +84,7 @@ export const QueryDenomTraceRequest = {
   },
 
   fromJSON(object: any): QueryDenomTraceRequest {
-    return {
-      hash: isSet(object.hash) ? String(object.hash) : "",
-    };
+    return { hash: isSet(object.hash) ? String(object.hash) : "" };
   },
 
   toJSON(message: QueryDenomTraceRequest): unknown {
@@ -133,9 +131,7 @@ export const QueryDenomTraceResponse = {
   },
 
   fromJSON(object: any): QueryDenomTraceResponse {
-    return {
-      denomTrace: isSet(object.denomTrace) ? DenomTrace.fromJSON(object.denomTrace) : undefined,
-    };
+    return { denomTrace: isSet(object.denomTrace) ? DenomTrace.fromJSON(object.denomTrace) : undefined };
   },
 
   toJSON(message: QueryDenomTraceResponse): unknown {
@@ -186,9 +182,7 @@ export const QueryDenomTracesRequest = {
   },
 
   fromJSON(object: any): QueryDenomTracesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryDenomTracesRequest): unknown {
@@ -348,9 +342,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {

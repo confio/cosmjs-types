@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci";
-import { Tx } from "./tx";
-import { BlockID } from "../../../tendermint/types/types";
-import { Block } from "../../../tendermint/types/block";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Block } from "../../../tendermint/types/block";
+import { BlockID } from "../../../tendermint/types/types";
+import { GasInfo, Result, TxResponse } from "../../base/abci/v1beta1/abci";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Tx } from "./tx";
 
 export const protobufPackage = "cosmos.tx.v1beta1";
 
@@ -476,9 +476,7 @@ export const BroadcastTxResponse = {
   },
 
   fromJSON(object: any): BroadcastTxResponse {
-    return {
-      txResponse: isSet(object.txResponse) ? TxResponse.fromJSON(object.txResponse) : undefined,
-    };
+    return { txResponse: isSet(object.txResponse) ? TxResponse.fromJSON(object.txResponse) : undefined };
   },
 
   toJSON(message: BroadcastTxResponse): unknown {
@@ -651,9 +649,7 @@ export const GetTxRequest = {
   },
 
   fromJSON(object: any): GetTxRequest {
-    return {
-      hash: isSet(object.hash) ? String(object.hash) : "",
-    };
+    return { hash: isSet(object.hash) ? String(object.hash) : "" };
   },
 
   toJSON(message: GetTxRequest): unknown {
@@ -950,10 +946,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

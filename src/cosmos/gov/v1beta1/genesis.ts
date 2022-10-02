@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { DepositParams, VotingParams, TallyParams, Deposit, Vote, Proposal } from "./gov";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Deposit, DepositParams, Proposal, TallyParams, Vote, VotingParams } from "./gov";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 

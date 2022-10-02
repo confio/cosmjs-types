@@ -54,9 +54,7 @@ export const PubKey = {
   },
 
   fromJSON(object: any): PubKey {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-    };
+    return { key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array() };
   },
 
   toJSON(message: PubKey): unknown {
@@ -104,9 +102,7 @@ export const PrivKey = {
   },
 
   fromJSON(object: any): PrivKey {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-    };
+    return { key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array() };
   },
 
   toJSON(message: PrivKey): unknown {
@@ -127,10 +123,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

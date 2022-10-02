@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { ParamChange } from "./params";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { ParamChange } from "./params";
 
 export const protobufPackage = "cosmos.params.v1beta1";
 
@@ -108,9 +108,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined,
-    };
+    return { param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {

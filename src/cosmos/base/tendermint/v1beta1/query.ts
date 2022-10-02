@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../query/v1beta1/pagination";
-import { Any } from "../../../../google/protobuf/any";
-import { BlockID } from "../../../../tendermint/types/types";
-import { Block } from "../../../../tendermint/types/block";
-import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../../google/protobuf/any";
+import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
+import { Block } from "../../../../tendermint/types/block";
+import { BlockID } from "../../../../tendermint/types/types";
+import { PageRequest, PageResponse } from "../../query/v1beta1/pagination";
 
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 
@@ -284,9 +284,7 @@ export const GetLatestValidatorSetRequest = {
   },
 
   fromJSON(object: any): GetLatestValidatorSetRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: GetLatestValidatorSetRequest): unknown {
@@ -505,9 +503,7 @@ export const GetBlockByHeightRequest = {
   },
 
   fromJSON(object: any): GetBlockByHeightRequest {
-    return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-    };
+    return { height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO };
   },
 
   toJSON(message: GetBlockByHeightRequest): unknown {
@@ -761,9 +757,7 @@ export const GetSyncingResponse = {
   },
 
   fromJSON(object: any): GetSyncingResponse {
-    return {
-      syncing: isSet(object.syncing) ? Boolean(object.syncing) : false,
-    };
+    return { syncing: isSet(object.syncing) ? Boolean(object.syncing) : false };
   },
 
   toJSON(message: GetSyncingResponse): unknown {

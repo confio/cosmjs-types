@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import { Coin } from "../../base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 
@@ -283,9 +283,7 @@ export const MsgWithdrawValidatorCommission = {
   },
 
   fromJSON(object: any): MsgWithdrawValidatorCommission {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
+    return { validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "" };
   },
 
   toJSON(message: MsgWithdrawValidatorCommission): unknown {

@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.crisis.v1beta1";
 
@@ -45,9 +45,7 @@ export const GenesisState = {
   },
 
   fromJSON(object: any): GenesisState {
-    return {
-      constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined,
-    };
+    return { constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined };
   },
 
   toJSON(message: GenesisState): unknown {
