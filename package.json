@@ -29,8 +29,8 @@
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
     "codegen": "rm -rf ./src && ./scripts/codegen.sh && ./scripts/codegen-cosmos-sdk.sh && npm run format",
-    "prepare": "./scripts/prepare.sh",
-    "build": "rm -rf ./build && tsc && npm run prepare"
+    "prepare-publishing": "./scripts/prepare-publishing.sh",
+    "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
   "dependencies": {
     "long": "^4.0.0",
