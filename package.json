@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
-    "codegen": "rm -rf ./src && ./scripts/codegen.sh && ./scripts/codegen-cosmos-sdk.sh && npm run format",
+    "codegen": "./scripts/codegen.js && yarn format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
