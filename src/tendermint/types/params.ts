@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Duration } from "../../google/protobuf/duration";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Duration } from "../../google/protobuf/duration";
 
 export const protobufPackage = "tendermint.types";
 
@@ -407,9 +407,7 @@ export const VersionParams = {
   },
 
   fromJSON(object: any): VersionParams {
-    return {
-      appVersion: isSet(object.appVersion) ? Long.fromValue(object.appVersion) : Long.UZERO,
-    };
+    return { appVersion: isSet(object.appVersion) ? Long.fromValue(object.appVersion) : Long.UZERO };
   },
 
   toJSON(message: VersionParams): unknown {

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { AccessConfig } from "./types";
 import Long from "long";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { AccessConfig } from "./types";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -224,9 +224,7 @@ export const MsgStoreCodeResponse = {
   },
 
   fromJSON(object: any): MsgStoreCodeResponse {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-    };
+    return { codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO };
   },
 
   toJSON(message: MsgStoreCodeResponse): unknown {
@@ -516,9 +514,7 @@ export const MsgExecuteContractResponse = {
   },
 
   fromJSON(object: any): MsgExecuteContractResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
   },
 
   toJSON(message: MsgExecuteContractResponse): unknown {
@@ -646,9 +642,7 @@ export const MsgMigrateContractResponse = {
   },
 
   fromJSON(object: any): MsgMigrateContractResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
   },
 
   toJSON(message: MsgMigrateContractResponse): unknown {
@@ -942,10 +936,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

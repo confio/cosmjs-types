@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -220,9 +220,7 @@ export const AccessTypeParam = {
   },
 
   fromJSON(object: any): AccessTypeParam {
-    return {
-      value: isSet(object.value) ? accessTypeFromJSON(object.value) : 0,
-    };
+    return { value: isSet(object.value) ? accessTypeFromJSON(object.value) : 0 };
   },
 
   toJSON(message: AccessTypeParam): unknown {
@@ -785,10 +783,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

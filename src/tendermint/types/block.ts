@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Header, Data, Commit } from "./types";
-import { EvidenceList } from "./evidence";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { EvidenceList } from "./evidence";
+import { Commit, Data, Header } from "./types";
 
 export const protobufPackage = "tendermint.types";
 

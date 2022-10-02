@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { Height, Params, IdentifiedClientState, ConsensusStateWithHeight } from "./client";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { Any } from "../../../../google/protobuf/any";
+import { ConsensusStateWithHeight, Height, IdentifiedClientState, Params } from "./client";
 
 export const protobufPackage = "ibc.core.client.v1";
 
@@ -197,9 +197,7 @@ export const QueryClientStateRequest = {
   },
 
   fromJSON(object: any): QueryClientStateRequest {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-    };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : "" };
   },
 
   toJSON(message: QueryClientStateRequest): unknown {
@@ -324,9 +322,7 @@ export const QueryClientStatesRequest = {
   },
 
   fromJSON(object: any): QueryClientStatesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryClientStatesRequest): unknown {
@@ -750,9 +746,7 @@ export const QueryClientStatusRequest = {
   },
 
   fromJSON(object: any): QueryClientStatusRequest {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-    };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : "" };
   },
 
   toJSON(message: QueryClientStatusRequest): unknown {
@@ -801,9 +795,7 @@ export const QueryClientStatusResponse = {
   },
 
   fromJSON(object: any): QueryClientStatusResponse {
-    return {
-      status: isSet(object.status) ? String(object.status) : "",
-    };
+    return { status: isSet(object.status) ? String(object.status) : "" };
   },
 
   toJSON(message: QueryClientStatusResponse): unknown {
@@ -891,9 +883,7 @@ export const QueryClientParamsResponse = {
   },
 
   fromJSON(object: any): QueryClientParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryClientParamsResponse): unknown {
@@ -1212,10 +1202,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

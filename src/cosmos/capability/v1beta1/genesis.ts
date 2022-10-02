@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { CapabilityOwners } from "./capability";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { CapabilityOwners } from "./capability";
 
 export const protobufPackage = "cosmos.capability.v1beta1";
 

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Params, CodeInfo, ContractInfo, Model } from "./types";
 import Long from "long";
-import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
 import _m0 from "protobufjs/minimal";
+import { MsgExecuteContract, MsgInstantiateContract, MsgStoreCode } from "./tx";
+import { CodeInfo, ContractInfo, Model, Params } from "./types";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -467,10 +467,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

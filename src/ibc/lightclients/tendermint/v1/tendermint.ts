@@ -1,13 +1,13 @@
 /* eslint-disable */
+import Long from "long";
+import _m0 from "protobufjs/minimal";
+import { ProofSpec } from "../../../../confio/proofs";
 import { Duration } from "../../../../google/protobuf/duration";
-import { Height } from "../../../core/client/v1/client";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { MerkleRoot } from "../../../core/commitment/v1/commitment";
 import { SignedHeader } from "../../../../tendermint/types/types";
 import { ValidatorSet } from "../../../../tendermint/types/validator";
-import Long from "long";
-import { ProofSpec } from "../../../../confio/proofs";
-import _m0 from "protobufjs/minimal";
+import { Height } from "../../../core/client/v1/client";
+import { MerkleRoot } from "../../../core/commitment/v1/commitment";
 
 export const protobufPackage = "ibc.lightclients.tendermint.v1";
 
@@ -618,10 +618,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

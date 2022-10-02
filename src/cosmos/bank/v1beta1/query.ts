@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Params, Metadata } from "./bank";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Coin } from "../../base/v1beta1/coin";
+import { Metadata, Params } from "./bank";
 
 export const protobufPackage = "cosmos.bank.v1beta1";
 
@@ -231,9 +231,7 @@ export const QueryBalanceResponse = {
   },
 
   fromJSON(object: any): QueryBalanceResponse {
-    return {
-      balance: isSet(object.balance) ? Coin.fromJSON(object.balance) : undefined,
-    };
+    return { balance: isSet(object.balance) ? Coin.fromJSON(object.balance) : undefined };
   },
 
   toJSON(message: QueryBalanceResponse): unknown {
@@ -544,9 +542,7 @@ export const QueryTotalSupplyRequest = {
   },
 
   fromJSON(object: any): QueryTotalSupplyRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryTotalSupplyRequest): unknown {
@@ -665,9 +661,7 @@ export const QuerySupplyOfRequest = {
   },
 
   fromJSON(object: any): QuerySupplyOfRequest {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-    };
+    return { denom: isSet(object.denom) ? String(object.denom) : "" };
   },
 
   toJSON(message: QuerySupplyOfRequest): unknown {
@@ -714,9 +708,7 @@ export const QuerySupplyOfResponse = {
   },
 
   fromJSON(object: any): QuerySupplyOfResponse {
-    return {
-      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-    };
+    return { amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined };
   },
 
   toJSON(message: QuerySupplyOfResponse): unknown {
@@ -803,9 +795,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -853,9 +843,7 @@ export const QueryDenomsMetadataRequest = {
   },
 
   fromJSON(object: any): QueryDenomsMetadataRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryDenomsMetadataRequest): unknown {
@@ -978,9 +966,7 @@ export const QueryDenomMetadataRequest = {
   },
 
   fromJSON(object: any): QueryDenomMetadataRequest {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-    };
+    return { denom: isSet(object.denom) ? String(object.denom) : "" };
   },
 
   toJSON(message: QueryDenomMetadataRequest): unknown {
@@ -1029,9 +1015,7 @@ export const QueryDenomMetadataResponse = {
   },
 
   fromJSON(object: any): QueryDenomMetadataResponse {
-    return {
-      metadata: isSet(object.metadata) ? Metadata.fromJSON(object.metadata) : undefined,
-    };
+    return { metadata: isSet(object.metadata) ? Metadata.fromJSON(object.metadata) : undefined };
   },
 
   toJSON(message: QueryDenomMetadataResponse): unknown {

@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Header } from "../types/types";
-import { ProofOps } from "../crypto/proof";
-import { EvidenceParams, ValidatorParams, VersionParams } from "../types/params";
-import { PublicKey } from "../crypto/keys";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { PublicKey } from "../crypto/keys";
+import { ProofOps } from "../crypto/proof";
+import { EvidenceParams, ValidatorParams, VersionParams } from "../types/params";
+import { Header } from "../types/types";
 
 export const protobufPackage = "tendermint.abci";
 
@@ -829,9 +829,7 @@ export const RequestEcho = {
   },
 
   fromJSON(object: any): RequestEcho {
-    return {
-      message: isSet(object.message) ? String(object.message) : "",
-    };
+    return { message: isSet(object.message) ? String(object.message) : "" };
   },
 
   toJSON(message: RequestEcho): unknown {
@@ -1401,9 +1399,7 @@ export const RequestDeliverTx = {
   },
 
   fromJSON(object: any): RequestDeliverTx {
-    return {
-      tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(),
-    };
+    return { tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array() };
   },
 
   toJSON(message: RequestDeliverTx): unknown {
@@ -1451,9 +1447,7 @@ export const RequestEndBlock = {
   },
 
   fromJSON(object: any): RequestEndBlock {
-    return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-    };
+    return { height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO };
   },
 
   toJSON(message: RequestEndBlock): unknown {
@@ -2057,9 +2051,7 @@ export const ResponseException = {
   },
 
   fromJSON(object: any): ResponseException {
-    return {
-      error: isSet(object.error) ? String(object.error) : "",
-    };
+    return { error: isSet(object.error) ? String(object.error) : "" };
   },
 
   toJSON(message: ResponseException): unknown {
@@ -2106,9 +2098,7 @@ export const ResponseEcho = {
   },
 
   fromJSON(object: any): ResponseEcho {
-    return {
-      message: isSet(object.message) ? String(object.message) : "",
-    };
+    return { message: isSet(object.message) ? String(object.message) : "" };
   },
 
   toJSON(message: ResponseEcho): unknown {
@@ -2585,9 +2575,7 @@ export const ResponseBeginBlock = {
   },
 
   fromJSON(object: any): ResponseBeginBlock {
-    return {
-      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [],
-    };
+    return { events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromJSON(e)) : [] };
   },
 
   toJSON(message: ResponseBeginBlock): unknown {
@@ -3100,9 +3088,7 @@ export const ResponseOfferSnapshot = {
   },
 
   fromJSON(object: any): ResponseOfferSnapshot {
-    return {
-      result: isSet(object.result) ? responseOfferSnapshot_ResultFromJSON(object.result) : 0,
-    };
+    return { result: isSet(object.result) ? responseOfferSnapshot_ResultFromJSON(object.result) : 0 };
   },
 
   toJSON(message: ResponseOfferSnapshot): unknown {
@@ -3149,9 +3135,7 @@ export const ResponseLoadSnapshotChunk = {
   },
 
   fromJSON(object: any): ResponseLoadSnapshotChunk {
-    return {
-      chunk: isSet(object.chunk) ? bytesFromBase64(object.chunk) : new Uint8Array(),
-    };
+    return { chunk: isSet(object.chunk) ? bytesFromBase64(object.chunk) : new Uint8Array() };
   },
 
   toJSON(message: ResponseLoadSnapshotChunk): unknown {
@@ -4192,10 +4176,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

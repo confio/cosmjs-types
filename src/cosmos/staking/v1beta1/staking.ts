@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { Header } from "../../../tendermint/types/types";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Any } from "../../../google/protobuf/any";
-import { Duration } from "../../../google/protobuf/duration";
-import { Coin } from "../../base/v1beta1/coin";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { Duration } from "../../../google/protobuf/duration";
+import { Timestamp } from "../../../google/protobuf/timestamp";
+import { Header } from "../../../tendermint/types/types";
+import { Coin } from "../../base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 
@@ -781,9 +781,7 @@ export const ValAddresses = {
   },
 
   fromJSON(object: any): ValAddresses {
-    return {
-      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => String(e)) : [],
-    };
+    return { addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: ValAddresses): unknown {
@@ -892,9 +890,7 @@ export const DVPairs = {
   },
 
   fromJSON(object: any): DVPairs {
-    return {
-      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => DVPair.fromJSON(e)) : [],
-    };
+    return { pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => DVPair.fromJSON(e)) : [] };
   },
 
   toJSON(message: DVPairs): unknown {

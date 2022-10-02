@@ -1,15 +1,15 @@
 /* eslint-disable */
-import {
-  Params,
-  ValidatorOutstandingRewards,
-  ValidatorAccumulatedCommission,
-  ValidatorSlashEvent,
-  DelegationDelegatorReward,
-} from "./distribution";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import Long from "long";
-import { DecCoin } from "../../base/v1beta1/coin";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { DecCoin } from "../../base/v1beta1/coin";
+import {
+  DelegationDelegatorReward,
+  Params,
+  ValidatorAccumulatedCommission,
+  ValidatorOutstandingRewards,
+  ValidatorSlashEvent,
+} from "./distribution";
 
 export const protobufPackage = "cosmos.distribution.v1beta1";
 
@@ -244,9 +244,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -297,9 +295,7 @@ export const QueryValidatorOutstandingRewardsRequest = {
   },
 
   fromJSON(object: any): QueryValidatorOutstandingRewardsRequest {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
+    return { validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "" };
   },
 
   toJSON(message: QueryValidatorOutstandingRewardsRequest): unknown {
@@ -406,9 +402,7 @@ export const QueryValidatorCommissionRequest = {
   },
 
   fromJSON(object: any): QueryValidatorCommissionRequest {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
+    return { validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "" };
   },
 
   toJSON(message: QueryValidatorCommissionRequest): unknown {
@@ -796,9 +790,7 @@ export const QueryDelegationTotalRewardsRequest = {
   },
 
   fromJSON(object: any): QueryDelegationTotalRewardsRequest {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-    };
+    return { delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "" };
   },
 
   toJSON(message: QueryDelegationTotalRewardsRequest): unknown {
@@ -917,9 +909,7 @@ export const QueryDelegatorValidatorsRequest = {
   },
 
   fromJSON(object: any): QueryDelegatorValidatorsRequest {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-    };
+    return { delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "" };
   },
 
   toJSON(message: QueryDelegatorValidatorsRequest): unknown {
@@ -1026,9 +1016,7 @@ export const QueryDelegatorWithdrawAddressRequest = {
   },
 
   fromJSON(object: any): QueryDelegatorWithdrawAddressRequest {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-    };
+    return { delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "" };
   },
 
   toJSON(message: QueryDelegatorWithdrawAddressRequest): unknown {
@@ -1080,9 +1068,7 @@ export const QueryDelegatorWithdrawAddressResponse = {
   },
 
   fromJSON(object: any): QueryDelegatorWithdrawAddressResponse {
-    return {
-      withdrawAddress: isSet(object.withdrawAddress) ? String(object.withdrawAddress) : "",
-    };
+    return { withdrawAddress: isSet(object.withdrawAddress) ? String(object.withdrawAddress) : "" };
   },
 
   toJSON(message: QueryDelegatorWithdrawAddressResponse): unknown {
@@ -1170,9 +1156,7 @@ export const QueryCommunityPoolResponse = {
   },
 
   fromJSON(object: any): QueryCommunityPoolResponse {
-    return {
-      pool: Array.isArray(object?.pool) ? object.pool.map((e: any) => DecCoin.fromJSON(e)) : [],
-    };
+    return { pool: Array.isArray(object?.pool) ? object.pool.map((e: any) => DecCoin.fromJSON(e)) : [] };
   },
 
   toJSON(message: QueryCommunityPoolResponse): unknown {

@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Params, ValidatorSigningInfo } from "./slashing";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Params, ValidatorSigningInfo } from "./slashing";
 
 export const protobufPackage = "cosmos.slashing.v1beta1";
 
@@ -120,9 +120,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -170,9 +168,7 @@ export const QuerySigningInfoRequest = {
   },
 
   fromJSON(object: any): QuerySigningInfoRequest {
-    return {
-      consAddress: isSet(object.consAddress) ? String(object.consAddress) : "",
-    };
+    return { consAddress: isSet(object.consAddress) ? String(object.consAddress) : "" };
   },
 
   toJSON(message: QuerySigningInfoRequest): unknown {
@@ -278,9 +274,7 @@ export const QuerySigningInfosRequest = {
   },
 
   fromJSON(object: any): QuerySigningInfosRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QuerySigningInfosRequest): unknown {

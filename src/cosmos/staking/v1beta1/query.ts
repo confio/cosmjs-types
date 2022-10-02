@@ -1,16 +1,16 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import {
-  Validator,
-  DelegationResponse,
-  UnbondingDelegation,
-  HistoricalInfo,
-  Pool,
-  Params,
-  RedelegationResponse,
-} from "./staking";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import {
+  DelegationResponse,
+  HistoricalInfo,
+  Params,
+  Pool,
+  RedelegationResponse,
+  UnbondingDelegation,
+  Validator,
+} from "./staking";
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 
@@ -425,9 +425,7 @@ export const QueryValidatorRequest = {
   },
 
   fromJSON(object: any): QueryValidatorRequest {
-    return {
-      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
-    };
+    return { validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "" };
   },
 
   toJSON(message: QueryValidatorRequest): unknown {
@@ -474,9 +472,7 @@ export const QueryValidatorResponse = {
   },
 
   fromJSON(object: any): QueryValidatorResponse {
-    return {
-      validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined,
-    };
+    return { validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined };
   },
 
   toJSON(message: QueryValidatorResponse): unknown {
@@ -982,9 +978,7 @@ export const QueryUnbondingDelegationResponse = {
   },
 
   fromJSON(object: any): QueryUnbondingDelegationResponse {
-    return {
-      unbond: isSet(object.unbond) ? UnbondingDelegation.fromJSON(object.unbond) : undefined,
-    };
+    return { unbond: isSet(object.unbond) ? UnbondingDelegation.fromJSON(object.unbond) : undefined };
   },
 
   toJSON(message: QueryUnbondingDelegationResponse): unknown {
@@ -1666,9 +1660,7 @@ export const QueryDelegatorValidatorResponse = {
   },
 
   fromJSON(object: any): QueryDelegatorValidatorResponse {
-    return {
-      validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined,
-    };
+    return { validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined };
   },
 
   toJSON(message: QueryDelegatorValidatorResponse): unknown {
@@ -1721,9 +1713,7 @@ export const QueryHistoricalInfoRequest = {
   },
 
   fromJSON(object: any): QueryHistoricalInfoRequest {
-    return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-    };
+    return { height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO };
   },
 
   toJSON(message: QueryHistoricalInfoRequest): unknown {
@@ -1773,9 +1763,7 @@ export const QueryHistoricalInfoResponse = {
   },
 
   fromJSON(object: any): QueryHistoricalInfoResponse {
-    return {
-      hist: isSet(object.hist) ? HistoricalInfo.fromJSON(object.hist) : undefined,
-    };
+    return { hist: isSet(object.hist) ? HistoricalInfo.fromJSON(object.hist) : undefined };
   },
 
   toJSON(message: QueryHistoricalInfoResponse): unknown {
@@ -1864,9 +1852,7 @@ export const QueryPoolResponse = {
   },
 
   fromJSON(object: any): QueryPoolResponse {
-    return {
-      pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
-    };
+    return { pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined };
   },
 
   toJSON(message: QueryPoolResponse): unknown {
@@ -1953,9 +1939,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {

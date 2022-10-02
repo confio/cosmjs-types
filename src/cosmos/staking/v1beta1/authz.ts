@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Coin } from "../../base/v1beta1/coin";
 
 export const protobufPackage = "cosmos.staking.v1beta1";
 
@@ -212,9 +212,7 @@ export const StakeAuthorization_Validators = {
   },
 
   fromJSON(object: any): StakeAuthorization_Validators {
-    return {
-      address: Array.isArray(object?.address) ? object.address.map((e: any) => String(e)) : [],
-    };
+    return { address: Array.isArray(object?.address) ? object.address.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: StakeAuthorization_Validators): unknown {

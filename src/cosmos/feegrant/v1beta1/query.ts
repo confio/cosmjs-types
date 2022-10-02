@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Grant } from "./feegrant";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Grant } from "./feegrant";
 
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 
@@ -126,9 +126,7 @@ export const QueryAllowanceResponse = {
   },
 
   fromJSON(object: any): QueryAllowanceResponse {
-    return {
-      allowance: isSet(object.allowance) ? Grant.fromJSON(object.allowance) : undefined,
-    };
+    return { allowance: isSet(object.allowance) ? Grant.fromJSON(object.allowance) : undefined };
   },
 
   toJSON(message: QueryAllowanceResponse): unknown {

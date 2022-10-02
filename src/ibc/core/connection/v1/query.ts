@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { ConnectionEnd, IdentifiedConnection } from "./connection";
-import { Height, IdentifiedClientState } from "../../client/v1/client";
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Any } from "../../../../google/protobuf/any";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
+import { Any } from "../../../../google/protobuf/any";
+import { Height, IdentifiedClientState } from "../../client/v1/client";
+import { ConnectionEnd, IdentifiedConnection } from "./connection";
 
 export const protobufPackage = "ibc.core.connection.v1";
 
@@ -153,9 +153,7 @@ export const QueryConnectionRequest = {
   },
 
   fromJSON(object: any): QueryConnectionRequest {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-    };
+    return { connectionId: isSet(object.connectionId) ? String(object.connectionId) : "" };
   },
 
   toJSON(message: QueryConnectionRequest): unknown {
@@ -278,9 +276,7 @@ export const QueryConnectionsRequest = {
   },
 
   fromJSON(object: any): QueryConnectionsRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryConnectionsRequest): unknown {
@@ -411,9 +407,7 @@ export const QueryClientConnectionsRequest = {
   },
 
   fromJSON(object: any): QueryClientConnectionsRequest {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-    };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : "" };
   },
 
   toJSON(message: QueryClientConnectionsRequest): unknown {
@@ -542,9 +536,7 @@ export const QueryConnectionClientStateRequest = {
   },
 
   fromJSON(object: any): QueryConnectionClientStateRequest {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-    };
+    return { connectionId: isSet(object.connectionId) ? String(object.connectionId) : "" };
   },
 
   toJSON(message: QueryConnectionClientStateRequest): unknown {
@@ -894,10 +886,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

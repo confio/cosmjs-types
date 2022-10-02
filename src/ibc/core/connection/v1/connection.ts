@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { MerklePrefix } from "../../commitment/v1/commitment";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { MerklePrefix } from "../../commitment/v1/commitment";
 
 export const protobufPackage = "ibc.core.connection.v1";
 
@@ -463,9 +463,7 @@ export const ClientPaths = {
   },
 
   fromJSON(object: any): ClientPaths {
-    return {
-      paths: Array.isArray(object?.paths) ? object.paths.map((e: any) => String(e)) : [],
-    };
+    return { paths: Array.isArray(object?.paths) ? object.paths.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: ClientPaths): unknown {

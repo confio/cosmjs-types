@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../../google/protobuf/any";
+import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
 
 export const protobufPackage = "cosmos.tx.signing.v1beta1";
 
@@ -473,10 +473,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

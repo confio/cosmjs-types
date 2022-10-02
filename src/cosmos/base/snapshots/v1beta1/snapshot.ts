@@ -328,9 +328,7 @@ export const SnapshotStoreItem = {
   },
 
   fromJSON(object: any): SnapshotStoreItem {
-    return {
-      name: isSet(object.name) ? String(object.name) : "",
-    };
+    return { name: isSet(object.name) ? String(object.name) : "" };
   },
 
   toJSON(message: SnapshotStoreItem): unknown {
@@ -514,9 +512,7 @@ export const SnapshotExtensionPayload = {
   },
 
   fromJSON(object: any): SnapshotExtensionPayload {
-    return {
-      payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array(),
-    };
+    return { payload: isSet(object.payload) ? bytesFromBase64(object.payload) : new Uint8Array() };
   },
 
   toJSON(message: SnapshotExtensionPayload): unknown {
@@ -539,10 +535,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

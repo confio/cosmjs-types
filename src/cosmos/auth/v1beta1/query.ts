@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Any } from "../../../google/protobuf/any";
-import { Params } from "./auth";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../google/protobuf/any";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { Params } from "./auth";
 
 export const protobufPackage = "cosmos.auth.v1beta1";
 
@@ -81,9 +81,7 @@ export const QueryAccountsRequest = {
   },
 
   fromJSON(object: any): QueryAccountsRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryAccountsRequest): unknown {
@@ -200,9 +198,7 @@ export const QueryAccountRequest = {
   },
 
   fromJSON(object: any): QueryAccountRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    return { address: isSet(object.address) ? String(object.address) : "" };
   },
 
   toJSON(message: QueryAccountRequest): unknown {
@@ -249,9 +245,7 @@ export const QueryAccountResponse = {
   },
 
   fromJSON(object: any): QueryAccountResponse {
-    return {
-      account: isSet(object.account) ? Any.fromJSON(object.account) : undefined,
-    };
+    return { account: isSet(object.account) ? Any.fromJSON(object.account) : undefined };
   },
 
   toJSON(message: QueryAccountResponse): unknown {
@@ -339,9 +333,7 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {

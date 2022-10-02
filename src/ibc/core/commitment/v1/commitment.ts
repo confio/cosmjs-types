@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import { CommitmentProof } from "../../../../confio/proofs";
 import _m0 from "protobufjs/minimal";
+import { CommitmentProof } from "../../../../confio/proofs";
 
 export const protobufPackage = "ibc.core.commitment.v1";
 
@@ -73,9 +73,7 @@ export const MerkleRoot = {
   },
 
   fromJSON(object: any): MerkleRoot {
-    return {
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
-    };
+    return { hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array() };
   },
 
   toJSON(message: MerkleRoot): unknown {
@@ -123,9 +121,7 @@ export const MerklePrefix = {
   },
 
   fromJSON(object: any): MerklePrefix {
-    return {
-      keyPrefix: isSet(object.keyPrefix) ? bytesFromBase64(object.keyPrefix) : new Uint8Array(),
-    };
+    return { keyPrefix: isSet(object.keyPrefix) ? bytesFromBase64(object.keyPrefix) : new Uint8Array() };
   },
 
   toJSON(message: MerklePrefix): unknown {
@@ -175,9 +171,7 @@ export const MerklePath = {
   },
 
   fromJSON(object: any): MerklePath {
-    return {
-      keyPath: Array.isArray(object?.keyPath) ? object.keyPath.map((e: any) => String(e)) : [],
-    };
+    return { keyPath: Array.isArray(object?.keyPath) ? object.keyPath.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: MerklePath): unknown {
@@ -254,10 +248,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

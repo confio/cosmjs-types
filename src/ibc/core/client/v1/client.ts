@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
+import { Any } from "../../../../google/protobuf/any";
 
 export const protobufPackage = "ibc.core.client.v1";
 

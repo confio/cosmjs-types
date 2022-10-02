@@ -157,9 +157,7 @@ export const ListImplementationsRequest = {
   },
 
   fromJSON(object: any): ListImplementationsRequest {
-    return {
-      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "",
-    };
+    return { interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "" };
   },
 
   toJSON(message: ListImplementationsRequest): unknown {

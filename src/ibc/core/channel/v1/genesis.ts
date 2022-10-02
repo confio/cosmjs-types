@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import { IdentifiedChannel, PacketState } from "./channel";
 import _m0 from "protobufjs/minimal";
+import { IdentifiedChannel, PacketState } from "./channel";
 
 export const protobufPackage = "ibc.core.channel.v1";
 

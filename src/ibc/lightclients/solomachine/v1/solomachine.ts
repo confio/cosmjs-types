@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { ConnectionEnd } from "../../../core/connection/v1/connection";
-import { Channel } from "../../../core/channel/v1/channel";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Any } from "../../../../google/protobuf/any";
+import { Channel } from "../../../core/channel/v1/channel";
+import { ConnectionEnd } from "../../../core/connection/v1/connection";
 
 export const protobufPackage = "ibc.lightclients.solomachine.v1";
 
@@ -1348,9 +1348,7 @@ export const PacketReceiptAbsenceData = {
   },
 
   fromJSON(object: any): PacketReceiptAbsenceData {
-    return {
-      path: isSet(object.path) ? bytesFromBase64(object.path) : new Uint8Array(),
-    };
+    return { path: isSet(object.path) ? bytesFromBase64(object.path) : new Uint8Array() };
   },
 
   toJSON(message: PacketReceiptAbsenceData): unknown {
@@ -1435,10 +1433,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

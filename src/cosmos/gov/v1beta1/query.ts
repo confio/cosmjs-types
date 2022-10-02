@@ -1,19 +1,19 @@
 /* eslint-disable */
-import {
-  Proposal,
-  ProposalStatus,
-  Vote,
-  VotingParams,
-  DepositParams,
-  TallyParams,
-  Deposit,
-  TallyResult,
-  proposalStatusFromJSON,
-  proposalStatusToJSON,
-} from "./gov";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import {
+  Deposit,
+  DepositParams,
+  Proposal,
+  ProposalStatus,
+  proposalStatusFromJSON,
+  proposalStatusToJSON,
+  TallyParams,
+  TallyResult,
+  Vote,
+  VotingParams,
+} from "./gov";
 
 export const protobufPackage = "cosmos.gov.v1beta1";
 
@@ -171,9 +171,7 @@ export const QueryProposalRequest = {
   },
 
   fromJSON(object: any): QueryProposalRequest {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    return { proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO };
   },
 
   toJSON(message: QueryProposalRequest): unknown {
@@ -223,9 +221,7 @@ export const QueryProposalResponse = {
   },
 
   fromJSON(object: any): QueryProposalResponse {
-    return {
-      proposal: isSet(object.proposal) ? Proposal.fromJSON(object.proposal) : undefined,
-    };
+    return { proposal: isSet(object.proposal) ? Proposal.fromJSON(object.proposal) : undefined };
   },
 
   toJSON(message: QueryProposalResponse): unknown {
@@ -486,9 +482,7 @@ export const QueryVoteResponse = {
   },
 
   fromJSON(object: any): QueryVoteResponse {
-    return {
-      vote: isSet(object.vote) ? Vote.fromJSON(object.vote) : undefined,
-    };
+    return { vote: isSet(object.vote) ? Vote.fromJSON(object.vote) : undefined };
   },
 
   toJSON(message: QueryVoteResponse): unknown {
@@ -667,9 +661,7 @@ export const QueryParamsRequest = {
   },
 
   fromJSON(object: any): QueryParamsRequest {
-    return {
-      paramsType: isSet(object.paramsType) ? String(object.paramsType) : "",
-    };
+    return { paramsType: isSet(object.paramsType) ? String(object.paramsType) : "" };
   },
 
   toJSON(message: QueryParamsRequest): unknown {
@@ -856,9 +848,7 @@ export const QueryDepositResponse = {
   },
 
   fromJSON(object: any): QueryDepositResponse {
-    return {
-      deposit: isSet(object.deposit) ? Deposit.fromJSON(object.deposit) : undefined,
-    };
+    return { deposit: isSet(object.deposit) ? Deposit.fromJSON(object.deposit) : undefined };
   },
 
   toJSON(message: QueryDepositResponse): unknown {
@@ -1040,9 +1030,7 @@ export const QueryTallyResultRequest = {
   },
 
   fromJSON(object: any): QueryTallyResultRequest {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    return { proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO };
   },
 
   toJSON(message: QueryTallyResultRequest): unknown {
@@ -1092,9 +1080,7 @@ export const QueryTallyResultResponse = {
   },
 
   fromJSON(object: any): QueryTallyResultResponse {
-    return {
-      tally: isSet(object.tally) ? TallyResult.fromJSON(object.tally) : undefined,
-    };
+    return { tally: isSet(object.tally) ? TallyResult.fromJSON(object.tally) : undefined };
   },
 
   toJSON(message: QueryTallyResultResponse): unknown {

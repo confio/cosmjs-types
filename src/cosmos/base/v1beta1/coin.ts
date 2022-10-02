@@ -183,9 +183,7 @@ export const IntProto = {
   },
 
   fromJSON(object: any): IntProto {
-    return {
-      int: isSet(object.int) ? String(object.int) : "",
-    };
+    return { int: isSet(object.int) ? String(object.int) : "" };
   },
 
   toJSON(message: IntProto): unknown {
@@ -232,9 +230,7 @@ export const DecProto = {
   },
 
   fromJSON(object: any): DecProto {
-    return {
-      dec: isSet(object.dec) ? String(object.dec) : "",
-    };
+    return { dec: isSet(object.dec) ? String(object.dec) : "" };
   },
 
   toJSON(message: DecProto): unknown {

@@ -36,9 +36,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/long", "npm:4.0.1"],\
             ["@types/node", "npm:15.6.2"],\
             ["long", "npm:4.0.0"],\
-            ["prettier", "npm:2.6.2"],\
+            ["prettier", "npm:2.7.1"],\
             ["protobufjs", "npm:6.11.3"],\
-            ["ts-proto", "npm:1.122.0"],\
+            ["ts-proto", "npm:1.126.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
           ],\
           "linkType": "SOFT"\
@@ -178,9 +178,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/long", "npm:4.0.1"],\
             ["@types/node", "npm:15.6.2"],\
             ["long", "npm:4.0.0"],\
-            ["prettier", "npm:2.6.2"],\
+            ["prettier", "npm:2.7.1"],\
             ["protobufjs", "npm:6.11.3"],\
-            ["ts-proto", "npm:1.122.0"],\
+            ["ts-proto", "npm:1.126.1"],\
             ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
           ],\
           "linkType": "SOFT"\
@@ -195,11 +195,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["lodash", [\
-        ["npm:4.17.21", {\
-          "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
+      ["detect-libc", [\
+        ["npm:1.0.3", {\
+          "packageLocation": "./.yarn/cache/detect-libc-npm-1.0.3-c30ac344d4-daaaed925f.zip/node_modules/detect-libc/",\
           "packageDependencies": [\
-            ["lodash", "npm:4.17.21"]\
+            ["detect-libc", "npm:1.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["dprint-node", [\
+        ["npm:1.0.7", {\
+          "packageLocation": "./.yarn/unplugged/dprint-node-npm-1.0.7-cf0e8c433c/node_modules/dprint-node/",\
+          "packageDependencies": [\
+            ["dprint-node", "npm:1.0.7"],\
+            ["detect-libc", "npm:1.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -223,10 +233,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:2.6.2", {\
-          "packageLocation": "./.yarn/cache/prettier-npm-2.6.2-05918420da-48d08dde8e.zip/node_modules/prettier/",\
+        ["npm:2.7.1", {\
+          "packageLocation": "./.yarn/cache/prettier-npm-2.7.1-d1f40f5e1a-55a4409182.zip/node_modules/prettier/",\
           "packageDependencies": [\
-            ["prettier", "npm:2.6.2"]\
+            ["prettier", "npm:2.7.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -254,26 +264,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["ts-poet", [\
-        ["npm:4.15.0", {\
-          "packageLocation": "./.yarn/unplugged/ts-poet-npm-4.15.0-538c44ecef/node_modules/ts-poet/",\
+        ["npm:6.1.0", {\
+          "packageLocation": "./.yarn/unplugged/ts-poet-npm-6.1.0-d714438850/node_modules/ts-poet/",\
           "packageDependencies": [\
-            ["ts-poet", "npm:4.15.0"],\
-            ["lodash", "npm:4.17.21"],\
-            ["prettier", "npm:2.6.2"]\
+            ["ts-poet", "npm:6.1.0"],\
+            ["dprint-node", "npm:1.0.7"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["ts-proto", [\
-        ["npm:1.122.0", {\
-          "packageLocation": "./.yarn/cache/ts-proto-npm-1.122.0-f4d78f45fe-ebf92402f3.zip/node_modules/ts-proto/",\
+        ["npm:1.126.1", {\
+          "packageLocation": "./.yarn/cache/ts-proto-npm-1.126.1-dffff7800f-2b0394732e.zip/node_modules/ts-proto/",\
           "packageDependencies": [\
-            ["ts-proto", "npm:1.122.0"],\
+            ["ts-proto", "npm:1.126.1"],\
             ["@types/object-hash", "npm:1.3.4"],\
             ["dataloader", "npm:1.4.0"],\
             ["object-hash", "npm:1.3.1"],\
             ["protobufjs", "npm:6.11.3"],\
-            ["ts-poet", "npm:4.15.0"],\
+            ["ts-poet", "npm:6.1.0"],\
             ["ts-proto-descriptors", "npm:1.7.1"]\
           ],\
           "linkType": "HARD"\

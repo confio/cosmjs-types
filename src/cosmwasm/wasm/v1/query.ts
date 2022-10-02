@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { ContractInfo, ContractCodeHistoryEntry, Model } from "./types";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { ContractCodeHistoryEntry, ContractInfo, Model } from "./types";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -211,9 +211,7 @@ export const QueryContractInfoRequest = {
   },
 
   fromJSON(object: any): QueryContractInfoRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    return { address: isSet(object.address) ? String(object.address) : "" };
   },
 
   toJSON(message: QueryContractInfoRequest): unknown {
@@ -788,9 +786,7 @@ export const QueryRawContractStateResponse = {
   },
 
   fromJSON(object: any): QueryRawContractStateResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
   },
 
   toJSON(message: QueryRawContractStateResponse): unknown {
@@ -903,9 +899,7 @@ export const QuerySmartContractStateResponse = {
   },
 
   fromJSON(object: any): QuerySmartContractStateResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
   },
 
   toJSON(message: QuerySmartContractStateResponse): unknown {
@@ -955,9 +949,7 @@ export const QueryCodeRequest = {
   },
 
   fromJSON(object: any): QueryCodeRequest {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-    };
+    return { codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO };
   },
 
   toJSON(message: QueryCodeRequest): unknown {
@@ -1137,9 +1129,7 @@ export const QueryCodesRequest = {
   },
 
   fromJSON(object: any): QueryCodesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryCodesRequest): unknown {
@@ -1258,9 +1248,7 @@ export const QueryPinnedCodesRequest = {
   },
 
   fromJSON(object: any): QueryPinnedCodesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryPinnedCodesRequest): unknown {
@@ -1456,10 +1444,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 

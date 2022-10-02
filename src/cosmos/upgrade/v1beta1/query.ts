@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Plan, ModuleVersion } from "./upgrade";
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { ModuleVersion, Plan } from "./upgrade";
 
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 
@@ -159,9 +159,7 @@ export const QueryCurrentPlanResponse = {
   },
 
   fromJSON(object: any): QueryCurrentPlanResponse {
-    return {
-      plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
-    };
+    return { plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined };
   },
 
   toJSON(message: QueryCurrentPlanResponse): unknown {
@@ -211,9 +209,7 @@ export const QueryAppliedPlanRequest = {
   },
 
   fromJSON(object: any): QueryAppliedPlanRequest {
-    return {
-      name: isSet(object.name) ? String(object.name) : "",
-    };
+    return { name: isSet(object.name) ? String(object.name) : "" };
   },
 
   toJSON(message: QueryAppliedPlanRequest): unknown {
@@ -260,9 +256,7 @@ export const QueryAppliedPlanResponse = {
   },
 
   fromJSON(object: any): QueryAppliedPlanResponse {
-    return {
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
-    };
+    return { height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO };
   },
 
   toJSON(message: QueryAppliedPlanResponse): unknown {
@@ -312,9 +306,7 @@ export const QueryUpgradedConsensusStateRequest = {
   },
 
   fromJSON(object: any): QueryUpgradedConsensusStateRequest {
-    return {
-      lastHeight: isSet(object.lastHeight) ? Long.fromValue(object.lastHeight) : Long.ZERO,
-    };
+    return { lastHeight: isSet(object.lastHeight) ? Long.fromValue(object.lastHeight) : Long.ZERO };
   },
 
   toJSON(message: QueryUpgradedConsensusStateRequest): unknown {
@@ -422,9 +414,7 @@ export const QueryModuleVersionsRequest = {
   },
 
   fromJSON(object: any): QueryModuleVersionsRequest {
-    return {
-      moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
-    };
+    return { moduleName: isSet(object.moduleName) ? String(object.moduleName) : "" };
   },
 
   toJSON(message: QueryModuleVersionsRequest): unknown {
@@ -570,10 +560,18 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
   throw "Unable to locate global object";
 })();
 
