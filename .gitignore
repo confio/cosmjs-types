@@ -1,6 +1,8 @@
 # We use npm, not yarn
 yarn.lock
 
+node_modules/
+
 /build/
 /confio/
 /cosmos/
