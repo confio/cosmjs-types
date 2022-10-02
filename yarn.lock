@@ -115,7 +115,7 @@ __metadata:
     long: ^4.0.0
     prettier: ^2.7.1
     protobufjs: ~6.11.2
-    ts-proto: ^1.122
+    ts-proto: ^1.126.1
     typescript: ~4.7
   languageName: unknown
   linkType: soft
@@ -127,10 +127,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
+"detect-libc@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "detect-libc@npm:1.0.3"
+  bin:
+    detect-libc: ./bin/detect-libc.js
+  checksum: daaaed925ffa7889bd91d56e9624e6c8033911bb60f3a50a74a87500680652969dbaab9526d1e200a4c94acf80fc862a22131841145a0a8482d60a99c24f4a3e
+  languageName: node
+  linkType: hard
+
+"dprint-node@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "dprint-node@npm:1.0.7"
+  dependencies:
+    detect-libc: ^1.0.3
+  checksum: cd29f8e2b7de334273b4f53d24072718139635408b015963bcc80829cc785a84591462585b5b569791c8b1420c5672bec7499bda70d7298c58c8a3f43796e659
   languageName: node
   linkType: hard
 
@@ -148,7 +159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.5.1, prettier@npm:^2.7.1":
+"prettier@npm:^2.7.1":
   version: 2.7.1
   resolution: "prettier@npm:2.7.1"
   bin:
@@ -181,13 +192,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-poet@npm:^4.15.0":
-  version: 4.15.0
-  resolution: "ts-poet@npm:4.15.0"
+"ts-poet@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "ts-poet@npm:6.1.0"
   dependencies:
-    lodash: ^4.17.15
-    prettier: ^2.5.1
-  checksum: 93490e8b5921e23ac65afdecc00b4dd53f3560d7d9c19778a3f0bd9a300ba7ca71585a989d564508313bc73e8c431413714d513ebca2d5c428f909ec36bcf6e9
+    dprint-node: ^1.0.7
+  checksum: cd4cb34c0d3bb1046fac435163a5393d28ef7b872f8453be267462594f509b3668d132e77da99672581ce551aa99a421a5bba3695d3bd577af4b273eaed04647
   languageName: node
   linkType: hard
 
@@ -201,19 +211,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.122":
-  version: 1.122.0
-  resolution: "ts-proto@npm:1.122.0"
+"ts-proto@npm:^1.126.1":
+  version: 1.126.1
+  resolution: "ts-proto@npm:1.126.1"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
     object-hash: ^1.3.1
     protobufjs: ^6.11.3
-    ts-poet: ^4.15.0
+    ts-poet: ^6.1.0
     ts-proto-descriptors: 1.7.1
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: ebf92402f3829d4a852cac90b75235e1402b13fd973fa97b955308f98ae8f75b4d2c46bd86eb166e378fe5a4d73d08ab51073574b698878ba625e2d5847252a9
+  checksum: 2b0394732e1f7842b199485f01e08b03d01b2c8833eb03e54da9d52e5fff31f73f0d3977920649a6575338b19b20bed48aa3105e5da89ac436762eed450fc58e
   languageName: node
   linkType: hard
 
