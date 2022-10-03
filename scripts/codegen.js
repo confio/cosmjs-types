@@ -25,7 +25,8 @@ telescope({
                     'cosmos/crypto/secp256r1/keys.proto',
                     'ibc/core/port/v1/query.proto',
                     'ibc/lightclients/solomachine/v2/solomachine.proto',
-                    'tendermint/libs/bits/types.proto'
+                    'tendermint/libs/bits/types.proto',
+                    'google/api/httpbody.proto'
                 ]
             },
             methods: {
