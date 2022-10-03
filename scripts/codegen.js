@@ -13,10 +13,27 @@ telescope({
     outPath: join(__dirname, '/../src'),
     options: {
         includePackageVar: true,
-        typingsFormat: {
-            useExact: true,
-            timestamp: 'timestamp',
-            duration: 'duration'
+        bundle: {
+            enabled: false
+        },
+        prototypes: {
+            excluded: {
+                protos: [
+                    'cosmos/authz/v1beta1/event.proto',
+                    'cosmos/base/reflection/v2alpha1/reflection.proto',
+                    'cosmos/crypto/secp256r1/keys.proto'
+                ]
+            },
+            methods: {
+                fromJSON: true,
+                toJSON: true
+            },
+            typingsFormat: {
+                useExact: true,
+                useDeepPartial: true,
+                timestamp: 'timestamp',
+                duration: 'duration'
+            }    
         },
         lcdClients: {
             enabled: false

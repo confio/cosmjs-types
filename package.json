@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
-    "codegen": "./scripts/codegen.js && yarn format",
+    "codegen": "rm -rf ./src && ./scripts/codegen.js && yarn format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
@@ -37,7 +37,7 @@
     "protobufjs": "~6.11.2"
   },
   "devDependencies": {
-    "@osmonauts/telescope": "^0.36.2",
+    "@osmonauts/telescope": "^0.36.3",
     "@types/long": "^4.0.1",
     "@types/node": "^15.6.2",
     "prettier": "^2.7.1",
