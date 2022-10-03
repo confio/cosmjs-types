@@ -1,30 +1,28 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
-
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.auth.v1beta1";
-
 /**
  * BaseAccount defines a base account type. It contains all the necessary fields
  * for basic account functionality. Any custom account type should extend this
  * type for additional functionality (e.g. vesting).
  */
+
 export interface BaseAccount {
   address: string;
-  pubKey?: Any;
+  pubKey: Any;
   accountNumber: Long;
   sequence: Long;
 }
-
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
+
 export interface ModuleAccount {
-  baseAccount?: BaseAccount;
+  baseAccount: BaseAccount;
   name: string;
   permissions: string[];
 }
-
 /** Params defines the parameters for the auth module. */
+
 export interface Params {
   maxMemoCharacters: Long;
   txSigLimit: Long;
@@ -34,7 +32,12 @@ export interface Params {
 }
 
 function createBaseBaseAccount(): BaseAccount {
-  return { address: "", pubKey: undefined, accountNumber: Long.UZERO, sequence: Long.UZERO };
+  return {
+    address: "",
+    pubKey: undefined,
+    accountNumber: Long.UZERO,
+    sequence: Long.UZERO,
+  };
 }
 
 export const BaseAccount = {
@@ -42,15 +45,19 @@ export const BaseAccount = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     if (message.pubKey !== undefined) {
       Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
     }
+
     if (!message.accountNumber.isZero()) {
       writer.uint32(24).uint64(message.accountNumber);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(32).uint64(message.sequence);
     }
+
     return writer;
   },
 
@@ -58,26 +65,33 @@ export const BaseAccount = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBaseAccount();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         case 2:
           message.pubKey = Any.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.accountNumber = reader.uint64() as Long;
           break;
+
         case 4:
           message.sequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -85,8 +99,8 @@ export const BaseAccount = {
     return {
       address: isSet(object.address) ? String(object.address) : "",
       pubKey: isSet(object.pubKey) ? Any.fromJSON(object.pubKey) : undefined,
-      accountNumber: isSet(object.accountNumber) ? Long.fromValue(object.accountNumber) : Long.UZERO,
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      accountNumber: isSet(object.accountNumber) ? Long.fromString(object.accountNumber) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
     };
   },
 
@@ -118,7 +132,11 @@ export const BaseAccount = {
 };
 
 function createBaseModuleAccount(): ModuleAccount {
-  return { baseAccount: undefined, name: "", permissions: [] };
+  return {
+    baseAccount: undefined,
+    name: "",
+    permissions: [],
+  };
 }
 
 export const ModuleAccount = {
@@ -126,12 +144,15 @@ export const ModuleAccount = {
     if (message.baseAccount !== undefined) {
       BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
     }
+
     for (const v of message.permissions) {
       writer.uint32(26).string(v!);
     }
+
     return writer;
   },
 
@@ -139,23 +160,29 @@ export const ModuleAccount = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModuleAccount();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.baseAccount = BaseAccount.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.name = reader.string();
           break;
+
         case 3:
           message.permissions.push(reader.string());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -172,11 +199,13 @@ export const ModuleAccount = {
     message.baseAccount !== undefined &&
       (obj.baseAccount = message.baseAccount ? BaseAccount.toJSON(message.baseAccount) : undefined);
     message.name !== undefined && (obj.name = message.name);
+
     if (message.permissions) {
       obj.permissions = message.permissions.map((e) => e);
     } else {
       obj.permissions = [];
     }
+
     return obj;
   },
 
@@ -207,18 +236,23 @@ export const Params = {
     if (!message.maxMemoCharacters.isZero()) {
       writer.uint32(8).uint64(message.maxMemoCharacters);
     }
+
     if (!message.txSigLimit.isZero()) {
       writer.uint32(16).uint64(message.txSigLimit);
     }
+
     if (!message.txSizeCostPerByte.isZero()) {
       writer.uint32(24).uint64(message.txSizeCostPerByte);
     }
+
     if (!message.sigVerifyCostEd25519.isZero()) {
       writer.uint32(32).uint64(message.sigVerifyCostEd25519);
     }
+
     if (!message.sigVerifyCostSecp256k1.isZero()) {
       writer.uint32(40).uint64(message.sigVerifyCostSecp256k1);
     }
+
     return writer;
   },
 
@@ -226,46 +260,54 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.maxMemoCharacters = reader.uint64() as Long;
           break;
+
         case 2:
           message.txSigLimit = reader.uint64() as Long;
           break;
+
         case 3:
           message.txSizeCostPerByte = reader.uint64() as Long;
           break;
+
         case 4:
           message.sigVerifyCostEd25519 = reader.uint64() as Long;
           break;
+
         case 5:
           message.sigVerifyCostSecp256k1 = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): Params {
     return {
       maxMemoCharacters: isSet(object.maxMemoCharacters)
-        ? Long.fromValue(object.maxMemoCharacters)
+        ? Long.fromString(object.maxMemoCharacters)
         : Long.UZERO,
-      txSigLimit: isSet(object.txSigLimit) ? Long.fromValue(object.txSigLimit) : Long.UZERO,
+      txSigLimit: isSet(object.txSigLimit) ? Long.fromString(object.txSigLimit) : Long.UZERO,
       txSizeCostPerByte: isSet(object.txSizeCostPerByte)
-        ? Long.fromValue(object.txSizeCostPerByte)
+        ? Long.fromString(object.txSizeCostPerByte)
         : Long.UZERO,
       sigVerifyCostEd25519: isSet(object.sigVerifyCostEd25519)
-        ? Long.fromValue(object.sigVerifyCostEd25519)
+        ? Long.fromString(object.sigVerifyCostEd25519)
         : Long.UZERO,
       sigVerifyCostSecp256k1: isSet(object.sigVerifyCostSecp256k1)
-        ? Long.fromValue(object.sigVerifyCostSecp256k1)
+        ? Long.fromString(object.sigVerifyCostSecp256k1)
         : Long.UZERO,
     };
   },
@@ -309,31 +351,3 @@ export const Params = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

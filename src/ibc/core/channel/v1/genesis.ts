@@ -1,11 +1,9 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { IdentifiedChannel, PacketState } from "./channel";
-
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
-
 /** GenesisState defines the ibc channel submodule's genesis state. */
+
 export interface GenesisState {
   channels: IdentifiedChannel[];
   acknowledgements: PacketState[];
@@ -15,13 +13,14 @@ export interface GenesisState {
   recvSequences: PacketSequence[];
   ackSequences: PacketSequence[];
   /** the sequence for the next generated channel identifier */
+
   nextChannelSequence: Long;
 }
-
 /**
  * PacketSequence defines the genesis type necessary to retrieve and store
  * next send and receive sequences.
  */
+
 export interface PacketSequence {
   portId: string;
   channelId: string;
@@ -46,27 +45,35 @@ export const GenesisState = {
     for (const v of message.channels) {
       IdentifiedChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.acknowledgements) {
       PacketState.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     for (const v of message.commitments) {
       PacketState.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.receipts) {
       PacketState.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     for (const v of message.sendSequences) {
       PacketSequence.encode(v!, writer.uint32(42).fork()).ldelim();
     }
+
     for (const v of message.recvSequences) {
       PacketSequence.encode(v!, writer.uint32(50).fork()).ldelim();
     }
+
     for (const v of message.ackSequences) {
       PacketSequence.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+
     if (!message.nextChannelSequence.isZero()) {
       writer.uint32(64).uint64(message.nextChannelSequence);
     }
+
     return writer;
   },
 
@@ -74,38 +81,49 @@ export const GenesisState = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisState();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.channels.push(IdentifiedChannel.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.acknowledgements.push(PacketState.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.commitments.push(PacketState.decode(reader, reader.uint32()));
           break;
+
         case 4:
           message.receipts.push(PacketState.decode(reader, reader.uint32()));
           break;
+
         case 5:
           message.sendSequences.push(PacketSequence.decode(reader, reader.uint32()));
           break;
+
         case 6:
           message.recvSequences.push(PacketSequence.decode(reader, reader.uint32()));
           break;
+
         case 7:
           message.ackSequences.push(PacketSequence.decode(reader, reader.uint32()));
           break;
+
         case 8:
           message.nextChannelSequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -133,48 +151,56 @@ export const GenesisState = {
         ? object.ackSequences.map((e: any) => PacketSequence.fromJSON(e))
         : [],
       nextChannelSequence: isSet(object.nextChannelSequence)
-        ? Long.fromValue(object.nextChannelSequence)
+        ? Long.fromString(object.nextChannelSequence)
         : Long.UZERO,
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
+
     if (message.channels) {
       obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toJSON(e) : undefined));
     } else {
       obj.channels = [];
     }
+
     if (message.acknowledgements) {
       obj.acknowledgements = message.acknowledgements.map((e) => (e ? PacketState.toJSON(e) : undefined));
     } else {
       obj.acknowledgements = [];
     }
+
     if (message.commitments) {
       obj.commitments = message.commitments.map((e) => (e ? PacketState.toJSON(e) : undefined));
     } else {
       obj.commitments = [];
     }
+
     if (message.receipts) {
       obj.receipts = message.receipts.map((e) => (e ? PacketState.toJSON(e) : undefined));
     } else {
       obj.receipts = [];
     }
+
     if (message.sendSequences) {
       obj.sendSequences = message.sendSequences.map((e) => (e ? PacketSequence.toJSON(e) : undefined));
     } else {
       obj.sendSequences = [];
     }
+
     if (message.recvSequences) {
       obj.recvSequences = message.recvSequences.map((e) => (e ? PacketSequence.toJSON(e) : undefined));
     } else {
       obj.recvSequences = [];
     }
+
     if (message.ackSequences) {
       obj.ackSequences = message.ackSequences.map((e) => (e ? PacketSequence.toJSON(e) : undefined));
     } else {
       obj.ackSequences = [];
     }
+
     message.nextChannelSequence !== undefined &&
       (obj.nextChannelSequence = (message.nextChannelSequence || Long.UZERO).toString());
     return obj;
@@ -198,7 +224,11 @@ export const GenesisState = {
 };
 
 function createBasePacketSequence(): PacketSequence {
-  return { portId: "", channelId: "", sequence: Long.UZERO };
+  return {
+    portId: "",
+    channelId: "",
+    sequence: Long.UZERO,
+  };
 }
 
 export const PacketSequence = {
@@ -206,12 +236,15 @@ export const PacketSequence = {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
+
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
+
     if (!message.sequence.isZero()) {
       writer.uint32(24).uint64(message.sequence);
     }
+
     return writer;
   },
 
@@ -219,23 +252,29 @@ export const PacketSequence = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketSequence();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.portId = reader.string();
           break;
+
         case 2:
           message.channelId = reader.string();
           break;
+
         case 3:
           message.sequence = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -243,7 +282,7 @@ export const PacketSequence = {
     return {
       portId: isSet(object.portId) ? String(object.portId) : "",
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
+      sequence: isSet(object.sequence) ? Long.fromString(object.sequence) : Long.UZERO,
     };
   },
 
@@ -266,31 +305,3 @@ export const PacketSequence = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

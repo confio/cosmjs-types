@@ -1,32 +1,34 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { Coin } from "../../base/v1beta1/coin";
 import { Input, Output } from "./bank";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
-
 /** MsgSend represents a message to send coins from one account to another. */
+
 export interface MsgSend {
   fromAddress: string;
   toAddress: string;
   amount: Coin[];
 }
-
 /** MsgSendResponse defines the Msg/Send response type. */
-export interface MsgSendResponse {}
 
+export interface MsgSendResponse {}
 /** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
+
 export interface MsgMultiSend {
   inputs: Input[];
   outputs: Output[];
 }
-
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
+
 export interface MsgMultiSendResponse {}
 
 function createBaseMsgSend(): MsgSend {
-  return { fromAddress: "", toAddress: "", amount: [] };
+  return {
+    fromAddress: "",
+    toAddress: "",
+    amount: [],
+  };
 }
 
 export const MsgSend = {
@@ -34,12 +36,15 @@ export const MsgSend = {
     if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress);
     }
+
     if (message.toAddress !== "") {
       writer.uint32(18).string(message.toAddress);
     }
+
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -47,23 +52,29 @@ export const MsgSend = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSend();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.fromAddress = reader.string();
           break;
+
         case 2:
           message.toAddress = reader.string();
           break;
+
         case 3:
           message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -79,11 +90,13 @@ export const MsgSend = {
     const obj: any = {};
     message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
     message.toAddress !== undefined && (obj.toAddress = message.toAddress);
+
     if (message.amount) {
       obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.amount = [];
     }
+
     return obj;
   },
 
@@ -109,14 +122,17 @@ export const MsgSendResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSendResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -136,7 +152,10 @@ export const MsgSendResponse = {
 };
 
 function createBaseMsgMultiSend(): MsgMultiSend {
-  return { inputs: [], outputs: [] };
+  return {
+    inputs: [],
+    outputs: [],
+  };
 }
 
 export const MsgMultiSend = {
@@ -144,9 +163,11 @@ export const MsgMultiSend = {
     for (const v of message.inputs) {
       Input.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.outputs) {
       Output.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -154,20 +175,25 @@ export const MsgMultiSend = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiSend();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.inputs.push(Input.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.outputs.push(Output.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -180,16 +206,19 @@ export const MsgMultiSend = {
 
   toJSON(message: MsgMultiSend): unknown {
     const obj: any = {};
+
     if (message.inputs) {
       obj.inputs = message.inputs.map((e) => (e ? Input.toJSON(e) : undefined));
     } else {
       obj.inputs = [];
     }
+
     if (message.outputs) {
       obj.outputs = message.outputs.map((e) => (e ? Output.toJSON(e) : undefined));
     } else {
       obj.outputs = [];
     }
+
     return obj;
   },
 
@@ -214,14 +243,17 @@ export const MsgMultiSendResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMultiSendResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -239,22 +271,24 @@ export const MsgMultiSendResponse = {
     return message;
   },
 };
+/** Msg defines the RPC service */
 
-/** Msg defines the bank Msg service. */
 export interface Msg {
-  /** Send defines a method for sending coins from one account to another account. */
   Send(request: MsgSend): Promise<MsgSendResponse>;
-  /** MultiSend defines a method for sending coins from some accounts to other accounts. */
-  MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse>;
-}
+  /*Send defines a method for sending coins from one account to another account.*/
 
+  MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse>;
+  /*MultiSend defines a method for sending coins from some accounts to other accounts.*/
+}
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Send = this.Send.bind(this);
     this.MultiSend = this.MultiSend.bind(this);
   }
+
   Send(request: MsgSend): Promise<MsgSendResponse> {
     const data = MsgSend.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "Send", data);
@@ -266,36 +300,4 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request("cosmos.bank.v1beta1.Msg", "MultiSend", data);
     return promise.then((data) => MsgMultiSendResponse.decode(new _m0.Reader(data)));
   }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

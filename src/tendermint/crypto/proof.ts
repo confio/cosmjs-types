@@ -1,47 +1,48 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.crypto";
-
 export interface Proof {
   total: Long;
   index: Long;
   leafHash: Uint8Array;
   aunts: Uint8Array[];
 }
-
 export interface ValueOp {
   /** Encoded in ProofOp.Key. */
   key: Uint8Array;
   /** To encode in ProofOp.Data */
-  proof?: Proof;
-}
 
+  proof: Proof;
+}
 export interface DominoOp {
   key: string;
   input: string;
   output: string;
 }
-
 /**
  * ProofOp defines an operation used for calculating Merkle root
  * The data could be arbitrary format, providing nessecary data
  * for example neighbouring node hash
  */
+
 export interface ProofOp {
   type: string;
   key: Uint8Array;
   data: Uint8Array;
 }
-
 /** ProofOps is Merkle proof defined by the list of ProofOps */
+
 export interface ProofOps {
   ops: ProofOp[];
 }
 
 function createBaseProof(): Proof {
-  return { total: Long.ZERO, index: Long.ZERO, leafHash: new Uint8Array(), aunts: [] };
+  return {
+    total: Long.ZERO,
+    index: Long.ZERO,
+    leafHash: new Uint8Array(),
+    aunts: [],
+  };
 }
 
 export const Proof = {
@@ -49,15 +50,19 @@ export const Proof = {
     if (!message.total.isZero()) {
       writer.uint32(8).int64(message.total);
     }
+
     if (!message.index.isZero()) {
       writer.uint32(16).int64(message.index);
     }
+
     if (message.leafHash.length !== 0) {
       writer.uint32(26).bytes(message.leafHash);
     }
+
     for (const v of message.aunts) {
       writer.uint32(34).bytes(v!);
     }
+
     return writer;
   },
 
@@ -65,33 +70,40 @@ export const Proof = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProof();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.total = reader.int64() as Long;
           break;
+
         case 2:
           message.index = reader.int64() as Long;
           break;
+
         case 3:
           message.leafHash = reader.bytes();
           break;
+
         case 4:
           message.aunts.push(reader.bytes());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): Proof {
     return {
-      total: isSet(object.total) ? Long.fromValue(object.total) : Long.ZERO,
-      index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
+      total: isSet(object.total) ? Long.fromString(object.total) : Long.ZERO,
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.ZERO,
       leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array(),
       aunts: Array.isArray(object?.aunts) ? object.aunts.map((e: any) => bytesFromBase64(e)) : [],
     };
@@ -103,11 +115,13 @@ export const Proof = {
     message.index !== undefined && (obj.index = (message.index || Long.ZERO).toString());
     message.leafHash !== undefined &&
       (obj.leafHash = base64FromBytes(message.leafHash !== undefined ? message.leafHash : new Uint8Array()));
+
     if (message.aunts) {
       obj.aunts = message.aunts.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
     } else {
       obj.aunts = [];
     }
+
     return obj;
   },
 
@@ -124,7 +138,10 @@ export const Proof = {
 };
 
 function createBaseValueOp(): ValueOp {
-  return { key: new Uint8Array(), proof: undefined };
+  return {
+    key: new Uint8Array(),
+    proof: undefined,
+  };
 }
 
 export const ValueOp = {
@@ -132,9 +149,11 @@ export const ValueOp = {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
+
     if (message.proof !== undefined) {
       Proof.encode(message.proof, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -142,20 +161,25 @@ export const ValueOp = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValueOp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.bytes();
           break;
+
         case 2:
           message.proof = Proof.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -184,7 +208,11 @@ export const ValueOp = {
 };
 
 function createBaseDominoOp(): DominoOp {
-  return { key: "", input: "", output: "" };
+  return {
+    key: "",
+    input: "",
+    output: "",
+  };
 }
 
 export const DominoOp = {
@@ -192,12 +220,15 @@ export const DominoOp = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
+
     if (message.input !== "") {
       writer.uint32(18).string(message.input);
     }
+
     if (message.output !== "") {
       writer.uint32(26).string(message.output);
     }
+
     return writer;
   },
 
@@ -205,23 +236,29 @@ export const DominoOp = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDominoOp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.string();
           break;
+
         case 2:
           message.input = reader.string();
           break;
+
         case 3:
           message.output = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -251,7 +288,11 @@ export const DominoOp = {
 };
 
 function createBaseProofOp(): ProofOp {
-  return { type: "", key: new Uint8Array(), data: new Uint8Array() };
+  return {
+    type: "",
+    key: new Uint8Array(),
+    data: new Uint8Array(),
+  };
 }
 
 export const ProofOp = {
@@ -259,12 +300,15 @@ export const ProofOp = {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
+
     if (message.key.length !== 0) {
       writer.uint32(18).bytes(message.key);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(26).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -272,23 +316,29 @@ export const ProofOp = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProofOp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.string();
           break;
+
         case 2:
           message.key = reader.bytes();
           break;
+
         case 3:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -320,7 +370,9 @@ export const ProofOp = {
 };
 
 function createBaseProofOps(): ProofOps {
-  return { ops: [] };
+  return {
+    ops: [],
+  };
 }
 
 export const ProofOps = {
@@ -328,6 +380,7 @@ export const ProofOps = {
     for (const v of message.ops) {
       ProofOp.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -335,31 +388,39 @@ export const ProofOps = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProofOps();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.ops.push(ProofOp.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ProofOps {
-    return { ops: Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [] };
+    return {
+      ops: Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [],
+    };
   },
 
   toJSON(message: ProofOps): unknown {
     const obj: any = {};
+
     if (message.ops) {
       obj.ops = message.ops.map((e) => (e ? ProofOp.toJSON(e) : undefined));
     } else {
       obj.ops = [];
     }
+
     return obj;
   },
 
@@ -369,75 +430,3 @@ export const ProofOps = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

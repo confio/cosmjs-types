@@ -1,88 +1,100 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { AccessConfig } from "./types";
-
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Long, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
-
 /** MsgStoreCode submit Wasm code to the system */
+
 export interface MsgStoreCode {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** WASMByteCode can be raw or gzip compressed */
+
   wasmByteCode: Uint8Array;
   /**
    * InstantiatePermission access control to apply on contract creation,
    * optional
    */
-  instantiatePermission?: AccessConfig;
-}
 
+  instantiatePermission: AccessConfig;
+}
 /** MsgStoreCodeResponse returns store result data. */
+
 export interface MsgStoreCodeResponse {
   /** CodeID is the reference to the stored WASM code */
   codeId: Long;
 }
-
 /**
  * MsgInstantiateContract create a new smart contract instance for the given
  * code id.
  */
+
 export interface MsgInstantiateContract {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** Admin is an optional address that can execute migrations */
+
   admin: string;
   /** CodeID is the reference to the stored WASM code */
+
   codeId: Long;
   /** Label is optional metadata to be stored with a contract instance. */
+
   label: string;
   /** Msg json encoded message to be passed to the contract on instantiation */
+
   msg: Uint8Array;
   /** Funds coins that are transferred to the contract on instantiation */
+
   funds: Coin[];
 }
-
 /** MsgInstantiateContractResponse return instantiation result data */
+
 export interface MsgInstantiateContractResponse {
   /** Address is the bech32 address of the new contract instance. */
   address: string;
   /** Data contains base64-encoded bytes to returned from the contract */
+
   data: Uint8Array;
 }
-
 /** MsgExecuteContract submits the given message data to a smart contract */
+
 export interface MsgExecuteContract {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** Contract is the address of the smart contract */
+
   contract: string;
   /** Msg json encoded message to be passed to the contract */
+
   msg: Uint8Array;
   /** Funds coins that are transferred to the contract on execution */
+
   funds: Coin[];
 }
-
 /** MsgExecuteContractResponse returns execution result data. */
+
 export interface MsgExecuteContractResponse {
   /** Data contains base64-encoded bytes to returned from the contract */
   data: Uint8Array;
 }
-
 /** MsgMigrateContract runs a code upgrade/ downgrade for a smart contract */
+
 export interface MsgMigrateContract {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** Contract is the address of the smart contract */
+
   contract: string;
   /** CodeID references the new WASM code */
+
   codeId: Long;
   /** Msg json encoded message to be passed to the contract on migration */
+
   msg: Uint8Array;
 }
-
 /** MsgMigrateContractResponse returns contract migration result data. */
+
 export interface MsgMigrateContractResponse {
   /**
    * Data contains same raw bytes returned as data from the wasm contract.
@@ -90,33 +102,40 @@ export interface MsgMigrateContractResponse {
    */
   data: Uint8Array;
 }
-
 /** MsgUpdateAdmin sets a new admin for a smart contract */
+
 export interface MsgUpdateAdmin {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** NewAdmin address to be set */
+
   newAdmin: string;
   /** Contract is the address of the smart contract */
+
   contract: string;
 }
-
 /** MsgUpdateAdminResponse returns empty data */
-export interface MsgUpdateAdminResponse {}
 
+export interface MsgUpdateAdminResponse {}
 /** MsgClearAdmin removes any admin stored for a smart contract */
+
 export interface MsgClearAdmin {
   /** Sender is the that actor that signed the messages */
   sender: string;
   /** Contract is the address of the smart contract */
+
   contract: string;
 }
-
 /** MsgClearAdminResponse returns empty data */
+
 export interface MsgClearAdminResponse {}
 
 function createBaseMsgStoreCode(): MsgStoreCode {
-  return { sender: "", wasmByteCode: new Uint8Array(), instantiatePermission: undefined };
+  return {
+    sender: "",
+    wasmByteCode: new Uint8Array(),
+    instantiatePermission: undefined,
+  };
 }
 
 export const MsgStoreCode = {
@@ -124,12 +143,15 @@ export const MsgStoreCode = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.wasmByteCode.length !== 0) {
       writer.uint32(18).bytes(message.wasmByteCode);
     }
+
     if (message.instantiatePermission !== undefined) {
       AccessConfig.encode(message.instantiatePermission, writer.uint32(42).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -137,23 +159,29 @@ export const MsgStoreCode = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgStoreCode();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 2:
           message.wasmByteCode = reader.bytes();
           break;
+
         case 5:
           message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -194,7 +222,9 @@ export const MsgStoreCode = {
 };
 
 function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
-  return { codeId: Long.UZERO };
+  return {
+    codeId: Long.UZERO,
+  };
 }
 
 export const MsgStoreCodeResponse = {
@@ -202,6 +232,7 @@ export const MsgStoreCodeResponse = {
     if (!message.codeId.isZero()) {
       writer.uint32(8).uint64(message.codeId);
     }
+
     return writer;
   },
 
@@ -209,22 +240,28 @@ export const MsgStoreCodeResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgStoreCodeResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.codeId = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgStoreCodeResponse {
-    return { codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO };
+    return {
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
+    };
   },
 
   toJSON(message: MsgStoreCodeResponse): unknown {
@@ -242,7 +279,14 @@ export const MsgStoreCodeResponse = {
 };
 
 function createBaseMsgInstantiateContract(): MsgInstantiateContract {
-  return { sender: "", admin: "", codeId: Long.UZERO, label: "", msg: new Uint8Array(), funds: [] };
+  return {
+    sender: "",
+    admin: "",
+    codeId: Long.UZERO,
+    label: "",
+    msg: new Uint8Array(),
+    funds: [],
+  };
 }
 
 export const MsgInstantiateContract = {
@@ -250,21 +294,27 @@ export const MsgInstantiateContract = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.admin !== "") {
       writer.uint32(18).string(message.admin);
     }
+
     if (!message.codeId.isZero()) {
       writer.uint32(24).uint64(message.codeId);
     }
+
     if (message.label !== "") {
       writer.uint32(34).string(message.label);
     }
+
     if (message.msg.length !== 0) {
       writer.uint32(42).bytes(message.msg);
     }
+
     for (const v of message.funds) {
       Coin.encode(v!, writer.uint32(50).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -272,32 +322,41 @@ export const MsgInstantiateContract = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgInstantiateContract();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 2:
           message.admin = reader.string();
           break;
+
         case 3:
           message.codeId = reader.uint64() as Long;
           break;
+
         case 4:
           message.label = reader.string();
           break;
+
         case 5:
           message.msg = reader.bytes();
           break;
+
         case 6:
           message.funds.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -305,7 +364,7 @@ export const MsgInstantiateContract = {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
       admin: isSet(object.admin) ? String(object.admin) : "",
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
       label: isSet(object.label) ? String(object.label) : "",
       msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
       funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
@@ -320,11 +379,13 @@ export const MsgInstantiateContract = {
     message.label !== undefined && (obj.label = message.label);
     message.msg !== undefined &&
       (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
+
     if (message.funds) {
       obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.funds = [];
     }
+
     return obj;
   },
 
@@ -342,7 +403,10 @@ export const MsgInstantiateContract = {
 };
 
 function createBaseMsgInstantiateContractResponse(): MsgInstantiateContractResponse {
-  return { address: "", data: new Uint8Array() };
+  return {
+    address: "",
+    data: new Uint8Array(),
+  };
 }
 
 export const MsgInstantiateContractResponse = {
@@ -350,9 +414,11 @@ export const MsgInstantiateContractResponse = {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -360,20 +426,25 @@ export const MsgInstantiateContractResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgInstantiateContractResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.address = reader.string();
           break;
+
         case 2:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -403,7 +474,12 @@ export const MsgInstantiateContractResponse = {
 };
 
 function createBaseMsgExecuteContract(): MsgExecuteContract {
-  return { sender: "", contract: "", msg: new Uint8Array(), funds: [] };
+  return {
+    sender: "",
+    contract: "",
+    msg: new Uint8Array(),
+    funds: [],
+  };
 }
 
 export const MsgExecuteContract = {
@@ -411,15 +487,19 @@ export const MsgExecuteContract = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.contract !== "") {
       writer.uint32(18).string(message.contract);
     }
+
     if (message.msg.length !== 0) {
       writer.uint32(26).bytes(message.msg);
     }
+
     for (const v of message.funds) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -427,26 +507,33 @@ export const MsgExecuteContract = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExecuteContract();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 2:
           message.contract = reader.string();
           break;
+
         case 3:
           message.msg = reader.bytes();
           break;
+
         case 5:
           message.funds.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -465,11 +552,13 @@ export const MsgExecuteContract = {
     message.contract !== undefined && (obj.contract = message.contract);
     message.msg !== undefined &&
       (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
+
     if (message.funds) {
       obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.funds = [];
     }
+
     return obj;
   },
 
@@ -484,7 +573,9 @@ export const MsgExecuteContract = {
 };
 
 function createBaseMsgExecuteContractResponse(): MsgExecuteContractResponse {
-  return { data: new Uint8Array() };
+  return {
+    data: new Uint8Array(),
+  };
 }
 
 export const MsgExecuteContractResponse = {
@@ -492,6 +583,7 @@ export const MsgExecuteContractResponse = {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -499,22 +591,28 @@ export const MsgExecuteContractResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExecuteContractResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgExecuteContractResponse {
-    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
+    return {
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+    };
   },
 
   toJSON(message: MsgExecuteContractResponse): unknown {
@@ -534,7 +632,12 @@ export const MsgExecuteContractResponse = {
 };
 
 function createBaseMsgMigrateContract(): MsgMigrateContract {
-  return { sender: "", contract: "", codeId: Long.UZERO, msg: new Uint8Array() };
+  return {
+    sender: "",
+    contract: "",
+    codeId: Long.UZERO,
+    msg: new Uint8Array(),
+  };
 }
 
 export const MsgMigrateContract = {
@@ -542,15 +645,19 @@ export const MsgMigrateContract = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.contract !== "") {
       writer.uint32(18).string(message.contract);
     }
+
     if (!message.codeId.isZero()) {
       writer.uint32(24).uint64(message.codeId);
     }
+
     if (message.msg.length !== 0) {
       writer.uint32(34).bytes(message.msg);
     }
+
     return writer;
   },
 
@@ -558,26 +665,33 @@ export const MsgMigrateContract = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMigrateContract();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 2:
           message.contract = reader.string();
           break;
+
         case 3:
           message.codeId = reader.uint64() as Long;
           break;
+
         case 4:
           message.msg = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -585,7 +699,7 @@ export const MsgMigrateContract = {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
       contract: isSet(object.contract) ? String(object.contract) : "",
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
+      codeId: isSet(object.codeId) ? Long.fromString(object.codeId) : Long.UZERO,
       msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
     };
   },
@@ -612,7 +726,9 @@ export const MsgMigrateContract = {
 };
 
 function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
-  return { data: new Uint8Array() };
+  return {
+    data: new Uint8Array(),
+  };
 }
 
 export const MsgMigrateContractResponse = {
@@ -620,6 +736,7 @@ export const MsgMigrateContractResponse = {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
+
     return writer;
   },
 
@@ -627,22 +744,28 @@ export const MsgMigrateContractResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMigrateContractResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.data = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgMigrateContractResponse {
-    return { data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array() };
+    return {
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+    };
   },
 
   toJSON(message: MsgMigrateContractResponse): unknown {
@@ -662,7 +785,11 @@ export const MsgMigrateContractResponse = {
 };
 
 function createBaseMsgUpdateAdmin(): MsgUpdateAdmin {
-  return { sender: "", newAdmin: "", contract: "" };
+  return {
+    sender: "",
+    newAdmin: "",
+    contract: "",
+  };
 }
 
 export const MsgUpdateAdmin = {
@@ -670,12 +797,15 @@ export const MsgUpdateAdmin = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.newAdmin !== "") {
       writer.uint32(18).string(message.newAdmin);
     }
+
     if (message.contract !== "") {
       writer.uint32(26).string(message.contract);
     }
+
     return writer;
   },
 
@@ -683,23 +813,29 @@ export const MsgUpdateAdmin = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateAdmin();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 2:
           message.newAdmin = reader.string();
           break;
+
         case 3:
           message.contract = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -741,14 +877,17 @@ export const MsgUpdateAdminResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateAdminResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -768,7 +907,10 @@ export const MsgUpdateAdminResponse = {
 };
 
 function createBaseMsgClearAdmin(): MsgClearAdmin {
-  return { sender: "", contract: "" };
+  return {
+    sender: "",
+    contract: "",
+  };
 }
 
 export const MsgClearAdmin = {
@@ -776,9 +918,11 @@ export const MsgClearAdmin = {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
+
     if (message.contract !== "") {
       writer.uint32(26).string(message.contract);
     }
+
     return writer;
   },
 
@@ -786,20 +930,25 @@ export const MsgClearAdmin = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClearAdmin();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.sender = reader.string();
           break;
+
         case 3:
           message.contract = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -838,14 +987,17 @@ export const MsgClearAdminResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClearAdminResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -863,25 +1015,30 @@ export const MsgClearAdminResponse = {
     return message;
   },
 };
+/** Msg defines the RPC service */
 
-/** Msg defines the wasm Msg service. */
 export interface Msg {
-  /** StoreCode to submit Wasm code to the system */
   StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse>;
-  /** Instantiate creates a new smart contract instance for the given code id. */
-  InstantiateContract(request: MsgInstantiateContract): Promise<MsgInstantiateContractResponse>;
-  /** Execute submits the given message data to a smart contract */
-  ExecuteContract(request: MsgExecuteContract): Promise<MsgExecuteContractResponse>;
-  /** Migrate runs a code upgrade/ downgrade for a smart contract */
-  MigrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
-  /** UpdateAdmin sets a new   admin for a smart contract */
-  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
-  /** ClearAdmin removes any admin stored for a smart contract */
-  ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
-}
+  /*StoreCode to submit Wasm code to the system*/
 
+  InstantiateContract(request: MsgInstantiateContract): Promise<MsgInstantiateContractResponse>;
+  /*Instantiate creates a new smart contract instance for the given code id.*/
+
+  ExecuteContract(request: MsgExecuteContract): Promise<MsgExecuteContractResponse>;
+  /*Execute submits the given message data to a smart contract*/
+
+  MigrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
+  /*Migrate runs a code upgrade/ downgrade for a smart contract*/
+
+  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
+  /*UpdateAdmin sets a new   admin for a smart contract*/
+
+  ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
+  /*ClearAdmin removes any admin stored for a smart contract*/
+}
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.StoreCode = this.StoreCode.bind(this);
@@ -891,6 +1048,7 @@ export class MsgClientImpl implements Msg {
     this.UpdateAdmin = this.UpdateAdmin.bind(this);
     this.ClearAdmin = this.ClearAdmin.bind(this);
   }
+
   StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse> {
     const data = MsgStoreCode.encode(request).finish();
     const promise = this.rpc.request("cosmwasm.wasm.v1.Msg", "StoreCode", data);
@@ -926,80 +1084,4 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request("cosmwasm.wasm.v1.Msg", "ClearAdmin", data);
     return promise.then((data) => MsgClearAdminResponse.decode(new _m0.Reader(data)));
   }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

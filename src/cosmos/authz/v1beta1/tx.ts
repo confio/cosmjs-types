@@ -1,33 +1,29 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Any } from "../../../google/protobuf/any";
 import { Grant } from "./authz";
-
+import { Any } from "../../../google/protobuf/any";
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";
-
-/** Since: cosmos-sdk 0.43 */
-
 /**
  * MsgGrant is a request type for Grant method. It declares authorization to the grantee
  * on behalf of the granter with the provided expiration time.
  */
+
 export interface MsgGrant {
   granter: string;
   grantee: string;
-  grant?: Grant;
+  grant: Grant;
 }
-
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
+
 export interface MsgExecResponse {
   results: Uint8Array[];
 }
-
 /**
  * MsgExec attempts to execute the provided messages using
  * authorizations granted to the grantee. Each message should have only
  * one signer corresponding to the granter of the authorization.
  */
+
 export interface MsgExec {
   grantee: string;
   /**
@@ -35,27 +31,32 @@ export interface MsgExec {
    * The x/authz will try to find a grant matching (msg.signers[0], grantee, MsgTypeURL(msg))
    * triple and validate it.
    */
+
   msgs: Any[];
 }
-
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
-export interface MsgGrantResponse {}
 
+export interface MsgGrantResponse {}
 /**
  * MsgRevoke revokes any authorization with the provided sdk.Msg type on the
  * granter's account with that has been granted to the grantee.
  */
+
 export interface MsgRevoke {
   granter: string;
   grantee: string;
   msgTypeUrl: string;
 }
-
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
+
 export interface MsgRevokeResponse {}
 
 function createBaseMsgGrant(): MsgGrant {
-  return { granter: "", grantee: "", grant: undefined };
+  return {
+    granter: "",
+    grantee: "",
+    grant: undefined,
+  };
 }
 
 export const MsgGrant = {
@@ -63,12 +64,15 @@ export const MsgGrant = {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
+
     if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
+
     if (message.grant !== undefined) {
       Grant.encode(message.grant, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -76,23 +80,29 @@ export const MsgGrant = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgGrant();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.granter = reader.string();
           break;
+
         case 2:
           message.grantee = reader.string();
           break;
+
         case 3:
           message.grant = Grant.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -123,7 +133,9 @@ export const MsgGrant = {
 };
 
 function createBaseMsgExecResponse(): MsgExecResponse {
-  return { results: [] };
+  return {
+    results: [],
+  };
 }
 
 export const MsgExecResponse = {
@@ -131,6 +143,7 @@ export const MsgExecResponse = {
     for (const v of message.results) {
       writer.uint32(10).bytes(v!);
     }
+
     return writer;
   },
 
@@ -138,17 +151,21 @@ export const MsgExecResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExecResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.results.push(reader.bytes());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -160,11 +177,13 @@ export const MsgExecResponse = {
 
   toJSON(message: MsgExecResponse): unknown {
     const obj: any = {};
+
     if (message.results) {
       obj.results = message.results.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
     } else {
       obj.results = [];
     }
+
     return obj;
   },
 
@@ -176,7 +195,10 @@ export const MsgExecResponse = {
 };
 
 function createBaseMsgExec(): MsgExec {
-  return { grantee: "", msgs: [] };
+  return {
+    grantee: "",
+    msgs: [],
+  };
 }
 
 export const MsgExec = {
@@ -184,9 +206,11 @@ export const MsgExec = {
     if (message.grantee !== "") {
       writer.uint32(10).string(message.grantee);
     }
+
     for (const v of message.msgs) {
       Any.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -194,20 +218,25 @@ export const MsgExec = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgExec();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.grantee = reader.string();
           break;
+
         case 2:
           message.msgs.push(Any.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -221,11 +250,13 @@ export const MsgExec = {
   toJSON(message: MsgExec): unknown {
     const obj: any = {};
     message.grantee !== undefined && (obj.grantee = message.grantee);
+
     if (message.msgs) {
       obj.msgs = message.msgs.map((e) => (e ? Any.toJSON(e) : undefined));
     } else {
       obj.msgs = [];
     }
+
     return obj;
   },
 
@@ -250,14 +281,17 @@ export const MsgGrantResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgGrantResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -277,7 +311,11 @@ export const MsgGrantResponse = {
 };
 
 function createBaseMsgRevoke(): MsgRevoke {
-  return { granter: "", grantee: "", msgTypeUrl: "" };
+  return {
+    granter: "",
+    grantee: "",
+    msgTypeUrl: "",
+  };
 }
 
 export const MsgRevoke = {
@@ -285,12 +323,15 @@ export const MsgRevoke = {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
+
     if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
+
     if (message.msgTypeUrl !== "") {
       writer.uint32(26).string(message.msgTypeUrl);
     }
+
     return writer;
   },
 
@@ -298,23 +339,29 @@ export const MsgRevoke = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRevoke();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.granter = reader.string();
           break;
+
         case 2:
           message.grantee = reader.string();
           break;
+
         case 3:
           message.msgTypeUrl = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -356,14 +403,17 @@ export const MsgRevokeResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRevokeResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -381,37 +431,34 @@ export const MsgRevokeResponse = {
     return message;
   },
 };
+/** Msg defines the RPC service */
 
-/** Msg defines the authz Msg service. */
 export interface Msg {
-  /**
-   * Grant grants the provided authorization to the grantee on the granter's
-   * account with the provided expiration time. If there is already a grant
-   * for the given (granter, grantee, Authorization) triple, then the grant
-   * will be overwritten.
-   */
   Grant(request: MsgGrant): Promise<MsgGrantResponse>;
-  /**
-   * Exec attempts to execute the provided messages using
-   * authorizations granted to the grantee. Each message should have only
-   * one signer corresponding to the granter of the authorization.
-   */
-  Exec(request: MsgExec): Promise<MsgExecResponse>;
-  /**
-   * Revoke revokes any authorization corresponding to the provided method name on the
-   * granter's account that has been granted to the grantee.
-   */
-  Revoke(request: MsgRevoke): Promise<MsgRevokeResponse>;
-}
+  /*Grant grants the provided authorization to the grantee on the granter's
+   account with the provided expiration time. If there is already a grant
+   for the given (granter, grantee, Authorization) triple, then the grant
+   will be overwritten.*/
 
+  Exec(request: MsgExec): Promise<MsgExecResponse>;
+  /*Exec attempts to execute the provided messages using
+   authorizations granted to the grantee. Each message should have only
+   one signer corresponding to the granter of the authorization.*/
+
+  Revoke(request: MsgRevoke): Promise<MsgRevokeResponse>;
+  /*Revoke revokes any authorization corresponding to the provided method name on the
+   granter's account that has been granted to the grantee.*/
+}
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Grant = this.Grant.bind(this);
     this.Exec = this.Exec.bind(this);
     this.Revoke = this.Revoke.bind(this);
   }
+
   Grant(request: MsgGrant): Promise<MsgGrantResponse> {
     const data = MsgGrant.encode(request).finish();
     const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Grant", data);
@@ -429,80 +476,4 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request("cosmos.authz.v1beta1.Msg", "Revoke", data);
     return promise.then((data) => MsgRevokeResponse.decode(new _m0.Reader(data)));
   }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

@@ -1,67 +1,69 @@
-/* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../base/v1beta1/coin";
-import { VoteOption, voteOptionFromJSON, voteOptionToJSON, WeightedVoteOption } from "./gov";
-
+import { VoteOption, WeightedVoteOption, voteOptionFromJSON, voteOptionToJSON } from "./gov";
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, Long, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.gov.v1beta1";
-
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
  */
+
 export interface MsgSubmitProposal {
-  content?: Any;
+  content: Any;
   initialDeposit: Coin[];
   proposer: string;
 }
-
 /** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
+
 export interface MsgSubmitProposalResponse {
   proposalId: Long;
 }
-
 /** MsgVote defines a message to cast a vote. */
+
 export interface MsgVote {
   proposalId: Long;
   voter: string;
   option: VoteOption;
 }
-
 /** MsgVoteResponse defines the Msg/Vote response type. */
-export interface MsgVoteResponse {}
 
+export interface MsgVoteResponse {}
 /**
  * MsgVoteWeighted defines a message to cast a vote.
  *
  * Since: cosmos-sdk 0.43
  */
+
 export interface MsgVoteWeighted {
   proposalId: Long;
   voter: string;
   options: WeightedVoteOption[];
 }
-
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
  *
  * Since: cosmos-sdk 0.43
  */
-export interface MsgVoteWeightedResponse {}
 
+export interface MsgVoteWeightedResponse {}
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
+
 export interface MsgDeposit {
   proposalId: Long;
   depositor: string;
   amount: Coin[];
 }
-
 /** MsgDepositResponse defines the Msg/Deposit response type. */
+
 export interface MsgDepositResponse {}
 
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
-  return { content: undefined, initialDeposit: [], proposer: "" };
+  return {
+    content: undefined,
+    initialDeposit: [],
+    proposer: "",
+  };
 }
 
 export const MsgSubmitProposal = {
@@ -69,12 +71,15 @@ export const MsgSubmitProposal = {
     if (message.content !== undefined) {
       Any.encode(message.content, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.initialDeposit) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.proposer !== "") {
       writer.uint32(26).string(message.proposer);
     }
+
     return writer;
   },
 
@@ -82,23 +87,29 @@ export const MsgSubmitProposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSubmitProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.content = Any.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.initialDeposit.push(Coin.decode(reader, reader.uint32()));
           break;
+
         case 3:
           message.proposer = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -116,11 +127,13 @@ export const MsgSubmitProposal = {
     const obj: any = {};
     message.content !== undefined &&
       (obj.content = message.content ? Any.toJSON(message.content) : undefined);
+
     if (message.initialDeposit) {
       obj.initialDeposit = message.initialDeposit.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.initialDeposit = [];
     }
+
     message.proposer !== undefined && (obj.proposer = message.proposer);
     return obj;
   },
@@ -136,7 +149,9 @@ export const MsgSubmitProposal = {
 };
 
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
-  return { proposalId: Long.UZERO };
+  return {
+    proposalId: Long.UZERO,
+  };
 }
 
 export const MsgSubmitProposalResponse = {
@@ -144,6 +159,7 @@ export const MsgSubmitProposalResponse = {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
+
     return writer;
   },
 
@@ -151,22 +167,28 @@ export const MsgSubmitProposalResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSubmitProposalResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.proposalId = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgSubmitProposalResponse {
-    return { proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO };
+    return {
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
+    };
   },
 
   toJSON(message: MsgSubmitProposalResponse): unknown {
@@ -188,7 +210,11 @@ export const MsgSubmitProposalResponse = {
 };
 
 function createBaseMsgVote(): MsgVote {
-  return { proposalId: Long.UZERO, voter: "", option: 0 };
+  return {
+    proposalId: Long.UZERO,
+    voter: "",
+    option: 0,
+  };
 }
 
 export const MsgVote = {
@@ -196,12 +222,15 @@ export const MsgVote = {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
+
     if (message.voter !== "") {
       writer.uint32(18).string(message.voter);
     }
+
     if (message.option !== 0) {
       writer.uint32(24).int32(message.option);
     }
+
     return writer;
   },
 
@@ -209,29 +238,35 @@ export const MsgVote = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVote();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.proposalId = reader.uint64() as Long;
           break;
+
         case 2:
           message.voter = reader.string();
           break;
+
         case 3:
           message.option = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgVote {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
       voter: isSet(object.voter) ? String(object.voter) : "",
       option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
     };
@@ -270,14 +305,17 @@ export const MsgVoteResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVoteResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -297,7 +335,11 @@ export const MsgVoteResponse = {
 };
 
 function createBaseMsgVoteWeighted(): MsgVoteWeighted {
-  return { proposalId: Long.UZERO, voter: "", options: [] };
+  return {
+    proposalId: Long.UZERO,
+    voter: "",
+    options: [],
+  };
 }
 
 export const MsgVoteWeighted = {
@@ -305,12 +347,15 @@ export const MsgVoteWeighted = {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
+
     if (message.voter !== "") {
       writer.uint32(18).string(message.voter);
     }
+
     for (const v of message.options) {
       WeightedVoteOption.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -318,29 +363,35 @@ export const MsgVoteWeighted = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVoteWeighted();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.proposalId = reader.uint64() as Long;
           break;
+
         case 2:
           message.voter = reader.string();
           break;
+
         case 3:
           message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgVoteWeighted {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
       voter: isSet(object.voter) ? String(object.voter) : "",
       options: Array.isArray(object?.options)
         ? object.options.map((e: any) => WeightedVoteOption.fromJSON(e))
@@ -352,11 +403,13 @@ export const MsgVoteWeighted = {
     const obj: any = {};
     message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.voter !== undefined && (obj.voter = message.voter);
+
     if (message.options) {
       obj.options = message.options.map((e) => (e ? WeightedVoteOption.toJSON(e) : undefined));
     } else {
       obj.options = [];
     }
+
     return obj;
   },
 
@@ -385,14 +438,17 @@ export const MsgVoteWeightedResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVoteWeightedResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -412,7 +468,11 @@ export const MsgVoteWeightedResponse = {
 };
 
 function createBaseMsgDeposit(): MsgDeposit {
-  return { proposalId: Long.UZERO, depositor: "", amount: [] };
+  return {
+    proposalId: Long.UZERO,
+    depositor: "",
+    amount: [],
+  };
 }
 
 export const MsgDeposit = {
@@ -420,12 +480,15 @@ export const MsgDeposit = {
     if (!message.proposalId.isZero()) {
       writer.uint32(8).uint64(message.proposalId);
     }
+
     if (message.depositor !== "") {
       writer.uint32(18).string(message.depositor);
     }
+
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -433,29 +496,35 @@ export const MsgDeposit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDeposit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.proposalId = reader.uint64() as Long;
           break;
+
         case 2:
           message.depositor = reader.string();
           break;
+
         case 3:
           message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MsgDeposit {
     return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
+      proposalId: isSet(object.proposalId) ? Long.fromString(object.proposalId) : Long.UZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
     };
@@ -465,11 +534,13 @@ export const MsgDeposit = {
     const obj: any = {};
     message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
+
     if (message.amount) {
       obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.amount = [];
     }
+
     return obj;
   },
 
@@ -498,14 +569,17 @@ export const MsgDepositResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -523,25 +597,26 @@ export const MsgDepositResponse = {
     return message;
   },
 };
+/** Msg defines the RPC service */
 
-/** Msg defines the bank Msg service. */
 export interface Msg {
-  /** SubmitProposal defines a method to create new proposal given a content. */
   SubmitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse>;
-  /** Vote defines a method to add a vote on a specific proposal. */
-  Vote(request: MsgVote): Promise<MsgVoteResponse>;
-  /**
-   * VoteWeighted defines a method to add a weighted vote on a specific proposal.
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  VoteWeighted(request: MsgVoteWeighted): Promise<MsgVoteWeightedResponse>;
-  /** Deposit defines a method to add deposit on a specific proposal. */
-  Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
-}
+  /*SubmitProposal defines a method to create new proposal given a content.*/
 
+  Vote(request: MsgVote): Promise<MsgVoteResponse>;
+  /*Vote defines a method to add a vote on a specific proposal.*/
+
+  VoteWeighted(request: MsgVoteWeighted): Promise<MsgVoteWeightedResponse>;
+  /*VoteWeighted defines a method to add a weighted vote on a specific proposal.
+  
+   Since: cosmos-sdk 0.43*/
+
+  Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
+  /*Deposit defines a method to add deposit on a specific proposal.*/
+}
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.SubmitProposal = this.SubmitProposal.bind(this);
@@ -549,6 +624,7 @@ export class MsgClientImpl implements Msg {
     this.VoteWeighted = this.VoteWeighted.bind(this);
     this.Deposit = this.Deposit.bind(this);
   }
+
   SubmitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse> {
     const data = MsgSubmitProposal.encode(request).finish();
     const promise = this.rpc.request("cosmos.gov.v1beta1.Msg", "SubmitProposal", data);
@@ -572,36 +648,4 @@ export class MsgClientImpl implements Msg {
     const promise = this.rpc.request("cosmos.gov.v1beta1.Msg", "Deposit", data);
     return promise.then((data) => MsgDepositResponse.decode(new _m0.Reader(data)));
   }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }
