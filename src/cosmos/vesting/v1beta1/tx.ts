@@ -97,7 +97,7 @@ export const MsgCreateVestingAccount = {
       fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
       toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
       amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      endTime: isSet(object.endTime) ? Long.fromString(object.endTime) : Long.ZERO,
+      endTime: isSet(object.endTime) ? Long.fromValue(object.endTime) : Long.ZERO,
       delayed: isSet(object.delayed) ? Boolean(object.delayed) : false,
     };
   },

@@ -87,7 +87,7 @@ export const GenesisState = {
         ? object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e))
         : [],
       nextConnectionSequence: isSet(object.nextConnectionSequence)
-        ? Long.fromString(object.nextConnectionSequence)
+        ? Long.fromValue(object.nextConnectionSequence)
         : Long.UZERO,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };

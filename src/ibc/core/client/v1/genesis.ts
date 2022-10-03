@@ -140,7 +140,7 @@ export const GenesisState = {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       createLocalhost: isSet(object.createLocalhost) ? Boolean(object.createLocalhost) : false,
       nextClientSequence: isSet(object.nextClientSequence)
-        ? Long.fromString(object.nextClientSequence)
+        ? Long.fromValue(object.nextClientSequence)
         : Long.UZERO,
     };
   },

@@ -1293,9 +1293,7 @@ export const MsgTimeout = {
         ? bytesFromBase64(object.proofUnreceived)
         : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-      nextSequenceRecv: isSet(object.nextSequenceRecv)
-        ? Long.fromString(object.nextSequenceRecv)
-        : Long.UZERO,
+      nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromValue(object.nextSequenceRecv) : Long.UZERO,
       signer: isSet(object.signer) ? String(object.signer) : "",
     };
   },
@@ -1465,9 +1463,7 @@ export const MsgTimeoutOnClose = {
         : new Uint8Array(),
       proofClose: isSet(object.proofClose) ? bytesFromBase64(object.proofClose) : new Uint8Array(),
       proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-      nextSequenceRecv: isSet(object.nextSequenceRecv)
-        ? Long.fromString(object.nextSequenceRecv)
-        : Long.UZERO,
+      nextSequenceRecv: isSet(object.nextSequenceRecv) ? Long.fromValue(object.nextSequenceRecv) : Long.UZERO,
       signer: isSet(object.signer) ? String(object.signer) : "",
     };
   },

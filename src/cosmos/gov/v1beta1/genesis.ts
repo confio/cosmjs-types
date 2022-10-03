@@ -122,7 +122,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       startingProposalId: isSet(object.startingProposalId)
-        ? Long.fromString(object.startingProposalId)
+        ? Long.fromValue(object.startingProposalId)
         : Long.UZERO,
       deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
       votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],

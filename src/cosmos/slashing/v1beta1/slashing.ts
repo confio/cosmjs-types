@@ -141,12 +141,12 @@ export const ValidatorSigningInfo = {
   fromJSON(object: any): ValidatorSigningInfo {
     return {
       address: isSet(object.address) ? String(object.address) : "",
-      startHeight: isSet(object.startHeight) ? Long.fromString(object.startHeight) : Long.ZERO,
-      indexOffset: isSet(object.indexOffset) ? Long.fromString(object.indexOffset) : Long.ZERO,
+      startHeight: isSet(object.startHeight) ? Long.fromValue(object.startHeight) : Long.ZERO,
+      indexOffset: isSet(object.indexOffset) ? Long.fromValue(object.indexOffset) : Long.ZERO,
       jailedUntil: isSet(object.jailedUntil) ? fromJsonTimestamp(object.jailedUntil) : undefined,
       tombstoned: isSet(object.tombstoned) ? Boolean(object.tombstoned) : false,
       missedBlocksCounter: isSet(object.missedBlocksCounter)
-        ? Long.fromString(object.missedBlocksCounter)
+        ? Long.fromValue(object.missedBlocksCounter)
         : Long.ZERO,
     };
   },
@@ -263,7 +263,7 @@ export const Params = {
   fromJSON(object: any): Params {
     return {
       signedBlocksWindow: isSet(object.signedBlocksWindow)
-        ? Long.fromString(object.signedBlocksWindow)
+        ? Long.fromValue(object.signedBlocksWindow)
         : Long.ZERO,
       minSignedPerWindow: isSet(object.minSignedPerWindow)
         ? bytesFromBase64(object.minSignedPerWindow)

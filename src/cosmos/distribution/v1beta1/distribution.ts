@@ -346,7 +346,7 @@ export const ValidatorCurrentRewards = {
   fromJSON(object: any): ValidatorCurrentRewards {
     return {
       rewards: Array.isArray(object?.rewards) ? object.rewards.map((e: any) => DecCoin.fromJSON(e)) : [],
-      period: isSet(object.period) ? Long.fromString(object.period) : Long.UZERO,
+      period: isSet(object.period) ? Long.fromValue(object.period) : Long.UZERO,
     };
   },
 
@@ -550,7 +550,7 @@ export const ValidatorSlashEvent = {
 
   fromJSON(object: any): ValidatorSlashEvent {
     return {
-      validatorPeriod: isSet(object.validatorPeriod) ? Long.fromString(object.validatorPeriod) : Long.UZERO,
+      validatorPeriod: isSet(object.validatorPeriod) ? Long.fromValue(object.validatorPeriod) : Long.UZERO,
       fraction: isSet(object.fraction) ? String(object.fraction) : "",
     };
   },
@@ -862,9 +862,9 @@ export const DelegatorStartingInfo = {
 
   fromJSON(object: any): DelegatorStartingInfo {
     return {
-      previousPeriod: isSet(object.previousPeriod) ? Long.fromString(object.previousPeriod) : Long.UZERO,
+      previousPeriod: isSet(object.previousPeriod) ? Long.fromValue(object.previousPeriod) : Long.UZERO,
       stake: isSet(object.stake) ? String(object.stake) : "",
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.UZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.UZERO,
     };
   },
 

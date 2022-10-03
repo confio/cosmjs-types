@@ -222,7 +222,7 @@ export const SnapshotIAVLItem = {
     return {
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-      version: isSet(object.version) ? Long.fromString(object.version) : Long.ZERO,
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.ZERO,
       height: isSet(object.height) ? Number(object.height) : 0,
     };
   },

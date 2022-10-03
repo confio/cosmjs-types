@@ -192,8 +192,8 @@ export const DuplicateVoteEvidence = {
     return {
       voteA: isSet(object.voteA) ? Vote.fromJSON(object.voteA) : undefined,
       voteB: isSet(object.voteB) ? Vote.fromJSON(object.voteB) : undefined,
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromString(object.totalVotingPower) : Long.ZERO,
-      validatorPower: isSet(object.validatorPower) ? Long.fromString(object.validatorPower) : Long.ZERO,
+      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
+      validatorPower: isSet(object.validatorPower) ? Long.fromValue(object.validatorPower) : Long.ZERO,
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
     };
   },
@@ -310,11 +310,11 @@ export const LightClientAttackEvidence = {
       conflictingBlock: isSet(object.conflictingBlock)
         ? LightBlock.fromJSON(object.conflictingBlock)
         : undefined,
-      commonHeight: isSet(object.commonHeight) ? Long.fromString(object.commonHeight) : Long.ZERO,
+      commonHeight: isSet(object.commonHeight) ? Long.fromValue(object.commonHeight) : Long.ZERO,
       byzantineValidators: Array.isArray(object?.byzantineValidators)
         ? object.byzantineValidators.map((e: any) => Validator.fromJSON(e))
         : [],
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromString(object.totalVotingPower) : Long.ZERO,
+      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
       timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
     };
   },

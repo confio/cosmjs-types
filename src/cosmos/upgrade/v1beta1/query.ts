@@ -284,7 +284,7 @@ export const QueryAppliedPlanResponse = {
 
   fromJSON(object: any): QueryAppliedPlanResponse {
     return {
-      height: isSet(object.height) ? Long.fromString(object.height) : Long.ZERO,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
     };
   },
 
@@ -343,7 +343,7 @@ export const QueryUpgradedConsensusStateRequest = {
 
   fromJSON(object: any): QueryUpgradedConsensusStateRequest {
     return {
-      lastHeight: isSet(object.lastHeight) ? Long.fromString(object.lastHeight) : Long.ZERO,
+      lastHeight: isSet(object.lastHeight) ? Long.fromValue(object.lastHeight) : Long.ZERO,
     };
   },
 
