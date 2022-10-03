@@ -13,6 +13,7 @@ telescope({
     outPath: join(__dirname, '/../src'),
     options: {
         includePackageVar: true,
+        useSDKTypes: false,
         bundle: {
             enabled: false
         },
