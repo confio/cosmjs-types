@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { MerklePrefix } from "../../commitment/v1/commitment";
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";

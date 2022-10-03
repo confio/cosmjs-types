@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";

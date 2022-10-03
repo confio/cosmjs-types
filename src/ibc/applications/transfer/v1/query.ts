@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { DenomTrace, Params } from "./transfer";
 import * as _m0 from "protobufjs/minimal";

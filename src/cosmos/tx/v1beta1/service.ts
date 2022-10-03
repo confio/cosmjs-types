@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Tx } from "./tx";
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci";

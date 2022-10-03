@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";

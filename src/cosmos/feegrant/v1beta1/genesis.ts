@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Grant } from "./feegrant";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Exact } from "../../../helpers";

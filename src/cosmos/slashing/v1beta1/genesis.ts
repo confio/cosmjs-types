@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long } from "../../../helpers";

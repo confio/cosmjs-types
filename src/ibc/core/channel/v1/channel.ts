@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../../../helpers";

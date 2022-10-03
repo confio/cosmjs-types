@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Proof } from "../crypto/proof";
 import { Consensus } from "../version/types";
 import { Timestamp } from "../../google/protobuf/timestamp";

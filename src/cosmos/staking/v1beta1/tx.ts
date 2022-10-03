@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Description, CommissionRates } from "./staking";
 import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../base/v1beta1/coin";

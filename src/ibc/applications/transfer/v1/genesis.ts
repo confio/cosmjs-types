@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DenomTrace, Params } from "./transfer";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";

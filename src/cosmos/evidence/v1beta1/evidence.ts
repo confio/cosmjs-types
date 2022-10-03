@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";

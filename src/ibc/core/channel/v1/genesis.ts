@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { IdentifiedChannel, PacketState } from "./channel";
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";

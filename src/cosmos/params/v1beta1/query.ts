@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ParamChange } from "./params";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";

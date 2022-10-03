@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { Height } from "../../../core/client/v1/client";
 import * as _m0 from "protobufjs/minimal";

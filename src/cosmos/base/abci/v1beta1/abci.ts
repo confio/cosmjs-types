@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
 import * as _m0 from "protobufjs/minimal";

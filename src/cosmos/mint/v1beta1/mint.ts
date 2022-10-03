@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.mint.v1beta1";

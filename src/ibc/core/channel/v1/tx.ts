@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Channel, Packet } from "./channel";
 import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";

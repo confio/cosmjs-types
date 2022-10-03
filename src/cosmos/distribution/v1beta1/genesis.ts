@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DecCoin } from "../../base/v1beta1/coin";
 import {
   ValidatorAccumulatedCommission,

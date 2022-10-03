@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   ProposalStatus,
   Proposal,

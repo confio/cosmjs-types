@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.kv.v1beta1";

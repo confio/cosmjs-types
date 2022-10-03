@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";

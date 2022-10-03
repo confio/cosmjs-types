@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Duration } from "../../../../google/protobuf/duration";
 import { Height } from "../../../core/client/v1/client";
 import { ProofSpec } from "../../../../confio/proofs";

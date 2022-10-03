@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
 import { Params, CodeInfo, ContractInfo, Model } from "./types";
 import * as _m0 from "protobufjs/minimal";

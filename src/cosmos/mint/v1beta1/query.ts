@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Params } from "./mint";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";

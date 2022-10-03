@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { SignMode, signModeFromJSON, signModeToJSON } from "../signing/v1beta1/signing";
 import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig";

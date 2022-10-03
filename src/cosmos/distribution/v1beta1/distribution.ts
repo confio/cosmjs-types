@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { DecCoin, Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long } from "../../../helpers";

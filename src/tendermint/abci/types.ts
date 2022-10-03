@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Header } from "../types/types";
 import { ProofOps } from "../crypto/proof";
