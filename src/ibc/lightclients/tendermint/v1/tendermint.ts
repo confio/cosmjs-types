@@ -313,9 +313,18 @@ export const ClientState = {
       object.trustLevel !== undefined && object.trustLevel !== null
         ? Fraction.fromPartial(object.trustLevel)
         : undefined;
-    message.trustingPeriod = object.trustingPeriod ?? undefined;
-    message.unbondingPeriod = object.unbondingPeriod ?? undefined;
-    message.maxClockDrift = object.maxClockDrift ?? undefined;
+    message.trustingPeriod =
+      object.trustingPeriod !== undefined && object.trustingPeriod !== null
+        ? Duration.fromPartial(object.trustingPeriod)
+        : undefined;
+    message.unbondingPeriod =
+      object.unbondingPeriod !== undefined && object.unbondingPeriod !== null
+        ? Duration.fromPartial(object.unbondingPeriod)
+        : undefined;
+    message.maxClockDrift =
+      object.maxClockDrift !== undefined && object.maxClockDrift !== null
+        ? Duration.fromPartial(object.maxClockDrift)
+        : undefined;
     message.frozenHeight =
       object.frozenHeight !== undefined && object.frozenHeight !== null
         ? Height.fromPartial(object.frozenHeight)

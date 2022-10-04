@@ -269,7 +269,8 @@ export const PeriodicAllowance = {
       object.basic !== undefined && object.basic !== null
         ? BasicAllowance.fromPartial(object.basic)
         : undefined;
-    message.period = object.period ?? undefined;
+    message.period =
+      object.period !== undefined && object.period !== null ? Duration.fromPartial(object.period) : undefined;
     message.periodSpendLimit = object.periodSpendLimit?.map((e) => Coin.fromPartial(e)) || [];
     message.periodCanSpend = object.periodCanSpend?.map((e) => Coin.fromPartial(e)) || [];
     message.periodReset =
