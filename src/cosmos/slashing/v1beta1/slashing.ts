@@ -288,7 +288,10 @@ export const Params = {
       (obj.minSignedPerWindow = base64FromBytes(
         message.minSignedPerWindow !== undefined ? message.minSignedPerWindow : new Uint8Array(),
       ));
-    message.downtimeJailDuration !== undefined && (obj.downtimeJailDuration = message.downtimeJailDuration);
+    message.downtimeJailDuration !== undefined &&
+      (obj.downtimeJailDuration = message.downtimeJailDuration
+        ? Duration.toJSON(message.downtimeJailDuration)
+        : undefined);
     message.slashFractionDoubleSign !== undefined &&
       (obj.slashFractionDoubleSign = base64FromBytes(
         message.slashFractionDoubleSign !== undefined ? message.slashFractionDoubleSign : new Uint8Array(),
