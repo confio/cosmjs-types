@@ -414,12 +414,12 @@ export const QuerySigningInfosResponse = {
 /** Query provides defines the gRPC querier service */
 
 export interface Query {
-  /*Params queries the parameters of slashing module*/
+  /** Params queries the parameters of slashing module */
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /*SigningInfo queries the signing info of given cons address*/
+  /** SigningInfo queries the signing info of given cons address */
 
   SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse>;
-  /*SigningInfos queries signing info of all validators*/
+  /** SigningInfos queries signing info of all validators */
 
   SigningInfos(request?: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
 }

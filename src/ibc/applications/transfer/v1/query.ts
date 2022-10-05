@@ -412,12 +412,12 @@ export const QueryParamsResponse = {
 /** Query provides defines the gRPC querier service. */
 
 export interface Query {
-  /*DenomTrace queries a denomination trace information.*/
+  /** DenomTrace queries a denomination trace information. */
   DenomTrace(request: QueryDenomTraceRequest): Promise<QueryDenomTraceResponse>;
-  /*DenomTraces queries all denomination traces.*/
+  /** DenomTraces queries all denomination traces. */
 
   DenomTraces(request?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
-  /*Params queries all parameters of the ibc-transfer module.*/
+  /** Params queries all parameters of the ibc-transfer module. */
 
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }

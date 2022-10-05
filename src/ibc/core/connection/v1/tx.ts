@@ -918,16 +918,18 @@ export const MsgConnectionOpenConfirmResponse = {
 /** Msg defines the ibc/connection Msg service. */
 
 export interface Msg {
-  /*ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit.*/
+  /** ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit. */
   ConnectionOpenInit(request: MsgConnectionOpenInit): Promise<MsgConnectionOpenInitResponse>;
-  /*ConnectionOpenTry defines a rpc handler method for MsgConnectionOpenTry.*/
+  /** ConnectionOpenTry defines a rpc handler method for MsgConnectionOpenTry. */
 
   ConnectionOpenTry(request: MsgConnectionOpenTry): Promise<MsgConnectionOpenTryResponse>;
-  /*ConnectionOpenAck defines a rpc handler method for MsgConnectionOpenAck.*/
+  /** ConnectionOpenAck defines a rpc handler method for MsgConnectionOpenAck. */
 
   ConnectionOpenAck(request: MsgConnectionOpenAck): Promise<MsgConnectionOpenAckResponse>;
-  /*ConnectionOpenConfirm defines a rpc handler method for
-   MsgConnectionOpenConfirm.*/
+  /**
+   * ConnectionOpenConfirm defines a rpc handler method for
+   * MsgConnectionOpenConfirm.
+   */
 
   ConnectionOpenConfirm(request: MsgConnectionOpenConfirm): Promise<MsgConnectionOpenConfirmResponse>;
 }

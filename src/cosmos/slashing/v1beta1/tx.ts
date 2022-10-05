@@ -111,9 +111,11 @@ export const MsgUnjailResponse = {
 /** Msg defines the slashing Msg service. */
 
 export interface Msg {
-  /*Unjail defines a method for unjailing a jailed validator, thus returning
-   them into the bonded validator set, so they can begin receiving provisions
-   and rewards again.*/
+  /**
+   * Unjail defines a method for unjailing a jailed validator, thus returning
+   * them into the bonded validator set, so they can begin receiving provisions
+   * and rewards again.
+   */
   Unjail(request: MsgUnjail): Promise<MsgUnjailResponse>;
 }
 export class MsgClientImpl implements Msg {

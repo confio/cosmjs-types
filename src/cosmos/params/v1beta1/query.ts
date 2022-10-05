@@ -147,8 +147,10 @@ export const QueryParamsResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Params queries a specific parameter of a module, given its subspace and
-   key.*/
+  /**
+   * Params queries a specific parameter of a module, given its subspace and
+   * key.
+   */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {

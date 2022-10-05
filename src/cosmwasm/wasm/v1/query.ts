@@ -1556,30 +1556,30 @@ export const QueryPinnedCodesResponse = {
 /** Query provides defines the gRPC querier service */
 
 export interface Query {
-  /*ContractInfo gets the contract meta data*/
+  /** ContractInfo gets the contract meta data */
   ContractInfo(request: QueryContractInfoRequest): Promise<QueryContractInfoResponse>;
-  /*ContractHistory gets the contract code history*/
+  /** ContractHistory gets the contract code history */
 
   ContractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse>;
-  /*ContractsByCode lists all smart contracts for a code id*/
+  /** ContractsByCode lists all smart contracts for a code id */
 
   ContractsByCode(request: QueryContractsByCodeRequest): Promise<QueryContractsByCodeResponse>;
-  /*AllContractState gets all raw store data for a single contract*/
+  /** AllContractState gets all raw store data for a single contract */
 
   AllContractState(request: QueryAllContractStateRequest): Promise<QueryAllContractStateResponse>;
-  /*RawContractState gets single key from the raw store data of a contract*/
+  /** RawContractState gets single key from the raw store data of a contract */
 
   RawContractState(request: QueryRawContractStateRequest): Promise<QueryRawContractStateResponse>;
-  /*SmartContractState get smart query result from the contract*/
+  /** SmartContractState get smart query result from the contract */
 
   SmartContractState(request: QuerySmartContractStateRequest): Promise<QuerySmartContractStateResponse>;
-  /*Code gets the binary code and metadata for a singe wasm code*/
+  /** Code gets the binary code and metadata for a singe wasm code */
 
   Code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
-  /*Codes gets the metadata for all stored wasm codes*/
+  /** Codes gets the metadata for all stored wasm codes */
 
   Codes(request?: QueryCodesRequest): Promise<QueryCodesResponse>;
-  /*PinnedCodes gets the pinned code ids*/
+  /** PinnedCodes gets the pinned code ids */
 
   PinnedCodes(request?: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse>;
 }

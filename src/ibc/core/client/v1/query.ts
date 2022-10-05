@@ -1257,29 +1257,33 @@ export const QueryUpgradedConsensusStateResponse = {
 /** Query provides defines the gRPC querier service */
 
 export interface Query {
-  /*ClientState queries an IBC light client.*/
+  /** ClientState queries an IBC light client. */
   ClientState(request: QueryClientStateRequest): Promise<QueryClientStateResponse>;
-  /*ClientStates queries all the IBC light clients of a chain.*/
+  /** ClientStates queries all the IBC light clients of a chain. */
 
   ClientStates(request?: QueryClientStatesRequest): Promise<QueryClientStatesResponse>;
-  /*ConsensusState queries a consensus state associated with a client state at
-   a given height.*/
+  /**
+   * ConsensusState queries a consensus state associated with a client state at
+   * a given height.
+   */
 
   ConsensusState(request: QueryConsensusStateRequest): Promise<QueryConsensusStateResponse>;
-  /*ConsensusStates queries all the consensus state associated with a given
-   client.*/
+  /**
+   * ConsensusStates queries all the consensus state associated with a given
+   * client.
+   */
 
   ConsensusStates(request: QueryConsensusStatesRequest): Promise<QueryConsensusStatesResponse>;
-  /*Status queries the status of an IBC client.*/
+  /** Status queries the status of an IBC client. */
 
   ClientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse>;
-  /*ClientParams queries all parameters of the ibc client.*/
+  /** ClientParams queries all parameters of the ibc client. */
 
   ClientParams(request?: QueryClientParamsRequest): Promise<QueryClientParamsResponse>;
-  /*UpgradedClientState queries an Upgraded IBC light client.*/
+  /** UpgradedClientState queries an Upgraded IBC light client. */
 
   UpgradedClientState(request?: QueryUpgradedClientStateRequest): Promise<QueryUpgradedClientStateResponse>;
-  /*UpgradedConsensusState queries an Upgraded IBC consensus state.*/
+  /** UpgradedConsensusState queries an Upgraded IBC consensus state. */
 
   UpgradedConsensusState(
     request?: QueryUpgradedConsensusStateRequest,

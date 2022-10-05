@@ -1241,21 +1241,21 @@ export const Module = {
 /** Service defines the gRPC querier service for tendermint queries. */
 
 export interface Service {
-  /*GetNodeInfo queries the current node info.*/
+  /** GetNodeInfo queries the current node info. */
   GetNodeInfo(request?: GetNodeInfoRequest): Promise<GetNodeInfoResponse>;
-  /*GetSyncing queries node syncing.*/
+  /** GetSyncing queries node syncing. */
 
   GetSyncing(request?: GetSyncingRequest): Promise<GetSyncingResponse>;
-  /*GetLatestBlock returns the latest block.*/
+  /** GetLatestBlock returns the latest block. */
 
   GetLatestBlock(request?: GetLatestBlockRequest): Promise<GetLatestBlockResponse>;
-  /*GetBlockByHeight queries block for given height.*/
+  /** GetBlockByHeight queries block for given height. */
 
   GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse>;
-  /*GetLatestValidatorSet queries latest validator-set.*/
+  /** GetLatestValidatorSet queries latest validator-set. */
 
   GetLatestValidatorSet(request?: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse>;
-  /*GetValidatorSetByHeight queries validator-set at a given height.*/
+  /** GetValidatorSetByHeight queries validator-set at a given height. */
 
   GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
 }

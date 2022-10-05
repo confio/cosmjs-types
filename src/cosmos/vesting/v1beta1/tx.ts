@@ -176,8 +176,10 @@ export const MsgCreateVestingAccountResponse = {
 /** Msg defines the bank Msg service. */
 
 export interface Msg {
-  /*CreateVestingAccount defines a method that enables creating a vesting
-   account.*/
+  /**
+   * CreateVestingAccount defines a method that enables creating a vesting
+   * account.
+   */
   CreateVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse>;
 }
 export class MsgClientImpl implements Msg {

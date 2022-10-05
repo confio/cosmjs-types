@@ -1343,37 +1343,39 @@ export const QueryCommunityPoolResponse = {
 /** Query defines the gRPC querier service for distribution module. */
 
 export interface Query {
-  /*Params queries params of the distribution module.*/
+  /** Params queries params of the distribution module. */
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /*ValidatorOutstandingRewards queries rewards of a validator address.*/
+  /** ValidatorOutstandingRewards queries rewards of a validator address. */
 
   ValidatorOutstandingRewards(
     request: QueryValidatorOutstandingRewardsRequest,
   ): Promise<QueryValidatorOutstandingRewardsResponse>;
-  /*ValidatorCommission queries accumulated commission for a validator.*/
+  /** ValidatorCommission queries accumulated commission for a validator. */
 
   ValidatorCommission(request: QueryValidatorCommissionRequest): Promise<QueryValidatorCommissionResponse>;
-  /*ValidatorSlashes queries slash events of a validator.*/
+  /** ValidatorSlashes queries slash events of a validator. */
 
   ValidatorSlashes(request: QueryValidatorSlashesRequest): Promise<QueryValidatorSlashesResponse>;
-  /*DelegationRewards queries the total rewards accrued by a delegation.*/
+  /** DelegationRewards queries the total rewards accrued by a delegation. */
 
   DelegationRewards(request: QueryDelegationRewardsRequest): Promise<QueryDelegationRewardsResponse>;
-  /*DelegationTotalRewards queries the total rewards accrued by a each
-   validator.*/
+  /**
+   * DelegationTotalRewards queries the total rewards accrued by a each
+   * validator.
+   */
 
   DelegationTotalRewards(
     request: QueryDelegationTotalRewardsRequest,
   ): Promise<QueryDelegationTotalRewardsResponse>;
-  /*DelegatorValidators queries the validators of a delegator.*/
+  /** DelegatorValidators queries the validators of a delegator. */
 
   DelegatorValidators(request: QueryDelegatorValidatorsRequest): Promise<QueryDelegatorValidatorsResponse>;
-  /*DelegatorWithdrawAddress queries withdraw address of a delegator.*/
+  /** DelegatorWithdrawAddress queries withdraw address of a delegator. */
 
   DelegatorWithdrawAddress(
     request: QueryDelegatorWithdrawAddressRequest,
   ): Promise<QueryDelegatorWithdrawAddressResponse>;
-  /*CommunityPool queries the community pool coins.*/
+  /** CommunityPool queries the community pool coins. */
 
   CommunityPool(request?: QueryCommunityPoolRequest): Promise<QueryCommunityPoolResponse>;
 }

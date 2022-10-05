@@ -1019,21 +1019,21 @@ export const MsgClearAdminResponse = {
 /** Msg defines the wasm Msg service. */
 
 export interface Msg {
-  /*StoreCode to submit Wasm code to the system*/
+  /** StoreCode to submit Wasm code to the system */
   StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse>;
-  /*Instantiate creates a new smart contract instance for the given code id.*/
+  /** Instantiate creates a new smart contract instance for the given code id. */
 
   InstantiateContract(request: MsgInstantiateContract): Promise<MsgInstantiateContractResponse>;
-  /*Execute submits the given message data to a smart contract*/
+  /** Execute submits the given message data to a smart contract */
 
   ExecuteContract(request: MsgExecuteContract): Promise<MsgExecuteContractResponse>;
-  /*Migrate runs a code upgrade/ downgrade for a smart contract*/
+  /** Migrate runs a code upgrade/ downgrade for a smart contract */
 
   MigrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
-  /*UpdateAdmin sets a new   admin for a smart contract*/
+  /** UpdateAdmin sets a new   admin for a smart contract */
 
   UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
-  /*ClearAdmin removes any admin stored for a smart contract*/
+  /** ClearAdmin removes any admin stored for a smart contract */
 
   ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
 }

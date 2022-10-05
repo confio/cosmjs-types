@@ -319,9 +319,9 @@ export const QueryAllowancesResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Allowance returns fee granted to the grantee by the granter.*/
+  /** Allowance returns fee granted to the grantee by the granter. */
   Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse>;
-  /*Allowances returns all the grants for address.*/
+  /** Allowances returns all the grants for address. */
 
   Allowances(request: QueryAllowancesRequest): Promise<QueryAllowancesResponse>;
 }

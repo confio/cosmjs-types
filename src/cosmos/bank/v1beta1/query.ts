@@ -1198,28 +1198,30 @@ export const QueryDenomMetadataResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Balance queries the balance of a single coin for a single account.*/
+  /** Balance queries the balance of a single coin for a single account. */
   Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
-  /*AllBalances queries the balance of all coins for a single account.*/
+  /** AllBalances queries the balance of all coins for a single account. */
 
   AllBalances(request: QueryAllBalancesRequest): Promise<QueryAllBalancesResponse>;
-  /*SpendableBalances queries the spenable balance of all coins for a single
-   account.*/
+  /**
+   * SpendableBalances queries the spenable balance of all coins for a single
+   * account.
+   */
 
   SpendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
-  /*TotalSupply queries the total supply of all coins.*/
+  /** TotalSupply queries the total supply of all coins. */
 
   TotalSupply(request?: QueryTotalSupplyRequest): Promise<QueryTotalSupplyResponse>;
-  /*SupplyOf queries the supply of a single coin.*/
+  /** SupplyOf queries the supply of a single coin. */
 
   SupplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
-  /*Params queries the parameters of x/bank module.*/
+  /** Params queries the parameters of x/bank module. */
 
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /*DenomsMetadata queries the client metadata of a given coin denomination.*/
+  /** DenomsMetadata queries the client metadata of a given coin denomination. */
 
   DenomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
-  /*DenomsMetadata queries the client metadata for all registered coin denominations.*/
+  /** DenomsMetadata queries the client metadata for all registered coin denominations. */
 
   DenomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
 }

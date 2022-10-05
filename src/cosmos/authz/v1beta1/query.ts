@@ -548,16 +548,20 @@ export const QueryGranteeGrantsResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Returns list of `Authorization`, granted to the grantee by the granter.*/
+  /** Returns list of `Authorization`, granted to the grantee by the granter. */
   Grants(request: QueryGrantsRequest): Promise<QueryGrantsResponse>;
-  /*GranterGrants returns list of `GrantAuthorization`, granted by granter.
-  
-   Since: cosmos-sdk 0.45.2*/
+  /**
+   * GranterGrants returns list of `GrantAuthorization`, granted by granter.
+   *
+   * Since: cosmos-sdk 0.45.2
+   */
 
   GranterGrants(request: QueryGranterGrantsRequest): Promise<QueryGranterGrantsResponse>;
-  /*GranteeGrants returns a list of `GrantAuthorization` by grantee.
-  
-   Since: cosmos-sdk 0.45.2*/
+  /**
+   * GranteeGrants returns a list of `GrantAuthorization` by grantee.
+   *
+   * Since: cosmos-sdk 0.45.2
+   */
 
   GranteeGrants(request: QueryGranteeGrantsRequest): Promise<QueryGranteeGrantsResponse>;
 }
