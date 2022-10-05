@@ -545,21 +545,21 @@ export const QueryGranteeGrantsResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Grants(request: QueryGrantsRequest): Promise<QueryGrantsResponse>;
   /*Returns list of `Authorization`, granted to the grantee by the granter.*/
-
-  GranterGrants(request: QueryGranterGrantsRequest): Promise<QueryGranterGrantsResponse>;
+  Grants(request: QueryGrantsRequest): Promise<QueryGrantsResponse>;
   /*GranterGrants returns list of `GrantAuthorization`, granted by granter.
   
    Since: cosmos-sdk 0.45.2*/
 
-  GranteeGrants(request: QueryGranteeGrantsRequest): Promise<QueryGranteeGrantsResponse>;
+  GranterGrants(request: QueryGranterGrantsRequest): Promise<QueryGranterGrantsResponse>;
   /*GranteeGrants returns a list of `GrantAuthorization` by grantee.
   
    Since: cosmos-sdk 0.45.2*/
+
+  GranteeGrants(request: QueryGranteeGrantsRequest): Promise<QueryGranteeGrantsResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

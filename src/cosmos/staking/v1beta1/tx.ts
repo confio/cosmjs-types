@@ -819,26 +819,26 @@ export const MsgUndelegateResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the staking Msg service. */
 
 export interface Msg {
-  CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse>;
   /*CreateValidator defines a method for creating a new validator.*/
-
-  EditValidator(request: MsgEditValidator): Promise<MsgEditValidatorResponse>;
+  CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse>;
   /*EditValidator defines a method for editing an existing validator.*/
 
-  Delegate(request: MsgDelegate): Promise<MsgDelegateResponse>;
+  EditValidator(request: MsgEditValidator): Promise<MsgEditValidatorResponse>;
   /*Delegate defines a method for performing a delegation of coins
    from a delegator to a validator.*/
 
-  BeginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse>;
+  Delegate(request: MsgDelegate): Promise<MsgDelegateResponse>;
   /*BeginRedelegate defines a method for performing a redelegation
    of coins from a delegator and source validator to a destination validator.*/
 
-  Undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse>;
+  BeginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse>;
   /*Undelegate defines a method for performing an undelegation from a
    delegate and a validator.*/
+
+  Undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

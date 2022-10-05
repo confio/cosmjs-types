@@ -1195,33 +1195,33 @@ export const QueryDenomMetadataResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
   /*Balance queries the balance of a single coin for a single account.*/
-
-  AllBalances(request: QueryAllBalancesRequest): Promise<QueryAllBalancesResponse>;
+  Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
   /*AllBalances queries the balance of all coins for a single account.*/
 
-  SpendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
+  AllBalances(request: QueryAllBalancesRequest): Promise<QueryAllBalancesResponse>;
   /*SpendableBalances queries the spenable balance of all coins for a single
    account.*/
 
-  TotalSupply(request?: QueryTotalSupplyRequest): Promise<QueryTotalSupplyResponse>;
+  SpendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
   /*TotalSupply queries the total supply of all coins.*/
 
-  SupplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
+  TotalSupply(request?: QueryTotalSupplyRequest): Promise<QueryTotalSupplyResponse>;
   /*SupplyOf queries the supply of a single coin.*/
 
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  SupplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
   /*Params queries the parameters of x/bank module.*/
 
-  DenomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*DenomsMetadata queries the client metadata of a given coin denomination.*/
 
-  DenomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
+  DenomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
   /*DenomsMetadata queries the client metadata for all registered coin denominations.*/
+
+  DenomsMetadata(request?: QueryDenomsMetadataRequest): Promise<QueryDenomsMetadataResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

@@ -936,30 +936,30 @@ export const QueryConnectionConsensusStateResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service */
 
 export interface Query {
-  Connection(request: QueryConnectionRequest): Promise<QueryConnectionResponse>;
   /*Connection queries an IBC connection end.*/
-
-  Connections(request?: QueryConnectionsRequest): Promise<QueryConnectionsResponse>;
+  Connection(request: QueryConnectionRequest): Promise<QueryConnectionResponse>;
   /*Connections queries all the IBC connections of a chain.*/
 
-  ClientConnections(request: QueryClientConnectionsRequest): Promise<QueryClientConnectionsResponse>;
+  Connections(request?: QueryConnectionsRequest): Promise<QueryConnectionsResponse>;
   /*ClientConnections queries the connection paths associated with a client
    state.*/
+
+  ClientConnections(request: QueryClientConnectionsRequest): Promise<QueryClientConnectionsResponse>;
+  /*ConnectionClientState queries the client state associated with the
+   connection.*/
 
   ConnectionClientState(
     request: QueryConnectionClientStateRequest,
   ): Promise<QueryConnectionClientStateResponse>;
-  /*ConnectionClientState queries the client state associated with the
+  /*ConnectionConsensusState queries the consensus state associated with the
    connection.*/
 
   ConnectionConsensusState(
     request: QueryConnectionConsensusStateRequest,
   ): Promise<QueryConnectionConsensusStateResponse>;
-  /*ConnectionConsensusState queries the consensus state associated with the
-   connection.*/
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

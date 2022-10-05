@@ -173,12 +173,12 @@ export const MsgCreateVestingAccountResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the bank Msg service. */
 
 export interface Msg {
-  CreateVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse>;
   /*CreateVestingAccount defines a method that enables creating a vesting
    account.*/
+  CreateVestingAccount(request: MsgCreateVestingAccount): Promise<MsgCreateVestingAccountResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

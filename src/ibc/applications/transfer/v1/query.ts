@@ -409,17 +409,17 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service. */
 
 export interface Query {
-  DenomTrace(request: QueryDenomTraceRequest): Promise<QueryDenomTraceResponse>;
   /*DenomTrace queries a denomination trace information.*/
-
-  DenomTraces(request?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
+  DenomTrace(request: QueryDenomTraceRequest): Promise<QueryDenomTraceResponse>;
   /*DenomTraces queries all denomination traces.*/
 
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  DenomTraces(request?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
   /*Params queries all parameters of the ibc-transfer module.*/
+
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

@@ -649,20 +649,20 @@ export const MsgSubmitMisbehaviourResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the ibc/client Msg service. */
 
 export interface Msg {
-  CreateClient(request: MsgCreateClient): Promise<MsgCreateClientResponse>;
   /*CreateClient defines a rpc handler method for MsgCreateClient.*/
-
-  UpdateClient(request: MsgUpdateClient): Promise<MsgUpdateClientResponse>;
+  CreateClient(request: MsgCreateClient): Promise<MsgCreateClientResponse>;
   /*UpdateClient defines a rpc handler method for MsgUpdateClient.*/
 
-  UpgradeClient(request: MsgUpgradeClient): Promise<MsgUpgradeClientResponse>;
+  UpdateClient(request: MsgUpdateClient): Promise<MsgUpdateClientResponse>;
   /*UpgradeClient defines a rpc handler method for MsgUpgradeClient.*/
 
-  SubmitMisbehaviour(request: MsgSubmitMisbehaviour): Promise<MsgSubmitMisbehaviourResponse>;
+  UpgradeClient(request: MsgUpgradeClient): Promise<MsgUpgradeClientResponse>;
   /*SubmitMisbehaviour defines a rpc handler method for MsgSubmitMisbehaviour.*/
+
+  SubmitMisbehaviour(request: MsgSubmitMisbehaviour): Promise<MsgSubmitMisbehaviourResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

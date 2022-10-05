@@ -220,11 +220,11 @@ export const MsgTransferResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the ibc/transfer Msg service. */
 
 export interface Msg {
-  Transfer(request: MsgTransfer): Promise<MsgTransferResponse>;
   /*Transfer defines a rpc handler method for MsgTransfer.*/
+  Transfer(request: MsgTransfer): Promise<MsgTransferResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

@@ -1017,25 +1017,25 @@ export const GetBlockWithTxsResponse = {
     return message;
   },
 };
-/** Service defines the RPC service */
+/** Service defines a gRPC service for interacting with transactions. */
 
 export interface Service {
-  Simulate(request: SimulateRequest): Promise<SimulateResponse>;
   /*Simulate simulates executing a transaction for estimating gas usage.*/
-
-  GetTx(request: GetTxRequest): Promise<GetTxResponse>;
+  Simulate(request: SimulateRequest): Promise<SimulateResponse>;
   /*GetTx fetches a tx by hash.*/
 
-  BroadcastTx(request: BroadcastTxRequest): Promise<BroadcastTxResponse>;
+  GetTx(request: GetTxRequest): Promise<GetTxResponse>;
   /*BroadcastTx broadcast transaction.*/
 
-  GetTxsEvent(request: GetTxsEventRequest): Promise<GetTxsEventResponse>;
+  BroadcastTx(request: BroadcastTxRequest): Promise<BroadcastTxResponse>;
   /*GetTxsEvent fetches txs by event.*/
 
-  GetBlockWithTxs(request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse>;
+  GetTxsEvent(request: GetTxsEventRequest): Promise<GetTxsEventResponse>;
   /*GetBlockWithTxs fetches a block with decoded txs.
   
    Since: cosmos-sdk 0.45.2*/
+
+  GetBlockWithTxs(request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse>;
 }
 export class QueryClientImpl implements Service {
   private readonly rpc: Rpc;

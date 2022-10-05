@@ -1278,32 +1278,32 @@ export const QueryTallyResultResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service for gov module */
 
 export interface Query {
-  Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
   /*Proposal queries proposal details based on ProposalID.*/
-
-  Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse>;
+  Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
   /*Proposals queries all proposals based on given status.*/
 
-  Vote(request: QueryVoteRequest): Promise<QueryVoteResponse>;
+  Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse>;
   /*Vote queries voted information based on proposalID, voterAddr.*/
 
-  Votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
+  Vote(request: QueryVoteRequest): Promise<QueryVoteResponse>;
   /*Votes queries votes of a given proposal.*/
 
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  Votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
   /*Params queries all parameters of the gov module.*/
 
-  Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
+  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*Deposit queries single deposit information based proposalID, depositAddr.*/
 
-  Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
+  Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
   /*Deposits queries all deposits of a single proposal.*/
 
-  TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
+  Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
   /*TallyResult queries the tally of a proposal vote.*/
+
+  TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

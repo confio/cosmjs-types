@@ -346,17 +346,17 @@ export const QueryAnnualProvisionsResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service. */
 
 export interface Query {
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*Params returns the total set of minting parameters.*/
-
-  Inflation(request?: QueryInflationRequest): Promise<QueryInflationResponse>;
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*Inflation returns the current minting inflation value.*/
 
-  AnnualProvisions(request?: QueryAnnualProvisionsRequest): Promise<QueryAnnualProvisionsResponse>;
+  Inflation(request?: QueryInflationRequest): Promise<QueryInflationResponse>;
   /*AnnualProvisions current minting annual provisions value.*/
+
+  AnnualProvisions(request?: QueryAnnualProvisionsRequest): Promise<QueryAnnualProvisionsResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

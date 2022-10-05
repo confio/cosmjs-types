@@ -296,14 +296,14 @@ export const QueryAllEvidenceResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Evidence(request: QueryEvidenceRequest): Promise<QueryEvidenceResponse>;
   /*Evidence queries evidence based on evidence hash.*/
+  Evidence(request: QueryEvidenceRequest): Promise<QueryEvidenceResponse>;
+  /*AllEvidence queries all evidence.*/
 
   AllEvidence(request?: QueryAllEvidenceRequest): Promise<QueryAllEvidenceResponse>;
-  /*AllEvidence queries all evidence.*/
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

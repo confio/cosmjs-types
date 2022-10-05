@@ -316,14 +316,14 @@ export const QueryAllowancesResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse>;
   /*Allowance returns fee granted to the grantee by the granter.*/
+  Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse>;
+  /*Allowances returns all the grants for address.*/
 
   Allowances(request: QueryAllowancesRequest): Promise<QueryAllowancesResponse>;
-  /*Allowances returns all the grants for address.*/
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

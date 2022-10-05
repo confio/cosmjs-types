@@ -496,26 +496,26 @@ export const MsgFundCommunityPoolResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the distribution Msg service. */
 
 export interface Msg {
-  SetWithdrawAddress(request: MsgSetWithdrawAddress): Promise<MsgSetWithdrawAddressResponse>;
   /*SetWithdrawAddress defines a method to change the withdraw address
    for a delegator (or validator self-delegation).*/
-
-  WithdrawDelegatorReward(request: MsgWithdrawDelegatorReward): Promise<MsgWithdrawDelegatorRewardResponse>;
+  SetWithdrawAddress(request: MsgSetWithdrawAddress): Promise<MsgSetWithdrawAddressResponse>;
   /*WithdrawDelegatorReward defines a method to withdraw rewards of delegator
    from a single validator.*/
+
+  WithdrawDelegatorReward(request: MsgWithdrawDelegatorReward): Promise<MsgWithdrawDelegatorRewardResponse>;
+  /*WithdrawValidatorCommission defines a method to withdraw the
+   full commission to the validator address.*/
 
   WithdrawValidatorCommission(
     request: MsgWithdrawValidatorCommission,
   ): Promise<MsgWithdrawValidatorCommissionResponse>;
-  /*WithdrawValidatorCommission defines a method to withdraw the
-   full commission to the validator address.*/
-
-  FundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse>;
   /*FundCommunityPool defines a method to allow an account to directly
    fund the community pool.*/
+
+  FundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

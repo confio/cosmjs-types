@@ -2692,61 +2692,61 @@ export const QueryNextSequenceReceiveResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service */
 
 export interface Query {
-  Channel(request: QueryChannelRequest): Promise<QueryChannelResponse>;
   /*Channel queries an IBC Channel.*/
-
-  Channels(request?: QueryChannelsRequest): Promise<QueryChannelsResponse>;
+  Channel(request: QueryChannelRequest): Promise<QueryChannelResponse>;
   /*Channels queries all the IBC channels of a chain.*/
 
-  ConnectionChannels(request: QueryConnectionChannelsRequest): Promise<QueryConnectionChannelsResponse>;
+  Channels(request?: QueryChannelsRequest): Promise<QueryChannelsResponse>;
   /*ConnectionChannels queries all the channels associated with a connection
    end.*/
 
-  ChannelClientState(request: QueryChannelClientStateRequest): Promise<QueryChannelClientStateResponse>;
+  ConnectionChannels(request: QueryConnectionChannelsRequest): Promise<QueryConnectionChannelsResponse>;
   /*ChannelClientState queries for the client state for the channel associated
    with the provided channel identifiers.*/
+
+  ChannelClientState(request: QueryChannelClientStateRequest): Promise<QueryChannelClientStateResponse>;
+  /*ChannelConsensusState queries for the consensus state for the channel
+   associated with the provided channel identifiers.*/
 
   ChannelConsensusState(
     request: QueryChannelConsensusStateRequest,
   ): Promise<QueryChannelConsensusStateResponse>;
-  /*ChannelConsensusState queries for the consensus state for the channel
-   associated with the provided channel identifiers.*/
-
-  PacketCommitment(request: QueryPacketCommitmentRequest): Promise<QueryPacketCommitmentResponse>;
   /*PacketCommitment queries a stored packet commitment hash.*/
 
-  PacketCommitments(request: QueryPacketCommitmentsRequest): Promise<QueryPacketCommitmentsResponse>;
+  PacketCommitment(request: QueryPacketCommitmentRequest): Promise<QueryPacketCommitmentResponse>;
   /*PacketCommitments returns all the packet commitments hashes associated
    with a channel.*/
 
-  PacketReceipt(request: QueryPacketReceiptRequest): Promise<QueryPacketReceiptResponse>;
+  PacketCommitments(request: QueryPacketCommitmentsRequest): Promise<QueryPacketCommitmentsResponse>;
   /*PacketReceipt queries if a given packet sequence has been received on the
    queried chain*/
+
+  PacketReceipt(request: QueryPacketReceiptRequest): Promise<QueryPacketReceiptResponse>;
+  /*PacketAcknowledgement queries a stored packet acknowledgement hash.*/
 
   PacketAcknowledgement(
     request: QueryPacketAcknowledgementRequest,
   ): Promise<QueryPacketAcknowledgementResponse>;
-  /*PacketAcknowledgement queries a stored packet acknowledgement hash.*/
+  /*PacketAcknowledgements returns all the packet acknowledgements associated
+   with a channel.*/
 
   PacketAcknowledgements(
     request: QueryPacketAcknowledgementsRequest,
   ): Promise<QueryPacketAcknowledgementsResponse>;
-  /*PacketAcknowledgements returns all the packet acknowledgements associated
-   with a channel.*/
-
-  UnreceivedPackets(request: QueryUnreceivedPacketsRequest): Promise<QueryUnreceivedPacketsResponse>;
   /*UnreceivedPackets returns all the unreceived IBC packets associated with a
    channel and sequences.*/
 
-  UnreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse>;
+  UnreceivedPackets(request: QueryUnreceivedPacketsRequest): Promise<QueryUnreceivedPacketsResponse>;
   /*UnreceivedAcks returns all the unreceived IBC acknowledgements associated
    with a channel and sequences.*/
 
-  NextSequenceReceive(request: QueryNextSequenceReceiveRequest): Promise<QueryNextSequenceReceiveResponse>;
+  UnreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse>;
   /*NextSequenceReceive returns the next receive sequence for a given channel.*/
+
+  NextSequenceReceive(request: QueryNextSequenceReceiveRequest): Promise<QueryNextSequenceReceiveResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

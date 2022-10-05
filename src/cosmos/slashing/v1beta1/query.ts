@@ -411,17 +411,17 @@ export const QuerySigningInfosResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service */
 
 export interface Query {
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*Params queries the parameters of slashing module*/
-
-  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse>;
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*SigningInfo queries the signing info of given cons address*/
 
-  SigningInfos(request?: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
+  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse>;
   /*SigningInfos queries signing info of all validators*/
+
+  SigningInfos(request?: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

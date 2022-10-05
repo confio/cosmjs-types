@@ -1553,35 +1553,35 @@ export const QueryPinnedCodesResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query provides defines the gRPC querier service */
 
 export interface Query {
-  ContractInfo(request: QueryContractInfoRequest): Promise<QueryContractInfoResponse>;
   /*ContractInfo gets the contract meta data*/
-
-  ContractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse>;
+  ContractInfo(request: QueryContractInfoRequest): Promise<QueryContractInfoResponse>;
   /*ContractHistory gets the contract code history*/
 
-  ContractsByCode(request: QueryContractsByCodeRequest): Promise<QueryContractsByCodeResponse>;
+  ContractHistory(request: QueryContractHistoryRequest): Promise<QueryContractHistoryResponse>;
   /*ContractsByCode lists all smart contracts for a code id*/
 
-  AllContractState(request: QueryAllContractStateRequest): Promise<QueryAllContractStateResponse>;
+  ContractsByCode(request: QueryContractsByCodeRequest): Promise<QueryContractsByCodeResponse>;
   /*AllContractState gets all raw store data for a single contract*/
 
-  RawContractState(request: QueryRawContractStateRequest): Promise<QueryRawContractStateResponse>;
+  AllContractState(request: QueryAllContractStateRequest): Promise<QueryAllContractStateResponse>;
   /*RawContractState gets single key from the raw store data of a contract*/
 
-  SmartContractState(request: QuerySmartContractStateRequest): Promise<QuerySmartContractStateResponse>;
+  RawContractState(request: QueryRawContractStateRequest): Promise<QueryRawContractStateResponse>;
   /*SmartContractState get smart query result from the contract*/
 
-  Code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
+  SmartContractState(request: QuerySmartContractStateRequest): Promise<QuerySmartContractStateResponse>;
   /*Code gets the binary code and metadata for a singe wasm code*/
 
-  Codes(request?: QueryCodesRequest): Promise<QueryCodesResponse>;
+  Code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
   /*Codes gets the metadata for all stored wasm codes*/
 
-  PinnedCodes(request?: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse>;
+  Codes(request?: QueryCodesRequest): Promise<QueryCodesResponse>;
   /*PinnedCodes gets the pinned code ids*/
+
+  PinnedCodes(request?: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

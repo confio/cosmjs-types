@@ -149,12 +149,12 @@ export const MsgSubmitEvidenceResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the evidence Msg service. */
 
 export interface Msg {
-  SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse>;
   /*SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
    counterfactual signing.*/
+  SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

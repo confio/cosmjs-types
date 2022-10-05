@@ -1706,39 +1706,39 @@ export const MsgAcknowledgementResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the ibc/channel Msg service. */
 
 export interface Msg {
-  ChannelOpenInit(request: MsgChannelOpenInit): Promise<MsgChannelOpenInitResponse>;
   /*ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.*/
-
-  ChannelOpenTry(request: MsgChannelOpenTry): Promise<MsgChannelOpenTryResponse>;
+  ChannelOpenInit(request: MsgChannelOpenInit): Promise<MsgChannelOpenInitResponse>;
   /*ChannelOpenTry defines a rpc handler method for MsgChannelOpenTry.*/
 
-  ChannelOpenAck(request: MsgChannelOpenAck): Promise<MsgChannelOpenAckResponse>;
+  ChannelOpenTry(request: MsgChannelOpenTry): Promise<MsgChannelOpenTryResponse>;
   /*ChannelOpenAck defines a rpc handler method for MsgChannelOpenAck.*/
 
-  ChannelOpenConfirm(request: MsgChannelOpenConfirm): Promise<MsgChannelOpenConfirmResponse>;
+  ChannelOpenAck(request: MsgChannelOpenAck): Promise<MsgChannelOpenAckResponse>;
   /*ChannelOpenConfirm defines a rpc handler method for MsgChannelOpenConfirm.*/
 
-  ChannelCloseInit(request: MsgChannelCloseInit): Promise<MsgChannelCloseInitResponse>;
+  ChannelOpenConfirm(request: MsgChannelOpenConfirm): Promise<MsgChannelOpenConfirmResponse>;
   /*ChannelCloseInit defines a rpc handler method for MsgChannelCloseInit.*/
 
-  ChannelCloseConfirm(request: MsgChannelCloseConfirm): Promise<MsgChannelCloseConfirmResponse>;
+  ChannelCloseInit(request: MsgChannelCloseInit): Promise<MsgChannelCloseInitResponse>;
   /*ChannelCloseConfirm defines a rpc handler method for
    MsgChannelCloseConfirm.*/
 
-  RecvPacket(request: MsgRecvPacket): Promise<MsgRecvPacketResponse>;
+  ChannelCloseConfirm(request: MsgChannelCloseConfirm): Promise<MsgChannelCloseConfirmResponse>;
   /*RecvPacket defines a rpc handler method for MsgRecvPacket.*/
 
-  Timeout(request: MsgTimeout): Promise<MsgTimeoutResponse>;
+  RecvPacket(request: MsgRecvPacket): Promise<MsgRecvPacketResponse>;
   /*Timeout defines a rpc handler method for MsgTimeout.*/
 
-  TimeoutOnClose(request: MsgTimeoutOnClose): Promise<MsgTimeoutOnCloseResponse>;
+  Timeout(request: MsgTimeout): Promise<MsgTimeoutResponse>;
   /*TimeoutOnClose defines a rpc handler method for MsgTimeoutOnClose.*/
 
-  Acknowledgement(request: MsgAcknowledgement): Promise<MsgAcknowledgementResponse>;
+  TimeoutOnClose(request: MsgTimeoutOnClose): Promise<MsgTimeoutOnCloseResponse>;
   /*Acknowledgement defines a rpc handler method for MsgAcknowledgement.*/
+
+  Acknowledgement(request: MsgAcknowledgement): Promise<MsgAcknowledgementResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

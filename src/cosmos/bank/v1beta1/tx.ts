@@ -272,14 +272,14 @@ export const MsgMultiSendResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the bank Msg service. */
 
 export interface Msg {
-  Send(request: MsgSend): Promise<MsgSendResponse>;
   /*Send defines a method for sending coins from one account to another account.*/
+  Send(request: MsgSend): Promise<MsgSendResponse>;
+  /*MultiSend defines a method for sending coins from some accounts to other accounts.*/
 
   MultiSend(request: MsgMultiSend): Promise<MsgMultiSendResponse>;
-  /*MultiSend defines a method for sending coins from some accounts to other accounts.*/
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
