@@ -45,8 +45,9 @@ export function checkTxTypeToJSON(object: CheckTxType): string {
     case CheckTxType.RECHECK:
       return "RECHECK";
 
+    case CheckTxType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseOfferSnapshot_Result {
@@ -121,8 +122,9 @@ export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot
     case ResponseOfferSnapshot_Result.REJECT_SENDER:
       return "REJECT_SENDER";
 
+    case ResponseOfferSnapshot_Result.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseApplySnapshotChunk_Result {
@@ -197,8 +199,9 @@ export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySna
     case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
       return "REJECT_SNAPSHOT";
 
+    case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 export enum EvidenceType {
@@ -238,8 +241,9 @@ export function evidenceTypeToJSON(object: EvidenceType): string {
     case EvidenceType.LIGHT_CLIENT_ATTACK:
       return "LIGHT_CLIENT_ATTACK";
 
+    case EvidenceType.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 export interface Request {
