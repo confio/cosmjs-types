@@ -223,7 +223,7 @@ export const MsgTransferResponse = {
 /** Msg defines the ibc/transfer Msg service. */
 
 export interface Msg {
-  /*Transfer defines a rpc handler method for MsgTransfer.*/
+  /** Transfer defines a rpc handler method for MsgTransfer. */
   Transfer(request: MsgTransfer): Promise<MsgTransferResponse>;
 }
 export class MsgClientImpl implements Msg {

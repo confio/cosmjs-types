@@ -1281,27 +1281,27 @@ export const QueryTallyResultResponse = {
 /** Query defines the gRPC querier service for gov module */
 
 export interface Query {
-  /*Proposal queries proposal details based on ProposalID.*/
+  /** Proposal queries proposal details based on ProposalID. */
   Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
-  /*Proposals queries all proposals based on given status.*/
+  /** Proposals queries all proposals based on given status. */
 
   Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse>;
-  /*Vote queries voted information based on proposalID, voterAddr.*/
+  /** Vote queries voted information based on proposalID, voterAddr. */
 
   Vote(request: QueryVoteRequest): Promise<QueryVoteResponse>;
-  /*Votes queries votes of a given proposal.*/
+  /** Votes queries votes of a given proposal. */
 
   Votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
-  /*Params queries all parameters of the gov module.*/
+  /** Params queries all parameters of the gov module. */
 
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /*Deposit queries single deposit information based proposalID, depositAddr.*/
+  /** Deposit queries single deposit information based proposalID, depositAddr. */
 
   Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
-  /*Deposits queries all deposits of a single proposal.*/
+  /** Deposits queries all deposits of a single proposal. */
 
   Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
-  /*TallyResult queries the tally of a proposal vote.*/
+  /** TallyResult queries the tally of a proposal vote. */
 
   TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
 }

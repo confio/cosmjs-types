@@ -2695,56 +2695,72 @@ export const QueryNextSequenceReceiveResponse = {
 /** Query provides defines the gRPC querier service */
 
 export interface Query {
-  /*Channel queries an IBC Channel.*/
+  /** Channel queries an IBC Channel. */
   Channel(request: QueryChannelRequest): Promise<QueryChannelResponse>;
-  /*Channels queries all the IBC channels of a chain.*/
+  /** Channels queries all the IBC channels of a chain. */
 
   Channels(request?: QueryChannelsRequest): Promise<QueryChannelsResponse>;
-  /*ConnectionChannels queries all the channels associated with a connection
-   end.*/
+  /**
+   * ConnectionChannels queries all the channels associated with a connection
+   * end.
+   */
 
   ConnectionChannels(request: QueryConnectionChannelsRequest): Promise<QueryConnectionChannelsResponse>;
-  /*ChannelClientState queries for the client state for the channel associated
-   with the provided channel identifiers.*/
+  /**
+   * ChannelClientState queries for the client state for the channel associated
+   * with the provided channel identifiers.
+   */
 
   ChannelClientState(request: QueryChannelClientStateRequest): Promise<QueryChannelClientStateResponse>;
-  /*ChannelConsensusState queries for the consensus state for the channel
-   associated with the provided channel identifiers.*/
+  /**
+   * ChannelConsensusState queries for the consensus state for the channel
+   * associated with the provided channel identifiers.
+   */
 
   ChannelConsensusState(
     request: QueryChannelConsensusStateRequest,
   ): Promise<QueryChannelConsensusStateResponse>;
-  /*PacketCommitment queries a stored packet commitment hash.*/
+  /** PacketCommitment queries a stored packet commitment hash. */
 
   PacketCommitment(request: QueryPacketCommitmentRequest): Promise<QueryPacketCommitmentResponse>;
-  /*PacketCommitments returns all the packet commitments hashes associated
-   with a channel.*/
+  /**
+   * PacketCommitments returns all the packet commitments hashes associated
+   * with a channel.
+   */
 
   PacketCommitments(request: QueryPacketCommitmentsRequest): Promise<QueryPacketCommitmentsResponse>;
-  /*PacketReceipt queries if a given packet sequence has been received on the
-   queried chain*/
+  /**
+   * PacketReceipt queries if a given packet sequence has been received on the
+   * queried chain
+   */
 
   PacketReceipt(request: QueryPacketReceiptRequest): Promise<QueryPacketReceiptResponse>;
-  /*PacketAcknowledgement queries a stored packet acknowledgement hash.*/
+  /** PacketAcknowledgement queries a stored packet acknowledgement hash. */
 
   PacketAcknowledgement(
     request: QueryPacketAcknowledgementRequest,
   ): Promise<QueryPacketAcknowledgementResponse>;
-  /*PacketAcknowledgements returns all the packet acknowledgements associated
-   with a channel.*/
+  /**
+   * PacketAcknowledgements returns all the packet acknowledgements associated
+   * with a channel.
+   */
 
   PacketAcknowledgements(
     request: QueryPacketAcknowledgementsRequest,
   ): Promise<QueryPacketAcknowledgementsResponse>;
-  /*UnreceivedPackets returns all the unreceived IBC packets associated with a
-   channel and sequences.*/
+  /**
+   * UnreceivedPackets returns all the unreceived IBC packets associated with a
+   * channel and sequences.
+   */
 
   UnreceivedPackets(request: QueryUnreceivedPacketsRequest): Promise<QueryUnreceivedPacketsResponse>;
-  /*UnreceivedAcks returns all the unreceived IBC acknowledgements associated
-   with a channel and sequences.*/
+  /**
+   * UnreceivedAcks returns all the unreceived IBC acknowledgements associated
+   * with a channel and sequences.
+   */
 
   UnreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse>;
-  /*NextSequenceReceive returns the next receive sequence for a given channel.*/
+  /** NextSequenceReceive returns the next receive sequence for a given channel. */
 
   NextSequenceReceive(request: QueryNextSequenceReceiveRequest): Promise<QueryNextSequenceReceiveResponse>;
 }

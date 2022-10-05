@@ -1020,20 +1020,22 @@ export const GetBlockWithTxsResponse = {
 /** Service defines a gRPC service for interacting with transactions. */
 
 export interface Service {
-  /*Simulate simulates executing a transaction for estimating gas usage.*/
+  /** Simulate simulates executing a transaction for estimating gas usage. */
   Simulate(request: SimulateRequest): Promise<SimulateResponse>;
-  /*GetTx fetches a tx by hash.*/
+  /** GetTx fetches a tx by hash. */
 
   GetTx(request: GetTxRequest): Promise<GetTxResponse>;
-  /*BroadcastTx broadcast transaction.*/
+  /** BroadcastTx broadcast transaction. */
 
   BroadcastTx(request: BroadcastTxRequest): Promise<BroadcastTxResponse>;
-  /*GetTxsEvent fetches txs by event.*/
+  /** GetTxsEvent fetches txs by event. */
 
   GetTxsEvent(request: GetTxsEventRequest): Promise<GetTxsEventResponse>;
-  /*GetBlockWithTxs fetches a block with decoded txs.
-  
-   Since: cosmos-sdk 0.45.2*/
+  /**
+   * GetBlockWithTxs fetches a block with decoded txs.
+   *
+   * Since: cosmos-sdk 0.45.2
+   */
 
   GetBlockWithTxs(request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse>;
 }

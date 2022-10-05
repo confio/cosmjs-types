@@ -137,7 +137,7 @@ export const MsgVerifyInvariantResponse = {
 /** Msg defines the bank Msg service. */
 
 export interface Msg {
-  /*VerifyInvariant defines a method to verify a particular invariance.*/
+  /** VerifyInvariant defines a method to verify a particular invariance. */
   VerifyInvariant(request: MsgVerifyInvariant): Promise<MsgVerifyInvariantResponse>;
 }
 export class MsgClientImpl implements Msg {

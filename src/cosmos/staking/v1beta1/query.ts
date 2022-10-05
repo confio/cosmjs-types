@@ -2251,53 +2251,61 @@ export const QueryParamsResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Validators queries all validators that match the given status.*/
+  /** Validators queries all validators that match the given status. */
   Validators(request: QueryValidatorsRequest): Promise<QueryValidatorsResponse>;
-  /*Validator queries validator info for given validator address.*/
+  /** Validator queries validator info for given validator address. */
 
   Validator(request: QueryValidatorRequest): Promise<QueryValidatorResponse>;
-  /*ValidatorDelegations queries delegate info for given validator.*/
+  /** ValidatorDelegations queries delegate info for given validator. */
 
   ValidatorDelegations(request: QueryValidatorDelegationsRequest): Promise<QueryValidatorDelegationsResponse>;
-  /*ValidatorUnbondingDelegations queries unbonding delegations of a validator.*/
+  /** ValidatorUnbondingDelegations queries unbonding delegations of a validator. */
 
   ValidatorUnbondingDelegations(
     request: QueryValidatorUnbondingDelegationsRequest,
   ): Promise<QueryValidatorUnbondingDelegationsResponse>;
-  /*Delegation queries delegate info for given validator delegator pair.*/
+  /** Delegation queries delegate info for given validator delegator pair. */
 
   Delegation(request: QueryDelegationRequest): Promise<QueryDelegationResponse>;
-  /*UnbondingDelegation queries unbonding info for given validator delegator
-   pair.*/
+  /**
+   * UnbondingDelegation queries unbonding info for given validator delegator
+   * pair.
+   */
 
   UnbondingDelegation(request: QueryUnbondingDelegationRequest): Promise<QueryUnbondingDelegationResponse>;
-  /*DelegatorDelegations queries all delegations of a given delegator address.*/
+  /** DelegatorDelegations queries all delegations of a given delegator address. */
 
   DelegatorDelegations(request: QueryDelegatorDelegationsRequest): Promise<QueryDelegatorDelegationsResponse>;
-  /*DelegatorUnbondingDelegations queries all unbonding delegations of a given
-   delegator address.*/
+  /**
+   * DelegatorUnbondingDelegations queries all unbonding delegations of a given
+   * delegator address.
+   */
 
   DelegatorUnbondingDelegations(
     request: QueryDelegatorUnbondingDelegationsRequest,
   ): Promise<QueryDelegatorUnbondingDelegationsResponse>;
-  /*Redelegations queries redelegations of given address.*/
+  /** Redelegations queries redelegations of given address. */
 
   Redelegations(request: QueryRedelegationsRequest): Promise<QueryRedelegationsResponse>;
-  /*DelegatorValidators queries all validators info for given delegator
-   address.*/
+  /**
+   * DelegatorValidators queries all validators info for given delegator
+   * address.
+   */
 
   DelegatorValidators(request: QueryDelegatorValidatorsRequest): Promise<QueryDelegatorValidatorsResponse>;
-  /*DelegatorValidator queries validator info for given delegator validator
-   pair.*/
+  /**
+   * DelegatorValidator queries validator info for given delegator validator
+   * pair.
+   */
 
   DelegatorValidator(request: QueryDelegatorValidatorRequest): Promise<QueryDelegatorValidatorResponse>;
-  /*HistoricalInfo queries the historical info for given height.*/
+  /** HistoricalInfo queries the historical info for given height. */
 
   HistoricalInfo(request: QueryHistoricalInfoRequest): Promise<QueryHistoricalInfoResponse>;
-  /*Pool queries the pool info.*/
+  /** Pool queries the pool info. */
 
   Pool(request?: QueryPoolRequest): Promise<QueryPoolResponse>;
-  /*Parameters queries the staking parameters.*/
+  /** Parameters queries the staking parameters. */
 
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }

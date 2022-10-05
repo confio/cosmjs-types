@@ -299,9 +299,9 @@ export const QueryAllEvidenceResponse = {
 /** Query defines the gRPC querier service. */
 
 export interface Query {
-  /*Evidence queries evidence based on evidence hash.*/
+  /** Evidence queries evidence based on evidence hash. */
   Evidence(request: QueryEvidenceRequest): Promise<QueryEvidenceResponse>;
-  /*AllEvidence queries all evidence.*/
+  /** AllEvidence queries all evidence. */
 
   AllEvidence(request?: QueryAllEvidenceRequest): Promise<QueryAllEvidenceResponse>;
 }

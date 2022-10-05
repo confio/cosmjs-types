@@ -152,8 +152,10 @@ export const MsgSubmitEvidenceResponse = {
 /** Msg defines the evidence Msg service. */
 
 export interface Msg {
-  /*SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-   counterfactual signing.*/
+  /**
+   * SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
+   * counterfactual signing.
+   */
   SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse>;
 }
 export class MsgClientImpl implements Msg {
