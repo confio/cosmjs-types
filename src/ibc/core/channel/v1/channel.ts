@@ -20,13 +20,13 @@ export enum State {
 
   /**
    * STATE_OPEN - A channel has completed the handshake. Open channels are
-   *  ready to send and receive packets.
+   * ready to send and receive packets.
    */
   STATE_OPEN = 3,
 
   /**
    * STATE_CLOSED - A channel has been closed and can no longer be used to send or receive
-   *  packets.
+   * packets.
    */
   STATE_CLOSED = 4,
   UNRECOGNIZED = -1,
@@ -76,8 +76,9 @@ export function stateToJSON(object: State): string {
     case State.STATE_CLOSED:
       return "STATE_CLOSED";
 
+    case State.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 /** Order defines if a channel is ORDERED or UNORDERED */
@@ -88,7 +89,7 @@ export enum Order {
 
   /**
    * ORDER_UNORDERED - packets can be delivered in any order, which may differ from the order in
-   *  which they were sent.
+   * which they were sent.
    */
   ORDER_UNORDERED = 1,
 
@@ -127,8 +128,9 @@ export function orderToJSON(object: Order): string {
     case Order.ORDER_ORDERED:
       return "ORDER_ORDERED";
 
+    case Order.UNRECOGNIZED:
     default:
-      return "UNKNOWN";
+      return "UNRECOGNIZED";
   }
 }
 /**
