@@ -1016,26 +1016,26 @@ export const MsgClearAdminResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the wasm Msg service. */
 
 export interface Msg {
-  StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse>;
   /*StoreCode to submit Wasm code to the system*/
-
-  InstantiateContract(request: MsgInstantiateContract): Promise<MsgInstantiateContractResponse>;
+  StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse>;
   /*Instantiate creates a new smart contract instance for the given code id.*/
 
-  ExecuteContract(request: MsgExecuteContract): Promise<MsgExecuteContractResponse>;
+  InstantiateContract(request: MsgInstantiateContract): Promise<MsgInstantiateContractResponse>;
   /*Execute submits the given message data to a smart contract*/
 
-  MigrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
+  ExecuteContract(request: MsgExecuteContract): Promise<MsgExecuteContractResponse>;
   /*Migrate runs a code upgrade/ downgrade for a smart contract*/
 
-  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
+  MigrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
   /*UpdateAdmin sets a new   admin for a smart contract*/
 
-  ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
+  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
   /*ClearAdmin removes any admin stored for a smart contract*/
+
+  ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;

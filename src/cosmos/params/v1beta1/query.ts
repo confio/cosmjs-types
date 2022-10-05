@@ -144,12 +144,12 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /*Params queries a specific parameter of a module, given its subspace and
    key.*/
+  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

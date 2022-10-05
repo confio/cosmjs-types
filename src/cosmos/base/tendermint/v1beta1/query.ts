@@ -1238,26 +1238,26 @@ export const Module = {
     return message;
   },
 };
-/** Service defines the RPC service */
+/** Service defines the gRPC querier service for tendermint queries. */
 
 export interface Service {
-  GetNodeInfo(request?: GetNodeInfoRequest): Promise<GetNodeInfoResponse>;
   /*GetNodeInfo queries the current node info.*/
-
-  GetSyncing(request?: GetSyncingRequest): Promise<GetSyncingResponse>;
+  GetNodeInfo(request?: GetNodeInfoRequest): Promise<GetNodeInfoResponse>;
   /*GetSyncing queries node syncing.*/
 
-  GetLatestBlock(request?: GetLatestBlockRequest): Promise<GetLatestBlockResponse>;
+  GetSyncing(request?: GetSyncingRequest): Promise<GetSyncingResponse>;
   /*GetLatestBlock returns the latest block.*/
 
-  GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse>;
+  GetLatestBlock(request?: GetLatestBlockRequest): Promise<GetLatestBlockResponse>;
   /*GetBlockByHeight queries block for given height.*/
 
-  GetLatestValidatorSet(request?: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse>;
+  GetBlockByHeight(request: GetBlockByHeightRequest): Promise<GetBlockByHeightResponse>;
   /*GetLatestValidatorSet queries latest validator-set.*/
 
-  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
+  GetLatestValidatorSet(request?: GetLatestValidatorSetRequest): Promise<GetLatestValidatorSetResponse>;
   /*GetValidatorSetByHeight queries validator-set at a given height.*/
+
+  GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
 }
 export class QueryClientImpl implements Service {
   private readonly rpc: Rpc;

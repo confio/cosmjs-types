@@ -400,19 +400,19 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query defines the RPC service */
+/** Query defines the gRPC querier service. */
 
 export interface Query {
-  Accounts(request?: QueryAccountsRequest): Promise<QueryAccountsResponse>;
   /*Accounts returns all the existing accounts
   
    Since: cosmos-sdk 0.43*/
-
-  Account(request: QueryAccountRequest): Promise<QueryAccountResponse>;
+  Accounts(request?: QueryAccountsRequest): Promise<QueryAccountsResponse>;
   /*Account returns account details based on address.*/
 
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  Account(request: QueryAccountRequest): Promise<QueryAccountResponse>;
   /*Params queries all parameters.*/
+
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

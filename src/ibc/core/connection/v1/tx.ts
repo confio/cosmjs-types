@@ -915,21 +915,21 @@ export const MsgConnectionOpenConfirmResponse = {
     return message;
   },
 };
-/** Msg defines the RPC service */
+/** Msg defines the ibc/connection Msg service. */
 
 export interface Msg {
-  ConnectionOpenInit(request: MsgConnectionOpenInit): Promise<MsgConnectionOpenInitResponse>;
   /*ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit.*/
-
-  ConnectionOpenTry(request: MsgConnectionOpenTry): Promise<MsgConnectionOpenTryResponse>;
+  ConnectionOpenInit(request: MsgConnectionOpenInit): Promise<MsgConnectionOpenInitResponse>;
   /*ConnectionOpenTry defines a rpc handler method for MsgConnectionOpenTry.*/
 
-  ConnectionOpenAck(request: MsgConnectionOpenAck): Promise<MsgConnectionOpenAckResponse>;
+  ConnectionOpenTry(request: MsgConnectionOpenTry): Promise<MsgConnectionOpenTryResponse>;
   /*ConnectionOpenAck defines a rpc handler method for MsgConnectionOpenAck.*/
 
-  ConnectionOpenConfirm(request: MsgConnectionOpenConfirm): Promise<MsgConnectionOpenConfirmResponse>;
+  ConnectionOpenAck(request: MsgConnectionOpenAck): Promise<MsgConnectionOpenAckResponse>;
   /*ConnectionOpenConfirm defines a rpc handler method for
    MsgConnectionOpenConfirm.*/
+
+  ConnectionOpenConfirm(request: MsgConnectionOpenConfirm): Promise<MsgConnectionOpenConfirmResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
