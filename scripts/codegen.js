@@ -36,12 +36,12 @@ telescope({
                 fromJSON: true,
                 toJSON: true
             },
-            typingsFormat: {
+            typingsFormat: { 
                 useExact: true,
                 useDeepPartial: true,
                 timestamp: 'timestamp',
                 duration: 'duration'
-            }    
+            }
         },
         lcdClients: {
             enabled: false
