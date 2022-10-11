@@ -12,6 +12,9 @@ and this project adheres to
 - Upgrade ts-proto to 1.126.1 and regenerate code
 - Upgrade Cosmos SDK protos to 0.45.8
 - Upgrade wasmd protos to 0.28.0
+- Add ibc.applications.interchain_accounts types ([#36])
+
+[#36]: https://github.com/confio/cosmjs-types/issues/36
 
 ## [0.5.1]
 

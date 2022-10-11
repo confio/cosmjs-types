@@ -79,6 +79,14 @@ protoc \
   "$COSMOS_DIR/upgrade/v1beta1/upgrade.proto" \
   "$COSMOS_DIR/vesting/v1beta1/tx.proto" \
   "$COSMOS_DIR/vesting/v1beta1/vesting.proto" \
+  "$IBC_DIR/applications/interchain_accounts/controller/v1/controller.proto" \
+  "$IBC_DIR/applications/interchain_accounts/controller/v1/query.proto" \
+  "$IBC_DIR/applications/interchain_accounts/host/v1/host.proto" \
+  "$IBC_DIR/applications/interchain_accounts/host/v1/query.proto" \
+  "$IBC_DIR/applications/interchain_accounts/v1/account.proto" \
+  "$IBC_DIR/applications/interchain_accounts/v1/genesis.proto" \
+  "$IBC_DIR/applications/interchain_accounts/v1/metadata.proto" \
+  "$IBC_DIR/applications/interchain_accounts/v1/packet.proto" \
   "$IBC_DIR/applications/transfer/v1/genesis.proto" \
   "$IBC_DIR/applications/transfer/v1/query.proto" \
   "$IBC_DIR/applications/transfer/v1/transfer.proto" \
