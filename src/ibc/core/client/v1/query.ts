@@ -71,7 +71,7 @@ export interface QueryConsensusStateRequest {
    * ConsensusState
    */
 
-  latestHeight?: boolean;
+  latestHeight: boolean;
 }
 /**
  * QueryConsensusStateResponse is the response type for the Query/ConsensusState

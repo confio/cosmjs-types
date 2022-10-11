@@ -12,7 +12,7 @@ export interface QueryBalanceRequest {
   address: string;
   /** denom is the coin denom to query balances for. */
 
-  denom?: string;
+  denom: string;
 }
 /** QueryBalanceResponse is the response type for the Query/Balance RPC method. */
 
