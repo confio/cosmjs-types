@@ -10,6 +10,8 @@ and this project adheres to
 
 - Migrate from yarn to npm
 - Upgrade ts-proto to 1.126.1 and regenerate code
+- Upgrade Cosmos SDK protos to 0.45.8
+- Upgrade wasmd protos to 0.28.0
 
 ## [0.5.1]
 
