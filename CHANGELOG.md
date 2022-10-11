@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.5.2] - 2022-10-11
+
 - Migrate from yarn to npm
 - Upgrade ts-proto to 1.126.1 and regenerate code
 - Upgrade Cosmos SDK protos to 0.45.8
@@ -42,7 +44,8 @@ No changelog, sorry. Maybe the diff helps.
 
 - wasmd 0.18 types (cosmwasm/wasm/v1/\*)
 
-[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.5.1...HEAD
+[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/confio/cosmjs-types/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/confio/cosmjs-types/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/confio/cosmjs-types/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/confio/cosmjs-types/compare/v0.4.0...v0.4.1
