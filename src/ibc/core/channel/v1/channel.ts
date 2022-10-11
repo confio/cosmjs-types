@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";

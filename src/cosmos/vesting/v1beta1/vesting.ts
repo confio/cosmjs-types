@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BaseAccount } from "../../auth/v1beta1/auth";
 import { Coin } from "../../base/v1beta1/coin";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Plan, ModuleVersion } from "./upgrade";
 import * as _m0 from "protobufjs/minimal";
