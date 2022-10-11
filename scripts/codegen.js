@@ -13,6 +13,9 @@ telescope({
     outPath: join(__dirname, '/../src'),
     options: {
         useSDKTypes: false,
+        tsDisable: {
+            disableAll: true
+        },
         eslintDisable: {
             disableAll: true
         },

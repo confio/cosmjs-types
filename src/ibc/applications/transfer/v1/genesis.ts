@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { DenomTrace, Params } from "./transfer";
 import * as _m0 from "protobufjs/minimal";
