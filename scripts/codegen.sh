@@ -9,9 +9,9 @@ PLUGIN_PATH="$(realpath ./bin)/protoc-gen-ts_proto_yarn_2"
 
 mkdir -p "$OUT_DIR"
 
-echo "Processing wasmd 0.25 proto files ..."
-WASMD_DIR="./wasmd-0.25/proto"
-WASMD_THIRD_PARTY_DIR="./wasmd-0.25/third_party/proto"
+echo "Processing wasmd 0.28 proto files ..."
+WASMD_DIR="./wasmd-0.28/proto"
+WASMD_THIRD_PARTY_DIR="./wasmd-0.28/third_party/proto"
 CONFIO_DIR="$WASMD_THIRD_PARTY_DIR/confio"
 COSMOS_DIR="$WASMD_THIRD_PARTY_DIR/cosmos"
 IBC_DIR="$WASMD_THIRD_PARTY_DIR/ibc"
