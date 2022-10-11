@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { Channel, IdentifiedChannel, PacketState } from "./channel";
@@ -24,13 +23,13 @@ export interface QueryChannelRequest {
 
 export interface QueryChannelResponse {
   /** channel associated with the request identifiers */
-  channel: Channel;
+  channel?: Channel;
   /** merkle proof of existence */
 
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 
@@ -48,7 +47,7 @@ export interface QueryChannelsResponse {
   pagination?: PageResponse;
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryConnectionChannelsRequest is the request type for the
@@ -75,7 +74,7 @@ export interface QueryConnectionChannelsResponse {
   pagination?: PageResponse;
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryChannelClientStateRequest is the request type for the Query/ClientState
@@ -96,13 +95,13 @@ export interface QueryChannelClientStateRequest {
 
 export interface QueryChannelClientStateResponse {
   /** client state associated with the channel */
-  identifiedClientState: IdentifiedClientState;
+  identifiedClientState?: IdentifiedClientState;
   /** merkle proof of existence */
 
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryChannelConsensusStateRequest is the request type for the
@@ -129,7 +128,7 @@ export interface QueryChannelConsensusStateRequest {
 
 export interface QueryChannelConsensusStateResponse {
   /** consensus state associated with the channel */
-  consensusState: Any;
+  consensusState?: Any;
   /** client ID associated with the consensus state */
 
   clientId: string;
@@ -138,7 +137,7 @@ export interface QueryChannelConsensusStateResponse {
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryPacketCommitmentRequest is the request type for the
@@ -169,7 +168,7 @@ export interface QueryPacketCommitmentResponse {
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryPacketCommitmentsRequest is the request type for the
@@ -198,7 +197,7 @@ export interface QueryPacketCommitmentsResponse {
   pagination?: PageResponse;
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryPacketReceiptRequest is the request type for the
@@ -229,7 +228,7 @@ export interface QueryPacketReceiptResponse {
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryPacketAcknowledgementRequest is the request type for the
@@ -260,7 +259,7 @@ export interface QueryPacketAcknowledgementResponse {
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryPacketAcknowledgementsRequest is the request type for the
@@ -292,7 +291,7 @@ export interface QueryPacketAcknowledgementsResponse {
   pagination?: PageResponse;
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryUnreceivedPacketsRequest is the request type for the
@@ -319,7 +318,7 @@ export interface QueryUnreceivedPacketsResponse {
   sequences: Long[];
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryUnreceivedAcks is the request type for the
@@ -346,7 +345,7 @@ export interface QueryUnreceivedAcksResponse {
   sequences: Long[];
   /** query block height */
 
-  height: Height;
+  height?: Height;
 }
 /**
  * QueryNextSequenceReceiveRequest is the request type for the
@@ -373,7 +372,7 @@ export interface QueryNextSequenceReceiveResponse {
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 
 function createBaseQueryChannelRequest(): QueryChannelRequest {

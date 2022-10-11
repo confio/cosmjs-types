@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant } from "./feegrant";
@@ -18,7 +17,7 @@ export interface QueryAllowanceRequest {
 
 export interface QueryAllowanceResponse {
   /** allowance is a allowance granted for grantee by granter. */
-  allowance: Grant;
+  allowance?: Grant;
 }
 /** QueryAllowancesRequest is the request type for the Query/Allowances RPC method. */
 

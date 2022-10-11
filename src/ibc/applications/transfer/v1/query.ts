@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { DenomTrace, Params } from "./transfer";
@@ -21,7 +20,7 @@ export interface QueryDenomTraceRequest {
 
 export interface QueryDenomTraceResponse {
   /** denom_trace returns the requested denomination trace information. */
-  denomTrace: DenomTrace;
+  denomTrace?: DenomTrace;
 }
 /**
  * QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
@@ -51,7 +50,7 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 
 function createBaseQueryDenomTraceRequest(): QueryDenomTraceRequest {

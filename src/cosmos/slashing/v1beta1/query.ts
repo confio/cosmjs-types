@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Params, ValidatorSigningInfo } from "./slashing";
@@ -11,7 +10,7 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method */
 
 export interface QueryParamsResponse {
-  params: Params;
+  params?: Params;
 }
 /**
  * QuerySigningInfoRequest is the request type for the Query/SigningInfo RPC
@@ -29,7 +28,7 @@ export interface QuerySigningInfoRequest {
 
 export interface QuerySigningInfoResponse {
   /** val_signing_info is the signing info of requested val cons address */
-  valSigningInfo: ValidatorSigningInfo;
+  valSigningInfo?: ValidatorSigningInfo;
 }
 /**
  * QuerySigningInfosRequest is the request type for the Query/SigningInfos RPC

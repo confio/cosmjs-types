@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -20,8 +19,8 @@ export interface GenericAuthorization {
  */
 
 export interface Grant {
-  authorization: Any;
-  expiration: Timestamp;
+  authorization?: Any;
+  expiration?: Timestamp;
 }
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -33,8 +32,8 @@ export interface Grant {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization: Any;
-  expiration: Timestamp;
+  authorization?: Any;
+  expiration?: Timestamp;
 }
 
 function createBaseGenericAuthorization(): GenericAuthorization {

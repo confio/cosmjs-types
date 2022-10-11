@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
@@ -15,7 +14,7 @@ export interface QueryEvidenceRequest {
 
 export interface QueryEvidenceResponse {
   /** evidence returns the requested evidence. */
-  evidence: Any;
+  evidence?: Any;
 }
 /**
  * QueryEvidenceRequest is the request type for the Query/AllEvidence RPC

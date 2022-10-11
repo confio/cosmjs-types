@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Coin } from "../../base/v1beta1/coin";
@@ -19,7 +18,7 @@ export interface QueryBalanceRequest {
 
 export interface QueryBalanceResponse {
   /** balance is the balance of the coin. */
-  balance: Coin;
+  balance?: Coin;
 }
 /** QueryBalanceRequest is the request type for the Query/AllBalances RPC method. */
 
@@ -105,7 +104,7 @@ export interface QuerySupplyOfRequest {
 
 export interface QuerySupplyOfResponse {
   /** amount is the supply of the coin. */
-  amount: Coin;
+  amount?: Coin;
 }
 /** QueryParamsRequest defines the request type for querying x/bank parameters. */
 
@@ -113,7 +112,7 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse defines the response type for querying x/bank parameters. */
 
 export interface QueryParamsResponse {
-  params: Params;
+  params?: Params;
 }
 /** QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method. */
 
@@ -146,7 +145,7 @@ export interface QueryDenomMetadataRequest {
 
 export interface QueryDenomMetadataResponse {
   /** metadata describes and provides all the client information for the requested token. */
-  metadata: Metadata;
+  metadata?: Metadata;
 }
 
 function createBaseQueryBalanceRequest(): QueryBalanceRequest {

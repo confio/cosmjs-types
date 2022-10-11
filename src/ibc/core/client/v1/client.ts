@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
@@ -15,7 +14,7 @@ export interface IdentifiedClientState {
   clientId: string;
   /** client state */
 
-  clientState: Any;
+  clientState?: Any;
 }
 /**
  * ConsensusStateWithHeight defines a consensus state with an additional height
@@ -24,10 +23,10 @@ export interface IdentifiedClientState {
 
 export interface ConsensusStateWithHeight {
   /** consensus state height */
-  height: Height;
+  height?: Height;
   /** consensus state */
 
-  consensusState: Any;
+  consensusState?: Any;
 }
 /**
  * ClientConsensusStates defines all the stored consensus states for a given
@@ -72,7 +71,7 @@ export interface ClientUpdateProposal {
 export interface UpgradeProposal {
   title: string;
   description: string;
-  plan: Plan;
+  plan?: Plan;
   /**
    * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
    * This will make the chain commit to the correct upgraded (self) client state
@@ -82,7 +81,7 @@ export interface UpgradeProposal {
    * planned chain upgrades
    */
 
-  upgradedClientState: Any;
+  upgradedClientState?: Any;
 }
 /**
  * Height is a monotonically increasing data type

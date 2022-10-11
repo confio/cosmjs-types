@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../base/v1beta1/coin";
@@ -12,7 +11,7 @@ export const protobufPackage = "cosmos.gov.v1beta1";
  */
 
 export interface MsgSubmitProposal {
-  content: Any;
+  content?: Any;
   initialDeposit: Coin[];
   proposer: string;
 }

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PublicKey } from "../crypto/keys";
 import * as _m0 from "protobufjs/minimal";
@@ -6,17 +5,17 @@ import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } fro
 export const protobufPackage = "tendermint.types";
 export interface ValidatorSet {
   validators: Validator[];
-  proposer: Validator;
+  proposer?: Validator;
   totalVotingPower: Long;
 }
 export interface Validator {
   address: Uint8Array;
-  pubKey: PublicKey;
+  pubKey?: PublicKey;
   votingPower: Long;
   proposerPriority: Long;
 }
 export interface SimpleValidator {
-  pubKey: PublicKey;
+  pubKey?: PublicKey;
   votingPower: Long;
 }
 

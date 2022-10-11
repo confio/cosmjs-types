@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Height } from "../../../core/client/v1/client";
 import * as _m0 from "protobufjs/minimal";
@@ -14,7 +13,7 @@ export interface ClientState {
   chainId: string;
   /** self latest block height */
 
-  height: Height;
+  height?: Height;
 }
 
 function createBaseClientState(): ClientState {

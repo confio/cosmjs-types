@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Plan, ModuleVersion } from "./upgrade";
 import * as _m0 from "protobufjs/minimal";
@@ -17,7 +16,7 @@ export interface QueryCurrentPlanRequest {}
 
 export interface QueryCurrentPlanResponse {
   /** plan is the current upgrade plan. */
-  plan: Plan;
+  plan?: Plan;
 }
 /**
  * QueryCurrentPlanRequest is the request type for the Query/AppliedPlan RPC

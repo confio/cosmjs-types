@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
@@ -17,7 +16,7 @@ export interface MsgGrantAllowance {
   grantee: string;
   /** allowance can be any of basic and filtered fee allowance. */
 
-  allowance: Any;
+  allowance?: Any;
 }
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
 

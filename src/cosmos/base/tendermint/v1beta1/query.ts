@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../query/v1beta1/pagination";
 import { Any } from "../../../../google/protobuf/any";
@@ -44,7 +43,7 @@ export interface GetLatestValidatorSetResponse {
 
 export interface Validator {
   address: string;
-  pubKey: Any;
+  pubKey?: Any;
   votingPower: Long;
   proposerPriority: Long;
 }
@@ -56,8 +55,8 @@ export interface GetBlockByHeightRequest {
 /** GetBlockByHeightResponse is the response type for the Query/GetBlockByHeight RPC method. */
 
 export interface GetBlockByHeightResponse {
-  blockId: BlockID;
-  block: Block;
+  blockId?: BlockID;
+  block?: Block;
 }
 /** GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method. */
 
@@ -65,8 +64,8 @@ export interface GetLatestBlockRequest {}
 /** GetLatestBlockResponse is the response type for the Query/GetLatestBlock RPC method. */
 
 export interface GetLatestBlockResponse {
-  blockId: BlockID;
-  block: Block;
+  blockId?: BlockID;
+  block?: Block;
 }
 /** GetSyncingRequest is the request type for the Query/GetSyncing RPC method. */
 
@@ -82,8 +81,8 @@ export interface GetNodeInfoRequest {}
 /** GetNodeInfoResponse is the request type for the Query/GetNodeInfo RPC method. */
 
 export interface GetNodeInfoResponse {
-  defaultNodeInfo: DefaultNodeInfo;
-  applicationVersion: VersionInfo;
+  defaultNodeInfo?: DefaultNodeInfo;
+  applicationVersion?: VersionInfo;
 }
 /** VersionInfo is the type for the GetNodeInfoResponse message. */
 

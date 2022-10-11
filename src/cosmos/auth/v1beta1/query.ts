@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
@@ -39,7 +38,7 @@ export interface QueryAccountRequest {
 
 export interface QueryAccountResponse {
   /** account defines the account of the corresponding address. */
-  account: Any;
+  account?: Any;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 
@@ -48,7 +47,7 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {

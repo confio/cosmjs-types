@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Duration } from "../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";
@@ -10,10 +9,10 @@ export const protobufPackage = "tendermint.types";
  */
 
 export interface ConsensusParams {
-  block: BlockParams;
-  evidence: EvidenceParams;
-  validator: ValidatorParams;
-  version: VersionParams;
+  block?: BlockParams;
+  evidence?: EvidenceParams;
+  validator?: ValidatorParams;
+  version?: VersionParams;
 }
 /** BlockParams contains limits on the block size. */
 
@@ -56,7 +55,7 @@ export interface EvidenceParams {
    * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
    */
 
-  maxAgeDuration: Duration;
+  maxAgeDuration?: Duration;
   /**
    * This sets the maximum size of total evidence in bytes that can be committed in a single block.
    * and should fall comfortably under the max block bytes.

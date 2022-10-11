@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Channel, Packet } from "./channel";
 import { Height } from "../../client/v1/client";
@@ -12,7 +11,7 @@ export const protobufPackage = "ibc.core.channel.v1";
 
 export interface MsgChannelOpenInit {
   portId: string;
-  channel: Channel;
+  channel?: Channel;
   signer: string;
 }
 /** MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type. */
@@ -31,10 +30,10 @@ export interface MsgChannelOpenTry {
    */
 
   previousChannelId: string;
-  channel: Channel;
+  channel?: Channel;
   counterpartyVersion: string;
   proofInit: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /** MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type. */
@@ -51,7 +50,7 @@ export interface MsgChannelOpenAck {
   counterpartyChannelId: string;
   counterpartyVersion: string;
   proofTry: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /** MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type. */
@@ -66,7 +65,7 @@ export interface MsgChannelOpenConfirm {
   portId: string;
   channelId: string;
   proofAck: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /**
@@ -97,7 +96,7 @@ export interface MsgChannelCloseConfirm {
   portId: string;
   channelId: string;
   proofInit: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /**
@@ -109,9 +108,9 @@ export interface MsgChannelCloseConfirmResponse {}
 /** MsgRecvPacket receives incoming IBC packet */
 
 export interface MsgRecvPacket {
-  packet: Packet;
+  packet?: Packet;
   proofCommitment: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /** MsgRecvPacketResponse defines the Msg/RecvPacket response type. */
@@ -120,9 +119,9 @@ export interface MsgRecvPacketResponse {}
 /** MsgTimeout receives timed-out packet */
 
 export interface MsgTimeout {
-  packet: Packet;
+  packet?: Packet;
   proofUnreceived: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   nextSequenceRecv: Long;
   signer: string;
 }
@@ -132,10 +131,10 @@ export interface MsgTimeoutResponse {}
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 
 export interface MsgTimeoutOnClose {
-  packet: Packet;
+  packet?: Packet;
   proofUnreceived: Uint8Array;
   proofClose: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   nextSequenceRecv: Long;
   signer: string;
 }
@@ -145,10 +144,10 @@ export interface MsgTimeoutOnCloseResponse {}
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 
 export interface MsgAcknowledgement {
-  packet: Packet;
+  packet?: Packet;
   acknowledgement: Uint8Array;
   proofAcked: Uint8Array;
-  proofHeight: Height;
+  proofHeight?: Height;
   signer: string;
 }
 /** MsgAcknowledgementResponse defines the Msg/Acknowledgement response type. */

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov";
 import * as _m0 from "protobufjs/minimal";
@@ -20,13 +19,13 @@ export interface GenesisState {
   proposals: Proposal[];
   /** params defines all the paramaters of related to deposit. */
 
-  depositParams: DepositParams;
+  depositParams?: DepositParams;
   /** params defines all the paramaters of related to voting. */
 
-  votingParams: VotingParams;
+  votingParams?: VotingParams;
   /** params defines all the paramaters of related to tally. */
 
-  tallyParams: TallyParams;
+  tallyParams?: TallyParams;
 }
 
 function createBaseGenesisState(): GenesisState {

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
@@ -14,7 +13,7 @@ export interface ValueOp {
   key: Uint8Array;
   /** To encode in ProofOp.Data */
 
-  proof: Proof;
+  proof?: Proof;
 }
 export interface DominoOp {
   key: string;

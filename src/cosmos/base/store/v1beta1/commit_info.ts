@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
@@ -19,7 +18,7 @@ export interface CommitInfo {
 
 export interface StoreInfo {
   name: string;
-  commitId: CommitID;
+  commitId?: CommitID;
 }
 /**
  * CommitID defines the committment information when a specific store is

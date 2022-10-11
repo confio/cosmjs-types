@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Header } from "../../../tendermint/types/types";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -75,7 +74,7 @@ export function bondStatusToJSON(object: BondStatus): string {
  */
 
 export interface HistoricalInfo {
-  header: Header;
+  header?: Header;
   valset: Validator[];
 }
 /**
@@ -97,10 +96,10 @@ export interface CommissionRates {
 
 export interface Commission {
   /** commission_rates defines the initial commission rates to be used for creating a validator. */
-  commissionRates: CommissionRates;
+  commissionRates?: CommissionRates;
   /** update_time is the last time the commission rate was changed. */
 
-  updateTime: Timestamp;
+  updateTime?: Timestamp;
 }
 /** Description defines a validator description. */
 
@@ -136,7 +135,7 @@ export interface Validator {
   operatorAddress: string;
   /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
 
-  consensusPubkey: Any;
+  consensusPubkey?: Any;
   /** jailed defined whether the validator has been jailed from bonded status or not. */
 
   jailed: boolean;
@@ -151,16 +150,16 @@ export interface Validator {
   delegatorShares: string;
   /** description defines the description terms for the validator. */
 
-  description: Description;
+  description?: Description;
   /** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
 
   unbondingHeight: Long;
   /** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
 
-  unbondingTime: Timestamp;
+  unbondingTime?: Timestamp;
   /** commission defines the commission parameters. */
 
-  commission: Commission;
+  commission?: Commission;
   /** min_self_delegation is the validator's self declared minimum self delegation. */
 
   minSelfDelegation: string;
@@ -240,7 +239,7 @@ export interface UnbondingDelegationEntry {
   creationHeight: Long;
   /** completion_time is the unix time for unbonding completion. */
 
-  completionTime: Timestamp;
+  completionTime?: Timestamp;
   /** initial_balance defines the tokens initially scheduled to receive at completion. */
 
   initialBalance: string;
@@ -255,7 +254,7 @@ export interface RedelegationEntry {
   creationHeight: Long;
   /** completion_time defines the unix time for redelegation completion. */
 
-  completionTime: Timestamp;
+  completionTime?: Timestamp;
   /** initial_balance defines the initial balance when redelegation started. */
 
   initialBalance: string;
@@ -285,7 +284,7 @@ export interface Redelegation {
 
 export interface Params {
   /** unbonding_time is the time duration of unbonding. */
-  unbondingTime: Duration;
+  unbondingTime?: Duration;
   /** max_validators is the maximum number of validators. */
 
   maxValidators: number;
@@ -305,8 +304,8 @@ export interface Params {
  */
 
 export interface DelegationResponse {
-  delegation: Delegation;
-  balance: Coin;
+  delegation?: Delegation;
+  balance?: Coin;
 }
 /**
  * RedelegationEntryResponse is equivalent to a RedelegationEntry except that it
@@ -315,7 +314,7 @@ export interface DelegationResponse {
  */
 
 export interface RedelegationEntryResponse {
-  redelegationEntry: RedelegationEntry;
+  redelegationEntry?: RedelegationEntry;
   balance: string;
 }
 /**
@@ -325,7 +324,7 @@ export interface RedelegationEntryResponse {
  */
 
 export interface RedelegationResponse {
-  redelegation: Redelegation;
+  redelegation?: Redelegation;
   entries: RedelegationEntryResponse[];
 }
 /**

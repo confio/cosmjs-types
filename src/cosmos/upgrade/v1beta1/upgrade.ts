@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Any } from "../../../google/protobuf/any";
@@ -26,7 +25,7 @@ export interface Plan {
 
   /** @deprecated */
 
-  time: Timestamp;
+  time?: Timestamp;
   /**
    * The height at which the upgrade must be performed.
    * Only used if Time is not set.
@@ -47,7 +46,7 @@ export interface Plan {
 
   /** @deprecated */
 
-  upgradedClientState: Any;
+  upgradedClientState?: Any;
 }
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
@@ -57,7 +56,7 @@ export interface Plan {
 export interface SoftwareUpgradeProposal {
   title: string;
   description: string;
-  plan: Plan;
+  plan?: Plan;
 }
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software

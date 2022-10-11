@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import {
@@ -19,7 +18,7 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 /**
  * QueryValidatorOutstandingRewardsRequest is the request type for the
@@ -36,7 +35,7 @@ export interface QueryValidatorOutstandingRewardsRequest {
  */
 
 export interface QueryValidatorOutstandingRewardsResponse {
-  rewards: ValidatorOutstandingRewards;
+  rewards?: ValidatorOutstandingRewards;
 }
 /**
  * QueryValidatorCommissionRequest is the request type for the
@@ -54,7 +53,7 @@ export interface QueryValidatorCommissionRequest {
 
 export interface QueryValidatorCommissionResponse {
   /** commission defines the commision the validator received. */
-  commission: ValidatorAccumulatedCommission;
+  commission?: ValidatorAccumulatedCommission;
 }
 /**
  * QueryValidatorSlashesRequest is the request type for the

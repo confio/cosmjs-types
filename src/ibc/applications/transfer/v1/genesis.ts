@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { DenomTrace, Params } from "./transfer";
 import * as _m0 from "protobufjs/minimal";
@@ -9,7 +8,7 @@ export const protobufPackage = "ibc.applications.transfer.v1";
 export interface GenesisState {
   portId: string;
   denomTraces: DenomTrace[];
-  params: Params;
+  params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {

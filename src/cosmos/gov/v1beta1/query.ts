@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import {
   ProposalStatus,
@@ -25,7 +24,7 @@ export interface QueryProposalRequest {
 /** QueryProposalResponse is the response type for the Query/Proposal RPC method. */
 
 export interface QueryProposalResponse {
-  proposal: Proposal;
+  proposal?: Proposal;
 }
 /** QueryProposalsRequest is the request type for the Query/Proposals RPC method. */
 
@@ -66,7 +65,7 @@ export interface QueryVoteRequest {
 
 export interface QueryVoteResponse {
   /** vote defined the queried vote. */
-  vote: Vote;
+  vote?: Vote;
 }
 /** QueryVotesRequest is the request type for the Query/Votes RPC method. */
 
@@ -99,13 +98,13 @@ export interface QueryParamsRequest {
 
 export interface QueryParamsResponse {
   /** voting_params defines the parameters related to voting. */
-  votingParams: VotingParams;
+  votingParams?: VotingParams;
   /** deposit_params defines the parameters related to deposit. */
 
-  depositParams: DepositParams;
+  depositParams?: DepositParams;
   /** tally_params defines the parameters related to tally. */
 
-  tallyParams: TallyParams;
+  tallyParams?: TallyParams;
 }
 /** QueryDepositRequest is the request type for the Query/Deposit RPC method. */
 
@@ -120,7 +119,7 @@ export interface QueryDepositRequest {
 
 export interface QueryDepositResponse {
   /** deposit defines the requested deposit. */
-  deposit: Deposit;
+  deposit?: Deposit;
 }
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 
@@ -149,7 +148,7 @@ export interface QueryTallyResultRequest {
 
 export interface QueryTallyResultResponse {
   /** tally defines the requested tally. */
-  tally: TallyResult;
+  tally?: TallyResult;
 }
 
 function createBaseQueryProposalRequest(): QueryProposalRequest {

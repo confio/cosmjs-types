@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import * as _m0 from "protobufjs/minimal";
@@ -12,7 +11,7 @@ export interface GenesisState {
   /** the sequence for the next generated connection identifier */
 
   nextConnectionSequence: Long;
-  params: Params;
+  params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {

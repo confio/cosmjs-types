@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { DecCoin } from "../../base/v1beta1/coin";
 import {
@@ -45,7 +44,7 @@ export interface ValidatorAccumulatedCommissionRecord {
   validatorAddress: string;
   /** accumulated is the accumulated commission of a validator. */
 
-  accumulated: ValidatorAccumulatedCommission;
+  accumulated?: ValidatorAccumulatedCommission;
 }
 /**
  * ValidatorHistoricalRewardsRecord is used for import / export via genesis
@@ -60,7 +59,7 @@ export interface ValidatorHistoricalRewardsRecord {
   period: Long;
   /** rewards defines the historical rewards of a validator. */
 
-  rewards: ValidatorHistoricalRewards;
+  rewards?: ValidatorHistoricalRewards;
 }
 /** ValidatorCurrentRewardsRecord is used for import / export via genesis json. */
 
@@ -69,7 +68,7 @@ export interface ValidatorCurrentRewardsRecord {
   validatorAddress: string;
   /** rewards defines the current rewards of a validator. */
 
-  rewards: ValidatorCurrentRewards;
+  rewards?: ValidatorCurrentRewards;
 }
 /** DelegatorStartingInfoRecord used for import / export via genesis json. */
 
@@ -81,7 +80,7 @@ export interface DelegatorStartingInfoRecord {
   validatorAddress: string;
   /** starting_info defines the starting info of a delegator. */
 
-  startingInfo: DelegatorStartingInfo;
+  startingInfo?: DelegatorStartingInfo;
 }
 /** ValidatorSlashEventRecord is used for import / export via genesis json. */
 
@@ -96,16 +95,16 @@ export interface ValidatorSlashEventRecord {
   period: Long;
   /** validator_slash_event describes the slash event. */
 
-  validatorSlashEvent: ValidatorSlashEvent;
+  validatorSlashEvent?: ValidatorSlashEvent;
 }
 /** GenesisState defines the distribution module's genesis state. */
 
 export interface GenesisState {
   /** params defines all the paramaters of the module. */
-  params: Params;
+  params?: Params;
   /** fee_pool defines the fee pool at genesis. */
 
-  feePool: FeePool;
+  feePool?: FeePool;
   /** fee_pool defines the delegator withdraw infos at genesis. */
 
   delegatorWithdrawInfos: DelegatorWithdrawInfo[];

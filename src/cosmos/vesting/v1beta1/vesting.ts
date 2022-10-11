@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { BaseAccount } from "../../auth/v1beta1/auth";
 import { Coin } from "../../base/v1beta1/coin";
@@ -11,7 +10,7 @@ export const protobufPackage = "cosmos.vesting.v1beta1";
  */
 
 export interface BaseVestingAccount {
-  baseAccount: BaseAccount;
+  baseAccount?: BaseAccount;
   originalVesting: Coin[];
   delegatedFree: Coin[];
   delegatedVesting: Coin[];
@@ -23,7 +22,7 @@ export interface BaseVestingAccount {
  */
 
 export interface ContinuousVestingAccount {
-  baseVestingAccount: BaseVestingAccount;
+  baseVestingAccount?: BaseVestingAccount;
   startTime: Long;
 }
 /**
@@ -33,7 +32,7 @@ export interface ContinuousVestingAccount {
  */
 
 export interface DelayedVestingAccount {
-  baseVestingAccount: BaseVestingAccount;
+  baseVestingAccount?: BaseVestingAccount;
 }
 /** Period defines a length of time and amount of coins that will vest. */
 
@@ -47,7 +46,7 @@ export interface Period {
  */
 
 export interface PeriodicVestingAccount {
-  baseVestingAccount: BaseVestingAccount;
+  baseVestingAccount?: BaseVestingAccount;
   startTime: Long;
   vestingPeriods: Period[];
 }
@@ -60,7 +59,7 @@ export interface PeriodicVestingAccount {
  */
 
 export interface PermanentLockedAccount {
-  baseVestingAccount: BaseVestingAccount;
+  baseVestingAccount?: BaseVestingAccount;
 }
 
 function createBaseBaseVestingAccount(): BaseVestingAccount {

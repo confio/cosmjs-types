@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
 import { Params, CodeInfo, ContractInfo, Model } from "./types";
@@ -8,7 +7,7 @@ export const protobufPackage = "cosmwasm.wasm.v1";
 /** GenesisState - genesis state of x/wasm */
 
 export interface GenesisState {
-  params: Params;
+  params?: Params;
   codes: Code[];
   contracts: Contract[];
   sequences: Sequence[];
@@ -28,7 +27,7 @@ export interface GenesisState_GenMsgs {
 
 export interface Code {
   codeId: Long;
-  codeInfo: CodeInfo;
+  codeInfo?: CodeInfo;
   codeBytes: Uint8Array;
   /** Pinned to wasmvm cache */
 
@@ -38,7 +37,7 @@ export interface Code {
 
 export interface Contract {
   contractAddress: string;
-  contractInfo: ContractInfo;
+  contractInfo?: ContractInfo;
   contractState: Model[];
 }
 /** Sequence key and value of an id generation counter */

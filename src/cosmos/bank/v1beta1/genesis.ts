@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params, Metadata } from "./bank";
 import { Coin } from "../../base/v1beta1/coin";
@@ -9,7 +8,7 @@ export const protobufPackage = "cosmos.bank.v1beta1";
 
 export interface GenesisState {
   /** params defines all the paramaters of the module. */
-  params: Params;
+  params?: Params;
   /** balances is an array containing the balances of all the accounts. */
 
   balances: Balance[];

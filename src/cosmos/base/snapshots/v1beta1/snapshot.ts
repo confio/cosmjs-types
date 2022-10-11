@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
 import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
@@ -10,7 +9,7 @@ export interface Snapshot {
   format: number;
   chunks: number;
   hash: Uint8Array;
-  metadata: Metadata;
+  metadata?: Metadata;
 }
 /** Metadata contains SDK-specific snapshot metadata. */
 

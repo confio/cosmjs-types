@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { ParamChange } from "./params";
 import * as _m0 from "protobufjs/minimal";
@@ -17,7 +16,7 @@ export interface QueryParamsRequest {
 
 export interface QueryParamsResponse {
   /** param defines the queried parameter. */
-  param: ParamChange;
+  param?: ParamChange;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {

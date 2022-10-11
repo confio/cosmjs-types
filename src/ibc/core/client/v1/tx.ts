@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
@@ -8,13 +7,13 @@ export const protobufPackage = "ibc.core.client.v1";
 
 export interface MsgCreateClient {
   /** light client state */
-  clientState: Any;
+  clientState?: Any;
   /**
    * consensus state associated with the client that corresponds to a given
    * height.
    */
 
-  consensusState: Any;
+  consensusState?: Any;
   /** signer address */
 
   signer: string;
@@ -32,7 +31,7 @@ export interface MsgUpdateClient {
   clientId: string;
   /** header to update the light client */
 
-  header: Any;
+  header?: Any;
   /** signer address */
 
   signer: string;
@@ -50,13 +49,13 @@ export interface MsgUpgradeClient {
   clientId: string;
   /** upgraded client state */
 
-  clientState: Any;
+  clientState?: Any;
   /**
    * upgraded consensus state, only contains enough information to serve as a
    * basis of trust in update logic
    */
 
-  consensusState: Any;
+  consensusState?: Any;
   /** proof that old chain committed to new client */
 
   proofUpgradeClient: Uint8Array;
@@ -80,7 +79,7 @@ export interface MsgSubmitMisbehaviour {
   clientId: string;
   /** misbehaviour used for freezing the light client */
 
-  misbehaviour: Any;
+  misbehaviour?: Any;
   /** signer address */
 
   signer: string;

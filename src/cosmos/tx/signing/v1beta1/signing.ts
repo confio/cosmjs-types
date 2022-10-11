@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
 import { Any } from "../../../../google/protobuf/any";
@@ -113,8 +112,8 @@ export interface SignatureDescriptors {
 
 export interface SignatureDescriptor {
   /** public_key is the public key of the signer */
-  publicKey: Any;
-  data: SignatureDescriptor_Data;
+  publicKey?: Any;
+  data?: SignatureDescriptor_Data;
   /**
    * sequence is the sequence of the account, which describes the
    * number of committed transactions signed by a given address. It is used to prevent
@@ -145,7 +144,7 @@ export interface SignatureDescriptor_Data_Single {
 
 export interface SignatureDescriptor_Data_Multi {
   /** bitarray specifies which keys within the multisig are signing */
-  bitarray: CompactBitArray;
+  bitarray?: CompactBitArray;
   /** signatures is the signatures of the multi-signature */
 
   signatures: SignatureDescriptor_Data[];

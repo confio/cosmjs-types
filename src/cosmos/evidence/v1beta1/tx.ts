@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
@@ -11,7 +10,7 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
 
 export interface MsgSubmitEvidence {
   submitter: string;
-  evidence: Any;
+  evidence?: Any;
 }
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 

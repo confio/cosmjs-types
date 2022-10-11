@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
 import * as _m0 from "protobufjs/minimal";
@@ -15,7 +14,7 @@ export interface GenesisState {
   /** metadata from each client */
 
   clientsMetadata: IdentifiedGenesisMetadata[];
-  params: Params;
+  params?: Params;
   /** create localhost on initialization */
 
   createLocalhost: boolean;

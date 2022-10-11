@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { ContractInfo, ContractCodeHistoryEntry, Model } from "./types";
@@ -22,7 +21,7 @@ export interface QueryContractInfoRequest {
 export interface QueryContractInfoResponse {
   /** address is the address of the contract */
   address: string;
-  contractInfo: ContractInfo;
+  contractInfo?: ContractInfo;
 }
 /**
  * QueryContractHistoryRequest is the request type for the Query/ContractHistory
@@ -151,7 +150,7 @@ export interface CodeInfoResponse {
 /** QueryCodeResponse is the response type for the Query/Code RPC method */
 
 export interface QueryCodeResponse {
-  codeInfo: CodeInfoResponse;
+  codeInfo?: CodeInfoResponse;
   data: Uint8Array;
 }
 /** QueryCodesRequest is the request type for the Query/Codes RPC method */

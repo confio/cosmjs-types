@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./mint";
 import * as _m0 from "protobufjs/minimal";
@@ -11,7 +10,7 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 /** QueryInflationRequest is the request type for the Query/Inflation RPC method. */
 

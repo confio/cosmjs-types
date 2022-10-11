@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { AccessConfig } from "./types";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
@@ -21,7 +20,7 @@ export interface StoreCodeProposal {
   wasmByteCode: Uint8Array;
   /** InstantiatePermission to apply on contract creation, optional */
 
-  instantiatePermission: AccessConfig;
+  instantiatePermission?: AccessConfig;
 }
 /**
  * InstantiateContractProposal gov proposal content type to instantiate a

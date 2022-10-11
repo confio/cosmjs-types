@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { CapabilityOwners } from "./capability";
 import * as _m0 from "protobufjs/minimal";
@@ -11,7 +10,7 @@ export interface GenesisOwners {
   index: Long;
   /** index_owners are the owners at the given index. */
 
-  indexOwners: CapabilityOwners;
+  indexOwners?: CapabilityOwners;
 }
 /** GenesisState defines the capability module's genesis state. */
 

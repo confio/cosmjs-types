@@ -3,7 +3,8 @@
   "version": "0.5.1",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos-SDK and other related projects",
   "contributors": [
-    "Will Clark <willclarktech@users.noreply.github.com>"
+    "Will Clark <willclarktech@users.noreply.github.com>",
+    "Dan Lynch <pyramation@gmail.com>"
   ],
   "license": "Apache-2.0",
   "repository": {
@@ -28,7 +29,7 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
-    "codegen": "rm -rf ./src && ./scripts/codegen.js && yarn format",
+    "codegen": "rm -rf ./src && ./scripts/codegen.js && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
@@ -37,7 +38,7 @@
     "protobufjs": "~6.11.2"
   },
   "devDependencies": {
-    "@osmonauts/telescope": "^0.53.0",
+    "@osmonauts/telescope": "^0.55.0",
     "@types/long": "^4.0.1",
     "@types/node": "^15.6.2",
     "prettier": "^2.7.1",

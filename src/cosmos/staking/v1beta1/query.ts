@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import {
@@ -41,7 +40,7 @@ export interface QueryValidatorRequest {
 
 export interface QueryValidatorResponse {
   /** validator defines the the validator info. */
-  validator: Validator;
+  validator?: Validator;
 }
 /**
  * QueryValidatorDelegationsRequest is request type for the
@@ -102,7 +101,7 @@ export interface QueryDelegationRequest {
 
 export interface QueryDelegationResponse {
   /** delegation_responses defines the delegation info of a delegation. */
-  delegationResponse: DelegationResponse;
+  delegationResponse?: DelegationResponse;
 }
 /**
  * QueryUnbondingDelegationRequest is request type for the
@@ -123,7 +122,7 @@ export interface QueryUnbondingDelegationRequest {
 
 export interface QueryUnbondingDelegationResponse {
   /** unbond defines the unbonding information of a delegation. */
-  unbond: UnbondingDelegation;
+  unbond?: UnbondingDelegation;
 }
 /**
  * QueryDelegatorDelegationsRequest is request type for the
@@ -244,7 +243,7 @@ export interface QueryDelegatorValidatorRequest {
 
 export interface QueryDelegatorValidatorResponse {
   /** validator defines the the validator info. */
-  validator: Validator;
+  validator?: Validator;
 }
 /**
  * QueryHistoricalInfoRequest is request type for the Query/HistoricalInfo RPC
@@ -262,7 +261,7 @@ export interface QueryHistoricalInfoRequest {
 
 export interface QueryHistoricalInfoResponse {
   /** hist defines the historical info at the given height. */
-  hist: HistoricalInfo;
+  hist?: HistoricalInfo;
 }
 /** QueryPoolRequest is request type for the Query/Pool RPC method. */
 
@@ -271,7 +270,7 @@ export interface QueryPoolRequest {}
 
 export interface QueryPoolResponse {
   /** pool defines the pool info. */
-  pool: Pool;
+  pool?: Pool;
 }
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 
@@ -280,7 +279,7 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
-  params: Params;
+  params?: Params;
 }
 
 function createBaseQueryValidatorsRequest(): QueryValidatorsRequest {

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import { Any } from "../../../google/protobuf/any";
@@ -212,14 +211,14 @@ export interface Deposit {
 
 export interface Proposal {
   proposalId: Long;
-  content: Any;
+  content?: Any;
   status: ProposalStatus;
-  finalTallyResult: TallyResult;
-  submitTime: Timestamp;
-  depositEndTime: Timestamp;
+  finalTallyResult?: TallyResult;
+  submitTime?: Timestamp;
+  depositEndTime?: Timestamp;
   totalDeposit: Coin[];
-  votingStartTime: Timestamp;
-  votingEndTime: Timestamp;
+  votingStartTime?: Timestamp;
+  votingEndTime?: Timestamp;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 
@@ -260,13 +259,13 @@ export interface DepositParams {
    *  months.
    */
 
-  maxDepositPeriod: Duration;
+  maxDepositPeriod?: Duration;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 
 export interface VotingParams {
   /** Length of the voting period. */
-  votingPeriod: Duration;
+  votingPeriod?: Duration;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 

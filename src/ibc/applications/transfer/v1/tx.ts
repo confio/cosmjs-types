@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { Height } from "../../../core/client/v1/client";
@@ -19,7 +18,7 @@ export interface MsgTransfer {
   sourceChannel: string;
   /** the tokens to be transferred */
 
-  token: Coin;
+  token?: Coin;
   /** the sender address */
 
   sender: string;
@@ -31,7 +30,7 @@ export interface MsgTransfer {
    * The timeout is disabled when set to 0.
    */
 
-  timeoutHeight: Height;
+  timeoutHeight?: Height;
   /**
    * Timeout timestamp (in nanoseconds) relative to the current block timestamp.
    * The timeout is disabled when set to 0.

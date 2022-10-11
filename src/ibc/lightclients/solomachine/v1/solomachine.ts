@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { ConnectionEnd } from "../../../core/connection/v1/connection";
@@ -139,7 +138,7 @@ export interface ClientState {
   /** frozen sequence of the solo machine */
 
   frozenSequence: Long;
-  consensusState: ConsensusState;
+  consensusState?: ConsensusState;
   /**
    * when set to true, will allow governance to update a solo machine client.
    * The client will be unfrozen if it is frozen.
@@ -155,7 +154,7 @@ export interface ClientState {
 
 export interface ConsensusState {
   /** public key of the solo machine */
-  publicKey: Any;
+  publicKey?: Any;
   /**
    * diversifier allows the same public key to be re-used across different solo
    * machine clients (potentially on different chains) without being considered
@@ -172,7 +171,7 @@ export interface Header {
   sequence: Long;
   timestamp: Long;
   signature: Uint8Array;
-  newPublicKey: Any;
+  newPublicKey?: Any;
   newDiversifier: string;
 }
 /**
@@ -183,8 +182,8 @@ export interface Header {
 export interface Misbehaviour {
   clientId: string;
   sequence: Long;
-  signatureOne: SignatureAndData;
-  signatureTwo: SignatureAndData;
+  signatureOne?: SignatureAndData;
+  signatureTwo?: SignatureAndData;
 }
 /**
  * SignatureAndData contains a signature and the data signed over to create that
@@ -223,7 +222,7 @@ export interface SignBytes {
 
 export interface HeaderData {
   /** header public key */
-  newPubKey: Any;
+  newPubKey?: Any;
   /** header diversifier */
 
   newDiversifier: string;
@@ -232,7 +231,7 @@ export interface HeaderData {
 
 export interface ClientStateData {
   path: Uint8Array;
-  clientState: Any;
+  clientState?: Any;
 }
 /**
  * ConsensusStateData returns the SignBytes data for consensus state
@@ -241,7 +240,7 @@ export interface ClientStateData {
 
 export interface ConsensusStateData {
   path: Uint8Array;
-  consensusState: Any;
+  consensusState?: Any;
 }
 /**
  * ConnectionStateData returns the SignBytes data for connection state
@@ -250,7 +249,7 @@ export interface ConsensusStateData {
 
 export interface ConnectionStateData {
   path: Uint8Array;
-  connection: ConnectionEnd;
+  connection?: ConnectionEnd;
 }
 /**
  * ChannelStateData returns the SignBytes data for channel state
@@ -259,7 +258,7 @@ export interface ConnectionStateData {
 
 export interface ChannelStateData {
   path: Uint8Array;
-  channel: Channel;
+  channel?: Channel;
 }
 /**
  * PacketCommitmentData returns the SignBytes data for packet commitment

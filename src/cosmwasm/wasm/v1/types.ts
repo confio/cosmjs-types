@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
@@ -136,7 +135,7 @@ export interface AccessConfig {
 /** Params defines the set of wasm parameters. */
 
 export interface Params {
-  codeUploadAccess: AccessConfig;
+  codeUploadAccess?: AccessConfig;
   instantiateDefaultPermission: AccessType;
   maxWasmCodeSize: Long;
 }
@@ -150,7 +149,7 @@ export interface CodeInfo {
   creator: string;
   /** InstantiateConfig access control to apply on contract creation, optional */
 
-  instantiateConfig: AccessConfig;
+  instantiateConfig?: AccessConfig;
 }
 /** ContractInfo stores a WASM contract instance */
 
@@ -172,14 +171,14 @@ export interface ContractInfo {
    * use for sorting
    */
 
-  created: AbsoluteTxPosition;
+  created?: AbsoluteTxPosition;
   ibcPortId: string;
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
    */
 
-  extension: Any;
+  extension?: Any;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 
@@ -190,7 +189,7 @@ export interface ContractCodeHistoryEntry {
   codeId: Long;
   /** Updated Tx position when the operation was executed. */
 
-  updated: AbsoluteTxPosition;
+  updated?: AbsoluteTxPosition;
   msg: Uint8Array;
 }
 /**

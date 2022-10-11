@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
@@ -148,7 +147,7 @@ export interface Channel {
   ordering: Order;
   /** counterparty channel end */
 
-  counterparty: Counterparty;
+  counterparty?: Counterparty;
   /**
    * list of connection identifiers, in order, along which packets sent on
    * this channel will travel
@@ -172,7 +171,7 @@ export interface IdentifiedChannel {
   ordering: Order;
   /** counterparty channel end */
 
-  counterparty: Counterparty;
+  counterparty?: Counterparty;
   /**
    * list of connection identifiers, in order, along which packets sent on
    * this channel will travel
@@ -224,7 +223,7 @@ export interface Packet {
   data: Uint8Array;
   /** block height after which the packet times out */
 
-  timeoutHeight: Height;
+  timeoutHeight?: Height;
   /** block timestamp (in nanoseconds) after which the packet times out */
 
   timeoutTimestamp: Long;

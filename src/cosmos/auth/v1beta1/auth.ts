@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
@@ -12,14 +11,14 @@ export const protobufPackage = "cosmos.auth.v1beta1";
 
 export interface BaseAccount {
   address: string;
-  pubKey: Any;
+  pubKey?: Any;
   accountNumber: Long;
   sequence: Long;
 }
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
 
 export interface ModuleAccount {
-  baseAccount: BaseAccount;
+  baseAccount?: BaseAccount;
   name: string;
   permissions: string[];
 }

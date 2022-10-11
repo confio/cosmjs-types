@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { Any } from "../../../../google/protobuf/any";
@@ -23,13 +22,13 @@ export interface QueryClientStateRequest {
 
 export interface QueryClientStateResponse {
   /** client state associated with the request identifier */
-  clientState: Any;
+  clientState?: Any;
   /** merkle proof of existence */
 
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryClientStatesRequest is the request type for the Query/ClientStates RPC
@@ -81,13 +80,13 @@ export interface QueryConsensusStateRequest {
 
 export interface QueryConsensusStateResponse {
   /** consensus state associated with the client identifier at the given height */
-  consensusState: Any;
+  consensusState?: Any;
   /** merkle proof of existence */
 
   proof: Uint8Array;
   /** height at which the proof was retrieved */
 
-  proofHeight: Height;
+  proofHeight?: Height;
 }
 /**
  * QueryConsensusStatesRequest is the request type for the Query/ConsensusStates
@@ -143,7 +142,7 @@ export interface QueryClientParamsRequest {}
 
 export interface QueryClientParamsResponse {
   /** params defines the parameters of the module. */
-  params: Params;
+  params?: Params;
 }
 /**
  * QueryUpgradedClientStateRequest is the request type for the
@@ -158,7 +157,7 @@ export interface QueryUpgradedClientStateRequest {}
 
 export interface QueryUpgradedClientStateResponse {
   /** client state associated with the request identifier */
-  upgradedClientState: Any;
+  upgradedClientState?: Any;
 }
 /**
  * QueryUpgradedConsensusStateRequest is the request type for the
@@ -173,7 +172,7 @@ export interface QueryUpgradedConsensusStateRequest {}
 
 export interface QueryUpgradedConsensusStateResponse {
   /** Consensus state associated with the request identifier */
-  upgradedConsensusState: Any;
+  upgradedConsensusState?: Any;
 }
 
 function createBaseQueryClientStateRequest(): QueryClientStateRequest {

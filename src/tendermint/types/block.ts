@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Header, Data, Commit } from "./types";
 import { EvidenceList } from "./evidence";
@@ -6,10 +5,10 @@ import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 export interface Block {
-  header: Header;
-  data: Data;
-  evidence: EvidenceList;
-  lastCommit: Commit;
+  header?: Header;
+  data?: Data;
+  evidence?: EvidenceList;
+  lastCommit?: Commit;
 }
 
 function createBaseBlock(): Block {

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
@@ -8,7 +7,7 @@ export const protobufPackage = "cosmos.slashing.v1beta1";
 
 export interface GenesisState {
   /** params defines all the paramaters of related to deposit. */
-  params: Params;
+  params?: Params;
   /**
    * signing_infos represents a map between validator addresses and their
    * signing infos.
@@ -29,7 +28,7 @@ export interface SigningInfo {
   address: string;
   /** validator_signing_info represents the signing info of this validator. */
 
-  validatorSigningInfo: ValidatorSigningInfo;
+  validatorSigningInfo?: ValidatorSigningInfo;
 }
 /**
  * ValidatorMissedBlocks contains array of missed blocks of corresponding
