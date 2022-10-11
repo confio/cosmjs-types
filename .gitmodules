@@ -2,5 +2,5 @@
 	path = cosmos-sdk-0.45
 	url = https://github.com/cosmos/cosmos-sdk
 [submodule "wasmd-0.25"]
-	path = wasmd-0.25
+	path = wasmd-0.28
 	url = https://github.com/CosmWasm/wasmd.git

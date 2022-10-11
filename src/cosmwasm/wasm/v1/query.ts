@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { ContractCodeHistoryEntry, ContractInfo, Model } from "./types";
+import { AccessConfig, ContractCodeHistoryEntry, ContractInfo, Model } from "./types";
 
 export const protobufPackage = "cosmwasm.wasm.v1";
 
@@ -140,6 +140,7 @@ export interface CodeInfoResponse {
   codeId: Long;
   creator: string;
   dataHash: Uint8Array;
+  instantiatePermission?: AccessConfig;
 }
 
 /** QueryCodeResponse is the response type for the Query/Code RPC method */
@@ -967,7 +968,7 @@ export const QueryCodeRequest = {
 };
 
 function createBaseCodeInfoResponse(): CodeInfoResponse {
-  return { codeId: Long.UZERO, creator: "", dataHash: new Uint8Array() };
+  return { codeId: Long.UZERO, creator: "", dataHash: new Uint8Array(), instantiatePermission: undefined };
 }
 
 export const CodeInfoResponse = {
@@ -980,6 +981,9 @@ export const CodeInfoResponse = {
     }
     if (message.dataHash.length !== 0) {
       writer.uint32(26).bytes(message.dataHash);
+    }
+    if (message.instantiatePermission !== undefined) {
+      AccessConfig.encode(message.instantiatePermission, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -1000,6 +1004,9 @@ export const CodeInfoResponse = {
         case 3:
           message.dataHash = reader.bytes();
           break;
+        case 6:
+          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1013,6 +1020,9 @@ export const CodeInfoResponse = {
       codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
       creator: isSet(object.creator) ? String(object.creator) : "",
       dataHash: isSet(object.dataHash) ? bytesFromBase64(object.dataHash) : new Uint8Array(),
+      instantiatePermission: isSet(object.instantiatePermission)
+        ? AccessConfig.fromJSON(object.instantiatePermission)
+        : undefined,
     };
   },
 
@@ -1022,6 +1032,10 @@ export const CodeInfoResponse = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.dataHash !== undefined &&
       (obj.dataHash = base64FromBytes(message.dataHash !== undefined ? message.dataHash : new Uint8Array()));
+    message.instantiatePermission !== undefined &&
+      (obj.instantiatePermission = message.instantiatePermission
+        ? AccessConfig.toJSON(message.instantiatePermission)
+        : undefined);
     return obj;
   },
 
@@ -1031,6 +1045,10 @@ export const CodeInfoResponse = {
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
     message.creator = object.creator ?? "";
     message.dataHash = object.dataHash ?? new Uint8Array();
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromPartial(object.instantiatePermission)
+        : undefined;
     return message;
   },
 };
