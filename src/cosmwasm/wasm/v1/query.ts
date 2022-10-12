@@ -1,13 +1,8 @@
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-<<<<<<< HEAD
-import { AccessConfig, ContractCodeHistoryEntry, ContractInfo, Model } from "./types";
-
-=======
-import { ContractInfo, ContractCodeHistoryEntry, Model } from "./types";
+import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig } from "./types";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
->>>>>>> telescope-upgrade
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
@@ -1113,15 +1108,12 @@ export const QueryCodeRequest = {
 };
 
 function createBaseCodeInfoResponse(): CodeInfoResponse {
-<<<<<<< HEAD
-  return { codeId: Long.UZERO, creator: "", dataHash: new Uint8Array(), instantiatePermission: undefined };
-=======
   return {
     codeId: Long.UZERO,
     creator: "",
     dataHash: new Uint8Array(),
+    instantiatePermission: undefined,
   };
->>>>>>> telescope-upgrade
 }
 
 export const CodeInfoResponse = {
@@ -1137,13 +1129,11 @@ export const CodeInfoResponse = {
     if (message.dataHash.length !== 0) {
       writer.uint32(26).bytes(message.dataHash);
     }
-<<<<<<< HEAD
+
     if (message.instantiatePermission !== undefined) {
       AccessConfig.encode(message.instantiatePermission, writer.uint32(50).fork()).ldelim();
     }
-=======
 
->>>>>>> telescope-upgrade
     return writer;
   },
 
@@ -1167,13 +1157,11 @@ export const CodeInfoResponse = {
         case 3:
           message.dataHash = reader.bytes();
           break;
-<<<<<<< HEAD
+
         case 6:
           message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
           break;
-=======
 
->>>>>>> telescope-upgrade
         default:
           reader.skipType(tag & 7);
           break;

@@ -4,53 +4,55 @@ import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
-<<<<<<< HEAD
-
 /** ResponseResultType defines the possible outcomes of the execution of a message */
+
 export enum ResponseResultType {
   /** RESPONSE_RESULT_UNSPECIFIED - Default zero value enumeration */
   RESPONSE_RESULT_UNSPECIFIED = 0,
+
   /** RESPONSE_RESULT_NOOP - The message did not call the IBC application callbacks (because, for example, the packet had already been relayed) */
   RESPONSE_RESULT_NOOP = 1,
+
   /** RESPONSE_RESULT_SUCCESS - The message was executed successfully */
   RESPONSE_RESULT_SUCCESS = 2,
   UNRECOGNIZED = -1,
 }
-
 export function responseResultTypeFromJSON(object: any): ResponseResultType {
   switch (object) {
     case 0:
     case "RESPONSE_RESULT_UNSPECIFIED":
       return ResponseResultType.RESPONSE_RESULT_UNSPECIFIED;
+
     case 1:
     case "RESPONSE_RESULT_NOOP":
       return ResponseResultType.RESPONSE_RESULT_NOOP;
+
     case 2:
     case "RESPONSE_RESULT_SUCCESS":
       return ResponseResultType.RESPONSE_RESULT_SUCCESS;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return ResponseResultType.UNRECOGNIZED;
   }
 }
-
 export function responseResultTypeToJSON(object: ResponseResultType): string {
   switch (object) {
     case ResponseResultType.RESPONSE_RESULT_UNSPECIFIED:
       return "RESPONSE_RESULT_UNSPECIFIED";
+
     case ResponseResultType.RESPONSE_RESULT_NOOP:
       return "RESPONSE_RESULT_NOOP";
+
     case ResponseResultType.RESPONSE_RESULT_SUCCESS:
       return "RESPONSE_RESULT_SUCCESS";
+
     case ResponseResultType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
-
-=======
->>>>>>> telescope-upgrade
 /**
  * MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
  * is called by a relayer on Chain A.
@@ -62,14 +64,10 @@ export interface MsgChannelOpenInit {
   signer: string;
 }
 /** MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type. */
-<<<<<<< HEAD
+
 export interface MsgChannelOpenInitResponse {
   channelId: string;
 }
-=======
->>>>>>> telescope-upgrade
-
-export interface MsgChannelOpenInitResponse {}
 /**
  * MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
  * on Chain B. The version field within the Channel field has been deprecated. Its
@@ -85,6 +83,7 @@ export interface MsgChannelOpenTry {
 
   previousChannelId: string;
   /** NOTE: the version field within the channel has been deprecated. Its value will be ignored by core IBC. */
+
   channel?: Channel;
   counterpartyVersion: string;
   proofInit: Uint8Array;
@@ -169,14 +168,10 @@ export interface MsgRecvPacket {
   signer: string;
 }
 /** MsgRecvPacketResponse defines the Msg/RecvPacket response type. */
-<<<<<<< HEAD
+
 export interface MsgRecvPacketResponse {
   result: ResponseResultType;
 }
-=======
->>>>>>> telescope-upgrade
-
-export interface MsgRecvPacketResponse {}
 /** MsgTimeout receives timed-out packet */
 
 export interface MsgTimeout {
@@ -187,14 +182,10 @@ export interface MsgTimeout {
   signer: string;
 }
 /** MsgTimeoutResponse defines the Msg/Timeout response type. */
-<<<<<<< HEAD
+
 export interface MsgTimeoutResponse {
   result: ResponseResultType;
 }
-=======
->>>>>>> telescope-upgrade
-
-export interface MsgTimeoutResponse {}
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 
 export interface MsgTimeoutOnClose {
@@ -206,14 +197,10 @@ export interface MsgTimeoutOnClose {
   signer: string;
 }
 /** MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type. */
-<<<<<<< HEAD
+
 export interface MsgTimeoutOnCloseResponse {
   result: ResponseResultType;
 }
-=======
->>>>>>> telescope-upgrade
-
-export interface MsgTimeoutOnCloseResponse {}
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 
 export interface MsgAcknowledgement {
@@ -224,14 +211,10 @@ export interface MsgAcknowledgement {
   signer: string;
 }
 /** MsgAcknowledgementResponse defines the Msg/Acknowledgement response type. */
-<<<<<<< HEAD
+
 export interface MsgAcknowledgementResponse {
   result: ResponseResultType;
 }
-=======
-
-export interface MsgAcknowledgementResponse {}
->>>>>>> telescope-upgrade
 
 function createBaseMsgChannelOpenInit(): MsgChannelOpenInit {
   return {
@@ -318,7 +301,9 @@ export const MsgChannelOpenInit = {
 };
 
 function createBaseMsgChannelOpenInitResponse(): MsgChannelOpenInitResponse {
-  return { channelId: "" };
+  return {
+    channelId: "",
+  };
 }
 
 export const MsgChannelOpenInitResponse = {
@@ -326,6 +311,7 @@ export const MsgChannelOpenInitResponse = {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
     }
+
     return writer;
   },
 
@@ -341,6 +327,7 @@ export const MsgChannelOpenInitResponse = {
         case 1:
           message.channelId = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -351,7 +338,9 @@ export const MsgChannelOpenInitResponse = {
   },
 
   fromJSON(object: any): MsgChannelOpenInitResponse {
-    return { channelId: isSet(object.channelId) ? String(object.channelId) : "" };
+    return {
+      channelId: isSet(object.channelId) ? String(object.channelId) : "",
+    };
   },
 
   toJSON(message: MsgChannelOpenInitResponse): unknown {
@@ -1261,7 +1250,9 @@ export const MsgRecvPacket = {
 };
 
 function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
-  return { result: 0 };
+  return {
+    result: 0,
+  };
 }
 
 export const MsgRecvPacketResponse = {
@@ -1269,6 +1260,7 @@ export const MsgRecvPacketResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     return writer;
   },
 
@@ -1284,6 +1276,7 @@ export const MsgRecvPacketResponse = {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -1294,7 +1287,9 @@ export const MsgRecvPacketResponse = {
   },
 
   fromJSON(object: any): MsgRecvPacketResponse {
-    return { result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0 };
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
   },
 
   toJSON(message: MsgRecvPacketResponse): unknown {
@@ -1429,7 +1424,9 @@ export const MsgTimeout = {
 };
 
 function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
-  return { result: 0 };
+  return {
+    result: 0,
+  };
 }
 
 export const MsgTimeoutResponse = {
@@ -1437,6 +1434,7 @@ export const MsgTimeoutResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     return writer;
   },
 
@@ -1452,6 +1450,7 @@ export const MsgTimeoutResponse = {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -1462,7 +1461,9 @@ export const MsgTimeoutResponse = {
   },
 
   fromJSON(object: any): MsgTimeoutResponse {
-    return { result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0 };
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
   },
 
   toJSON(message: MsgTimeoutResponse): unknown {
@@ -1612,7 +1613,9 @@ export const MsgTimeoutOnClose = {
 };
 
 function createBaseMsgTimeoutOnCloseResponse(): MsgTimeoutOnCloseResponse {
-  return { result: 0 };
+  return {
+    result: 0,
+  };
 }
 
 export const MsgTimeoutOnCloseResponse = {
@@ -1620,6 +1623,7 @@ export const MsgTimeoutOnCloseResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     return writer;
   },
 
@@ -1635,6 +1639,7 @@ export const MsgTimeoutOnCloseResponse = {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -1645,7 +1650,9 @@ export const MsgTimeoutOnCloseResponse = {
   },
 
   fromJSON(object: any): MsgTimeoutOnCloseResponse {
-    return { result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0 };
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
   },
 
   toJSON(message: MsgTimeoutOnCloseResponse): unknown {
@@ -1781,7 +1788,9 @@ export const MsgAcknowledgement = {
 };
 
 function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
-  return { result: 0 };
+  return {
+    result: 0,
+  };
 }
 
 export const MsgAcknowledgementResponse = {
@@ -1789,6 +1798,7 @@ export const MsgAcknowledgementResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
+
     return writer;
   },
 
@@ -1804,6 +1814,7 @@ export const MsgAcknowledgementResponse = {
         case 1:
           message.result = reader.int32() as any;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -1814,7 +1825,9 @@ export const MsgAcknowledgementResponse = {
   },
 
   fromJSON(object: any): MsgAcknowledgementResponse {
-    return { result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0 };
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
   },
 
   toJSON(message: MsgAcknowledgementResponse): unknown {

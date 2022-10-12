@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 
@@ -341,15 +341,10 @@ export const AccessConfig = {
 };
 
 function createBaseParams(): Params {
-<<<<<<< HEAD
-  return { codeUploadAccess: undefined, instantiateDefaultPermission: 0 };
-=======
   return {
     codeUploadAccess: undefined,
     instantiateDefaultPermission: 0,
-    maxWasmCodeSize: Long.UZERO,
   };
->>>>>>> telescope-upgrade
 }
 
 export const Params = {
@@ -361,14 +356,7 @@ export const Params = {
     if (message.instantiateDefaultPermission !== 0) {
       writer.uint32(16).int32(message.instantiateDefaultPermission);
     }
-<<<<<<< HEAD
-=======
 
-    if (!message.maxWasmCodeSize.isZero()) {
-      writer.uint32(24).uint64(message.maxWasmCodeSize);
-    }
-
->>>>>>> telescope-upgrade
     return writer;
   },
 
@@ -388,14 +376,7 @@ export const Params = {
         case 2:
           message.instantiateDefaultPermission = reader.int32() as any;
           break;
-<<<<<<< HEAD
-=======
 
-        case 3:
-          message.maxWasmCodeSize = reader.uint64() as Long;
-          break;
-
->>>>>>> telescope-upgrade
         default:
           reader.skipType(tag & 7);
           break;

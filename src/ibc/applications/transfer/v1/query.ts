@@ -52,20 +52,20 @@ export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params?: Params;
 }
-
 /**
  * QueryDenomHashRequest is the request type for the Query/DenomHash RPC
  * method
  */
+
 export interface QueryDenomHashRequest {
   /** The denomination trace ([port_id]/[channel_id])+/[denom] */
   trace: string;
 }
-
 /**
  * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
  * method.
  */
+
 export interface QueryDenomHashResponse {
   /** hash (in hex format) of the denomination trace information. */
   hash: string;
@@ -427,10 +427,11 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-<<<<<<< HEAD
 
 function createBaseQueryDenomHashRequest(): QueryDenomHashRequest {
-  return { trace: "" };
+  return {
+    trace: "",
+  };
 }
 
 export const QueryDenomHashRequest = {
@@ -438,6 +439,7 @@ export const QueryDenomHashRequest = {
     if (message.trace !== "") {
       writer.uint32(10).string(message.trace);
     }
+
     return writer;
   },
 
@@ -445,22 +447,28 @@ export const QueryDenomHashRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomHashRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.trace = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryDenomHashRequest {
-    return { trace: isSet(object.trace) ? String(object.trace) : "" };
+    return {
+      trace: isSet(object.trace) ? String(object.trace) : "",
+    };
   },
 
   toJSON(message: QueryDenomHashRequest): unknown {
@@ -477,7 +485,9 @@ export const QueryDenomHashRequest = {
 };
 
 function createBaseQueryDenomHashResponse(): QueryDenomHashResponse {
-  return { hash: "" };
+  return {
+    hash: "",
+  };
 }
 
 export const QueryDenomHashResponse = {
@@ -485,6 +495,7 @@ export const QueryDenomHashResponse = {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash);
     }
+
     return writer;
   },
 
@@ -492,22 +503,28 @@ export const QueryDenomHashResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomHashResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.hash = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryDenomHashResponse {
-    return { hash: isSet(object.hash) ? String(object.hash) : "" };
+    return {
+      hash: isSet(object.hash) ? String(object.hash) : "",
+    };
   },
 
   toJSON(message: QueryDenomHashResponse): unknown {
@@ -522,9 +539,6 @@ export const QueryDenomHashResponse = {
     return message;
   },
 };
-
-=======
->>>>>>> telescope-upgrade
 /** Query provides defines the gRPC querier service. */
 
 export interface Query {
@@ -534,15 +548,11 @@ export interface Query {
 
   DenomTraces(request?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
   /** Params queries all parameters of the ibc-transfer module. */
-<<<<<<< HEAD
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** DenomHash queries a denomination hash information. */
-  DenomHash(request: QueryDenomHashRequest): Promise<QueryDenomHashResponse>;
-}
-=======
->>>>>>> telescope-upgrade
 
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** DenomHash queries a denomination hash information. */
+
+  DenomHash(request: QueryDenomHashRequest): Promise<QueryDenomHashResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;

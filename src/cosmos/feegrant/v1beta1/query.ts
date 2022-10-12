@@ -36,19 +36,21 @@ export interface QueryAllowancesResponse {
 
   pagination?: PageResponse;
 }
-
 /** QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method. */
+
 export interface QueryAllowancesByGranterRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
+
   pagination?: PageRequest;
 }
-
 /** QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method. */
+
 export interface QueryAllowancesByGranterResponse {
   /** allowances that have been issued by the granter. */
   allowances: Grant[];
   /** pagination defines an pagination for the response. */
+
   pagination?: PageResponse;
 }
 
@@ -331,10 +333,12 @@ export const QueryAllowancesResponse = {
     return message;
   },
 };
-<<<<<<< HEAD
 
 function createBaseQueryAllowancesByGranterRequest(): QueryAllowancesByGranterRequest {
-  return { granter: "", pagination: undefined };
+  return {
+    granter: "",
+    pagination: undefined,
+  };
 }
 
 export const QueryAllowancesByGranterRequest = {
@@ -342,9 +346,11 @@ export const QueryAllowancesByGranterRequest = {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
+
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -352,20 +358,25 @@ export const QueryAllowancesByGranterRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesByGranterRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.granter = reader.string();
           break;
+
         case 2:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -398,7 +409,10 @@ export const QueryAllowancesByGranterRequest = {
 };
 
 function createBaseQueryAllowancesByGranterResponse(): QueryAllowancesByGranterResponse {
-  return { allowances: [], pagination: undefined };
+  return {
+    allowances: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryAllowancesByGranterResponse = {
@@ -406,9 +420,11 @@ export const QueryAllowancesByGranterResponse = {
     for (const v of message.allowances) {
       Grant.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -416,20 +432,25 @@ export const QueryAllowancesByGranterResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllowancesByGranterResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.allowances.push(Grant.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -444,11 +465,13 @@ export const QueryAllowancesByGranterResponse = {
 
   toJSON(message: QueryAllowancesByGranterResponse): unknown {
     const obj: any = {};
+
     if (message.allowances) {
       obj.allowances = message.allowances.map((e) => (e ? Grant.toJSON(e) : undefined));
     } else {
       obj.allowances = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -466,9 +489,6 @@ export const QueryAllowancesByGranterResponse = {
     return message;
   },
 };
-
-=======
->>>>>>> telescope-upgrade
 /** Query defines the gRPC querier service. */
 
 export interface Query {
@@ -481,6 +501,7 @@ export interface Query {
    * AllowancesByGranter returns all the grants given by an address
    * Since v0.46
    */
+
   AllowancesByGranter(request: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponse>;
 }
 export class QueryClientImpl implements Query {
