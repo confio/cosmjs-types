@@ -1,53 +1,53 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { DenomTrace, Params } from "./transfer";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
-
 /**
  * QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
  * method
  */
+
 export interface QueryDenomTraceRequest {
   /** hash (in hex format) of the denomination trace information. */
   hash: string;
 }
-
 /**
  * QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
  * method.
  */
+
 export interface QueryDenomTraceResponse {
   /** denom_trace returns the requested denomination trace information. */
   denomTrace?: DenomTrace;
 }
-
 /**
  * QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
  * method
  */
+
 export interface QueryDenomTracesRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
-
 /**
  * QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
  * method.
  */
+
 export interface QueryDenomTracesResponse {
   /** denom_traces returns all denominations trace information. */
   denomTraces: DenomTrace[];
   /** pagination defines the pagination in the response. */
+
   pagination?: PageResponse;
 }
-
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {}
 
+export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
+
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params?: Params;
@@ -72,7 +72,9 @@ export interface QueryDenomHashResponse {
 }
 
 function createBaseQueryDenomTraceRequest(): QueryDenomTraceRequest {
-  return { hash: "" };
+  return {
+    hash: "",
+  };
 }
 
 export const QueryDenomTraceRequest = {
@@ -80,6 +82,7 @@ export const QueryDenomTraceRequest = {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash);
     }
+
     return writer;
   },
 
@@ -87,22 +90,28 @@ export const QueryDenomTraceRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomTraceRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.hash = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryDenomTraceRequest {
-    return { hash: isSet(object.hash) ? String(object.hash) : "" };
+    return {
+      hash: isSet(object.hash) ? String(object.hash) : "",
+    };
   },
 
   toJSON(message: QueryDenomTraceRequest): unknown {
@@ -119,7 +128,9 @@ export const QueryDenomTraceRequest = {
 };
 
 function createBaseQueryDenomTraceResponse(): QueryDenomTraceResponse {
-  return { denomTrace: undefined };
+  return {
+    denomTrace: undefined,
+  };
 }
 
 export const QueryDenomTraceResponse = {
@@ -127,6 +138,7 @@ export const QueryDenomTraceResponse = {
     if (message.denomTrace !== undefined) {
       DenomTrace.encode(message.denomTrace, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -134,22 +146,28 @@ export const QueryDenomTraceResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomTraceResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denomTrace = DenomTrace.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryDenomTraceResponse {
-    return { denomTrace: isSet(object.denomTrace) ? DenomTrace.fromJSON(object.denomTrace) : undefined };
+    return {
+      denomTrace: isSet(object.denomTrace) ? DenomTrace.fromJSON(object.denomTrace) : undefined,
+    };
   },
 
   toJSON(message: QueryDenomTraceResponse): unknown {
@@ -170,7 +188,9 @@ export const QueryDenomTraceResponse = {
 };
 
 function createBaseQueryDenomTracesRequest(): QueryDenomTracesRequest {
-  return { pagination: undefined };
+  return {
+    pagination: undefined,
+  };
 }
 
 export const QueryDenomTracesRequest = {
@@ -178,6 +198,7 @@ export const QueryDenomTracesRequest = {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -185,22 +206,28 @@ export const QueryDenomTracesRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomTracesRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryDenomTracesRequest {
-    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+    };
   },
 
   toJSON(message: QueryDenomTracesRequest): unknown {
@@ -221,7 +248,10 @@ export const QueryDenomTracesRequest = {
 };
 
 function createBaseQueryDenomTracesResponse(): QueryDenomTracesResponse {
-  return { denomTraces: [], pagination: undefined };
+  return {
+    denomTraces: [],
+    pagination: undefined,
+  };
 }
 
 export const QueryDenomTracesResponse = {
@@ -229,9 +259,11 @@ export const QueryDenomTracesResponse = {
     for (const v of message.denomTraces) {
       DenomTrace.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.pagination !== undefined) {
       PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -239,20 +271,25 @@ export const QueryDenomTracesResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryDenomTracesResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.denomTraces.push(DenomTrace.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -267,11 +304,13 @@ export const QueryDenomTracesResponse = {
 
   toJSON(message: QueryDenomTracesResponse): unknown {
     const obj: any = {};
+
     if (message.denomTraces) {
       obj.denomTraces = message.denomTraces.map((e) => (e ? DenomTrace.toJSON(e) : undefined));
     } else {
       obj.denomTraces = [];
     }
+
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
@@ -303,14 +342,17 @@ export const QueryParamsRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -330,7 +372,9 @@ export const QueryParamsRequest = {
 };
 
 function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { params: undefined };
+  return {
+    params: undefined,
+  };
 }
 
 export const QueryParamsResponse = {
@@ -338,6 +382,7 @@ export const QueryParamsResponse = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -345,22 +390,28 @@ export const QueryParamsResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.params = Params.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
@@ -376,6 +427,7 @@ export const QueryParamsResponse = {
     return message;
   },
 };
+<<<<<<< HEAD
 
 function createBaseQueryDenomHashRequest(): QueryDenomHashRequest {
   return { trace: "" };
@@ -471,20 +523,30 @@ export const QueryDenomHashResponse = {
   },
 };
 
+=======
+>>>>>>> telescope-upgrade
 /** Query provides defines the gRPC querier service. */
+
 export interface Query {
   /** DenomTrace queries a denomination trace information. */
   DenomTrace(request: QueryDenomTraceRequest): Promise<QueryDenomTraceResponse>;
   /** DenomTraces queries all denomination traces. */
-  DenomTraces(request: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
+
+  DenomTraces(request?: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse>;
   /** Params queries all parameters of the ibc-transfer module. */
+<<<<<<< HEAD
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** DenomHash queries a denomination hash information. */
   DenomHash(request: QueryDenomHashRequest): Promise<QueryDenomHashResponse>;
 }
+=======
+>>>>>>> telescope-upgrade
 
+  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
+}
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.DenomTrace = this.DenomTrace.bind(this);
@@ -492,19 +554,24 @@ export class QueryClientImpl implements Query {
     this.Params = this.Params.bind(this);
     this.DenomHash = this.DenomHash.bind(this);
   }
+
   DenomTrace(request: QueryDenomTraceRequest): Promise<QueryDenomTraceResponse> {
     const data = QueryDenomTraceRequest.encode(request).finish();
     const promise = this.rpc.request("ibc.applications.transfer.v1.Query", "DenomTrace", data);
     return promise.then((data) => QueryDenomTraceResponse.decode(new _m0.Reader(data)));
   }
 
-  DenomTraces(request: QueryDenomTracesRequest): Promise<QueryDenomTracesResponse> {
+  DenomTraces(
+    request: QueryDenomTracesRequest = {
+      pagination: undefined,
+    },
+  ): Promise<QueryDenomTracesResponse> {
     const data = QueryDenomTracesRequest.encode(request).finish();
     const promise = this.rpc.request("ibc.applications.transfer.v1.Query", "DenomTraces", data);
     return promise.then((data) => QueryDenomTracesResponse.decode(new _m0.Reader(data)));
   }
 
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
+  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request("ibc.applications.transfer.v1.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
@@ -515,36 +582,4 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("ibc.applications.transfer.v1.Query", "DenomHash", data);
     return promise.then((data) => QueryDenomHashResponse.decode(new _m0.Reader(data)));
   }
-}
-
-interface Rpc {
-  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

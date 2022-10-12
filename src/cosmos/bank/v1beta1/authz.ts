@@ -1,22 +1,23 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
 import { Coin } from "../../base/v1beta1/coin";
-
+import * as _m0 from "protobufjs/minimal";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
-
 /**
  * SendAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account.
  *
  * Since: cosmos-sdk 0.43
  */
+
 export interface SendAuthorization {
   spendLimit: Coin[];
 }
 
 function createBaseSendAuthorization(): SendAuthorization {
-  return { spendLimit: [] };
+  return {
+    spendLimit: [],
+  };
 }
 
 export const SendAuthorization = {
@@ -24,6 +25,7 @@ export const SendAuthorization = {
     for (const v of message.spendLimit) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -31,17 +33,21 @@ export const SendAuthorization = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendAuthorization();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.spendLimit.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -55,11 +61,13 @@ export const SendAuthorization = {
 
   toJSON(message: SendAuthorization): unknown {
     const obj: any = {};
+
     if (message.spendLimit) {
       obj.spendLimit = message.spendLimit.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.spendLimit = [];
     }
+
     return obj;
   },
 
@@ -69,27 +77,3 @@ export const SendAuthorization = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}

@@ -1,9 +1,7 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-
+import * as _m0 from "protobufjs/minimal";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.query.v1beta1";
-
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
@@ -13,6 +11,7 @@ export const protobufPackage = "cosmos.base.query.v1beta1";
  *          PageRequest pagination = 2;
  *  }
  */
+
 export interface PageRequest {
   /**
    * key is a value returned in PageResponse.next_key to begin
@@ -25,11 +24,13 @@ export interface PageRequest {
    * It is less efficient than using key. Only one of offset or key should
    * be set.
    */
+
   offset: Long;
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    */
+
   limit: Long;
   /**
    * count_total is set to true  to indicate that the result set should include
@@ -37,15 +38,16 @@ export interface PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
+
   countTotal: boolean;
   /**
    * reverse is set to true if results are to be returned in the descending order.
    *
    * Since: cosmos-sdk 0.43
    */
+
   reverse: boolean;
 }
-
 /**
  * PageResponse is to be embedded in gRPC response messages where the
  * corresponding request message has used PageRequest.
@@ -55,6 +57,7 @@ export interface PageRequest {
  *          PageResponse page = 2;
  *  }
  */
+
 export interface PageResponse {
   /**
    * next_key is the key to be passed to PageRequest.key to
@@ -65,11 +68,18 @@ export interface PageResponse {
    * total is total number of results available if PageRequest.count_total
    * was set, its value is undefined otherwise
    */
+
   total: Long;
 }
 
 function createBasePageRequest(): PageRequest {
-  return { key: new Uint8Array(), offset: Long.UZERO, limit: Long.UZERO, countTotal: false, reverse: false };
+  return {
+    key: new Uint8Array(),
+    offset: Long.UZERO,
+    limit: Long.UZERO,
+    countTotal: false,
+    reverse: false,
+  };
 }
 
 export const PageRequest = {
@@ -77,18 +87,23 @@ export const PageRequest = {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
+
     if (!message.offset.isZero()) {
       writer.uint32(16).uint64(message.offset);
     }
+
     if (!message.limit.isZero()) {
       writer.uint32(24).uint64(message.limit);
     }
+
     if (message.countTotal === true) {
       writer.uint32(32).bool(message.countTotal);
     }
+
     if (message.reverse === true) {
       writer.uint32(40).bool(message.reverse);
     }
+
     return writer;
   },
 
@@ -96,29 +111,37 @@ export const PageRequest = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePageRequest();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.bytes();
           break;
+
         case 2:
           message.offset = reader.uint64() as Long;
           break;
+
         case 3:
           message.limit = reader.uint64() as Long;
           break;
+
         case 4:
           message.countTotal = reader.bool();
           break;
+
         case 5:
           message.reverse = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -157,7 +180,10 @@ export const PageRequest = {
 };
 
 function createBasePageResponse(): PageResponse {
-  return { nextKey: new Uint8Array(), total: Long.UZERO };
+  return {
+    nextKey: new Uint8Array(),
+    total: Long.UZERO,
+  };
 }
 
 export const PageResponse = {
@@ -165,9 +191,11 @@ export const PageResponse = {
     if (message.nextKey.length !== 0) {
       writer.uint32(10).bytes(message.nextKey);
     }
+
     if (!message.total.isZero()) {
       writer.uint32(16).uint64(message.total);
     }
+
     return writer;
   },
 
@@ -175,20 +203,25 @@ export const PageResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePageResponse();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.nextKey = reader.bytes();
           break;
+
         case 2:
           message.total = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -215,75 +248,3 @@ export const PageResponse = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
