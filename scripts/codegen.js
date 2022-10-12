@@ -5,8 +5,8 @@ const telescope = require('@osmonauts/telescope').default;
 
 telescope({
     protoDirs: [
-        'wasmd-0.25/proto',
-        'wasmd-0.25/third_party/proto',
+        'wasmd-0.28/proto',
+        'wasmd-0.28/third_party/proto',
         'cosmos-sdk-0.45/proto',
         'cosmos-sdk-0.45/third_party/proto'
     ],
@@ -32,7 +32,20 @@ telescope({
                     'ibc/core/port/v1/query.proto',
                     'ibc/lightclients/solomachine/v2/solomachine.proto',
                     'tendermint/libs/bits/types.proto',
-                    'google/api/httpbody.proto'
+                    'google/api/httpbody.proto',
+                    'tendermint/blockchain/types.proto',
+                    'tendermint/consensus/types.proto',
+                    'tendermint/consensus/wal.proto',
+                    'tendermint/mempool/types.proto',
+                    'tendermint/p2p/conn.proto',
+                    'tendermint/p2p/pex.proto',
+                    'tendermint/privval/types.proto',
+                    'tendermint/rpc/grpc/types.proto',
+                    'tendermint/state/types.proto',
+                    'tendermint/statesync/types.proto',
+                    'tendermint/store/types.proto',
+                    'tendermint/types/canonical.proto',
+                    'tendermint/types/events.proto',
                 ]
             },
             methods: {

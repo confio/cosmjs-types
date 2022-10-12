@@ -32,7 +32,7 @@ export interface MsgTransfer {
 
   timeoutHeight?: Height;
   /**
-   * Timeout timestamp (in nanoseconds) relative to the current block timestamp.
+   * Timeout timestamp in absolute nanoseconds since unix epoch.
    * The timeout is disabled when set to 0.
    */
 

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 
@@ -137,7 +137,6 @@ export interface AccessConfig {
 export interface Params {
   codeUploadAccess?: AccessConfig;
   instantiateDefaultPermission: AccessType;
-  maxWasmCodeSize: Long;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
 
@@ -345,7 +344,6 @@ function createBaseParams(): Params {
   return {
     codeUploadAccess: undefined,
     instantiateDefaultPermission: 0,
-    maxWasmCodeSize: Long.UZERO,
   };
 }
 
@@ -357,10 +355,6 @@ export const Params = {
 
     if (message.instantiateDefaultPermission !== 0) {
       writer.uint32(16).int32(message.instantiateDefaultPermission);
-    }
-
-    if (!message.maxWasmCodeSize.isZero()) {
-      writer.uint32(24).uint64(message.maxWasmCodeSize);
     }
 
     return writer;
@@ -383,10 +377,6 @@ export const Params = {
           message.instantiateDefaultPermission = reader.int32() as any;
           break;
 
-        case 3:
-          message.maxWasmCodeSize = reader.uint64() as Long;
-          break;
-
         default:
           reader.skipType(tag & 7);
           break;
@@ -404,7 +394,6 @@ export const Params = {
       instantiateDefaultPermission: isSet(object.instantiateDefaultPermission)
         ? accessTypeFromJSON(object.instantiateDefaultPermission)
         : 0,
-      maxWasmCodeSize: isSet(object.maxWasmCodeSize) ? Long.fromValue(object.maxWasmCodeSize) : Long.UZERO,
     };
   },
 
@@ -416,8 +405,6 @@ export const Params = {
         : undefined);
     message.instantiateDefaultPermission !== undefined &&
       (obj.instantiateDefaultPermission = accessTypeToJSON(message.instantiateDefaultPermission));
-    message.maxWasmCodeSize !== undefined &&
-      (obj.maxWasmCodeSize = (message.maxWasmCodeSize || Long.UZERO).toString());
     return obj;
   },
 
@@ -428,10 +415,6 @@ export const Params = {
         ? AccessConfig.fromPartial(object.codeUploadAccess)
         : undefined;
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
-    message.maxWasmCodeSize =
-      object.maxWasmCodeSize !== undefined && object.maxWasmCodeSize !== null
-        ? Long.fromValue(object.maxWasmCodeSize)
-        : Long.UZERO;
     return message;
   },
 };

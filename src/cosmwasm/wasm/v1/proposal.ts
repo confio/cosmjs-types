@@ -63,7 +63,7 @@ export interface MigrateContractProposal {
   /** Contract is the address of the smart contract */
 
   contract: string;
-  /** CodeID references the new WASM codesudo */
+  /** CodeID references the new WASM code */
 
   codeId: Long;
   /** Msg json encoded message to be passed to the contract on migration */
@@ -168,6 +168,36 @@ export interface UnpinCodesProposal {
   /** CodeIDs references the WASM codes */
 
   codeIds: Long[];
+}
+/**
+ * AccessConfigUpdate contains the code id and the access config to be
+ * applied.
+ */
+
+export interface AccessConfigUpdate {
+  /** CodeID is the reference to the stored WASM code to be updated */
+  codeId: Long;
+  /** InstantiatePermission to apply to the set of code ids */
+
+  instantiatePermission?: AccessConfig;
+}
+/**
+ * UpdateInstantiateConfigProposal gov proposal content type to update
+ * instantiate config to a  set of code ids.
+ */
+
+export interface UpdateInstantiateConfigProposal {
+  /** Title is a short summary */
+  title: string;
+  /** Description is a human readable text */
+
+  description: string;
+  /**
+   * AccessConfigUpdate contains the list of code ids and the access config
+   * to be applied.
+   */
+
+  accessConfigUpdates: AccessConfigUpdate[];
 }
 
 function createBaseStoreCodeProposal(): StoreCodeProposal {
@@ -1121,6 +1151,176 @@ export const UnpinCodesProposal = {
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseAccessConfigUpdate(): AccessConfigUpdate {
+  return {
+    codeId: Long.UZERO,
+    instantiatePermission: undefined,
+  };
+}
+
+export const AccessConfigUpdate = {
+  encode(message: AccessConfigUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.codeId.isZero()) {
+      writer.uint32(8).uint64(message.codeId);
+    }
+
+    if (message.instantiatePermission !== undefined) {
+      AccessConfig.encode(message.instantiatePermission, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AccessConfigUpdate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAccessConfigUpdate();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.codeId = reader.uint64() as Long;
+          break;
+
+        case 2:
+          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): AccessConfigUpdate {
+    return {
+      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
+      instantiatePermission: isSet(object.instantiatePermission)
+        ? AccessConfig.fromJSON(object.instantiatePermission)
+        : undefined,
+    };
+  },
+
+  toJSON(message: AccessConfigUpdate): unknown {
+    const obj: any = {};
+    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
+    message.instantiatePermission !== undefined &&
+      (obj.instantiatePermission = message.instantiatePermission
+        ? AccessConfig.toJSON(message.instantiatePermission)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AccessConfigUpdate>, I>>(object: I): AccessConfigUpdate {
+    const message = createBaseAccessConfigUpdate();
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+    message.instantiatePermission =
+      object.instantiatePermission !== undefined && object.instantiatePermission !== null
+        ? AccessConfig.fromPartial(object.instantiatePermission)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigProposal {
+  return {
+    title: "",
+    description: "",
+    accessConfigUpdates: [],
+  };
+}
+
+export const UpdateInstantiateConfigProposal = {
+  encode(message: UpdateInstantiateConfigProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+
+    for (const v of message.accessConfigUpdates) {
+      AccessConfigUpdate.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateInstantiateConfigProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateInstantiateConfigProposal();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+
+        case 2:
+          message.description = reader.string();
+          break;
+
+        case 3:
+          message.accessConfigUpdates.push(AccessConfigUpdate.decode(reader, reader.uint32()));
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): UpdateInstantiateConfigProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      accessConfigUpdates: Array.isArray(object?.accessConfigUpdates)
+        ? object.accessConfigUpdates.map((e: any) => AccessConfigUpdate.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: UpdateInstantiateConfigProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined && (obj.description = message.description);
+
+    if (message.accessConfigUpdates) {
+      obj.accessConfigUpdates = message.accessConfigUpdates.map((e) =>
+        e ? AccessConfigUpdate.toJSON(e) : undefined,
+      );
+    } else {
+      obj.accessConfigUpdates = [];
+    }
+
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdateInstantiateConfigProposal>, I>>(
+    object: I,
+  ): UpdateInstantiateConfigProposal {
+    const message = createBaseUpdateInstantiateConfigProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.accessConfigUpdates =
+      object.accessConfigUpdates?.map((e) => AccessConfigUpdate.fromPartial(e)) || [];
     return message;
   },
 };
