@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { CommitmentProof } from "../../../../confio/proofs";
 import * as _m0 from "protobufjs/minimal";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Duration } from "../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";

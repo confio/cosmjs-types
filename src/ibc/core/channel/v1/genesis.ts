@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedChannel, PacketState } from "./channel";
 import * as _m0 from "protobufjs/minimal";

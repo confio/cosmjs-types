@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BaseAccount } from "../../../../cosmos/auth/v1beta1/auth";
 import * as _m0 from "protobufjs/minimal";

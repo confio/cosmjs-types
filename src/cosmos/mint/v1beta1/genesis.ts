@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Minter, Params } from "./mint";
 import * as _m0 from "protobufjs/minimal";

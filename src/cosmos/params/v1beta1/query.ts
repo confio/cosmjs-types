@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ParamChange } from "./params";
 import * as _m0 from "protobufjs/minimal";

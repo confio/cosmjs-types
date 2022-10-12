@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Header } from "../../../tendermint/types/types";
 import { Timestamp } from "../../../google/protobuf/timestamp";

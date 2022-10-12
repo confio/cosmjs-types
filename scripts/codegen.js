@@ -14,7 +14,7 @@ telescope({
     options: {
         useSDKTypes: false,
         tsDisable: {
-            disableAll: false
+            disableAll: true
         },
         eslintDisable: {
             disableAll: true

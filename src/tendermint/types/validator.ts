@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PublicKey } from "../crypto/keys";
 import * as _m0 from "protobufjs/minimal";

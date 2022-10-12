@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
 import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";

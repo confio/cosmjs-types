@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
 import * as _m0 from "protobufjs/minimal";
