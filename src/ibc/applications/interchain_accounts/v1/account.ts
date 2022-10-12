@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { BaseAccount } from "../../../../cosmos/auth/v1beta1/auth";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
+import { isSet, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 
@@ -72,7 +72,7 @@ export const InterchainAccount = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<InterchainAccount>, I>>(object: I): InterchainAccount {
+  fromPartial(object: DeepPartial<InterchainAccount>): InterchainAccount {
     const message = createBaseInterchainAccount();
     message.baseAccount =
       object.baseAccount !== undefined && object.baseAccount !== null

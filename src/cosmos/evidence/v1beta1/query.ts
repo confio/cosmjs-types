@@ -3,7 +3,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 
@@ -91,7 +91,7 @@ export const QueryEvidenceRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEvidenceRequest>, I>>(object: I): QueryEvidenceRequest {
+  fromPartial(object: DeepPartial<QueryEvidenceRequest>): QueryEvidenceRequest {
     const message = createBaseQueryEvidenceRequest();
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     return message;
@@ -148,7 +148,7 @@ export const QueryEvidenceResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryEvidenceResponse>, I>>(object: I): QueryEvidenceResponse {
+  fromPartial(object: DeepPartial<QueryEvidenceResponse>): QueryEvidenceResponse {
     const message = createBaseQueryEvidenceResponse();
     message.evidence =
       object.evidence !== undefined && object.evidence !== null
@@ -208,7 +208,7 @@ export const QueryAllEvidenceRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceRequest>, I>>(object: I): QueryAllEvidenceRequest {
+  fromPartial(object: DeepPartial<QueryAllEvidenceRequest>): QueryAllEvidenceRequest {
     const message = createBaseQueryAllEvidenceRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -285,9 +285,7 @@ export const QueryAllEvidenceResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceResponse>, I>>(
-    object: I,
-  ): QueryAllEvidenceResponse {
+  fromPartial(object: DeepPartial<QueryAllEvidenceResponse>): QueryAllEvidenceResponse {
     const message = createBaseQueryAllEvidenceResponse();
     message.evidence = object.evidence?.map((e) => Any.fromPartial(e)) || [];
     message.pagination =

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { isSet, DeepPartial } from "../../../helpers";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /**
  * AuthorizationType defines the type of staking module authorization type
@@ -190,7 +190,7 @@ export const StakeAuthorization = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StakeAuthorization>, I>>(object: I): StakeAuthorization {
+  fromPartial(object: DeepPartial<StakeAuthorization>): StakeAuthorization {
     const message = createBaseStakeAuthorization();
     message.maxTokens =
       object.maxTokens !== undefined && object.maxTokens !== null
@@ -264,9 +264,7 @@ export const StakeAuthorization_Validators = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StakeAuthorization_Validators>, I>>(
-    object: I,
-  ): StakeAuthorization_Validators {
+  fromPartial(object: DeepPartial<StakeAuthorization_Validators>): StakeAuthorization_Validators {
     const message = createBaseStakeAuthorization_Validators();
     message.address = object.address?.map((e) => e) || [];
     return message;

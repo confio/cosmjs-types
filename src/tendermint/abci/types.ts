@@ -9,7 +9,6 @@ import * as _m0 from "protobufjs/minimal";
 import {
   isSet,
   DeepPartial,
-  Exact,
   Long,
   fromJsonTimestamp,
   bytesFromBase64,
@@ -805,7 +804,7 @@ export const Request = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Request>, I>>(object: I): Request {
+  fromPartial(object: DeepPartial<Request>): Request {
     const message = createBaseRequest();
     message.echo =
       object.echo !== undefined && object.echo !== null ? RequestEcho.fromPartial(object.echo) : undefined;
@@ -916,7 +915,7 @@ export const RequestEcho = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestEcho>, I>>(object: I): RequestEcho {
+  fromPartial(object: DeepPartial<RequestEcho>): RequestEcho {
     const message = createBaseRequestEcho();
     message.message = object.message ?? "";
     return message;
@@ -959,7 +958,7 @@ export const RequestFlush = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestFlush>, I>>(_: I): RequestFlush {
+  fromPartial(_: DeepPartial<RequestFlush>): RequestFlush {
     const message = createBaseRequestFlush();
     return message;
   },
@@ -1037,7 +1036,7 @@ export const RequestInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestInfo>, I>>(object: I): RequestInfo {
+  fromPartial(object: DeepPartial<RequestInfo>): RequestInfo {
     const message = createBaseRequestInfo();
     message.version = object.version ?? "";
     message.blockVersion =
@@ -1112,7 +1111,7 @@ export const RequestSetOption = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestSetOption>, I>>(object: I): RequestSetOption {
+  fromPartial(object: DeepPartial<RequestSetOption>): RequestSetOption {
     const message = createBaseRequestSetOption();
     message.key = object.key ?? "";
     message.value = object.value ?? "";
@@ -1241,7 +1240,7 @@ export const RequestInitChain = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestInitChain>, I>>(object: I): RequestInitChain {
+  fromPartial(object: DeepPartial<RequestInitChain>): RequestInitChain {
     const message = createBaseRequestInitChain();
     message.time =
       object.time !== undefined && object.time !== null ? Timestamp.fromPartial(object.time) : undefined;
@@ -1343,7 +1342,7 @@ export const RequestQuery = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestQuery>, I>>(object: I): RequestQuery {
+  fromPartial(object: DeepPartial<RequestQuery>): RequestQuery {
     const message = createBaseRequestQuery();
     message.data = object.data ?? new Uint8Array();
     message.path = object.path ?? "";
@@ -1450,7 +1449,7 @@ export const RequestBeginBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestBeginBlock>, I>>(object: I): RequestBeginBlock {
+  fromPartial(object: DeepPartial<RequestBeginBlock>): RequestBeginBlock {
     const message = createBaseRequestBeginBlock();
     message.hash = object.hash ?? new Uint8Array();
     message.header =
@@ -1525,7 +1524,7 @@ export const RequestCheckTx = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestCheckTx>, I>>(object: I): RequestCheckTx {
+  fromPartial(object: DeepPartial<RequestCheckTx>): RequestCheckTx {
     const message = createBaseRequestCheckTx();
     message.tx = object.tx ?? new Uint8Array();
     message.type = object.type ?? 0;
@@ -1583,7 +1582,7 @@ export const RequestDeliverTx = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestDeliverTx>, I>>(object: I): RequestDeliverTx {
+  fromPartial(object: DeepPartial<RequestDeliverTx>): RequestDeliverTx {
     const message = createBaseRequestDeliverTx();
     message.tx = object.tx ?? new Uint8Array();
     return message;
@@ -1639,7 +1638,7 @@ export const RequestEndBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestEndBlock>, I>>(object: I): RequestEndBlock {
+  fromPartial(object: DeepPartial<RequestEndBlock>): RequestEndBlock {
     const message = createBaseRequestEndBlock();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -1683,7 +1682,7 @@ export const RequestCommit = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestCommit>, I>>(_: I): RequestCommit {
+  fromPartial(_: DeepPartial<RequestCommit>): RequestCommit {
     const message = createBaseRequestCommit();
     return message;
   },
@@ -1725,7 +1724,7 @@ export const RequestListSnapshots = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestListSnapshots>, I>>(_: I): RequestListSnapshots {
+  fromPartial(_: DeepPartial<RequestListSnapshots>): RequestListSnapshots {
     const message = createBaseRequestListSnapshots();
     return message;
   },
@@ -1793,7 +1792,7 @@ export const RequestOfferSnapshot = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestOfferSnapshot>, I>>(object: I): RequestOfferSnapshot {
+  fromPartial(object: DeepPartial<RequestOfferSnapshot>): RequestOfferSnapshot {
     const message = createBaseRequestOfferSnapshot();
     message.snapshot =
       object.snapshot !== undefined && object.snapshot !== null
@@ -1875,9 +1874,7 @@ export const RequestLoadSnapshotChunk = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestLoadSnapshotChunk>, I>>(
-    object: I,
-  ): RequestLoadSnapshotChunk {
+  fromPartial(object: DeepPartial<RequestLoadSnapshotChunk>): RequestLoadSnapshotChunk {
     const message = createBaseRequestLoadSnapshotChunk();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
@@ -1959,9 +1956,7 @@ export const RequestApplySnapshotChunk = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RequestApplySnapshotChunk>, I>>(
-    object: I,
-  ): RequestApplySnapshotChunk {
+  fromPartial(object: DeepPartial<RequestApplySnapshotChunk>): RequestApplySnapshotChunk {
     const message = createBaseRequestApplySnapshotChunk();
     message.index = object.index ?? 0;
     message.chunk = object.chunk ?? new Uint8Array();
@@ -2214,7 +2209,7 @@ export const Response = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Response>, I>>(object: I): Response {
+  fromPartial(object: DeepPartial<Response>): Response {
     const message = createBaseResponse();
     message.exception =
       object.exception !== undefined && object.exception !== null
@@ -2329,7 +2324,7 @@ export const ResponseException = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseException>, I>>(object: I): ResponseException {
+  fromPartial(object: DeepPartial<ResponseException>): ResponseException {
     const message = createBaseResponseException();
     message.error = object.error ?? "";
     return message;
@@ -2385,7 +2380,7 @@ export const ResponseEcho = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseEcho>, I>>(object: I): ResponseEcho {
+  fromPartial(object: DeepPartial<ResponseEcho>): ResponseEcho {
     const message = createBaseResponseEcho();
     message.message = object.message ?? "";
     return message;
@@ -2428,7 +2423,7 @@ export const ResponseFlush = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseFlush>, I>>(_: I): ResponseFlush {
+  fromPartial(_: DeepPartial<ResponseFlush>): ResponseFlush {
     const message = createBaseResponseFlush();
     return message;
   },
@@ -2533,7 +2528,7 @@ export const ResponseInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseInfo>, I>>(object: I): ResponseInfo {
+  fromPartial(object: DeepPartial<ResponseInfo>): ResponseInfo {
     const message = createBaseResponseInfo();
     message.data = object.data ?? "";
     message.version = object.version ?? "";
@@ -2621,7 +2616,7 @@ export const ResponseSetOption = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseSetOption>, I>>(object: I): ResponseSetOption {
+  fromPartial(object: DeepPartial<ResponseSetOption>): ResponseSetOption {
     const message = createBaseResponseSetOption();
     message.code = object.code ?? 0;
     message.log = object.log ?? "";
@@ -2715,7 +2710,7 @@ export const ResponseInitChain = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseInitChain>, I>>(object: I): ResponseInitChain {
+  fromPartial(object: DeepPartial<ResponseInitChain>): ResponseInitChain {
     const message = createBaseResponseInitChain();
     message.consensusParams =
       object.consensusParams !== undefined && object.consensusParams !== null
@@ -2867,7 +2862,7 @@ export const ResponseQuery = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseQuery>, I>>(object: I): ResponseQuery {
+  fromPartial(object: DeepPartial<ResponseQuery>): ResponseQuery {
     const message = createBaseResponseQuery();
     message.code = object.code ?? 0;
     message.log = object.log ?? "";
@@ -2942,7 +2937,7 @@ export const ResponseBeginBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseBeginBlock>, I>>(object: I): ResponseBeginBlock {
+  fromPartial(object: DeepPartial<ResponseBeginBlock>): ResponseBeginBlock {
     const message = createBaseResponseBeginBlock();
     message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
     return message;
@@ -3082,7 +3077,7 @@ export const ResponseCheckTx = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseCheckTx>, I>>(object: I): ResponseCheckTx {
+  fromPartial(object: DeepPartial<ResponseCheckTx>): ResponseCheckTx {
     const message = createBaseResponseCheckTx();
     message.code = object.code ?? 0;
     message.data = object.data ?? new Uint8Array();
@@ -3233,7 +3228,7 @@ export const ResponseDeliverTx = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseDeliverTx>, I>>(object: I): ResponseDeliverTx {
+  fromPartial(object: DeepPartial<ResponseDeliverTx>): ResponseDeliverTx {
     const message = createBaseResponseDeliverTx();
     message.code = object.code ?? 0;
     message.data = object.data ?? new Uint8Array();
@@ -3341,7 +3336,7 @@ export const ResponseEndBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseEndBlock>, I>>(object: I): ResponseEndBlock {
+  fromPartial(object: DeepPartial<ResponseEndBlock>): ResponseEndBlock {
     const message = createBaseResponseEndBlock();
     message.validatorUpdates = object.validatorUpdates?.map((e) => ValidatorUpdate.fromPartial(e)) || [];
     message.consensusParamUpdates =
@@ -3414,7 +3409,7 @@ export const ResponseCommit = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseCommit>, I>>(object: I): ResponseCommit {
+  fromPartial(object: DeepPartial<ResponseCommit>): ResponseCommit {
     const message = createBaseResponseCommit();
     message.data = object.data ?? new Uint8Array();
     message.retainHeight =
@@ -3482,7 +3477,7 @@ export const ResponseListSnapshots = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseListSnapshots>, I>>(object: I): ResponseListSnapshots {
+  fromPartial(object: DeepPartial<ResponseListSnapshots>): ResponseListSnapshots {
     const message = createBaseResponseListSnapshots();
     message.snapshots = object.snapshots?.map((e) => Snapshot.fromPartial(e)) || [];
     return message;
@@ -3538,7 +3533,7 @@ export const ResponseOfferSnapshot = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseOfferSnapshot>, I>>(object: I): ResponseOfferSnapshot {
+  fromPartial(object: DeepPartial<ResponseOfferSnapshot>): ResponseOfferSnapshot {
     const message = createBaseResponseOfferSnapshot();
     message.result = object.result ?? 0;
     return message;
@@ -3595,9 +3590,7 @@ export const ResponseLoadSnapshotChunk = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseLoadSnapshotChunk>, I>>(
-    object: I,
-  ): ResponseLoadSnapshotChunk {
+  fromPartial(object: DeepPartial<ResponseLoadSnapshotChunk>): ResponseLoadSnapshotChunk {
     const message = createBaseResponseLoadSnapshotChunk();
     message.chunk = object.chunk ?? new Uint8Array();
     return message;
@@ -3703,9 +3696,7 @@ export const ResponseApplySnapshotChunk = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ResponseApplySnapshotChunk>, I>>(
-    object: I,
-  ): ResponseApplySnapshotChunk {
+  fromPartial(object: DeepPartial<ResponseApplySnapshotChunk>): ResponseApplySnapshotChunk {
     const message = createBaseResponseApplySnapshotChunk();
     message.result = object.result ?? 0;
     message.refetchChunks = object.refetchChunks?.map((e) => e) || [];
@@ -3800,7 +3791,7 @@ export const ConsensusParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusParams>, I>>(object: I): ConsensusParams {
+  fromPartial(object: DeepPartial<ConsensusParams>): ConsensusParams {
     const message = createBaseConsensusParams();
     message.block =
       object.block !== undefined && object.block !== null ? BlockParams.fromPartial(object.block) : undefined;
@@ -3880,7 +3871,7 @@ export const BlockParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<BlockParams>, I>>(object: I): BlockParams {
+  fromPartial(object: DeepPartial<BlockParams>): BlockParams {
     const message = createBaseBlockParams();
     message.maxBytes =
       object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
@@ -3956,7 +3947,7 @@ export const LastCommitInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LastCommitInfo>, I>>(object: I): LastCommitInfo {
+  fromPartial(object: DeepPartial<LastCommitInfo>): LastCommitInfo {
     const message = createBaseLastCommitInfo();
     message.round = object.round ?? 0;
     message.votes = object.votes?.map((e) => VoteInfo.fromPartial(e)) || [];
@@ -4032,7 +4023,7 @@ export const Event = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Event>, I>>(object: I): Event {
+  fromPartial(object: DeepPartial<Event>): Event {
     const message = createBaseEvent();
     message.type = object.type ?? "";
     message.attributes = object.attributes?.map((e) => EventAttribute.fromPartial(e)) || [];
@@ -4113,7 +4104,7 @@ export const EventAttribute = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventAttribute>, I>>(object: I): EventAttribute {
+  fromPartial(object: DeepPartial<EventAttribute>): EventAttribute {
     const message = createBaseEventAttribute();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -4206,7 +4197,7 @@ export const TxResult = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TxResult>, I>>(object: I): TxResult {
+  fromPartial(object: DeepPartial<TxResult>): TxResult {
     const message = createBaseTxResult();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -4281,7 +4272,7 @@ export const Validator = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
+  fromPartial(object: DeepPartial<Validator>): Validator {
     const message = createBaseValidator();
     message.address = object.address ?? new Uint8Array();
     message.power =
@@ -4351,7 +4342,7 @@ export const ValidatorUpdate = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorUpdate>, I>>(object: I): ValidatorUpdate {
+  fromPartial(object: DeepPartial<ValidatorUpdate>): ValidatorUpdate {
     const message = createBaseValidatorUpdate();
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
@@ -4424,7 +4415,7 @@ export const VoteInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<VoteInfo>, I>>(object: I): VoteInfo {
+  fromPartial(object: DeepPartial<VoteInfo>): VoteInfo {
     const message = createBaseVoteInfo();
     message.validator =
       object.validator !== undefined && object.validator !== null
@@ -4530,7 +4521,7 @@ export const Evidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
+  fromPartial(object: DeepPartial<Evidence>): Evidence {
     const message = createBaseEvidence();
     message.type = object.type ?? 0;
     message.validator =
@@ -4644,7 +4635,7 @@ export const Snapshot = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Snapshot>, I>>(object: I): Snapshot {
+  fromPartial(object: DeepPartial<Snapshot>): Snapshot {
     const message = createBaseSnapshot();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.query.v1beta1";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
@@ -167,7 +167,7 @@ export const PageRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PageRequest>, I>>(object: I): PageRequest {
+  fromPartial(object: DeepPartial<PageRequest>): PageRequest {
     const message = createBasePageRequest();
     message.key = object.key ?? new Uint8Array();
     message.offset =
@@ -241,7 +241,7 @@ export const PageResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PageResponse>, I>>(object: I): PageResponse {
+  fromPartial(object: DeepPartial<PageResponse>): PageResponse {
     const message = createBasePageResponse();
     message.nextKey = object.nextKey ?? new Uint8Array();
     message.total =

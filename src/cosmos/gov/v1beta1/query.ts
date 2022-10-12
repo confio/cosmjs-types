@@ -14,7 +14,7 @@ import {
 } from "./gov";
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { Long, isSet, DeepPartial, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
 
@@ -201,7 +201,7 @@ export const QueryProposalRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalRequest>, I>>(object: I): QueryProposalRequest {
+  fromPartial(object: DeepPartial<QueryProposalRequest>): QueryProposalRequest {
     const message = createBaseQueryProposalRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -261,7 +261,7 @@ export const QueryProposalResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalResponse>, I>>(object: I): QueryProposalResponse {
+  fromPartial(object: DeepPartial<QueryProposalResponse>): QueryProposalResponse {
     const message = createBaseQueryProposalResponse();
     message.proposal =
       object.proposal !== undefined && object.proposal !== null
@@ -355,7 +355,7 @@ export const QueryProposalsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalsRequest>, I>>(object: I): QueryProposalsRequest {
+  fromPartial(object: DeepPartial<QueryProposalsRequest>): QueryProposalsRequest {
     const message = createBaseQueryProposalsRequest();
     message.proposalStatus = object.proposalStatus ?? 0;
     message.voter = object.voter ?? "";
@@ -437,7 +437,7 @@ export const QueryProposalsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryProposalsResponse>, I>>(object: I): QueryProposalsResponse {
+  fromPartial(object: DeepPartial<QueryProposalsResponse>): QueryProposalsResponse {
     const message = createBaseQueryProposalsResponse();
     message.proposals = object.proposals?.map((e) => Proposal.fromPartial(e)) || [];
     message.pagination =
@@ -508,7 +508,7 @@ export const QueryVoteRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVoteRequest>, I>>(object: I): QueryVoteRequest {
+  fromPartial(object: DeepPartial<QueryVoteRequest>): QueryVoteRequest {
     const message = createBaseQueryVoteRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -568,7 +568,7 @@ export const QueryVoteResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVoteResponse>, I>>(object: I): QueryVoteResponse {
+  fromPartial(object: DeepPartial<QueryVoteResponse>): QueryVoteResponse {
     const message = createBaseQueryVoteResponse();
     message.vote =
       object.vote !== undefined && object.vote !== null ? Vote.fromPartial(object.vote) : undefined;
@@ -637,7 +637,7 @@ export const QueryVotesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVotesRequest>, I>>(object: I): QueryVotesRequest {
+  fromPartial(object: DeepPartial<QueryVotesRequest>): QueryVotesRequest {
     const message = createBaseQueryVotesRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -718,7 +718,7 @@ export const QueryVotesResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVotesResponse>, I>>(object: I): QueryVotesResponse {
+  fromPartial(object: DeepPartial<QueryVotesResponse>): QueryVotesResponse {
     const message = createBaseQueryVotesResponse();
     message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || [];
     message.pagination =
@@ -778,7 +778,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
+  fromPartial(object: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     message.paramsType = object.paramsType ?? "";
     return message;
@@ -859,7 +859,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
+  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.votingParams =
       object.votingParams !== undefined && object.votingParams !== null
@@ -937,7 +937,7 @@ export const QueryDepositRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositRequest>, I>>(object: I): QueryDepositRequest {
+  fromPartial(object: DeepPartial<QueryDepositRequest>): QueryDepositRequest {
     const message = createBaseQueryDepositRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -998,7 +998,7 @@ export const QueryDepositResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositResponse>, I>>(object: I): QueryDepositResponse {
+  fromPartial(object: DeepPartial<QueryDepositResponse>): QueryDepositResponse {
     const message = createBaseQueryDepositResponse();
     message.deposit =
       object.deposit !== undefined && object.deposit !== null
@@ -1069,7 +1069,7 @@ export const QueryDepositsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositsRequest>, I>>(object: I): QueryDepositsRequest {
+  fromPartial(object: DeepPartial<QueryDepositsRequest>): QueryDepositsRequest {
     const message = createBaseQueryDepositsRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -1150,7 +1150,7 @@ export const QueryDepositsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryDepositsResponse>, I>>(object: I): QueryDepositsResponse {
+  fromPartial(object: DeepPartial<QueryDepositsResponse>): QueryDepositsResponse {
     const message = createBaseQueryDepositsResponse();
     message.deposits = object.deposits?.map((e) => Deposit.fromPartial(e)) || [];
     message.pagination =
@@ -1210,7 +1210,7 @@ export const QueryTallyResultRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTallyResultRequest>, I>>(object: I): QueryTallyResultRequest {
+  fromPartial(object: DeepPartial<QueryTallyResultRequest>): QueryTallyResultRequest {
     const message = createBaseQueryTallyResultRequest();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -1270,9 +1270,7 @@ export const QueryTallyResultResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTallyResultResponse>, I>>(
-    object: I,
-  ): QueryTallyResultResponse {
+  fromPartial(object: DeepPartial<QueryTallyResultResponse>): QueryTallyResultResponse {
     const message = createBaseQueryTallyResultResponse();
     message.tally =
       object.tally !== undefined && object.tally !== null ? TallyResult.fromPartial(object.tally) : undefined;

@@ -5,7 +5,7 @@ import { SignMode, signModeFromJSON, signModeToJSON } from "../signing/v1beta1/s
 import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig";
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Long } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.tx.v1beta1";
 /** Tx is the standard type used for broadcasting transactions. */
 
@@ -310,7 +310,7 @@ export const Tx = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Tx>, I>>(object: I): Tx {
+  fromPartial(object: DeepPartial<Tx>): Tx {
     const message = createBaseTx();
     message.body =
       object.body !== undefined && object.body !== null ? TxBody.fromPartial(object.body) : undefined;
@@ -408,7 +408,7 @@ export const TxRaw = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TxRaw>, I>>(object: I): TxRaw {
+  fromPartial(object: DeepPartial<TxRaw>): TxRaw {
     const message = createBaseTxRaw();
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
@@ -506,7 +506,7 @@ export const SignDoc = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SignDoc>, I>>(object: I): SignDoc {
+  fromPartial(object: DeepPartial<SignDoc>): SignDoc {
     const message = createBaseSignDoc();
     message.bodyBytes = object.bodyBytes ?? new Uint8Array();
     message.authInfoBytes = object.authInfoBytes ?? new Uint8Array();
@@ -636,7 +636,7 @@ export const TxBody = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TxBody>, I>>(object: I): TxBody {
+  fromPartial(object: DeepPartial<TxBody>): TxBody {
     const message = createBaseTxBody();
     message.messages = object.messages?.map((e) => Any.fromPartial(e)) || [];
     message.memo = object.memo ?? "";
@@ -719,7 +719,7 @@ export const AuthInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AuthInfo>, I>>(object: I): AuthInfo {
+  fromPartial(object: DeepPartial<AuthInfo>): AuthInfo {
     const message = createBaseAuthInfo();
     message.signerInfos = object.signerInfos?.map((e) => SignerInfo.fromPartial(e)) || [];
     message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
@@ -800,7 +800,7 @@ export const SignerInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SignerInfo>, I>>(object: I): SignerInfo {
+  fromPartial(object: DeepPartial<SignerInfo>): SignerInfo {
     const message = createBaseSignerInfo();
     message.publicKey =
       object.publicKey !== undefined && object.publicKey !== null
@@ -880,7 +880,7 @@ export const ModeInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ModeInfo>, I>>(object: I): ModeInfo {
+  fromPartial(object: DeepPartial<ModeInfo>): ModeInfo {
     const message = createBaseModeInfo();
     message.single =
       object.single !== undefined && object.single !== null
@@ -943,7 +943,7 @@ export const ModeInfo_Single = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ModeInfo_Single>, I>>(object: I): ModeInfo_Single {
+  fromPartial(object: DeepPartial<ModeInfo_Single>): ModeInfo_Single {
     const message = createBaseModeInfo_Single();
     message.mode = object.mode ?? 0;
     return message;
@@ -1019,7 +1019,7 @@ export const ModeInfo_Multi = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ModeInfo_Multi>, I>>(object: I): ModeInfo_Multi {
+  fromPartial(object: DeepPartial<ModeInfo_Multi>): ModeInfo_Multi {
     const message = createBaseModeInfo_Multi();
     message.bitarray =
       object.bitarray !== undefined && object.bitarray !== null
@@ -1118,7 +1118,7 @@ export const Fee = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Fee>, I>>(object: I): Fee {
+  fromPartial(object: DeepPartial<Fee>): Fee {
     const message = createBaseFee();
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     message.gasLimit =

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { Duration } from "../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long } from "../../helpers";
+import { isSet, DeepPartial, Long } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
@@ -175,7 +175,7 @@ export const ConsensusParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusParams>, I>>(object: I): ConsensusParams {
+  fromPartial(object: DeepPartial<ConsensusParams>): ConsensusParams {
     const message = createBaseConsensusParams();
     message.block =
       object.block !== undefined && object.block !== null ? BlockParams.fromPartial(object.block) : undefined;
@@ -266,7 +266,7 @@ export const BlockParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<BlockParams>, I>>(object: I): BlockParams {
+  fromPartial(object: DeepPartial<BlockParams>): BlockParams {
     const message = createBaseBlockParams();
     message.maxBytes =
       object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
@@ -353,7 +353,7 @@ export const EvidenceParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EvidenceParams>, I>>(object: I): EvidenceParams {
+  fromPartial(object: DeepPartial<EvidenceParams>): EvidenceParams {
     const message = createBaseEvidenceParams();
     message.maxAgeNumBlocks =
       object.maxAgeNumBlocks !== undefined && object.maxAgeNumBlocks !== null
@@ -424,7 +424,7 @@ export const ValidatorParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorParams>, I>>(object: I): ValidatorParams {
+  fromPartial(object: DeepPartial<ValidatorParams>): ValidatorParams {
     const message = createBaseValidatorParams();
     message.pubKeyTypes = object.pubKeyTypes?.map((e) => e) || [];
     return message;
@@ -480,7 +480,7 @@ export const VersionParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<VersionParams>, I>>(object: I): VersionParams {
+  fromPartial(object: DeepPartial<VersionParams>): VersionParams {
     const message = createBaseVersionParams();
     message.appVersion =
       object.appVersion !== undefined && object.appVersion !== null
@@ -551,7 +551,7 @@ export const HashedParams = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<HashedParams>, I>>(object: I): HashedParams {
+  fromPartial(object: DeepPartial<HashedParams>): HashedParams {
     const message = createBaseHashedParams();
     message.blockMaxBytes =
       object.blockMaxBytes !== undefined && object.blockMaxBytes !== null

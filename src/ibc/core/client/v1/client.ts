@@ -3,7 +3,7 @@
 import { Any } from "../../../../google/protobuf/any";
 import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long } from "../../../../helpers";
+import { isSet, DeepPartial, Long } from "../../../../helpers";
 export const protobufPackage = "ibc.core.client.v1";
 /**
  * IdentifiedClientState defines a client state with an additional client
@@ -172,7 +172,7 @@ export const IdentifiedClientState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<IdentifiedClientState>, I>>(object: I): IdentifiedClientState {
+  fromPartial(object: DeepPartial<IdentifiedClientState>): IdentifiedClientState {
     const message = createBaseIdentifiedClientState();
     message.clientId = object.clientId ?? "";
     message.clientState =
@@ -244,9 +244,7 @@ export const ConsensusStateWithHeight = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusStateWithHeight>, I>>(
-    object: I,
-  ): ConsensusStateWithHeight {
+  fromPartial(object: DeepPartial<ConsensusStateWithHeight>): ConsensusStateWithHeight {
     const message = createBaseConsensusStateWithHeight();
     message.height =
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
@@ -328,7 +326,7 @@ export const ClientConsensusStates = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientConsensusStates>, I>>(object: I): ClientConsensusStates {
+  fromPartial(object: DeepPartial<ClientConsensusStates>): ClientConsensusStates {
     const message = createBaseClientConsensusStates();
     message.clientId = object.clientId ?? "";
     message.consensusStates =
@@ -419,7 +417,7 @@ export const ClientUpdateProposal = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientUpdateProposal>, I>>(object: I): ClientUpdateProposal {
+  fromPartial(object: DeepPartial<ClientUpdateProposal>): ClientUpdateProposal {
     const message = createBaseClientUpdateProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -516,7 +514,7 @@ export const UpgradeProposal = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpgradeProposal>, I>>(object: I): UpgradeProposal {
+  fromPartial(object: DeepPartial<UpgradeProposal>): UpgradeProposal {
     const message = createBaseUpgradeProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -592,7 +590,7 @@ export const Height = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Height>, I>>(object: I): Height {
+  fromPartial(object: DeepPartial<Height>): Height {
     const message = createBaseHeight();
     message.revisionNumber =
       object.revisionNumber !== undefined && object.revisionNumber !== null
@@ -663,7 +661,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial(object: DeepPartial<Params>): Params {
     const message = createBaseParams();
     message.allowedClients = object.allowedClients?.map((e) => e) || [];
     return message;

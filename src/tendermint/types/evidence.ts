@@ -4,7 +4,7 @@ import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator } from "./validator";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, fromJsonTimestamp, fromTimestamp } from "../../helpers";
+import { isSet, DeepPartial, Long, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
@@ -102,7 +102,7 @@ export const Evidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
+  fromPartial(object: DeepPartial<Evidence>): Evidence {
     const message = createBaseEvidence();
     message.duplicateVoteEvidence =
       object.duplicateVoteEvidence !== undefined && object.duplicateVoteEvidence !== null
@@ -211,7 +211,7 @@ export const DuplicateVoteEvidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(object: I): DuplicateVoteEvidence {
+  fromPartial(object: DeepPartial<DuplicateVoteEvidence>): DuplicateVoteEvidence {
     const message = createBaseDuplicateVoteEvidence();
     message.voteA =
       object.voteA !== undefined && object.voteA !== null ? Vote.fromPartial(object.voteA) : undefined;
@@ -340,9 +340,7 @@ export const LightClientAttackEvidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(
-    object: I,
-  ): LightClientAttackEvidence {
+  fromPartial(object: DeepPartial<LightClientAttackEvidence>): LightClientAttackEvidence {
     const message = createBaseLightClientAttackEvidence();
     message.conflictingBlock =
       object.conflictingBlock !== undefined && object.conflictingBlock !== null
@@ -420,7 +418,7 @@ export const EvidenceList = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EvidenceList>, I>>(object: I): EvidenceList {
+  fromPartial(object: DeepPartial<EvidenceList>): EvidenceList {
     const message = createBaseEvidenceList();
     message.evidence = object.evidence?.map((e) => Evidence.fromPartial(e)) || [];
     return message;

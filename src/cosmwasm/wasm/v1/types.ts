@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
+import { isSet, DeepPartial, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 
@@ -266,7 +266,7 @@ export const AccessTypeParam = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AccessTypeParam>, I>>(object: I): AccessTypeParam {
+  fromPartial(object: DeepPartial<AccessTypeParam>): AccessTypeParam {
     const message = createBaseAccessTypeParam();
     message.value = object.value ?? 0;
     return message;
@@ -333,7 +333,7 @@ export const AccessConfig = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AccessConfig>, I>>(object: I): AccessConfig {
+  fromPartial(object: DeepPartial<AccessConfig>): AccessConfig {
     const message = createBaseAccessConfig();
     message.permission = object.permission ?? 0;
     message.address = object.address ?? "";
@@ -409,7 +409,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial(object: DeepPartial<Params>): Params {
     const message = createBaseParams();
     message.codeUploadAccess =
       object.codeUploadAccess !== undefined && object.codeUploadAccess !== null
@@ -497,7 +497,7 @@ export const CodeInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CodeInfo>, I>>(object: I): CodeInfo {
+  fromPartial(object: DeepPartial<CodeInfo>): CodeInfo {
     const message = createBaseCodeInfo();
     message.codeHash = object.codeHash ?? new Uint8Array();
     message.creator = object.creator ?? "";
@@ -626,7 +626,7 @@ export const ContractInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ContractInfo>, I>>(object: I): ContractInfo {
+  fromPartial(object: DeepPartial<ContractInfo>): ContractInfo {
     const message = createBaseContractInfo();
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -731,9 +731,7 @@ export const ContractCodeHistoryEntry = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ContractCodeHistoryEntry>, I>>(
-    object: I,
-  ): ContractCodeHistoryEntry {
+  fromPartial(object: DeepPartial<ContractCodeHistoryEntry>): ContractCodeHistoryEntry {
     const message = createBaseContractCodeHistoryEntry();
     message.operation = object.operation ?? 0;
     message.codeId =
@@ -807,7 +805,7 @@ export const AbsoluteTxPosition = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AbsoluteTxPosition>, I>>(object: I): AbsoluteTxPosition {
+  fromPartial(object: DeepPartial<AbsoluteTxPosition>): AbsoluteTxPosition {
     const message = createBaseAbsoluteTxPosition();
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -881,7 +879,7 @@ export const Model = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Model>, I>>(object: I): Model {
+  fromPartial(object: DeepPartial<Model>): Model {
     const message = createBaseModel();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();

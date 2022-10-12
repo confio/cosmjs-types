@@ -3,7 +3,7 @@
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig } from "./types";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
@@ -239,9 +239,7 @@ export const QueryContractInfoRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractInfoRequest>, I>>(
-    object: I,
-  ): QueryContractInfoRequest {
+  fromPartial(object: DeepPartial<QueryContractInfoRequest>): QueryContractInfoRequest {
     const message = createBaseQueryContractInfoRequest();
     message.address = object.address ?? "";
     return message;
@@ -309,9 +307,7 @@ export const QueryContractInfoResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractInfoResponse>, I>>(
-    object: I,
-  ): QueryContractInfoResponse {
+  fromPartial(object: DeepPartial<QueryContractInfoResponse>): QueryContractInfoResponse {
     const message = createBaseQueryContractInfoResponse();
     message.address = object.address ?? "";
     message.contractInfo =
@@ -383,9 +379,7 @@ export const QueryContractHistoryRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractHistoryRequest>, I>>(
-    object: I,
-  ): QueryContractHistoryRequest {
+  fromPartial(object: DeepPartial<QueryContractHistoryRequest>): QueryContractHistoryRequest {
     const message = createBaseQueryContractHistoryRequest();
     message.address = object.address ?? "";
     message.pagination =
@@ -465,9 +459,7 @@ export const QueryContractHistoryResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractHistoryResponse>, I>>(
-    object: I,
-  ): QueryContractHistoryResponse {
+  fromPartial(object: DeepPartial<QueryContractHistoryResponse>): QueryContractHistoryResponse {
     const message = createBaseQueryContractHistoryResponse();
     message.entries = object.entries?.map((e) => ContractCodeHistoryEntry.fromPartial(e)) || [];
     message.pagination =
@@ -539,9 +531,7 @@ export const QueryContractsByCodeRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractsByCodeRequest>, I>>(
-    object: I,
-  ): QueryContractsByCodeRequest {
+  fromPartial(object: DeepPartial<QueryContractsByCodeRequest>): QueryContractsByCodeRequest {
     const message = createBaseQueryContractsByCodeRequest();
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -620,9 +610,7 @@ export const QueryContractsByCodeResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryContractsByCodeResponse>, I>>(
-    object: I,
-  ): QueryContractsByCodeResponse {
+  fromPartial(object: DeepPartial<QueryContractsByCodeResponse>): QueryContractsByCodeResponse {
     const message = createBaseQueryContractsByCodeResponse();
     message.contracts = object.contracts?.map((e) => e) || [];
     message.pagination =
@@ -694,9 +682,7 @@ export const QueryAllContractStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllContractStateRequest>, I>>(
-    object: I,
-  ): QueryAllContractStateRequest {
+  fromPartial(object: DeepPartial<QueryAllContractStateRequest>): QueryAllContractStateRequest {
     const message = createBaseQueryAllContractStateRequest();
     message.address = object.address ?? "";
     message.pagination =
@@ -774,9 +760,7 @@ export const QueryAllContractStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllContractStateResponse>, I>>(
-    object: I,
-  ): QueryAllContractStateResponse {
+  fromPartial(object: DeepPartial<QueryAllContractStateResponse>): QueryAllContractStateResponse {
     const message = createBaseQueryAllContractStateResponse();
     message.models = object.models?.map((e) => Model.fromPartial(e)) || [];
     message.pagination =
@@ -850,9 +834,7 @@ export const QueryRawContractStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryRawContractStateRequest>, I>>(
-    object: I,
-  ): QueryRawContractStateRequest {
+  fromPartial(object: DeepPartial<QueryRawContractStateRequest>): QueryRawContractStateRequest {
     const message = createBaseQueryRawContractStateRequest();
     message.address = object.address ?? "";
     message.queryData = object.queryData ?? new Uint8Array();
@@ -910,9 +892,7 @@ export const QueryRawContractStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryRawContractStateResponse>, I>>(
-    object: I,
-  ): QueryRawContractStateResponse {
+  fromPartial(object: DeepPartial<QueryRawContractStateResponse>): QueryRawContractStateResponse {
     const message = createBaseQueryRawContractStateResponse();
     message.data = object.data ?? new Uint8Array();
     return message;
@@ -982,9 +962,7 @@ export const QuerySmartContractStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySmartContractStateRequest>, I>>(
-    object: I,
-  ): QuerySmartContractStateRequest {
+  fromPartial(object: DeepPartial<QuerySmartContractStateRequest>): QuerySmartContractStateRequest {
     const message = createBaseQuerySmartContractStateRequest();
     message.address = object.address ?? "";
     message.queryData = object.queryData ?? new Uint8Array();
@@ -1042,9 +1020,7 @@ export const QuerySmartContractStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySmartContractStateResponse>, I>>(
-    object: I,
-  ): QuerySmartContractStateResponse {
+  fromPartial(object: DeepPartial<QuerySmartContractStateResponse>): QuerySmartContractStateResponse {
     const message = createBaseQuerySmartContractStateResponse();
     message.data = object.data ?? new Uint8Array();
     return message;
@@ -1100,7 +1076,7 @@ export const QueryCodeRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCodeRequest>, I>>(object: I): QueryCodeRequest {
+  fromPartial(object: DeepPartial<QueryCodeRequest>): QueryCodeRequest {
     const message = createBaseQueryCodeRequest();
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -1196,7 +1172,7 @@ export const CodeInfoResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CodeInfoResponse>, I>>(object: I): CodeInfoResponse {
+  fromPartial(object: DeepPartial<CodeInfoResponse>): CodeInfoResponse {
     const message = createBaseCodeInfoResponse();
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -1272,7 +1248,7 @@ export const QueryCodeResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCodeResponse>, I>>(object: I): QueryCodeResponse {
+  fromPartial(object: DeepPartial<QueryCodeResponse>): QueryCodeResponse {
     const message = createBaseQueryCodeResponse();
     message.codeInfo =
       object.codeInfo !== undefined && object.codeInfo !== null
@@ -1333,7 +1309,7 @@ export const QueryCodesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCodesRequest>, I>>(object: I): QueryCodesRequest {
+  fromPartial(object: DeepPartial<QueryCodesRequest>): QueryCodesRequest {
     const message = createBaseQueryCodesRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -1412,7 +1388,7 @@ export const QueryCodesResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryCodesResponse>, I>>(object: I): QueryCodesResponse {
+  fromPartial(object: DeepPartial<QueryCodesResponse>): QueryCodesResponse {
     const message = createBaseQueryCodesResponse();
     message.codeInfos = object.codeInfos?.map((e) => CodeInfoResponse.fromPartial(e)) || [];
     message.pagination =
@@ -1473,7 +1449,7 @@ export const QueryPinnedCodesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPinnedCodesRequest>, I>>(object: I): QueryPinnedCodesRequest {
+  fromPartial(object: DeepPartial<QueryPinnedCodesRequest>): QueryPinnedCodesRequest {
     const message = createBaseQueryPinnedCodesRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -1563,9 +1539,7 @@ export const QueryPinnedCodesResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPinnedCodesResponse>, I>>(
-    object: I,
-  ): QueryPinnedCodesResponse {
+  fromPartial(object: DeepPartial<QueryPinnedCodesResponse>): QueryPinnedCodesResponse {
     const message = createBaseQueryPinnedCodesResponse();
     message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
     message.pagination =
