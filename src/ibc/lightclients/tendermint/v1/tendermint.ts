@@ -91,8 +91,8 @@ export interface ConsensusState {
 
 export interface Misbehaviour {
   clientId: string;
-  header_1?: Header;
-  header_2?: Header;
+  header1?: Header;
+  header2?: Header;
 }
 /**
  * Header defines the Tendermint client consensus Header.
@@ -436,8 +436,8 @@ export const ConsensusState = {
 function createBaseMisbehaviour(): Misbehaviour {
   return {
     clientId: "",
-    header_1: undefined,
-    header_2: undefined,
+    header1: undefined,
+    header2: undefined,
   };
 }
 
@@ -447,12 +447,12 @@ export const Misbehaviour = {
       writer.uint32(10).string(message.clientId);
     }
 
-    if (message.header_1 !== undefined) {
-      Header.encode(message.header_1, writer.uint32(18).fork()).ldelim();
+    if (message.header1 !== undefined) {
+      Header.encode(message.header1, writer.uint32(18).fork()).ldelim();
     }
 
-    if (message.header_2 !== undefined) {
-      Header.encode(message.header_2, writer.uint32(26).fork()).ldelim();
+    if (message.header2 !== undefined) {
+      Header.encode(message.header2, writer.uint32(26).fork()).ldelim();
     }
 
     return writer;
@@ -472,11 +472,11 @@ export const Misbehaviour = {
           break;
 
         case 2:
-          message.header_1 = Header.decode(reader, reader.uint32());
+          message.header1 = Header.decode(reader, reader.uint32());
           break;
 
         case 3:
-          message.header_2 = Header.decode(reader, reader.uint32());
+          message.header2 = Header.decode(reader, reader.uint32());
           break;
 
         default:
@@ -491,31 +491,31 @@ export const Misbehaviour = {
   fromJSON(object: any): Misbehaviour {
     return {
       clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      header_1: isSet(object.header_1) ? Header.fromJSON(object.header_1) : undefined,
-      header_2: isSet(object.header_2) ? Header.fromJSON(object.header_2) : undefined,
+      header1: isSet(object.header1) ? Header.fromJSON(object.header1) : undefined,
+      header2: isSet(object.header2) ? Header.fromJSON(object.header2) : undefined,
     };
   },
 
   toJSON(message: Misbehaviour): unknown {
     const obj: any = {};
     message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.header_1 !== undefined &&
-      (obj.header_1 = message.header_1 ? Header.toJSON(message.header_1) : undefined);
-    message.header_2 !== undefined &&
-      (obj.header_2 = message.header_2 ? Header.toJSON(message.header_2) : undefined);
+    message.header1 !== undefined &&
+      (obj.header1 = message.header1 ? Header.toJSON(message.header1) : undefined);
+    message.header2 !== undefined &&
+      (obj.header2 = message.header2 ? Header.toJSON(message.header2) : undefined);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
     const message = createBaseMisbehaviour();
     message.clientId = object.clientId ?? "";
-    message.header_1 =
-      object.header_1 !== undefined && object.header_1 !== null
-        ? Header.fromPartial(object.header_1)
+    message.header1 =
+      object.header1 !== undefined && object.header1 !== null
+        ? Header.fromPartial(object.header1)
         : undefined;
-    message.header_2 =
-      object.header_2 !== undefined && object.header_2 !== null
-        ? Header.fromPartial(object.header_2)
+    message.header2 =
+      object.header2 !== undefined && object.header2 !== null
+        ? Header.fromPartial(object.header2)
         : undefined;
     return message;
   },
