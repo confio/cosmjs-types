@@ -80,6 +80,14 @@ telescope({
                         useExact: false           
                     }
                 },
+            },
+            tendermint: {
+                prototypes: {
+                    typingsFormat: { 
+                        useDeepPartial: true,
+                        useExact: false           
+                    }
+                },
             }
         }
     }
