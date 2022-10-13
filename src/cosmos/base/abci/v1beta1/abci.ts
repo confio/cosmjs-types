@@ -3,7 +3,7 @@
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.abci.v1beta1";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
@@ -362,7 +362,7 @@ export const TxResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TxResponse>): TxResponse {
+  fromPartial<I extends Exact<DeepPartial<TxResponse>, I>>(object: I): TxResponse {
     const message = createBaseTxResponse();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -463,7 +463,7 @@ export const ABCIMessageLog = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ABCIMessageLog>): ABCIMessageLog {
+  fromPartial<I extends Exact<DeepPartial<ABCIMessageLog>, I>>(object: I): ABCIMessageLog {
     const message = createBaseABCIMessageLog();
     message.msgIndex = object.msgIndex ?? 0;
     message.log = object.log ?? "";
@@ -540,7 +540,7 @@ export const StringEvent = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<StringEvent>): StringEvent {
+  fromPartial<I extends Exact<DeepPartial<StringEvent>, I>>(object: I): StringEvent {
     const message = createBaseStringEvent();
     message.type = object.type ?? "";
     message.attributes = object.attributes?.map((e) => Attribute.fromPartial(e)) || [];
@@ -608,7 +608,7 @@ export const Attribute = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Attribute>): Attribute {
+  fromPartial<I extends Exact<DeepPartial<Attribute>, I>>(object: I): Attribute {
     const message = createBaseAttribute();
     message.key = object.key ?? "";
     message.value = object.value ?? "";
@@ -676,7 +676,7 @@ export const GasInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<GasInfo>): GasInfo {
+  fromPartial<I extends Exact<DeepPartial<GasInfo>, I>>(object: I): GasInfo {
     const message = createBaseGasInfo();
     message.gasWanted =
       object.gasWanted !== undefined && object.gasWanted !== null
@@ -766,7 +766,7 @@ export const Result = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Result>): Result {
+  fromPartial<I extends Exact<DeepPartial<Result>, I>>(object: I): Result {
     const message = createBaseResult();
     message.data = object.data ?? new Uint8Array();
     message.log = object.log ?? "";
@@ -836,7 +836,7 @@ export const SimulationResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SimulationResponse>): SimulationResponse {
+  fromPartial<I extends Exact<DeepPartial<SimulationResponse>, I>>(object: I): SimulationResponse {
     const message = createBaseSimulationResponse();
     message.gasInfo =
       object.gasInfo !== undefined && object.gasInfo !== null
@@ -909,7 +909,7 @@ export const MsgData = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgData>): MsgData {
+  fromPartial<I extends Exact<DeepPartial<MsgData>, I>>(object: I): MsgData {
     const message = createBaseMsgData();
     message.msgType = object.msgType ?? "";
     message.data = object.data ?? new Uint8Array();
@@ -972,7 +972,7 @@ export const TxMsgData = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<TxMsgData>): TxMsgData {
+  fromPartial<I extends Exact<DeepPartial<TxMsgData>, I>>(object: I): TxMsgData {
     const message = createBaseTxMsgData();
     message.data = object.data?.map((e) => MsgData.fromPartial(e)) || [];
     return message;
@@ -1089,7 +1089,7 @@ export const SearchTxsResult = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SearchTxsResult>): SearchTxsResult {
+  fromPartial<I extends Exact<DeepPartial<SearchTxsResult>, I>>(object: I): SearchTxsResult {
     const message = createBaseSearchTxsResult();
     message.totalCount =
       object.totalCount !== undefined && object.totalCount !== null

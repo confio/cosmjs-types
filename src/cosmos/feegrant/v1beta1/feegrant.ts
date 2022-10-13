@@ -5,7 +5,7 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration } from "../../../google/protobuf/duration";
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /**
  * BasicAllowance implements Allowance with a one-time grant of tokens
@@ -144,7 +144,7 @@ export const BasicAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BasicAllowance>): BasicAllowance {
+  fromPartial<I extends Exact<DeepPartial<BasicAllowance>, I>>(object: I): BasicAllowance {
     const message = createBaseBasicAllowance();
     message.spendLimit = object.spendLimit?.map((e) => Coin.fromPartial(e)) || [];
     message.expiration =
@@ -265,7 +265,7 @@ export const PeriodicAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PeriodicAllowance>): PeriodicAllowance {
+  fromPartial<I extends Exact<DeepPartial<PeriodicAllowance>, I>>(object: I): PeriodicAllowance {
     const message = createBasePeriodicAllowance();
     message.basic =
       object.basic !== undefined && object.basic !== null
@@ -352,7 +352,7 @@ export const AllowedMsgAllowance = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AllowedMsgAllowance>): AllowedMsgAllowance {
+  fromPartial<I extends Exact<DeepPartial<AllowedMsgAllowance>, I>>(object: I): AllowedMsgAllowance {
     const message = createBaseAllowedMsgAllowance();
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
@@ -435,7 +435,7 @@ export const Grant = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Grant>): Grant {
+  fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
     const message = createBaseGrant();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";

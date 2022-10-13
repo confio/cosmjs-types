@@ -3,7 +3,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
 
@@ -86,7 +86,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
   },
@@ -141,7 +141,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -198,7 +198,7 @@ export const QuerySigningInfoRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfoRequest>): QuerySigningInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest {
     const message = createBaseQuerySigningInfoRequest();
     message.consAddress = object.consAddress ?? "";
     return message;
@@ -259,7 +259,9 @@ export const QuerySigningInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfoResponse>): QuerySigningInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(
+    object: I,
+  ): QuerySigningInfoResponse {
     const message = createBaseQuerySigningInfoResponse();
     message.valSigningInfo =
       object.valSigningInfo !== undefined && object.valSigningInfo !== null
@@ -319,7 +321,9 @@ export const QuerySigningInfosRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfosRequest>): QuerySigningInfosRequest {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(
+    object: I,
+  ): QuerySigningInfosRequest {
     const message = createBaseQuerySigningInfosRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -396,7 +400,9 @@ export const QuerySigningInfosResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QuerySigningInfosResponse>): QuerySigningInfosResponse {
+  fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(
+    object: I,
+  ): QuerySigningInfosResponse {
     const message = createBaseQuerySigningInfosResponse();
     message.info = object.info?.map((e) => ValidatorSigningInfo.fromPartial(e)) || [];
     message.pagination =

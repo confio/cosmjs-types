@@ -54,6 +54,8 @@ telescope({
                 toJSON: true
             },
             typingsFormat: { 
+                useDeepPartial: true,
+                useExact: true,
                 timestamp: 'timestamp',
                 duration: 'duration'
             }
@@ -69,6 +71,16 @@ telescope({
         },
         aminoEncoding: {
             enabled: false
+        },
+        packages: {
+            google: {
+                prototypes: {
+                    typingsFormat: { 
+                        useDeepPartial: true,
+                        useExact: false           
+                    }
+                },
+            }
         }
     }
 }).then(() => {

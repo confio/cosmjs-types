@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Long, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../helpers";
 export const protobufPackage = "tendermint.p2p";
 export interface NetAddress {
   id: string;
@@ -99,7 +99,7 @@ export const NetAddress = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<NetAddress>): NetAddress {
+  fromPartial<I extends Exact<DeepPartial<NetAddress>, I>>(object: I): NetAddress {
     const message = createBaseNetAddress();
     message.id = object.id ?? "";
     message.ip = object.ip ?? "";
@@ -179,7 +179,7 @@ export const ProtocolVersion = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ProtocolVersion>): ProtocolVersion {
+  fromPartial<I extends Exact<DeepPartial<ProtocolVersion>, I>>(object: I): ProtocolVersion {
     const message = createBaseProtocolVersion();
     message.p2p = object.p2p !== undefined && object.p2p !== null ? Long.fromValue(object.p2p) : Long.UZERO;
     message.block =
@@ -322,7 +322,7 @@ export const DefaultNodeInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DefaultNodeInfo>): DefaultNodeInfo {
+  fromPartial<I extends Exact<DeepPartial<DefaultNodeInfo>, I>>(object: I): DefaultNodeInfo {
     const message = createBaseDefaultNodeInfo();
     message.protocolVersion =
       object.protocolVersion !== undefined && object.protocolVersion !== null
@@ -402,7 +402,7 @@ export const DefaultNodeInfoOther = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DefaultNodeInfoOther>): DefaultNodeInfoOther {
+  fromPartial<I extends Exact<DeepPartial<DefaultNodeInfoOther>, I>>(object: I): DefaultNodeInfoOther {
     const message = createBaseDefaultNodeInfoOther();
     message.txIndex = object.txIndex ?? "";
     message.rpcAddress = object.rpcAddress ?? "";
