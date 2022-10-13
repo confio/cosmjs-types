@@ -1,9 +1,8 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Channel, Packet } from "./channel";
 import { Height } from "../../client/v1/client";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 
@@ -289,7 +288,7 @@ export const MsgChannelOpenInit = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenInit>, I>>(object: I): MsgChannelOpenInit {
+  fromPartial(object: Partial<MsgChannelOpenInit>): MsgChannelOpenInit {
     const message = createBaseMsgChannelOpenInit();
     message.portId = object.portId ?? "";
     message.channel =
@@ -350,9 +349,7 @@ export const MsgChannelOpenInitResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenInitResponse>, I>>(
-    object: I,
-  ): MsgChannelOpenInitResponse {
+  fromPartial(object: Partial<MsgChannelOpenInitResponse>): MsgChannelOpenInitResponse {
     const message = createBaseMsgChannelOpenInitResponse();
     message.channelId = object.channelId ?? "";
     return message;
@@ -479,7 +476,7 @@ export const MsgChannelOpenTry = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenTry>, I>>(object: I): MsgChannelOpenTry {
+  fromPartial(object: Partial<MsgChannelOpenTry>): MsgChannelOpenTry {
     const message = createBaseMsgChannelOpenTry();
     message.portId = object.portId ?? "";
     message.previousChannelId = object.previousChannelId ?? "";
@@ -534,7 +531,7 @@ export const MsgChannelOpenTryResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenTryResponse>, I>>(_: I): MsgChannelOpenTryResponse {
+  fromPartial(_: Partial<MsgChannelOpenTryResponse>): MsgChannelOpenTryResponse {
     const message = createBaseMsgChannelOpenTryResponse();
     return message;
   },
@@ -658,7 +655,7 @@ export const MsgChannelOpenAck = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenAck>, I>>(object: I): MsgChannelOpenAck {
+  fromPartial(object: Partial<MsgChannelOpenAck>): MsgChannelOpenAck {
     const message = createBaseMsgChannelOpenAck();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -710,7 +707,7 @@ export const MsgChannelOpenAckResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenAckResponse>, I>>(_: I): MsgChannelOpenAckResponse {
+  fromPartial(_: Partial<MsgChannelOpenAckResponse>): MsgChannelOpenAckResponse {
     const message = createBaseMsgChannelOpenAckResponse();
     return message;
   },
@@ -811,7 +808,7 @@ export const MsgChannelOpenConfirm = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenConfirm>, I>>(object: I): MsgChannelOpenConfirm {
+  fromPartial(object: Partial<MsgChannelOpenConfirm>): MsgChannelOpenConfirm {
     const message = createBaseMsgChannelOpenConfirm();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -861,9 +858,7 @@ export const MsgChannelOpenConfirmResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelOpenConfirmResponse>, I>>(
-    _: I,
-  ): MsgChannelOpenConfirmResponse {
+  fromPartial(_: Partial<MsgChannelOpenConfirmResponse>): MsgChannelOpenConfirmResponse {
     const message = createBaseMsgChannelOpenConfirmResponse();
     return message;
   },
@@ -940,7 +935,7 @@ export const MsgChannelCloseInit = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelCloseInit>, I>>(object: I): MsgChannelCloseInit {
+  fromPartial(object: Partial<MsgChannelCloseInit>): MsgChannelCloseInit {
     const message = createBaseMsgChannelCloseInit();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -985,9 +980,7 @@ export const MsgChannelCloseInitResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelCloseInitResponse>, I>>(
-    _: I,
-  ): MsgChannelCloseInitResponse {
+  fromPartial(_: Partial<MsgChannelCloseInitResponse>): MsgChannelCloseInitResponse {
     const message = createBaseMsgChannelCloseInitResponse();
     return message;
   },
@@ -1090,7 +1083,7 @@ export const MsgChannelCloseConfirm = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelCloseConfirm>, I>>(object: I): MsgChannelCloseConfirm {
+  fromPartial(object: Partial<MsgChannelCloseConfirm>): MsgChannelCloseConfirm {
     const message = createBaseMsgChannelCloseConfirm();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1140,9 +1133,7 @@ export const MsgChannelCloseConfirmResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgChannelCloseConfirmResponse>, I>>(
-    _: I,
-  ): MsgChannelCloseConfirmResponse {
+  fromPartial(_: Partial<MsgChannelCloseConfirmResponse>): MsgChannelCloseConfirmResponse {
     const message = createBaseMsgChannelCloseConfirmResponse();
     return message;
   },
@@ -1236,7 +1227,7 @@ export const MsgRecvPacket = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRecvPacket>, I>>(object: I): MsgRecvPacket {
+  fromPartial(object: Partial<MsgRecvPacket>): MsgRecvPacket {
     const message = createBaseMsgRecvPacket();
     message.packet =
       object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
@@ -1299,7 +1290,7 @@ export const MsgRecvPacketResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRecvPacketResponse>, I>>(object: I): MsgRecvPacketResponse {
+  fromPartial(object: Partial<MsgRecvPacketResponse>): MsgRecvPacketResponse {
     const message = createBaseMsgRecvPacketResponse();
     message.result = object.result ?? 0;
     return message;
@@ -1406,7 +1397,7 @@ export const MsgTimeout = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTimeout>, I>>(object: I): MsgTimeout {
+  fromPartial(object: Partial<MsgTimeout>): MsgTimeout {
     const message = createBaseMsgTimeout();
     message.packet =
       object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
@@ -1473,7 +1464,7 @@ export const MsgTimeoutResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTimeoutResponse>, I>>(object: I): MsgTimeoutResponse {
+  fromPartial(object: Partial<MsgTimeoutResponse>): MsgTimeoutResponse {
     const message = createBaseMsgTimeoutResponse();
     message.result = object.result ?? 0;
     return message;
@@ -1594,7 +1585,7 @@ export const MsgTimeoutOnClose = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTimeoutOnClose>, I>>(object: I): MsgTimeoutOnClose {
+  fromPartial(object: Partial<MsgTimeoutOnClose>): MsgTimeoutOnClose {
     const message = createBaseMsgTimeoutOnClose();
     message.packet =
       object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
@@ -1662,9 +1653,7 @@ export const MsgTimeoutOnCloseResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTimeoutOnCloseResponse>, I>>(
-    object: I,
-  ): MsgTimeoutOnCloseResponse {
+  fromPartial(object: Partial<MsgTimeoutOnCloseResponse>): MsgTimeoutOnCloseResponse {
     const message = createBaseMsgTimeoutOnCloseResponse();
     message.result = object.result ?? 0;
     return message;
@@ -1773,7 +1762,7 @@ export const MsgAcknowledgement = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAcknowledgement>, I>>(object: I): MsgAcknowledgement {
+  fromPartial(object: Partial<MsgAcknowledgement>): MsgAcknowledgement {
     const message = createBaseMsgAcknowledgement();
     message.packet =
       object.packet !== undefined && object.packet !== null ? Packet.fromPartial(object.packet) : undefined;
@@ -1837,9 +1826,7 @@ export const MsgAcknowledgementResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAcknowledgementResponse>, I>>(
-    object: I,
-  ): MsgAcknowledgementResponse {
+  fromPartial(object: Partial<MsgAcknowledgementResponse>): MsgAcknowledgementResponse {
     const message = createBaseMsgAcknowledgementResponse();
     message.result = object.result ?? 0;
     return message;

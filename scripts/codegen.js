@@ -3,16 +3,6 @@
 const { join } = require('path');
 const telescope = require('@osmonauts/telescope').default;
 
-
-const disableExact = {
-    prototypes: {
-        typingsFormat: { 
-            useDeepPartial: true,
-            useExact: false           
-        }
-    }
-};
-
 telescope({
     protoDirs: [
         'cosmos-sdk-0.45/proto',
@@ -25,7 +15,7 @@ telescope({
         logLevel: 2,
         useSDKTypes: false,
         tsDisable: {
-            disableAll: true
+            disableAll: false
         },
         eslintDisable: {
             disableAll: true
@@ -64,8 +54,8 @@ telescope({
                 toJSON: true
             },
             typingsFormat: { 
-                useDeepPartial: true,
-                useExact: true,
+                useDeepPartial: false,
+                useExact: false,
                 timestamp: 'timestamp',
                 duration: 'duration'
             }
@@ -81,21 +71,6 @@ telescope({
         },
         aminoEncoding: {
             enabled: false
-        },
-        packages: {
-            google: {
-                ...disableExact
-            },
-            cosmos: {
-                base: {
-                    tendermint: {
-                        ...disableExact
-                    }
-                }
-            },
-            tendermint: {
-                ...disableExact
-            }
         }
     }
 }).then(() => {

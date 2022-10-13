@@ -1,10 +1,9 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { Any } from "../../../../google/protobuf/any";
 import { Height, IdentifiedClientState, ConsensusStateWithHeight, Params } from "./client";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.client.v1";
 /**
  * QueryClientStateRequest is the request type for the Query/ClientState RPC
@@ -225,7 +224,7 @@ export const QueryClientStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStateRequest>, I>>(object: I): QueryClientStateRequest {
+  fromPartial(object: Partial<QueryClientStateRequest>): QueryClientStateRequest {
     const message = createBaseQueryClientStateRequest();
     message.clientId = object.clientId ?? "";
     return message;
@@ -306,9 +305,7 @@ export const QueryClientStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStateResponse>, I>>(
-    object: I,
-  ): QueryClientStateResponse {
+  fromPartial(object: Partial<QueryClientStateResponse>): QueryClientStateResponse {
     const message = createBaseQueryClientStateResponse();
     message.clientState =
       object.clientState !== undefined && object.clientState !== null
@@ -373,9 +370,7 @@ export const QueryClientStatesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStatesRequest>, I>>(
-    object: I,
-  ): QueryClientStatesRequest {
+  fromPartial(object: Partial<QueryClientStatesRequest>): QueryClientStatesRequest {
     const message = createBaseQueryClientStatesRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -454,9 +449,7 @@ export const QueryClientStatesResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStatesResponse>, I>>(
-    object: I,
-  ): QueryClientStatesResponse {
+  fromPartial(object: Partial<QueryClientStatesResponse>): QueryClientStatesResponse {
     const message = createBaseQueryClientStatesResponse();
     message.clientStates = object.clientStates?.map((e) => IdentifiedClientState.fromPartial(e)) || [];
     message.pagination =
@@ -551,9 +544,7 @@ export const QueryConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateRequest>, I>>(
-    object: I,
-  ): QueryConsensusStateRequest {
+  fromPartial(object: Partial<QueryConsensusStateRequest>): QueryConsensusStateRequest {
     const message = createBaseQueryConsensusStateRequest();
     message.clientId = object.clientId ?? "";
     message.revisionNumber =
@@ -643,9 +634,7 @@ export const QueryConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateResponse>, I>>(
-    object: I,
-  ): QueryConsensusStateResponse {
+  fromPartial(object: Partial<QueryConsensusStateResponse>): QueryConsensusStateResponse {
     const message = createBaseQueryConsensusStateResponse();
     message.consensusState =
       object.consensusState !== undefined && object.consensusState !== null
@@ -721,9 +710,7 @@ export const QueryConsensusStatesRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConsensusStatesRequest>, I>>(
-    object: I,
-  ): QueryConsensusStatesRequest {
+  fromPartial(object: Partial<QueryConsensusStatesRequest>): QueryConsensusStatesRequest {
     const message = createBaseQueryConsensusStatesRequest();
     message.clientId = object.clientId ?? "";
     message.pagination =
@@ -805,9 +792,7 @@ export const QueryConsensusStatesResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConsensusStatesResponse>, I>>(
-    object: I,
-  ): QueryConsensusStatesResponse {
+  fromPartial(object: Partial<QueryConsensusStatesResponse>): QueryConsensusStatesResponse {
     const message = createBaseQueryConsensusStatesResponse();
     message.consensusStates =
       object.consensusStates?.map((e) => ConsensusStateWithHeight.fromPartial(e)) || [];
@@ -868,9 +853,7 @@ export const QueryClientStatusRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStatusRequest>, I>>(
-    object: I,
-  ): QueryClientStatusRequest {
+  fromPartial(object: Partial<QueryClientStatusRequest>): QueryClientStatusRequest {
     const message = createBaseQueryClientStatusRequest();
     message.clientId = object.clientId ?? "";
     return message;
@@ -926,9 +909,7 @@ export const QueryClientStatusResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientStatusResponse>, I>>(
-    object: I,
-  ): QueryClientStatusResponse {
+  fromPartial(object: Partial<QueryClientStatusResponse>): QueryClientStatusResponse {
     const message = createBaseQueryClientStatusResponse();
     message.status = object.status ?? "";
     return message;
@@ -971,7 +952,7 @@ export const QueryClientParamsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientParamsRequest>, I>>(_: I): QueryClientParamsRequest {
+  fromPartial(_: Partial<QueryClientParamsRequest>): QueryClientParamsRequest {
     const message = createBaseQueryClientParamsRequest();
     return message;
   },
@@ -1026,9 +1007,7 @@ export const QueryClientParamsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryClientParamsResponse>, I>>(
-    object: I,
-  ): QueryClientParamsResponse {
+  fromPartial(object: Partial<QueryClientParamsResponse>): QueryClientParamsResponse {
     const message = createBaseQueryClientParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -1072,9 +1051,7 @@ export const QueryUpgradedClientStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUpgradedClientStateRequest>, I>>(
-    _: I,
-  ): QueryUpgradedClientStateRequest {
+  fromPartial(_: Partial<QueryUpgradedClientStateRequest>): QueryUpgradedClientStateRequest {
     const message = createBaseQueryUpgradedClientStateRequest();
     return message;
   },
@@ -1134,9 +1111,7 @@ export const QueryUpgradedClientStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUpgradedClientStateResponse>, I>>(
-    object: I,
-  ): QueryUpgradedClientStateResponse {
+  fromPartial(object: Partial<QueryUpgradedClientStateResponse>): QueryUpgradedClientStateResponse {
     const message = createBaseQueryUpgradedClientStateResponse();
     message.upgradedClientState =
       object.upgradedClientState !== undefined && object.upgradedClientState !== null
@@ -1182,9 +1157,7 @@ export const QueryUpgradedConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateRequest>, I>>(
-    _: I,
-  ): QueryUpgradedConsensusStateRequest {
+  fromPartial(_: Partial<QueryUpgradedConsensusStateRequest>): QueryUpgradedConsensusStateRequest {
     const message = createBaseQueryUpgradedConsensusStateRequest();
     return message;
   },
@@ -1244,9 +1217,7 @@ export const QueryUpgradedConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateResponse>, I>>(
-    object: I,
-  ): QueryUpgradedConsensusStateResponse {
+  fromPartial(object: Partial<QueryUpgradedConsensusStateResponse>): QueryUpgradedConsensusStateResponse {
     const message = createBaseQueryUpgradedConsensusStateResponse();
     message.upgradedConsensusState =
       object.upgradedConsensusState !== undefined && object.upgradedConsensusState !== null

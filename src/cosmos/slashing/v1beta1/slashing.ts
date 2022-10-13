@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration } from "../../../google/protobuf/duration";
@@ -8,8 +7,6 @@ import {
   isSet,
   fromJsonTimestamp,
   fromTimestamp,
-  DeepPartial,
-  Exact,
   bytesFromBase64,
   base64FromBytes,
 } from "../../../helpers";
@@ -164,7 +161,7 @@ export const ValidatorSigningInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorSigningInfo>, I>>(object: I): ValidatorSigningInfo {
+  fromPartial(object: Partial<ValidatorSigningInfo>): ValidatorSigningInfo {
     const message = createBaseValidatorSigningInfo();
     message.address = object.address ?? "";
     message.startHeight =
@@ -304,7 +301,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial(object: Partial<Params>): Params {
     const message = createBaseParams();
     message.signedBlocksWindow =
       object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null

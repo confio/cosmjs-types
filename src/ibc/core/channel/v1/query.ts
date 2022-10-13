@@ -1,11 +1,10 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { Channel, IdentifiedChannel, PacketState } from "./channel";
 import { Height, IdentifiedClientState } from "../../client/v1/client";
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 
@@ -436,7 +435,7 @@ export const QueryChannelRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelRequest>, I>>(object: I): QueryChannelRequest {
+  fromPartial(object: Partial<QueryChannelRequest>): QueryChannelRequest {
     const message = createBaseQueryChannelRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -518,7 +517,7 @@ export const QueryChannelResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelResponse>, I>>(object: I): QueryChannelResponse {
+  fromPartial(object: Partial<QueryChannelResponse>): QueryChannelResponse {
     const message = createBaseQueryChannelResponse();
     message.channel =
       object.channel !== undefined && object.channel !== null
@@ -583,7 +582,7 @@ export const QueryChannelsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelsRequest>, I>>(object: I): QueryChannelsRequest {
+  fromPartial(object: Partial<QueryChannelsRequest>): QueryChannelsRequest {
     const message = createBaseQueryChannelsRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -673,7 +672,7 @@ export const QueryChannelsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelsResponse>, I>>(object: I): QueryChannelsResponse {
+  fromPartial(object: Partial<QueryChannelsResponse>): QueryChannelsResponse {
     const message = createBaseQueryChannelsResponse();
     message.channels = object.channels?.map((e) => IdentifiedChannel.fromPartial(e)) || [];
     message.pagination =
@@ -747,9 +746,7 @@ export const QueryConnectionChannelsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConnectionChannelsRequest>, I>>(
-    object: I,
-  ): QueryConnectionChannelsRequest {
+  fromPartial(object: Partial<QueryConnectionChannelsRequest>): QueryConnectionChannelsRequest {
     const message = createBaseQueryConnectionChannelsRequest();
     message.connection = object.connection ?? "";
     message.pagination =
@@ -840,9 +837,7 @@ export const QueryConnectionChannelsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryConnectionChannelsResponse>, I>>(
-    object: I,
-  ): QueryConnectionChannelsResponse {
+  fromPartial(object: Partial<QueryConnectionChannelsResponse>): QueryConnectionChannelsResponse {
     const message = createBaseQueryConnectionChannelsResponse();
     message.channels = object.channels?.map((e) => IdentifiedChannel.fromPartial(e)) || [];
     message.pagination =
@@ -915,9 +910,7 @@ export const QueryChannelClientStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelClientStateRequest>, I>>(
-    object: I,
-  ): QueryChannelClientStateRequest {
+  fromPartial(object: Partial<QueryChannelClientStateRequest>): QueryChannelClientStateRequest {
     const message = createBaseQueryChannelClientStateRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1003,9 +996,7 @@ export const QueryChannelClientStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelClientStateResponse>, I>>(
-    object: I,
-  ): QueryChannelClientStateResponse {
+  fromPartial(object: Partial<QueryChannelClientStateResponse>): QueryChannelClientStateResponse {
     const message = createBaseQueryChannelClientStateResponse();
     message.identifiedClientState =
       object.identifiedClientState !== undefined && object.identifiedClientState !== null
@@ -1104,9 +1095,7 @@ export const QueryChannelConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelConsensusStateRequest>, I>>(
-    object: I,
-  ): QueryChannelConsensusStateRequest {
+  fromPartial(object: Partial<QueryChannelConsensusStateRequest>): QueryChannelConsensusStateRequest {
     const message = createBaseQueryChannelConsensusStateRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1207,9 +1196,7 @@ export const QueryChannelConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryChannelConsensusStateResponse>, I>>(
-    object: I,
-  ): QueryChannelConsensusStateResponse {
+  fromPartial(object: Partial<QueryChannelConsensusStateResponse>): QueryChannelConsensusStateResponse {
     const message = createBaseQueryChannelConsensusStateResponse();
     message.consensusState =
       object.consensusState !== undefined && object.consensusState !== null
@@ -1296,9 +1283,7 @@ export const QueryPacketCommitmentRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentRequest>, I>>(
-    object: I,
-  ): QueryPacketCommitmentRequest {
+  fromPartial(object: Partial<QueryPacketCommitmentRequest>): QueryPacketCommitmentRequest {
     const message = createBaseQueryPacketCommitmentRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1386,9 +1371,7 @@ export const QueryPacketCommitmentResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentResponse>, I>>(
-    object: I,
-  ): QueryPacketCommitmentResponse {
+  fromPartial(object: Partial<QueryPacketCommitmentResponse>): QueryPacketCommitmentResponse {
     const message = createBaseQueryPacketCommitmentResponse();
     message.commitment = object.commitment ?? new Uint8Array();
     message.proof = object.proof ?? new Uint8Array();
@@ -1472,9 +1455,7 @@ export const QueryPacketCommitmentsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentsRequest>, I>>(
-    object: I,
-  ): QueryPacketCommitmentsRequest {
+  fromPartial(object: Partial<QueryPacketCommitmentsRequest>): QueryPacketCommitmentsRequest {
     const message = createBaseQueryPacketCommitmentsRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1566,9 +1547,7 @@ export const QueryPacketCommitmentsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentsResponse>, I>>(
-    object: I,
-  ): QueryPacketCommitmentsResponse {
+  fromPartial(object: Partial<QueryPacketCommitmentsResponse>): QueryPacketCommitmentsResponse {
     const message = createBaseQueryPacketCommitmentsResponse();
     message.commitments = object.commitments?.map((e) => PacketState.fromPartial(e)) || [];
     message.pagination =
@@ -1652,9 +1631,7 @@ export const QueryPacketReceiptRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketReceiptRequest>, I>>(
-    object: I,
-  ): QueryPacketReceiptRequest {
+  fromPartial(object: Partial<QueryPacketReceiptRequest>): QueryPacketReceiptRequest {
     const message = createBaseQueryPacketReceiptRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1739,9 +1716,7 @@ export const QueryPacketReceiptResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketReceiptResponse>, I>>(
-    object: I,
-  ): QueryPacketReceiptResponse {
+  fromPartial(object: Partial<QueryPacketReceiptResponse>): QueryPacketReceiptResponse {
     const message = createBaseQueryPacketReceiptResponse();
     message.received = object.received ?? false;
     message.proof = object.proof ?? new Uint8Array();
@@ -1824,9 +1799,7 @@ export const QueryPacketAcknowledgementRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementRequest>, I>>(
-    object: I,
-  ): QueryPacketAcknowledgementRequest {
+  fromPartial(object: Partial<QueryPacketAcknowledgementRequest>): QueryPacketAcknowledgementRequest {
     const message = createBaseQueryPacketAcknowledgementRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -1916,9 +1889,7 @@ export const QueryPacketAcknowledgementResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementResponse>, I>>(
-    object: I,
-  ): QueryPacketAcknowledgementResponse {
+  fromPartial(object: Partial<QueryPacketAcknowledgementResponse>): QueryPacketAcknowledgementResponse {
     const message = createBaseQueryPacketAcknowledgementResponse();
     message.acknowledgement = object.acknowledgement ?? new Uint8Array();
     message.proof = object.proof ?? new Uint8Array();
@@ -2035,9 +2006,7 @@ export const QueryPacketAcknowledgementsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementsRequest>, I>>(
-    object: I,
-  ): QueryPacketAcknowledgementsRequest {
+  fromPartial(object: Partial<QueryPacketAcknowledgementsRequest>): QueryPacketAcknowledgementsRequest {
     const message = createBaseQueryPacketAcknowledgementsRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -2130,9 +2099,7 @@ export const QueryPacketAcknowledgementsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementsResponse>, I>>(
-    object: I,
-  ): QueryPacketAcknowledgementsResponse {
+  fromPartial(object: Partial<QueryPacketAcknowledgementsResponse>): QueryPacketAcknowledgementsResponse {
     const message = createBaseQueryPacketAcknowledgementsResponse();
     message.acknowledgements = object.acknowledgements?.map((e) => PacketState.fromPartial(e)) || [];
     message.pagination =
@@ -2238,9 +2205,7 @@ export const QueryUnreceivedPacketsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUnreceivedPacketsRequest>, I>>(
-    object: I,
-  ): QueryUnreceivedPacketsRequest {
+  fromPartial(object: Partial<QueryUnreceivedPacketsRequest>): QueryUnreceivedPacketsRequest {
     const message = createBaseQueryUnreceivedPacketsRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -2328,9 +2293,7 @@ export const QueryUnreceivedPacketsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUnreceivedPacketsResponse>, I>>(
-    object: I,
-  ): QueryUnreceivedPacketsResponse {
+  fromPartial(object: Partial<QueryUnreceivedPacketsResponse>): QueryUnreceivedPacketsResponse {
     const message = createBaseQueryUnreceivedPacketsResponse();
     message.sequences = object.sequences?.map((e) => Long.fromValue(e)) || [];
     message.height =
@@ -2430,9 +2393,7 @@ export const QueryUnreceivedAcksRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUnreceivedAcksRequest>, I>>(
-    object: I,
-  ): QueryUnreceivedAcksRequest {
+  fromPartial(object: Partial<QueryUnreceivedAcksRequest>): QueryUnreceivedAcksRequest {
     const message = createBaseQueryUnreceivedAcksRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -2520,9 +2481,7 @@ export const QueryUnreceivedAcksResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryUnreceivedAcksResponse>, I>>(
-    object: I,
-  ): QueryUnreceivedAcksResponse {
+  fromPartial(object: Partial<QueryUnreceivedAcksResponse>): QueryUnreceivedAcksResponse {
     const message = createBaseQueryUnreceivedAcksResponse();
     message.sequences = object.sequences?.map((e) => Long.fromValue(e)) || [];
     message.height =
@@ -2591,9 +2550,7 @@ export const QueryNextSequenceReceiveRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryNextSequenceReceiveRequest>, I>>(
-    object: I,
-  ): QueryNextSequenceReceiveRequest {
+  fromPartial(object: Partial<QueryNextSequenceReceiveRequest>): QueryNextSequenceReceiveRequest {
     const message = createBaseQueryNextSequenceReceiveRequest();
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
@@ -2677,9 +2634,7 @@ export const QueryNextSequenceReceiveResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryNextSequenceReceiveResponse>, I>>(
-    object: I,
-  ): QueryNextSequenceReceiveResponse {
+  fromPartial(object: Partial<QueryNextSequenceReceiveResponse>): QueryNextSequenceReceiveResponse {
     const message = createBaseQueryNextSequenceReceiveResponse();
     message.nextSequenceReceive =
       object.nextSequenceReceive !== undefined && object.nextSequenceReceive !== null

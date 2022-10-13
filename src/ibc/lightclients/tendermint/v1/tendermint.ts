@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Duration } from "../../../../google/protobuf/duration";
 import { Height } from "../../../core/client/v1/client";
@@ -10,8 +9,6 @@ import { ValidatorSet } from "../../../../tendermint/types/validator";
 import * as _m0 from "protobufjs/minimal";
 import {
   isSet,
-  DeepPartial,
-  Exact,
   fromJsonTimestamp,
   bytesFromBase64,
   fromTimestamp,
@@ -310,7 +307,7 @@ export const ClientState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
+  fromPartial(object: Partial<ClientState>): ClientState {
     const message = createBaseClientState();
     message.chainId = object.chainId ?? "";
     message.trustLevel =
@@ -421,7 +418,7 @@ export const ConsensusState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusState>, I>>(object: I): ConsensusState {
+  fromPartial(object: Partial<ConsensusState>): ConsensusState {
     const message = createBaseConsensusState();
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
@@ -507,7 +504,7 @@ export const Misbehaviour = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
+  fromPartial(object: Partial<Misbehaviour>): Misbehaviour {
     const message = createBaseMisbehaviour();
     message.clientId = object.clientId ?? "";
     message.header1 =
@@ -612,7 +609,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
+  fromPartial(object: Partial<Header>): Header {
     const message = createBaseHeader();
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
@@ -694,7 +691,7 @@ export const Fraction = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Fraction>, I>>(object: I): Fraction {
+  fromPartial(object: Partial<Fraction>): Fraction {
     const message = createBaseFraction();
     message.numerator =
       object.numerator !== undefined && object.numerator !== null

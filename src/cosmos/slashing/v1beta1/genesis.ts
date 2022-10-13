@@ -1,8 +1,7 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
+import { isSet, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** GenesisState defines the slashing module's genesis state. */
 
@@ -139,7 +138,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -214,7 +213,7 @@ export const SigningInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SigningInfo>, I>>(object: I): SigningInfo {
+  fromPartial(object: Partial<SigningInfo>): SigningInfo {
     const message = createBaseSigningInfo();
     message.address = object.address ?? "";
     message.validatorSigningInfo =
@@ -293,7 +292,7 @@ export const ValidatorMissedBlocks = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorMissedBlocks>, I>>(object: I): ValidatorMissedBlocks {
+  fromPartial(object: Partial<ValidatorMissedBlocks>): ValidatorMissedBlocks {
     const message = createBaseValidatorMissedBlocks();
     message.address = object.address ?? "";
     message.missedBlocks = object.missedBlocks?.map((e) => MissedBlock.fromPartial(e)) || [];
@@ -361,7 +360,7 @@ export const MissedBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MissedBlock>, I>>(object: I): MissedBlock {
+  fromPartial(object: Partial<MissedBlock>): MissedBlock {
     const message = createBaseMissedBlock();
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;

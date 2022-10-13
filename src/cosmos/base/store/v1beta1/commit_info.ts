@@ -1,7 +1,6 @@
-//@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.store.v1beta1";
 /**
  * CommitInfo defines commit information used by the multi-store when committing
@@ -99,7 +98,7 @@ export const CommitInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CommitInfo>, I>>(object: I): CommitInfo {
+  fromPartial(object: Partial<CommitInfo>): CommitInfo {
     const message = createBaseCommitInfo();
     message.version =
       object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;
@@ -169,7 +168,7 @@ export const StoreInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StoreInfo>, I>>(object: I): StoreInfo {
+  fromPartial(object: Partial<StoreInfo>): StoreInfo {
     const message = createBaseStoreInfo();
     message.name = object.name ?? "";
     message.commitId =
@@ -241,7 +240,7 @@ export const CommitID = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CommitID>, I>>(object: I): CommitID {
+  fromPartial(object: Partial<CommitID>): CommitID {
     const message = createBaseCommitID();
     message.version =
       object.version !== undefined && object.version !== null ? Long.fromValue(object.version) : Long.ZERO;

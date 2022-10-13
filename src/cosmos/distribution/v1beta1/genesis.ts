@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { DecCoin } from "../../base/v1beta1/coin";
 import {
@@ -11,7 +10,7 @@ import {
   FeePool,
 } from "./distribution";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
+import { isSet, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
@@ -192,7 +191,7 @@ export const DelegatorWithdrawInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegatorWithdrawInfo>, I>>(object: I): DelegatorWithdrawInfo {
+  fromPartial(object: Partial<DelegatorWithdrawInfo>): DelegatorWithdrawInfo {
     const message = createBaseDelegatorWithdrawInfo();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.withdrawAddress = object.withdrawAddress ?? "";
@@ -268,9 +267,7 @@ export const ValidatorOutstandingRewardsRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorOutstandingRewardsRecord>, I>>(
-    object: I,
-  ): ValidatorOutstandingRewardsRecord {
+  fromPartial(object: Partial<ValidatorOutstandingRewardsRecord>): ValidatorOutstandingRewardsRecord {
     const message = createBaseValidatorOutstandingRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.outstandingRewards = object.outstandingRewards?.map((e) => DecCoin.fromPartial(e)) || [];
@@ -346,9 +343,7 @@ export const ValidatorAccumulatedCommissionRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorAccumulatedCommissionRecord>, I>>(
-    object: I,
-  ): ValidatorAccumulatedCommissionRecord {
+  fromPartial(object: Partial<ValidatorAccumulatedCommissionRecord>): ValidatorAccumulatedCommissionRecord {
     const message = createBaseValidatorAccumulatedCommissionRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.accumulated =
@@ -431,9 +426,7 @@ export const ValidatorHistoricalRewardsRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorHistoricalRewardsRecord>, I>>(
-    object: I,
-  ): ValidatorHistoricalRewardsRecord {
+  fromPartial(object: Partial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
     const message = createBaseValidatorHistoricalRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.period =
@@ -507,9 +500,7 @@ export const ValidatorCurrentRewardsRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorCurrentRewardsRecord>, I>>(
-    object: I,
-  ): ValidatorCurrentRewardsRecord {
+  fromPartial(object: Partial<ValidatorCurrentRewardsRecord>): ValidatorCurrentRewardsRecord {
     const message = createBaseValidatorCurrentRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.rewards =
@@ -596,9 +587,7 @@ export const DelegatorStartingInfoRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfoRecord>, I>>(
-    object: I,
-  ): DelegatorStartingInfoRecord {
+  fromPartial(object: Partial<DelegatorStartingInfoRecord>): DelegatorStartingInfoRecord {
     const message = createBaseDelegatorStartingInfoRecord();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -697,9 +686,7 @@ export const ValidatorSlashEventRecord = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEventRecord>, I>>(
-    object: I,
-  ): ValidatorSlashEventRecord {
+  fromPartial(object: Partial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
     const message = createBaseValidatorSlashEventRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.height =
@@ -934,7 +921,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;

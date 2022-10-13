@@ -1,7 +1,6 @@
-//@ts-nocheck
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { isSet } from "../../../helpers";
 export const protobufPackage = "cosmos.base.v1beta1";
 /**
  * Coin defines a token with a denomination and an amount.
@@ -96,7 +95,7 @@ export const Coin = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Coin>, I>>(object: I): Coin {
+  fromPartial(object: Partial<Coin>): Coin {
     const message = createBaseCoin();
     message.denom = object.denom ?? "";
     message.amount = object.amount ?? "";
@@ -164,7 +163,7 @@ export const DecCoin = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DecCoin>, I>>(object: I): DecCoin {
+  fromPartial(object: Partial<DecCoin>): DecCoin {
     const message = createBaseDecCoin();
     message.denom = object.denom ?? "";
     message.amount = object.amount ?? "";
@@ -221,7 +220,7 @@ export const IntProto = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<IntProto>, I>>(object: I): IntProto {
+  fromPartial(object: Partial<IntProto>): IntProto {
     const message = createBaseIntProto();
     message.int = object.int ?? "";
     return message;
@@ -277,7 +276,7 @@ export const DecProto = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DecProto>, I>>(object: I): DecProto {
+  fromPartial(object: Partial<DecProto>): DecProto {
     const message = createBaseDecProto();
     message.dec = object.dec ?? "";
     return message;

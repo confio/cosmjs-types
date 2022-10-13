@@ -1,10 +1,9 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { ConnectionEnd } from "../../../core/connection/v1/connection";
 import { Channel } from "../../../core/channel/v1/channel";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "ibc.lightclients.solomachine.v1";
 /**
  * DataType defines the type of solo machine proof being created. This is done
@@ -388,7 +387,7 @@ export const ClientState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientState>, I>>(object: I): ClientState {
+  fromPartial(object: Partial<ClientState>): ClientState {
     const message = createBaseClientState();
     message.sequence =
       object.sequence !== undefined && object.sequence !== null
@@ -479,7 +478,7 @@ export const ConsensusState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusState>, I>>(object: I): ConsensusState {
+  fromPartial(object: Partial<ConsensusState>): ConsensusState {
     const message = createBaseConsensusState();
     message.publicKey =
       object.publicKey !== undefined && object.publicKey !== null
@@ -591,7 +590,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
+  fromPartial(object: Partial<Header>): Header {
     const message = createBaseHeader();
     message.sequence =
       object.sequence !== undefined && object.sequence !== null
@@ -695,7 +694,7 @@ export const Misbehaviour = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Misbehaviour>, I>>(object: I): Misbehaviour {
+  fromPartial(object: Partial<Misbehaviour>): Misbehaviour {
     const message = createBaseMisbehaviour();
     message.clientId = object.clientId ?? "";
     message.sequence =
@@ -800,7 +799,7 @@ export const SignatureAndData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SignatureAndData>, I>>(object: I): SignatureAndData {
+  fromPartial(object: Partial<SignatureAndData>): SignatureAndData {
     const message = createBaseSignatureAndData();
     message.signature = object.signature ?? new Uint8Array();
     message.dataType = object.dataType ?? 0;
@@ -876,9 +875,7 @@ export const TimestampedSignatureData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TimestampedSignatureData>, I>>(
-    object: I,
-  ): TimestampedSignatureData {
+  fromPartial(object: Partial<TimestampedSignatureData>): TimestampedSignatureData {
     const message = createBaseTimestampedSignatureData();
     message.signatureData = object.signatureData ?? new Uint8Array();
     message.timestamp =
@@ -983,7 +980,7 @@ export const SignBytes = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SignBytes>, I>>(object: I): SignBytes {
+  fromPartial(object: Partial<SignBytes>): SignBytes {
     const message = createBaseSignBytes();
     message.sequence =
       object.sequence !== undefined && object.sequence !== null
@@ -1061,7 +1058,7 @@ export const HeaderData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<HeaderData>, I>>(object: I): HeaderData {
+  fromPartial(object: Partial<HeaderData>): HeaderData {
     const message = createBaseHeaderData();
     message.newPubKey =
       object.newPubKey !== undefined && object.newPubKey !== null
@@ -1134,7 +1131,7 @@ export const ClientStateData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ClientStateData>, I>>(object: I): ClientStateData {
+  fromPartial(object: Partial<ClientStateData>): ClientStateData {
     const message = createBaseClientStateData();
     message.path = object.path ?? new Uint8Array();
     message.clientState =
@@ -1207,7 +1204,7 @@ export const ConsensusStateData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConsensusStateData>, I>>(object: I): ConsensusStateData {
+  fromPartial(object: Partial<ConsensusStateData>): ConsensusStateData {
     const message = createBaseConsensusStateData();
     message.path = object.path ?? new Uint8Array();
     message.consensusState =
@@ -1280,7 +1277,7 @@ export const ConnectionStateData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ConnectionStateData>, I>>(object: I): ConnectionStateData {
+  fromPartial(object: Partial<ConnectionStateData>): ConnectionStateData {
     const message = createBaseConnectionStateData();
     message.path = object.path ?? new Uint8Array();
     message.connection =
@@ -1353,7 +1350,7 @@ export const ChannelStateData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ChannelStateData>, I>>(object: I): ChannelStateData {
+  fromPartial(object: Partial<ChannelStateData>): ChannelStateData {
     const message = createBaseChannelStateData();
     message.path = object.path ?? new Uint8Array();
     message.channel =
@@ -1428,7 +1425,7 @@ export const PacketCommitmentData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PacketCommitmentData>, I>>(object: I): PacketCommitmentData {
+  fromPartial(object: Partial<PacketCommitmentData>): PacketCommitmentData {
     const message = createBasePacketCommitmentData();
     message.path = object.path ?? new Uint8Array();
     message.commitment = object.commitment ?? new Uint8Array();
@@ -1502,9 +1499,7 @@ export const PacketAcknowledgementData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PacketAcknowledgementData>, I>>(
-    object: I,
-  ): PacketAcknowledgementData {
+  fromPartial(object: Partial<PacketAcknowledgementData>): PacketAcknowledgementData {
     const message = createBasePacketAcknowledgementData();
     message.path = object.path ?? new Uint8Array();
     message.acknowledgement = object.acknowledgement ?? new Uint8Array();
@@ -1562,9 +1557,7 @@ export const PacketReceiptAbsenceData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PacketReceiptAbsenceData>, I>>(
-    object: I,
-  ): PacketReceiptAbsenceData {
+  fromPartial(object: Partial<PacketReceiptAbsenceData>): PacketReceiptAbsenceData {
     const message = createBasePacketReceiptAbsenceData();
     message.path = object.path ?? new Uint8Array();
     return message;
@@ -1632,7 +1625,7 @@ export const NextSequenceRecvData = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<NextSequenceRecvData>, I>>(object: I): NextSequenceRecvData {
+  fromPartial(object: Partial<NextSequenceRecvData>): NextSequenceRecvData {
     const message = createBaseNextSequenceRecvData();
     message.path = object.path ?? new Uint8Array();
     message.nextSeqRecv =

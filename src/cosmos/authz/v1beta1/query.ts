@@ -1,9 +1,8 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant, GrantAuthorization } from "./authz";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 
@@ -144,7 +143,7 @@ export const QueryGrantsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGrantsRequest>, I>>(object: I): QueryGrantsRequest {
+  fromPartial(object: Partial<QueryGrantsRequest>): QueryGrantsRequest {
     const message = createBaseQueryGrantsRequest();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -224,7 +223,7 @@ export const QueryGrantsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGrantsResponse>, I>>(object: I): QueryGrantsResponse {
+  fromPartial(object: Partial<QueryGrantsResponse>): QueryGrantsResponse {
     const message = createBaseQueryGrantsResponse();
     message.grants = object.grants?.map((e) => Grant.fromPartial(e)) || [];
     message.pagination =
@@ -296,9 +295,7 @@ export const QueryGranterGrantsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGranterGrantsRequest>, I>>(
-    object: I,
-  ): QueryGranterGrantsRequest {
+  fromPartial(object: Partial<QueryGranterGrantsRequest>): QueryGranterGrantsRequest {
     const message = createBaseQueryGranterGrantsRequest();
     message.granter = object.granter ?? "";
     message.pagination =
@@ -378,9 +375,7 @@ export const QueryGranterGrantsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGranterGrantsResponse>, I>>(
-    object: I,
-  ): QueryGranterGrantsResponse {
+  fromPartial(object: Partial<QueryGranterGrantsResponse>): QueryGranterGrantsResponse {
     const message = createBaseQueryGranterGrantsResponse();
     message.grants = object.grants?.map((e) => GrantAuthorization.fromPartial(e)) || [];
     message.pagination =
@@ -452,9 +447,7 @@ export const QueryGranteeGrantsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGranteeGrantsRequest>, I>>(
-    object: I,
-  ): QueryGranteeGrantsRequest {
+  fromPartial(object: Partial<QueryGranteeGrantsRequest>): QueryGranteeGrantsRequest {
     const message = createBaseQueryGranteeGrantsRequest();
     message.grantee = object.grantee ?? "";
     message.pagination =
@@ -534,9 +527,7 @@ export const QueryGranteeGrantsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryGranteeGrantsResponse>, I>>(
-    object: I,
-  ): QueryGranteeGrantsResponse {
+  fromPartial(object: Partial<QueryGranteeGrantsResponse>): QueryGranteeGrantsResponse {
     const message = createBaseQueryGranteeGrantsResponse();
     message.grants = object.grants?.map((e) => GrantAuthorization.fromPartial(e)) || [];
     message.pagination =
