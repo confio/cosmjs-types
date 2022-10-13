@@ -12,7 +12,7 @@ telescope({
     ],
     outPath: join(__dirname, '/../src'),
     options: {
-        logLevel: 2,
+        logLevel: 0,
         useSDKTypes: false,
         tsDisable: {
             disableAll: false
