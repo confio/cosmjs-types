@@ -5,13 +5,14 @@ const telescope = require('@osmonauts/telescope').default;
 
 telescope({
     protoDirs: [
+        'cosmos-sdk-0.45/proto',
+        'cosmos-sdk-0.45/third_party/proto',
         'wasmd-0.28/proto',
         'wasmd-0.28/third_party/proto',
-        'cosmos-sdk-0.45/proto',
-        'cosmos-sdk-0.45/third_party/proto'
     ],
     outPath: join(__dirname, '/../src'),
     options: {
+        logLevel: 2,
         useSDKTypes: false,
         tsDisable: {
             disableAll: true
