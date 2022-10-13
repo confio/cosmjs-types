@@ -3,6 +3,16 @@
 const { join } = require('path');
 const telescope = require('@osmonauts/telescope').default;
 
+
+const disableExact = {
+    prototypes: {
+        typingsFormat: { 
+            useDeepPartial: true,
+            useExact: false           
+        }
+    }
+};
+
 telescope({
     protoDirs: [
         'cosmos-sdk-0.45/proto',
@@ -74,20 +84,17 @@ telescope({
         },
         packages: {
             google: {
-                prototypes: {
-                    typingsFormat: { 
-                        useDeepPartial: true,
-                        useExact: false           
+                ...disableExact
+            },
+            cosmos: {
+                base: {
+                    tendermint: {
+                        ...disableExact
                     }
-                },
+                }
             },
             tendermint: {
-                prototypes: {
-                    typingsFormat: { 
-                        useDeepPartial: true,
-                        useExact: false           
-                    }
-                },
+                ...disableExact
             }
         }
     }
