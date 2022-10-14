@@ -67,7 +67,14 @@ telescope({
             enabled: true,
             inline: true,
             extensions: false,
-            camelCase: false
+            camelCase: false,
+            enabledServices: [
+                'Msg',
+                'Query',
+                'Service',
+                'ReflectionService',
+                'ABCIApplication'
+            ]
         },
         aminoEncoding: {
             enabled: false
