@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Code generation was migrated from ts-proto to
+  [telescope](https://github.com/osmosis-labs/telescope) (#44). This gives us
+  faster and better Cosmos specific code generation. This might come with minor
+  breaking changes in the 0.6 release series. Feel free to stick to 0.5.x until
+  the end of 2022. Then all potential issues should be fixed.
+
 ## [0.5.2] - 2022-10-11
 
 - Migrate from yarn to npm
