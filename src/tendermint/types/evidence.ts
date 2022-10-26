@@ -1,18 +1,16 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
+import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
-import { LightBlock, Vote } from "./types";
 import { Validator } from "./validator";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, Long, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 export const protobufPackage = "tendermint.types";
-
 export interface Evidence {
-  duplicateVoteEvidence?: DuplicateVoteEvidence | undefined;
-  lightClientAttackEvidence?: LightClientAttackEvidence | undefined;
+  duplicateVoteEvidence?: DuplicateVoteEvidence;
+  lightClientAttackEvidence?: LightClientAttackEvidence;
 }
-
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
+
 export interface DuplicateVoteEvidence {
   voteA?: Vote;
   voteB?: Vote;
@@ -20,8 +18,8 @@ export interface DuplicateVoteEvidence {
   validatorPower: Long;
   timestamp?: Timestamp;
 }
-
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
+
 export interface LightClientAttackEvidence {
   conflictingBlock?: LightBlock;
   commonHeight: Long;
@@ -29,13 +27,15 @@ export interface LightClientAttackEvidence {
   totalVotingPower: Long;
   timestamp?: Timestamp;
 }
-
 export interface EvidenceList {
   evidence: Evidence[];
 }
 
 function createBaseEvidence(): Evidence {
-  return { duplicateVoteEvidence: undefined, lightClientAttackEvidence: undefined };
+  return {
+    duplicateVoteEvidence: undefined,
+    lightClientAttackEvidence: undefined,
+  };
 }
 
 export const Evidence = {
@@ -43,9 +43,11 @@ export const Evidence = {
     if (message.duplicateVoteEvidence !== undefined) {
       DuplicateVoteEvidence.encode(message.duplicateVoteEvidence, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.lightClientAttackEvidence !== undefined) {
       LightClientAttackEvidence.encode(message.lightClientAttackEvidence, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -53,20 +55,25 @@ export const Evidence = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvidence();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.duplicateVoteEvidence = DuplicateVoteEvidence.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.lightClientAttackEvidence = LightClientAttackEvidence.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -94,7 +101,7 @@ export const Evidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
+  fromPartial(object: Partial<Evidence>): Evidence {
     const message = createBaseEvidence();
     message.duplicateVoteEvidence =
       object.duplicateVoteEvidence !== undefined && object.duplicateVoteEvidence !== null
@@ -123,18 +130,23 @@ export const DuplicateVoteEvidence = {
     if (message.voteA !== undefined) {
       Vote.encode(message.voteA, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.voteB !== undefined) {
       Vote.encode(message.voteB, writer.uint32(18).fork()).ldelim();
     }
+
     if (!message.totalVotingPower.isZero()) {
       writer.uint32(24).int64(message.totalVotingPower);
     }
+
     if (!message.validatorPower.isZero()) {
       writer.uint32(32).int64(message.validatorPower);
     }
+
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(42).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -142,29 +154,37 @@ export const DuplicateVoteEvidence = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDuplicateVoteEvidence();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.voteA = Vote.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.voteB = Vote.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.totalVotingPower = reader.int64() as Long;
           break;
+
         case 4:
           message.validatorPower = reader.int64() as Long;
           break;
+
         case 5:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -190,7 +210,7 @@ export const DuplicateVoteEvidence = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(object: I): DuplicateVoteEvidence {
+  fromPartial(object: Partial<DuplicateVoteEvidence>): DuplicateVoteEvidence {
     const message = createBaseDuplicateVoteEvidence();
     message.voteA =
       object.voteA !== undefined && object.voteA !== null ? Vote.fromPartial(object.voteA) : undefined;
@@ -227,18 +247,23 @@ export const LightClientAttackEvidence = {
     if (message.conflictingBlock !== undefined) {
       LightBlock.encode(message.conflictingBlock, writer.uint32(10).fork()).ldelim();
     }
+
     if (!message.commonHeight.isZero()) {
       writer.uint32(16).int64(message.commonHeight);
     }
+
     for (const v of message.byzantineValidators) {
       Validator.encode(v!, writer.uint32(26).fork()).ldelim();
     }
+
     if (!message.totalVotingPower.isZero()) {
       writer.uint32(32).int64(message.totalVotingPower);
     }
+
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(42).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -246,29 +271,37 @@ export const LightClientAttackEvidence = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightClientAttackEvidence();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.conflictingBlock = LightBlock.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.commonHeight = reader.int64() as Long;
           break;
+
         case 3:
           message.byzantineValidators.push(Validator.decode(reader, reader.uint32()));
           break;
+
         case 4:
           message.totalVotingPower = reader.int64() as Long;
           break;
+
         case 5:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -293,20 +326,20 @@ export const LightClientAttackEvidence = {
         ? LightBlock.toJSON(message.conflictingBlock)
         : undefined);
     message.commonHeight !== undefined && (obj.commonHeight = (message.commonHeight || Long.ZERO).toString());
+
     if (message.byzantineValidators) {
       obj.byzantineValidators = message.byzantineValidators.map((e) => (e ? Validator.toJSON(e) : undefined));
     } else {
       obj.byzantineValidators = [];
     }
+
     message.totalVotingPower !== undefined &&
       (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
     message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(
-    object: I,
-  ): LightClientAttackEvidence {
+  fromPartial(object: Partial<LightClientAttackEvidence>): LightClientAttackEvidence {
     const message = createBaseLightClientAttackEvidence();
     message.conflictingBlock =
       object.conflictingBlock !== undefined && object.conflictingBlock !== null
@@ -330,7 +363,9 @@ export const LightClientAttackEvidence = {
 };
 
 function createBaseEvidenceList(): EvidenceList {
-  return { evidence: [] };
+  return {
+    evidence: [],
+  };
 }
 
 export const EvidenceList = {
@@ -338,6 +373,7 @@ export const EvidenceList = {
     for (const v of message.evidence) {
       Evidence.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -345,17 +381,21 @@ export const EvidenceList = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEvidenceList();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.evidence.push(Evidence.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -367,71 +407,19 @@ export const EvidenceList = {
 
   toJSON(message: EvidenceList): unknown {
     const obj: any = {};
+
     if (message.evidence) {
       obj.evidence = message.evidence.map((e) => (e ? Evidence.toJSON(e) : undefined));
     } else {
       obj.evidence = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EvidenceList>, I>>(object: I): EvidenceList {
+  fromPartial(object: Partial<EvidenceList>): EvidenceList {
     const message = createBaseEvidenceList();
     message.evidence = object.evidence?.map((e) => Evidence.fromPartial(e)) || [];
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function toTimestamp(date: Date): Timestamp {
-  const seconds = numberToLong(date.getTime() / 1_000);
-  const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
-}
-
-function fromTimestamp(t: Timestamp): Date {
-  let millis = t.seconds.toNumber() * 1_000;
-  millis += t.nanos / 1_000_000;
-  return new Date(millis);
-}
-
-function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof Date) {
-    return toTimestamp(o);
-  } else if (typeof o === "string") {
-    return toTimestamp(new Date(o));
-  } else {
-    return Timestamp.fromJSON(o);
-  }
-}
-
-function numberToLong(number: number) {
-  return Long.fromNumber(number);
-}
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

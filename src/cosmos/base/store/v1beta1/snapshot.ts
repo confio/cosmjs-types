@@ -1,21 +1,20 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet, Long, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.store.v1beta1";
-
 /** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
-export interface SnapshotItem {
-  store?: SnapshotStoreItem | undefined;
-  iavl?: SnapshotIAVLItem | undefined;
-}
 
+export interface SnapshotItem {
+  store?: SnapshotStoreItem;
+  iavl?: SnapshotIAVLItem;
+}
 /** SnapshotStoreItem contains metadata about a snapshotted store. */
+
 export interface SnapshotStoreItem {
   name: string;
 }
-
 /** SnapshotIAVLItem is an exported IAVL node. */
+
 export interface SnapshotIAVLItem {
   key: Uint8Array;
   value: Uint8Array;
@@ -24,7 +23,10 @@ export interface SnapshotIAVLItem {
 }
 
 function createBaseSnapshotItem(): SnapshotItem {
-  return { store: undefined, iavl: undefined };
+  return {
+    store: undefined,
+    iavl: undefined,
+  };
 }
 
 export const SnapshotItem = {
@@ -32,9 +34,11 @@ export const SnapshotItem = {
     if (message.store !== undefined) {
       SnapshotStoreItem.encode(message.store, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.iavl !== undefined) {
       SnapshotIAVLItem.encode(message.iavl, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -42,20 +46,25 @@ export const SnapshotItem = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshotItem();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.store = SnapshotStoreItem.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.iavl = SnapshotIAVLItem.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -75,7 +84,7 @@ export const SnapshotItem = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SnapshotItem>, I>>(object: I): SnapshotItem {
+  fromPartial(object: Partial<SnapshotItem>): SnapshotItem {
     const message = createBaseSnapshotItem();
     message.store =
       object.store !== undefined && object.store !== null
@@ -90,7 +99,9 @@ export const SnapshotItem = {
 };
 
 function createBaseSnapshotStoreItem(): SnapshotStoreItem {
-  return { name: "" };
+  return {
+    name: "",
+  };
 }
 
 export const SnapshotStoreItem = {
@@ -98,6 +109,7 @@ export const SnapshotStoreItem = {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
+
     return writer;
   },
 
@@ -105,22 +117,28 @@ export const SnapshotStoreItem = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshotStoreItem();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.name = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): SnapshotStoreItem {
-    return { name: isSet(object.name) ? String(object.name) : "" };
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+    };
   },
 
   toJSON(message: SnapshotStoreItem): unknown {
@@ -129,7 +147,7 @@ export const SnapshotStoreItem = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
+  fromPartial(object: Partial<SnapshotStoreItem>): SnapshotStoreItem {
     const message = createBaseSnapshotStoreItem();
     message.name = object.name ?? "";
     return message;
@@ -137,7 +155,12 @@ export const SnapshotStoreItem = {
 };
 
 function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
-  return { key: new Uint8Array(), value: new Uint8Array(), version: Long.ZERO, height: 0 };
+  return {
+    key: new Uint8Array(),
+    value: new Uint8Array(),
+    version: Long.ZERO,
+    height: 0,
+  };
 }
 
 export const SnapshotIAVLItem = {
@@ -145,15 +168,19 @@ export const SnapshotIAVLItem = {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
+
     if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     if (!message.version.isZero()) {
       writer.uint32(24).int64(message.version);
     }
+
     if (message.height !== 0) {
       writer.uint32(32).int32(message.height);
     }
+
     return writer;
   },
 
@@ -161,26 +188,33 @@ export const SnapshotIAVLItem = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshotIAVLItem();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.key = reader.bytes();
           break;
+
         case 2:
           message.value = reader.bytes();
           break;
+
         case 3:
           message.version = reader.int64() as Long;
           break;
+
         case 4:
           message.height = reader.int32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -204,7 +238,7 @@ export const SnapshotIAVLItem = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {
+  fromPartial(object: Partial<SnapshotIAVLItem>): SnapshotIAVLItem {
     const message = createBaseSnapshotIAVLItem();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -214,75 +248,3 @@ export const SnapshotIAVLItem = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

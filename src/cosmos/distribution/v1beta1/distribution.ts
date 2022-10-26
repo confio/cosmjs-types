@@ -1,18 +1,16 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin, DecCoin } from "../../base/v1beta1/coin";
-
+import { DecCoin, Coin } from "../../base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
+import { isSet, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
-
 /** Params defines the set of params for the distribution module. */
+
 export interface Params {
   communityTax: string;
   baseProposerReward: string;
   bonusProposerReward: string;
   withdrawAddrEnabled: boolean;
 }
-
 /**
  * ValidatorHistoricalRewards represents historical rewards for a validator.
  * Height is implicit within the store key.
@@ -27,70 +25,70 @@ export interface Params {
  *  read that record)
  *  + one per validator for the zeroeth period, set on initialization
  */
+
 export interface ValidatorHistoricalRewards {
   cumulativeRewardRatio: DecCoin[];
   referenceCount: number;
 }
-
 /**
  * ValidatorCurrentRewards represents current rewards and current
  * period for a validator kept as a running counter and incremented
  * each block as long as the validator's tokens remain constant.
  */
+
 export interface ValidatorCurrentRewards {
   rewards: DecCoin[];
   period: Long;
 }
-
 /**
  * ValidatorAccumulatedCommission represents accumulated commission
  * for a validator kept as a running counter, can be withdrawn at any time.
  */
+
 export interface ValidatorAccumulatedCommission {
   commission: DecCoin[];
 }
-
 /**
  * ValidatorOutstandingRewards represents outstanding (un-withdrawn) rewards
  * for a validator inexpensive to track, allows simple sanity checks.
  */
+
 export interface ValidatorOutstandingRewards {
   rewards: DecCoin[];
 }
-
 /**
  * ValidatorSlashEvent represents a validator slash event.
  * Height is implicit within the store key.
  * This is needed to calculate appropriate amount of staking tokens
  * for delegations which are withdrawn after a slash has occurred.
  */
+
 export interface ValidatorSlashEvent {
   validatorPeriod: Long;
   fraction: string;
 }
-
 /** ValidatorSlashEvents is a collection of ValidatorSlashEvent messages. */
+
 export interface ValidatorSlashEvents {
   validatorSlashEvents: ValidatorSlashEvent[];
 }
-
 /** FeePool is the global fee pool for distribution. */
+
 export interface FeePool {
   communityPool: DecCoin[];
 }
-
 /**
  * CommunityPoolSpendProposal details a proposal for use of community funds,
  * together with how many coins are proposed to be spent, and to which
  * recipient account.
  */
+
 export interface CommunityPoolSpendProposal {
   title: string;
   description: string;
   recipient: string;
   amount: Coin[];
 }
-
 /**
  * DelegatorStartingInfo represents the starting info for a delegator reward
  * period. It tracks the previous validator period, the delegation's amount of
@@ -99,25 +97,26 @@ export interface CommunityPoolSpendProposal {
  * the delegators within the validator may be left with less than a full token,
  * thus sdk.Dec is used.
  */
+
 export interface DelegatorStartingInfo {
   previousPeriod: Long;
   stake: string;
   height: Long;
 }
-
 /**
  * DelegationDelegatorReward represents the properties
  * of a delegator's delegation reward.
  */
+
 export interface DelegationDelegatorReward {
   validatorAddress: string;
   reward: DecCoin[];
 }
-
 /**
  * CommunityPoolSpendProposalWithDeposit defines a CommunityPoolSpendProposal
  * with a deposit
  */
+
 export interface CommunityPoolSpendProposalWithDeposit {
   title: string;
   description: string;
@@ -127,7 +126,12 @@ export interface CommunityPoolSpendProposalWithDeposit {
 }
 
 function createBaseParams(): Params {
-  return { communityTax: "", baseProposerReward: "", bonusProposerReward: "", withdrawAddrEnabled: false };
+  return {
+    communityTax: "",
+    baseProposerReward: "",
+    bonusProposerReward: "",
+    withdrawAddrEnabled: false,
+  };
 }
 
 export const Params = {
@@ -135,15 +139,19 @@ export const Params = {
     if (message.communityTax !== "") {
       writer.uint32(10).string(message.communityTax);
     }
+
     if (message.baseProposerReward !== "") {
       writer.uint32(18).string(message.baseProposerReward);
     }
+
     if (message.bonusProposerReward !== "") {
       writer.uint32(26).string(message.bonusProposerReward);
     }
+
     if (message.withdrawAddrEnabled === true) {
       writer.uint32(32).bool(message.withdrawAddrEnabled);
     }
+
     return writer;
   },
 
@@ -151,26 +159,33 @@ export const Params = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.communityTax = reader.string();
           break;
+
         case 2:
           message.baseProposerReward = reader.string();
           break;
+
         case 3:
           message.bonusProposerReward = reader.string();
           break;
+
         case 4:
           message.withdrawAddrEnabled = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -192,7 +207,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial(object: Partial<Params>): Params {
     const message = createBaseParams();
     message.communityTax = object.communityTax ?? "";
     message.baseProposerReward = object.baseProposerReward ?? "";
@@ -203,7 +218,10 @@ export const Params = {
 };
 
 function createBaseValidatorHistoricalRewards(): ValidatorHistoricalRewards {
-  return { cumulativeRewardRatio: [], referenceCount: 0 };
+  return {
+    cumulativeRewardRatio: [],
+    referenceCount: 0,
+  };
 }
 
 export const ValidatorHistoricalRewards = {
@@ -211,9 +229,11 @@ export const ValidatorHistoricalRewards = {
     for (const v of message.cumulativeRewardRatio) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.referenceCount !== 0) {
       writer.uint32(16).uint32(message.referenceCount);
     }
+
     return writer;
   },
 
@@ -221,20 +241,25 @@ export const ValidatorHistoricalRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorHistoricalRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.cumulativeRewardRatio.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.referenceCount = reader.uint32();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -249,6 +274,7 @@ export const ValidatorHistoricalRewards = {
 
   toJSON(message: ValidatorHistoricalRewards): unknown {
     const obj: any = {};
+
     if (message.cumulativeRewardRatio) {
       obj.cumulativeRewardRatio = message.cumulativeRewardRatio.map((e) =>
         e ? DecCoin.toJSON(e) : undefined,
@@ -256,13 +282,12 @@ export const ValidatorHistoricalRewards = {
     } else {
       obj.cumulativeRewardRatio = [];
     }
+
     message.referenceCount !== undefined && (obj.referenceCount = Math.round(message.referenceCount));
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorHistoricalRewards>, I>>(
-    object: I,
-  ): ValidatorHistoricalRewards {
+  fromPartial(object: Partial<ValidatorHistoricalRewards>): ValidatorHistoricalRewards {
     const message = createBaseValidatorHistoricalRewards();
     message.cumulativeRewardRatio = object.cumulativeRewardRatio?.map((e) => DecCoin.fromPartial(e)) || [];
     message.referenceCount = object.referenceCount ?? 0;
@@ -271,7 +296,10 @@ export const ValidatorHistoricalRewards = {
 };
 
 function createBaseValidatorCurrentRewards(): ValidatorCurrentRewards {
-  return { rewards: [], period: Long.UZERO };
+  return {
+    rewards: [],
+    period: Long.UZERO,
+  };
 }
 
 export const ValidatorCurrentRewards = {
@@ -279,9 +307,11 @@ export const ValidatorCurrentRewards = {
     for (const v of message.rewards) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (!message.period.isZero()) {
       writer.uint32(16).uint64(message.period);
     }
+
     return writer;
   },
 
@@ -289,20 +319,25 @@ export const ValidatorCurrentRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorCurrentRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rewards.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.period = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -315,16 +350,18 @@ export const ValidatorCurrentRewards = {
 
   toJSON(message: ValidatorCurrentRewards): unknown {
     const obj: any = {};
+
     if (message.rewards) {
       obj.rewards = message.rewards.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.rewards = [];
     }
+
     message.period !== undefined && (obj.period = (message.period || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorCurrentRewards>, I>>(object: I): ValidatorCurrentRewards {
+  fromPartial(object: Partial<ValidatorCurrentRewards>): ValidatorCurrentRewards {
     const message = createBaseValidatorCurrentRewards();
     message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     message.period =
@@ -334,7 +371,9 @@ export const ValidatorCurrentRewards = {
 };
 
 function createBaseValidatorAccumulatedCommission(): ValidatorAccumulatedCommission {
-  return { commission: [] };
+  return {
+    commission: [],
+  };
 }
 
 export const ValidatorAccumulatedCommission = {
@@ -342,6 +381,7 @@ export const ValidatorAccumulatedCommission = {
     for (const v of message.commission) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -349,17 +389,21 @@ export const ValidatorAccumulatedCommission = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorAccumulatedCommission();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.commission.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -373,17 +417,17 @@ export const ValidatorAccumulatedCommission = {
 
   toJSON(message: ValidatorAccumulatedCommission): unknown {
     const obj: any = {};
+
     if (message.commission) {
       obj.commission = message.commission.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.commission = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorAccumulatedCommission>, I>>(
-    object: I,
-  ): ValidatorAccumulatedCommission {
+  fromPartial(object: Partial<ValidatorAccumulatedCommission>): ValidatorAccumulatedCommission {
     const message = createBaseValidatorAccumulatedCommission();
     message.commission = object.commission?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -391,7 +435,9 @@ export const ValidatorAccumulatedCommission = {
 };
 
 function createBaseValidatorOutstandingRewards(): ValidatorOutstandingRewards {
-  return { rewards: [] };
+  return {
+    rewards: [],
+  };
 }
 
 export const ValidatorOutstandingRewards = {
@@ -399,6 +445,7 @@ export const ValidatorOutstandingRewards = {
     for (const v of message.rewards) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -406,17 +453,21 @@ export const ValidatorOutstandingRewards = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorOutstandingRewards();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rewards.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -428,17 +479,17 @@ export const ValidatorOutstandingRewards = {
 
   toJSON(message: ValidatorOutstandingRewards): unknown {
     const obj: any = {};
+
     if (message.rewards) {
       obj.rewards = message.rewards.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.rewards = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorOutstandingRewards>, I>>(
-    object: I,
-  ): ValidatorOutstandingRewards {
+  fromPartial(object: Partial<ValidatorOutstandingRewards>): ValidatorOutstandingRewards {
     const message = createBaseValidatorOutstandingRewards();
     message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -446,7 +497,10 @@ export const ValidatorOutstandingRewards = {
 };
 
 function createBaseValidatorSlashEvent(): ValidatorSlashEvent {
-  return { validatorPeriod: Long.UZERO, fraction: "" };
+  return {
+    validatorPeriod: Long.UZERO,
+    fraction: "",
+  };
 }
 
 export const ValidatorSlashEvent = {
@@ -454,9 +508,11 @@ export const ValidatorSlashEvent = {
     if (!message.validatorPeriod.isZero()) {
       writer.uint32(8).uint64(message.validatorPeriod);
     }
+
     if (message.fraction !== "") {
       writer.uint32(18).string(message.fraction);
     }
+
     return writer;
   },
 
@@ -464,20 +520,25 @@ export const ValidatorSlashEvent = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorSlashEvent();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorPeriod = reader.uint64() as Long;
           break;
+
         case 2:
           message.fraction = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -496,7 +557,7 @@ export const ValidatorSlashEvent = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvent>, I>>(object: I): ValidatorSlashEvent {
+  fromPartial(object: Partial<ValidatorSlashEvent>): ValidatorSlashEvent {
     const message = createBaseValidatorSlashEvent();
     message.validatorPeriod =
       object.validatorPeriod !== undefined && object.validatorPeriod !== null
@@ -508,7 +569,9 @@ export const ValidatorSlashEvent = {
 };
 
 function createBaseValidatorSlashEvents(): ValidatorSlashEvents {
-  return { validatorSlashEvents: [] };
+  return {
+    validatorSlashEvents: [],
+  };
 }
 
 export const ValidatorSlashEvents = {
@@ -516,6 +579,7 @@ export const ValidatorSlashEvents = {
     for (const v of message.validatorSlashEvents) {
       ValidatorSlashEvent.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -523,17 +587,21 @@ export const ValidatorSlashEvents = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorSlashEvents();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorSlashEvents.push(ValidatorSlashEvent.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -547,6 +615,7 @@ export const ValidatorSlashEvents = {
 
   toJSON(message: ValidatorSlashEvents): unknown {
     const obj: any = {};
+
     if (message.validatorSlashEvents) {
       obj.validatorSlashEvents = message.validatorSlashEvents.map((e) =>
         e ? ValidatorSlashEvent.toJSON(e) : undefined,
@@ -554,10 +623,11 @@ export const ValidatorSlashEvents = {
     } else {
       obj.validatorSlashEvents = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvents>, I>>(object: I): ValidatorSlashEvents {
+  fromPartial(object: Partial<ValidatorSlashEvents>): ValidatorSlashEvents {
     const message = createBaseValidatorSlashEvents();
     message.validatorSlashEvents =
       object.validatorSlashEvents?.map((e) => ValidatorSlashEvent.fromPartial(e)) || [];
@@ -566,7 +636,9 @@ export const ValidatorSlashEvents = {
 };
 
 function createBaseFeePool(): FeePool {
-  return { communityPool: [] };
+  return {
+    communityPool: [],
+  };
 }
 
 export const FeePool = {
@@ -574,6 +646,7 @@ export const FeePool = {
     for (const v of message.communityPool) {
       DecCoin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -581,17 +654,21 @@ export const FeePool = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeePool();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.communityPool.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -605,15 +682,17 @@ export const FeePool = {
 
   toJSON(message: FeePool): unknown {
     const obj: any = {};
+
     if (message.communityPool) {
       obj.communityPool = message.communityPool.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.communityPool = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<FeePool>, I>>(object: I): FeePool {
+  fromPartial(object: Partial<FeePool>): FeePool {
     const message = createBaseFeePool();
     message.communityPool = object.communityPool?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -621,7 +700,12 @@ export const FeePool = {
 };
 
 function createBaseCommunityPoolSpendProposal(): CommunityPoolSpendProposal {
-  return { title: "", description: "", recipient: "", amount: [] };
+  return {
+    title: "",
+    description: "",
+    recipient: "",
+    amount: [],
+  };
 }
 
 export const CommunityPoolSpendProposal = {
@@ -629,15 +713,19 @@ export const CommunityPoolSpendProposal = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.recipient !== "") {
       writer.uint32(26).string(message.recipient);
     }
+
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -645,26 +733,33 @@ export const CommunityPoolSpendProposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommunityPoolSpendProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.recipient = reader.string();
           break;
+
         case 4:
           message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -682,17 +777,17 @@ export const CommunityPoolSpendProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined && (obj.description = message.description);
     message.recipient !== undefined && (obj.recipient = message.recipient);
+
     if (message.amount) {
       obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.amount = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposal>, I>>(
-    object: I,
-  ): CommunityPoolSpendProposal {
+  fromPartial(object: Partial<CommunityPoolSpendProposal>): CommunityPoolSpendProposal {
     const message = createBaseCommunityPoolSpendProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -703,7 +798,11 @@ export const CommunityPoolSpendProposal = {
 };
 
 function createBaseDelegatorStartingInfo(): DelegatorStartingInfo {
-  return { previousPeriod: Long.UZERO, stake: "", height: Long.UZERO };
+  return {
+    previousPeriod: Long.UZERO,
+    stake: "",
+    height: Long.UZERO,
+  };
 }
 
 export const DelegatorStartingInfo = {
@@ -711,12 +810,15 @@ export const DelegatorStartingInfo = {
     if (!message.previousPeriod.isZero()) {
       writer.uint32(8).uint64(message.previousPeriod);
     }
+
     if (message.stake !== "") {
       writer.uint32(18).string(message.stake);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(24).uint64(message.height);
     }
+
     return writer;
   },
 
@@ -724,23 +826,29 @@ export const DelegatorStartingInfo = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDelegatorStartingInfo();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.previousPeriod = reader.uint64() as Long;
           break;
+
         case 2:
           message.stake = reader.string();
           break;
+
         case 3:
           message.height = reader.uint64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -761,7 +869,7 @@ export const DelegatorStartingInfo = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfo>, I>>(object: I): DelegatorStartingInfo {
+  fromPartial(object: Partial<DelegatorStartingInfo>): DelegatorStartingInfo {
     const message = createBaseDelegatorStartingInfo();
     message.previousPeriod =
       object.previousPeriod !== undefined && object.previousPeriod !== null
@@ -775,7 +883,10 @@ export const DelegatorStartingInfo = {
 };
 
 function createBaseDelegationDelegatorReward(): DelegationDelegatorReward {
-  return { validatorAddress: "", reward: [] };
+  return {
+    validatorAddress: "",
+    reward: [],
+  };
 }
 
 export const DelegationDelegatorReward = {
@@ -783,9 +894,11 @@ export const DelegationDelegatorReward = {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress);
     }
+
     for (const v of message.reward) {
       DecCoin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -793,20 +906,25 @@ export const DelegationDelegatorReward = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDelegationDelegatorReward();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.validatorAddress = reader.string();
           break;
+
         case 2:
           message.reward.push(DecCoin.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -820,17 +938,17 @@ export const DelegationDelegatorReward = {
   toJSON(message: DelegationDelegatorReward): unknown {
     const obj: any = {};
     message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
+
     if (message.reward) {
       obj.reward = message.reward.map((e) => (e ? DecCoin.toJSON(e) : undefined));
     } else {
       obj.reward = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DelegationDelegatorReward>, I>>(
-    object: I,
-  ): DelegationDelegatorReward {
+  fromPartial(object: Partial<DelegationDelegatorReward>): DelegationDelegatorReward {
     const message = createBaseDelegationDelegatorReward();
     message.validatorAddress = object.validatorAddress ?? "";
     message.reward = object.reward?.map((e) => DecCoin.fromPartial(e)) || [];
@@ -839,7 +957,13 @@ export const DelegationDelegatorReward = {
 };
 
 function createBaseCommunityPoolSpendProposalWithDeposit(): CommunityPoolSpendProposalWithDeposit {
-  return { title: "", description: "", recipient: "", amount: "", deposit: "" };
+  return {
+    title: "",
+    description: "",
+    recipient: "",
+    amount: "",
+    deposit: "",
+  };
 }
 
 export const CommunityPoolSpendProposalWithDeposit = {
@@ -850,18 +974,23 @@ export const CommunityPoolSpendProposalWithDeposit = {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
+
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
+
     if (message.recipient !== "") {
       writer.uint32(26).string(message.recipient);
     }
+
     if (message.amount !== "") {
       writer.uint32(34).string(message.amount);
     }
+
     if (message.deposit !== "") {
       writer.uint32(42).string(message.deposit);
     }
+
     return writer;
   },
 
@@ -869,29 +998,37 @@ export const CommunityPoolSpendProposalWithDeposit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommunityPoolSpendProposalWithDeposit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
+
         case 2:
           message.description = reader.string();
           break;
+
         case 3:
           message.recipient = reader.string();
           break;
+
         case 4:
           message.amount = reader.string();
           break;
+
         case 5:
           message.deposit = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -915,9 +1052,7 @@ export const CommunityPoolSpendProposalWithDeposit = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposalWithDeposit>, I>>(
-    object: I,
-  ): CommunityPoolSpendProposalWithDeposit {
+  fromPartial(object: Partial<CommunityPoolSpendProposalWithDeposit>): CommunityPoolSpendProposalWithDeposit {
     const message = createBaseCommunityPoolSpendProposalWithDeposit();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -927,31 +1062,3 @@ export const CommunityPoolSpendProposalWithDeposit = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

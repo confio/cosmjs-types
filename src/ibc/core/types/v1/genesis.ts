@@ -1,24 +1,29 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
 import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
 import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
-
+import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
+import * as _m0 from "protobufjs/minimal";
+import { isSet } from "../../../../helpers";
 export const protobufPackage = "ibc.core.types.v1";
-
 /** GenesisState defines the ibc module's genesis state. */
+
 export interface GenesisState {
   /** ICS002 - Clients genesis state */
   clientGenesis?: GenesisState1;
   /** ICS003 - Connections genesis state */
+
   connectionGenesis?: GenesisState2;
   /** ICS004 - Channel genesis state */
+
   channelGenesis?: GenesisState3;
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { clientGenesis: undefined, connectionGenesis: undefined, channelGenesis: undefined };
+  return {
+    clientGenesis: undefined,
+    connectionGenesis: undefined,
+    channelGenesis: undefined,
+  };
 }
 
 export const GenesisState = {
@@ -26,12 +31,15 @@ export const GenesisState = {
     if (message.clientGenesis !== undefined) {
       GenesisState1.encode(message.clientGenesis, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.connectionGenesis !== undefined) {
       GenesisState2.encode(message.connectionGenesis, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.channelGenesis !== undefined) {
       GenesisState3.encode(message.channelGenesis, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -39,23 +47,29 @@ export const GenesisState = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisState();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.clientGenesis = GenesisState1.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.connectionGenesis = GenesisState2.decode(reader, reader.uint32());
           break;
+
         case 3:
           message.channelGenesis = GenesisState3.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -86,7 +100,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
+  fromPartial(object: Partial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.clientGenesis =
       object.clientGenesis !== undefined && object.clientGenesis !== null
@@ -103,31 +117,3 @@ export const GenesisState = {
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

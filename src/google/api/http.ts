@@ -1,14 +1,13 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-
+import * as _m0 from "protobufjs/minimal";
+import { isSet } from "../../helpers";
 export const protobufPackage = "google.api";
-
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
  * [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
  * to one or more HTTP REST API methods.
  */
+
 export interface Http {
   /**
    * A list of HTTP configuration rules that apply to individual API methods.
@@ -24,9 +23,9 @@ export interface Http {
    * The default behavior is to not decode RFC 6570 reserved characters in multi
    * segment matches.
    */
+
   fullyDecodeReservedExpansion: boolean;
 }
-
 /**
  * `HttpRule` defines the mapping of an RPC method to one or more HTTP
  * REST API methods. The mapping specifies how different portions of the RPC
@@ -39,6 +38,7 @@ export interface Http {
  * method kind.  The path template can refer to fields in the request
  * message, as in the example below which describes a REST GET
  * operation on a resource collection of messages:
+ *
  *
  *     service Messaging {
  *       rpc GetMessage(GetMessageRequest) returns (Message) {
@@ -79,6 +79,7 @@ export interface Http {
  * pattern automatically become (optional) HTTP query
  * parameters. Assume the following definition of the request message:
  *
+ *
  *     service Messaging {
  *       rpc GetMessage(GetMessageRequest) returns (Message) {
  *         option (google.api.http).get = "/v1/messages/{message_id}";
@@ -92,6 +93,7 @@ export interface Http {
  *       int64 revision = 2;    // becomes a parameter
  *       SubMessage sub = 3;    // `sub.subfield` becomes a parameter
  *     }
+ *
  *
  * This enables a HTTP JSON to RPC mapping as below:
  *
@@ -108,6 +110,7 @@ export interface Http {
  * specifies the mapping. Consider a REST update method on the
  * message resource collection:
  *
+ *
  *     service Messaging {
  *       rpc UpdateMessage(UpdateMessageRequest) returns (Message) {
  *         option (google.api.http) = {
@@ -120,6 +123,7 @@ export interface Http {
  *       string message_id = 1; // mapped to the URL
  *       Message message = 2;   // mapped to the body
  *     }
+ *
  *
  * The following HTTP JSON to RPC mapping is enabled, where the
  * representation of the JSON in the request body is determined by
@@ -146,6 +150,7 @@ export interface Http {
  *       string message_id = 1;
  *       string text = 2;
  *     }
+ *
  *
  * The following HTTP JSON to RPC mapping is enabled:
  *
@@ -176,6 +181,7 @@ export interface Http {
  *       string message_id = 1;
  *       string user_id = 2;
  *     }
+ *
  *
  * This enables the following two alternative HTTP JSON to RPC
  * mappings:
@@ -239,6 +245,7 @@ export interface Http {
  * NOTE: the field paths in variables and in the `body` must not refer to
  * repeated fields or map fields.
  */
+
 export interface HttpRule {
   /**
    * Selects methods to which this rule applies.
@@ -247,53 +254,66 @@ export interface HttpRule {
    */
   selector: string;
   /** Used for listing and getting information about resources. */
-  get: string | undefined;
+
+  get?: string;
   /** Used for updating a resource. */
-  put: string | undefined;
+
+  put?: string;
   /** Used for creating a resource. */
-  post: string | undefined;
+
+  post?: string;
   /** Used for deleting a resource. */
-  delete: string | undefined;
+
+  delete?: string;
   /** Used for updating a resource. */
-  patch: string | undefined;
+
+  patch?: string;
   /**
    * The custom pattern is used for specifying an HTTP method that is not
    * included in the `pattern` field, such as HEAD, or "*" to leave the
    * HTTP method unspecified for this rule. The wild-card rule is useful
    * for services that provide content to Web (HTML) clients.
    */
-  custom?: CustomHttpPattern | undefined;
+
+  custom?: CustomHttpPattern;
   /**
    * The name of the request field whose value is mapped to the HTTP body, or
    * `*` for mapping all fields not captured by the path pattern to the HTTP
    * body. NOTE: the referred field must not be a repeated field and must be
    * present at the top-level of request message type.
    */
+
   body: string;
   /**
    * Optional. The name of the response field whose value is mapped to the HTTP
    * body of response. Other response fields are ignored. When
    * not set, the response message will be used as HTTP body of response.
    */
+
   responseBody: string;
   /**
    * Additional HTTP bindings for the selector. Nested bindings must
    * not contain an `additional_bindings` field themselves (that is,
    * the nesting may only be one level deep).
    */
+
   additionalBindings: HttpRule[];
 }
-
 /** A custom pattern is used for defining custom HTTP verb. */
+
 export interface CustomHttpPattern {
   /** The name of this custom HTTP verb. */
   kind: string;
   /** The path matched by this custom verb. */
+
   path: string;
 }
 
 function createBaseHttp(): Http {
-  return { rules: [], fullyDecodeReservedExpansion: false };
+  return {
+    rules: [],
+    fullyDecodeReservedExpansion: false,
+  };
 }
 
 export const Http = {
@@ -301,9 +321,11 @@ export const Http = {
     for (const v of message.rules) {
       HttpRule.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.fullyDecodeReservedExpansion === true) {
       writer.uint32(16).bool(message.fullyDecodeReservedExpansion);
     }
+
     return writer;
   },
 
@@ -311,20 +333,25 @@ export const Http = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHttp();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rules.push(HttpRule.decode(reader, reader.uint32()));
           break;
+
         case 2:
           message.fullyDecodeReservedExpansion = reader.bool();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -339,17 +366,19 @@ export const Http = {
 
   toJSON(message: Http): unknown {
     const obj: any = {};
+
     if (message.rules) {
       obj.rules = message.rules.map((e) => (e ? HttpRule.toJSON(e) : undefined));
     } else {
       obj.rules = [];
     }
+
     message.fullyDecodeReservedExpansion !== undefined &&
       (obj.fullyDecodeReservedExpansion = message.fullyDecodeReservedExpansion);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Http>, I>>(object: I): Http {
+  fromPartial(object: Partial<Http>): Http {
     const message = createBaseHttp();
     message.rules = object.rules?.map((e) => HttpRule.fromPartial(e)) || [];
     message.fullyDecodeReservedExpansion = object.fullyDecodeReservedExpansion ?? false;
@@ -377,33 +406,43 @@ export const HttpRule = {
     if (message.selector !== "") {
       writer.uint32(10).string(message.selector);
     }
+
     if (message.get !== undefined) {
       writer.uint32(18).string(message.get);
     }
+
     if (message.put !== undefined) {
       writer.uint32(26).string(message.put);
     }
+
     if (message.post !== undefined) {
       writer.uint32(34).string(message.post);
     }
+
     if (message.delete !== undefined) {
       writer.uint32(42).string(message.delete);
     }
+
     if (message.patch !== undefined) {
       writer.uint32(50).string(message.patch);
     }
+
     if (message.custom !== undefined) {
       CustomHttpPattern.encode(message.custom, writer.uint32(66).fork()).ldelim();
     }
+
     if (message.body !== "") {
       writer.uint32(58).string(message.body);
     }
+
     if (message.responseBody !== "") {
       writer.uint32(98).string(message.responseBody);
     }
+
     for (const v of message.additionalBindings) {
       HttpRule.encode(v!, writer.uint32(90).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -411,44 +450,57 @@ export const HttpRule = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHttpRule();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.selector = reader.string();
           break;
+
         case 2:
           message.get = reader.string();
           break;
+
         case 3:
           message.put = reader.string();
           break;
+
         case 4:
           message.post = reader.string();
           break;
+
         case 5:
           message.delete = reader.string();
           break;
+
         case 6:
           message.patch = reader.string();
           break;
+
         case 8:
           message.custom = CustomHttpPattern.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.body = reader.string();
           break;
+
         case 12:
           message.responseBody = reader.string();
           break;
+
         case 11:
           message.additionalBindings.push(HttpRule.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -481,15 +533,17 @@ export const HttpRule = {
       (obj.custom = message.custom ? CustomHttpPattern.toJSON(message.custom) : undefined);
     message.body !== undefined && (obj.body = message.body);
     message.responseBody !== undefined && (obj.responseBody = message.responseBody);
+
     if (message.additionalBindings) {
       obj.additionalBindings = message.additionalBindings.map((e) => (e ? HttpRule.toJSON(e) : undefined));
     } else {
       obj.additionalBindings = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<HttpRule>, I>>(object: I): HttpRule {
+  fromPartial(object: Partial<HttpRule>): HttpRule {
     const message = createBaseHttpRule();
     message.selector = object.selector ?? "";
     message.get = object.get ?? undefined;
@@ -509,7 +563,10 @@ export const HttpRule = {
 };
 
 function createBaseCustomHttpPattern(): CustomHttpPattern {
-  return { kind: "", path: "" };
+  return {
+    kind: "",
+    path: "",
+  };
 }
 
 export const CustomHttpPattern = {
@@ -517,9 +574,11 @@ export const CustomHttpPattern = {
     if (message.kind !== "") {
       writer.uint32(10).string(message.kind);
     }
+
     if (message.path !== "") {
       writer.uint32(18).string(message.path);
     }
+
     return writer;
   },
 
@@ -527,20 +586,25 @@ export const CustomHttpPattern = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomHttpPattern();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.kind = reader.string();
           break;
+
         case 2:
           message.path = reader.string();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -558,38 +622,10 @@ export const CustomHttpPattern = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CustomHttpPattern>, I>>(object: I): CustomHttpPattern {
+  fromPartial(object: Partial<CustomHttpPattern>): CustomHttpPattern {
     const message = createBaseCustomHttpPattern();
     message.kind = object.kind ?? "";
     message.path = object.path ?? "";
     return message;
   },
 };
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}

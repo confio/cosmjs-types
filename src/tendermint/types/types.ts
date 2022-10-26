@@ -1,14 +1,20 @@
 /* eslint-disable */
-import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Timestamp } from "../../google/protobuf/timestamp";
 import { Proof } from "../crypto/proof";
 import { Consensus } from "../version/types";
+import { Timestamp } from "../../google/protobuf/timestamp";
 import { ValidatorSet } from "./validator";
-
+import * as _m0 from "protobufjs/minimal";
+import {
+  isSet,
+  bytesFromBase64,
+  base64FromBytes,
+  Long,
+  fromJsonTimestamp,
+  fromTimestamp,
+} from "../../helpers";
 export const protobufPackage = "tendermint.types";
-
 /** BlockIdFlag indicates which BlcokID the signature is for */
+
 export enum BlockIDFlag {
   BLOCK_ID_FLAG_UNKNOWN = 0,
   BLOCK_ID_FLAG_ABSENT = 1,
@@ -16,111 +22,124 @@ export enum BlockIDFlag {
   BLOCK_ID_FLAG_NIL = 3,
   UNRECOGNIZED = -1,
 }
-
 export function blockIDFlagFromJSON(object: any): BlockIDFlag {
   switch (object) {
     case 0:
     case "BLOCK_ID_FLAG_UNKNOWN":
       return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
+
     case 1:
     case "BLOCK_ID_FLAG_ABSENT":
       return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
+
     case 2:
     case "BLOCK_ID_FLAG_COMMIT":
       return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
+
     case 3:
     case "BLOCK_ID_FLAG_NIL":
       return BlockIDFlag.BLOCK_ID_FLAG_NIL;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return BlockIDFlag.UNRECOGNIZED;
   }
 }
-
 export function blockIDFlagToJSON(object: BlockIDFlag): string {
   switch (object) {
     case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
       return "BLOCK_ID_FLAG_UNKNOWN";
+
     case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
       return "BLOCK_ID_FLAG_ABSENT";
+
     case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
       return "BLOCK_ID_FLAG_COMMIT";
+
     case BlockIDFlag.BLOCK_ID_FLAG_NIL:
       return "BLOCK_ID_FLAG_NIL";
+
     case BlockIDFlag.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
-
 /** SignedMsgType is a type of signed message in the consensus. */
+
 export enum SignedMsgType {
   SIGNED_MSG_TYPE_UNKNOWN = 0,
+
   /** SIGNED_MSG_TYPE_PREVOTE - Votes */
   SIGNED_MSG_TYPE_PREVOTE = 1,
   SIGNED_MSG_TYPE_PRECOMMIT = 2,
+
   /** SIGNED_MSG_TYPE_PROPOSAL - Proposals */
   SIGNED_MSG_TYPE_PROPOSAL = 32,
   UNRECOGNIZED = -1,
 }
-
 export function signedMsgTypeFromJSON(object: any): SignedMsgType {
   switch (object) {
     case 0:
     case "SIGNED_MSG_TYPE_UNKNOWN":
       return SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN;
+
     case 1:
     case "SIGNED_MSG_TYPE_PREVOTE":
       return SignedMsgType.SIGNED_MSG_TYPE_PREVOTE;
+
     case 2:
     case "SIGNED_MSG_TYPE_PRECOMMIT":
       return SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT;
+
     case 32:
     case "SIGNED_MSG_TYPE_PROPOSAL":
       return SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL;
+
     case -1:
     case "UNRECOGNIZED":
     default:
       return SignedMsgType.UNRECOGNIZED;
   }
 }
-
 export function signedMsgTypeToJSON(object: SignedMsgType): string {
   switch (object) {
     case SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN:
       return "SIGNED_MSG_TYPE_UNKNOWN";
+
     case SignedMsgType.SIGNED_MSG_TYPE_PREVOTE:
       return "SIGNED_MSG_TYPE_PREVOTE";
+
     case SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT:
       return "SIGNED_MSG_TYPE_PRECOMMIT";
+
     case SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL:
       return "SIGNED_MSG_TYPE_PROPOSAL";
+
     case SignedMsgType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
 }
-
 /** PartsetHeader */
+
 export interface PartSetHeader {
   total: number;
   hash: Uint8Array;
 }
-
 export interface Part {
   index: number;
   bytes: Uint8Array;
   proof?: Proof;
 }
-
 /** BlockID */
+
 export interface BlockID {
   hash: Uint8Array;
   partSetHeader?: PartSetHeader;
 }
-
 /** Header defines the structure of a Tendermint block header. */
+
 export interface Header {
   /** basic block info */
   version?: Consensus;
@@ -128,28 +147,34 @@ export interface Header {
   height: Long;
   time?: Timestamp;
   /** prev block info */
+
   lastBlockId?: BlockID;
   /** hashes of block data */
+
   lastCommitHash: Uint8Array;
-  /** transactions */
   dataHash: Uint8Array;
   /** hashes from the app output from the prev block */
+
   validatorsHash: Uint8Array;
   /** validators for the next block */
+
   nextValidatorsHash: Uint8Array;
   /** consensus params for current block */
+
   consensusHash: Uint8Array;
   /** state after txs from the previous block */
+
   appHash: Uint8Array;
-  /** root hash of all results from the txs from the previous block */
   lastResultsHash: Uint8Array;
   /** consensus info */
+
   evidenceHash: Uint8Array;
   /** original proposer of the block */
+
   proposerAddress: Uint8Array;
 }
-
 /** Data contains the set of transactions included in the block */
+
 export interface Data {
   /**
    * Txs that will be applied by state @ block.Height+1.
@@ -158,39 +183,37 @@ export interface Data {
    */
   txs: Uint8Array[];
 }
-
 /**
  * Vote represents a prevote, precommit, or commit vote from validators for
  * consensus.
  */
+
 export interface Vote {
   type: SignedMsgType;
   height: Long;
   round: number;
-  /** zero if vote is nil. */
   blockId?: BlockID;
   timestamp?: Timestamp;
   validatorAddress: Uint8Array;
   validatorIndex: number;
   signature: Uint8Array;
 }
-
 /** Commit contains the evidence that a block was committed by a set of validators. */
+
 export interface Commit {
   height: Long;
   round: number;
   blockId?: BlockID;
   signatures: CommitSig[];
 }
-
 /** CommitSig is a part of the Vote included in a Commit. */
+
 export interface CommitSig {
   blockIdFlag: BlockIDFlag;
   validatorAddress: Uint8Array;
   timestamp?: Timestamp;
   signature: Uint8Array;
 }
-
 export interface Proposal {
   type: SignedMsgType;
   height: Long;
@@ -200,25 +223,22 @@ export interface Proposal {
   timestamp?: Timestamp;
   signature: Uint8Array;
 }
-
 export interface SignedHeader {
   header?: Header;
   commit?: Commit;
 }
-
 export interface LightBlock {
   signedHeader?: SignedHeader;
   validatorSet?: ValidatorSet;
 }
-
 export interface BlockMeta {
   blockId?: BlockID;
   blockSize: Long;
   header?: Header;
   numTxs: Long;
 }
-
 /** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
+
 export interface TxProof {
   rootHash: Uint8Array;
   data: Uint8Array;
@@ -226,7 +246,10 @@ export interface TxProof {
 }
 
 function createBasePartSetHeader(): PartSetHeader {
-  return { total: 0, hash: new Uint8Array() };
+  return {
+    total: 0,
+    hash: new Uint8Array(),
+  };
 }
 
 export const PartSetHeader = {
@@ -234,9 +257,11 @@ export const PartSetHeader = {
     if (message.total !== 0) {
       writer.uint32(8).uint32(message.total);
     }
+
     if (message.hash.length !== 0) {
       writer.uint32(18).bytes(message.hash);
     }
+
     return writer;
   },
 
@@ -244,20 +269,25 @@ export const PartSetHeader = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePartSetHeader();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.total = reader.uint32();
           break;
+
         case 2:
           message.hash = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -276,7 +306,7 @@ export const PartSetHeader = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PartSetHeader>, I>>(object: I): PartSetHeader {
+  fromPartial(object: Partial<PartSetHeader>): PartSetHeader {
     const message = createBasePartSetHeader();
     message.total = object.total ?? 0;
     message.hash = object.hash ?? new Uint8Array();
@@ -285,7 +315,11 @@ export const PartSetHeader = {
 };
 
 function createBasePart(): Part {
-  return { index: 0, bytes: new Uint8Array(), proof: undefined };
+  return {
+    index: 0,
+    bytes: new Uint8Array(),
+    proof: undefined,
+  };
 }
 
 export const Part = {
@@ -293,12 +327,15 @@ export const Part = {
     if (message.index !== 0) {
       writer.uint32(8).uint32(message.index);
     }
+
     if (message.bytes.length !== 0) {
       writer.uint32(18).bytes(message.bytes);
     }
+
     if (message.proof !== undefined) {
       Proof.encode(message.proof, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -306,23 +343,29 @@ export const Part = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePart();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.index = reader.uint32();
           break;
+
         case 2:
           message.bytes = reader.bytes();
           break;
+
         case 3:
           message.proof = Proof.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -343,7 +386,7 @@ export const Part = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Part>, I>>(object: I): Part {
+  fromPartial(object: Partial<Part>): Part {
     const message = createBasePart();
     message.index = object.index ?? 0;
     message.bytes = object.bytes ?? new Uint8Array();
@@ -354,7 +397,10 @@ export const Part = {
 };
 
 function createBaseBlockID(): BlockID {
-  return { hash: new Uint8Array(), partSetHeader: undefined };
+  return {
+    hash: new Uint8Array(),
+    partSetHeader: undefined,
+  };
 }
 
 export const BlockID = {
@@ -362,9 +408,11 @@ export const BlockID = {
     if (message.hash.length !== 0) {
       writer.uint32(10).bytes(message.hash);
     }
+
     if (message.partSetHeader !== undefined) {
       PartSetHeader.encode(message.partSetHeader, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -372,20 +420,25 @@ export const BlockID = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockID();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.hash = reader.bytes();
           break;
+
         case 2:
           message.partSetHeader = PartSetHeader.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -405,7 +458,7 @@ export const BlockID = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<BlockID>, I>>(object: I): BlockID {
+  fromPartial(object: Partial<BlockID>): BlockID {
     const message = createBaseBlockID();
     message.hash = object.hash ?? new Uint8Array();
     message.partSetHeader =
@@ -440,45 +493,59 @@ export const Header = {
     if (message.version !== undefined) {
       Consensus.encode(message.version, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.chainId !== "") {
       writer.uint32(18).string(message.chainId);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
+
     if (message.time !== undefined) {
       Timestamp.encode(message.time, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.lastBlockId !== undefined) {
       BlockID.encode(message.lastBlockId, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.lastCommitHash.length !== 0) {
       writer.uint32(50).bytes(message.lastCommitHash);
     }
+
     if (message.dataHash.length !== 0) {
       writer.uint32(58).bytes(message.dataHash);
     }
+
     if (message.validatorsHash.length !== 0) {
       writer.uint32(66).bytes(message.validatorsHash);
     }
+
     if (message.nextValidatorsHash.length !== 0) {
       writer.uint32(74).bytes(message.nextValidatorsHash);
     }
+
     if (message.consensusHash.length !== 0) {
       writer.uint32(82).bytes(message.consensusHash);
     }
+
     if (message.appHash.length !== 0) {
       writer.uint32(90).bytes(message.appHash);
     }
+
     if (message.lastResultsHash.length !== 0) {
       writer.uint32(98).bytes(message.lastResultsHash);
     }
+
     if (message.evidenceHash.length !== 0) {
       writer.uint32(106).bytes(message.evidenceHash);
     }
+
     if (message.proposerAddress.length !== 0) {
       writer.uint32(114).bytes(message.proposerAddress);
     }
+
     return writer;
   },
 
@@ -486,56 +553,73 @@ export const Header = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHeader();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.version = Consensus.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.chainId = reader.string();
           break;
+
         case 3:
           message.height = reader.int64() as Long;
           break;
+
         case 4:
           message.time = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.lastBlockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.lastCommitHash = reader.bytes();
           break;
+
         case 7:
           message.dataHash = reader.bytes();
           break;
+
         case 8:
           message.validatorsHash = reader.bytes();
           break;
+
         case 9:
           message.nextValidatorsHash = reader.bytes();
           break;
+
         case 10:
           message.consensusHash = reader.bytes();
           break;
+
         case 11:
           message.appHash = reader.bytes();
           break;
+
         case 12:
           message.lastResultsHash = reader.bytes();
           break;
+
         case 13:
           message.evidenceHash = reader.bytes();
           break;
+
         case 14:
           message.proposerAddress = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -612,7 +696,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
+  fromPartial(object: Partial<Header>): Header {
     const message = createBaseHeader();
     message.version =
       object.version !== undefined && object.version !== null
@@ -641,7 +725,9 @@ export const Header = {
 };
 
 function createBaseData(): Data {
-  return { txs: [] };
+  return {
+    txs: [],
+  };
 }
 
 export const Data = {
@@ -649,6 +735,7 @@ export const Data = {
     for (const v of message.txs) {
       writer.uint32(10).bytes(v!);
     }
+
     return writer;
   },
 
@@ -656,35 +743,43 @@ export const Data = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseData();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.txs.push(reader.bytes());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): Data {
-    return { txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [] };
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => bytesFromBase64(e)) : [],
+    };
   },
 
   toJSON(message: Data): unknown {
     const obj: any = {};
+
     if (message.txs) {
       obj.txs = message.txs.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
     } else {
       obj.txs = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Data>, I>>(object: I): Data {
+  fromPartial(object: Partial<Data>): Data {
     const message = createBaseData();
     message.txs = object.txs?.map((e) => e) || [];
     return message;
@@ -709,27 +804,35 @@ export const Vote = {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(16).int64(message.height);
     }
+
     if (message.round !== 0) {
       writer.uint32(24).int32(message.round);
     }
+
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.validatorAddress.length !== 0) {
       writer.uint32(50).bytes(message.validatorAddress);
     }
+
     if (message.validatorIndex !== 0) {
       writer.uint32(56).int32(message.validatorIndex);
     }
+
     if (message.signature.length !== 0) {
       writer.uint32(66).bytes(message.signature);
     }
+
     return writer;
   },
 
@@ -737,38 +840,49 @@ export const Vote = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVote();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.int32() as any;
           break;
+
         case 2:
           message.height = reader.int64() as Long;
           break;
+
         case 3:
           message.round = reader.int32();
           break;
+
         case 4:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 5:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.validatorAddress = reader.bytes();
           break;
+
         case 7:
           message.validatorIndex = reader.int32();
           break;
+
         case 8:
           message.signature = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -807,7 +921,7 @@ export const Vote = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Vote>, I>>(object: I): Vote {
+  fromPartial(object: Partial<Vote>): Vote {
     const message = createBaseVote();
     message.type = object.type ?? 0;
     message.height =
@@ -829,7 +943,12 @@ export const Vote = {
 };
 
 function createBaseCommit(): Commit {
-  return { height: Long.ZERO, round: 0, blockId: undefined, signatures: [] };
+  return {
+    height: Long.ZERO,
+    round: 0,
+    blockId: undefined,
+    signatures: [],
+  };
 }
 
 export const Commit = {
@@ -837,15 +956,19 @@ export const Commit = {
     if (!message.height.isZero()) {
       writer.uint32(8).int64(message.height);
     }
+
     if (message.round !== 0) {
       writer.uint32(16).int32(message.round);
     }
+
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(26).fork()).ldelim();
     }
+
     for (const v of message.signatures) {
       CommitSig.encode(v!, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -853,26 +976,33 @@ export const Commit = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommit();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.height = reader.int64() as Long;
           break;
+
         case 2:
           message.round = reader.int32();
           break;
+
         case 3:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.signatures.push(CommitSig.decode(reader, reader.uint32()));
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -893,15 +1023,17 @@ export const Commit = {
     message.round !== undefined && (obj.round = Math.round(message.round));
     message.blockId !== undefined &&
       (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined);
+
     if (message.signatures) {
       obj.signatures = message.signatures.map((e) => (e ? CommitSig.toJSON(e) : undefined));
     } else {
       obj.signatures = [];
     }
+
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Commit>, I>>(object: I): Commit {
+  fromPartial(object: Partial<Commit>): Commit {
     const message = createBaseCommit();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -929,15 +1061,19 @@ export const CommitSig = {
     if (message.blockIdFlag !== 0) {
       writer.uint32(8).int32(message.blockIdFlag);
     }
+
     if (message.validatorAddress.length !== 0) {
       writer.uint32(18).bytes(message.validatorAddress);
     }
+
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.signature.length !== 0) {
       writer.uint32(34).bytes(message.signature);
     }
+
     return writer;
   },
 
@@ -945,26 +1081,33 @@ export const CommitSig = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCommitSig();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockIdFlag = reader.int32() as any;
           break;
+
         case 2:
           message.validatorAddress = reader.bytes();
           break;
+
         case 3:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.signature = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -994,7 +1137,7 @@ export const CommitSig = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CommitSig>, I>>(object: I): CommitSig {
+  fromPartial(object: Partial<CommitSig>): CommitSig {
     const message = createBaseCommitSig();
     message.blockIdFlag = object.blockIdFlag ?? 0;
     message.validatorAddress = object.validatorAddress ?? new Uint8Array();
@@ -1024,24 +1167,31 @@ export const Proposal = {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
+
     if (!message.height.isZero()) {
       writer.uint32(16).int64(message.height);
     }
+
     if (message.round !== 0) {
       writer.uint32(24).int32(message.round);
     }
+
     if (message.polRound !== 0) {
       writer.uint32(32).int32(message.polRound);
     }
+
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(50).fork()).ldelim();
     }
+
     if (message.signature.length !== 0) {
       writer.uint32(58).bytes(message.signature);
     }
+
     return writer;
   },
 
@@ -1049,35 +1199,45 @@ export const Proposal = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProposal();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.type = reader.int32() as any;
           break;
+
         case 2:
           message.height = reader.int64() as Long;
           break;
+
         case 3:
           message.round = reader.int32();
           break;
+
         case 4:
           message.polRound = reader.int32();
           break;
+
         case 5:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 6:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+
         case 7:
           message.signature = reader.bytes();
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1109,7 +1269,7 @@ export const Proposal = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Proposal>, I>>(object: I): Proposal {
+  fromPartial(object: Partial<Proposal>): Proposal {
     const message = createBaseProposal();
     message.type = object.type ?? 0;
     message.height =
@@ -1130,7 +1290,10 @@ export const Proposal = {
 };
 
 function createBaseSignedHeader(): SignedHeader {
-  return { header: undefined, commit: undefined };
+  return {
+    header: undefined,
+    commit: undefined,
+  };
 }
 
 export const SignedHeader = {
@@ -1138,9 +1301,11 @@ export const SignedHeader = {
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.commit !== undefined) {
       Commit.encode(message.commit, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1148,20 +1313,25 @@ export const SignedHeader = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignedHeader();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.header = Header.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.commit = Commit.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1179,7 +1349,7 @@ export const SignedHeader = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SignedHeader>, I>>(object: I): SignedHeader {
+  fromPartial(object: Partial<SignedHeader>): SignedHeader {
     const message = createBaseSignedHeader();
     message.header =
       object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;
@@ -1190,7 +1360,10 @@ export const SignedHeader = {
 };
 
 function createBaseLightBlock(): LightBlock {
-  return { signedHeader: undefined, validatorSet: undefined };
+  return {
+    signedHeader: undefined,
+    validatorSet: undefined,
+  };
 }
 
 export const LightBlock = {
@@ -1198,9 +1371,11 @@ export const LightBlock = {
     if (message.signedHeader !== undefined) {
       SignedHeader.encode(message.signedHeader, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.validatorSet !== undefined) {
       ValidatorSet.encode(message.validatorSet, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1208,20 +1383,25 @@ export const LightBlock = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightBlock();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.signedHeader = SignedHeader.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.validatorSet = ValidatorSet.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1241,7 +1421,7 @@ export const LightBlock = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LightBlock>, I>>(object: I): LightBlock {
+  fromPartial(object: Partial<LightBlock>): LightBlock {
     const message = createBaseLightBlock();
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
@@ -1256,7 +1436,12 @@ export const LightBlock = {
 };
 
 function createBaseBlockMeta(): BlockMeta {
-  return { blockId: undefined, blockSize: Long.ZERO, header: undefined, numTxs: Long.ZERO };
+  return {
+    blockId: undefined,
+    blockSize: Long.ZERO,
+    header: undefined,
+    numTxs: Long.ZERO,
+  };
 }
 
 export const BlockMeta = {
@@ -1264,15 +1449,19 @@ export const BlockMeta = {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim();
     }
+
     if (!message.blockSize.isZero()) {
       writer.uint32(16).int64(message.blockSize);
     }
+
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(26).fork()).ldelim();
     }
+
     if (!message.numTxs.isZero()) {
       writer.uint32(32).int64(message.numTxs);
     }
+
     return writer;
   },
 
@@ -1280,26 +1469,33 @@ export const BlockMeta = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockMeta();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.blockId = BlockID.decode(reader, reader.uint32());
           break;
+
         case 2:
           message.blockSize = reader.int64() as Long;
           break;
+
         case 3:
           message.header = Header.decode(reader, reader.uint32());
           break;
+
         case 4:
           message.numTxs = reader.int64() as Long;
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1322,7 +1518,7 @@ export const BlockMeta = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<BlockMeta>, I>>(object: I): BlockMeta {
+  fromPartial(object: Partial<BlockMeta>): BlockMeta {
     const message = createBaseBlockMeta();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -1341,7 +1537,11 @@ export const BlockMeta = {
 };
 
 function createBaseTxProof(): TxProof {
-  return { rootHash: new Uint8Array(), data: new Uint8Array(), proof: undefined };
+  return {
+    rootHash: new Uint8Array(),
+    data: new Uint8Array(),
+    proof: undefined,
+  };
 }
 
 export const TxProof = {
@@ -1349,12 +1549,15 @@ export const TxProof = {
     if (message.rootHash.length !== 0) {
       writer.uint32(10).bytes(message.rootHash);
     }
+
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
+
     if (message.proof !== undefined) {
       Proof.encode(message.proof, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
@@ -1362,23 +1565,29 @@ export const TxProof = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxProof();
+
     while (reader.pos < end) {
       const tag = reader.uint32();
+
       switch (tag >>> 3) {
         case 1:
           message.rootHash = reader.bytes();
           break;
+
         case 2:
           message.data = reader.bytes();
           break;
+
         case 3:
           message.proof = Proof.decode(reader, reader.uint32());
           break;
+
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -1400,7 +1609,7 @@ export const TxProof = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TxProof>, I>>(object: I): TxProof {
+  fromPartial(object: Partial<TxProof>): TxProof {
     const message = createBaseTxProof();
     message.rootHash = object.rootHash ?? new Uint8Array();
     message.data = object.data ?? new Uint8Array();
@@ -1409,101 +1618,3 @@ export const TxProof = {
     return message;
   },
 };
-
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
-function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
-}
-
-function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
-}
-
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
-
-function toTimestamp(date: Date): Timestamp {
-  const seconds = numberToLong(date.getTime() / 1_000);
-  const nanos = (date.getTime() % 1_000) * 1_000_000;
-  return { seconds, nanos };
-}
-
-function fromTimestamp(t: Timestamp): Date {
-  let millis = t.seconds.toNumber() * 1_000;
-  millis += t.nanos / 1_000_000;
-  return new Date(millis);
-}
-
-function fromJsonTimestamp(o: any): Timestamp {
-  if (o instanceof Date) {
-    return toTimestamp(o);
-  } else if (typeof o === "string") {
-    return toTimestamp(new Date(o));
-  } else {
-    return Timestamp.fromJSON(o);
-  }
-}
-
-function numberToLong(number: number) {
-  return Long.fromNumber(number);
-}
-
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-  _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
-}
