@@ -101,6 +101,16 @@ telescope({
     const patched = original.replace(/export type DeepPartial(.*?);/gms, patchedDeepPartial);
     writeFileSync(`${outPath}/helpers.ts`, patched);
 
+    // Create index.ts
+    const index_ts = `
+    // Auto-generated, see scripts/codegen.js!
+
+    // Exports we want to provide at the root of the "cosmjs-types" package
+
+    export { DeepPartial, Exact } from "./helpers";
+    `;
+    writeFileSync(`${outPath}/index.ts`, index_ts);
+
     console.log('✨ All Done!');
 }, (e) => {
     console.error(e);
