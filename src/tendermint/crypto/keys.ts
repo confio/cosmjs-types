@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.crypto";
 /** PublicKey defines the keys available for use with Tendermint Validators */
 
@@ -71,7 +71,7 @@ export const PublicKey = {
     return obj;
   },
 
-  fromPartial(object: Partial<PublicKey>): PublicKey {
+  fromPartial<I extends Exact<DeepPartial<PublicKey>, I>>(object: I): PublicKey {
     const message = createBasePublicKey();
     message.ed25519 = object.ed25519 ?? undefined;
     message.secp256k1 = object.secp256k1 ?? undefined;

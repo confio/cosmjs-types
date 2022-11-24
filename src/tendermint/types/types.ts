@@ -8,6 +8,8 @@ import {
   isSet,
   bytesFromBase64,
   base64FromBytes,
+  DeepPartial,
+  Exact,
   Long,
   fromJsonTimestamp,
   fromTimestamp,
@@ -306,7 +308,7 @@ export const PartSetHeader = {
     return obj;
   },
 
-  fromPartial(object: Partial<PartSetHeader>): PartSetHeader {
+  fromPartial<I extends Exact<DeepPartial<PartSetHeader>, I>>(object: I): PartSetHeader {
     const message = createBasePartSetHeader();
     message.total = object.total ?? 0;
     message.hash = object.hash ?? new Uint8Array();
@@ -386,7 +388,7 @@ export const Part = {
     return obj;
   },
 
-  fromPartial(object: Partial<Part>): Part {
+  fromPartial<I extends Exact<DeepPartial<Part>, I>>(object: I): Part {
     const message = createBasePart();
     message.index = object.index ?? 0;
     message.bytes = object.bytes ?? new Uint8Array();
@@ -458,7 +460,7 @@ export const BlockID = {
     return obj;
   },
 
-  fromPartial(object: Partial<BlockID>): BlockID {
+  fromPartial<I extends Exact<DeepPartial<BlockID>, I>>(object: I): BlockID {
     const message = createBaseBlockID();
     message.hash = object.hash ?? new Uint8Array();
     message.partSetHeader =
@@ -696,7 +698,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial(object: Partial<Header>): Header {
+  fromPartial<I extends Exact<DeepPartial<Header>, I>>(object: I): Header {
     const message = createBaseHeader();
     message.version =
       object.version !== undefined && object.version !== null
@@ -779,7 +781,7 @@ export const Data = {
     return obj;
   },
 
-  fromPartial(object: Partial<Data>): Data {
+  fromPartial<I extends Exact<DeepPartial<Data>, I>>(object: I): Data {
     const message = createBaseData();
     message.txs = object.txs?.map((e) => e) || [];
     return message;
@@ -921,7 +923,7 @@ export const Vote = {
     return obj;
   },
 
-  fromPartial(object: Partial<Vote>): Vote {
+  fromPartial<I extends Exact<DeepPartial<Vote>, I>>(object: I): Vote {
     const message = createBaseVote();
     message.type = object.type ?? 0;
     message.height =
@@ -1033,7 +1035,7 @@ export const Commit = {
     return obj;
   },
 
-  fromPartial(object: Partial<Commit>): Commit {
+  fromPartial<I extends Exact<DeepPartial<Commit>, I>>(object: I): Commit {
     const message = createBaseCommit();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -1137,7 +1139,7 @@ export const CommitSig = {
     return obj;
   },
 
-  fromPartial(object: Partial<CommitSig>): CommitSig {
+  fromPartial<I extends Exact<DeepPartial<CommitSig>, I>>(object: I): CommitSig {
     const message = createBaseCommitSig();
     message.blockIdFlag = object.blockIdFlag ?? 0;
     message.validatorAddress = object.validatorAddress ?? new Uint8Array();
@@ -1269,7 +1271,7 @@ export const Proposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<Proposal>): Proposal {
+  fromPartial<I extends Exact<DeepPartial<Proposal>, I>>(object: I): Proposal {
     const message = createBaseProposal();
     message.type = object.type ?? 0;
     message.height =
@@ -1349,7 +1351,7 @@ export const SignedHeader = {
     return obj;
   },
 
-  fromPartial(object: Partial<SignedHeader>): SignedHeader {
+  fromPartial<I extends Exact<DeepPartial<SignedHeader>, I>>(object: I): SignedHeader {
     const message = createBaseSignedHeader();
     message.header =
       object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;
@@ -1421,7 +1423,7 @@ export const LightBlock = {
     return obj;
   },
 
-  fromPartial(object: Partial<LightBlock>): LightBlock {
+  fromPartial<I extends Exact<DeepPartial<LightBlock>, I>>(object: I): LightBlock {
     const message = createBaseLightBlock();
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
@@ -1518,7 +1520,7 @@ export const BlockMeta = {
     return obj;
   },
 
-  fromPartial(object: Partial<BlockMeta>): BlockMeta {
+  fromPartial<I extends Exact<DeepPartial<BlockMeta>, I>>(object: I): BlockMeta {
     const message = createBaseBlockMeta();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -1609,7 +1611,7 @@ export const TxProof = {
     return obj;
   },
 
-  fromPartial(object: Partial<TxProof>): TxProof {
+  fromPartial<I extends Exact<DeepPartial<TxProof>, I>>(object: I): TxProof {
     const message = createBaseTxProof();
     message.rootHash = object.rootHash ?? new Uint8Array();
     message.data = object.data ?? new Uint8Array();

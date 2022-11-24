@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Grant } from "./feegrant";
 import * as _m0 from "protobufjs/minimal";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /** GenesisState contains a set of fee allowances, persisted from the store */
 
@@ -65,7 +66,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     return message;

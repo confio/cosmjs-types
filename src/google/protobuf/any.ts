@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "google.protobuf";
 /**
  * `Any` contains an arbitrary serialized protocol buffer message along with a
@@ -181,7 +181,7 @@ export const Any = {
     return obj;
   },
 
-  fromPartial(object: Partial<Any>): Any {
+  fromPartial<I extends Exact<DeepPartial<Any>, I>>(object: I): Any {
     const message = createBaseAny();
     message.typeUrl = object.typeUrl ?? "";
     message.value = object.value ?? new Uint8Array();

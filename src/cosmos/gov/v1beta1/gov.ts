@@ -6,6 +6,8 @@ import { Duration } from "../../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";
 import {
   isSet,
+  DeepPartial,
+  Exact,
   Long,
   fromJsonTimestamp,
   fromTimestamp,
@@ -344,7 +346,7 @@ export const WeightedVoteOption = {
     return obj;
   },
 
-  fromPartial(object: Partial<WeightedVoteOption>): WeightedVoteOption {
+  fromPartial<I extends Exact<DeepPartial<WeightedVoteOption>, I>>(object: I): WeightedVoteOption {
     const message = createBaseWeightedVoteOption();
     message.option = object.option ?? 0;
     message.weight = object.weight ?? "";
@@ -412,7 +414,7 @@ export const TextProposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<TextProposal>): TextProposal {
+  fromPartial<I extends Exact<DeepPartial<TextProposal>, I>>(object: I): TextProposal {
     const message = createBaseTextProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -497,7 +499,7 @@ export const Deposit = {
     return obj;
   },
 
-  fromPartial(object: Partial<Deposit>): Deposit {
+  fromPartial<I extends Exact<DeepPartial<Deposit>, I>>(object: I): Deposit {
     const message = createBaseDeposit();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -663,7 +665,7 @@ export const Proposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<Proposal>): Proposal {
+  fromPartial<I extends Exact<DeepPartial<Proposal>, I>>(object: I): Proposal {
     const message = createBaseProposal();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -779,7 +781,7 @@ export const TallyResult = {
     return obj;
   },
 
-  fromPartial(object: Partial<TallyResult>): TallyResult {
+  fromPartial<I extends Exact<DeepPartial<TallyResult>, I>>(object: I): TallyResult {
     const message = createBaseTallyResult();
     message.yes = object.yes ?? "";
     message.abstain = object.abstain ?? "";
@@ -879,7 +881,7 @@ export const Vote = {
     return obj;
   },
 
-  fromPartial(object: Partial<Vote>): Vote {
+  fromPartial<I extends Exact<DeepPartial<Vote>, I>>(object: I): Vote {
     const message = createBaseVote();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -965,7 +967,7 @@ export const DepositParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<DepositParams>): DepositParams {
+  fromPartial<I extends Exact<DeepPartial<DepositParams>, I>>(object: I): DepositParams {
     const message = createBaseDepositParams();
     message.minDeposit = object.minDeposit?.map((e) => Coin.fromPartial(e)) || [];
     message.maxDepositPeriod =
@@ -1026,7 +1028,7 @@ export const VotingParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<VotingParams>): VotingParams {
+  fromPartial<I extends Exact<DeepPartial<VotingParams>, I>>(object: I): VotingParams {
     const message = createBaseVotingParams();
     message.votingPeriod =
       object.votingPeriod !== undefined && object.votingPeriod !== null
@@ -1114,7 +1116,7 @@ export const TallyParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<TallyParams>): TallyParams {
+  fromPartial<I extends Exact<DeepPartial<TallyParams>, I>>(object: I): TallyParams {
     const message = createBaseTallyParams();
     message.quorum = object.quorum ?? new Uint8Array();
     message.threshold = object.threshold ?? new Uint8Array();

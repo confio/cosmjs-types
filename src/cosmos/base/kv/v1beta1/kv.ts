@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.kv.v1beta1";
 /** Pairs defines a repeated slice of Pair objects. */
 
@@ -69,7 +69,7 @@ export const Pairs = {
     return obj;
   },
 
-  fromPartial(object: Partial<Pairs>): Pairs {
+  fromPartial<I extends Exact<DeepPartial<Pairs>, I>>(object: I): Pairs {
     const message = createBasePairs();
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
@@ -138,7 +138,7 @@ export const Pair = {
     return obj;
   },
 
-  fromPartial(object: Partial<Pair>): Pair {
+  fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
     const message = createBasePair();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();

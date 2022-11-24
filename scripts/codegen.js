@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 const { join } = require('path');
+const { readFileSync, writeFileSync } = require('fs');
 const telescope = require('@osmonauts/telescope').default;
+
+const outPath = join(__dirname, '/../src');
 
 telescope({
     protoDirs: [
@@ -10,7 +13,7 @@ telescope({
         'wasmd-0.28/proto',
         'wasmd-0.28/third_party/proto',
     ],
-    outPath: join(__dirname, '/../src'),
+    outPath: outPath,
     options: {
         logLevel: 0,
         useSDKTypes: false,
@@ -53,9 +56,9 @@ telescope({
                 fromJSON: true,
                 toJSON: true
             },
-            typingsFormat: { 
-                useDeepPartial: false,
-                useExact: false,
+            typingsFormat: {
+                useDeepPartial: true,
+                useExact: true,
                 timestamp: 'timestamp',
                 duration: 'duration'
             }
@@ -81,6 +84,33 @@ telescope({
         }
     }
 }).then(() => {
+    // See https://github.com/osmosis-labs/telescope/issues/187#issuecomment-1326674760
+    const original = readFileSync(`${outPath}/helpers.ts`).toString("utf-8");
+    const patchedDeepPartial = `
+      export type DeepPartial<T> = T extends Builtin
+        ? T
+        : T extends Long
+        ? string | number | Long
+        : T extends Array<infer U>
+        ? Array<DeepPartial<U>>
+        : T extends ReadonlyArray<infer U>
+        ? ReadonlyArray<DeepPartial<U>>
+        : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;`;
+    const patched = original.replace(/export type DeepPartial(.*?);/gms, patchedDeepPartial);
+    writeFileSync(`${outPath}/helpers.ts`, patched);
+
+    // Create index.ts
+    const index_ts = `
+    // Auto-generated, see scripts/codegen.js!
+
+    // Exports we want to provide at the root of the "cosmjs-types" package
+
+    export { DeepPartial, Exact } from "./helpers";
+    `;
+    writeFileSync(`${outPath}/index.ts`, index_ts);
+
     console.log('✨ All Done!');
 }, (e) => {
     console.error(e);

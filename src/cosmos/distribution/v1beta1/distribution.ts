@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { DecCoin, Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Long } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 /** Params defines the set of params for the distribution module. */
 
@@ -207,7 +207,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: Partial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.communityTax = object.communityTax ?? "";
     message.baseProposerReward = object.baseProposerReward ?? "";
@@ -287,7 +287,9 @@ export const ValidatorHistoricalRewards = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorHistoricalRewards>): ValidatorHistoricalRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorHistoricalRewards>, I>>(
+    object: I,
+  ): ValidatorHistoricalRewards {
     const message = createBaseValidatorHistoricalRewards();
     message.cumulativeRewardRatio = object.cumulativeRewardRatio?.map((e) => DecCoin.fromPartial(e)) || [];
     message.referenceCount = object.referenceCount ?? 0;
@@ -361,7 +363,7 @@ export const ValidatorCurrentRewards = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorCurrentRewards>): ValidatorCurrentRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorCurrentRewards>, I>>(object: I): ValidatorCurrentRewards {
     const message = createBaseValidatorCurrentRewards();
     message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     message.period =
@@ -427,7 +429,9 @@ export const ValidatorAccumulatedCommission = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorAccumulatedCommission>): ValidatorAccumulatedCommission {
+  fromPartial<I extends Exact<DeepPartial<ValidatorAccumulatedCommission>, I>>(
+    object: I,
+  ): ValidatorAccumulatedCommission {
     const message = createBaseValidatorAccumulatedCommission();
     message.commission = object.commission?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -489,7 +493,9 @@ export const ValidatorOutstandingRewards = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorOutstandingRewards>): ValidatorOutstandingRewards {
+  fromPartial<I extends Exact<DeepPartial<ValidatorOutstandingRewards>, I>>(
+    object: I,
+  ): ValidatorOutstandingRewards {
     const message = createBaseValidatorOutstandingRewards();
     message.rewards = object.rewards?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -557,7 +563,7 @@ export const ValidatorSlashEvent = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorSlashEvent>): ValidatorSlashEvent {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvent>, I>>(object: I): ValidatorSlashEvent {
     const message = createBaseValidatorSlashEvent();
     message.validatorPeriod =
       object.validatorPeriod !== undefined && object.validatorPeriod !== null
@@ -627,7 +633,7 @@ export const ValidatorSlashEvents = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorSlashEvents>): ValidatorSlashEvents {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSlashEvents>, I>>(object: I): ValidatorSlashEvents {
     const message = createBaseValidatorSlashEvents();
     message.validatorSlashEvents =
       object.validatorSlashEvents?.map((e) => ValidatorSlashEvent.fromPartial(e)) || [];
@@ -692,7 +698,7 @@ export const FeePool = {
     return obj;
   },
 
-  fromPartial(object: Partial<FeePool>): FeePool {
+  fromPartial<I extends Exact<DeepPartial<FeePool>, I>>(object: I): FeePool {
     const message = createBaseFeePool();
     message.communityPool = object.communityPool?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
@@ -787,7 +793,9 @@ export const CommunityPoolSpendProposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<CommunityPoolSpendProposal>): CommunityPoolSpendProposal {
+  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposal>, I>>(
+    object: I,
+  ): CommunityPoolSpendProposal {
     const message = createBaseCommunityPoolSpendProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -869,7 +877,7 @@ export const DelegatorStartingInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<DelegatorStartingInfo>): DelegatorStartingInfo {
+  fromPartial<I extends Exact<DeepPartial<DelegatorStartingInfo>, I>>(object: I): DelegatorStartingInfo {
     const message = createBaseDelegatorStartingInfo();
     message.previousPeriod =
       object.previousPeriod !== undefined && object.previousPeriod !== null
@@ -948,7 +956,9 @@ export const DelegationDelegatorReward = {
     return obj;
   },
 
-  fromPartial(object: Partial<DelegationDelegatorReward>): DelegationDelegatorReward {
+  fromPartial<I extends Exact<DeepPartial<DelegationDelegatorReward>, I>>(
+    object: I,
+  ): DelegationDelegatorReward {
     const message = createBaseDelegationDelegatorReward();
     message.validatorAddress = object.validatorAddress ?? "";
     message.reward = object.reward?.map((e) => DecCoin.fromPartial(e)) || [];
@@ -1052,7 +1062,9 @@ export const CommunityPoolSpendProposalWithDeposit = {
     return obj;
   },
 
-  fromPartial(object: Partial<CommunityPoolSpendProposalWithDeposit>): CommunityPoolSpendProposalWithDeposit {
+  fromPartial<I extends Exact<DeepPartial<CommunityPoolSpendProposalWithDeposit>, I>>(
+    object: I,
+  ): CommunityPoolSpendProposalWithDeposit {
     const message = createBaseCommunityPoolSpendProposalWithDeposit();
     message.title = object.title ?? "";
     message.description = object.description ?? "";

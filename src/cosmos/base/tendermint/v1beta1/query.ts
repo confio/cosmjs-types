@@ -5,7 +5,7 @@ import { BlockID } from "../../../../tendermint/types/types";
 import { Block } from "../../../../tendermint/types/block";
 import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, Rpc } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 
@@ -172,7 +172,9 @@ export const GetValidatorSetByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetValidatorSetByHeightRequest>): GetValidatorSetByHeightRequest {
+  fromPartial<I extends Exact<DeepPartial<GetValidatorSetByHeightRequest>, I>>(
+    object: I,
+  ): GetValidatorSetByHeightRequest {
     const message = createBaseGetValidatorSetByHeightRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -264,7 +266,9 @@ export const GetValidatorSetByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
+  fromPartial<I extends Exact<DeepPartial<GetValidatorSetByHeightResponse>, I>>(
+    object: I,
+  ): GetValidatorSetByHeightResponse {
     const message = createBaseGetValidatorSetByHeightResponse();
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -329,7 +333,9 @@ export const GetLatestValidatorSetRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestValidatorSetRequest>): GetLatestValidatorSetRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetRequest>, I>>(
+    object: I,
+  ): GetLatestValidatorSetRequest {
     const message = createBaseGetLatestValidatorSetRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -419,7 +425,9 @@ export const GetLatestValidatorSetResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
+  fromPartial<I extends Exact<DeepPartial<GetLatestValidatorSetResponse>, I>>(
+    object: I,
+  ): GetLatestValidatorSetResponse {
     const message = createBaseGetLatestValidatorSetResponse();
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -517,7 +525,7 @@ export const Validator = {
     return obj;
   },
 
-  fromPartial(object: Partial<Validator>): Validator {
+  fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator();
     message.address = object.address ?? "";
     message.pubKey =
@@ -583,7 +591,7 @@ export const GetBlockByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockByHeightRequest>): GetBlockByHeightRequest {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightRequest>, I>>(object: I): GetBlockByHeightRequest {
     const message = createBaseGetBlockByHeightRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -652,7 +660,9 @@ export const GetBlockByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockByHeightResponse>): GetBlockByHeightResponse {
+  fromPartial<I extends Exact<DeepPartial<GetBlockByHeightResponse>, I>>(
+    object: I,
+  ): GetBlockByHeightResponse {
     const message = createBaseGetBlockByHeightResponse();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -700,7 +710,7 @@ export const GetLatestBlockRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetLatestBlockRequest>): GetLatestBlockRequest {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockRequest>, I>>(_: I): GetLatestBlockRequest {
     const message = createBaseGetLatestBlockRequest();
     return message;
   },
@@ -767,7 +777,7 @@ export const GetLatestBlockResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestBlockResponse>): GetLatestBlockResponse {
+  fromPartial<I extends Exact<DeepPartial<GetLatestBlockResponse>, I>>(object: I): GetLatestBlockResponse {
     const message = createBaseGetLatestBlockResponse();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -815,7 +825,7 @@ export const GetSyncingRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetSyncingRequest>): GetSyncingRequest {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingRequest>, I>>(_: I): GetSyncingRequest {
     const message = createBaseGetSyncingRequest();
     return message;
   },
@@ -870,7 +880,7 @@ export const GetSyncingResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetSyncingResponse>): GetSyncingResponse {
+  fromPartial<I extends Exact<DeepPartial<GetSyncingResponse>, I>>(object: I): GetSyncingResponse {
     const message = createBaseGetSyncingResponse();
     message.syncing = object.syncing ?? false;
     return message;
@@ -913,7 +923,7 @@ export const GetNodeInfoRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetNodeInfoRequest>): GetNodeInfoRequest {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoRequest>, I>>(_: I): GetNodeInfoRequest {
     const message = createBaseGetNodeInfoRequest();
     return message;
   },
@@ -989,7 +999,7 @@ export const GetNodeInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetNodeInfoResponse>): GetNodeInfoResponse {
+  fromPartial<I extends Exact<DeepPartial<GetNodeInfoResponse>, I>>(object: I): GetNodeInfoResponse {
     const message = createBaseGetNodeInfoResponse();
     message.defaultNodeInfo =
       object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
@@ -1135,7 +1145,7 @@ export const VersionInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<VersionInfo>): VersionInfo {
+  fromPartial<I extends Exact<DeepPartial<VersionInfo>, I>>(object: I): VersionInfo {
     const message = createBaseVersionInfo();
     message.name = object.name ?? "";
     message.appName = object.appName ?? "";
@@ -1220,7 +1230,7 @@ export const Module = {
     return obj;
   },
 
-  fromPartial(object: Partial<Module>): Module {
+  fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule();
     message.path = object.path ?? "";
     message.version = object.version ?? "";

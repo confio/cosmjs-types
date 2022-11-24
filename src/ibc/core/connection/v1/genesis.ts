@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 /** GenesisState defines the ibc connection submodule's genesis state. */
 
@@ -116,7 +116,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.connections = object.connections?.map((e) => IdentifiedConnection.fromPartial(e)) || [];
     message.clientConnectionPaths =

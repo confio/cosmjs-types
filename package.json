@@ -24,7 +24,8 @@
     "google/",
     "ibc/",
     "tendermint/",
-    "helpers.*",
+    "/helpers.*",
+    "/index.*",
     "*.md",
     "!wasmd-*/**/*.md",
     "!cosmos-sdk-*/**/*.md"

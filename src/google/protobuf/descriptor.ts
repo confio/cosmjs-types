@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Long, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { DeepPartial, Exact, isSet, Long, bytesFromBase64, base64FromBytes } from "../../helpers";
 export const protobufPackage = "google.protobuf";
 export enum FieldDescriptorProto_Type {
   /**
@@ -1255,7 +1255,7 @@ export const FileDescriptorSet = {
     return obj;
   },
 
-  fromPartial(object: Partial<FileDescriptorSet>): FileDescriptorSet {
+  fromPartial<I extends Exact<DeepPartial<FileDescriptorSet>, I>>(object: I): FileDescriptorSet {
     const message = createBaseFileDescriptorSet();
     message.file = object.file?.map((e) => FileDescriptorProto.fromPartial(e)) || [];
     return message;
@@ -1511,7 +1511,7 @@ export const FileDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<FileDescriptorProto>): FileDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<FileDescriptorProto>, I>>(object: I): FileDescriptorProto {
     const message = createBaseFileDescriptorProto();
     message.name = object.name ?? "";
     message.package = object.package ?? "";
@@ -1744,7 +1744,7 @@ export const DescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<DescriptorProto>): DescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<DescriptorProto>, I>>(object: I): DescriptorProto {
     const message = createBaseDescriptorProto();
     message.name = object.name ?? "";
     message.field = object.field?.map((e) => FieldDescriptorProto.fromPartial(e)) || [];
@@ -1837,7 +1837,9 @@ export const DescriptorProto_ExtensionRange = {
     return obj;
   },
 
-  fromPartial(object: Partial<DescriptorProto_ExtensionRange>): DescriptorProto_ExtensionRange {
+  fromPartial<I extends Exact<DeepPartial<DescriptorProto_ExtensionRange>, I>>(
+    object: I,
+  ): DescriptorProto_ExtensionRange {
     const message = createBaseDescriptorProto_ExtensionRange();
     message.start = object.start ?? 0;
     message.end = object.end ?? 0;
@@ -1909,7 +1911,9 @@ export const DescriptorProto_ReservedRange = {
     return obj;
   },
 
-  fromPartial(object: Partial<DescriptorProto_ReservedRange>): DescriptorProto_ReservedRange {
+  fromPartial<I extends Exact<DeepPartial<DescriptorProto_ReservedRange>, I>>(
+    object: I,
+  ): DescriptorProto_ReservedRange {
     const message = createBaseDescriptorProto_ReservedRange();
     message.start = object.start ?? 0;
     message.end = object.end ?? 0;
@@ -1976,7 +1980,7 @@ export const ExtensionRangeOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<ExtensionRangeOptions>): ExtensionRangeOptions {
+  fromPartial<I extends Exact<DeepPartial<ExtensionRangeOptions>, I>>(object: I): ExtensionRangeOptions {
     const message = createBaseExtensionRangeOptions();
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
@@ -2133,7 +2137,7 @@ export const FieldDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<FieldDescriptorProto>): FieldDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<FieldDescriptorProto>, I>>(object: I): FieldDescriptorProto {
     const message = createBaseFieldDescriptorProto();
     message.name = object.name ?? "";
     message.number = object.number ?? 0;
@@ -2213,7 +2217,7 @@ export const OneofDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<OneofDescriptorProto>): OneofDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<OneofDescriptorProto>, I>>(object: I): OneofDescriptorProto {
     const message = createBaseOneofDescriptorProto();
     message.name = object.name ?? "";
     message.options =
@@ -2341,7 +2345,7 @@ export const EnumDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<EnumDescriptorProto>): EnumDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<EnumDescriptorProto>, I>>(object: I): EnumDescriptorProto {
     const message = createBaseEnumDescriptorProto();
     message.name = object.name ?? "";
     message.value = object.value?.map((e) => EnumValueDescriptorProto.fromPartial(e)) || [];
@@ -2419,7 +2423,9 @@ export const EnumDescriptorProto_EnumReservedRange = {
     return obj;
   },
 
-  fromPartial(object: Partial<EnumDescriptorProto_EnumReservedRange>): EnumDescriptorProto_EnumReservedRange {
+  fromPartial<I extends Exact<DeepPartial<EnumDescriptorProto_EnumReservedRange>, I>>(
+    object: I,
+  ): EnumDescriptorProto_EnumReservedRange {
     const message = createBaseEnumDescriptorProto_EnumReservedRange();
     message.start = object.start ?? 0;
     message.end = object.end ?? 0;
@@ -2499,7 +2505,9 @@ export const EnumValueDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<EnumValueDescriptorProto>): EnumValueDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<EnumValueDescriptorProto>, I>>(
+    object: I,
+  ): EnumValueDescriptorProto {
     const message = createBaseEnumValueDescriptorProto();
     message.name = object.name ?? "";
     message.number = object.number ?? 0;
@@ -2591,7 +2599,7 @@ export const ServiceDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<ServiceDescriptorProto>): ServiceDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<ServiceDescriptorProto>, I>>(object: I): ServiceDescriptorProto {
     const message = createBaseServiceDescriptorProto();
     message.name = object.name ?? "";
     message.method = object.method?.map((e) => MethodDescriptorProto.fromPartial(e)) || [];
@@ -2708,7 +2716,7 @@ export const MethodDescriptorProto = {
     return obj;
   },
 
-  fromPartial(object: Partial<MethodDescriptorProto>): MethodDescriptorProto {
+  fromPartial<I extends Exact<DeepPartial<MethodDescriptorProto>, I>>(object: I): MethodDescriptorProto {
     const message = createBaseMethodDescriptorProto();
     message.name = object.name ?? "";
     message.inputType = object.inputType ?? "";
@@ -3006,7 +3014,7 @@ export const FileOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<FileOptions>): FileOptions {
+  fromPartial<I extends Exact<DeepPartial<FileOptions>, I>>(object: I): FileOptions {
     const message = createBaseFileOptions();
     message.javaPackage = object.javaPackage ?? "";
     message.javaOuterClassname = object.javaOuterClassname ?? "";
@@ -3140,7 +3148,7 @@ export const MessageOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<MessageOptions>): MessageOptions {
+  fromPartial<I extends Exact<DeepPartial<MessageOptions>, I>>(object: I): MessageOptions {
     const message = createBaseMessageOptions();
     message.messageSetWireFormat = object.messageSetWireFormat ?? false;
     message.noStandardDescriptorAccessor = object.noStandardDescriptorAccessor ?? false;
@@ -3277,7 +3285,7 @@ export const FieldOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<FieldOptions>): FieldOptions {
+  fromPartial<I extends Exact<DeepPartial<FieldOptions>, I>>(object: I): FieldOptions {
     const message = createBaseFieldOptions();
     message.ctype = object.ctype ?? 1;
     message.packed = object.packed ?? false;
@@ -3350,7 +3358,7 @@ export const OneofOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<OneofOptions>): OneofOptions {
+  fromPartial<I extends Exact<DeepPartial<OneofOptions>, I>>(object: I): OneofOptions {
     const message = createBaseOneofOptions();
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
@@ -3439,7 +3447,7 @@ export const EnumOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<EnumOptions>): EnumOptions {
+  fromPartial<I extends Exact<DeepPartial<EnumOptions>, I>>(object: I): EnumOptions {
     const message = createBaseEnumOptions();
     message.allowAlias = object.allowAlias ?? false;
     message.deprecated = object.deprecated ?? false;
@@ -3519,7 +3527,7 @@ export const EnumValueOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<EnumValueOptions>): EnumValueOptions {
+  fromPartial<I extends Exact<DeepPartial<EnumValueOptions>, I>>(object: I): EnumValueOptions {
     const message = createBaseEnumValueOptions();
     message.deprecated = object.deprecated ?? false;
     message.uninterpretedOption =
@@ -3598,7 +3606,7 @@ export const ServiceOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<ServiceOptions>): ServiceOptions {
+  fromPartial<I extends Exact<DeepPartial<ServiceOptions>, I>>(object: I): ServiceOptions {
     const message = createBaseServiceOptions();
     message.deprecated = object.deprecated ?? false;
     message.uninterpretedOption =
@@ -3691,7 +3699,7 @@ export const MethodOptions = {
     return obj;
   },
 
-  fromPartial(object: Partial<MethodOptions>): MethodOptions {
+  fromPartial<I extends Exact<DeepPartial<MethodOptions>, I>>(object: I): MethodOptions {
     const message = createBaseMethodOptions();
     message.deprecated = object.deprecated ?? false;
     message.idempotencyLevel = object.idempotencyLevel ?? 1;
@@ -3829,7 +3837,7 @@ export const UninterpretedOption = {
     return obj;
   },
 
-  fromPartial(object: Partial<UninterpretedOption>): UninterpretedOption {
+  fromPartial<I extends Exact<DeepPartial<UninterpretedOption>, I>>(object: I): UninterpretedOption {
     const message = createBaseUninterpretedOption();
     message.name = object.name?.map((e) => UninterpretedOption_NamePart.fromPartial(e)) || [];
     message.identifierValue = object.identifierValue ?? "";
@@ -3908,7 +3916,9 @@ export const UninterpretedOption_NamePart = {
     return obj;
   },
 
-  fromPartial(object: Partial<UninterpretedOption_NamePart>): UninterpretedOption_NamePart {
+  fromPartial<I extends Exact<DeepPartial<UninterpretedOption_NamePart>, I>>(
+    object: I,
+  ): UninterpretedOption_NamePart {
     const message = createBaseUninterpretedOption_NamePart();
     message.namePart = object.namePart ?? "";
     message.isExtension = object.isExtension ?? false;
@@ -3973,7 +3983,7 @@ export const SourceCodeInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<SourceCodeInfo>): SourceCodeInfo {
+  fromPartial<I extends Exact<DeepPartial<SourceCodeInfo>, I>>(object: I): SourceCodeInfo {
     const message = createBaseSourceCodeInfo();
     message.location = object.location?.map((e) => SourceCodeInfo_Location.fromPartial(e)) || [];
     return message;
@@ -4117,7 +4127,7 @@ export const SourceCodeInfo_Location = {
     return obj;
   },
 
-  fromPartial(object: Partial<SourceCodeInfo_Location>): SourceCodeInfo_Location {
+  fromPartial<I extends Exact<DeepPartial<SourceCodeInfo_Location>, I>>(object: I): SourceCodeInfo_Location {
     const message = createBaseSourceCodeInfo_Location();
     message.path = object.path?.map((e) => e) || [];
     message.span = object.span?.map((e) => e) || [];
@@ -4187,7 +4197,7 @@ export const GeneratedCodeInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<GeneratedCodeInfo>): GeneratedCodeInfo {
+  fromPartial<I extends Exact<DeepPartial<GeneratedCodeInfo>, I>>(object: I): GeneratedCodeInfo {
     const message = createBaseGeneratedCodeInfo();
     message.annotation = object.annotation?.map((e) => GeneratedCodeInfo_Annotation.fromPartial(e)) || [];
     return message;
@@ -4295,7 +4305,9 @@ export const GeneratedCodeInfo_Annotation = {
     return obj;
   },
 
-  fromPartial(object: Partial<GeneratedCodeInfo_Annotation>): GeneratedCodeInfo_Annotation {
+  fromPartial<I extends Exact<DeepPartial<GeneratedCodeInfo_Annotation>, I>>(
+    object: I,
+  ): GeneratedCodeInfo_Annotation {
     const message = createBaseGeneratedCodeInfo_Annotation();
     message.path = object.path?.map((e) => e) || [];
     message.sourceFile = object.sourceFile ?? "";

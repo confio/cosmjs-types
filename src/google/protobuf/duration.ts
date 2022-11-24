@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet } from "../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "google.protobuf";
 /**
  * A Duration represents a signed, fixed-length span of time represented
@@ -142,7 +142,7 @@ export const Duration = {
     return obj;
   },
 
-  fromPartial(object: Partial<Duration>): Duration {
+  fromPartial<I extends Exact<DeepPartial<Duration>, I>>(object: I): Duration {
     const message = createBaseDuration();
     message.seconds =
       object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;

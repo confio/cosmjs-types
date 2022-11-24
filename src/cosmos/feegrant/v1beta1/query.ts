@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant } from "./feegrant";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 
@@ -114,7 +114,7 @@ export const QueryAllowanceRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowanceRequest>): QueryAllowanceRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowanceRequest>, I>>(object: I): QueryAllowanceRequest {
     const message = createBaseQueryAllowanceRequest();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
@@ -172,7 +172,7 @@ export const QueryAllowanceResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowanceResponse>): QueryAllowanceResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowanceResponse>, I>>(object: I): QueryAllowanceResponse {
     const message = createBaseQueryAllowanceResponse();
     message.allowance =
       object.allowance !== undefined && object.allowance !== null
@@ -243,7 +243,7 @@ export const QueryAllowancesRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowancesRequest>): QueryAllowancesRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesRequest>, I>>(object: I): QueryAllowancesRequest {
     const message = createBaseQueryAllowancesRequest();
     message.grantee = object.grantee ?? "";
     message.pagination =
@@ -323,7 +323,7 @@ export const QueryAllowancesResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowancesResponse>): QueryAllowancesResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesResponse>, I>>(object: I): QueryAllowancesResponse {
     const message = createBaseQueryAllowancesResponse();
     message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     message.pagination =
@@ -395,7 +395,9 @@ export const QueryAllowancesByGranterRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowancesByGranterRequest>): QueryAllowancesByGranterRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesByGranterRequest>, I>>(
+    object: I,
+  ): QueryAllowancesByGranterRequest {
     const message = createBaseQueryAllowancesByGranterRequest();
     message.granter = object.granter ?? "";
     message.pagination =
@@ -475,7 +477,9 @@ export const QueryAllowancesByGranterResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryAllowancesByGranterResponse>): QueryAllowancesByGranterResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAllowancesByGranterResponse>, I>>(
+    object: I,
+  ): QueryAllowancesByGranterResponse {
     const message = createBaseQueryAllowancesByGranterResponse();
     message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     message.pagination =

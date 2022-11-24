@@ -13,6 +13,7 @@ node_modules/
 /ibc/
 /tendermint/
 /helpers.*
+/index.*
 
 # IDEs
 .vscode/

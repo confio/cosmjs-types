@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, Rpc } from "../../../helpers";
+import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.vesting.v1beta1";
 /**
  * MsgCreateVestingAccount defines a message that enables creating a vesting
@@ -118,7 +118,7 @@ export const MsgCreateVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgCreateVestingAccount>): MsgCreateVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<MsgCreateVestingAccount>, I>>(object: I): MsgCreateVestingAccount {
     const message = createBaseMsgCreateVestingAccount();
     message.fromAddress = object.fromAddress ?? "";
     message.toAddress = object.toAddress ?? "";
@@ -166,7 +166,9 @@ export const MsgCreateVestingAccountResponse = {
     return obj;
   },
 
-  fromPartial(_: Partial<MsgCreateVestingAccountResponse>): MsgCreateVestingAccountResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgCreateVestingAccountResponse>, I>>(
+    _: I,
+  ): MsgCreateVestingAccountResponse {
     const message = createBaseMsgCreateVestingAccountResponse();
     return message;
   },
