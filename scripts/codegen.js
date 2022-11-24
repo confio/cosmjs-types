@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { join } = require('path');
-const { readFileSync, writeFileSync } = require('fs');
+const { readFileSync, writeFileSync, unlinkSync } = require('fs');
 const telescope = require('@osmonauts/telescope').default;
 
 const outPath = join(__dirname, '/../src');
@@ -110,6 +110,9 @@ telescope({
     export { DeepPartial, Exact } from "./helpers";
     `;
     writeFileSync(`${outPath}/index.ts`, index_ts);
+
+    // I think we don't need this one
+    unlinkSync(`${outPath}/extern.ts`);
 
     console.log('✨ All Done!');
 }, (e) => {
