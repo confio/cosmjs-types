@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet } from "../../../helpers";
+import { Long, isSet, DeepPartial } from "../../../helpers";
 export const protobufPackage = "cosmos.capability.v1beta1";
 /**
  * Capability defines an implementation of an object capability. The index
@@ -77,7 +77,7 @@ export const Capability = {
     return obj;
   },
 
-  fromPartial(object: Partial<Capability>): Capability {
+  fromPartial(object: DeepPartial<Capability>): Capability {
     const message = createBaseCapability();
     message.index =
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
@@ -145,7 +145,7 @@ export const Owner = {
     return obj;
   },
 
-  fromPartial(object: Partial<Owner>): Owner {
+  fromPartial(object: DeepPartial<Owner>): Owner {
     const message = createBaseOwner();
     message.module = object.module ?? "";
     message.name = object.name ?? "";
@@ -208,7 +208,7 @@ export const CapabilityOwners = {
     return obj;
   },
 
-  fromPartial(object: Partial<CapabilityOwners>): CapabilityOwners {
+  fromPartial(object: DeepPartial<CapabilityOwners>): CapabilityOwners {
     const message = createBaseCapabilityOwners();
     message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || [];
     return message;

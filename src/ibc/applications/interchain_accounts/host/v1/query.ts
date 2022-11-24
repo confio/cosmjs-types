@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./host";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Rpc } from "../../../../../helpers";
+import { DeepPartial, isSet, Rpc } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.host.v1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 
@@ -49,7 +49,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
   },
@@ -104,7 +104,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;

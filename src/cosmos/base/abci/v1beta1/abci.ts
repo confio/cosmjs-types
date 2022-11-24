@@ -2,7 +2,7 @@
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Long, isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.abci.v1beta1";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
@@ -361,7 +361,7 @@ export const TxResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<TxResponse>): TxResponse {
+  fromPartial(object: DeepPartial<TxResponse>): TxResponse {
     const message = createBaseTxResponse();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -462,7 +462,7 @@ export const ABCIMessageLog = {
     return obj;
   },
 
-  fromPartial(object: Partial<ABCIMessageLog>): ABCIMessageLog {
+  fromPartial(object: DeepPartial<ABCIMessageLog>): ABCIMessageLog {
     const message = createBaseABCIMessageLog();
     message.msgIndex = object.msgIndex ?? 0;
     message.log = object.log ?? "";
@@ -539,7 +539,7 @@ export const StringEvent = {
     return obj;
   },
 
-  fromPartial(object: Partial<StringEvent>): StringEvent {
+  fromPartial(object: DeepPartial<StringEvent>): StringEvent {
     const message = createBaseStringEvent();
     message.type = object.type ?? "";
     message.attributes = object.attributes?.map((e) => Attribute.fromPartial(e)) || [];
@@ -607,7 +607,7 @@ export const Attribute = {
     return obj;
   },
 
-  fromPartial(object: Partial<Attribute>): Attribute {
+  fromPartial(object: DeepPartial<Attribute>): Attribute {
     const message = createBaseAttribute();
     message.key = object.key ?? "";
     message.value = object.value ?? "";
@@ -675,7 +675,7 @@ export const GasInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<GasInfo>): GasInfo {
+  fromPartial(object: DeepPartial<GasInfo>): GasInfo {
     const message = createBaseGasInfo();
     message.gasWanted =
       object.gasWanted !== undefined && object.gasWanted !== null
@@ -765,7 +765,7 @@ export const Result = {
     return obj;
   },
 
-  fromPartial(object: Partial<Result>): Result {
+  fromPartial(object: DeepPartial<Result>): Result {
     const message = createBaseResult();
     message.data = object.data ?? new Uint8Array();
     message.log = object.log ?? "";
@@ -835,7 +835,7 @@ export const SimulationResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<SimulationResponse>): SimulationResponse {
+  fromPartial(object: DeepPartial<SimulationResponse>): SimulationResponse {
     const message = createBaseSimulationResponse();
     message.gasInfo =
       object.gasInfo !== undefined && object.gasInfo !== null
@@ -908,7 +908,7 @@ export const MsgData = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgData>): MsgData {
+  fromPartial(object: DeepPartial<MsgData>): MsgData {
     const message = createBaseMsgData();
     message.msgType = object.msgType ?? "";
     message.data = object.data ?? new Uint8Array();
@@ -971,7 +971,7 @@ export const TxMsgData = {
     return obj;
   },
 
-  fromPartial(object: Partial<TxMsgData>): TxMsgData {
+  fromPartial(object: DeepPartial<TxMsgData>): TxMsgData {
     const message = createBaseTxMsgData();
     message.data = object.data?.map((e) => MsgData.fromPartial(e)) || [];
     return message;
@@ -1088,7 +1088,7 @@ export const SearchTxsResult = {
     return obj;
   },
 
-  fromPartial(object: Partial<SearchTxsResult>): SearchTxsResult {
+  fromPartial(object: DeepPartial<SearchTxsResult>): SearchTxsResult {
     const message = createBaseSearchTxsResult();
     message.totalCount =
       object.totalCount !== undefined && object.totalCount !== null

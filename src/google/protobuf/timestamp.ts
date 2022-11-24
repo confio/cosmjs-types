@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet } from "../../helpers";
+import { Long, isSet, DeepPartial } from "../../helpers";
 export const protobufPackage = "google.protobuf";
 /**
  * A Timestamp represents a point in time independent of any time zone or local
@@ -164,7 +164,7 @@ export const Timestamp = {
     return obj;
   },
 
-  fromPartial(object: Partial<Timestamp>): Timestamp {
+  fromPartial(object: DeepPartial<Timestamp>): Timestamp {
     const message = createBaseTimestamp();
     message.seconds =
       object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;

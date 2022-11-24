@@ -10,7 +10,7 @@ import {
   FeePool,
 } from "./distribution";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Long } from "../../../helpers";
+import { isSet, DeepPartial, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
@@ -191,7 +191,7 @@ export const DelegatorWithdrawInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<DelegatorWithdrawInfo>): DelegatorWithdrawInfo {
+  fromPartial(object: DeepPartial<DelegatorWithdrawInfo>): DelegatorWithdrawInfo {
     const message = createBaseDelegatorWithdrawInfo();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.withdrawAddress = object.withdrawAddress ?? "";
@@ -267,7 +267,7 @@ export const ValidatorOutstandingRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorOutstandingRewardsRecord>): ValidatorOutstandingRewardsRecord {
+  fromPartial(object: DeepPartial<ValidatorOutstandingRewardsRecord>): ValidatorOutstandingRewardsRecord {
     const message = createBaseValidatorOutstandingRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.outstandingRewards = object.outstandingRewards?.map((e) => DecCoin.fromPartial(e)) || [];
@@ -343,7 +343,9 @@ export const ValidatorAccumulatedCommissionRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorAccumulatedCommissionRecord>): ValidatorAccumulatedCommissionRecord {
+  fromPartial(
+    object: DeepPartial<ValidatorAccumulatedCommissionRecord>,
+  ): ValidatorAccumulatedCommissionRecord {
     const message = createBaseValidatorAccumulatedCommissionRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.accumulated =
@@ -426,7 +428,7 @@ export const ValidatorHistoricalRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
+  fromPartial(object: DeepPartial<ValidatorHistoricalRewardsRecord>): ValidatorHistoricalRewardsRecord {
     const message = createBaseValidatorHistoricalRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.period =
@@ -500,7 +502,7 @@ export const ValidatorCurrentRewardsRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorCurrentRewardsRecord>): ValidatorCurrentRewardsRecord {
+  fromPartial(object: DeepPartial<ValidatorCurrentRewardsRecord>): ValidatorCurrentRewardsRecord {
     const message = createBaseValidatorCurrentRewardsRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.rewards =
@@ -587,7 +589,7 @@ export const DelegatorStartingInfoRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<DelegatorStartingInfoRecord>): DelegatorStartingInfoRecord {
+  fromPartial(object: DeepPartial<DelegatorStartingInfoRecord>): DelegatorStartingInfoRecord {
     const message = createBaseDelegatorStartingInfoRecord();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -686,7 +688,7 @@ export const ValidatorSlashEventRecord = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
+  fromPartial(object: DeepPartial<ValidatorSlashEventRecord>): ValidatorSlashEventRecord {
     const message = createBaseValidatorSlashEventRecord();
     message.validatorAddress = object.validatorAddress ?? "";
     message.height =
@@ -921,7 +923,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;

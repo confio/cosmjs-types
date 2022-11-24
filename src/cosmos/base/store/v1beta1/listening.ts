@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.store.v1beta1";
 /**
  * StoreKVPair is a KVStore KVPair used for listening to state changes (Sets and Deletes)
@@ -104,7 +104,7 @@ export const StoreKVPair = {
     return obj;
   },
 
-  fromPartial(object: Partial<StoreKVPair>): StoreKVPair {
+  fromPartial(object: DeepPartial<StoreKVPair>): StoreKVPair {
     const message = createBaseStoreKVPair();
     message.storeKey = object.storeKey ?? "";
     message.delete = object.delete ?? false;

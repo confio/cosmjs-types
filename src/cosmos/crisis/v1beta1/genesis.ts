@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../helpers";
+import { isSet, DeepPartial } from "../../../helpers";
 export const protobufPackage = "cosmos.crisis.v1beta1";
 /** GenesisState defines the crisis module's genesis state. */
 
@@ -63,7 +63,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.constantFee =
       object.constantFee !== undefined && object.constantFee !== null

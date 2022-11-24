@@ -5,7 +5,7 @@ import { BlockID } from "../../../../tendermint/types/types";
 import { Block } from "../../../../tendermint/types/block";
 import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, Rpc } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Rpc } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 
@@ -172,7 +172,7 @@ export const GetValidatorSetByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetValidatorSetByHeightRequest>): GetValidatorSetByHeightRequest {
+  fromPartial(object: DeepPartial<GetValidatorSetByHeightRequest>): GetValidatorSetByHeightRequest {
     const message = createBaseGetValidatorSetByHeightRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -264,7 +264,7 @@ export const GetValidatorSetByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
+  fromPartial(object: DeepPartial<GetValidatorSetByHeightResponse>): GetValidatorSetByHeightResponse {
     const message = createBaseGetValidatorSetByHeightResponse();
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -329,7 +329,7 @@ export const GetLatestValidatorSetRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestValidatorSetRequest>): GetLatestValidatorSetRequest {
+  fromPartial(object: DeepPartial<GetLatestValidatorSetRequest>): GetLatestValidatorSetRequest {
     const message = createBaseGetLatestValidatorSetRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -419,7 +419,7 @@ export const GetLatestValidatorSetResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
+  fromPartial(object: DeepPartial<GetLatestValidatorSetResponse>): GetLatestValidatorSetResponse {
     const message = createBaseGetLatestValidatorSetResponse();
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
@@ -517,7 +517,7 @@ export const Validator = {
     return obj;
   },
 
-  fromPartial(object: Partial<Validator>): Validator {
+  fromPartial(object: DeepPartial<Validator>): Validator {
     const message = createBaseValidator();
     message.address = object.address ?? "";
     message.pubKey =
@@ -583,7 +583,7 @@ export const GetBlockByHeightRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockByHeightRequest>): GetBlockByHeightRequest {
+  fromPartial(object: DeepPartial<GetBlockByHeightRequest>): GetBlockByHeightRequest {
     const message = createBaseGetBlockByHeightRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -652,7 +652,7 @@ export const GetBlockByHeightResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockByHeightResponse>): GetBlockByHeightResponse {
+  fromPartial(object: DeepPartial<GetBlockByHeightResponse>): GetBlockByHeightResponse {
     const message = createBaseGetBlockByHeightResponse();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -700,7 +700,7 @@ export const GetLatestBlockRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetLatestBlockRequest>): GetLatestBlockRequest {
+  fromPartial(_: DeepPartial<GetLatestBlockRequest>): GetLatestBlockRequest {
     const message = createBaseGetLatestBlockRequest();
     return message;
   },
@@ -767,7 +767,7 @@ export const GetLatestBlockResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetLatestBlockResponse>): GetLatestBlockResponse {
+  fromPartial(object: DeepPartial<GetLatestBlockResponse>): GetLatestBlockResponse {
     const message = createBaseGetLatestBlockResponse();
     message.blockId =
       object.blockId !== undefined && object.blockId !== null
@@ -815,7 +815,7 @@ export const GetSyncingRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetSyncingRequest>): GetSyncingRequest {
+  fromPartial(_: DeepPartial<GetSyncingRequest>): GetSyncingRequest {
     const message = createBaseGetSyncingRequest();
     return message;
   },
@@ -870,7 +870,7 @@ export const GetSyncingResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetSyncingResponse>): GetSyncingResponse {
+  fromPartial(object: DeepPartial<GetSyncingResponse>): GetSyncingResponse {
     const message = createBaseGetSyncingResponse();
     message.syncing = object.syncing ?? false;
     return message;
@@ -913,7 +913,7 @@ export const GetNodeInfoRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<GetNodeInfoRequest>): GetNodeInfoRequest {
+  fromPartial(_: DeepPartial<GetNodeInfoRequest>): GetNodeInfoRequest {
     const message = createBaseGetNodeInfoRequest();
     return message;
   },
@@ -989,7 +989,7 @@ export const GetNodeInfoResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetNodeInfoResponse>): GetNodeInfoResponse {
+  fromPartial(object: DeepPartial<GetNodeInfoResponse>): GetNodeInfoResponse {
     const message = createBaseGetNodeInfoResponse();
     message.defaultNodeInfo =
       object.defaultNodeInfo !== undefined && object.defaultNodeInfo !== null
@@ -1135,7 +1135,7 @@ export const VersionInfo = {
     return obj;
   },
 
-  fromPartial(object: Partial<VersionInfo>): VersionInfo {
+  fromPartial(object: DeepPartial<VersionInfo>): VersionInfo {
     const message = createBaseVersionInfo();
     message.name = object.name ?? "";
     message.appName = object.appName ?? "";
@@ -1220,7 +1220,7 @@ export const Module = {
     return obj;
   },
 
-  fromPartial(object: Partial<Module>): Module {
+  fromPartial(object: DeepPartial<Module>): Module {
     const message = createBaseModule();
     message.path = object.path ?? "";
     message.version = object.version ?? "";

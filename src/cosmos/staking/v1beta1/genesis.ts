@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** GenesisState defines the staking module's genesis state. */
 
@@ -215,7 +215,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -292,7 +292,7 @@ export const LastValidatorPower = {
     return obj;
   },
 
-  fromPartial(object: Partial<LastValidatorPower>): LastValidatorPower {
+  fromPartial(object: DeepPartial<LastValidatorPower>): LastValidatorPower {
     const message = createBaseLastValidatorPower();
     message.address = object.address ?? "";
     message.power =

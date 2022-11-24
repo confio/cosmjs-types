@@ -3,7 +3,7 @@ import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
 import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
 import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../../helpers";
+import { isSet, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "ibc.core.types.v1";
 /** GenesisState defines the ibc module's genesis state. */
 
@@ -100,7 +100,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.clientGenesis =
       object.clientGenesis !== undefined && object.clientGenesis !== null

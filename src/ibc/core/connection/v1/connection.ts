@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { MerklePrefix } from "../../commitment/v1/commitment";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet } from "../../../../helpers";
+import { Long, isSet, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * State defines if a connection is in one of the following states:
@@ -281,7 +281,7 @@ export const ConnectionEnd = {
     return obj;
   },
 
-  fromPartial(object: Partial<ConnectionEnd>): ConnectionEnd {
+  fromPartial(object: DeepPartial<ConnectionEnd>): ConnectionEnd {
     const message = createBaseConnectionEnd();
     message.clientId = object.clientId ?? "";
     message.versions = object.versions?.map((e) => Version.fromPartial(e)) || [];
@@ -409,7 +409,7 @@ export const IdentifiedConnection = {
     return obj;
   },
 
-  fromPartial(object: Partial<IdentifiedConnection>): IdentifiedConnection {
+  fromPartial(object: DeepPartial<IdentifiedConnection>): IdentifiedConnection {
     const message = createBaseIdentifiedConnection();
     message.id = object.id ?? "";
     message.clientId = object.clientId ?? "";
@@ -499,7 +499,7 @@ export const Counterparty = {
     return obj;
   },
 
-  fromPartial(object: Partial<Counterparty>): Counterparty {
+  fromPartial(object: DeepPartial<Counterparty>): Counterparty {
     const message = createBaseCounterparty();
     message.clientId = object.clientId ?? "";
     message.connectionId = object.connectionId ?? "";
@@ -566,7 +566,7 @@ export const ClientPaths = {
     return obj;
   },
 
-  fromPartial(object: Partial<ClientPaths>): ClientPaths {
+  fromPartial(object: DeepPartial<ClientPaths>): ClientPaths {
     const message = createBaseClientPaths();
     message.paths = object.paths?.map((e) => e) || [];
     return message;
@@ -639,7 +639,7 @@ export const ConnectionPaths = {
     return obj;
   },
 
-  fromPartial(object: Partial<ConnectionPaths>): ConnectionPaths {
+  fromPartial(object: DeepPartial<ConnectionPaths>): ConnectionPaths {
     const message = createBaseConnectionPaths();
     message.clientId = object.clientId ?? "";
     message.paths = object.paths?.map((e) => e) || [];
@@ -713,7 +713,7 @@ export const Version = {
     return obj;
   },
 
-  fromPartial(object: Partial<Version>): Version {
+  fromPartial(object: DeepPartial<Version>): Version {
     const message = createBaseVersion();
     message.identifier = object.identifier ?? "";
     message.features = object.features?.map((e) => e) || [];
@@ -773,7 +773,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: Partial<Params>): Params {
+  fromPartial(object: DeepPartial<Params>): Params {
     const message = createBaseParams();
     message.maxExpectedTimePerBlock =
       object.maxExpectedTimePerBlock !== undefined && object.maxExpectedTimePerBlock !== null

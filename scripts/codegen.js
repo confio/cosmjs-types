@@ -53,8 +53,8 @@ telescope({
                 fromJSON: true,
                 toJSON: true
             },
-            typingsFormat: { 
-                useDeepPartial: false,
+            typingsFormat: {
+                useDeepPartial: true,
                 useExact: false,
                 timestamp: 'timestamp',
                 duration: 'duration'

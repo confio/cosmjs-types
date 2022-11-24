@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../../../helpers";
+import { isSet, DeepPartial } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /**
  * Params defines the set of on-chain interchain accounts parameters.
@@ -61,7 +61,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: Partial<Params>): Params {
+  fromPartial(object: DeepPartial<Params>): Params {
     const message = createBaseParams();
     message.controllerEnabled = object.controllerEnabled ?? false;
     return message;

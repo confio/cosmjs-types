@@ -5,7 +5,7 @@ import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci";
 import { BlockID } from "../../../tendermint/types/types";
 import { Block } from "../../../tendermint/types/block";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.tx.v1beta1";
 /** OrderBy defines the sorting order */
 
@@ -330,7 +330,7 @@ export const GetTxsEventRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetTxsEventRequest>): GetTxsEventRequest {
+  fromPartial(object: DeepPartial<GetTxsEventRequest>): GetTxsEventRequest {
     const message = createBaseGetTxsEventRequest();
     message.events = object.events?.map((e) => e) || [];
     message.pagination =
@@ -427,7 +427,7 @@ export const GetTxsEventResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetTxsEventResponse>): GetTxsEventResponse {
+  fromPartial(object: DeepPartial<GetTxsEventResponse>): GetTxsEventResponse {
     const message = createBaseGetTxsEventResponse();
     message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
     message.txResponses = object.txResponses?.map((e) => TxResponse.fromPartial(e)) || [];
@@ -500,7 +500,7 @@ export const BroadcastTxRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<BroadcastTxRequest>): BroadcastTxRequest {
+  fromPartial(object: DeepPartial<BroadcastTxRequest>): BroadcastTxRequest {
     const message = createBaseBroadcastTxRequest();
     message.txBytes = object.txBytes ?? new Uint8Array();
     message.mode = object.mode ?? 0;
@@ -558,7 +558,7 @@ export const BroadcastTxResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<BroadcastTxResponse>): BroadcastTxResponse {
+  fromPartial(object: DeepPartial<BroadcastTxResponse>): BroadcastTxResponse {
     const message = createBaseBroadcastTxResponse();
     message.txResponse =
       object.txResponse !== undefined && object.txResponse !== null
@@ -629,7 +629,7 @@ export const SimulateRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<SimulateRequest>): SimulateRequest {
+  fromPartial(object: DeepPartial<SimulateRequest>): SimulateRequest {
     const message = createBaseSimulateRequest();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txBytes = object.txBytes ?? new Uint8Array();
@@ -698,7 +698,7 @@ export const SimulateResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<SimulateResponse>): SimulateResponse {
+  fromPartial(object: DeepPartial<SimulateResponse>): SimulateResponse {
     const message = createBaseSimulateResponse();
     message.gasInfo =
       object.gasInfo !== undefined && object.gasInfo !== null
@@ -759,7 +759,7 @@ export const GetTxRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetTxRequest>): GetTxRequest {
+  fromPartial(object: DeepPartial<GetTxRequest>): GetTxRequest {
     const message = createBaseGetTxRequest();
     message.hash = object.hash ?? "";
     return message;
@@ -827,7 +827,7 @@ export const GetTxResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetTxResponse>): GetTxResponse {
+  fromPartial(object: DeepPartial<GetTxResponse>): GetTxResponse {
     const message = createBaseGetTxResponse();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txResponse =
@@ -899,7 +899,7 @@ export const GetBlockWithTxsRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockWithTxsRequest>): GetBlockWithTxsRequest {
+  fromPartial(object: DeepPartial<GetBlockWithTxsRequest>): GetBlockWithTxsRequest {
     const message = createBaseGetBlockWithTxsRequest();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -1001,7 +1001,7 @@ export const GetBlockWithTxsResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<GetBlockWithTxsResponse>): GetBlockWithTxsResponse {
+  fromPartial(object: DeepPartial<GetBlockWithTxsResponse>): GetBlockWithTxsResponse {
     const message = createBaseGetBlockWithTxsResponse();
     message.txs = object.txs?.map((e) => Tx.fromPartial(e)) || [];
     message.blockId =

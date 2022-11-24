@@ -6,6 +6,7 @@ import { Duration } from "../../../google/protobuf/duration";
 import * as _m0 from "protobufjs/minimal";
 import {
   isSet,
+  DeepPartial,
   Long,
   fromJsonTimestamp,
   fromTimestamp,
@@ -344,7 +345,7 @@ export const WeightedVoteOption = {
     return obj;
   },
 
-  fromPartial(object: Partial<WeightedVoteOption>): WeightedVoteOption {
+  fromPartial(object: DeepPartial<WeightedVoteOption>): WeightedVoteOption {
     const message = createBaseWeightedVoteOption();
     message.option = object.option ?? 0;
     message.weight = object.weight ?? "";
@@ -412,7 +413,7 @@ export const TextProposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<TextProposal>): TextProposal {
+  fromPartial(object: DeepPartial<TextProposal>): TextProposal {
     const message = createBaseTextProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -497,7 +498,7 @@ export const Deposit = {
     return obj;
   },
 
-  fromPartial(object: Partial<Deposit>): Deposit {
+  fromPartial(object: DeepPartial<Deposit>): Deposit {
     const message = createBaseDeposit();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -663,7 +664,7 @@ export const Proposal = {
     return obj;
   },
 
-  fromPartial(object: Partial<Proposal>): Proposal {
+  fromPartial(object: DeepPartial<Proposal>): Proposal {
     const message = createBaseProposal();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -779,7 +780,7 @@ export const TallyResult = {
     return obj;
   },
 
-  fromPartial(object: Partial<TallyResult>): TallyResult {
+  fromPartial(object: DeepPartial<TallyResult>): TallyResult {
     const message = createBaseTallyResult();
     message.yes = object.yes ?? "";
     message.abstain = object.abstain ?? "";
@@ -879,7 +880,7 @@ export const Vote = {
     return obj;
   },
 
-  fromPartial(object: Partial<Vote>): Vote {
+  fromPartial(object: DeepPartial<Vote>): Vote {
     const message = createBaseVote();
     message.proposalId =
       object.proposalId !== undefined && object.proposalId !== null
@@ -965,7 +966,7 @@ export const DepositParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<DepositParams>): DepositParams {
+  fromPartial(object: DeepPartial<DepositParams>): DepositParams {
     const message = createBaseDepositParams();
     message.minDeposit = object.minDeposit?.map((e) => Coin.fromPartial(e)) || [];
     message.maxDepositPeriod =
@@ -1026,7 +1027,7 @@ export const VotingParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<VotingParams>): VotingParams {
+  fromPartial(object: DeepPartial<VotingParams>): VotingParams {
     const message = createBaseVotingParams();
     message.votingPeriod =
       object.votingPeriod !== undefined && object.votingPeriod !== null
@@ -1114,7 +1115,7 @@ export const TallyParams = {
     return obj;
   },
 
-  fromPartial(object: Partial<TallyParams>): TallyParams {
+  fromPartial(object: DeepPartial<TallyParams>): TallyParams {
     const message = createBaseTallyParams();
     message.quorum = object.quorum ?? new Uint8Array();
     message.threshold = object.threshold ?? new Uint8Array();

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../../helpers";
+import { isSet, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * DenomTrace contains the base denomination for ICS20 fungible tokens and the
@@ -98,7 +98,7 @@ export const DenomTrace = {
     return obj;
   },
 
-  fromPartial(object: Partial<DenomTrace>): DenomTrace {
+  fromPartial(object: DeepPartial<DenomTrace>): DenomTrace {
     const message = createBaseDenomTrace();
     message.path = object.path ?? "";
     message.baseDenom = object.baseDenom ?? "";
@@ -166,7 +166,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: Partial<Params>): Params {
+  fromPartial(object: DeepPartial<Params>): Params {
     const message = createBaseParams();
     message.sendEnabled = object.sendEnabled ?? false;
     message.receiveEnabled = object.receiveEnabled ?? false;

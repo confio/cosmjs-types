@@ -9,6 +9,7 @@ import { ValidatorSet } from "../../../../tendermint/types/validator";
 import * as _m0 from "protobufjs/minimal";
 import {
   isSet,
+  DeepPartial,
   fromJsonTimestamp,
   bytesFromBase64,
   fromTimestamp,
@@ -307,7 +308,7 @@ export const ClientState = {
     return obj;
   },
 
-  fromPartial(object: Partial<ClientState>): ClientState {
+  fromPartial(object: DeepPartial<ClientState>): ClientState {
     const message = createBaseClientState();
     message.chainId = object.chainId ?? "";
     message.trustLevel =
@@ -418,7 +419,7 @@ export const ConsensusState = {
     return obj;
   },
 
-  fromPartial(object: Partial<ConsensusState>): ConsensusState {
+  fromPartial(object: DeepPartial<ConsensusState>): ConsensusState {
     const message = createBaseConsensusState();
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
@@ -504,7 +505,7 @@ export const Misbehaviour = {
     return obj;
   },
 
-  fromPartial(object: Partial<Misbehaviour>): Misbehaviour {
+  fromPartial(object: DeepPartial<Misbehaviour>): Misbehaviour {
     const message = createBaseMisbehaviour();
     message.clientId = object.clientId ?? "";
     message.header1 =
@@ -609,7 +610,7 @@ export const Header = {
     return obj;
   },
 
-  fromPartial(object: Partial<Header>): Header {
+  fromPartial(object: DeepPartial<Header>): Header {
     const message = createBaseHeader();
     message.signedHeader =
       object.signedHeader !== undefined && object.signedHeader !== null
@@ -691,7 +692,7 @@ export const Fraction = {
     return obj;
   },
 
-  fromPartial(object: Partial<Fraction>): Fraction {
+  fromPartial(object: DeepPartial<Fraction>): Fraction {
     const message = createBaseFraction();
     message.numerator =
       object.numerator !== undefined && object.numerator !== null

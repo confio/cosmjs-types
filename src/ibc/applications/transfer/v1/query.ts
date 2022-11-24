@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { DenomTrace, Params } from "./transfer";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Rpc } from "../../../../helpers";
+import { isSet, DeepPartial, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
@@ -120,7 +120,7 @@ export const QueryDenomTraceRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomTraceRequest>): QueryDenomTraceRequest {
+  fromPartial(object: DeepPartial<QueryDenomTraceRequest>): QueryDenomTraceRequest {
     const message = createBaseQueryDenomTraceRequest();
     message.hash = object.hash ?? "";
     return message;
@@ -177,7 +177,7 @@ export const QueryDenomTraceResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomTraceResponse>): QueryDenomTraceResponse {
+  fromPartial(object: DeepPartial<QueryDenomTraceResponse>): QueryDenomTraceResponse {
     const message = createBaseQueryDenomTraceResponse();
     message.denomTrace =
       object.denomTrace !== undefined && object.denomTrace !== null
@@ -237,7 +237,7 @@ export const QueryDenomTracesRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomTracesRequest>): QueryDenomTracesRequest {
+  fromPartial(object: DeepPartial<QueryDenomTracesRequest>): QueryDenomTracesRequest {
     const message = createBaseQueryDenomTracesRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -316,7 +316,7 @@ export const QueryDenomTracesResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomTracesResponse>): QueryDenomTracesResponse {
+  fromPartial(object: DeepPartial<QueryDenomTracesResponse>): QueryDenomTracesResponse {
     const message = createBaseQueryDenomTracesResponse();
     message.denomTraces = object.denomTraces?.map((e) => DenomTrace.fromPartial(e)) || [];
     message.pagination =
@@ -363,7 +363,7 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial(_: Partial<QueryParamsRequest>): QueryParamsRequest {
+  fromPartial(_: DeepPartial<QueryParamsRequest>): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
   },
@@ -418,7 +418,7 @@ export const QueryParamsResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryParamsResponse>): QueryParamsResponse {
+  fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
@@ -475,7 +475,7 @@ export const QueryDenomHashRequest = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomHashRequest>): QueryDenomHashRequest {
+  fromPartial(object: DeepPartial<QueryDenomHashRequest>): QueryDenomHashRequest {
     const message = createBaseQueryDenomHashRequest();
     message.trace = object.trace ?? "";
     return message;
@@ -531,7 +531,7 @@ export const QueryDenomHashResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<QueryDenomHashResponse>): QueryDenomHashResponse {
+  fromPartial(object: DeepPartial<QueryDenomHashResponse>): QueryDenomHashResponse {
     const message = createBaseQueryDenomHashResponse();
     message.hash = object.hash ?? "";
     return message;

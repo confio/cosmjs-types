@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, Long, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { isSet, DeepPartial, Long, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.store.v1beta1";
 /** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
 
@@ -84,7 +84,7 @@ export const SnapshotItem = {
     return obj;
   },
 
-  fromPartial(object: Partial<SnapshotItem>): SnapshotItem {
+  fromPartial(object: DeepPartial<SnapshotItem>): SnapshotItem {
     const message = createBaseSnapshotItem();
     message.store =
       object.store !== undefined && object.store !== null
@@ -147,7 +147,7 @@ export const SnapshotStoreItem = {
     return obj;
   },
 
-  fromPartial(object: Partial<SnapshotStoreItem>): SnapshotStoreItem {
+  fromPartial(object: DeepPartial<SnapshotStoreItem>): SnapshotStoreItem {
     const message = createBaseSnapshotStoreItem();
     message.name = object.name ?? "";
     return message;
@@ -238,7 +238,7 @@ export const SnapshotIAVLItem = {
     return obj;
   },
 
-  fromPartial(object: Partial<SnapshotIAVLItem>): SnapshotIAVLItem {
+  fromPartial(object: DeepPartial<SnapshotIAVLItem>): SnapshotIAVLItem {
     const message = createBaseSnapshotIAVLItem();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();

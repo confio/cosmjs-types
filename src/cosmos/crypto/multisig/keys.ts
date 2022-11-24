@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../helpers";
+import { isSet, DeepPartial } from "../../../helpers";
 export const protobufPackage = "cosmos.crypto.multisig";
 /**
  * LegacyAminoPubKey specifies a public key type
@@ -80,7 +80,7 @@ export const LegacyAminoPubKey = {
     return obj;
   },
 
-  fromPartial(object: Partial<LegacyAminoPubKey>): LegacyAminoPubKey {
+  fromPartial(object: DeepPartial<LegacyAminoPubKey>): LegacyAminoPubKey {
     const message = createBaseLegacyAminoPubKey();
     message.threshold = object.threshold ?? 0;
     message.publicKeys = object.publicKeys?.map((e) => Any.fromPartial(e)) || [];

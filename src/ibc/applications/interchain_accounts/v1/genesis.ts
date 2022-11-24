@@ -2,7 +2,7 @@
 import { Params as Params1 } from "../controller/v1/controller";
 import { Params as Params2 } from "../host/v1/host";
 import * as _m0 from "protobufjs/minimal";
-import { isSet } from "../../../../helpers";
+import { isSet, DeepPartial } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /** GenesisState defines the interchain accounts genesis state */
 
@@ -111,7 +111,7 @@ export const GenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<GenesisState>): GenesisState {
+  fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = createBaseGenesisState();
     message.controllerGenesisState =
       object.controllerGenesisState !== undefined && object.controllerGenesisState !== null
@@ -230,7 +230,7 @@ export const ControllerGenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<ControllerGenesisState>): ControllerGenesisState {
+  fromPartial(object: DeepPartial<ControllerGenesisState>): ControllerGenesisState {
     const message = createBaseControllerGenesisState();
     message.activeChannels = object.activeChannels?.map((e) => ActiveChannel.fromPartial(e)) || [];
     message.interchainAccounts =
@@ -342,7 +342,7 @@ export const HostGenesisState = {
     return obj;
   },
 
-  fromPartial(object: Partial<HostGenesisState>): HostGenesisState {
+  fromPartial(object: DeepPartial<HostGenesisState>): HostGenesisState {
     const message = createBaseHostGenesisState();
     message.activeChannels = object.activeChannels?.map((e) => ActiveChannel.fromPartial(e)) || [];
     message.interchainAccounts =
@@ -425,7 +425,7 @@ export const ActiveChannel = {
     return obj;
   },
 
-  fromPartial(object: Partial<ActiveChannel>): ActiveChannel {
+  fromPartial(object: DeepPartial<ActiveChannel>): ActiveChannel {
     const message = createBaseActiveChannel();
     message.connectionId = object.connectionId ?? "";
     message.portId = object.portId ?? "";
@@ -505,7 +505,7 @@ export const RegisteredInterchainAccount = {
     return obj;
   },
 
-  fromPartial(object: Partial<RegisteredInterchainAccount>): RegisteredInterchainAccount {
+  fromPartial(object: DeepPartial<RegisteredInterchainAccount>): RegisteredInterchainAccount {
     const message = createBaseRegisteredInterchainAccount();
     message.connectionId = object.connectionId ?? "";
     message.portId = object.portId ?? "";

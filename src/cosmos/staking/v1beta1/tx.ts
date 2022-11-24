@@ -4,7 +4,7 @@ import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, fromJsonTimestamp, fromTimestamp, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, fromJsonTimestamp, fromTimestamp, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 
@@ -200,7 +200,7 @@ export const MsgCreateValidator = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgCreateValidator>): MsgCreateValidator {
+  fromPartial(object: DeepPartial<MsgCreateValidator>): MsgCreateValidator {
     const message = createBaseMsgCreateValidator();
     message.description =
       object.description !== undefined && object.description !== null
@@ -257,7 +257,7 @@ export const MsgCreateValidatorResponse = {
     return obj;
   },
 
-  fromPartial(_: Partial<MsgCreateValidatorResponse>): MsgCreateValidatorResponse {
+  fromPartial(_: DeepPartial<MsgCreateValidatorResponse>): MsgCreateValidatorResponse {
     const message = createBaseMsgCreateValidatorResponse();
     return message;
   },
@@ -346,7 +346,7 @@ export const MsgEditValidator = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgEditValidator>): MsgEditValidator {
+  fromPartial(object: DeepPartial<MsgEditValidator>): MsgEditValidator {
     const message = createBaseMsgEditValidator();
     message.description =
       object.description !== undefined && object.description !== null
@@ -395,7 +395,7 @@ export const MsgEditValidatorResponse = {
     return obj;
   },
 
-  fromPartial(_: Partial<MsgEditValidatorResponse>): MsgEditValidatorResponse {
+  fromPartial(_: DeepPartial<MsgEditValidatorResponse>): MsgEditValidatorResponse {
     const message = createBaseMsgEditValidatorResponse();
     return message;
   },
@@ -472,7 +472,7 @@ export const MsgDelegate = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgDelegate>): MsgDelegate {
+  fromPartial(object: DeepPartial<MsgDelegate>): MsgDelegate {
     const message = createBaseMsgDelegate();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -518,7 +518,7 @@ export const MsgDelegateResponse = {
     return obj;
   },
 
-  fromPartial(_: Partial<MsgDelegateResponse>): MsgDelegateResponse {
+  fromPartial(_: DeepPartial<MsgDelegateResponse>): MsgDelegateResponse {
     const message = createBaseMsgDelegateResponse();
     return message;
   },
@@ -606,7 +606,7 @@ export const MsgBeginRedelegate = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgBeginRedelegate>): MsgBeginRedelegate {
+  fromPartial(object: DeepPartial<MsgBeginRedelegate>): MsgBeginRedelegate {
     const message = createBaseMsgBeginRedelegate();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorSrcAddress = object.validatorSrcAddress ?? "";
@@ -667,7 +667,7 @@ export const MsgBeginRedelegateResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgBeginRedelegateResponse>): MsgBeginRedelegateResponse {
+  fromPartial(object: DeepPartial<MsgBeginRedelegateResponse>): MsgBeginRedelegateResponse {
     const message = createBaseMsgBeginRedelegateResponse();
     message.completionTime =
       object.completionTime !== undefined && object.completionTime !== null
@@ -748,7 +748,7 @@ export const MsgUndelegate = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgUndelegate>): MsgUndelegate {
+  fromPartial(object: DeepPartial<MsgUndelegate>): MsgUndelegate {
     const message = createBaseMsgUndelegate();
     message.delegatorAddress = object.delegatorAddress ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -808,7 +808,7 @@ export const MsgUndelegateResponse = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgUndelegateResponse>): MsgUndelegateResponse {
+  fromPartial(object: DeepPartial<MsgUndelegateResponse>): MsgUndelegateResponse {
     const message = createBaseMsgUndelegateResponse();
     message.completionTime =
       object.completionTime !== undefined && object.completionTime !== null

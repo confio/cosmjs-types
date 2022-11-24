@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** MsgIBCSend */
 
@@ -117,7 +117,7 @@ export const MsgIBCSend = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgIBCSend>): MsgIBCSend {
+  fromPartial(object: DeepPartial<MsgIBCSend>): MsgIBCSend {
     const message = createBaseMsgIBCSend();
     message.channel = object.channel ?? "";
     message.timeoutHeight =
@@ -182,7 +182,7 @@ export const MsgIBCCloseChannel = {
     return obj;
   },
 
-  fromPartial(object: Partial<MsgIBCCloseChannel>): MsgIBCCloseChannel {
+  fromPartial(object: DeepPartial<MsgIBCCloseChannel>): MsgIBCCloseChannel {
     const message = createBaseMsgIBCCloseChannel();
     message.channel = object.channel ?? "";
     return message;

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial } from "../../helpers";
 export const protobufPackage = "tendermint.crypto";
 export interface Proof {
   total: Long;
@@ -126,7 +126,7 @@ export const Proof = {
     return obj;
   },
 
-  fromPartial(object: Partial<Proof>): Proof {
+  fromPartial(object: DeepPartial<Proof>): Proof {
     const message = createBaseProof();
     message.total =
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.ZERO;
@@ -199,7 +199,7 @@ export const ValueOp = {
     return obj;
   },
 
-  fromPartial(object: Partial<ValueOp>): ValueOp {
+  fromPartial(object: DeepPartial<ValueOp>): ValueOp {
     const message = createBaseValueOp();
     message.key = object.key ?? new Uint8Array();
     message.proof =
@@ -279,7 +279,7 @@ export const DominoOp = {
     return obj;
   },
 
-  fromPartial(object: Partial<DominoOp>): DominoOp {
+  fromPartial(object: DeepPartial<DominoOp>): DominoOp {
     const message = createBaseDominoOp();
     message.key = object.key ?? "";
     message.input = object.input ?? "";
@@ -361,7 +361,7 @@ export const ProofOp = {
     return obj;
   },
 
-  fromPartial(object: Partial<ProofOp>): ProofOp {
+  fromPartial(object: DeepPartial<ProofOp>): ProofOp {
     const message = createBaseProofOp();
     message.type = object.type ?? "";
     message.key = object.key ?? new Uint8Array();
@@ -425,7 +425,7 @@ export const ProofOps = {
     return obj;
   },
 
-  fromPartial(object: Partial<ProofOps>): ProofOps {
+  fromPartial(object: DeepPartial<ProofOps>): ProofOps {
     const message = createBaseProofOps();
     message.ops = object.ops?.map((e) => ProofOp.fromPartial(e)) || [];
     return message;
