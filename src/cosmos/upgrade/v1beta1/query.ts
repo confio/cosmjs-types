@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Plan, ModuleVersion } from "./upgrade";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, isSet, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
@@ -124,7 +124,7 @@ export const QueryCurrentPlanRequest = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<QueryCurrentPlanRequest>): QueryCurrentPlanRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanRequest>, I>>(_: I): QueryCurrentPlanRequest {
     const message = createBaseQueryCurrentPlanRequest();
     return message;
   },
@@ -179,7 +179,9 @@ export const QueryCurrentPlanResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryCurrentPlanResponse>): QueryCurrentPlanResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanResponse>, I>>(
+    object: I,
+  ): QueryCurrentPlanResponse {
     const message = createBaseQueryCurrentPlanResponse();
     message.plan =
       object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
@@ -236,7 +238,7 @@ export const QueryAppliedPlanRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAppliedPlanRequest>): QueryAppliedPlanRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanRequest>, I>>(object: I): QueryAppliedPlanRequest {
     const message = createBaseQueryAppliedPlanRequest();
     message.name = object.name ?? "";
     return message;
@@ -292,7 +294,9 @@ export const QueryAppliedPlanResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryAppliedPlanResponse>): QueryAppliedPlanResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanResponse>, I>>(
+    object: I,
+  ): QueryAppliedPlanResponse {
     const message = createBaseQueryAppliedPlanResponse();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
@@ -349,7 +353,9 @@ export const QueryUpgradedConsensusStateRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUpgradedConsensusStateRequest>): QueryUpgradedConsensusStateRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateRequest>, I>>(
+    object: I,
+  ): QueryUpgradedConsensusStateRequest {
     const message = createBaseQueryUpgradedConsensusStateRequest();
     message.lastHeight =
       object.lastHeight !== undefined && object.lastHeight !== null
@@ -413,7 +419,9 @@ export const QueryUpgradedConsensusStateResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryUpgradedConsensusStateResponse>): QueryUpgradedConsensusStateResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateResponse>, I>>(
+    object: I,
+  ): QueryUpgradedConsensusStateResponse {
     const message = createBaseQueryUpgradedConsensusStateResponse();
     message.upgradedConsensusState = object.upgradedConsensusState ?? new Uint8Array();
     return message;
@@ -469,7 +477,9 @@ export const QueryModuleVersionsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryModuleVersionsRequest>): QueryModuleVersionsRequest {
+  fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsRequest>, I>>(
+    object: I,
+  ): QueryModuleVersionsRequest {
     const message = createBaseQueryModuleVersionsRequest();
     message.moduleName = object.moduleName ?? "";
     return message;
@@ -533,7 +543,9 @@ export const QueryModuleVersionsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryModuleVersionsResponse>): QueryModuleVersionsResponse {
+  fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsResponse>, I>>(
+    object: I,
+  ): QueryModuleVersionsResponse {
     const message = createBaseQueryModuleVersionsResponse();
     message.moduleVersions = object.moduleVersions?.map((e) => ModuleVersion.fromPartial(e)) || [];
     return message;

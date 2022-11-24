@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.params.v1beta1";
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 
@@ -97,7 +97,7 @@ export const ParameterChangeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ParameterChangeProposal>): ParameterChangeProposal {
+  fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
     const message = createBaseParameterChangeProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -177,7 +177,7 @@ export const ParamChange = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ParamChange>): ParamChange {
+  fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {
     const message = createBaseParamChange();
     message.subspace = object.subspace ?? "";
     message.key = object.key ?? "";

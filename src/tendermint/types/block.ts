@@ -2,7 +2,7 @@
 import { Header, Data, Commit } from "./types";
 import { EvidenceList } from "./evidence";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial } from "../../helpers";
+import { isSet, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 export interface Block {
   header?: Header;
@@ -95,7 +95,7 @@ export const Block = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Block>): Block {
+  fromPartial<I extends Exact<DeepPartial<Block>, I>>(object: I): Block {
     const message = createBaseBlock();
     message.header =
       object.header !== undefined && object.header !== null ? Header.fromPartial(object.header) : undefined;

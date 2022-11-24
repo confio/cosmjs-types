@@ -2,7 +2,7 @@
 import { AccessConfig } from "./types";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Long } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** StoreCodeProposal gov proposal content type to submit WASM code to the system */
 
@@ -301,7 +301,7 @@ export const StoreCodeProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<StoreCodeProposal>): StoreCodeProposal {
+  fromPartial<I extends Exact<DeepPartial<StoreCodeProposal>, I>>(object: I): StoreCodeProposal {
     const message = createBaseStoreCodeProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -448,7 +448,9 @@ export const InstantiateContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<InstantiateContractProposal>): InstantiateContractProposal {
+  fromPartial<I extends Exact<DeepPartial<InstantiateContractProposal>, I>>(
+    object: I,
+  ): InstantiateContractProposal {
     const message = createBaseInstantiateContractProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -557,7 +559,7 @@ export const MigrateContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MigrateContractProposal>): MigrateContractProposal {
+  fromPartial<I extends Exact<DeepPartial<MigrateContractProposal>, I>>(object: I): MigrateContractProposal {
     const message = createBaseMigrateContractProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -652,7 +654,7 @@ export const SudoContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SudoContractProposal>): SudoContractProposal {
+  fromPartial<I extends Exact<DeepPartial<SudoContractProposal>, I>>(object: I): SudoContractProposal {
     const message = createBaseSudoContractProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -773,7 +775,7 @@ export const ExecuteContractProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ExecuteContractProposal>): ExecuteContractProposal {
+  fromPartial<I extends Exact<DeepPartial<ExecuteContractProposal>, I>>(object: I): ExecuteContractProposal {
     const message = createBaseExecuteContractProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -867,7 +869,7 @@ export const UpdateAdminProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<UpdateAdminProposal>): UpdateAdminProposal {
+  fromPartial<I extends Exact<DeepPartial<UpdateAdminProposal>, I>>(object: I): UpdateAdminProposal {
     const message = createBaseUpdateAdminProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -948,7 +950,7 @@ export const ClearAdminProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ClearAdminProposal>): ClearAdminProposal {
+  fromPartial<I extends Exact<DeepPartial<ClearAdminProposal>, I>>(object: I): ClearAdminProposal {
     const message = createBaseClearAdminProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -1046,7 +1048,7 @@ export const PinCodesProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PinCodesProposal>): PinCodesProposal {
+  fromPartial<I extends Exact<DeepPartial<PinCodesProposal>, I>>(object: I): PinCodesProposal {
     const message = createBasePinCodesProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -1144,7 +1146,7 @@ export const UnpinCodesProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<UnpinCodesProposal>): UnpinCodesProposal {
+  fromPartial<I extends Exact<DeepPartial<UnpinCodesProposal>, I>>(object: I): UnpinCodesProposal {
     const message = createBaseUnpinCodesProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -1218,7 +1220,7 @@ export const AccessConfigUpdate = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<AccessConfigUpdate>): AccessConfigUpdate {
+  fromPartial<I extends Exact<DeepPartial<AccessConfigUpdate>, I>>(object: I): AccessConfigUpdate {
     const message = createBaseAccessConfigUpdate();
     message.codeId =
       object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
@@ -1311,7 +1313,9 @@ export const UpdateInstantiateConfigProposal = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<UpdateInstantiateConfigProposal>): UpdateInstantiateConfigProposal {
+  fromPartial<I extends Exact<DeepPartial<UpdateInstantiateConfigProposal>, I>>(
+    object: I,
+  ): UpdateInstantiateConfigProposal {
     const message = createBaseUpdateInstantiateConfigProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";

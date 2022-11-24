@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { MerklePrefix } from "../../commitment/v1/commitment";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * State defines if a connection is in one of the following states:
@@ -281,7 +281,7 @@ export const ConnectionEnd = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ConnectionEnd>): ConnectionEnd {
+  fromPartial<I extends Exact<DeepPartial<ConnectionEnd>, I>>(object: I): ConnectionEnd {
     const message = createBaseConnectionEnd();
     message.clientId = object.clientId ?? "";
     message.versions = object.versions?.map((e) => Version.fromPartial(e)) || [];
@@ -409,7 +409,7 @@ export const IdentifiedConnection = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<IdentifiedConnection>): IdentifiedConnection {
+  fromPartial<I extends Exact<DeepPartial<IdentifiedConnection>, I>>(object: I): IdentifiedConnection {
     const message = createBaseIdentifiedConnection();
     message.id = object.id ?? "";
     message.clientId = object.clientId ?? "";
@@ -499,7 +499,7 @@ export const Counterparty = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Counterparty>): Counterparty {
+  fromPartial<I extends Exact<DeepPartial<Counterparty>, I>>(object: I): Counterparty {
     const message = createBaseCounterparty();
     message.clientId = object.clientId ?? "";
     message.connectionId = object.connectionId ?? "";
@@ -566,7 +566,7 @@ export const ClientPaths = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ClientPaths>): ClientPaths {
+  fromPartial<I extends Exact<DeepPartial<ClientPaths>, I>>(object: I): ClientPaths {
     const message = createBaseClientPaths();
     message.paths = object.paths?.map((e) => e) || [];
     return message;
@@ -639,7 +639,7 @@ export const ConnectionPaths = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ConnectionPaths>): ConnectionPaths {
+  fromPartial<I extends Exact<DeepPartial<ConnectionPaths>, I>>(object: I): ConnectionPaths {
     const message = createBaseConnectionPaths();
     message.clientId = object.clientId ?? "";
     message.paths = object.paths?.map((e) => e) || [];
@@ -713,7 +713,7 @@ export const Version = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Version>): Version {
+  fromPartial<I extends Exact<DeepPartial<Version>, I>>(object: I): Version {
     const message = createBaseVersion();
     message.identifier = object.identifier ?? "";
     message.features = object.features?.map((e) => e) || [];
@@ -773,7 +773,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.maxExpectedTimePerBlock =
       object.maxExpectedTimePerBlock !== undefined && object.maxExpectedTimePerBlock !== null

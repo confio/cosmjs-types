@@ -2,7 +2,7 @@
 import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Long, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { DeepPartial, Exact, Long, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.tx.signing.v1beta1";
 /** SignMode represents a signing mode with its own security guarantees. */
 
@@ -207,7 +207,7 @@ export const SignatureDescriptors = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptors>): SignatureDescriptors {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptors>, I>>(object: I): SignatureDescriptors {
     const message = createBaseSignatureDescriptors();
     message.signatures = object.signatures?.map((e) => SignatureDescriptor.fromPartial(e)) || [];
     return message;
@@ -287,7 +287,7 @@ export const SignatureDescriptor = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor>): SignatureDescriptor {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor>, I>>(object: I): SignatureDescriptor {
     const message = createBaseSignatureDescriptor();
     message.publicKey =
       object.publicKey !== undefined && object.publicKey !== null
@@ -367,7 +367,9 @@ export const SignatureDescriptor_Data = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data>): SignatureDescriptor_Data {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data {
     const message = createBaseSignatureDescriptor_Data();
     message.single =
       object.single !== undefined && object.single !== null
@@ -444,7 +446,9 @@ export const SignatureDescriptor_Data_Single = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data_Single>): SignatureDescriptor_Data_Single {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Single>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data_Single {
     const message = createBaseSignatureDescriptor_Data_Single();
     message.mode = object.mode ?? 0;
     message.signature = object.signature ?? new Uint8Array();
@@ -521,7 +525,9 @@ export const SignatureDescriptor_Data_Multi = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SignatureDescriptor_Data_Multi>): SignatureDescriptor_Data_Multi {
+  fromPartial<I extends Exact<DeepPartial<SignatureDescriptor_Data_Multi>, I>>(
+    object: I,
+  ): SignatureDescriptor_Data_Multi {
     const message = createBaseSignatureDescriptor_Data_Multi();
     message.bitarray =
       object.bitarray !== undefined && object.bitarray !== null

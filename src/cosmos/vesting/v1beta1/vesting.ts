@@ -2,7 +2,7 @@
 import { BaseAccount } from "../../auth/v1beta1/auth";
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial } from "../../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.vesting.v1beta1";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
@@ -178,7 +178,7 @@ export const BaseVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<BaseVestingAccount>): BaseVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<BaseVestingAccount>, I>>(object: I): BaseVestingAccount {
     const message = createBaseBaseVestingAccount();
     message.baseAccount =
       object.baseAccount !== undefined && object.baseAccount !== null
@@ -258,7 +258,9 @@ export const ContinuousVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ContinuousVestingAccount>): ContinuousVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<ContinuousVestingAccount>, I>>(
+    object: I,
+  ): ContinuousVestingAccount {
     const message = createBaseContinuousVestingAccount();
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -326,7 +328,7 @@ export const DelayedVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DelayedVestingAccount>): DelayedVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<DelayedVestingAccount>, I>>(object: I): DelayedVestingAccount {
     const message = createBaseDelayedVestingAccount();
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -402,7 +404,7 @@ export const Period = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Period>): Period {
+  fromPartial<I extends Exact<DeepPartial<Period>, I>>(object: I): Period {
     const message = createBasePeriod();
     message.length =
       object.length !== undefined && object.length !== null ? Long.fromValue(object.length) : Long.ZERO;
@@ -495,7 +497,7 @@ export const PeriodicVestingAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PeriodicVestingAccount>): PeriodicVestingAccount {
+  fromPartial<I extends Exact<DeepPartial<PeriodicVestingAccount>, I>>(object: I): PeriodicVestingAccount {
     const message = createBasePeriodicVestingAccount();
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
@@ -564,7 +566,7 @@ export const PermanentLockedAccount = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PermanentLockedAccount>): PermanentLockedAccount {
+  fromPartial<I extends Exact<DeepPartial<PermanentLockedAccount>, I>>(object: I): PermanentLockedAccount {
     const message = createBasePermanentLockedAccount();
     message.baseVestingAccount =
       object.baseVestingAccount !== undefined && object.baseVestingAccount !== null

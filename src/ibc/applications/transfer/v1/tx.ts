@@ -2,7 +2,7 @@
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { Height } from "../../../core/client/v1/client";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Rpc } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
@@ -159,7 +159,7 @@ export const MsgTransfer = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgTransfer>): MsgTransfer {
+  fromPartial<I extends Exact<DeepPartial<MsgTransfer>, I>>(object: I): MsgTransfer {
     const message = createBaseMsgTransfer();
     message.sourcePort = object.sourcePort ?? "";
     message.sourceChannel = object.sourceChannel ?? "";
@@ -215,7 +215,7 @@ export const MsgTransferResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgTransferResponse>): MsgTransferResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgTransferResponse>, I>>(_: I): MsgTransferResponse {
     const message = createBaseMsgTransferResponse();
     return message;
   },

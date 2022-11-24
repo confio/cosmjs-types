@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial } from "../../helpers";
+import { isSet, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "google.api";
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
@@ -378,7 +378,7 @@ export const Http = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Http>): Http {
+  fromPartial<I extends Exact<DeepPartial<Http>, I>>(object: I): Http {
     const message = createBaseHttp();
     message.rules = object.rules?.map((e) => HttpRule.fromPartial(e)) || [];
     message.fullyDecodeReservedExpansion = object.fullyDecodeReservedExpansion ?? false;
@@ -543,7 +543,7 @@ export const HttpRule = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<HttpRule>): HttpRule {
+  fromPartial<I extends Exact<DeepPartial<HttpRule>, I>>(object: I): HttpRule {
     const message = createBaseHttpRule();
     message.selector = object.selector ?? "";
     message.get = object.get ?? undefined;
@@ -622,7 +622,7 @@ export const CustomHttpPattern = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CustomHttpPattern>): CustomHttpPattern {
+  fromPartial<I extends Exact<DeepPartial<CustomHttpPattern>, I>>(object: I): CustomHttpPattern {
     const message = createBaseCustomHttpPattern();
     message.kind = object.kind ?? "";
     message.path = object.path ?? "";

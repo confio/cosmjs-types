@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /** Params defines the parameters for the bank module. */
 
@@ -166,7 +166,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.sendEnabled = object.sendEnabled?.map((e) => SendEnabled.fromPartial(e)) || [];
     message.defaultSendEnabled = object.defaultSendEnabled ?? false;
@@ -234,7 +234,7 @@ export const SendEnabled = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SendEnabled>): SendEnabled {
+  fromPartial<I extends Exact<DeepPartial<SendEnabled>, I>>(object: I): SendEnabled {
     const message = createBaseSendEnabled();
     message.denom = object.denom ?? "";
     message.enabled = object.enabled ?? false;
@@ -308,7 +308,7 @@ export const Input = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Input>): Input {
+  fromPartial<I extends Exact<DeepPartial<Input>, I>>(object: I): Input {
     const message = createBaseInput();
     message.address = object.address ?? "";
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
@@ -382,7 +382,7 @@ export const Output = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Output>): Output {
+  fromPartial<I extends Exact<DeepPartial<Output>, I>>(object: I): Output {
     const message = createBaseOutput();
     message.address = object.address ?? "";
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
@@ -445,7 +445,7 @@ export const Supply = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Supply>): Supply {
+  fromPartial<I extends Exact<DeepPartial<Supply>, I>>(object: I): Supply {
     const message = createBaseSupply();
     message.total = object.total?.map((e) => Coin.fromPartial(e)) || [];
     return message;
@@ -529,7 +529,7 @@ export const DenomUnit = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DenomUnit>): DenomUnit {
+  fromPartial<I extends Exact<DeepPartial<DenomUnit>, I>>(object: I): DenomUnit {
     const message = createBaseDenomUnit();
     message.denom = object.denom ?? "";
     message.exponent = object.exponent ?? 0;
@@ -650,7 +650,7 @@ export const Metadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Metadata>): Metadata {
+  fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {
     const message = createBaseMetadata();
     message.description = object.description ?? "";
     message.denomUnits = object.denomUnits?.map((e) => DenomUnit.fromPartial(e)) || [];

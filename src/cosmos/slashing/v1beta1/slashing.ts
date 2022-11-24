@@ -8,6 +8,7 @@ import {
   fromJsonTimestamp,
   fromTimestamp,
   DeepPartial,
+  Exact,
   bytesFromBase64,
   base64FromBytes,
 } from "../../../helpers";
@@ -162,7 +163,7 @@ export const ValidatorSigningInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<ValidatorSigningInfo>): ValidatorSigningInfo {
+  fromPartial<I extends Exact<DeepPartial<ValidatorSigningInfo>, I>>(object: I): ValidatorSigningInfo {
     const message = createBaseValidatorSigningInfo();
     message.address = object.address ?? "";
     message.startHeight =
@@ -302,7 +303,7 @@ export const Params = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.signedBlocksWindow =
       object.signedBlocksWindow !== undefined && object.signedBlocksWindow !== null

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial } from "../../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.snapshots.v1beta1";
 /** Snapshot contains Tendermint state sync snapshot info. */
 
@@ -149,7 +149,7 @@ export const Snapshot = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Snapshot>): Snapshot {
+  fromPartial<I extends Exact<DeepPartial<Snapshot>, I>>(object: I): Snapshot {
     const message = createBaseSnapshot();
     message.height =
       object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
@@ -223,7 +223,7 @@ export const Metadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Metadata>): Metadata {
+  fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {
     const message = createBaseMetadata();
     message.chunkHashes = object.chunkHashes?.map((e) => e) || [];
     return message;
@@ -320,7 +320,7 @@ export const SnapshotItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotItem>): SnapshotItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotItem>, I>>(object: I): SnapshotItem {
     const message = createBaseSnapshotItem();
     message.store =
       object.store !== undefined && object.store !== null
@@ -391,7 +391,7 @@ export const SnapshotStoreItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotStoreItem>): SnapshotStoreItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
     const message = createBaseSnapshotStoreItem();
     message.name = object.name ?? "";
     return message;
@@ -482,7 +482,7 @@ export const SnapshotIAVLItem = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotIAVLItem>): SnapshotIAVLItem {
+  fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {
     const message = createBaseSnapshotIAVLItem();
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
@@ -553,7 +553,7 @@ export const SnapshotExtensionMeta = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotExtensionMeta>): SnapshotExtensionMeta {
+  fromPartial<I extends Exact<DeepPartial<SnapshotExtensionMeta>, I>>(object: I): SnapshotExtensionMeta {
     const message = createBaseSnapshotExtensionMeta();
     message.name = object.name ?? "";
     message.format = object.format ?? 0;
@@ -611,7 +611,9 @@ export const SnapshotExtensionPayload = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SnapshotExtensionPayload>): SnapshotExtensionPayload {
+  fromPartial<I extends Exact<DeepPartial<SnapshotExtensionPayload>, I>>(
+    object: I,
+  ): SnapshotExtensionPayload {
     const message = createBaseSnapshotExtensionPayload();
     message.payload = object.payload ?? new Uint8Array();
     return message;
