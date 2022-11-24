@@ -12,6 +12,10 @@ node_modules/
 /google/
 /ibc/
 /tendermint/
+/helpers.*
 
 # IDEs
 .vscode/
+
+# macOS
+.DS_Store
