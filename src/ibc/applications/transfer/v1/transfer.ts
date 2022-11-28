@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
+import { DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * DenomTrace contains the base denomination for ICS20 fungible tokens and the
@@ -84,20 +84,6 @@ export const DenomTrace = {
     return message;
   },
 
-  fromJSON(object: any): DenomTrace {
-    return {
-      path: isSet(object.path) ? String(object.path) : "",
-      baseDenom: isSet(object.baseDenom) ? String(object.baseDenom) : "",
-    };
-  },
-
-  toJSON(message: DenomTrace): unknown {
-    const obj: any = {};
-    message.path !== undefined && (obj.path = message.path);
-    message.baseDenom !== undefined && (obj.baseDenom = message.baseDenom);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<DenomTrace>, I>>(object: I): DenomTrace {
     const message = createBaseDenomTrace();
     message.path = object.path ?? "";
@@ -150,20 +136,6 @@ export const Params = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Params {
-    return {
-      sendEnabled: isSet(object.sendEnabled) ? Boolean(object.sendEnabled) : false,
-      receiveEnabled: isSet(object.receiveEnabled) ? Boolean(object.receiveEnabled) : false,
-    };
-  },
-
-  toJSON(message: Params): unknown {
-    const obj: any = {};
-    message.sendEnabled !== undefined && (obj.sendEnabled = message.sendEnabled);
-    message.receiveEnabled !== undefined && (obj.receiveEnabled = message.receiveEnabled);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {

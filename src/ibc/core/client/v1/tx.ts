@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.client.v1";
 /** MsgCreateClient defines a message to create an IBC client */
 
@@ -146,24 +146,6 @@ export const MsgCreateClient = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateClient {
-    return {
-      clientState: isSet(object.clientState) ? Any.fromJSON(object.clientState) : undefined,
-      consensusState: isSet(object.consensusState) ? Any.fromJSON(object.consensusState) : undefined,
-      signer: isSet(object.signer) ? String(object.signer) : "",
-    };
-  },
-
-  toJSON(message: MsgCreateClient): unknown {
-    const obj: any = {};
-    message.clientState !== undefined &&
-      (obj.clientState = message.clientState ? Any.toJSON(message.clientState) : undefined);
-    message.consensusState !== undefined &&
-      (obj.consensusState = message.consensusState ? Any.toJSON(message.consensusState) : undefined);
-    message.signer !== undefined && (obj.signer = message.signer);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgCreateClient>, I>>(object: I): MsgCreateClient {
     const message = createBaseMsgCreateClient();
     message.clientState =
@@ -204,15 +186,6 @@ export const MsgCreateClientResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgCreateClientResponse {
-    return {};
-  },
-
-  toJSON(_: MsgCreateClientResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreateClientResponse>, I>>(_: I): MsgCreateClientResponse {
@@ -276,22 +249,6 @@ export const MsgUpdateClient = {
     return message;
   },
 
-  fromJSON(object: any): MsgUpdateClient {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      header: isSet(object.header) ? Any.fromJSON(object.header) : undefined,
-      signer: isSet(object.signer) ? String(object.signer) : "",
-    };
-  },
-
-  toJSON(message: MsgUpdateClient): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.header !== undefined && (obj.header = message.header ? Any.toJSON(message.header) : undefined);
-    message.signer !== undefined && (obj.signer = message.signer);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgUpdateClient>, I>>(object: I): MsgUpdateClient {
     const message = createBaseMsgUpdateClient();
     message.clientId = object.clientId ?? "";
@@ -327,15 +284,6 @@ export const MsgUpdateClientResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgUpdateClientResponse {
-    return {};
-  },
-
-  toJSON(_: MsgUpdateClientResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUpdateClientResponse>, I>>(_: I): MsgUpdateClientResponse {
@@ -426,42 +374,6 @@ export const MsgUpgradeClient = {
     return message;
   },
 
-  fromJSON(object: any): MsgUpgradeClient {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      clientState: isSet(object.clientState) ? Any.fromJSON(object.clientState) : undefined,
-      consensusState: isSet(object.consensusState) ? Any.fromJSON(object.consensusState) : undefined,
-      proofUpgradeClient: isSet(object.proofUpgradeClient)
-        ? bytesFromBase64(object.proofUpgradeClient)
-        : new Uint8Array(),
-      proofUpgradeConsensusState: isSet(object.proofUpgradeConsensusState)
-        ? bytesFromBase64(object.proofUpgradeConsensusState)
-        : new Uint8Array(),
-      signer: isSet(object.signer) ? String(object.signer) : "",
-    };
-  },
-
-  toJSON(message: MsgUpgradeClient): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.clientState !== undefined &&
-      (obj.clientState = message.clientState ? Any.toJSON(message.clientState) : undefined);
-    message.consensusState !== undefined &&
-      (obj.consensusState = message.consensusState ? Any.toJSON(message.consensusState) : undefined);
-    message.proofUpgradeClient !== undefined &&
-      (obj.proofUpgradeClient = base64FromBytes(
-        message.proofUpgradeClient !== undefined ? message.proofUpgradeClient : new Uint8Array(),
-      ));
-    message.proofUpgradeConsensusState !== undefined &&
-      (obj.proofUpgradeConsensusState = base64FromBytes(
-        message.proofUpgradeConsensusState !== undefined
-          ? message.proofUpgradeConsensusState
-          : new Uint8Array(),
-      ));
-    message.signer !== undefined && (obj.signer = message.signer);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgUpgradeClient>, I>>(object: I): MsgUpgradeClient {
     const message = createBaseMsgUpgradeClient();
     message.clientId = object.clientId ?? "";
@@ -505,15 +417,6 @@ export const MsgUpgradeClientResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgUpgradeClientResponse {
-    return {};
-  },
-
-  toJSON(_: MsgUpgradeClientResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUpgradeClientResponse>, I>>(_: I): MsgUpgradeClientResponse {
@@ -577,23 +480,6 @@ export const MsgSubmitMisbehaviour = {
     return message;
   },
 
-  fromJSON(object: any): MsgSubmitMisbehaviour {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      misbehaviour: isSet(object.misbehaviour) ? Any.fromJSON(object.misbehaviour) : undefined,
-      signer: isSet(object.signer) ? String(object.signer) : "",
-    };
-  },
-
-  toJSON(message: MsgSubmitMisbehaviour): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.misbehaviour !== undefined &&
-      (obj.misbehaviour = message.misbehaviour ? Any.toJSON(message.misbehaviour) : undefined);
-    message.signer !== undefined && (obj.signer = message.signer);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgSubmitMisbehaviour>, I>>(object: I): MsgSubmitMisbehaviour {
     const message = createBaseMsgSubmitMisbehaviour();
     message.clientId = object.clientId ?? "";
@@ -631,15 +517,6 @@ export const MsgSubmitMisbehaviourResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgSubmitMisbehaviourResponse {
-    return {};
-  },
-
-  toJSON(_: MsgSubmitMisbehaviourResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitMisbehaviourResponse>, I>>(

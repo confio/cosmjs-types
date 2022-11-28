@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.genutil.v1beta1";
 /** GenesisState defines the raw genesis transaction in JSON. */
 
@@ -44,24 +44,6 @@ export const GenesisState = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): GenesisState {
-    return {
-      genTxs: Array.isArray(object?.genTxs) ? object.genTxs.map((e: any) => bytesFromBase64(e)) : [],
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-
-    if (message.genTxs) {
-      obj.genTxs = message.genTxs.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
-    } else {
-      obj.genTxs = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

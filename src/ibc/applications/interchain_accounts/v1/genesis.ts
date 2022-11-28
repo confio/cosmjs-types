@@ -2,7 +2,7 @@
 import { Params as Params1 } from "../controller/v1/controller";
 import { Params as Params2 } from "../host/v1/host";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
+import { DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /** GenesisState defines the interchain accounts genesis state */
 
@@ -87,30 +87,6 @@ export const GenesisState = {
     return message;
   },
 
-  fromJSON(object: any): GenesisState {
-    return {
-      controllerGenesisState: isSet(object.controllerGenesisState)
-        ? ControllerGenesisState.fromJSON(object.controllerGenesisState)
-        : undefined,
-      hostGenesisState: isSet(object.hostGenesisState)
-        ? HostGenesisState.fromJSON(object.hostGenesisState)
-        : undefined,
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-    message.controllerGenesisState !== undefined &&
-      (obj.controllerGenesisState = message.controllerGenesisState
-        ? ControllerGenesisState.toJSON(message.controllerGenesisState)
-        : undefined);
-    message.hostGenesisState !== undefined &&
-      (obj.hostGenesisState = message.hostGenesisState
-        ? HostGenesisState.toJSON(message.hostGenesisState)
-        : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.controllerGenesisState =
@@ -189,47 +165,6 @@ export const ControllerGenesisState = {
     return message;
   },
 
-  fromJSON(object: any): ControllerGenesisState {
-    return {
-      activeChannels: Array.isArray(object?.activeChannels)
-        ? object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e))
-        : [],
-      interchainAccounts: Array.isArray(object?.interchainAccounts)
-        ? object.interchainAccounts.map((e: any) => RegisteredInterchainAccount.fromJSON(e))
-        : [],
-      ports: Array.isArray(object?.ports) ? object.ports.map((e: any) => String(e)) : [],
-      params: isSet(object.params) ? Params1.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: ControllerGenesisState): unknown {
-    const obj: any = {};
-
-    if (message.activeChannels) {
-      obj.activeChannels = message.activeChannels.map((e) => (e ? ActiveChannel.toJSON(e) : undefined));
-    } else {
-      obj.activeChannels = [];
-    }
-
-    if (message.interchainAccounts) {
-      obj.interchainAccounts = message.interchainAccounts.map((e) =>
-        e ? RegisteredInterchainAccount.toJSON(e) : undefined,
-      );
-    } else {
-      obj.interchainAccounts = [];
-    }
-
-    if (message.ports) {
-      obj.ports = message.ports.map((e) => e);
-    } else {
-      obj.ports = [];
-    }
-
-    message.params !== undefined &&
-      (obj.params = message.params ? Params1.toJSON(message.params) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ControllerGenesisState>, I>>(object: I): ControllerGenesisState {
     const message = createBaseControllerGenesisState();
     message.activeChannels = object.activeChannels?.map((e) => ActiveChannel.fromPartial(e)) || [];
@@ -306,42 +241,6 @@ export const HostGenesisState = {
     return message;
   },
 
-  fromJSON(object: any): HostGenesisState {
-    return {
-      activeChannels: Array.isArray(object?.activeChannels)
-        ? object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e))
-        : [],
-      interchainAccounts: Array.isArray(object?.interchainAccounts)
-        ? object.interchainAccounts.map((e: any) => RegisteredInterchainAccount.fromJSON(e))
-        : [],
-      port: isSet(object.port) ? String(object.port) : "",
-      params: isSet(object.params) ? Params2.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: HostGenesisState): unknown {
-    const obj: any = {};
-
-    if (message.activeChannels) {
-      obj.activeChannels = message.activeChannels.map((e) => (e ? ActiveChannel.toJSON(e) : undefined));
-    } else {
-      obj.activeChannels = [];
-    }
-
-    if (message.interchainAccounts) {
-      obj.interchainAccounts = message.interchainAccounts.map((e) =>
-        e ? RegisteredInterchainAccount.toJSON(e) : undefined,
-      );
-    } else {
-      obj.interchainAccounts = [];
-    }
-
-    message.port !== undefined && (obj.port = message.port);
-    message.params !== undefined &&
-      (obj.params = message.params ? Params2.toJSON(message.params) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<HostGenesisState>, I>>(object: I): HostGenesisState {
     const message = createBaseHostGenesisState();
     message.activeChannels = object.activeChannels?.map((e) => ActiveChannel.fromPartial(e)) || [];
@@ -409,22 +308,6 @@ export const ActiveChannel = {
     return message;
   },
 
-  fromJSON(object: any): ActiveChannel {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-    };
-  },
-
-  toJSON(message: ActiveChannel): unknown {
-    const obj: any = {};
-    message.connectionId !== undefined && (obj.connectionId = message.connectionId);
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ActiveChannel>, I>>(object: I): ActiveChannel {
     const message = createBaseActiveChannel();
     message.connectionId = object.connectionId ?? "";
@@ -487,22 +370,6 @@ export const RegisteredInterchainAccount = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): RegisteredInterchainAccount {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      accountAddress: isSet(object.accountAddress) ? String(object.accountAddress) : "",
-    };
-  },
-
-  toJSON(message: RegisteredInterchainAccount): unknown {
-    const obj: any = {};
-    message.connectionId !== undefined && (obj.connectionId = message.connectionId);
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.accountAddress !== undefined && (obj.accountAddress = message.accountAddress);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<RegisteredInterchainAccount>, I>>(

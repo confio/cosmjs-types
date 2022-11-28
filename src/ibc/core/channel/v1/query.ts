@@ -4,7 +4,7 @@ import { Channel, IdentifiedChannel, PacketState } from "./channel";
 import { Height, IdentifiedClientState } from "../../client/v1/client";
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
+import { DeepPartial, Exact, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 /** QueryChannelRequest is the request type for the Query/Channel RPC method */
 
@@ -421,20 +421,6 @@ export const QueryChannelRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryChannelRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-    };
-  },
-
-  toJSON(message: QueryChannelRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryChannelRequest>, I>>(object: I): QueryChannelRequest {
     const message = createBaseQueryChannelRequest();
     message.portId = object.portId ?? "";
@@ -498,25 +484,6 @@ export const QueryChannelResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryChannelResponse {
-    return {
-      channel: isSet(object.channel) ? Channel.fromJSON(object.channel) : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryChannelResponse): unknown {
-    const obj: any = {};
-    message.channel !== undefined &&
-      (obj.channel = message.channel ? Channel.toJSON(message.channel) : undefined);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryChannelResponse>, I>>(object: I): QueryChannelResponse {
     const message = createBaseQueryChannelResponse();
     message.channel =
@@ -567,19 +534,6 @@ export const QueryChannelsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryChannelsRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryChannelsRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryChannelsRequest>, I>>(object: I): QueryChannelsRequest {
@@ -647,31 +601,6 @@ export const QueryChannelsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryChannelsResponse {
-    return {
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryChannelsResponse): unknown {
-    const obj: any = {};
-
-    if (message.channels) {
-      obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toJSON(e) : undefined));
-    } else {
-      obj.channels = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryChannelsResponse>, I>>(object: I): QueryChannelsResponse {
     const message = createBaseQueryChannelsResponse();
     message.channels = object.channels?.map((e) => IdentifiedChannel.fromPartial(e)) || [];
@@ -729,21 +658,6 @@ export const QueryConnectionChannelsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionChannelsRequest {
-    return {
-      connection: isSet(object.connection) ? String(object.connection) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionChannelsRequest): unknown {
-    const obj: any = {};
-    message.connection !== undefined && (obj.connection = message.connection);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionChannelsRequest>, I>>(
@@ -814,31 +728,6 @@ export const QueryConnectionChannelsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryConnectionChannelsResponse {
-    return {
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => IdentifiedChannel.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionChannelsResponse): unknown {
-    const obj: any = {};
-
-    if (message.channels) {
-      obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toJSON(e) : undefined));
-    } else {
-      obj.channels = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryConnectionChannelsResponse>, I>>(
     object: I,
   ): QueryConnectionChannelsResponse {
@@ -898,20 +787,6 @@ export const QueryChannelClientStateRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryChannelClientStateRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-    };
-  },
-
-  toJSON(message: QueryChannelClientStateRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryChannelClientStateRequest>, I>>(
@@ -977,29 +852,6 @@ export const QueryChannelClientStateResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryChannelClientStateResponse {
-    return {
-      identifiedClientState: isSet(object.identifiedClientState)
-        ? IdentifiedClientState.fromJSON(object.identifiedClientState)
-        : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryChannelClientStateResponse): unknown {
-    const obj: any = {};
-    message.identifiedClientState !== undefined &&
-      (obj.identifiedClientState = message.identifiedClientState
-        ? IdentifiedClientState.toJSON(message.identifiedClientState)
-        : undefined);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryChannelClientStateResponse>, I>>(
@@ -1081,26 +933,6 @@ export const QueryChannelConsensusStateRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryChannelConsensusStateRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      revisionNumber: isSet(object.revisionNumber) ? Long.fromValue(object.revisionNumber) : Long.UZERO,
-      revisionHeight: isSet(object.revisionHeight) ? Long.fromValue(object.revisionHeight) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: QueryChannelConsensusStateRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.revisionNumber !== undefined &&
-      (obj.revisionNumber = (message.revisionNumber || Long.UZERO).toString());
-    message.revisionHeight !== undefined &&
-      (obj.revisionHeight = (message.revisionHeight || Long.UZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryChannelConsensusStateRequest>, I>>(
@@ -1185,27 +1017,6 @@ export const QueryChannelConsensusStateResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryChannelConsensusStateResponse {
-    return {
-      consensusState: isSet(object.consensusState) ? Any.fromJSON(object.consensusState) : undefined,
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryChannelConsensusStateResponse): unknown {
-    const obj: any = {};
-    message.consensusState !== undefined &&
-      (obj.consensusState = message.consensusState ? Any.toJSON(message.consensusState) : undefined);
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryChannelConsensusStateResponse>, I>>(
     object: I,
   ): QueryChannelConsensusStateResponse {
@@ -1279,22 +1090,6 @@ export const QueryPacketCommitmentRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPacketCommitmentRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: QueryPacketCommitmentRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentRequest>, I>>(
     object: I,
   ): QueryPacketCommitmentRequest {
@@ -1362,27 +1157,6 @@ export const QueryPacketCommitmentResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryPacketCommitmentResponse {
-    return {
-      commitment: isSet(object.commitment) ? bytesFromBase64(object.commitment) : new Uint8Array(),
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketCommitmentResponse): unknown {
-    const obj: any = {};
-    message.commitment !== undefined &&
-      (obj.commitment = base64FromBytes(
-        message.commitment !== undefined ? message.commitment : new Uint8Array(),
-      ));
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentResponse>, I>>(
@@ -1454,23 +1228,6 @@ export const QueryPacketCommitmentsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPacketCommitmentsRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketCommitmentsRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentsRequest>, I>>(
     object: I,
   ): QueryPacketCommitmentsRequest {
@@ -1538,31 +1295,6 @@ export const QueryPacketCommitmentsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryPacketCommitmentsResponse {
-    return {
-      commitments: Array.isArray(object?.commitments)
-        ? object.commitments.map((e: any) => PacketState.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketCommitmentsResponse): unknown {
-    const obj: any = {};
-
-    if (message.commitments) {
-      obj.commitments = message.commitments.map((e) => (e ? PacketState.toJSON(e) : undefined));
-    } else {
-      obj.commitments = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPacketCommitmentsResponse>, I>>(
@@ -1635,22 +1367,6 @@ export const QueryPacketReceiptRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPacketReceiptRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: QueryPacketReceiptRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryPacketReceiptRequest>, I>>(
     object: I,
   ): QueryPacketReceiptRequest {
@@ -1718,24 +1434,6 @@ export const QueryPacketReceiptResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryPacketReceiptResponse {
-    return {
-      received: isSet(object.received) ? Boolean(object.received) : false,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketReceiptResponse): unknown {
-    const obj: any = {};
-    message.received !== undefined && (obj.received = message.received);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPacketReceiptResponse>, I>>(
@@ -1807,22 +1505,6 @@ export const QueryPacketAcknowledgementRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPacketAcknowledgementRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: QueryPacketAcknowledgementRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementRequest>, I>>(
     object: I,
   ): QueryPacketAcknowledgementRequest {
@@ -1890,29 +1572,6 @@ export const QueryPacketAcknowledgementResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryPacketAcknowledgementResponse {
-    return {
-      acknowledgement: isSet(object.acknowledgement)
-        ? bytesFromBase64(object.acknowledgement)
-        : new Uint8Array(),
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketAcknowledgementResponse): unknown {
-    const obj: any = {};
-    message.acknowledgement !== undefined &&
-      (obj.acknowledgement = base64FromBytes(
-        message.acknowledgement !== undefined ? message.acknowledgement : new Uint8Array(),
-      ));
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementResponse>, I>>(
@@ -2005,35 +1664,6 @@ export const QueryPacketAcknowledgementsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPacketAcknowledgementsRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-      packetCommitmentSequences: Array.isArray(object?.packetCommitmentSequences)
-        ? object.packetCommitmentSequences.map((e: any) => Long.fromValue(e))
-        : [],
-    };
-  },
-
-  toJSON(message: QueryPacketAcknowledgementsRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-
-    if (message.packetCommitmentSequences) {
-      obj.packetCommitmentSequences = message.packetCommitmentSequences.map((e) =>
-        (e || Long.UZERO).toString(),
-      );
-    } else {
-      obj.packetCommitmentSequences = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementsRequest>, I>>(
     object: I,
   ): QueryPacketAcknowledgementsRequest {
@@ -2102,31 +1732,6 @@ export const QueryPacketAcknowledgementsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryPacketAcknowledgementsResponse {
-    return {
-      acknowledgements: Array.isArray(object?.acknowledgements)
-        ? object.acknowledgements.map((e: any) => PacketState.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryPacketAcknowledgementsResponse): unknown {
-    const obj: any = {};
-
-    if (message.acknowledgements) {
-      obj.acknowledgements = message.acknowledgements.map((e) => (e ? PacketState.toJSON(e) : undefined));
-    } else {
-      obj.acknowledgements = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryPacketAcknowledgementsResponse>, I>>(
@@ -2211,32 +1816,6 @@ export const QueryUnreceivedPacketsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryUnreceivedPacketsRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      packetCommitmentSequences: Array.isArray(object?.packetCommitmentSequences)
-        ? object.packetCommitmentSequences.map((e: any) => Long.fromValue(e))
-        : [],
-    };
-  },
-
-  toJSON(message: QueryUnreceivedPacketsRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-
-    if (message.packetCommitmentSequences) {
-      obj.packetCommitmentSequences = message.packetCommitmentSequences.map((e) =>
-        (e || Long.UZERO).toString(),
-      );
-    } else {
-      obj.packetCommitmentSequences = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryUnreceivedPacketsRequest>, I>>(
     object: I,
   ): QueryUnreceivedPacketsRequest {
@@ -2305,26 +1884,6 @@ export const QueryUnreceivedPacketsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryUnreceivedPacketsResponse {
-    return {
-      sequences: Array.isArray(object?.sequences) ? object.sequences.map((e: any) => Long.fromValue(e)) : [],
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryUnreceivedPacketsResponse): unknown {
-    const obj: any = {};
-
-    if (message.sequences) {
-      obj.sequences = message.sequences.map((e) => (e || Long.UZERO).toString());
-    } else {
-      obj.sequences = [];
-    }
-
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryUnreceivedPacketsResponse>, I>>(
@@ -2405,30 +1964,6 @@ export const QueryUnreceivedAcksRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryUnreceivedAcksRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-      packetAckSequences: Array.isArray(object?.packetAckSequences)
-        ? object.packetAckSequences.map((e: any) => Long.fromValue(e))
-        : [],
-    };
-  },
-
-  toJSON(message: QueryUnreceivedAcksRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-
-    if (message.packetAckSequences) {
-      obj.packetAckSequences = message.packetAckSequences.map((e) => (e || Long.UZERO).toString());
-    } else {
-      obj.packetAckSequences = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryUnreceivedAcksRequest>, I>>(
     object: I,
   ): QueryUnreceivedAcksRequest {
@@ -2499,26 +2034,6 @@ export const QueryUnreceivedAcksResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryUnreceivedAcksResponse {
-    return {
-      sequences: Array.isArray(object?.sequences) ? object.sequences.map((e: any) => Long.fromValue(e)) : [],
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryUnreceivedAcksResponse): unknown {
-    const obj: any = {};
-
-    if (message.sequences) {
-      obj.sequences = message.sequences.map((e) => (e || Long.UZERO).toString());
-    } else {
-      obj.sequences = [];
-    }
-
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryUnreceivedAcksResponse>, I>>(
     object: I,
   ): QueryUnreceivedAcksResponse {
@@ -2574,20 +2089,6 @@ export const QueryNextSequenceReceiveRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryNextSequenceReceiveRequest {
-    return {
-      portId: isSet(object.portId) ? String(object.portId) : "",
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-    };
-  },
-
-  toJSON(message: QueryNextSequenceReceiveRequest): unknown {
-    const obj: any = {};
-    message.portId !== undefined && (obj.portId = message.portId);
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryNextSequenceReceiveRequest>, I>>(
@@ -2653,27 +2154,6 @@ export const QueryNextSequenceReceiveResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryNextSequenceReceiveResponse {
-    return {
-      nextSequenceReceive: isSet(object.nextSequenceReceive)
-        ? Long.fromValue(object.nextSequenceReceive)
-        : Long.UZERO,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryNextSequenceReceiveResponse): unknown {
-    const obj: any = {};
-    message.nextSequenceReceive !== undefined &&
-      (obj.nextSequenceReceive = (message.nextSequenceReceive || Long.UZERO).toString());
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryNextSequenceReceiveResponse>, I>>(

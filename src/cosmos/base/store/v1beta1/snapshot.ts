@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { DeepPartial, Exact, Long } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.store.v1beta1";
 /** SnapshotItem is an item contained in a rootmulti.Store snapshot. */
 
@@ -68,22 +68,6 @@ export const SnapshotItem = {
     return message;
   },
 
-  fromJSON(object: any): SnapshotItem {
-    return {
-      store: isSet(object.store) ? SnapshotStoreItem.fromJSON(object.store) : undefined,
-      iavl: isSet(object.iavl) ? SnapshotIAVLItem.fromJSON(object.iavl) : undefined,
-    };
-  },
-
-  toJSON(message: SnapshotItem): unknown {
-    const obj: any = {};
-    message.store !== undefined &&
-      (obj.store = message.store ? SnapshotStoreItem.toJSON(message.store) : undefined);
-    message.iavl !== undefined &&
-      (obj.iavl = message.iavl ? SnapshotIAVLItem.toJSON(message.iavl) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<SnapshotItem>, I>>(object: I): SnapshotItem {
     const message = createBaseSnapshotItem();
     message.store =
@@ -133,18 +117,6 @@ export const SnapshotStoreItem = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): SnapshotStoreItem {
-    return {
-      name: isSet(object.name) ? String(object.name) : "",
-    };
-  },
-
-  toJSON(message: SnapshotStoreItem): unknown {
-    const obj: any = {};
-    message.name !== undefined && (obj.name = message.name);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotStoreItem>, I>>(object: I): SnapshotStoreItem {
@@ -216,26 +188,6 @@ export const SnapshotIAVLItem = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): SnapshotIAVLItem {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-      version: isSet(object.version) ? Long.fromValue(object.version) : Long.ZERO,
-      height: isSet(object.height) ? Number(object.height) : 0,
-    };
-  },
-
-  toJSON(message: SnapshotIAVLItem): unknown {
-    const obj: any = {};
-    message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
-    message.value !== undefined &&
-      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
-    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
-    message.height !== undefined && (obj.height = Math.round(message.height));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SnapshotIAVLItem>, I>>(object: I): SnapshotIAVLItem {

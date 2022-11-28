@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 
@@ -75,21 +75,6 @@ export const QueryEvidenceRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryEvidenceRequest {
-    return {
-      evidenceHash: isSet(object.evidenceHash) ? bytesFromBase64(object.evidenceHash) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: QueryEvidenceRequest): unknown {
-    const obj: any = {};
-    message.evidenceHash !== undefined &&
-      (obj.evidenceHash = base64FromBytes(
-        message.evidenceHash !== undefined ? message.evidenceHash : new Uint8Array(),
-      ));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryEvidenceRequest>, I>>(object: I): QueryEvidenceRequest {
     const message = createBaseQueryEvidenceRequest();
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
@@ -132,19 +117,6 @@ export const QueryEvidenceResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryEvidenceResponse {
-    return {
-      evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
-    };
-  },
-
-  toJSON(message: QueryEvidenceResponse): unknown {
-    const obj: any = {};
-    message.evidence !== undefined &&
-      (obj.evidence = message.evidence ? Any.toJSON(message.evidence) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryEvidenceResponse>, I>>(object: I): QueryEvidenceResponse {
@@ -192,19 +164,6 @@ export const QueryAllEvidenceRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryAllEvidenceRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAllEvidenceRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceRequest>, I>>(object: I): QueryAllEvidenceRequest {
@@ -261,27 +220,6 @@ export const QueryAllEvidenceResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryAllEvidenceResponse {
-    return {
-      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Any.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAllEvidenceResponse): unknown {
-    const obj: any = {};
-
-    if (message.evidence) {
-      obj.evidence = message.evidence.map((e) => (e ? Any.toJSON(e) : undefined));
-    } else {
-      obj.evidence = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllEvidenceResponse>, I>>(

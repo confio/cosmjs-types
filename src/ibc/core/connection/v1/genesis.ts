@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";
+import { Long, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 /** GenesisState defines the ibc connection submodule's genesis state. */
 
@@ -76,44 +76,6 @@ export const GenesisState = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): GenesisState {
-    return {
-      connections: Array.isArray(object?.connections)
-        ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e))
-        : [],
-      clientConnectionPaths: Array.isArray(object?.clientConnectionPaths)
-        ? object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e))
-        : [],
-      nextConnectionSequence: isSet(object.nextConnectionSequence)
-        ? Long.fromValue(object.nextConnectionSequence)
-        : Long.UZERO,
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-
-    if (message.connections) {
-      obj.connections = message.connections.map((e) => (e ? IdentifiedConnection.toJSON(e) : undefined));
-    } else {
-      obj.connections = [];
-    }
-
-    if (message.clientConnectionPaths) {
-      obj.clientConnectionPaths = message.clientConnectionPaths.map((e) =>
-        e ? ConnectionPaths.toJSON(e) : undefined,
-      );
-    } else {
-      obj.clientConnectionPaths = [];
-    }
-
-    message.nextConnectionSequence !== undefined &&
-      (obj.nextConnectionSequence = (message.nextConnectionSequence || Long.UZERO).toString());
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

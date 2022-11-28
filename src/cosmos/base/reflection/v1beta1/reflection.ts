@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.reflection.v1beta1";
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
 
@@ -56,15 +56,6 @@ export const ListAllInterfacesRequest = {
     return message;
   },
 
-  fromJSON(_: any): ListAllInterfacesRequest {
-    return {};
-  },
-
-  toJSON(_: ListAllInterfacesRequest): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesRequest>, I>>(_: I): ListAllInterfacesRequest {
     const message = createBaseListAllInterfacesRequest();
     return message;
@@ -106,26 +97,6 @@ export const ListAllInterfacesResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): ListAllInterfacesResponse {
-    return {
-      interfaceNames: Array.isArray(object?.interfaceNames)
-        ? object.interfaceNames.map((e: any) => String(e))
-        : [],
-    };
-  },
-
-  toJSON(message: ListAllInterfacesResponse): unknown {
-    const obj: any = {};
-
-    if (message.interfaceNames) {
-      obj.interfaceNames = message.interfaceNames.map((e) => e);
-    } else {
-      obj.interfaceNames = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ListAllInterfacesResponse>, I>>(
@@ -174,18 +145,6 @@ export const ListImplementationsRequest = {
     return message;
   },
 
-  fromJSON(object: any): ListImplementationsRequest {
-    return {
-      interfaceName: isSet(object.interfaceName) ? String(object.interfaceName) : "",
-    };
-  },
-
-  toJSON(message: ListImplementationsRequest): unknown {
-    const obj: any = {};
-    message.interfaceName !== undefined && (obj.interfaceName = message.interfaceName);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ListImplementationsRequest>, I>>(
     object: I,
   ): ListImplementationsRequest {
@@ -230,26 +189,6 @@ export const ListImplementationsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): ListImplementationsResponse {
-    return {
-      implementationMessageNames: Array.isArray(object?.implementationMessageNames)
-        ? object.implementationMessageNames.map((e: any) => String(e))
-        : [],
-    };
-  },
-
-  toJSON(message: ListImplementationsResponse): unknown {
-    const obj: any = {};
-
-    if (message.implementationMessageNames) {
-      obj.implementationMessageNames = message.implementationMessageNames.map((e) => e);
-    } else {
-      obj.implementationMessageNames = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ListImplementationsResponse>, I>>(

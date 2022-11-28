@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.crisis.v1beta1";
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 
@@ -68,22 +68,6 @@ export const MsgVerifyInvariant = {
     return message;
   },
 
-  fromJSON(object: any): MsgVerifyInvariant {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      invariantModuleName: isSet(object.invariantModuleName) ? String(object.invariantModuleName) : "",
-      invariantRoute: isSet(object.invariantRoute) ? String(object.invariantRoute) : "",
-    };
-  },
-
-  toJSON(message: MsgVerifyInvariant): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.invariantModuleName !== undefined && (obj.invariantModuleName = message.invariantModuleName);
-    message.invariantRoute !== undefined && (obj.invariantRoute = message.invariantRoute);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariant>, I>>(object: I): MsgVerifyInvariant {
     const message = createBaseMsgVerifyInvariant();
     message.sender = object.sender ?? "";
@@ -118,15 +102,6 @@ export const MsgVerifyInvariantResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgVerifyInvariantResponse {
-    return {};
-  },
-
-  toJSON(_: MsgVerifyInvariantResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariantResponse>, I>>(_: I): MsgVerifyInvariantResponse {

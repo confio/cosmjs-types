@@ -3,7 +3,7 @@ import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
 import { Params } from "./auth";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.auth.v1beta1";
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
@@ -87,19 +87,6 @@ export const QueryAccountsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAccountsRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAccountsRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryAccountsRequest>, I>>(object: I): QueryAccountsRequest {
     const message = createBaseQueryAccountsRequest();
     message.pagination =
@@ -156,27 +143,6 @@ export const QueryAccountsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAccountsResponse {
-    return {
-      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Any.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAccountsResponse): unknown {
-    const obj: any = {};
-
-    if (message.accounts) {
-      obj.accounts = message.accounts.map((e) => (e ? Any.toJSON(e) : undefined));
-    } else {
-      obj.accounts = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryAccountsResponse>, I>>(object: I): QueryAccountsResponse {
     const message = createBaseQueryAccountsResponse();
     message.accounts = object.accounts?.map((e) => Any.fromPartial(e)) || [];
@@ -225,18 +191,6 @@ export const QueryAccountRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAccountRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
-  },
-
-  toJSON(message: QueryAccountRequest): unknown {
-    const obj: any = {};
-    message.address !== undefined && (obj.address = message.address);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryAccountRequest>, I>>(object: I): QueryAccountRequest {
     const message = createBaseQueryAccountRequest();
     message.address = object.address ?? "";
@@ -281,19 +235,6 @@ export const QueryAccountResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAccountResponse {
-    return {
-      account: isSet(object.account) ? Any.fromJSON(object.account) : undefined,
-    };
-  },
-
-  toJSON(message: QueryAccountResponse): unknown {
-    const obj: any = {};
-    message.account !== undefined &&
-      (obj.account = message.account ? Any.toJSON(message.account) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryAccountResponse>, I>>(object: I): QueryAccountResponse {
     const message = createBaseQueryAccountResponse();
     message.account =
@@ -327,15 +268,6 @@ export const QueryParamsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): QueryParamsRequest {
-    return {};
-  },
-
-  toJSON(_: QueryParamsRequest): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -379,18 +311,6 @@ export const QueryParamsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: QueryParamsResponse): unknown {
-    const obj: any = {};
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {

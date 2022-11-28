@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./controller";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 
@@ -38,15 +38,6 @@ export const QueryParamsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): QueryParamsRequest {
-    return {};
-  },
-
-  toJSON(_: QueryParamsRequest): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -90,18 +81,6 @@ export const QueryParamsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: QueryParamsResponse): unknown {
-    const obj: any = {};
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {

@@ -1,9 +1,9 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../base/v1beta1/coin";
-import { VoteOption, WeightedVoteOption, voteOptionFromJSON, voteOptionToJSON } from "./gov";
+import { VoteOption, WeightedVoteOption } from "./gov";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Long, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -114,31 +114,6 @@ export const MsgSubmitProposal = {
     return message;
   },
 
-  fromJSON(object: any): MsgSubmitProposal {
-    return {
-      content: isSet(object.content) ? Any.fromJSON(object.content) : undefined,
-      initialDeposit: Array.isArray(object?.initialDeposit)
-        ? object.initialDeposit.map((e: any) => Coin.fromJSON(e))
-        : [],
-      proposer: isSet(object.proposer) ? String(object.proposer) : "",
-    };
-  },
-
-  toJSON(message: MsgSubmitProposal): unknown {
-    const obj: any = {};
-    message.content !== undefined &&
-      (obj.content = message.content ? Any.toJSON(message.content) : undefined);
-
-    if (message.initialDeposit) {
-      obj.initialDeposit = message.initialDeposit.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.initialDeposit = [];
-    }
-
-    message.proposer !== undefined && (obj.proposer = message.proposer);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgSubmitProposal>, I>>(object: I): MsgSubmitProposal {
     const message = createBaseMsgSubmitProposal();
     message.content =
@@ -184,18 +159,6 @@ export const MsgSubmitProposalResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): MsgSubmitProposalResponse {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: MsgSubmitProposalResponse): unknown {
-    const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitProposalResponse>, I>>(
@@ -265,22 +228,6 @@ export const MsgVote = {
     return message;
   },
 
-  fromJSON(object: any): MsgVote {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      voter: isSet(object.voter) ? String(object.voter) : "",
-      option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
-    };
-  },
-
-  toJSON(message: MsgVote): unknown {
-    const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
-    message.voter !== undefined && (obj.voter = message.voter);
-    message.option !== undefined && (obj.option = voteOptionToJSON(message.option));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgVote>, I>>(object: I): MsgVote {
     const message = createBaseMsgVote();
     message.proposalId =
@@ -318,15 +265,6 @@ export const MsgVoteResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgVoteResponse {
-    return {};
-  },
-
-  toJSON(_: MsgVoteResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgVoteResponse>, I>>(_: I): MsgVoteResponse {
@@ -390,30 +328,6 @@ export const MsgVoteWeighted = {
     return message;
   },
 
-  fromJSON(object: any): MsgVoteWeighted {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      voter: isSet(object.voter) ? String(object.voter) : "",
-      options: Array.isArray(object?.options)
-        ? object.options.map((e: any) => WeightedVoteOption.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: MsgVoteWeighted): unknown {
-    const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
-    message.voter !== undefined && (obj.voter = message.voter);
-
-    if (message.options) {
-      obj.options = message.options.map((e) => (e ? WeightedVoteOption.toJSON(e) : undefined));
-    } else {
-      obj.options = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgVoteWeighted>, I>>(object: I): MsgVoteWeighted {
     const message = createBaseMsgVoteWeighted();
     message.proposalId =
@@ -451,15 +365,6 @@ export const MsgVoteWeightedResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgVoteWeightedResponse {
-    return {};
-  },
-
-  toJSON(_: MsgVoteWeightedResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgVoteWeightedResponse>, I>>(_: I): MsgVoteWeightedResponse {
@@ -523,28 +428,6 @@ export const MsgDeposit = {
     return message;
   },
 
-  fromJSON(object: any): MsgDeposit {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: MsgDeposit): unknown {
-    const obj: any = {};
-    message.proposalId !== undefined && (obj.proposalId = (message.proposalId || Long.UZERO).toString());
-    message.depositor !== undefined && (obj.depositor = message.depositor);
-
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.amount = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgDeposit>, I>>(object: I): MsgDeposit {
     const message = createBaseMsgDeposit();
     message.proposalId =
@@ -582,15 +465,6 @@ export const MsgDepositResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgDepositResponse {
-    return {};
-  },
-
-  toJSON(_: MsgDepositResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(_: I): MsgDepositResponse {

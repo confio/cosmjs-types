@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /**
  * AuthorizationType defines the type of staking module authorization type
@@ -161,34 +161,6 @@ export const StakeAuthorization = {
     return message;
   },
 
-  fromJSON(object: any): StakeAuthorization {
-    return {
-      maxTokens: isSet(object.maxTokens) ? Coin.fromJSON(object.maxTokens) : undefined,
-      allowList: isSet(object.allowList)
-        ? StakeAuthorization_Validators.fromJSON(object.allowList)
-        : undefined,
-      denyList: isSet(object.denyList) ? StakeAuthorization_Validators.fromJSON(object.denyList) : undefined,
-      authorizationType: isSet(object.authorizationType)
-        ? authorizationTypeFromJSON(object.authorizationType)
-        : 0,
-    };
-  },
-
-  toJSON(message: StakeAuthorization): unknown {
-    const obj: any = {};
-    message.maxTokens !== undefined &&
-      (obj.maxTokens = message.maxTokens ? Coin.toJSON(message.maxTokens) : undefined);
-    message.allowList !== undefined &&
-      (obj.allowList = message.allowList
-        ? StakeAuthorization_Validators.toJSON(message.allowList)
-        : undefined);
-    message.denyList !== undefined &&
-      (obj.denyList = message.denyList ? StakeAuthorization_Validators.toJSON(message.denyList) : undefined);
-    message.authorizationType !== undefined &&
-      (obj.authorizationType = authorizationTypeToJSON(message.authorizationType));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<StakeAuthorization>, I>>(object: I): StakeAuthorization {
     const message = createBaseStakeAuthorization();
     message.maxTokens =
@@ -243,24 +215,6 @@ export const StakeAuthorization_Validators = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): StakeAuthorization_Validators {
-    return {
-      address: Array.isArray(object?.address) ? object.address.map((e: any) => String(e)) : [],
-    };
-  },
-
-  toJSON(message: StakeAuthorization_Validators): unknown {
-    const obj: any = {};
-
-    if (message.address) {
-      obj.address = message.address.map((e) => e);
-    } else {
-      obj.address = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<StakeAuthorization_Validators>, I>>(

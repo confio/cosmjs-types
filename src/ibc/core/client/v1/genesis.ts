@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Long, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.client.v1";
 /** GenesisState defines the ibc client submodule's genesis state. */
 
@@ -126,57 +126,6 @@ export const GenesisState = {
     return message;
   },
 
-  fromJSON(object: any): GenesisState {
-    return {
-      clients: Array.isArray(object?.clients)
-        ? object.clients.map((e: any) => IdentifiedClientState.fromJSON(e))
-        : [],
-      clientsConsensus: Array.isArray(object?.clientsConsensus)
-        ? object.clientsConsensus.map((e: any) => ClientConsensusStates.fromJSON(e))
-        : [],
-      clientsMetadata: Array.isArray(object?.clientsMetadata)
-        ? object.clientsMetadata.map((e: any) => IdentifiedGenesisMetadata.fromJSON(e))
-        : [],
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      createLocalhost: isSet(object.createLocalhost) ? Boolean(object.createLocalhost) : false,
-      nextClientSequence: isSet(object.nextClientSequence)
-        ? Long.fromValue(object.nextClientSequence)
-        : Long.UZERO,
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-
-    if (message.clients) {
-      obj.clients = message.clients.map((e) => (e ? IdentifiedClientState.toJSON(e) : undefined));
-    } else {
-      obj.clients = [];
-    }
-
-    if (message.clientsConsensus) {
-      obj.clientsConsensus = message.clientsConsensus.map((e) =>
-        e ? ClientConsensusStates.toJSON(e) : undefined,
-      );
-    } else {
-      obj.clientsConsensus = [];
-    }
-
-    if (message.clientsMetadata) {
-      obj.clientsMetadata = message.clientsMetadata.map((e) =>
-        e ? IdentifiedGenesisMetadata.toJSON(e) : undefined,
-      );
-    } else {
-      obj.clientsMetadata = [];
-    }
-
-    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    message.createLocalhost !== undefined && (obj.createLocalhost = message.createLocalhost);
-    message.nextClientSequence !== undefined &&
-      (obj.nextClientSequence = (message.nextClientSequence || Long.UZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.clients = object.clients?.map((e) => IdentifiedClientState.fromPartial(e)) || [];
@@ -241,22 +190,6 @@ export const GenesisMetadata = {
     return message;
   },
 
-  fromJSON(object: any): GenesisMetadata {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: GenesisMetadata): unknown {
-    const obj: any = {};
-    message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
-    message.value !== undefined &&
-      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<GenesisMetadata>, I>>(object: I): GenesisMetadata {
     const message = createBaseGenesisMetadata();
     message.key = object.key ?? new Uint8Array();
@@ -309,28 +242,6 @@ export const IdentifiedGenesisMetadata = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): IdentifiedGenesisMetadata {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      clientMetadata: Array.isArray(object?.clientMetadata)
-        ? object.clientMetadata.map((e: any) => GenesisMetadata.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: IdentifiedGenesisMetadata): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-
-    if (message.clientMetadata) {
-      obj.clientMetadata = message.clientMetadata.map((e) => (e ? GenesisMetadata.toJSON(e) : undefined));
-    } else {
-      obj.clientMetadata = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<IdentifiedGenesisMetadata>, I>>(

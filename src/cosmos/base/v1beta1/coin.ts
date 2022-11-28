@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.base.v1beta1";
 /**
  * Coin defines a token with a denomination and an amount.
@@ -81,20 +81,6 @@ export const Coin = {
     return message;
   },
 
-  fromJSON(object: any): Coin {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      amount: isSet(object.amount) ? String(object.amount) : "",
-    };
-  },
-
-  toJSON(message: Coin): unknown {
-    const obj: any = {};
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.amount !== undefined && (obj.amount = message.amount);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<Coin>, I>>(object: I): Coin {
     const message = createBaseCoin();
     message.denom = object.denom ?? "";
@@ -149,20 +135,6 @@ export const DecCoin = {
     return message;
   },
 
-  fromJSON(object: any): DecCoin {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      amount: isSet(object.amount) ? String(object.amount) : "",
-    };
-  },
-
-  toJSON(message: DecCoin): unknown {
-    const obj: any = {};
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.amount !== undefined && (obj.amount = message.amount);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<DecCoin>, I>>(object: I): DecCoin {
     const message = createBaseDecCoin();
     message.denom = object.denom ?? "";
@@ -208,18 +180,6 @@ export const IntProto = {
     return message;
   },
 
-  fromJSON(object: any): IntProto {
-    return {
-      int: isSet(object.int) ? String(object.int) : "",
-    };
-  },
-
-  toJSON(message: IntProto): unknown {
-    const obj: any = {};
-    message.int !== undefined && (obj.int = message.int);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<IntProto>, I>>(object: I): IntProto {
     const message = createBaseIntProto();
     message.int = object.int ?? "";
@@ -262,18 +222,6 @@ export const DecProto = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): DecProto {
-    return {
-      dec: isSet(object.dec) ? String(object.dec) : "",
-    };
-  },
-
-  toJSON(message: DecProto): unknown {
-    const obj: any = {};
-    message.dec !== undefined && (obj.dec = message.dec);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DecProto>, I>>(object: I): DecProto {

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../../helpers";
+import { DeepPartial, Exact } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /**
  * Params defines the set of on-chain interchain accounts parameters.
@@ -47,18 +47,6 @@ export const Params = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Params {
-    return {
-      controllerEnabled: isSet(object.controllerEnabled) ? Boolean(object.controllerEnabled) : false,
-    };
-  },
-
-  toJSON(message: Params): unknown {
-    const obj: any = {};
-    message.controllerEnabled !== undefined && (obj.controllerEnabled = message.controllerEnabled);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {

@@ -4,7 +4,7 @@ import { ConnectionEnd, IdentifiedConnection } from "./connection";
 import { Height, IdentifiedClientState } from "../../client/v1/client";
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long, Rpc } from "../../../../helpers";
+import { DeepPartial, Exact, Long, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * QueryConnectionRequest is the request type for the Query/Connection RPC
@@ -169,18 +169,6 @@ export const QueryConnectionRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryConnectionRequest {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-    };
-  },
-
-  toJSON(message: QueryConnectionRequest): unknown {
-    const obj: any = {};
-    message.connectionId !== undefined && (obj.connectionId = message.connectionId);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryConnectionRequest>, I>>(object: I): QueryConnectionRequest {
     const message = createBaseQueryConnectionRequest();
     message.connectionId = object.connectionId ?? "";
@@ -243,25 +231,6 @@ export const QueryConnectionResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryConnectionResponse {
-    return {
-      connection: isSet(object.connection) ? ConnectionEnd.fromJSON(object.connection) : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionResponse): unknown {
-    const obj: any = {};
-    message.connection !== undefined &&
-      (obj.connection = message.connection ? ConnectionEnd.toJSON(message.connection) : undefined);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryConnectionResponse>, I>>(object: I): QueryConnectionResponse {
     const message = createBaseQueryConnectionResponse();
     message.connection =
@@ -312,19 +281,6 @@ export const QueryConnectionsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionsRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionsRequest): unknown {
-    const obj: any = {};
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionsRequest>, I>>(object: I): QueryConnectionsRequest {
@@ -392,31 +348,6 @@ export const QueryConnectionsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryConnectionsResponse {
-    return {
-      connections: Array.isArray(object?.connections)
-        ? object.connections.map((e: any) => IdentifiedConnection.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-      height: isSet(object.height) ? Height.fromJSON(object.height) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionsResponse): unknown {
-    const obj: any = {};
-
-    if (message.connections) {
-      obj.connections = message.connections.map((e) => (e ? IdentifiedConnection.toJSON(e) : undefined));
-    } else {
-      obj.connections = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    message.height !== undefined && (obj.height = message.height ? Height.toJSON(message.height) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryConnectionsResponse>, I>>(
     object: I,
   ): QueryConnectionsResponse {
@@ -467,18 +398,6 @@ export const QueryClientConnectionsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryClientConnectionsRequest {
-    return {
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-    };
-  },
-
-  toJSON(message: QueryClientConnectionsRequest): unknown {
-    const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryClientConnectionsRequest>, I>>(
@@ -545,32 +464,6 @@ export const QueryClientConnectionsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryClientConnectionsResponse {
-    return {
-      connectionPaths: Array.isArray(object?.connectionPaths)
-        ? object.connectionPaths.map((e: any) => String(e))
-        : [],
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryClientConnectionsResponse): unknown {
-    const obj: any = {};
-
-    if (message.connectionPaths) {
-      obj.connectionPaths = message.connectionPaths.map((e) => e);
-    } else {
-      obj.connectionPaths = [];
-    }
-
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryClientConnectionsResponse>, I>>(
     object: I,
   ): QueryClientConnectionsResponse {
@@ -620,18 +513,6 @@ export const QueryConnectionClientStateRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionClientStateRequest {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-    };
-  },
-
-  toJSON(message: QueryConnectionClientStateRequest): unknown {
-    const obj: any = {};
-    message.connectionId !== undefined && (obj.connectionId = message.connectionId);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionClientStateRequest>, I>>(
@@ -696,29 +577,6 @@ export const QueryConnectionClientStateResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionClientStateResponse {
-    return {
-      identifiedClientState: isSet(object.identifiedClientState)
-        ? IdentifiedClientState.fromJSON(object.identifiedClientState)
-        : undefined,
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionClientStateResponse): unknown {
-    const obj: any = {};
-    message.identifiedClientState !== undefined &&
-      (obj.identifiedClientState = message.identifiedClientState
-        ? IdentifiedClientState.toJSON(message.identifiedClientState)
-        : undefined);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionClientStateResponse>, I>>(
@@ -794,24 +652,6 @@ export const QueryConnectionConsensusStateRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionConsensusStateRequest {
-    return {
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-      revisionNumber: isSet(object.revisionNumber) ? Long.fromValue(object.revisionNumber) : Long.UZERO,
-      revisionHeight: isSet(object.revisionHeight) ? Long.fromValue(object.revisionHeight) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: QueryConnectionConsensusStateRequest): unknown {
-    const obj: any = {};
-    message.connectionId !== undefined && (obj.connectionId = message.connectionId);
-    message.revisionNumber !== undefined &&
-      (obj.revisionNumber = (message.revisionNumber || Long.UZERO).toString());
-    message.revisionHeight !== undefined &&
-      (obj.revisionHeight = (message.revisionHeight || Long.UZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionConsensusStateRequest>, I>>(
@@ -896,27 +736,6 @@ export const QueryConnectionConsensusStateResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryConnectionConsensusStateResponse {
-    return {
-      consensusState: isSet(object.consensusState) ? Any.fromJSON(object.consensusState) : undefined,
-      clientId: isSet(object.clientId) ? String(object.clientId) : "",
-      proof: isSet(object.proof) ? bytesFromBase64(object.proof) : new Uint8Array(),
-      proofHeight: isSet(object.proofHeight) ? Height.fromJSON(object.proofHeight) : undefined,
-    };
-  },
-
-  toJSON(message: QueryConnectionConsensusStateResponse): unknown {
-    const obj: any = {};
-    message.consensusState !== undefined &&
-      (obj.consensusState = message.consensusState ? Any.toJSON(message.consensusState) : undefined);
-    message.clientId !== undefined && (obj.clientId = message.clientId);
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(message.proof !== undefined ? message.proof : new Uint8Array()));
-    message.proofHeight !== undefined &&
-      (obj.proofHeight = message.proofHeight ? Height.toJSON(message.proofHeight) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryConnectionConsensusStateResponse>, I>>(

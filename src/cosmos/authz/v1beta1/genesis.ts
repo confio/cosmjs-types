@@ -46,26 +46,6 @@ export const GenesisState = {
     return message;
   },
 
-  fromJSON(object: any): GenesisState {
-    return {
-      authorization: Array.isArray(object?.authorization)
-        ? object.authorization.map((e: any) => GrantAuthorization.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-
-    if (message.authorization) {
-      obj.authorization = message.authorization.map((e) => (e ? GrantAuthorization.toJSON(e) : undefined));
-    } else {
-      obj.authorization = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.authorization = object.authorization?.map((e) => GrantAuthorization.fromPartial(e)) || [];
