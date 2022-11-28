@@ -2,7 +2,7 @@
 import { AccessConfig } from "./types";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Long, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Long, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** MsgStoreCode submit Wasm code to the system */
 
@@ -186,30 +186,6 @@ export const MsgStoreCode = {
     return message;
   },
 
-  fromJSON(object: any): MsgStoreCode {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      wasmByteCode: isSet(object.wasmByteCode) ? bytesFromBase64(object.wasmByteCode) : new Uint8Array(),
-      instantiatePermission: isSet(object.instantiatePermission)
-        ? AccessConfig.fromJSON(object.instantiatePermission)
-        : undefined,
-    };
-  },
-
-  toJSON(message: MsgStoreCode): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.wasmByteCode !== undefined &&
-      (obj.wasmByteCode = base64FromBytes(
-        message.wasmByteCode !== undefined ? message.wasmByteCode : new Uint8Array(),
-      ));
-    message.instantiatePermission !== undefined &&
-      (obj.instantiatePermission = message.instantiatePermission
-        ? AccessConfig.toJSON(message.instantiatePermission)
-        : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgStoreCode>, I>>(object: I): MsgStoreCode {
     const message = createBaseMsgStoreCode();
     message.sender = object.sender ?? "";
@@ -257,18 +233,6 @@ export const MsgStoreCodeResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): MsgStoreCodeResponse {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: MsgStoreCodeResponse): unknown {
-    const obj: any = {};
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgStoreCodeResponse>, I>>(object: I): MsgStoreCodeResponse {
@@ -361,35 +325,6 @@ export const MsgInstantiateContract = {
     return message;
   },
 
-  fromJSON(object: any): MsgInstantiateContract {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      admin: isSet(object.admin) ? String(object.admin) : "",
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      label: isSet(object.label) ? String(object.label) : "",
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: MsgInstantiateContract): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.admin !== undefined && (obj.admin = message.admin);
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
-    message.label !== undefined && (obj.label = message.label);
-    message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
-
-    if (message.funds) {
-      obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.funds = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgInstantiateContract>, I>>(object: I): MsgInstantiateContract {
     const message = createBaseMsgInstantiateContract();
     message.sender = object.sender ?? "";
@@ -447,21 +382,6 @@ export const MsgInstantiateContractResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): MsgInstantiateContractResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: MsgInstantiateContractResponse): unknown {
-    const obj: any = {};
-    message.address !== undefined && (obj.address = message.address);
-    message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgInstantiateContractResponse>, I>>(
@@ -538,31 +458,6 @@ export const MsgExecuteContract = {
     return message;
   },
 
-  fromJSON(object: any): MsgExecuteContract {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: MsgExecuteContract): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.contract !== undefined && (obj.contract = message.contract);
-    message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
-
-    if (message.funds) {
-      obj.funds = message.funds.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.funds = [];
-    }
-
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgExecuteContract>, I>>(object: I): MsgExecuteContract {
     const message = createBaseMsgExecuteContract();
     message.sender = object.sender ?? "";
@@ -608,19 +503,6 @@ export const MsgExecuteContractResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): MsgExecuteContractResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: MsgExecuteContractResponse): unknown {
-    const obj: any = {};
-    message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgExecuteContractResponse>, I>>(
@@ -696,25 +578,6 @@ export const MsgMigrateContract = {
     return message;
   },
 
-  fromJSON(object: any): MsgMigrateContract {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: MsgMigrateContract): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.contract !== undefined && (obj.contract = message.contract);
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
-    message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgMigrateContract>, I>>(object: I): MsgMigrateContract {
     const message = createBaseMsgMigrateContract();
     message.sender = object.sender ?? "";
@@ -761,19 +624,6 @@ export const MsgMigrateContractResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): MsgMigrateContractResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: MsgMigrateContractResponse): unknown {
-    const obj: any = {};
-    message.data !== undefined &&
-      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMigrateContractResponse>, I>>(
@@ -840,22 +690,6 @@ export const MsgUpdateAdmin = {
     return message;
   },
 
-  fromJSON(object: any): MsgUpdateAdmin {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      newAdmin: isSet(object.newAdmin) ? String(object.newAdmin) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-    };
-  },
-
-  toJSON(message: MsgUpdateAdmin): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.newAdmin !== undefined && (obj.newAdmin = message.newAdmin);
-    message.contract !== undefined && (obj.contract = message.contract);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgUpdateAdmin>, I>>(object: I): MsgUpdateAdmin {
     const message = createBaseMsgUpdateAdmin();
     message.sender = object.sender ?? "";
@@ -890,15 +724,6 @@ export const MsgUpdateAdminResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgUpdateAdminResponse {
-    return {};
-  },
-
-  toJSON(_: MsgUpdateAdminResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUpdateAdminResponse>, I>>(_: I): MsgUpdateAdminResponse {
@@ -953,20 +778,6 @@ export const MsgClearAdmin = {
     return message;
   },
 
-  fromJSON(object: any): MsgClearAdmin {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      contract: isSet(object.contract) ? String(object.contract) : "",
-    };
-  },
-
-  toJSON(message: MsgClearAdmin): unknown {
-    const obj: any = {};
-    message.sender !== undefined && (obj.sender = message.sender);
-    message.contract !== undefined && (obj.contract = message.contract);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgClearAdmin>, I>>(object: I): MsgClearAdmin {
     const message = createBaseMsgClearAdmin();
     message.sender = object.sender ?? "";
@@ -1000,15 +811,6 @@ export const MsgClearAdminResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgClearAdminResponse {
-    return {};
-  },
-
-  toJSON(_: MsgClearAdminResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgClearAdminResponse>, I>>(_: I): MsgClearAdminResponse {

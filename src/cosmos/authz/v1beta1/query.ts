@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant, GrantAuthorization } from "./authz";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 
@@ -124,25 +124,6 @@ export const QueryGrantsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGrantsRequest {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGrantsRequest): unknown {
-    const obj: any = {};
-    message.granter !== undefined && (obj.granter = message.granter);
-    message.grantee !== undefined && (obj.grantee = message.grantee);
-    message.msgTypeUrl !== undefined && (obj.msgTypeUrl = message.msgTypeUrl);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryGrantsRequest>, I>>(object: I): QueryGrantsRequest {
     const message = createBaseQueryGrantsRequest();
     message.granter = object.granter ?? "";
@@ -202,27 +183,6 @@ export const QueryGrantsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGrantsResponse {
-    return {
-      grants: Array.isArray(object?.grants) ? object.grants.map((e: any) => Grant.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGrantsResponse): unknown {
-    const obj: any = {};
-
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? Grant.toJSON(e) : undefined));
-    } else {
-      obj.grants = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryGrantsResponse>, I>>(object: I): QueryGrantsResponse {
     const message = createBaseQueryGrantsResponse();
     message.grants = object.grants?.map((e) => Grant.fromPartial(e)) || [];
@@ -278,21 +238,6 @@ export const QueryGranterGrantsRequest = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryGranterGrantsRequest {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGranterGrantsRequest): unknown {
-    const obj: any = {};
-    message.granter !== undefined && (obj.granter = message.granter);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGranterGrantsRequest>, I>>(
@@ -354,29 +299,6 @@ export const QueryGranterGrantsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGranterGrantsResponse {
-    return {
-      grants: Array.isArray(object?.grants)
-        ? object.grants.map((e: any) => GrantAuthorization.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGranterGrantsResponse): unknown {
-    const obj: any = {};
-
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? GrantAuthorization.toJSON(e) : undefined));
-    } else {
-      obj.grants = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryGranterGrantsResponse>, I>>(
     object: I,
   ): QueryGranterGrantsResponse {
@@ -436,21 +358,6 @@ export const QueryGranteeGrantsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGranteeGrantsRequest {
-    return {
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGranteeGrantsRequest): unknown {
-    const obj: any = {};
-    message.grantee !== undefined && (obj.grantee = message.grantee);
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<QueryGranteeGrantsRequest>, I>>(
     object: I,
   ): QueryGranteeGrantsRequest {
@@ -508,29 +415,6 @@ export const QueryGranteeGrantsResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): QueryGranteeGrantsResponse {
-    return {
-      grants: Array.isArray(object?.grants)
-        ? object.grants.map((e: any) => GrantAuthorization.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
-  },
-
-  toJSON(message: QueryGranteeGrantsResponse): unknown {
-    const obj: any = {};
-
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? GrantAuthorization.toJSON(e) : undefined));
-    } else {
-      obj.grants = [];
-    }
-
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGranteeGrantsResponse>, I>>(

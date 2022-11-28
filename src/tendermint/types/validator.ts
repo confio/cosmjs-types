@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { PublicKey } from "../crypto/keys";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { Long, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 export interface ValidatorSet {
   validators: Validator[];
@@ -72,32 +72,6 @@ export const ValidatorSet = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): ValidatorSet {
-    return {
-      validators: Array.isArray(object?.validators)
-        ? object.validators.map((e: any) => Validator.fromJSON(e))
-        : [],
-      proposer: isSet(object.proposer) ? Validator.fromJSON(object.proposer) : undefined,
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
-    };
-  },
-
-  toJSON(message: ValidatorSet): unknown {
-    const obj: any = {};
-
-    if (message.validators) {
-      obj.validators = message.validators.map((e) => (e ? Validator.toJSON(e) : undefined));
-    } else {
-      obj.validators = [];
-    }
-
-    message.proposer !== undefined &&
-      (obj.proposer = message.proposer ? Validator.toJSON(message.proposer) : undefined);
-    message.totalVotingPower !== undefined &&
-      (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ValidatorSet>, I>>(object: I): ValidatorSet {
@@ -179,27 +153,6 @@ export const Validator = {
     return message;
   },
 
-  fromJSON(object: any): Validator {
-    return {
-      address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
-      pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
-      votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
-      proposerPriority: isSet(object.proposerPriority) ? Long.fromValue(object.proposerPriority) : Long.ZERO,
-    };
-  },
-
-  toJSON(message: Validator): unknown {
-    const obj: any = {};
-    message.address !== undefined &&
-      (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
-    message.pubKey !== undefined &&
-      (obj.pubKey = message.pubKey ? PublicKey.toJSON(message.pubKey) : undefined);
-    message.votingPower !== undefined && (obj.votingPower = (message.votingPower || Long.ZERO).toString());
-    message.proposerPriority !== undefined &&
-      (obj.proposerPriority = (message.proposerPriority || Long.ZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<Validator>, I>>(object: I): Validator {
     const message = createBaseValidator();
     message.address = object.address ?? new Uint8Array();
@@ -263,21 +216,6 @@ export const SimpleValidator = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): SimpleValidator {
-    return {
-      pubKey: isSet(object.pubKey) ? PublicKey.fromJSON(object.pubKey) : undefined,
-      votingPower: isSet(object.votingPower) ? Long.fromValue(object.votingPower) : Long.ZERO,
-    };
-  },
-
-  toJSON(message: SimpleValidator): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined &&
-      (obj.pubKey = message.pubKey ? PublicKey.toJSON(message.pubKey) : undefined);
-    message.votingPower !== undefined && (obj.votingPower = (message.votingPower || Long.ZERO).toString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SimpleValidator>, I>>(object: I): SimpleValidator {

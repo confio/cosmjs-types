@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Long } from "../../../helpers";
+import { DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 
@@ -253,18 +253,6 @@ export const AccessTypeParam = {
     return message;
   },
 
-  fromJSON(object: any): AccessTypeParam {
-    return {
-      value: isSet(object.value) ? accessTypeFromJSON(object.value) : 0,
-    };
-  },
-
-  toJSON(message: AccessTypeParam): unknown {
-    const obj: any = {};
-    message.value !== undefined && (obj.value = accessTypeToJSON(message.value));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<AccessTypeParam>, I>>(object: I): AccessTypeParam {
     const message = createBaseAccessTypeParam();
     message.value = object.value ?? 0;
@@ -316,20 +304,6 @@ export const AccessConfig = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): AccessConfig {
-    return {
-      permission: isSet(object.permission) ? accessTypeFromJSON(object.permission) : 0,
-      address: isSet(object.address) ? String(object.address) : "",
-    };
-  },
-
-  toJSON(message: AccessConfig): unknown {
-    const obj: any = {};
-    message.permission !== undefined && (obj.permission = accessTypeToJSON(message.permission));
-    message.address !== undefined && (obj.address = message.address);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<AccessConfig>, I>>(object: I): AccessConfig {
@@ -384,28 +358,6 @@ export const Params = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Params {
-    return {
-      codeUploadAccess: isSet(object.codeUploadAccess)
-        ? AccessConfig.fromJSON(object.codeUploadAccess)
-        : undefined,
-      instantiateDefaultPermission: isSet(object.instantiateDefaultPermission)
-        ? accessTypeFromJSON(object.instantiateDefaultPermission)
-        : 0,
-    };
-  },
-
-  toJSON(message: Params): unknown {
-    const obj: any = {};
-    message.codeUploadAccess !== undefined &&
-      (obj.codeUploadAccess = message.codeUploadAccess
-        ? AccessConfig.toJSON(message.codeUploadAccess)
-        : undefined);
-    message.instantiateDefaultPermission !== undefined &&
-      (obj.instantiateDefaultPermission = accessTypeToJSON(message.instantiateDefaultPermission));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -472,28 +424,6 @@ export const CodeInfo = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): CodeInfo {
-    return {
-      codeHash: isSet(object.codeHash) ? bytesFromBase64(object.codeHash) : new Uint8Array(),
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      instantiateConfig: isSet(object.instantiateConfig)
-        ? AccessConfig.fromJSON(object.instantiateConfig)
-        : undefined,
-    };
-  },
-
-  toJSON(message: CodeInfo): unknown {
-    const obj: any = {};
-    message.codeHash !== undefined &&
-      (obj.codeHash = base64FromBytes(message.codeHash !== undefined ? message.codeHash : new Uint8Array()));
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.instantiateConfig !== undefined &&
-      (obj.instantiateConfig = message.instantiateConfig
-        ? AccessConfig.toJSON(message.instantiateConfig)
-        : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CodeInfo>, I>>(object: I): CodeInfo {
@@ -599,32 +529,6 @@ export const ContractInfo = {
     return message;
   },
 
-  fromJSON(object: any): ContractInfo {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      admin: isSet(object.admin) ? String(object.admin) : "",
-      label: isSet(object.label) ? String(object.label) : "",
-      created: isSet(object.created) ? AbsoluteTxPosition.fromJSON(object.created) : undefined,
-      ibcPortId: isSet(object.ibcPortId) ? String(object.ibcPortId) : "",
-      extension: isSet(object.extension) ? Any.fromJSON(object.extension) : undefined,
-    };
-  },
-
-  toJSON(message: ContractInfo): unknown {
-    const obj: any = {};
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.admin !== undefined && (obj.admin = message.admin);
-    message.label !== undefined && (obj.label = message.label);
-    message.created !== undefined &&
-      (obj.created = message.created ? AbsoluteTxPosition.toJSON(message.created) : undefined);
-    message.ibcPortId !== undefined && (obj.ibcPortId = message.ibcPortId);
-    message.extension !== undefined &&
-      (obj.extension = message.extension ? Any.toJSON(message.extension) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ContractInfo>, I>>(object: I): ContractInfo {
     const message = createBaseContractInfo();
     message.codeId =
@@ -709,27 +613,6 @@ export const ContractCodeHistoryEntry = {
     return message;
   },
 
-  fromJSON(object: any): ContractCodeHistoryEntry {
-    return {
-      operation: isSet(object.operation) ? contractCodeHistoryOperationTypeFromJSON(object.operation) : 0,
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      updated: isSet(object.updated) ? AbsoluteTxPosition.fromJSON(object.updated) : undefined,
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: ContractCodeHistoryEntry): unknown {
-    const obj: any = {};
-    message.operation !== undefined &&
-      (obj.operation = contractCodeHistoryOperationTypeToJSON(message.operation));
-    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
-    message.updated !== undefined &&
-      (obj.updated = message.updated ? AbsoluteTxPosition.toJSON(message.updated) : undefined);
-    message.msg !== undefined &&
-      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<ContractCodeHistoryEntry>, I>>(
     object: I,
   ): ContractCodeHistoryEntry {
@@ -792,20 +675,6 @@ export const AbsoluteTxPosition = {
     return message;
   },
 
-  fromJSON(object: any): AbsoluteTxPosition {
-    return {
-      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
-      txIndex: isSet(object.txIndex) ? Long.fromValue(object.txIndex) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: AbsoluteTxPosition): unknown {
-    const obj: any = {};
-    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
-    message.txIndex !== undefined && (obj.txIndex = (message.txIndex || Long.UZERO).toString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<AbsoluteTxPosition>, I>>(object: I): AbsoluteTxPosition {
     const message = createBaseAbsoluteTxPosition();
     message.blockHeight =
@@ -862,22 +731,6 @@ export const Model = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Model {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: Model): unknown {
-    const obj: any = {};
-    message.key !== undefined &&
-      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
-    message.value !== undefined &&
-      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Model>, I>>(object: I): Model {

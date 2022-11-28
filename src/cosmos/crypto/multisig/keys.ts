@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.crypto.multisig";
 /**
  * LegacyAminoPubKey specifies a public key type
@@ -58,26 +58,6 @@ export const LegacyAminoPubKey = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): LegacyAminoPubKey {
-    return {
-      threshold: isSet(object.threshold) ? Number(object.threshold) : 0,
-      publicKeys: Array.isArray(object?.publicKeys) ? object.publicKeys.map((e: any) => Any.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: LegacyAminoPubKey): unknown {
-    const obj: any = {};
-    message.threshold !== undefined && (obj.threshold = Math.round(message.threshold));
-
-    if (message.publicKeys) {
-      obj.publicKeys = message.publicKeys.map((e) => (e ? Any.toJSON(e) : undefined));
-    } else {
-      obj.publicKeys = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<LegacyAminoPubKey>, I>>(object: I): LegacyAminoPubKey {

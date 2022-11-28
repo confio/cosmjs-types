@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 /**
  * MsgSetWithdrawAddress sets the withdraw address for
@@ -97,20 +97,6 @@ export const MsgSetWithdrawAddress = {
     return message;
   },
 
-  fromJSON(object: any): MsgSetWithdrawAddress {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-      withdrawAddress: isSet(object.withdrawAddress) ? String(object.withdrawAddress) : "",
-    };
-  },
-
-  toJSON(message: MsgSetWithdrawAddress): unknown {
-    const obj: any = {};
-    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
-    message.withdrawAddress !== undefined && (obj.withdrawAddress = message.withdrawAddress);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgSetWithdrawAddress>, I>>(object: I): MsgSetWithdrawAddress {
     const message = createBaseMsgSetWithdrawAddress();
     message.delegatorAddress = object.delegatorAddress ?? "";
@@ -144,15 +130,6 @@ export const MsgSetWithdrawAddressResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgSetWithdrawAddressResponse {
-    return {};
-  },
-
-  toJSON(_: MsgSetWithdrawAddressResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSetWithdrawAddressResponse>, I>>(
@@ -209,20 +186,6 @@ export const MsgWithdrawDelegatorReward = {
     return message;
   },
 
-  fromJSON(object: any): MsgWithdrawDelegatorReward {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
-  },
-
-  toJSON(message: MsgWithdrawDelegatorReward): unknown {
-    const obj: any = {};
-    message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawDelegatorReward>, I>>(
     object: I,
   ): MsgWithdrawDelegatorReward {
@@ -258,15 +221,6 @@ export const MsgWithdrawDelegatorRewardResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgWithdrawDelegatorRewardResponse {
-    return {};
-  },
-
-  toJSON(_: MsgWithdrawDelegatorRewardResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawDelegatorRewardResponse>, I>>(
@@ -314,18 +268,6 @@ export const MsgWithdrawValidatorCommission = {
     return message;
   },
 
-  fromJSON(object: any): MsgWithdrawValidatorCommission {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
-  },
-
-  toJSON(message: MsgWithdrawValidatorCommission): unknown {
-    const obj: any = {};
-    message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawValidatorCommission>, I>>(
     object: I,
   ): MsgWithdrawValidatorCommission {
@@ -360,15 +302,6 @@ export const MsgWithdrawValidatorCommissionResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgWithdrawValidatorCommissionResponse {
-    return {};
-  },
-
-  toJSON(_: MsgWithdrawValidatorCommissionResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawValidatorCommissionResponse>, I>>(
@@ -425,26 +358,6 @@ export const MsgFundCommunityPool = {
     return message;
   },
 
-  fromJSON(object: any): MsgFundCommunityPool {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
-    };
-  },
-
-  toJSON(message: MsgFundCommunityPool): unknown {
-    const obj: any = {};
-
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.amount = [];
-    }
-
-    message.depositor !== undefined && (obj.depositor = message.depositor);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgFundCommunityPool>, I>>(object: I): MsgFundCommunityPool {
     const message = createBaseMsgFundCommunityPool();
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
@@ -478,15 +391,6 @@ export const MsgFundCommunityPoolResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgFundCommunityPoolResponse {
-    return {};
-  },
-
-  toJSON(_: MsgFundCommunityPoolResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgFundCommunityPoolResponse>, I>>(

@@ -3,7 +3,7 @@ import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator } from "./validator";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact, Long, fromJsonTimestamp, fromTimestamp } from "../../helpers";
+import { DeepPartial, Exact, Long } from "../../helpers";
 export const protobufPackage = "tendermint.types";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
@@ -75,30 +75,6 @@ export const Evidence = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Evidence {
-    return {
-      duplicateVoteEvidence: isSet(object.duplicateVoteEvidence)
-        ? DuplicateVoteEvidence.fromJSON(object.duplicateVoteEvidence)
-        : undefined,
-      lightClientAttackEvidence: isSet(object.lightClientAttackEvidence)
-        ? LightClientAttackEvidence.fromJSON(object.lightClientAttackEvidence)
-        : undefined,
-    };
-  },
-
-  toJSON(message: Evidence): unknown {
-    const obj: any = {};
-    message.duplicateVoteEvidence !== undefined &&
-      (obj.duplicateVoteEvidence = message.duplicateVoteEvidence
-        ? DuplicateVoteEvidence.toJSON(message.duplicateVoteEvidence)
-        : undefined);
-    message.lightClientAttackEvidence !== undefined &&
-      (obj.lightClientAttackEvidence = message.lightClientAttackEvidence
-        ? LightClientAttackEvidence.toJSON(message.lightClientAttackEvidence)
-        : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Evidence>, I>>(object: I): Evidence {
@@ -186,28 +162,6 @@ export const DuplicateVoteEvidence = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): DuplicateVoteEvidence {
-    return {
-      voteA: isSet(object.voteA) ? Vote.fromJSON(object.voteA) : undefined,
-      voteB: isSet(object.voteB) ? Vote.fromJSON(object.voteB) : undefined,
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
-      validatorPower: isSet(object.validatorPower) ? Long.fromValue(object.validatorPower) : Long.ZERO,
-      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
-    };
-  },
-
-  toJSON(message: DuplicateVoteEvidence): unknown {
-    const obj: any = {};
-    message.voteA !== undefined && (obj.voteA = message.voteA ? Vote.toJSON(message.voteA) : undefined);
-    message.voteB !== undefined && (obj.voteB = message.voteB ? Vote.toJSON(message.voteB) : undefined);
-    message.totalVotingPower !== undefined &&
-      (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
-    message.validatorPower !== undefined &&
-      (obj.validatorPower = (message.validatorPower || Long.ZERO).toString());
-    message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DuplicateVoteEvidence>, I>>(object: I): DuplicateVoteEvidence {
@@ -305,40 +259,6 @@ export const LightClientAttackEvidence = {
     return message;
   },
 
-  fromJSON(object: any): LightClientAttackEvidence {
-    return {
-      conflictingBlock: isSet(object.conflictingBlock)
-        ? LightBlock.fromJSON(object.conflictingBlock)
-        : undefined,
-      commonHeight: isSet(object.commonHeight) ? Long.fromValue(object.commonHeight) : Long.ZERO,
-      byzantineValidators: Array.isArray(object?.byzantineValidators)
-        ? object.byzantineValidators.map((e: any) => Validator.fromJSON(e))
-        : [],
-      totalVotingPower: isSet(object.totalVotingPower) ? Long.fromValue(object.totalVotingPower) : Long.ZERO,
-      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
-    };
-  },
-
-  toJSON(message: LightClientAttackEvidence): unknown {
-    const obj: any = {};
-    message.conflictingBlock !== undefined &&
-      (obj.conflictingBlock = message.conflictingBlock
-        ? LightBlock.toJSON(message.conflictingBlock)
-        : undefined);
-    message.commonHeight !== undefined && (obj.commonHeight = (message.commonHeight || Long.ZERO).toString());
-
-    if (message.byzantineValidators) {
-      obj.byzantineValidators = message.byzantineValidators.map((e) => (e ? Validator.toJSON(e) : undefined));
-    } else {
-      obj.byzantineValidators = [];
-    }
-
-    message.totalVotingPower !== undefined &&
-      (obj.totalVotingPower = (message.totalVotingPower || Long.ZERO).toString());
-    message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<LightClientAttackEvidence>, I>>(
     object: I,
   ): LightClientAttackEvidence {
@@ -399,24 +319,6 @@ export const EvidenceList = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): EvidenceList {
-    return {
-      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Evidence.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: EvidenceList): unknown {
-    const obj: any = {};
-
-    if (message.evidence) {
-      obj.evidence = message.evidence.map((e) => (e ? Evidence.toJSON(e) : undefined));
-    } else {
-      obj.evidence = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<EvidenceList>, I>>(object: I): EvidenceList {

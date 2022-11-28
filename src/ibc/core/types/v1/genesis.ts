@@ -3,7 +3,7 @@ import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
 import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
 import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
+import { DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.types.v1";
 /** GenesisState defines the ibc module's genesis state. */
 
@@ -71,33 +71,6 @@ export const GenesisState = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): GenesisState {
-    return {
-      clientGenesis: isSet(object.clientGenesis) ? GenesisState1.fromJSON(object.clientGenesis) : undefined,
-      connectionGenesis: isSet(object.connectionGenesis)
-        ? GenesisState2.fromJSON(object.connectionGenesis)
-        : undefined,
-      channelGenesis: isSet(object.channelGenesis)
-        ? GenesisState3.fromJSON(object.channelGenesis)
-        : undefined,
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-    message.clientGenesis !== undefined &&
-      (obj.clientGenesis = message.clientGenesis ? GenesisState1.toJSON(message.clientGenesis) : undefined);
-    message.connectionGenesis !== undefined &&
-      (obj.connectionGenesis = message.connectionGenesis
-        ? GenesisState2.toJSON(message.connectionGenesis)
-        : undefined);
-    message.channelGenesis !== undefined &&
-      (obj.channelGenesis = message.channelGenesis
-        ? GenesisState3.toJSON(message.channelGenesis)
-        : undefined);
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

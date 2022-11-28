@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { Long, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.vesting.v1beta1";
 /**
  * MsgCreateVestingAccount defines a message that enables creating a vesting
@@ -92,32 +92,6 @@ export const MsgCreateVestingAccount = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateVestingAccount {
-    return {
-      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      endTime: isSet(object.endTime) ? Long.fromValue(object.endTime) : Long.ZERO,
-      delayed: isSet(object.delayed) ? Boolean(object.delayed) : false,
-    };
-  },
-
-  toJSON(message: MsgCreateVestingAccount): unknown {
-    const obj: any = {};
-    message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
-    message.toAddress !== undefined && (obj.toAddress = message.toAddress);
-
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
-    } else {
-      obj.amount = [];
-    }
-
-    message.endTime !== undefined && (obj.endTime = (message.endTime || Long.ZERO).toString());
-    message.delayed !== undefined && (obj.delayed = message.delayed);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<MsgCreateVestingAccount>, I>>(object: I): MsgCreateVestingAccount {
     const message = createBaseMsgCreateVestingAccount();
     message.fromAddress = object.fromAddress ?? "";
@@ -155,15 +129,6 @@ export const MsgCreateVestingAccountResponse = {
     }
 
     return message;
-  },
-
-  fromJSON(_: any): MsgCreateVestingAccountResponse {
-    return {};
-  },
-
-  toJSON(_: MsgCreateVestingAccountResponse): unknown {
-    const obj: any = {};
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreateVestingAccountResponse>, I>>(

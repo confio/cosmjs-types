@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { CapabilityOwners } from "./capability";
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact } from "../../../helpers";
+import { Long, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.capability.v1beta1";
 /** GenesisOwners defines the capability owners with their corresponding index. */
 
@@ -71,21 +71,6 @@ export const GenesisOwners = {
     return message;
   },
 
-  fromJSON(object: any): GenesisOwners {
-    return {
-      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
-      indexOwners: isSet(object.indexOwners) ? CapabilityOwners.fromJSON(object.indexOwners) : undefined,
-    };
-  },
-
-  toJSON(message: GenesisOwners): unknown {
-    const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
-    message.indexOwners !== undefined &&
-      (obj.indexOwners = message.indexOwners ? CapabilityOwners.toJSON(message.indexOwners) : undefined);
-    return obj;
-  },
-
   fromPartial<I extends Exact<DeepPartial<GenesisOwners>, I>>(object: I): GenesisOwners {
     const message = createBaseGenesisOwners();
     message.index =
@@ -142,26 +127,6 @@ export const GenesisState = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): GenesisState {
-    return {
-      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
-      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => GenesisOwners.fromJSON(e)) : [],
-    };
-  },
-
-  toJSON(message: GenesisState): unknown {
-    const obj: any = {};
-    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
-
-    if (message.owners) {
-      obj.owners = message.owners.map((e) => (e ? GenesisOwners.toJSON(e) : undefined));
-    } else {
-      obj.owners = [];
-    }
-
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

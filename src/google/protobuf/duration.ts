@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { Long, isSet, DeepPartial, Exact } from "../../helpers";
+import { Long, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "google.protobuf";
 /**
  * A Duration represents a signed, fixed-length span of time represented
@@ -126,20 +126,6 @@ export const Duration = {
     }
 
     return message;
-  },
-
-  fromJSON(object: any): Duration {
-    return {
-      seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
-      nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
-    };
-  },
-
-  toJSON(message: Duration): unknown {
-    const obj: any = {};
-    message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString());
-    message.nanos !== undefined && (obj.nanos = Math.round(message.nanos));
-    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Duration>, I>>(object: I): Duration {
