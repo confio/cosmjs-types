@@ -1,6 +1,6 @@
 {
   "name": "cosmjs-types",
-  "version": "0.6.0-beta.1",
+  "version": "0.6.1-alpha-1",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos-SDK and other related projects",
   "contributors": [
     "Simon Warta <webmaster128@users.noreply.github.com>",
