@@ -12,11 +12,17 @@ export enum AccessType {
   /** ACCESS_TYPE_NOBODY - AccessTypeNobody forbidden */
   ACCESS_TYPE_NOBODY = 1,
 
-  /** ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to an address */
+  /**
+   * ACCESS_TYPE_ONLY_ADDRESS - AccessTypeOnlyAddress restricted to a single address
+   * Deprecated: use AccessTypeAnyOfAddresses instead
+   */
   ACCESS_TYPE_ONLY_ADDRESS = 2,
 
   /** ACCESS_TYPE_EVERYBODY - AccessTypeEverybody unrestricted */
   ACCESS_TYPE_EVERYBODY = 3,
+
+  /** ACCESS_TYPE_ANY_OF_ADDRESSES - AccessTypeAnyOfAddresses allow any of the addresses */
+  ACCESS_TYPE_ANY_OF_ADDRESSES = 4,
   UNRECOGNIZED = -1,
 }
 export function accessTypeFromJSON(object: any): AccessType {
@@ -37,6 +43,10 @@ export function accessTypeFromJSON(object: any): AccessType {
     case "ACCESS_TYPE_EVERYBODY":
       return AccessType.ACCESS_TYPE_EVERYBODY;
 
+    case 4:
+    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+      return AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES;
+
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -56,6 +66,9 @@ export function accessTypeToJSON(object: AccessType): string {
 
     case AccessType.ACCESS_TYPE_EVERYBODY:
       return "ACCESS_TYPE_EVERYBODY";
+
+    case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
+      return "ACCESS_TYPE_ANY_OF_ADDRESSES";
 
     case AccessType.UNRECOGNIZED:
     default:
@@ -130,7 +143,13 @@ export interface AccessTypeParam {
 
 export interface AccessConfig {
   permission: AccessType;
+  /**
+   * Address
+   * Deprecated: replaced by addresses
+   */
+
   address: string;
+  addresses: string[];
 }
 /** Params defines the set of wasm parameters. */
 
@@ -164,11 +183,7 @@ export interface ContractInfo {
   /** Label is optional metadata to be stored with a contract instance. */
 
   label: string;
-  /**
-   * Created Tx position when the contract was instantiated.
-   * This data should kept internal and not be exposed via query results. Just
-   * use for sorting
-   */
+  /** Created Tx position when the contract was instantiated. */
 
   created?: AbsoluteTxPosition;
   ibcPortId: string;
@@ -264,6 +279,7 @@ function createBaseAccessConfig(): AccessConfig {
   return {
     permission: 0,
     address: "",
+    addresses: [],
   };
 }
 
@@ -275,6 +291,10 @@ export const AccessConfig = {
 
     if (message.address !== "") {
       writer.uint32(18).string(message.address);
+    }
+
+    for (const v of message.addresses) {
+      writer.uint32(26).string(v!);
     }
 
     return writer;
@@ -297,6 +317,10 @@ export const AccessConfig = {
           message.address = reader.string();
           break;
 
+        case 3:
+          message.addresses.push(reader.string());
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -310,6 +334,7 @@ export const AccessConfig = {
     const message = createBaseAccessConfig();
     message.permission = object.permission ?? 0;
     message.address = object.address ?? "";
+    message.addresses = object.addresses?.map((e) => e) || [];
     return message;
   },
 };

@@ -1,6 +1,9 @@
-[submodule "cosmos-sdk-0.44"]
-	path = cosmos-sdk-0.45
+[submodule "cosmos-sdk"]
+	path = cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
-[submodule "wasmd-0.25"]
-	path = wasmd-0.28
-	url = https://github.com/CosmWasm/wasmd.git
+[submodule "wasmd"]
+	path = wasmd
+	url = https://github.com/CosmWasm/wasmd
+[submodule "ibc-go"]
+	path = ibc-go
+	url = https://github.com/cosmos/ibc-go

@@ -3,6 +3,17 @@ import { Params } from "./controller";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial, Exact, Rpc } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
+/** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
+
+export interface QueryInterchainAccountRequest {
+  owner: string;
+  connectionId: string;
+}
+/** QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method. */
+
+export interface QueryInterchainAccountResponse {
+  address: string;
+}
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 
 export interface QueryParamsRequest {}
@@ -12,6 +23,108 @@ export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params?: Params;
 }
+
+function createBaseQueryInterchainAccountRequest(): QueryInterchainAccountRequest {
+  return {
+    owner: "",
+    connectionId: "",
+  };
+}
+
+export const QueryInterchainAccountRequest = {
+  encode(message: QueryInterchainAccountRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.owner !== "") {
+      writer.uint32(10).string(message.owner);
+    }
+
+    if (message.connectionId !== "") {
+      writer.uint32(18).string(message.connectionId);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryInterchainAccountRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryInterchainAccountRequest();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.owner = reader.string();
+          break;
+
+        case 2:
+          message.connectionId = reader.string();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryInterchainAccountRequest>, I>>(
+    object: I,
+  ): QueryInterchainAccountRequest {
+    const message = createBaseQueryInterchainAccountRequest();
+    message.owner = object.owner ?? "";
+    message.connectionId = object.connectionId ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryInterchainAccountResponse(): QueryInterchainAccountResponse {
+  return {
+    address: "",
+  };
+}
+
+export const QueryInterchainAccountResponse = {
+  encode(message: QueryInterchainAccountResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryInterchainAccountResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryInterchainAccountResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryInterchainAccountResponse>, I>>(
+    object: I,
+  ): QueryInterchainAccountResponse {
+    const message = createBaseQueryInterchainAccountResponse();
+    message.address = object.address ?? "";
+    return message;
+  },
+};
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -93,7 +206,10 @@ export const QueryParamsResponse = {
 /** Query provides defines the gRPC querier service. */
 
 export interface Query {
+  /** InterchainAccount returns the interchain account address for a given owner address on a given connection */
+  InterchainAccount(request: QueryInterchainAccountRequest): Promise<QueryInterchainAccountResponse>;
   /** Params queries all parameters of the ICA controller submodule. */
+
   Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 export class QueryClientImpl implements Query {
@@ -101,7 +217,18 @@ export class QueryClientImpl implements Query {
 
   constructor(rpc: Rpc) {
     this.rpc = rpc;
+    this.InterchainAccount = this.InterchainAccount.bind(this);
     this.Params = this.Params.bind(this);
+  }
+
+  InterchainAccount(request: QueryInterchainAccountRequest): Promise<QueryInterchainAccountResponse> {
+    const data = QueryInterchainAccountRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "ibc.applications.interchain_accounts.controller.v1.Query",
+      "InterchainAccount",
+      data,
+    );
+    return promise.then((data) => QueryInterchainAccountResponse.decode(new _m0.Reader(data)));
   }
 
   Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {

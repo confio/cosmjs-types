@@ -113,6 +113,30 @@ export interface QueryConsensusStatesResponse {
   pagination?: PageResponse;
 }
 /**
+ * QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
+ * RPC method.
+ */
+
+export interface QueryConsensusStateHeightsRequest {
+  /** client identifier */
+  clientId: string;
+  /** pagination request */
+
+  pagination?: PageRequest;
+}
+/**
+ * QueryConsensusStateHeightsResponse is the response type for the
+ * Query/ConsensusStateHeights RPC method
+ */
+
+export interface QueryConsensusStateHeightsResponse {
+  /** consensus state heights */
+  consensusStateHeights: Height[];
+  /** pagination response */
+
+  pagination?: PageResponse;
+}
+/**
  * QueryClientStatusRequest is the request type for the Query/ClientStatus RPC
  * method
  */
@@ -672,6 +696,124 @@ export const QueryConsensusStatesResponse = {
   },
 };
 
+function createBaseQueryConsensusStateHeightsRequest(): QueryConsensusStateHeightsRequest {
+  return {
+    clientId: "",
+    pagination: undefined,
+  };
+}
+
+export const QueryConsensusStateHeightsRequest = {
+  encode(message: QueryConsensusStateHeightsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
+
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryConsensusStateHeightsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryConsensusStateHeightsRequest();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.clientId = reader.string();
+          break;
+
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateHeightsRequest>, I>>(
+    object: I,
+  ): QueryConsensusStateHeightsRequest {
+    const message = createBaseQueryConsensusStateHeightsRequest();
+    message.clientId = object.clientId ?? "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryConsensusStateHeightsResponse(): QueryConsensusStateHeightsResponse {
+  return {
+    consensusStateHeights: [],
+    pagination: undefined,
+  };
+}
+
+export const QueryConsensusStateHeightsResponse = {
+  encode(message: QueryConsensusStateHeightsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.consensusStateHeights) {
+      Height.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryConsensusStateHeightsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryConsensusStateHeightsResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.consensusStateHeights.push(Height.decode(reader, reader.uint32()));
+          break;
+
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryConsensusStateHeightsResponse>, I>>(
+    object: I,
+  ): QueryConsensusStateHeightsResponse {
+    const message = createBaseQueryConsensusStateHeightsResponse();
+    message.consensusStateHeights = object.consensusStateHeights?.map((e) => Height.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 function createBaseQueryClientStatusRequest(): QueryClientStatusRequest {
   return {
     clientId: "",
@@ -1031,6 +1173,11 @@ export interface Query {
    */
 
   ConsensusStates(request: QueryConsensusStatesRequest): Promise<QueryConsensusStatesResponse>;
+  /** ConsensusStateHeights queries the height of every consensus states associated with a given client. */
+
+  ConsensusStateHeights(
+    request: QueryConsensusStateHeightsRequest,
+  ): Promise<QueryConsensusStateHeightsResponse>;
   /** Status queries the status of an IBC client. */
 
   ClientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse>;
@@ -1055,6 +1202,7 @@ export class QueryClientImpl implements Query {
     this.ClientStates = this.ClientStates.bind(this);
     this.ConsensusState = this.ConsensusState.bind(this);
     this.ConsensusStates = this.ConsensusStates.bind(this);
+    this.ConsensusStateHeights = this.ConsensusStateHeights.bind(this);
     this.ClientStatus = this.ClientStatus.bind(this);
     this.ClientParams = this.ClientParams.bind(this);
     this.UpgradedClientState = this.UpgradedClientState.bind(this);
@@ -1087,6 +1235,14 @@ export class QueryClientImpl implements Query {
     const data = QueryConsensusStatesRequest.encode(request).finish();
     const promise = this.rpc.request("ibc.core.client.v1.Query", "ConsensusStates", data);
     return promise.then((data) => QueryConsensusStatesResponse.decode(new _m0.Reader(data)));
+  }
+
+  ConsensusStateHeights(
+    request: QueryConsensusStateHeightsRequest,
+  ): Promise<QueryConsensusStateHeightsResponse> {
+    const data = QueryConsensusStateHeightsRequest.encode(request).finish();
+    const promise = this.rpc.request("ibc.core.client.v1.Query", "ConsensusStateHeights", data);
+    return promise.then((data) => QueryConsensusStateHeightsResponse.decode(new _m0.Reader(data)));
   }
 
   ClientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse> {

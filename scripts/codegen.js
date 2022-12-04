@@ -8,10 +8,12 @@ const outPath = join(__dirname, '/../src');
 
 telescope({
     protoDirs: [
-        'cosmos-sdk-0.45/proto',
-        'cosmos-sdk-0.45/third_party/proto',
-        'wasmd-0.28/proto',
-        'wasmd-0.28/third_party/proto',
+        'cosmos-sdk/proto',
+        'cosmos-sdk/third_party/proto',
+        'wasmd/proto',
+        'wasmd/third_party/proto',
+        'ibc-go/proto',
+        'ibc-go/third_party/proto',
     ],
     outPath: outPath,
     options: {
