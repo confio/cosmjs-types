@@ -17,6 +17,8 @@ and this project adheres to
   the end of 2022. Then all potential issues should be fixed.
 - `fromJSON`/`toJSON` are not generated anymore. They were never needed for
   CosmJS and do not produce a Cosmos SDK compatible JSON.
+- The TypeScript build target is now ES2020,
+  [analogue to CosmJS 0.30](https://github.com/cosmos/cosmjs/issues/1002).
 
 ## [0.5.2] - 2022-10-11
 
