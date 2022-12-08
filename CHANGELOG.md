@@ -15,6 +15,8 @@ and this project adheres to
   faster and better Cosmos specific code generation. This might come with minor
   breaking changes in the 0.6 release series. Feel free to stick to 0.5.x until
   the end of 2022. Then all potential issues should be fixed.
+- Some common types are now exported at the package root. E.g.
+  `import { DeepPartial } from "cosmjs-types"`.
 - `fromJSON`/`toJSON` are not generated anymore. They were never needed for
   CosmJS and do not produce a Cosmos SDK compatible JSON.
 - The TypeScript build target is now ES2020,
