@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.6.0] - 2022-12-08
+
 ### Changed
 
 - Code generation was migrated from ts-proto to
@@ -58,7 +60,8 @@ No changelog, sorry. Maybe the diff helps.
 
 - wasmd 0.18 types (cosmwasm/wasm/v1/\*)
 
-[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.5.2...HEAD
+[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/confio/cosmjs-types/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/confio/cosmjs-types/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/confio/cosmjs-types/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/confio/cosmjs-types/compare/v0.4.1...v0.5.0
