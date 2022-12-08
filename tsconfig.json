@@ -15,6 +15,9 @@
     "noUnusedParameters": false,
     "outDir": "build",
     "pretty": true,
+    // We want comments in the .d.ts files. TS does not allow us to remove comments
+    // from .js output only (https://github.com/microsoft/TypeScript/issues/45187, https://github.com/microsoft/TypeScript/issues/13318).
+    // So minifiers have to strip them off later on.
     "removeComments": false,
     "resolveJsonModule": true,
     "rootDir": "src",
