@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Long, DeepPartial, Exact } from "../../../helpers";
+import { Long, isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /**
@@ -77,6 +77,24 @@ export const Equivocation = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Equivocation {
+    return {
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
+      power: isSet(object.power) ? Long.fromValue(object.power) : Long.ZERO,
+      consensusAddress: isSet(object.consensusAddress) ? String(object.consensusAddress) : "",
+    };
+  },
+
+  toJSON(message: Equivocation): unknown {
+    const obj: any = {};
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    message.time !== undefined && (obj.time = fromTimestamp(message.time).toISOString());
+    message.power !== undefined && (obj.power = (message.power || Long.ZERO).toString());
+    message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Equivocation>, I>>(object: I): Equivocation {

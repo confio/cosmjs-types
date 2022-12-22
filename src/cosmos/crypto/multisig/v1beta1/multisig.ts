@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { bytesFromBase64, base64FromBytes, DeepPartial, Exact, isSet } from "../../../../helpers";
 export const protobufPackage = "cosmos.crypto.multisig.v1beta1";
 /**
  * MultiSignature wraps the signatures from a multisig.LegacyAminoPubKey.
@@ -60,6 +60,26 @@ export const MultiSignature = {
     return message;
   },
 
+  fromJSON(object: any): MultiSignature {
+    return {
+      signatures: Array.isArray(object?.signatures)
+        ? object.signatures.map((e: any) => bytesFromBase64(e))
+        : [],
+    };
+  },
+
+  toJSON(message: MultiSignature): unknown {
+    const obj: any = {};
+
+    if (message.signatures) {
+      obj.signatures = message.signatures.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
+    } else {
+      obj.signatures = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MultiSignature>, I>>(object: I): MultiSignature {
     const message = createBaseMultiSignature();
     message.signatures = object.signatures?.map((e) => e) || [];
@@ -111,6 +131,21 @@ export const CompactBitArray = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): CompactBitArray {
+    return {
+      extraBitsStored: isSet(object.extraBitsStored) ? Number(object.extraBitsStored) : 0,
+      elems: isSet(object.elems) ? bytesFromBase64(object.elems) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: CompactBitArray): unknown {
+    const obj: any = {};
+    message.extraBitsStored !== undefined && (obj.extraBitsStored = Math.round(message.extraBitsStored));
+    message.elems !== undefined &&
+      (obj.elems = base64FromBytes(message.elems !== undefined ? message.elems : new Uint8Array()));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CompactBitArray>, I>>(object: I): CompactBitArray {

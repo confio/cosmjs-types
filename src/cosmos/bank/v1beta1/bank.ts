@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /** Params defines the parameters for the bank module. */
 
@@ -144,6 +144,28 @@ export const Params = {
     return message;
   },
 
+  fromJSON(object: any): Params {
+    return {
+      sendEnabled: Array.isArray(object?.sendEnabled)
+        ? object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e))
+        : [],
+      defaultSendEnabled: isSet(object.defaultSendEnabled) ? Boolean(object.defaultSendEnabled) : false,
+    };
+  },
+
+  toJSON(message: Params): unknown {
+    const obj: any = {};
+
+    if (message.sendEnabled) {
+      obj.sendEnabled = message.sendEnabled.map((e) => (e ? SendEnabled.toJSON(e) : undefined));
+    } else {
+      obj.sendEnabled = [];
+    }
+
+    message.defaultSendEnabled !== undefined && (obj.defaultSendEnabled = message.defaultSendEnabled);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     message.sendEnabled = object.sendEnabled?.map((e) => SendEnabled.fromPartial(e)) || [];
@@ -196,6 +218,20 @@ export const SendEnabled = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): SendEnabled {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      enabled: isSet(object.enabled) ? Boolean(object.enabled) : false,
+    };
+  },
+
+  toJSON(message: SendEnabled): unknown {
+    const obj: any = {};
+    message.denom !== undefined && (obj.denom = message.denom);
+    message.enabled !== undefined && (obj.enabled = message.enabled);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SendEnabled>, I>>(object: I): SendEnabled {
@@ -252,6 +288,26 @@ export const Input = {
     return message;
   },
 
+  fromJSON(object: any): Input {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: Input): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.coins = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Input>, I>>(object: I): Input {
     const message = createBaseInput();
     message.address = object.address ?? "";
@@ -306,6 +362,26 @@ export const Output = {
     return message;
   },
 
+  fromJSON(object: any): Output {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: Output): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.coins = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Output>, I>>(object: I): Output {
     const message = createBaseOutput();
     message.address = object.address ?? "";
@@ -349,6 +425,24 @@ export const Supply = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Supply {
+    return {
+      total: Array.isArray(object?.total) ? object.total.map((e: any) => Coin.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: Supply): unknown {
+    const obj: any = {};
+
+    if (message.total) {
+      obj.total = message.total.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.total = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Supply>, I>>(object: I): Supply {
@@ -411,6 +505,28 @@ export const DenomUnit = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): DenomUnit {
+    return {
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      exponent: isSet(object.exponent) ? Number(object.exponent) : 0,
+      aliases: Array.isArray(object?.aliases) ? object.aliases.map((e: any) => String(e)) : [],
+    };
+  },
+
+  toJSON(message: DenomUnit): unknown {
+    const obj: any = {};
+    message.denom !== undefined && (obj.denom = message.denom);
+    message.exponent !== undefined && (obj.exponent = Math.round(message.exponent));
+
+    if (message.aliases) {
+      obj.aliases = message.aliases.map((e) => e);
+    } else {
+      obj.aliases = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DenomUnit>, I>>(object: I): DenomUnit {
@@ -502,6 +618,36 @@ export const Metadata = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Metadata {
+    return {
+      description: isSet(object.description) ? String(object.description) : "",
+      denomUnits: Array.isArray(object?.denomUnits)
+        ? object.denomUnits.map((e: any) => DenomUnit.fromJSON(e))
+        : [],
+      base: isSet(object.base) ? String(object.base) : "",
+      display: isSet(object.display) ? String(object.display) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+      symbol: isSet(object.symbol) ? String(object.symbol) : "",
+    };
+  },
+
+  toJSON(message: Metadata): unknown {
+    const obj: any = {};
+    message.description !== undefined && (obj.description = message.description);
+
+    if (message.denomUnits) {
+      obj.denomUnits = message.denomUnits.map((e) => (e ? DenomUnit.toJSON(e) : undefined));
+    } else {
+      obj.denomUnits = [];
+    }
+
+    message.base !== undefined && (obj.base = message.base);
+    message.display !== undefined && (obj.display = message.display);
+    message.name !== undefined && (obj.name = message.name);
+    message.symbol !== undefined && (obj.symbol = message.symbol);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {

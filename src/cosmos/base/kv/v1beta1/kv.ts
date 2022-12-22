@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.kv.v1beta1";
 /** Pairs defines a repeated slice of Pair objects. */
 
@@ -49,6 +49,24 @@ export const Pairs = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Pairs {
+    return {
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => Pair.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: Pairs): unknown {
+    const obj: any = {};
+
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
+    } else {
+      obj.pairs = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Pairs>, I>>(object: I): Pairs {
@@ -102,6 +120,22 @@ export const Pair = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Pair {
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: Pair): unknown {
+    const obj: any = {};
+    message.key !== undefined &&
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    message.value !== undefined &&
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {

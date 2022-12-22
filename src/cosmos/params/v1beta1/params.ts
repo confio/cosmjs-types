@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.params.v1beta1";
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 
@@ -75,6 +75,28 @@ export const ParameterChangeProposal = {
     return message;
   },
 
+  fromJSON(object: any): ParameterChangeProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: ParameterChangeProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined && (obj.description = message.description);
+
+    if (message.changes) {
+      obj.changes = message.changes.map((e) => (e ? ParamChange.toJSON(e) : undefined));
+    } else {
+      obj.changes = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<ParameterChangeProposal>, I>>(object: I): ParameterChangeProposal {
     const message = createBaseParameterChangeProposal();
     message.title = object.title ?? "";
@@ -137,6 +159,22 @@ export const ParamChange = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): ParamChange {
+    return {
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? String(object.value) : "",
+    };
+  },
+
+  toJSON(message: ParamChange): unknown {
+    const obj: any = {};
+    message.subspace !== undefined && (obj.subspace = message.subspace);
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ParamChange>, I>>(object: I): ParamChange {

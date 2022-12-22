@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Long } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.mint.v1beta1";
 /** Minter represents the minting state. */
 
@@ -77,6 +77,20 @@ export const Minter = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Minter {
+    return {
+      inflation: isSet(object.inflation) ? String(object.inflation) : "",
+      annualProvisions: isSet(object.annualProvisions) ? String(object.annualProvisions) : "",
+    };
+  },
+
+  toJSON(message: Minter): unknown {
+    const obj: any = {};
+    message.inflation !== undefined && (obj.inflation = message.inflation);
+    message.annualProvisions !== undefined && (obj.annualProvisions = message.annualProvisions);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Minter>, I>>(object: I): Minter {
@@ -167,6 +181,29 @@ export const Params = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Params {
+    return {
+      mintDenom: isSet(object.mintDenom) ? String(object.mintDenom) : "",
+      inflationRateChange: isSet(object.inflationRateChange) ? String(object.inflationRateChange) : "",
+      inflationMax: isSet(object.inflationMax) ? String(object.inflationMax) : "",
+      inflationMin: isSet(object.inflationMin) ? String(object.inflationMin) : "",
+      goalBonded: isSet(object.goalBonded) ? String(object.goalBonded) : "",
+      blocksPerYear: isSet(object.blocksPerYear) ? Long.fromValue(object.blocksPerYear) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: Params): unknown {
+    const obj: any = {};
+    message.mintDenom !== undefined && (obj.mintDenom = message.mintDenom);
+    message.inflationRateChange !== undefined && (obj.inflationRateChange = message.inflationRateChange);
+    message.inflationMax !== undefined && (obj.inflationMax = message.inflationMax);
+    message.inflationMin !== undefined && (obj.inflationMin = message.inflationMin);
+    message.goalBonded !== undefined && (obj.goalBonded = message.goalBonded);
+    message.blocksPerYear !== undefined &&
+      (obj.blocksPerYear = (message.blocksPerYear || Long.UZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {

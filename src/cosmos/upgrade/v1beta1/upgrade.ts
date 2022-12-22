@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Any } from "../../../google/protobuf/any";
-import { Long, DeepPartial, Exact } from "../../../helpers";
+import { Long, isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /** Plan specifies information about a planned upgrade and when it should occur. */
@@ -154,6 +154,31 @@ export const Plan = {
     return message;
   },
 
+  fromJSON(object: any): Plan {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      info: isSet(object.info) ? String(object.info) : "",
+      upgradedClientState: isSet(object.upgradedClientState)
+        ? Any.fromJSON(object.upgradedClientState)
+        : undefined,
+    };
+  },
+
+  toJSON(message: Plan): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.time !== undefined && (obj.time = fromTimestamp(message.time).toISOString());
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    message.info !== undefined && (obj.info = message.info);
+    message.upgradedClientState !== undefined &&
+      (obj.upgradedClientState = message.upgradedClientState
+        ? Any.toJSON(message.upgradedClientState)
+        : undefined);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
     const message = createBasePlan();
     message.name = object.name ?? "";
@@ -225,6 +250,22 @@ export const SoftwareUpgradeProposal = {
     return message;
   },
 
+  fromJSON(object: any): SoftwareUpgradeProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
+    };
+  },
+
+  toJSON(message: SoftwareUpgradeProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined && (obj.description = message.description);
+    message.plan !== undefined && (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(object: I): SoftwareUpgradeProposal {
     const message = createBaseSoftwareUpgradeProposal();
     message.title = object.title ?? "";
@@ -281,6 +322,20 @@ export const CancelSoftwareUpgradeProposal = {
     return message;
   },
 
+  fromJSON(object: any): CancelSoftwareUpgradeProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+    };
+  },
+
+  toJSON(message: CancelSoftwareUpgradeProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined && (obj.description = message.description);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<CancelSoftwareUpgradeProposal>, I>>(
     object: I,
   ): CancelSoftwareUpgradeProposal {
@@ -335,6 +390,20 @@ export const ModuleVersion = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): ModuleVersion {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: ModuleVersion): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.version !== undefined && (obj.version = (message.version || Long.UZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ModuleVersion>, I>>(object: I): ModuleVersion {

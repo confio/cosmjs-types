@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Long, DeepPartial, Exact } from "../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "tendermint.version";
 /**
@@ -69,6 +69,20 @@ export const App = {
     return message;
   },
 
+  fromJSON(object: any): App {
+    return {
+      protocol: isSet(object.protocol) ? Long.fromValue(object.protocol) : Long.UZERO,
+      software: isSet(object.software) ? String(object.software) : "",
+    };
+  },
+
+  toJSON(message: App): unknown {
+    const obj: any = {};
+    message.protocol !== undefined && (obj.protocol = (message.protocol || Long.UZERO).toString());
+    message.software !== undefined && (obj.software = message.software);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<App>, I>>(object: I): App {
     const message = createBaseApp();
     message.protocol =
@@ -124,6 +138,20 @@ export const Consensus = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Consensus {
+    return {
+      block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
+      app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: Consensus): unknown {
+    const obj: any = {};
+    message.block !== undefined && (obj.block = (message.block || Long.UZERO).toString());
+    message.app !== undefined && (obj.app = (message.app || Long.UZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Consensus>, I>>(object: I): Consensus {

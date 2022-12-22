@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./mint";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.mint.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 
@@ -67,6 +67,15 @@ export const QueryParamsRequest = {
     return message;
   },
 
+  fromJSON(_: any): QueryParamsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryParamsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
@@ -110,6 +119,18 @@ export const QueryParamsResponse = {
     return message;
   },
 
+  fromJSON(object: any): QueryParamsResponse {
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: QueryParamsResponse): unknown {
+    const obj: any = {};
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
     message.params =
@@ -143,6 +164,15 @@ export const QueryInflationRequest = {
     }
 
     return message;
+  },
+
+  fromJSON(_: any): QueryInflationRequest {
+    return {};
+  },
+
+  toJSON(_: QueryInflationRequest): unknown {
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryInflationRequest>, I>>(_: I): QueryInflationRequest {
@@ -188,6 +218,21 @@ export const QueryInflationResponse = {
     return message;
   },
 
+  fromJSON(object: any): QueryInflationResponse {
+    return {
+      inflation: isSet(object.inflation) ? bytesFromBase64(object.inflation) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: QueryInflationResponse): unknown {
+    const obj: any = {};
+    message.inflation !== undefined &&
+      (obj.inflation = base64FromBytes(
+        message.inflation !== undefined ? message.inflation : new Uint8Array(),
+      ));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryInflationResponse>, I>>(object: I): QueryInflationResponse {
     const message = createBaseQueryInflationResponse();
     message.inflation = object.inflation ?? new Uint8Array();
@@ -220,6 +265,15 @@ export const QueryAnnualProvisionsRequest = {
     }
 
     return message;
+  },
+
+  fromJSON(_: any): QueryAnnualProvisionsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryAnnualProvisionsRequest): unknown {
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAnnualProvisionsRequest>, I>>(
@@ -265,6 +319,23 @@ export const QueryAnnualProvisionsResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryAnnualProvisionsResponse {
+    return {
+      annualProvisions: isSet(object.annualProvisions)
+        ? bytesFromBase64(object.annualProvisions)
+        : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: QueryAnnualProvisionsResponse): unknown {
+    const obj: any = {};
+    message.annualProvisions !== undefined &&
+      (obj.annualProvisions = base64FromBytes(
+        message.annualProvisions !== undefined ? message.annualProvisions : new Uint8Array(),
+      ));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAnnualProvisionsResponse>, I>>(

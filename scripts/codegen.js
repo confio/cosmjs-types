@@ -53,8 +53,10 @@ telescope({
                 ]
             },
             methods: {
-                fromJSON: false,
-                toJSON: false
+                // There are users who need those functions. CosmJS does not need them directly.
+                // See https://github.com/cosmos/cosmjs/pull/1329
+                fromJSON: true,
+                toJSON: true,
             },
             typingsFormat: {
                 useDeepPartial: true,

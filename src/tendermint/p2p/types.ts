@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Long } from "../../helpers";
+import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../helpers";
 export const protobufPackage = "tendermint.p2p";
 export interface NetAddress {
   id: string;
@@ -82,6 +82,22 @@ export const NetAddress = {
     return message;
   },
 
+  fromJSON(object: any): NetAddress {
+    return {
+      id: isSet(object.id) ? String(object.id) : "",
+      ip: isSet(object.ip) ? String(object.ip) : "",
+      port: isSet(object.port) ? Number(object.port) : 0,
+    };
+  },
+
+  toJSON(message: NetAddress): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    message.ip !== undefined && (obj.ip = message.ip);
+    message.port !== undefined && (obj.port = Math.round(message.port));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<NetAddress>, I>>(object: I): NetAddress {
     const message = createBaseNetAddress();
     message.id = object.id ?? "";
@@ -144,6 +160,22 @@ export const ProtocolVersion = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): ProtocolVersion {
+    return {
+      p2p: isSet(object.p2p) ? Long.fromValue(object.p2p) : Long.UZERO,
+      block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
+      app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: ProtocolVersion): unknown {
+    const obj: any = {};
+    message.p2p !== undefined && (obj.p2p = (message.p2p || Long.UZERO).toString());
+    message.block !== undefined && (obj.block = (message.block || Long.UZERO).toString());
+    message.app !== undefined && (obj.app = (message.app || Long.UZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<ProtocolVersion>, I>>(object: I): ProtocolVersion {
@@ -256,6 +288,39 @@ export const DefaultNodeInfo = {
     return message;
   },
 
+  fromJSON(object: any): DefaultNodeInfo {
+    return {
+      protocolVersion: isSet(object.protocolVersion)
+        ? ProtocolVersion.fromJSON(object.protocolVersion)
+        : undefined,
+      defaultNodeId: isSet(object.defaultNodeId) ? String(object.defaultNodeId) : "",
+      listenAddr: isSet(object.listenAddr) ? String(object.listenAddr) : "",
+      network: isSet(object.network) ? String(object.network) : "",
+      version: isSet(object.version) ? String(object.version) : "",
+      channels: isSet(object.channels) ? bytesFromBase64(object.channels) : new Uint8Array(),
+      moniker: isSet(object.moniker) ? String(object.moniker) : "",
+      other: isSet(object.other) ? DefaultNodeInfoOther.fromJSON(object.other) : undefined,
+    };
+  },
+
+  toJSON(message: DefaultNodeInfo): unknown {
+    const obj: any = {};
+    message.protocolVersion !== undefined &&
+      (obj.protocolVersion = message.protocolVersion
+        ? ProtocolVersion.toJSON(message.protocolVersion)
+        : undefined);
+    message.defaultNodeId !== undefined && (obj.defaultNodeId = message.defaultNodeId);
+    message.listenAddr !== undefined && (obj.listenAddr = message.listenAddr);
+    message.network !== undefined && (obj.network = message.network);
+    message.version !== undefined && (obj.version = message.version);
+    message.channels !== undefined &&
+      (obj.channels = base64FromBytes(message.channels !== undefined ? message.channels : new Uint8Array()));
+    message.moniker !== undefined && (obj.moniker = message.moniker);
+    message.other !== undefined &&
+      (obj.other = message.other ? DefaultNodeInfoOther.toJSON(message.other) : undefined);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<DefaultNodeInfo>, I>>(object: I): DefaultNodeInfo {
     const message = createBaseDefaultNodeInfo();
     message.protocolVersion =
@@ -320,6 +385,20 @@ export const DefaultNodeInfoOther = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): DefaultNodeInfoOther {
+    return {
+      txIndex: isSet(object.txIndex) ? String(object.txIndex) : "",
+      rpcAddress: isSet(object.rpcAddress) ? String(object.rpcAddress) : "",
+    };
+  },
+
+  toJSON(message: DefaultNodeInfoOther): unknown {
+    const obj: any = {};
+    message.txIndex !== undefined && (obj.txIndex = message.txIndex);
+    message.rpcAddress !== undefined && (obj.rpcAddress = message.rpcAddress);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DefaultNodeInfoOther>, I>>(object: I): DefaultNodeInfoOther {

@@ -51,6 +51,26 @@ export const SendAuthorization = {
     return message;
   },
 
+  fromJSON(object: any): SendAuthorization {
+    return {
+      spendLimit: Array.isArray(object?.spendLimit)
+        ? object.spendLimit.map((e: any) => Coin.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: SendAuthorization): unknown {
+    const obj: any = {};
+
+    if (message.spendLimit) {
+      obj.spendLimit = message.spendLimit.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.spendLimit = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<SendAuthorization>, I>>(object: I): SendAuthorization {
     const message = createBaseSendAuthorization();
     message.spendLimit = object.spendLimit?.map((e) => Coin.fromPartial(e)) || [];
