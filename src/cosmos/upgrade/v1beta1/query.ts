@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Plan, ModuleVersion } from "./upgrade";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Long, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, Long, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
@@ -115,6 +115,15 @@ export const QueryCurrentPlanRequest = {
     return message;
   },
 
+  fromJSON(_: any): QueryCurrentPlanRequest {
+    return {};
+  },
+
+  toJSON(_: QueryCurrentPlanRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanRequest>, I>>(_: I): QueryCurrentPlanRequest {
     const message = createBaseQueryCurrentPlanRequest();
     return message;
@@ -156,6 +165,18 @@ export const QueryCurrentPlanResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryCurrentPlanResponse {
+    return {
+      plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
+    };
+  },
+
+  toJSON(message: QueryCurrentPlanResponse): unknown {
+    const obj: any = {};
+    message.plan !== undefined && (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryCurrentPlanResponse>, I>>(
@@ -205,6 +226,18 @@ export const QueryAppliedPlanRequest = {
     return message;
   },
 
+  fromJSON(object: any): QueryAppliedPlanRequest {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+    };
+  },
+
+  toJSON(message: QueryAppliedPlanRequest): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanRequest>, I>>(object: I): QueryAppliedPlanRequest {
     const message = createBaseQueryAppliedPlanRequest();
     message.name = object.name ?? "";
@@ -247,6 +280,18 @@ export const QueryAppliedPlanResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryAppliedPlanResponse {
+    return {
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: QueryAppliedPlanResponse): unknown {
+    const obj: any = {};
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAppliedPlanResponse>, I>>(
@@ -294,6 +339,18 @@ export const QueryUpgradedConsensusStateRequest = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryUpgradedConsensusStateRequest {
+    return {
+      lastHeight: isSet(object.lastHeight) ? Long.fromValue(object.lastHeight) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: QueryUpgradedConsensusStateRequest): unknown {
+    const obj: any = {};
+    message.lastHeight !== undefined && (obj.lastHeight = (message.lastHeight || Long.ZERO).toString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateRequest>, I>>(
@@ -345,6 +402,23 @@ export const QueryUpgradedConsensusStateResponse = {
     return message;
   },
 
+  fromJSON(object: any): QueryUpgradedConsensusStateResponse {
+    return {
+      upgradedConsensusState: isSet(object.upgradedConsensusState)
+        ? bytesFromBase64(object.upgradedConsensusState)
+        : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: QueryUpgradedConsensusStateResponse): unknown {
+    const obj: any = {};
+    message.upgradedConsensusState !== undefined &&
+      (obj.upgradedConsensusState = base64FromBytes(
+        message.upgradedConsensusState !== undefined ? message.upgradedConsensusState : new Uint8Array(),
+      ));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryUpgradedConsensusStateResponse>, I>>(
     object: I,
   ): QueryUpgradedConsensusStateResponse {
@@ -391,6 +465,18 @@ export const QueryModuleVersionsRequest = {
     return message;
   },
 
+  fromJSON(object: any): QueryModuleVersionsRequest {
+    return {
+      moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
+    };
+  },
+
+  toJSON(message: QueryModuleVersionsRequest): unknown {
+    const obj: any = {};
+    message.moduleName !== undefined && (obj.moduleName = message.moduleName);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsRequest>, I>>(
     object: I,
   ): QueryModuleVersionsRequest {
@@ -435,6 +521,26 @@ export const QueryModuleVersionsResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryModuleVersionsResponse {
+    return {
+      moduleVersions: Array.isArray(object?.moduleVersions)
+        ? object.moduleVersions.map((e: any) => ModuleVersion.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryModuleVersionsResponse): unknown {
+    const obj: any = {};
+
+    if (message.moduleVersions) {
+      obj.moduleVersions = message.moduleVersions.map((e) => (e ? ModuleVersion.toJSON(e) : undefined));
+    } else {
+      obj.moduleVersions = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryModuleVersionsResponse>, I>>(

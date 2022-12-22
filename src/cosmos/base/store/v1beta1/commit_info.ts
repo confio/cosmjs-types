@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Long, DeepPartial, Exact } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.base.store.v1beta1";
 /**
@@ -76,6 +76,28 @@ export const CommitInfo = {
     return message;
   },
 
+  fromJSON(object: any): CommitInfo {
+    return {
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.ZERO,
+      storeInfos: Array.isArray(object?.storeInfos)
+        ? object.storeInfos.map((e: any) => StoreInfo.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: CommitInfo): unknown {
+    const obj: any = {};
+    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
+
+    if (message.storeInfos) {
+      obj.storeInfos = message.storeInfos.map((e) => (e ? StoreInfo.toJSON(e) : undefined));
+    } else {
+      obj.storeInfos = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<CommitInfo>, I>>(object: I): CommitInfo {
     const message = createBaseCommitInfo();
     message.version =
@@ -129,6 +151,21 @@ export const StoreInfo = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): StoreInfo {
+    return {
+      name: isSet(object.name) ? String(object.name) : "",
+      commitId: isSet(object.commitId) ? CommitID.fromJSON(object.commitId) : undefined,
+    };
+  },
+
+  toJSON(message: StoreInfo): unknown {
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.commitId !== undefined &&
+      (obj.commitId = message.commitId ? CommitID.toJSON(message.commitId) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<StoreInfo>, I>>(object: I): StoreInfo {
@@ -186,6 +223,21 @@ export const CommitID = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): CommitID {
+    return {
+      version: isSet(object.version) ? Long.fromValue(object.version) : Long.ZERO,
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: CommitID): unknown {
+    const obj: any = {};
+    message.version !== undefined && (obj.version = (message.version || Long.ZERO).toString());
+    message.hash !== undefined &&
+      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CommitID>, I>>(object: I): CommitID {

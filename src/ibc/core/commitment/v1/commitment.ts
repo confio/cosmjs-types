@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { CommitmentProof } from "../../../../confio/proofs";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.commitment.v1";
 /**
  * MerkleRoot defines a merkle root hash.
@@ -78,6 +78,19 @@ export const MerkleRoot = {
     return message;
   },
 
+  fromJSON(object: any): MerkleRoot {
+    return {
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: MerkleRoot): unknown {
+    const obj: any = {};
+    message.hash !== undefined &&
+      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MerkleRoot>, I>>(object: I): MerkleRoot {
     const message = createBaseMerkleRoot();
     message.hash = object.hash ?? new Uint8Array();
@@ -120,6 +133,21 @@ export const MerklePrefix = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): MerklePrefix {
+    return {
+      keyPrefix: isSet(object.keyPrefix) ? bytesFromBase64(object.keyPrefix) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: MerklePrefix): unknown {
+    const obj: any = {};
+    message.keyPrefix !== undefined &&
+      (obj.keyPrefix = base64FromBytes(
+        message.keyPrefix !== undefined ? message.keyPrefix : new Uint8Array(),
+      ));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MerklePrefix>, I>>(object: I): MerklePrefix {
@@ -166,6 +194,24 @@ export const MerklePath = {
     return message;
   },
 
+  fromJSON(object: any): MerklePath {
+    return {
+      keyPath: Array.isArray(object?.keyPath) ? object.keyPath.map((e: any) => String(e)) : [],
+    };
+  },
+
+  toJSON(message: MerklePath): unknown {
+    const obj: any = {};
+
+    if (message.keyPath) {
+      obj.keyPath = message.keyPath.map((e) => e);
+    } else {
+      obj.keyPath = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MerklePath>, I>>(object: I): MerklePath {
     const message = createBaseMerklePath();
     message.keyPath = object.keyPath?.map((e) => e) || [];
@@ -208,6 +254,24 @@ export const MerkleProof = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): MerkleProof {
+    return {
+      proofs: Array.isArray(object?.proofs) ? object.proofs.map((e: any) => CommitmentProof.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: MerkleProof): unknown {
+    const obj: any = {};
+
+    if (message.proofs) {
+      obj.proofs = message.proofs.map((e) => (e ? CommitmentProof.toJSON(e) : undefined));
+    } else {
+      obj.proofs = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MerkleProof>, I>>(object: I): MerkleProof {

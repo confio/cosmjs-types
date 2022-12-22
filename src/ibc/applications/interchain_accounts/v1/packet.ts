@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /**
  * Type defines a classification of message issued from a controller chain to its associated interchain accounts
@@ -113,6 +113,23 @@ export const InterchainAccountPacketData = {
     return message;
   },
 
+  fromJSON(object: any): InterchainAccountPacketData {
+    return {
+      type: isSet(object.type) ? typeFromJSON(object.type) : 0,
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      memo: isSet(object.memo) ? String(object.memo) : "",
+    };
+  },
+
+  toJSON(message: InterchainAccountPacketData): unknown {
+    const obj: any = {};
+    message.type !== undefined && (obj.type = typeToJSON(message.type));
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    message.memo !== undefined && (obj.memo = message.memo);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<InterchainAccountPacketData>, I>>(
     object: I,
   ): InterchainAccountPacketData {
@@ -159,6 +176,24 @@ export const CosmosTx = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): CosmosTx {
+    return {
+      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: CosmosTx): unknown {
+    const obj: any = {};
+
+    if (message.messages) {
+      obj.messages = message.messages.map((e) => (e ? Any.toJSON(e) : undefined));
+    } else {
+      obj.messages = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CosmosTx>, I>>(object: I): CosmosTx {

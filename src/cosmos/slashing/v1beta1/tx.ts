@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** MsgUnjail defines the Msg/Unjail request type */
 
@@ -48,6 +48,18 @@ export const MsgUnjail = {
     return message;
   },
 
+  fromJSON(object: any): MsgUnjail {
+    return {
+      validatorAddr: isSet(object.validatorAddr) ? String(object.validatorAddr) : "",
+    };
+  },
+
+  toJSON(message: MsgUnjail): unknown {
+    const obj: any = {};
+    message.validatorAddr !== undefined && (obj.validatorAddr = message.validatorAddr);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgUnjail>, I>>(object: I): MsgUnjail {
     const message = createBaseMsgUnjail();
     message.validatorAddr = object.validatorAddr ?? "";
@@ -80,6 +92,15 @@ export const MsgUnjailResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(_: any): MsgUnjailResponse {
+    return {};
+  },
+
+  toJSON(_: MsgUnjailResponse): unknown {
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUnjailResponse>, I>>(_: I): MsgUnjailResponse {

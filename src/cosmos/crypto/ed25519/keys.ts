@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.crypto.ed25519";
 /**
  * PubKey is an ed25519 public key for handling Tendermint keys in SDK.
@@ -59,6 +59,19 @@ export const PubKey = {
     return message;
   },
 
+  fromJSON(object: any): PubKey {
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: PubKey): unknown {
+    const obj: any = {};
+    message.key !== undefined &&
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<PubKey>, I>>(object: I): PubKey {
     const message = createBasePubKey();
     message.key = object.key ?? new Uint8Array();
@@ -101,6 +114,19 @@ export const PrivKey = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): PrivKey {
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: PrivKey): unknown {
+    const obj: any = {};
+    message.key !== undefined &&
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<PrivKey>, I>>(object: I): PrivKey {

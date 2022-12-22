@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Long, DeepPartial, Exact } from "../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "google.protobuf";
 /**
@@ -148,6 +148,20 @@ export const Timestamp = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Timestamp {
+    return {
+      seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
+      nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
+    };
+  },
+
+  toJSON(message: Timestamp): unknown {
+    const obj: any = {};
+    message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString());
+    message.nanos !== undefined && (obj.nanos = Math.round(message.nanos));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Timestamp>, I>>(object: I): Timestamp {

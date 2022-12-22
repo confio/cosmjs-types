@@ -2,7 +2,7 @@
 import { Any } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../helpers";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
@@ -73,6 +73,18 @@ export const GenericAuthorization = {
     return message;
   },
 
+  fromJSON(object: any): GenericAuthorization {
+    return {
+      msg: isSet(object.msg) ? String(object.msg) : "",
+    };
+  },
+
+  toJSON(message: GenericAuthorization): unknown {
+    const obj: any = {};
+    message.msg !== undefined && (obj.msg = message.msg);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<GenericAuthorization>, I>>(object: I): GenericAuthorization {
     const message = createBaseGenericAuthorization();
     message.msg = object.msg ?? "";
@@ -124,6 +136,21 @@ export const Grant = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Grant {
+    return {
+      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
+      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
+    };
+  },
+
+  toJSON(message: Grant): unknown {
+    const obj: any = {};
+    message.authorization !== undefined &&
+      (obj.authorization = message.authorization ? Any.toJSON(message.authorization) : undefined);
+    message.expiration !== undefined && (obj.expiration = fromTimestamp(message.expiration).toISOString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
@@ -202,6 +229,25 @@ export const GrantAuthorization = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): GrantAuthorization {
+    return {
+      granter: isSet(object.granter) ? String(object.granter) : "",
+      grantee: isSet(object.grantee) ? String(object.grantee) : "",
+      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
+      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
+    };
+  },
+
+  toJSON(message: GrantAuthorization): unknown {
+    const obj: any = {};
+    message.granter !== undefined && (obj.granter = message.granter);
+    message.grantee !== undefined && (obj.grantee = message.grantee);
+    message.authorization !== undefined &&
+      (obj.authorization = message.authorization ? Any.toJSON(message.authorization) : undefined);
+    message.expiration !== undefined && (obj.expiration = fromTimestamp(message.expiration).toISOString());
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GrantAuthorization>, I>>(object: I): GrantAuthorization {

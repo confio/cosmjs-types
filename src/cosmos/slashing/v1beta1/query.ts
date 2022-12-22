@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
 
@@ -76,6 +76,15 @@ export const QueryParamsRequest = {
     return message;
   },
 
+  fromJSON(_: any): QueryParamsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryParamsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
@@ -117,6 +126,18 @@ export const QueryParamsResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryParamsResponse {
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+    };
+  },
+
+  toJSON(message: QueryParamsResponse): unknown {
+    const obj: any = {};
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -164,6 +185,18 @@ export const QuerySigningInfoRequest = {
     return message;
   },
 
+  fromJSON(object: any): QuerySigningInfoRequest {
+    return {
+      consAddress: isSet(object.consAddress) ? String(object.consAddress) : "",
+    };
+  },
+
+  toJSON(message: QuerySigningInfoRequest): unknown {
+    const obj: any = {};
+    message.consAddress !== undefined && (obj.consAddress = message.consAddress);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest {
     const message = createBaseQuerySigningInfoRequest();
     message.consAddress = object.consAddress ?? "";
@@ -206,6 +239,23 @@ export const QuerySigningInfoResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QuerySigningInfoResponse {
+    return {
+      valSigningInfo: isSet(object.valSigningInfo)
+        ? ValidatorSigningInfo.fromJSON(object.valSigningInfo)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QuerySigningInfoResponse): unknown {
+    const obj: any = {};
+    message.valSigningInfo !== undefined &&
+      (obj.valSigningInfo = message.valSigningInfo
+        ? ValidatorSigningInfo.toJSON(message.valSigningInfo)
+        : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(
@@ -255,6 +305,19 @@ export const QuerySigningInfosRequest = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QuerySigningInfosRequest {
+    return {
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QuerySigningInfosRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(
@@ -313,6 +376,27 @@ export const QuerySigningInfosResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QuerySigningInfosResponse {
+    return {
+      info: Array.isArray(object?.info) ? object.info.map((e: any) => ValidatorSigningInfo.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QuerySigningInfosResponse): unknown {
+    const obj: any = {};
+
+    if (message.info) {
+      obj.info = message.info.map((e) => (e ? ValidatorSigningInfo.toJSON(e) : undefined));
+    } else {
+      obj.info = [];
+    }
+
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(

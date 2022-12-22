@@ -2,7 +2,7 @@
 import { Coin } from "../../base/v1beta1/coin";
 import { Input, Output } from "./bank";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /** MsgSend represents a message to send coins from one account to another. */
 
@@ -79,6 +79,28 @@ export const MsgSend = {
     return message;
   },
 
+  fromJSON(object: any): MsgSend {
+    return {
+      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: MsgSend): unknown {
+    const obj: any = {};
+    message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
+    message.toAddress !== undefined && (obj.toAddress = message.toAddress);
+
+    if (message.amount) {
+      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.amount = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgSend>, I>>(object: I): MsgSend {
     const message = createBaseMsgSend();
     message.fromAddress = object.fromAddress ?? "";
@@ -113,6 +135,15 @@ export const MsgSendResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(_: any): MsgSendResponse {
+    return {};
+  },
+
+  toJSON(_: MsgSendResponse): unknown {
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
@@ -167,6 +198,31 @@ export const MsgMultiSend = {
     return message;
   },
 
+  fromJSON(object: any): MsgMultiSend {
+    return {
+      inputs: Array.isArray(object?.inputs) ? object.inputs.map((e: any) => Input.fromJSON(e)) : [],
+      outputs: Array.isArray(object?.outputs) ? object.outputs.map((e: any) => Output.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: MsgMultiSend): unknown {
+    const obj: any = {};
+
+    if (message.inputs) {
+      obj.inputs = message.inputs.map((e) => (e ? Input.toJSON(e) : undefined));
+    } else {
+      obj.inputs = [];
+    }
+
+    if (message.outputs) {
+      obj.outputs = message.outputs.map((e) => (e ? Output.toJSON(e) : undefined));
+    } else {
+      obj.outputs = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgMultiSend>, I>>(object: I): MsgMultiSend {
     const message = createBaseMsgMultiSend();
     message.inputs = object.inputs?.map((e) => Input.fromPartial(e)) || [];
@@ -200,6 +256,15 @@ export const MsgMultiSendResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(_: any): MsgMultiSendResponse {
+    return {};
+  },
+
+  toJSON(_: MsgMultiSendResponse): unknown {
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(_: I): MsgMultiSendResponse {

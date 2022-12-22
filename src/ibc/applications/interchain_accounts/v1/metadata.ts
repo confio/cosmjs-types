@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /**
  * Metadata defines a set of protocol specific data encoded into the ICS27 channel version bytestring
@@ -110,6 +110,31 @@ export const Metadata = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): Metadata {
+    return {
+      version: isSet(object.version) ? String(object.version) : "",
+      controllerConnectionId: isSet(object.controllerConnectionId)
+        ? String(object.controllerConnectionId)
+        : "",
+      hostConnectionId: isSet(object.hostConnectionId) ? String(object.hostConnectionId) : "",
+      address: isSet(object.address) ? String(object.address) : "",
+      encoding: isSet(object.encoding) ? String(object.encoding) : "",
+      txType: isSet(object.txType) ? String(object.txType) : "",
+    };
+  },
+
+  toJSON(message: Metadata): unknown {
+    const obj: any = {};
+    message.version !== undefined && (obj.version = message.version);
+    message.controllerConnectionId !== undefined &&
+      (obj.controllerConnectionId = message.controllerConnectionId);
+    message.hostConnectionId !== undefined && (obj.hostConnectionId = message.hostConnectionId);
+    message.address !== undefined && (obj.address = message.address);
+    message.encoding !== undefined && (obj.encoding = message.encoding);
+    message.txType !== undefined && (obj.txType = message.txType);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Metadata>, I>>(object: I): Metadata {

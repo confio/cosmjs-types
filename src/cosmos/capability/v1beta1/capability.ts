@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Long, DeepPartial, Exact } from "../../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.capability.v1beta1";
 /**
@@ -65,6 +65,18 @@ export const Capability = {
     return message;
   },
 
+  fromJSON(object: any): Capability {
+    return {
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: Capability): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = (message.index || Long.UZERO).toString());
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Capability>, I>>(object: I): Capability {
     const message = createBaseCapability();
     message.index =
@@ -119,6 +131,20 @@ export const Owner = {
     return message;
   },
 
+  fromJSON(object: any): Owner {
+    return {
+      module: isSet(object.module) ? String(object.module) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+    };
+  },
+
+  toJSON(message: Owner): unknown {
+    const obj: any = {};
+    message.module !== undefined && (obj.module = message.module);
+    message.name !== undefined && (obj.name = message.name);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<Owner>, I>>(object: I): Owner {
     const message = createBaseOwner();
     message.module = object.module ?? "";
@@ -162,6 +188,24 @@ export const CapabilityOwners = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): CapabilityOwners {
+    return {
+      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: CapabilityOwners): unknown {
+    const obj: any = {};
+
+    if (message.owners) {
+      obj.owners = message.owners.map((e) => (e ? Owner.toJSON(e) : undefined));
+    } else {
+      obj.owners = [];
+    }
+
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<CapabilityOwners>, I>>(object: I): CapabilityOwners {

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { ParamChange } from "./params";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.params.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 
@@ -65,6 +65,20 @@ export const QueryParamsRequest = {
     return message;
   },
 
+  fromJSON(object: any): QueryParamsRequest {
+    return {
+      subspace: isSet(object.subspace) ? String(object.subspace) : "",
+      key: isSet(object.key) ? String(object.key) : "",
+    };
+  },
+
+  toJSON(message: QueryParamsRequest): unknown {
+    const obj: any = {};
+    message.subspace !== undefined && (obj.subspace = message.subspace);
+    message.key !== undefined && (obj.key = message.key);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(object: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     message.subspace = object.subspace ?? "";
@@ -108,6 +122,19 @@ export const QueryParamsResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): QueryParamsResponse {
+    return {
+      param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined,
+    };
+  },
+
+  toJSON(message: QueryParamsResponse): unknown {
+    const obj: any = {};
+    message.param !== undefined &&
+      (obj.param = message.param ? ParamChange.toJSON(message.param) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {

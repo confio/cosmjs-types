@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Long, DeepPartial, Exact } from "../../../helpers";
+import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** MsgIBCSend */
@@ -96,6 +96,27 @@ export const MsgIBCSend = {
     return message;
   },
 
+  fromJSON(object: any): MsgIBCSend {
+    return {
+      channel: isSet(object.channel) ? String(object.channel) : "",
+      timeoutHeight: isSet(object.timeoutHeight) ? Long.fromValue(object.timeoutHeight) : Long.UZERO,
+      timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromValue(object.timeoutTimestamp) : Long.UZERO,
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: MsgIBCSend): unknown {
+    const obj: any = {};
+    message.channel !== undefined && (obj.channel = message.channel);
+    message.timeoutHeight !== undefined &&
+      (obj.timeoutHeight = (message.timeoutHeight || Long.UZERO).toString());
+    message.timeoutTimestamp !== undefined &&
+      (obj.timeoutTimestamp = (message.timeoutTimestamp || Long.UZERO).toString());
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgIBCSend>, I>>(object: I): MsgIBCSend {
     const message = createBaseMsgIBCSend();
     message.channel = object.channel ?? "";
@@ -147,6 +168,18 @@ export const MsgIBCCloseChannel = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): MsgIBCCloseChannel {
+    return {
+      channel: isSet(object.channel) ? String(object.channel) : "",
+    };
+  },
+
+  toJSON(message: MsgIBCCloseChannel): unknown {
+    const obj: any = {};
+    message.channel !== undefined && (obj.channel = message.channel);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgIBCCloseChannel>, I>>(object: I): MsgIBCCloseChannel {

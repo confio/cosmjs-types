@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov";
-import { Long, DeepPartial, Exact } from "../../../helpers";
+import { Long, isSet, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /** GenesisState defines the gov module's genesis state. */
@@ -117,6 +117,54 @@ export const GenesisState = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): GenesisState {
+    return {
+      startingProposalId: isSet(object.startingProposalId)
+        ? Long.fromValue(object.startingProposalId)
+        : Long.UZERO,
+      deposits: Array.isArray(object?.deposits) ? object.deposits.map((e: any) => Deposit.fromJSON(e)) : [],
+      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
+      proposals: Array.isArray(object?.proposals)
+        ? object.proposals.map((e: any) => Proposal.fromJSON(e))
+        : [],
+      depositParams: isSet(object.depositParams) ? DepositParams.fromJSON(object.depositParams) : undefined,
+      votingParams: isSet(object.votingParams) ? VotingParams.fromJSON(object.votingParams) : undefined,
+      tallyParams: isSet(object.tallyParams) ? TallyParams.fromJSON(object.tallyParams) : undefined,
+    };
+  },
+
+  toJSON(message: GenesisState): unknown {
+    const obj: any = {};
+    message.startingProposalId !== undefined &&
+      (obj.startingProposalId = (message.startingProposalId || Long.UZERO).toString());
+
+    if (message.deposits) {
+      obj.deposits = message.deposits.map((e) => (e ? Deposit.toJSON(e) : undefined));
+    } else {
+      obj.deposits = [];
+    }
+
+    if (message.votes) {
+      obj.votes = message.votes.map((e) => (e ? Vote.toJSON(e) : undefined));
+    } else {
+      obj.votes = [];
+    }
+
+    if (message.proposals) {
+      obj.proposals = message.proposals.map((e) => (e ? Proposal.toJSON(e) : undefined));
+    } else {
+      obj.proposals = [];
+    }
+
+    message.depositParams !== undefined &&
+      (obj.depositParams = message.depositParams ? DepositParams.toJSON(message.depositParams) : undefined);
+    message.votingParams !== undefined &&
+      (obj.votingParams = message.votingParams ? VotingParams.toJSON(message.votingParams) : undefined);
+    message.tallyParams !== undefined &&
+      (obj.tallyParams = message.tallyParams ? TallyParams.toJSON(message.tallyParams) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

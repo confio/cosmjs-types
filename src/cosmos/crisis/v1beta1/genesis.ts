@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.crisis.v1beta1";
 /** GenesisState defines the crisis module's genesis state. */
 
@@ -48,6 +48,19 @@ export const GenesisState = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): GenesisState {
+    return {
+      constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined,
+    };
+  },
+
+  toJSON(message: GenesisState): unknown {
+    const obj: any = {};
+    message.constantFee !== undefined &&
+      (obj.constantFee = message.constantFee ? Coin.toJSON(message.constantFee) : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {

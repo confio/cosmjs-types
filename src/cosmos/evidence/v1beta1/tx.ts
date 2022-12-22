@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
@@ -65,6 +65,21 @@ export const MsgSubmitEvidence = {
     return message;
   },
 
+  fromJSON(object: any): MsgSubmitEvidence {
+    return {
+      submitter: isSet(object.submitter) ? String(object.submitter) : "",
+      evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
+    };
+  },
+
+  toJSON(message: MsgSubmitEvidence): unknown {
+    const obj: any = {};
+    message.submitter !== undefined && (obj.submitter = message.submitter);
+    message.evidence !== undefined &&
+      (obj.evidence = message.evidence ? Any.toJSON(message.evidence) : undefined);
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(object: I): MsgSubmitEvidence {
     const message = createBaseMsgSubmitEvidence();
     message.submitter = object.submitter ?? "";
@@ -111,6 +126,19 @@ export const MsgSubmitEvidenceResponse = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): MsgSubmitEvidenceResponse {
+    return {
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: MsgSubmitEvidenceResponse): unknown {
+    const obj: any = {};
+    message.hash !== undefined &&
+      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidenceResponse>, I>>(

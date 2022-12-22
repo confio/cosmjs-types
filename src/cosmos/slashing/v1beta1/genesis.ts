@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial, Exact, Long } from "../../../helpers";
+import { isSet, DeepPartial, Exact, Long } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** GenesisState defines the slashing module's genesis state. */
 
@@ -107,6 +107,37 @@ export const GenesisState = {
     return message;
   },
 
+  fromJSON(object: any): GenesisState {
+    return {
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      signingInfos: Array.isArray(object?.signingInfos)
+        ? object.signingInfos.map((e: any) => SigningInfo.fromJSON(e))
+        : [],
+      missedBlocks: Array.isArray(object?.missedBlocks)
+        ? object.missedBlocks.map((e: any) => ValidatorMissedBlocks.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: GenesisState): unknown {
+    const obj: any = {};
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+
+    if (message.signingInfos) {
+      obj.signingInfos = message.signingInfos.map((e) => (e ? SigningInfo.toJSON(e) : undefined));
+    } else {
+      obj.signingInfos = [];
+    }
+
+    if (message.missedBlocks) {
+      obj.missedBlocks = message.missedBlocks.map((e) => (e ? ValidatorMissedBlocks.toJSON(e) : undefined));
+    } else {
+      obj.missedBlocks = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.params =
@@ -161,6 +192,25 @@ export const SigningInfo = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): SigningInfo {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      validatorSigningInfo: isSet(object.validatorSigningInfo)
+        ? ValidatorSigningInfo.fromJSON(object.validatorSigningInfo)
+        : undefined,
+    };
+  },
+
+  toJSON(message: SigningInfo): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    message.validatorSigningInfo !== undefined &&
+      (obj.validatorSigningInfo = message.validatorSigningInfo
+        ? ValidatorSigningInfo.toJSON(message.validatorSigningInfo)
+        : undefined);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<SigningInfo>, I>>(object: I): SigningInfo {
@@ -220,6 +270,28 @@ export const ValidatorMissedBlocks = {
     return message;
   },
 
+  fromJSON(object: any): ValidatorMissedBlocks {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      missedBlocks: Array.isArray(object?.missedBlocks)
+        ? object.missedBlocks.map((e: any) => MissedBlock.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: ValidatorMissedBlocks): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+
+    if (message.missedBlocks) {
+      obj.missedBlocks = message.missedBlocks.map((e) => (e ? MissedBlock.toJSON(e) : undefined));
+    } else {
+      obj.missedBlocks = [];
+    }
+
+    return obj;
+  },
+
   fromPartial<I extends Exact<DeepPartial<ValidatorMissedBlocks>, I>>(object: I): ValidatorMissedBlocks {
     const message = createBaseValidatorMissedBlocks();
     message.address = object.address ?? "";
@@ -272,6 +344,20 @@ export const MissedBlock = {
     }
 
     return message;
+  },
+
+  fromJSON(object: any): MissedBlock {
+    return {
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
+      missed: isSet(object.missed) ? Boolean(object.missed) : false,
+    };
+  },
+
+  toJSON(message: MissedBlock): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = (message.index || Long.ZERO).toString());
+    message.missed !== undefined && (obj.missed = message.missed);
+    return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<MissedBlock>, I>>(object: I): MissedBlock {
