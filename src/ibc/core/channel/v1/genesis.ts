@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedChannel, PacketState } from "./channel";
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact } from "../../../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "ibc.core.channel.v1";
 /** GenesisState defines the ibc channel submodule's genesis state. */
 

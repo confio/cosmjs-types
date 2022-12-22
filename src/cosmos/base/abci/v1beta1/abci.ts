@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact } from "../../../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.base.abci.v1beta1";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The

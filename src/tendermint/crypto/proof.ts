@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact } from "../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "tendermint.crypto";
 export interface Proof {
   total: Long;
