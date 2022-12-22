@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { PublicKey } from "../crypto/keys";
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact } from "../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "tendermint.types";
 export interface ValidatorSet {
   validators: Validator[];

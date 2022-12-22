@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact } from "../../../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "ibc.core.client.v1";
 /** GenesisState defines the ibc client submodule's genesis state. */
 

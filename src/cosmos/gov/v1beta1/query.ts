@@ -10,8 +10,8 @@ import {
   TallyResult,
 } from "./gov";
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import * as _m0 from "protobufjs/minimal";
 import { Long, DeepPartial, Exact, Rpc } from "../../../helpers";
+import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
 
