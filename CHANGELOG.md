@@ -9,8 +9,11 @@ and this project adheres to
 ## [Unreleased]
 
 - Upgrade Cosmos SDK types to 0.45.14 ([#57])
+- Upgrade wasmd types to 0.30.0 and add ibc-go 4.2 as a separate submodule
+  ([#58])
 
 [#57]: https://github.com/confio/cosmjs-types/pull/57
+[#58]: https://github.com/confio/cosmjs-types/pull/58
 
 ## [0.6.1] - 2022-12-22
 
