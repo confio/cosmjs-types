@@ -4,3 +4,6 @@
 [submodule "wasmd-0.25"]
 	path = wasmd-0.28
 	url = https://github.com/CosmWasm/wasmd.git
+[submodule "ibc-go"]
+	path = ibc-go-4.2
+	url = https://github.com/cosmos/ibc-go

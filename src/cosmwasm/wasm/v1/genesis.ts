@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
-import { Params, CodeInfo, ContractInfo, Model } from "./types";
+import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types";
 import * as _m0 from "protobufjs/minimal";
 import { isSet, DeepPartial, Exact, Long, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
@@ -39,6 +39,7 @@ export interface Contract {
   contractAddress: string;
   contractInfo?: ContractInfo;
   contractState: Model[];
+  contractCodeHistory: ContractCodeHistoryEntry[];
 }
 /** Sequence key and value of an id generation counter */
 
@@ -384,6 +385,7 @@ function createBaseContract(): Contract {
     contractAddress: "",
     contractInfo: undefined,
     contractState: [],
+    contractCodeHistory: [],
   };
 }
 
@@ -399,6 +401,10 @@ export const Contract = {
 
     for (const v of message.contractState) {
       Model.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+
+    for (const v of message.contractCodeHistory) {
+      ContractCodeHistoryEntry.encode(v!, writer.uint32(34).fork()).ldelim();
     }
 
     return writer;
@@ -425,6 +431,10 @@ export const Contract = {
           message.contractState.push(Model.decode(reader, reader.uint32()));
           break;
 
+        case 4:
+          message.contractCodeHistory.push(ContractCodeHistoryEntry.decode(reader, reader.uint32()));
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -441,6 +451,9 @@ export const Contract = {
       contractState: Array.isArray(object?.contractState)
         ? object.contractState.map((e: any) => Model.fromJSON(e))
         : [],
+      contractCodeHistory: Array.isArray(object?.contractCodeHistory)
+        ? object.contractCodeHistory.map((e: any) => ContractCodeHistoryEntry.fromJSON(e))
+        : [],
     };
   },
 
@@ -456,6 +469,14 @@ export const Contract = {
       obj.contractState = [];
     }
 
+    if (message.contractCodeHistory) {
+      obj.contractCodeHistory = message.contractCodeHistory.map((e) =>
+        e ? ContractCodeHistoryEntry.toJSON(e) : undefined,
+      );
+    } else {
+      obj.contractCodeHistory = [];
+    }
+
     return obj;
   },
 
@@ -467,6 +488,8 @@ export const Contract = {
         ? ContractInfo.fromPartial(object.contractInfo)
         : undefined;
     message.contractState = object.contractState?.map((e) => Model.fromPartial(e)) || [];
+    message.contractCodeHistory =
+      object.contractCodeHistory?.map((e) => ContractCodeHistoryEntry.fromPartial(e)) || [];
     return message;
   },
 };
