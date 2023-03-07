@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Upgrade Cosmos SDK types to 0.45.14 ([#57])
+
+[#57]: https://github.com/confio/cosmjs-types/pull/57
+
 ## [0.6.1] - 2022-12-22
 
 ### Changed
