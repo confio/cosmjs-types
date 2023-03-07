@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.7.0] - 2023-03-07
+
 - Upgrade Cosmos SDK types to 0.45.14 ([#57])
 - Upgrade wasmd types to 0.30.0 and add ibc-go 4.2 as a separate submodule
   ([#58])
@@ -75,7 +77,8 @@ No changelog, sorry. Maybe the diff helps.
 
 - wasmd 0.18 types (cosmwasm/wasm/v1/\*)
 
-[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.6.1...HEAD
+[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/confio/cosmjs-types/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/confio/cosmjs-types/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/confio/cosmjs-types/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/confio/cosmjs-types/compare/v0.5.1...v0.5.2
