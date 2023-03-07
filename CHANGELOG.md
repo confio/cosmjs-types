@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Fix missing proofs module
+
 ## [0.7.0] - 2023-03-07
 
 - Upgrade Cosmos SDK types to 0.45.14 ([#57])
