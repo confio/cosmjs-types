@@ -5,5 +5,5 @@
 	path = protos/wasmd
 	url = https://github.com/CosmWasm/wasmd.git
 [submodule "ibc-go"]
-	path = protos/ibc-go-4.2
+	path = protos/ibc-go
 	url = https://github.com/cosmos/ibc-go
