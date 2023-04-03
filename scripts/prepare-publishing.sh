@@ -15,12 +15,12 @@ FILES=(
   proofs.js.map
 )
 
-for dir in ${DIRS[*]}; do
+for dir in "${DIRS[@]}"; do
   rm -rf "$dir"
   cp -R "./build/$dir" ./
 done
 
-for f in ${FILES[*]}; do
+for f in "${FILES[@]}"; do
   rm -rf "$f"
   cp "./build/$f" ./
 done
