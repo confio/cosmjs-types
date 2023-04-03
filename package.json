@@ -32,7 +32,7 @@
     "!cosmos-sdk-*/**/*.md"
   ],
   "scripts": {
-    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
+    "format": "prettier --write --loglevel warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
