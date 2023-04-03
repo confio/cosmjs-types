@@ -12,6 +12,14 @@ jobs:
       - image: cimg/node:16.20.0
     steps:
       - run:
+          name: Install buf
+          command: |
+            curl -sSL \
+              "https://github.com/bufbuild/buf/releases/download/v1.16.0/buf-$(uname -s)-$(uname -m)" \
+              -o "/usr/local/bin/buf"
+            chmod +x "/usr/local/bin/buf"
+            buf --version
+      - run:
           name: Install Git Large File Storage (LFS)
           command: sudo apt-get install git-lfs
       - run:
