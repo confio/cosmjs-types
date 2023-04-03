@@ -14,10 +14,9 @@ jobs:
       - run:
           name: Install buf
           command: |
-            curl -sSL \
-              "https://github.com/bufbuild/buf/releases/download/v1.16.0/buf-$(uname -s)-$(uname -m)" \
-              -o "/usr/local/bin/buf"
-            chmod +x "/usr/local/bin/buf"
+            wget -O buf "https://github.com/bufbuild/buf/releases/download/v1.16.0/buf-$(uname -s)-$(uname -m)"
+            chmod +x buf
+            sudo mv buf /usr/local/bin
             buf --version
       - checkout
       - run:
