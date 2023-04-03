@@ -22,16 +22,6 @@ jobs:
       - run:
           name: Install Git Large File Storage (LFS)
           command: sudo apt-get install git-lfs
-      - run:
-          name: Install protoc
-          # protobuf-compiler from package management too old
-          # https://packages.debian.org/buster/protobuf-compiler
-          working_directory: /tmp
-          command: |
-            wget -O protoc-linux-x86_64.zip "https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protoc-3.17.3-linux-x86_64.zip"
-            unzip protoc-linux-x86_64.zip -d ./protoc-linux-x86_64
-            sudo ln -s $(realpath ./protoc-linux-x86_64/bin/protoc) /usr/local/bin/protoc
-            echo "protoc version:" && protoc --version
       - checkout
       - run:
           name: Checkout submodules
