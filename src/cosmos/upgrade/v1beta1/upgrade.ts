@@ -26,10 +26,7 @@ export interface Plan {
   /** @deprecated */
 
   time?: Timestamp;
-  /**
-   * The height at which the upgrade must be performed.
-   * Only used if Time is not set.
-   */
+  /** The height at which the upgrade must be performed. */
 
   height: Long;
   /**
@@ -51,20 +48,36 @@ export interface Plan {
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
  */
 
+/** @deprecated */
+
 export interface SoftwareUpgradeProposal {
+  /** title of the proposal */
   title: string;
+  /** description of the proposal */
+
   description: string;
+  /** plan of the proposal */
+
   plan?: Plan;
 }
 /**
  * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
  * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
  */
 
+/** @deprecated */
+
 export interface CancelSoftwareUpgradeProposal {
+  /** title of the proposal */
   title: string;
+  /** description of the proposal */
+
   description: string;
 }
 /**

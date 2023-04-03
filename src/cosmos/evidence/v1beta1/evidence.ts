@@ -9,9 +9,16 @@ export const protobufPackage = "cosmos.evidence.v1beta1";
  */
 
 export interface Equivocation {
+  /** height is the equivocation height. */
   height: Long;
+  /** time is the equivocation time. */
+
   time?: Timestamp;
+  /** power is the equivocation validator power. */
+
   power: Long;
+  /** consensus_address is the equivocation validator consensus address. */
+
   consensusAddress: string;
 }
 
