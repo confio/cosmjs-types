@@ -1,9 +1,9 @@
 [submodule "cosmos-sdk"]
-	path = cosmos-sdk-0.45
+	path = protos/cosmos-sdk-0.45
 	url = https://github.com/cosmos/cosmos-sdk
 [submodule "wasmd"]
-	path = wasmd-0.30
+	path = protos/wasmd-0.30
 	url = https://github.com/CosmWasm/wasmd.git
 [submodule "ibc-go"]
-	path = ibc-go-4.2
+	path = protos/ibc-go-4.2
 	url = https://github.com/cosmos/ibc-go
