@@ -2,9 +2,10 @@
 import { PageRequest, PageResponse } from "../../query/v1beta1/pagination";
 import { Any } from "../../../../google/protobuf/any";
 import { BlockID } from "../../../../tendermint/types/types";
-import { Block } from "../../../../tendermint/types/block";
+import { Block as Block1 } from "../../../../tendermint/types/block";
+import { Block as Block2 } from "./types";
 import { DefaultNodeInfo } from "../../../../tendermint/p2p/types";
-import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
+import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../../helpers";
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
@@ -56,7 +57,12 @@ export interface GetBlockByHeightRequest {
 
 export interface GetBlockByHeightResponse {
   blockId?: BlockID;
-  block?: Block;
+  /** Deprecated: please use `sdk_block` instead */
+
+  block?: Block1;
+  /** Since: cosmos-sdk 0.47 */
+
+  sdkBlock?: Block2;
 }
 /** GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method. */
 
@@ -65,7 +71,12 @@ export interface GetLatestBlockRequest {}
 
 export interface GetLatestBlockResponse {
   blockId?: BlockID;
-  block?: Block;
+  /** Deprecated: please use `sdk_block` instead */
+
+  block?: Block1;
+  /** Since: cosmos-sdk 0.47 */
+
+  sdkBlock?: Block2;
 }
 /** GetSyncingRequest is the request type for the Query/GetSyncing RPC method. */
 
@@ -78,7 +89,7 @@ export interface GetSyncingResponse {
 /** GetNodeInfoRequest is the request type for the Query/GetNodeInfo RPC method. */
 
 export interface GetNodeInfoRequest {}
-/** GetNodeInfoResponse is the request type for the Query/GetNodeInfo RPC method. */
+/** GetNodeInfoResponse is the response type for the Query/GetNodeInfo RPC method. */
 
 export interface GetNodeInfoResponse {
   defaultNodeInfo?: DefaultNodeInfo;
@@ -109,6 +120,58 @@ export interface Module {
   /** checksum */
 
   sum: string;
+}
+/** ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query. */
+
+export interface ABCIQueryRequest {
+  data: Uint8Array;
+  path: string;
+  height: Long;
+  prove: boolean;
+}
+/**
+ * ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.
+ *
+ * Note: This type is a duplicate of the ResponseQuery proto type defined in
+ * Tendermint.
+ */
+
+export interface ABCIQueryResponse {
+  code: number;
+  /** nondeterministic */
+
+  log: string;
+  /** nondeterministic */
+
+  info: string;
+  index: Long;
+  key: Uint8Array;
+  value: Uint8Array;
+  proofOps?: ProofOps;
+  height: Long;
+  codespace: string;
+}
+/**
+ * ProofOp defines an operation used for calculating Merkle root. The data could
+ * be arbitrary format, providing necessary data for example neighbouring node
+ * hash.
+ *
+ * Note: This type is a duplicate of the ProofOp proto type defined in Tendermint.
+ */
+
+export interface ProofOp {
+  type: string;
+  key: Uint8Array;
+  data: Uint8Array;
+}
+/**
+ * ProofOps is Merkle proof defined by the list of ProofOps.
+ *
+ * Note: This type is a duplicate of the ProofOps proto type defined in Tendermint.
+ */
+
+export interface ProofOps {
+  ops: ProofOp[];
 }
 
 function createBaseGetValidatorSetByHeightRequest(): GetValidatorSetByHeightRequest {
@@ -603,6 +666,7 @@ function createBaseGetBlockByHeightResponse(): GetBlockByHeightResponse {
   return {
     blockId: undefined,
     block: undefined,
+    sdkBlock: undefined,
   };
 }
 
@@ -613,7 +677,11 @@ export const GetBlockByHeightResponse = {
     }
 
     if (message.block !== undefined) {
-      Block.encode(message.block, writer.uint32(18).fork()).ldelim();
+      Block1.encode(message.block, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.sdkBlock !== undefined) {
+      Block2.encode(message.sdkBlock, writer.uint32(26).fork()).ldelim();
     }
 
     return writer;
@@ -633,7 +701,11 @@ export const GetBlockByHeightResponse = {
           break;
 
         case 2:
-          message.block = Block.decode(reader, reader.uint32());
+          message.block = Block1.decode(reader, reader.uint32());
+          break;
+
+        case 3:
+          message.sdkBlock = Block2.decode(reader, reader.uint32());
           break;
 
         default:
@@ -648,7 +720,8 @@ export const GetBlockByHeightResponse = {
   fromJSON(object: any): GetBlockByHeightResponse {
     return {
       blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined,
-      block: isSet(object.block) ? Block.fromJSON(object.block) : undefined,
+      block: isSet(object.block) ? Block1.fromJSON(object.block) : undefined,
+      sdkBlock: isSet(object.sdkBlock) ? Block2.fromJSON(object.sdkBlock) : undefined,
     };
   },
 
@@ -656,7 +729,9 @@ export const GetBlockByHeightResponse = {
     const obj: any = {};
     message.blockId !== undefined &&
       (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined);
-    message.block !== undefined && (obj.block = message.block ? Block.toJSON(message.block) : undefined);
+    message.block !== undefined && (obj.block = message.block ? Block1.toJSON(message.block) : undefined);
+    message.sdkBlock !== undefined &&
+      (obj.sdkBlock = message.sdkBlock ? Block2.toJSON(message.sdkBlock) : undefined);
     return obj;
   },
 
@@ -669,7 +744,11 @@ export const GetBlockByHeightResponse = {
         ? BlockID.fromPartial(object.blockId)
         : undefined;
     message.block =
-      object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
+      object.block !== undefined && object.block !== null ? Block1.fromPartial(object.block) : undefined;
+    message.sdkBlock =
+      object.sdkBlock !== undefined && object.sdkBlock !== null
+        ? Block2.fromPartial(object.sdkBlock)
+        : undefined;
     return message;
   },
 };
@@ -720,6 +799,7 @@ function createBaseGetLatestBlockResponse(): GetLatestBlockResponse {
   return {
     blockId: undefined,
     block: undefined,
+    sdkBlock: undefined,
   };
 }
 
@@ -730,7 +810,11 @@ export const GetLatestBlockResponse = {
     }
 
     if (message.block !== undefined) {
-      Block.encode(message.block, writer.uint32(18).fork()).ldelim();
+      Block1.encode(message.block, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.sdkBlock !== undefined) {
+      Block2.encode(message.sdkBlock, writer.uint32(26).fork()).ldelim();
     }
 
     return writer;
@@ -750,7 +834,11 @@ export const GetLatestBlockResponse = {
           break;
 
         case 2:
-          message.block = Block.decode(reader, reader.uint32());
+          message.block = Block1.decode(reader, reader.uint32());
+          break;
+
+        case 3:
+          message.sdkBlock = Block2.decode(reader, reader.uint32());
           break;
 
         default:
@@ -765,7 +853,8 @@ export const GetLatestBlockResponse = {
   fromJSON(object: any): GetLatestBlockResponse {
     return {
       blockId: isSet(object.blockId) ? BlockID.fromJSON(object.blockId) : undefined,
-      block: isSet(object.block) ? Block.fromJSON(object.block) : undefined,
+      block: isSet(object.block) ? Block1.fromJSON(object.block) : undefined,
+      sdkBlock: isSet(object.sdkBlock) ? Block2.fromJSON(object.sdkBlock) : undefined,
     };
   },
 
@@ -773,7 +862,9 @@ export const GetLatestBlockResponse = {
     const obj: any = {};
     message.blockId !== undefined &&
       (obj.blockId = message.blockId ? BlockID.toJSON(message.blockId) : undefined);
-    message.block !== undefined && (obj.block = message.block ? Block.toJSON(message.block) : undefined);
+    message.block !== undefined && (obj.block = message.block ? Block1.toJSON(message.block) : undefined);
+    message.sdkBlock !== undefined &&
+      (obj.sdkBlock = message.sdkBlock ? Block2.toJSON(message.sdkBlock) : undefined);
     return obj;
   },
 
@@ -784,7 +875,11 @@ export const GetLatestBlockResponse = {
         ? BlockID.fromPartial(object.blockId)
         : undefined;
     message.block =
-      object.block !== undefined && object.block !== null ? Block.fromPartial(object.block) : undefined;
+      object.block !== undefined && object.block !== null ? Block1.fromPartial(object.block) : undefined;
+    message.sdkBlock =
+      object.sdkBlock !== undefined && object.sdkBlock !== null
+        ? Block2.fromPartial(object.sdkBlock)
+        : undefined;
     return message;
   },
 };
@@ -1238,6 +1333,404 @@ export const Module = {
     return message;
   },
 };
+
+function createBaseABCIQueryRequest(): ABCIQueryRequest {
+  return {
+    data: new Uint8Array(),
+    path: "",
+    height: Long.ZERO,
+    prove: false,
+  };
+}
+
+export const ABCIQueryRequest = {
+  encode(message: ABCIQueryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.data.length !== 0) {
+      writer.uint32(10).bytes(message.data);
+    }
+
+    if (message.path !== "") {
+      writer.uint32(18).string(message.path);
+    }
+
+    if (!message.height.isZero()) {
+      writer.uint32(24).int64(message.height);
+    }
+
+    if (message.prove === true) {
+      writer.uint32(32).bool(message.prove);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ABCIQueryRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseABCIQueryRequest();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.data = reader.bytes();
+          break;
+
+        case 2:
+          message.path = reader.string();
+          break;
+
+        case 3:
+          message.height = reader.int64() as Long;
+          break;
+
+        case 4:
+          message.prove = reader.bool();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): ABCIQueryRequest {
+    return {
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      path: isSet(object.path) ? String(object.path) : "",
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      prove: isSet(object.prove) ? Boolean(object.prove) : false,
+    };
+  },
+
+  toJSON(message: ABCIQueryRequest): unknown {
+    const obj: any = {};
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    message.path !== undefined && (obj.path = message.path);
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    message.prove !== undefined && (obj.prove = message.prove);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ABCIQueryRequest>, I>>(object: I): ABCIQueryRequest {
+    const message = createBaseABCIQueryRequest();
+    message.data = object.data ?? new Uint8Array();
+    message.path = object.path ?? "";
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.prove = object.prove ?? false;
+    return message;
+  },
+};
+
+function createBaseABCIQueryResponse(): ABCIQueryResponse {
+  return {
+    code: 0,
+    log: "",
+    info: "",
+    index: Long.ZERO,
+    key: new Uint8Array(),
+    value: new Uint8Array(),
+    proofOps: undefined,
+    height: Long.ZERO,
+    codespace: "",
+  };
+}
+
+export const ABCIQueryResponse = {
+  encode(message: ABCIQueryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.code !== 0) {
+      writer.uint32(8).uint32(message.code);
+    }
+
+    if (message.log !== "") {
+      writer.uint32(26).string(message.log);
+    }
+
+    if (message.info !== "") {
+      writer.uint32(34).string(message.info);
+    }
+
+    if (!message.index.isZero()) {
+      writer.uint32(40).int64(message.index);
+    }
+
+    if (message.key.length !== 0) {
+      writer.uint32(50).bytes(message.key);
+    }
+
+    if (message.value.length !== 0) {
+      writer.uint32(58).bytes(message.value);
+    }
+
+    if (message.proofOps !== undefined) {
+      ProofOps.encode(message.proofOps, writer.uint32(66).fork()).ldelim();
+    }
+
+    if (!message.height.isZero()) {
+      writer.uint32(72).int64(message.height);
+    }
+
+    if (message.codespace !== "") {
+      writer.uint32(82).string(message.codespace);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ABCIQueryResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseABCIQueryResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.code = reader.uint32();
+          break;
+
+        case 3:
+          message.log = reader.string();
+          break;
+
+        case 4:
+          message.info = reader.string();
+          break;
+
+        case 5:
+          message.index = reader.int64() as Long;
+          break;
+
+        case 6:
+          message.key = reader.bytes();
+          break;
+
+        case 7:
+          message.value = reader.bytes();
+          break;
+
+        case 8:
+          message.proofOps = ProofOps.decode(reader, reader.uint32());
+          break;
+
+        case 9:
+          message.height = reader.int64() as Long;
+          break;
+
+        case 10:
+          message.codespace = reader.string();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): ABCIQueryResponse {
+    return {
+      code: isSet(object.code) ? Number(object.code) : 0,
+      log: isSet(object.log) ? String(object.log) : "",
+      info: isSet(object.info) ? String(object.info) : "",
+      index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+      proofOps: isSet(object.proofOps) ? ProofOps.fromJSON(object.proofOps) : undefined,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      codespace: isSet(object.codespace) ? String(object.codespace) : "",
+    };
+  },
+
+  toJSON(message: ABCIQueryResponse): unknown {
+    const obj: any = {};
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.log !== undefined && (obj.log = message.log);
+    message.info !== undefined && (obj.info = message.info);
+    message.index !== undefined && (obj.index = (message.index || Long.ZERO).toString());
+    message.key !== undefined &&
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    message.value !== undefined &&
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    message.proofOps !== undefined &&
+      (obj.proofOps = message.proofOps ? ProofOps.toJSON(message.proofOps) : undefined);
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    message.codespace !== undefined && (obj.codespace = message.codespace);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ABCIQueryResponse>, I>>(object: I): ABCIQueryResponse {
+    const message = createBaseABCIQueryResponse();
+    message.code = object.code ?? 0;
+    message.log = object.log ?? "";
+    message.info = object.info ?? "";
+    message.index =
+      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
+    message.key = object.key ?? new Uint8Array();
+    message.value = object.value ?? new Uint8Array();
+    message.proofOps =
+      object.proofOps !== undefined && object.proofOps !== null
+        ? ProofOps.fromPartial(object.proofOps)
+        : undefined;
+    message.height =
+      object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.ZERO;
+    message.codespace = object.codespace ?? "";
+    return message;
+  },
+};
+
+function createBaseProofOp(): ProofOp {
+  return {
+    type: "",
+    key: new Uint8Array(),
+    data: new Uint8Array(),
+  };
+}
+
+export const ProofOp = {
+  encode(message: ProofOp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.type !== "") {
+      writer.uint32(10).string(message.type);
+    }
+
+    if (message.key.length !== 0) {
+      writer.uint32(18).bytes(message.key);
+    }
+
+    if (message.data.length !== 0) {
+      writer.uint32(26).bytes(message.data);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ProofOp {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProofOp();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.type = reader.string();
+          break;
+
+        case 2:
+          message.key = reader.bytes();
+          break;
+
+        case 3:
+          message.data = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): ProofOp {
+    return {
+      type: isSet(object.type) ? String(object.type) : "",
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: ProofOp): unknown {
+    const obj: any = {};
+    message.type !== undefined && (obj.type = message.type);
+    message.key !== undefined &&
+      (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ProofOp>, I>>(object: I): ProofOp {
+    const message = createBaseProofOp();
+    message.type = object.type ?? "";
+    message.key = object.key ?? new Uint8Array();
+    message.data = object.data ?? new Uint8Array();
+    return message;
+  },
+};
+
+function createBaseProofOps(): ProofOps {
+  return {
+    ops: [],
+  };
+}
+
+export const ProofOps = {
+  encode(message: ProofOps, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.ops) {
+      ProofOp.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ProofOps {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProofOps();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.ops.push(ProofOp.decode(reader, reader.uint32()));
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): ProofOps {
+    return {
+      ops: Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: ProofOps): unknown {
+    const obj: any = {};
+
+    if (message.ops) {
+      obj.ops = message.ops.map((e) => (e ? ProofOp.toJSON(e) : undefined));
+    } else {
+      obj.ops = [];
+    }
+
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ProofOps>, I>>(object: I): ProofOps {
+    const message = createBaseProofOps();
+    message.ops = object.ops?.map((e) => ProofOp.fromPartial(e)) || [];
+    return message;
+  },
+};
 /** Service defines the gRPC querier service for tendermint queries. */
 
 export interface Service {
@@ -1258,6 +1751,15 @@ export interface Service {
   /** GetValidatorSetByHeight queries validator-set at a given height. */
 
   GetValidatorSetByHeight(request: GetValidatorSetByHeightRequest): Promise<GetValidatorSetByHeightResponse>;
+  /**
+   * ABCIQuery defines a query handler that supports ABCI queries directly to the
+   * application, bypassing Tendermint completely. The ABCI query must contain
+   * a valid and supported path, including app, custom, p2p, and store.
+   *
+   * Since: cosmos-sdk 0.46
+   */
+
+  ABCIQuery(request: ABCIQueryRequest): Promise<ABCIQueryResponse>;
 }
 export class ServiceClientImpl implements Service {
   private readonly rpc: Rpc;
@@ -1270,6 +1772,7 @@ export class ServiceClientImpl implements Service {
     this.GetBlockByHeight = this.GetBlockByHeight.bind(this);
     this.GetLatestValidatorSet = this.GetLatestValidatorSet.bind(this);
     this.GetValidatorSetByHeight = this.GetValidatorSetByHeight.bind(this);
+    this.ABCIQuery = this.ABCIQuery.bind(this);
   }
 
   GetNodeInfo(request: GetNodeInfoRequest = {}): Promise<GetNodeInfoResponse> {
@@ -1314,5 +1817,11 @@ export class ServiceClientImpl implements Service {
       data,
     );
     return promise.then((data) => GetValidatorSetByHeightResponse.decode(new _m0.Reader(data)));
+  }
+
+  ABCIQuery(request: ABCIQueryRequest): Promise<ABCIQueryResponse> {
+    const data = ABCIQueryRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmos.base.tendermint.v1beta1.Service", "ABCIQuery", data);
+    return promise.then((data) => ABCIQueryResponse.decode(new _m0.Reader(data)));
   }
 }

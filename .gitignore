@@ -3,6 +3,9 @@ yarn.lock
 
 node_modules/
 
+/protos/ibc-go
+/protos/wasmd
+
 /build/
 /confio/
 /cosmos/

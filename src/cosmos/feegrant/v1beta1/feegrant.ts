@@ -7,14 +7,14 @@ import * as _m0 from "protobufjs/minimal";
 import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /**
- * BasicAllowance implements Allowance with a one-time grant of tokens
+ * BasicAllowance implements Allowance with a one-time grant of coins
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
  */
 
 export interface BasicAllowance {
   /**
-   * spend_limit specifies the maximum amount of tokens that can be spent
-   * by this allowance and will be updated as tokens are spent. If it is
+   * spend_limit specifies the maximum amount of coins that can be spent
+   * by this allowance and will be updated as coins are spent. If it is
    * empty, there is no spend limit and any amount of coins can be spent.
    */
   spendLimit: Coin[];
@@ -56,7 +56,7 @@ export interface PeriodicAllowance {
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 
 export interface AllowedMsgAllowance {
-  /** allowance can be any of basic and filtered fee allowance. */
+  /** allowance can be any of basic and periodic fee allowance. */
   allowance?: Any;
   /** allowed_messages are the messages for which the grantee has the access. */
 
@@ -70,7 +70,7 @@ export interface Grant {
   /** grantee is the address of the user being granted an allowance of another user's funds. */
 
   grantee: string;
-  /** allowance can be any of basic and filtered fee allowance. */
+  /** allowance can be any of basic, periodic, allowed fee allowance. */
 
   allowance?: Any;
 }

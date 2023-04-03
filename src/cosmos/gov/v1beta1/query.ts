@@ -47,6 +47,7 @@ export interface QueryProposalsRequest {
  */
 
 export interface QueryProposalsResponse {
+  /** proposals defines all the requested governance proposals. */
   proposals: Proposal[];
   /** pagination defines the pagination in the response. */
 
@@ -57,14 +58,14 @@ export interface QueryProposalsResponse {
 export interface QueryVoteRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
-  /** voter defines the oter address for the proposals. */
+  /** voter defines the voter address for the proposals. */
 
   voter: string;
 }
 /** QueryVoteResponse is the response type for the Query/Vote RPC method. */
 
 export interface QueryVoteResponse {
-  /** vote defined the queried vote. */
+  /** vote defines the queried vote. */
   vote?: Vote;
 }
 /** QueryVotesRequest is the request type for the Query/Votes RPC method. */
@@ -79,7 +80,7 @@ export interface QueryVotesRequest {
 /** QueryVotesResponse is the response type for the Query/Votes RPC method. */
 
 export interface QueryVotesResponse {
-  /** votes defined the queried votes. */
+  /** votes defines the queried votes. */
   votes: Vote[];
   /** pagination defines the pagination in the response. */
 
@@ -133,6 +134,7 @@ export interface QueryDepositsRequest {
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 
 export interface QueryDepositsResponse {
+  /** deposits defines the requested deposits. */
   deposits: Deposit[];
   /** pagination defines the pagination in the response. */
 
