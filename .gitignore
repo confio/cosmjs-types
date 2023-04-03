@@ -3,6 +3,8 @@ yarn.lock
 
 node_modules/
 
+/protos/ibc-go
+
 /build/
 /confio/
 /cosmos/

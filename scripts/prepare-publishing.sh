@@ -10,9 +10,6 @@ FILES=(
   index.d.ts
   index.js
   index.js.map
-  proofs.d.ts
-  proofs.js
-  proofs.js.map
 )
 
 for dir in "${DIRS[@]}"; do

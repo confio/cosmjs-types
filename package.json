@@ -25,7 +25,6 @@
     "tendermint/",
     "/helpers.*",
     "/index.*",
-    "/proofs.*",
     "*.md",
     "!wasmd-*/**/*.md",
     "!cosmos-sdk-*/**/*.md"

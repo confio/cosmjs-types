@@ -12,8 +12,7 @@ telescope({
     "protos/cosmos-sdk/third_party/proto",
     "protos/wasmd/proto",
     "protos/wasmd/third_party/proto",
-    "protos/ibc-go/proto",
-    "protos/ibc-go/third_party/proto",
+    "protos/ibc-go",
   ],
   outPath: outPath,
   options: {
