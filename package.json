@@ -16,7 +16,6 @@
     "access": "public"
   },
   "files": [
-    "confio/",
     "cosmos/",
     "cosmos_proto/",
     "cosmwasm/",

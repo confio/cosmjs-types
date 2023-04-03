@@ -32,6 +32,8 @@ telescope({
       includePackageVar: true,
       excluded: {
         protos: [
+          "cosmos/autocli/v1/options.proto",
+          "cosmos/autocli/v1/query.proto",
           "cosmos/authz/v1beta1/event.proto",
           "cosmos/base/reflection/v2alpha1/reflection.proto",
           "cosmos/crypto/secp256r1/keys.proto",

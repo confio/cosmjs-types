@@ -2,7 +2,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-DIRS=(confio cosmos cosmos_proto cosmwasm gogoproto google ibc tendermint)
+DIRS=(cosmos cosmos_proto cosmwasm gogoproto google ibc tendermint)
 FILES=(
   helpers.d.ts
   helpers.js
