@@ -7,7 +7,7 @@ export const protobufPackage = "cosmwasm.wasm.v1";
 /** MsgStoreCode submit Wasm code to the system */
 
 export interface MsgStoreCode {
-  /** Sender is the that actor that signed the messages */
+  /** Sender is the actor that signed the messages */
   sender: string;
   /** WASMByteCode can be raw or gzip compressed */
 
@@ -166,7 +166,7 @@ export interface MsgUpdateAdminResponse {}
 /** MsgClearAdmin removes any admin stored for a smart contract */
 
 export interface MsgClearAdmin {
-  /** Sender is the that actor that signed the messages */
+  /** Sender is the actor that signed the messages */
   sender: string;
   /** Contract is the address of the smart contract */
 
@@ -175,6 +175,21 @@ export interface MsgClearAdmin {
 /** MsgClearAdminResponse returns empty data */
 
 export interface MsgClearAdminResponse {}
+/** MsgUpdateInstantiateConfig updates instantiate config for a smart contract */
+
+export interface MsgUpdateInstantiateConfig {
+  /** Sender is the that actor that signed the messages */
+  sender: string;
+  /** CodeID references the stored WASM code */
+
+  codeId: Long;
+  /** NewInstantiatePermission is the new access control */
+
+  newInstantiatePermission?: AccessConfig;
+}
+/** MsgUpdateInstantiateConfigResponse returns empty data */
+
+export interface MsgUpdateInstantiateConfigResponse {}
 
 function createBaseMsgStoreCode(): MsgStoreCode {
   return {
@@ -1294,6 +1309,141 @@ export const MsgClearAdminResponse = {
     return message;
   },
 };
+
+function createBaseMsgUpdateInstantiateConfig(): MsgUpdateInstantiateConfig {
+  return {
+    sender: "",
+    codeId: Long.UZERO,
+    newInstantiatePermission: undefined,
+  };
+}
+
+export const MsgUpdateInstantiateConfig = {
+  encode(message: MsgUpdateInstantiateConfig, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+
+    if (!message.codeId.isZero()) {
+      writer.uint32(16).uint64(message.codeId);
+    }
+
+    if (message.newInstantiatePermission !== undefined) {
+      AccessConfig.encode(message.newInstantiatePermission, writer.uint32(26).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateInstantiateConfig {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateInstantiateConfig();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+
+        case 2:
+          message.codeId = reader.uint64() as Long;
+          break;
+
+        case 3:
+          message.newInstantiatePermission = AccessConfig.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateInstantiateConfig {
+    return {
+      sender: isSet(object.sender) ? String(object.sender) : "",
+      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
+      newInstantiatePermission: isSet(object.newInstantiatePermission)
+        ? AccessConfig.fromJSON(object.newInstantiatePermission)
+        : undefined,
+    };
+  },
+
+  toJSON(message: MsgUpdateInstantiateConfig): unknown {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.codeId !== undefined && (obj.codeId = (message.codeId || Long.UZERO).toString());
+    message.newInstantiatePermission !== undefined &&
+      (obj.newInstantiatePermission = message.newInstantiatePermission
+        ? AccessConfig.toJSON(message.newInstantiatePermission)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateInstantiateConfig>, I>>(
+    object: I,
+  ): MsgUpdateInstantiateConfig {
+    const message = createBaseMsgUpdateInstantiateConfig();
+    message.sender = object.sender ?? "";
+    message.codeId =
+      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+    message.newInstantiatePermission =
+      object.newInstantiatePermission !== undefined && object.newInstantiatePermission !== null
+        ? AccessConfig.fromPartial(object.newInstantiatePermission)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgUpdateInstantiateConfigResponse(): MsgUpdateInstantiateConfigResponse {
+  return {};
+}
+
+export const MsgUpdateInstantiateConfigResponse = {
+  encode(_: MsgUpdateInstantiateConfigResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateInstantiateConfigResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateInstantiateConfigResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateInstantiateConfigResponse {
+    return {};
+  },
+
+  toJSON(_: MsgUpdateInstantiateConfigResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateInstantiateConfigResponse>, I>>(
+    _: I,
+  ): MsgUpdateInstantiateConfigResponse {
+    const message = createBaseMsgUpdateInstantiateConfigResponse();
+    return message;
+  },
+};
 /** Msg defines the wasm Msg service. */
 
 export interface Msg {
@@ -1323,6 +1473,9 @@ export interface Msg {
   /** ClearAdmin removes any admin stored for a smart contract */
 
   ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse>;
+  /** UpdateInstantiateConfig updates instantiate config for a smart contract */
+
+  UpdateInstantiateConfig(request: MsgUpdateInstantiateConfig): Promise<MsgUpdateInstantiateConfigResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -1336,6 +1489,7 @@ export class MsgClientImpl implements Msg {
     this.MigrateContract = this.MigrateContract.bind(this);
     this.UpdateAdmin = this.UpdateAdmin.bind(this);
     this.ClearAdmin = this.ClearAdmin.bind(this);
+    this.UpdateInstantiateConfig = this.UpdateInstantiateConfig.bind(this);
   }
 
   StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse> {
@@ -1378,5 +1532,11 @@ export class MsgClientImpl implements Msg {
     const data = MsgClearAdmin.encode(request).finish();
     const promise = this.rpc.request("cosmwasm.wasm.v1.Msg", "ClearAdmin", data);
     return promise.then((data) => MsgClearAdminResponse.decode(new _m0.Reader(data)));
+  }
+
+  UpdateInstantiateConfig(request: MsgUpdateInstantiateConfig): Promise<MsgUpdateInstantiateConfigResponse> {
+    const data = MsgUpdateInstantiateConfig.encode(request).finish();
+    const promise = this.rpc.request("cosmwasm.wasm.v1.Msg", "UpdateInstantiateConfig", data);
+    return promise.then((data) => MsgUpdateInstantiateConfigResponse.decode(new _m0.Reader(data)));
   }
 }
