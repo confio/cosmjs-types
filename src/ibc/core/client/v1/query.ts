@@ -1464,7 +1464,7 @@ export interface Query {
   /** Status queries the status of an IBC client. */
 
   ClientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse>;
-  /** ClientParams queries all parameters of the ibc client. */
+  /** ClientParams queries all parameters of the ibc client submodule. */
 
   ClientParams(request?: QueryClientParamsRequest): Promise<QueryClientParamsResponse>;
   /** UpgradedClientState queries an Upgraded IBC light client. */

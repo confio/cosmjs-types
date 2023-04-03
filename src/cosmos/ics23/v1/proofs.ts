@@ -1,7 +1,7 @@
 /* eslint-disable */
 import * as _m0 from "protobufjs/minimal";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "./helpers";
-export const protobufPackage = "ics23";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
+export const protobufPackage = "cosmos.ics23.v1";
 export enum HashOp {
   /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
   NO_HASH = 0,
@@ -12,6 +12,7 @@ export enum HashOp {
 
   /** BITCOIN - ripemd160(sha256(x)) */
   BITCOIN = 5,
+  SHA512_256 = 6,
   UNRECOGNIZED = -1,
 }
 export function hashOpFromJSON(object: any): HashOp {
@@ -40,6 +41,10 @@ export function hashOpFromJSON(object: any): HashOp {
     case "BITCOIN":
       return HashOp.BITCOIN;
 
+    case 6:
+    case "SHA512_256":
+      return HashOp.SHA512_256;
+
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -65,6 +70,9 @@ export function hashOpToJSON(object: HashOp): string {
 
     case HashOp.BITCOIN:
       return "BITCOIN";
+
+    case HashOp.SHA512_256:
+      return "SHA512_256";
 
     case HashOp.UNRECOGNIZED:
     default:

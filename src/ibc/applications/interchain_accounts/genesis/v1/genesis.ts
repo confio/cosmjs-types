@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { Params as Params1 } from "../controller/v1/controller";
-import { Params as Params2 } from "../host/v1/host";
+import { Params as Params1 } from "../../controller/v1/controller";
+import { Params as Params2 } from "../../host/v1/host";
 import * as _m0 from "protobufjs/minimal";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-export const protobufPackage = "ibc.applications.interchain_accounts.v1";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers";
+export const protobufPackage = "ibc.applications.interchain_accounts.genesis.v1";
 /** GenesisState defines the interchain accounts genesis state */
 
 export interface GenesisState {
@@ -26,12 +26,16 @@ export interface HostGenesisState {
   port: string;
   params?: Params2;
 }
-/** ActiveChannel contains a connection ID, port ID and associated active channel ID */
+/**
+ * ActiveChannel contains a connection ID, port ID and associated active channel ID, as well as a boolean flag to
+ * indicate if the channel is middleware enabled
+ */
 
 export interface ActiveChannel {
   connectionId: string;
   portId: string;
   channelId: string;
+  isMiddlewareEnabled: boolean;
 }
 /** RegisteredInterchainAccount contains a connection ID, port ID and associated interchain account address */
 
@@ -359,6 +363,7 @@ function createBaseActiveChannel(): ActiveChannel {
     connectionId: "",
     portId: "",
     channelId: "",
+    isMiddlewareEnabled: false,
   };
 }
 
@@ -374,6 +379,10 @@ export const ActiveChannel = {
 
     if (message.channelId !== "") {
       writer.uint32(26).string(message.channelId);
+    }
+
+    if (message.isMiddlewareEnabled === true) {
+      writer.uint32(32).bool(message.isMiddlewareEnabled);
     }
 
     return writer;
@@ -400,6 +409,10 @@ export const ActiveChannel = {
           message.channelId = reader.string();
           break;
 
+        case 4:
+          message.isMiddlewareEnabled = reader.bool();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -414,6 +427,7 @@ export const ActiveChannel = {
       connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
       portId: isSet(object.portId) ? String(object.portId) : "",
       channelId: isSet(object.channelId) ? String(object.channelId) : "",
+      isMiddlewareEnabled: isSet(object.isMiddlewareEnabled) ? Boolean(object.isMiddlewareEnabled) : false,
     };
   },
 
@@ -422,6 +436,7 @@ export const ActiveChannel = {
     message.connectionId !== undefined && (obj.connectionId = message.connectionId);
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
+    message.isMiddlewareEnabled !== undefined && (obj.isMiddlewareEnabled = message.isMiddlewareEnabled);
     return obj;
   },
 
@@ -430,6 +445,7 @@ export const ActiveChannel = {
     message.connectionId = object.connectionId ?? "";
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
+    message.isMiddlewareEnabled = object.isMiddlewareEnabled ?? false;
     return message;
   },
 };
