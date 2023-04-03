@@ -1,5 +1,5 @@
 [submodule "cosmos-sdk"]
-	path = protos/cosmos-sdk-0.45
+	path = protos/cosmos-sdk
 	url = https://github.com/cosmos/cosmos-sdk
 [submodule "wasmd"]
 	path = protos/wasmd
