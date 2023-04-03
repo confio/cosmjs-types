@@ -31,6 +31,7 @@
   ],
   "scripts": {
     "format": "prettier --write --loglevel warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
+    "precodegen": "./scripts/exports_protos.sh",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
