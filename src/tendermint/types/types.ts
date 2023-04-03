@@ -140,7 +140,7 @@ export interface BlockID {
   hash: Uint8Array;
   partSetHeader?: PartSetHeader;
 }
-/** Header defines the structure of a Tendermint block header. */
+/** Header defines the structure of a block header. */
 
 export interface Header {
   /** basic block info */

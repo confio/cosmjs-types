@@ -2,7 +2,7 @@
 import * as _m0 from "protobufjs/minimal";
 import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
 export const protobufPackage = "tendermint.crypto";
-/** PublicKey defines the keys available for use with Tendermint Validators */
+/** PublicKey defines the keys available for use with Validators */
 
 export interface PublicKey {
   ed25519?: Uint8Array;
