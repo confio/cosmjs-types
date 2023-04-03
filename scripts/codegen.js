@@ -10,8 +10,8 @@ telescope({
     protoDirs: [
         'protos/cosmos-sdk-0.45/proto',
         'protos/cosmos-sdk-0.45/third_party/proto',
-        'protos/wasmd-0.30/proto',
-        'protos/wasmd-0.30/third_party/proto',
+        'protos/wasmd/proto',
+        'protos/wasmd/third_party/proto',
         'protos/ibc-go-4.2/proto',
         'protos/ibc-go-4.2/third_party/proto',
     ],
