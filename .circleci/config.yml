@@ -19,9 +19,6 @@ jobs:
               -o "/usr/local/bin/buf"
             chmod +x "/usr/local/bin/buf"
             buf --version
-      - run:
-          name: Install Git Large File Storage (LFS)
-          command: sudo apt-get install git-lfs
       - checkout
       - run:
           name: Checkout submodules
