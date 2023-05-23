@@ -10,6 +10,7 @@ and this project adheres to
 
 - Upgrade Cosmos SDK types to 0.47.1 including new modules like group and NFT.
 - Upgrade ibc-go types to v7.
+- Upgrade to Telescope 0.94.1
 
 ## [0.7.2] - 2023-04-03
 
