@@ -86,7 +86,6 @@ export const protobufPackage = "google.protobuf";
  * http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D
  * ) to obtain a formatter capable of generating timestamps in this format.
  */
-
 export interface Timestamp {
   /**
    * Represents seconds of UTC time since Unix epoch
@@ -100,70 +99,56 @@ export interface Timestamp {
    * that count forward in time. Must be from 0 to 999,999,999
    * inclusive.
    */
-
   nanos: number;
 }
-
 function createBaseTimestamp(): Timestamp {
   return {
     seconds: Long.ZERO,
     nanos: 0,
   };
 }
-
 export const Timestamp = {
   encode(message: Timestamp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.seconds.isZero()) {
       writer.uint32(8).int64(message.seconds);
     }
-
     if (message.nanos !== 0) {
       writer.uint32(16).int32(message.nanos);
     }
-
     return writer;
   },
-
   decode(input: _m0.Reader | Uint8Array, length?: number): Timestamp {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimestamp();
-
     while (reader.pos < end) {
       const tag = reader.uint32();
-
       switch (tag >>> 3) {
         case 1:
           message.seconds = reader.int64() as Long;
           break;
-
         case 2:
           message.nanos = reader.int32();
           break;
-
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
-
   fromJSON(object: any): Timestamp {
     return {
       seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
       nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
     };
   },
-
   toJSON(message: Timestamp): unknown {
     const obj: any = {};
     message.seconds !== undefined && (obj.seconds = (message.seconds || Long.ZERO).toString());
     message.nanos !== undefined && (obj.nanos = Math.round(message.nanos));
     return obj;
   },
-
   fromPartial<I extends Exact<DeepPartial<Timestamp>, I>>(object: I): Timestamp {
     const message = createBaseTimestamp();
     message.seconds =

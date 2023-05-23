@@ -5,7 +5,6 @@ import { Long, isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } fro
 import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /** Plan specifies information about a planned upgrade and when it should occur. */
-
 export interface Plan {
   /**
    * Sets the name for the upgrade. This name will be used by the upgraded
@@ -22,27 +21,21 @@ export interface Plan {
    * has been removed from the SDK.
    * If this field is not empty, an error will be thrown.
    */
-
   /** @deprecated */
-
   time?: Timestamp;
   /** The height at which the upgrade must be performed. */
-
   height: Long;
   /**
    * Any application specific upgrade info to be included on-chain
    * such as a git commit that validators could automatically upgrade to
    */
-
   info: string;
   /**
    * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
    * moved to the IBC module in the sub module 02-client.
    * If this field is not empty, an error will be thrown.
    */
-
   /** @deprecated */
-
   upgradedClientState?: Any;
 }
 /**
@@ -51,17 +44,13 @@ export interface Plan {
  * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
  * proposals, see MsgSoftwareUpgrade.
  */
-
 /** @deprecated */
-
 export interface SoftwareUpgradeProposal {
   /** title of the proposal */
   title: string;
   /** description of the proposal */
-
   description: string;
   /** plan of the proposal */
-
   plan?: Plan;
 }
 /**
@@ -70,14 +59,11 @@ export interface SoftwareUpgradeProposal {
  * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
  * proposals, see MsgCancelUpgrade.
  */
-
 /** @deprecated */
-
 export interface CancelSoftwareUpgradeProposal {
   /** title of the proposal */
   title: string;
   /** description of the proposal */
-
   description: string;
 }
 /**
@@ -85,15 +71,12 @@ export interface CancelSoftwareUpgradeProposal {
  *
  * Since: cosmos-sdk 0.43
  */
-
 export interface ModuleVersion {
   /** name of the app module */
   name: string;
   /** consensus version of the app module */
-
   version: Long;
 }
-
 function createBasePlan(): Plan {
   return {
     name: "",
@@ -103,70 +86,54 @@ function createBasePlan(): Plan {
     upgradedClientState: undefined,
   };
 }
-
 export const Plan = {
   encode(message: Plan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
-
     if (message.time !== undefined) {
       Timestamp.encode(message.time, writer.uint32(18).fork()).ldelim();
     }
-
     if (!message.height.isZero()) {
       writer.uint32(24).int64(message.height);
     }
-
     if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
-
     if (message.upgradedClientState !== undefined) {
       Any.encode(message.upgradedClientState, writer.uint32(42).fork()).ldelim();
     }
-
     return writer;
   },
-
   decode(input: _m0.Reader | Uint8Array, length?: number): Plan {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePlan();
-
     while (reader.pos < end) {
       const tag = reader.uint32();
-
       switch (tag >>> 3) {
         case 1:
           message.name = reader.string();
           break;
-
         case 2:
           message.time = Timestamp.decode(reader, reader.uint32());
           break;
-
         case 3:
           message.height = reader.int64() as Long;
           break;
-
         case 4:
           message.info = reader.string();
           break;
-
         case 5:
           message.upgradedClientState = Any.decode(reader, reader.uint32());
           break;
-
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
-
   fromJSON(object: any): Plan {
     return {
       name: isSet(object.name) ? String(object.name) : "",
@@ -178,7 +145,6 @@ export const Plan = {
         : undefined,
     };
   },
-
   toJSON(message: Plan): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
@@ -191,7 +157,6 @@ export const Plan = {
         : undefined);
     return obj;
   },
-
   fromPartial<I extends Exact<DeepPartial<Plan>, I>>(object: I): Plan {
     const message = createBasePlan();
     message.name = object.name ?? "";
@@ -207,7 +172,6 @@ export const Plan = {
     return message;
   },
 };
-
 function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   return {
     title: "",
@@ -215,54 +179,42 @@ function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
     plan: undefined,
   };
 }
-
 export const SoftwareUpgradeProposal = {
   encode(message: SoftwareUpgradeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
-
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-
     if (message.plan !== undefined) {
       Plan.encode(message.plan, writer.uint32(26).fork()).ldelim();
     }
-
     return writer;
   },
-
   decode(input: _m0.Reader | Uint8Array, length?: number): SoftwareUpgradeProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSoftwareUpgradeProposal();
-
     while (reader.pos < end) {
       const tag = reader.uint32();
-
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
-
         case 2:
           message.description = reader.string();
           break;
-
         case 3:
           message.plan = Plan.decode(reader, reader.uint32());
           break;
-
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
-
   fromJSON(object: any): SoftwareUpgradeProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
@@ -270,7 +222,6 @@ export const SoftwareUpgradeProposal = {
       plan: isSet(object.plan) ? Plan.fromJSON(object.plan) : undefined,
     };
   },
-
   toJSON(message: SoftwareUpgradeProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
@@ -278,7 +229,6 @@ export const SoftwareUpgradeProposal = {
     message.plan !== undefined && (obj.plan = message.plan ? Plan.toJSON(message.plan) : undefined);
     return obj;
   },
-
   fromPartial<I extends Exact<DeepPartial<SoftwareUpgradeProposal>, I>>(object: I): SoftwareUpgradeProposal {
     const message = createBaseSoftwareUpgradeProposal();
     message.title = object.title ?? "";
@@ -288,67 +238,54 @@ export const SoftwareUpgradeProposal = {
     return message;
   },
 };
-
 function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposal {
   return {
     title: "",
     description: "",
   };
 }
-
 export const CancelSoftwareUpgradeProposal = {
   encode(message: CancelSoftwareUpgradeProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
-
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-
     return writer;
   },
-
   decode(input: _m0.Reader | Uint8Array, length?: number): CancelSoftwareUpgradeProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCancelSoftwareUpgradeProposal();
-
     while (reader.pos < end) {
       const tag = reader.uint32();
-
       switch (tag >>> 3) {
         case 1:
           message.title = reader.string();
           break;
-
         case 2:
           message.description = reader.string();
           break;
-
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
-
   fromJSON(object: any): CancelSoftwareUpgradeProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
     };
   },
-
   toJSON(message: CancelSoftwareUpgradeProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined && (obj.description = message.description);
     return obj;
   },
-
   fromPartial<I extends Exact<DeepPartial<CancelSoftwareUpgradeProposal>, I>>(
     object: I,
   ): CancelSoftwareUpgradeProposal {
@@ -358,67 +295,54 @@ export const CancelSoftwareUpgradeProposal = {
     return message;
   },
 };
-
 function createBaseModuleVersion(): ModuleVersion {
   return {
     name: "",
     version: Long.UZERO,
   };
 }
-
 export const ModuleVersion = {
   encode(message: ModuleVersion, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
-
     if (!message.version.isZero()) {
       writer.uint32(16).uint64(message.version);
     }
-
     return writer;
   },
-
   decode(input: _m0.Reader | Uint8Array, length?: number): ModuleVersion {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModuleVersion();
-
     while (reader.pos < end) {
       const tag = reader.uint32();
-
       switch (tag >>> 3) {
         case 1:
           message.name = reader.string();
           break;
-
         case 2:
           message.version = reader.uint64() as Long;
           break;
-
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
-
   fromJSON(object: any): ModuleVersion {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       version: isSet(object.version) ? Long.fromValue(object.version) : Long.UZERO,
     };
   },
-
   toJSON(message: ModuleVersion): unknown {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     message.version !== undefined && (obj.version = (message.version || Long.UZERO).toString());
     return obj;
   },
-
   fromPartial<I extends Exact<DeepPartial<ModuleVersion>, I>>(object: I): ModuleVersion {
     const message = createBaseModuleVersion();
     message.name = object.name ?? "";
