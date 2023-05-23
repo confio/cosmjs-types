@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.8.0] - 2023-05-24
+
 - Upgrade Cosmos SDK types to 0.47.2 including new modules like group and NFT.
 - Upgrade ibc-go types to v7.
 - Upgrade to Telescope 0.94.1
@@ -90,7 +92,8 @@ No changelog, sorry. Maybe the diff helps.
 
 - wasmd 0.18 types (cosmwasm/wasm/v1/\*)
 
-[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.7.2...HEAD
+[unreleased]: https://github.com/confio/cosmjs-types/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/confio/cosmjs-types/compare/v0.7.2...v0.8.0
 [0.7.2]: https://github.com/confio/cosmjs-types/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/confio/cosmjs-types/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/confio/cosmjs-types/compare/v0.6.1...v0.7.0
