@@ -8,7 +8,7 @@ and this project adheres to
 
 ## [Unreleased]
 
-- Upgrade Cosmos SDK types to 0.47.1 including new modules like group and NFT.
+- Upgrade Cosmos SDK types to 0.47.2 including new modules like group and NFT.
 - Upgrade ibc-go types to v7.
 - Upgrade to Telescope 0.94.1
 
