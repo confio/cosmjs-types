@@ -79,6 +79,27 @@ export const GenesisOwners = {
         : undefined;
     return message;
   },
+  fromAmino(object: GenesisOwnersAmino): GenesisOwners {
+    return {
+      index: Long.fromString(object.index),
+      indexOwners: object?.index_owners ? CapabilityOwners.fromAmino(object.index_owners) : undefined,
+    };
+  },
+  toAmino(message: GenesisOwners): GenesisOwnersAmino {
+    const obj: any = {};
+    obj.index = message.index ? message.index.toString() : undefined;
+    obj.index_owners = message.indexOwners ? CapabilityOwners.toAmino(message.indexOwners) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisOwnersAminoMsg): GenesisOwners {
+    return GenesisOwners.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisOwners): GenesisOwnersAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisOwners",
+      value: GenesisOwners.toAmino(message),
+    };
+  },
 };
 function createBaseGenesisState(): GenesisState {
   return {
@@ -138,5 +159,30 @@ export const GenesisState = {
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     message.owners = object.owners?.map((e) => GenesisOwners.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      index: Long.fromString(object.index),
+      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => GenesisOwners.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.index = message.index ? message.index.toString() : undefined;
+    if (message.owners) {
+      obj.owners = message.owners.map((e) => (e ? GenesisOwners.toAmino(e) : undefined));
+    } else {
+      obj.owners = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

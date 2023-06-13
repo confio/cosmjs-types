@@ -94,6 +94,37 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      bech32Prefix: object.bech32_prefix,
+      moduleAccountPermissions: Array.isArray(object?.module_account_permissions)
+        ? object.module_account_permissions.map((e: any) => ModuleAccountPermission.fromAmino(e))
+        : [],
+      authority: object.authority,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.bech32_prefix = message.bech32Prefix;
+    if (message.moduleAccountPermissions) {
+      obj.module_account_permissions = message.moduleAccountPermissions.map((e) =>
+        e ? ModuleAccountPermission.toAmino(e) : undefined,
+      );
+    } else {
+      obj.module_account_permissions = [];
+    }
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };
 function createBaseModuleAccountPermission(): ModuleAccountPermission {
   return {
@@ -152,5 +183,30 @@ export const ModuleAccountPermission = {
     message.account = object.account ?? "";
     message.permissions = object.permissions?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ModuleAccountPermissionAmino): ModuleAccountPermission {
+    return {
+      account: object.account,
+      permissions: Array.isArray(object?.permissions) ? object.permissions.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ModuleAccountPermission): ModuleAccountPermissionAmino {
+    const obj: any = {};
+    obj.account = message.account;
+    if (message.permissions) {
+      obj.permissions = message.permissions.map((e) => e);
+    } else {
+      obj.permissions = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAccountPermissionAminoMsg): ModuleAccountPermission {
+    return ModuleAccountPermission.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleAccountPermission): ModuleAccountPermissionAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleAccountPermission",
+      value: ModuleAccountPermission.toAmino(message),
+    };
   },
 };

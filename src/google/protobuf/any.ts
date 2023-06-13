@@ -172,4 +172,19 @@ export const Any = {
     message.value = object.value ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: AnyAmino): Any {
+    return {
+      typeUrl: object.type_url,
+      value: object.value,
+    };
+  },
+  toAmino(message: Any): AnyAmino {
+    const obj: any = {};
+    obj.type_url = message.typeUrl;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: AnyAminoMsg): Any {
+    return Any.fromAmino(object.value);
+  },
 };

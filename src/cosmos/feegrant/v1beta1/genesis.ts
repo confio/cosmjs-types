@@ -57,4 +57,29 @@ export const GenesisState = {
     message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      allowances: Array.isArray(object?.allowances)
+        ? object.allowances.map((e: any) => Grant.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.allowances) {
+      obj.allowances = message.allowances.map((e) => (e ? Grant.toAmino(e) : undefined));
+    } else {
+      obj.allowances = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

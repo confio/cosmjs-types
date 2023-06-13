@@ -84,6 +84,27 @@ export const Coin = {
     message.amount = object.amount ?? "";
     return message;
   },
+  fromAmino(object: CoinAmino): Coin {
+    return {
+      denom: object.denom,
+      amount: object.amount,
+    };
+  },
+  toAmino(message: Coin): CoinAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.amount = message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: CoinAminoMsg): Coin {
+    return Coin.fromAmino(object.value);
+  },
+  toAminoMsg(message: Coin): CoinAminoMsg {
+    return {
+      type: "cosmos-sdk/Coin",
+      value: Coin.toAmino(message),
+    };
+  },
 };
 function createBaseDecCoin(): DecCoin {
   return {
@@ -139,6 +160,27 @@ export const DecCoin = {
     message.amount = object.amount ?? "";
     return message;
   },
+  fromAmino(object: DecCoinAmino): DecCoin {
+    return {
+      denom: object.denom,
+      amount: object.amount,
+    };
+  },
+  toAmino(message: DecCoin): DecCoinAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.amount = message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: DecCoinAminoMsg): DecCoin {
+    return DecCoin.fromAmino(object.value);
+  },
+  toAminoMsg(message: DecCoin): DecCoinAminoMsg {
+    return {
+      type: "cosmos-sdk/DecCoin",
+      value: DecCoin.toAmino(message),
+    };
+  },
 };
 function createBaseIntProto(): IntProto {
   return {
@@ -184,6 +226,25 @@ export const IntProto = {
     message.int = object.int ?? "";
     return message;
   },
+  fromAmino(object: IntProtoAmino): IntProto {
+    return {
+      int: object.int,
+    };
+  },
+  toAmino(message: IntProto): IntProtoAmino {
+    const obj: any = {};
+    obj.int = message.int;
+    return obj;
+  },
+  fromAminoMsg(object: IntProtoAminoMsg): IntProto {
+    return IntProto.fromAmino(object.value);
+  },
+  toAminoMsg(message: IntProto): IntProtoAminoMsg {
+    return {
+      type: "cosmos-sdk/IntProto",
+      value: IntProto.toAmino(message),
+    };
+  },
 };
 function createBaseDecProto(): DecProto {
   return {
@@ -228,5 +289,24 @@ export const DecProto = {
     const message = createBaseDecProto();
     message.dec = object.dec ?? "";
     return message;
+  },
+  fromAmino(object: DecProtoAmino): DecProto {
+    return {
+      dec: object.dec,
+    };
+  },
+  toAmino(message: DecProto): DecProtoAmino {
+    const obj: any = {};
+    obj.dec = message.dec;
+    return obj;
+  },
+  fromAminoMsg(object: DecProtoAminoMsg): DecProto {
+    return DecProto.fromAmino(object.value);
+  },
+  toAminoMsg(message: DecProto): DecProtoAminoMsg {
+    return {
+      type: "cosmos-sdk/DecProto",
+      value: DecProto.toAmino(message),
+    };
   },
 };

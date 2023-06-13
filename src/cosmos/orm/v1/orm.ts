@@ -163,6 +163,35 @@ export const TableDescriptor = {
     message.id = object.id ?? 0;
     return message;
   },
+  fromAmino(object: TableDescriptorAmino): TableDescriptor {
+    return {
+      primaryKey: object?.primary_key ? PrimaryKeyDescriptor.fromAmino(object.primary_key) : undefined,
+      index: Array.isArray(object?.index)
+        ? object.index.map((e: any) => SecondaryIndexDescriptor.fromAmino(e))
+        : [],
+      id: object.id,
+    };
+  },
+  toAmino(message: TableDescriptor): TableDescriptorAmino {
+    const obj: any = {};
+    obj.primary_key = message.primaryKey ? PrimaryKeyDescriptor.toAmino(message.primaryKey) : undefined;
+    if (message.index) {
+      obj.index = message.index.map((e) => (e ? SecondaryIndexDescriptor.toAmino(e) : undefined));
+    } else {
+      obj.index = [];
+    }
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: TableDescriptorAminoMsg): TableDescriptor {
+    return TableDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: TableDescriptor): TableDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/TableDescriptor",
+      value: TableDescriptor.toAmino(message),
+    };
+  },
 };
 function createBasePrimaryKeyDescriptor(): PrimaryKeyDescriptor {
   return {
@@ -217,6 +246,27 @@ export const PrimaryKeyDescriptor = {
     message.fields = object.fields ?? "";
     message.autoIncrement = object.autoIncrement ?? false;
     return message;
+  },
+  fromAmino(object: PrimaryKeyDescriptorAmino): PrimaryKeyDescriptor {
+    return {
+      fields: object.fields,
+      autoIncrement: object.auto_increment,
+    };
+  },
+  toAmino(message: PrimaryKeyDescriptor): PrimaryKeyDescriptorAmino {
+    const obj: any = {};
+    obj.fields = message.fields;
+    obj.auto_increment = message.autoIncrement;
+    return obj;
+  },
+  fromAminoMsg(object: PrimaryKeyDescriptorAminoMsg): PrimaryKeyDescriptor {
+    return PrimaryKeyDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: PrimaryKeyDescriptor): PrimaryKeyDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/PrimaryKeyDescriptor",
+      value: PrimaryKeyDescriptor.toAmino(message),
+    };
   },
 };
 function createBaseSecondaryIndexDescriptor(): SecondaryIndexDescriptor {
@@ -285,6 +335,29 @@ export const SecondaryIndexDescriptor = {
     message.unique = object.unique ?? false;
     return message;
   },
+  fromAmino(object: SecondaryIndexDescriptorAmino): SecondaryIndexDescriptor {
+    return {
+      fields: object.fields,
+      id: object.id,
+      unique: object.unique,
+    };
+  },
+  toAmino(message: SecondaryIndexDescriptor): SecondaryIndexDescriptorAmino {
+    const obj: any = {};
+    obj.fields = message.fields;
+    obj.id = message.id;
+    obj.unique = message.unique;
+    return obj;
+  },
+  fromAminoMsg(object: SecondaryIndexDescriptorAminoMsg): SecondaryIndexDescriptor {
+    return SecondaryIndexDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: SecondaryIndexDescriptor): SecondaryIndexDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/SecondaryIndexDescriptor",
+      value: SecondaryIndexDescriptor.toAmino(message),
+    };
+  },
 };
 function createBaseSingletonDescriptor(): SingletonDescriptor {
   return {
@@ -329,5 +402,24 @@ export const SingletonDescriptor = {
     const message = createBaseSingletonDescriptor();
     message.id = object.id ?? 0;
     return message;
+  },
+  fromAmino(object: SingletonDescriptorAmino): SingletonDescriptor {
+    return {
+      id: object.id,
+    };
+  },
+  toAmino(message: SingletonDescriptor): SingletonDescriptorAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: SingletonDescriptorAminoMsg): SingletonDescriptor {
+    return SingletonDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: SingletonDescriptor): SingletonDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/SingletonDescriptor",
+      value: SingletonDescriptor.toAmino(message),
+    };
   },
 };

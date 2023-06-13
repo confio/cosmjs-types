@@ -89,6 +89,31 @@ export const MsgSend = {
     message.receiver = object.receiver ?? "";
     return message;
   },
+  fromAmino(object: MsgSendAmino): MsgSend {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      sender: object.sender,
+      receiver: object.receiver,
+    };
+  },
+  toAmino(message: MsgSend): MsgSendAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendAminoMsg): MsgSend {
+    return MsgSend.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSend): MsgSendAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgNFTSend",
+      value: MsgSend.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
@@ -121,6 +146,22 @@ export const MsgSendResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
     const message = createBaseMsgSendResponse();
     return message;
+  },
+  fromAmino(_: MsgSendResponseAmino): MsgSendResponse {
+    return {};
+  },
+  toAmino(_: MsgSendResponse): MsgSendResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendResponseAminoMsg): MsgSendResponse {
+    return MsgSendResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSendResponse): MsgSendResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSendResponse",
+      value: MsgSendResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the nft Msg service. */

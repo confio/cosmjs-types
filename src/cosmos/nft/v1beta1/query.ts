@@ -142,6 +142,27 @@ export const QueryBalanceRequest = {
     message.owner = object.owner ?? "";
     return message;
   },
+  fromAmino(object: QueryBalanceRequestAmino): QueryBalanceRequest {
+    return {
+      classId: object.class_id,
+      owner: object.owner,
+    };
+  },
+  toAmino(message: QueryBalanceRequest): QueryBalanceRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.owner = message.owner;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBalanceRequestAminoMsg): QueryBalanceRequest {
+    return QueryBalanceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBalanceRequest): QueryBalanceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryBalanceRequest",
+      value: QueryBalanceRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryBalanceResponse(): QueryBalanceResponse {
   return {
@@ -187,6 +208,25 @@ export const QueryBalanceResponse = {
     message.amount =
       object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: QueryBalanceResponseAmino): QueryBalanceResponse {
+    return {
+      amount: Long.fromString(object.amount),
+    };
+  },
+  toAmino(message: QueryBalanceResponse): QueryBalanceResponseAmino {
+    const obj: any = {};
+    obj.amount = message.amount ? message.amount.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBalanceResponseAminoMsg): QueryBalanceResponse {
+    return QueryBalanceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBalanceResponse): QueryBalanceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryBalanceResponse",
+      value: QueryBalanceResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryOwnerRequest(): QueryOwnerRequest {
@@ -243,6 +283,27 @@ export const QueryOwnerRequest = {
     message.id = object.id ?? "";
     return message;
   },
+  fromAmino(object: QueryOwnerRequestAmino): QueryOwnerRequest {
+    return {
+      classId: object.class_id,
+      id: object.id,
+    };
+  },
+  toAmino(message: QueryOwnerRequest): QueryOwnerRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: QueryOwnerRequestAminoMsg): QueryOwnerRequest {
+    return QueryOwnerRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryOwnerRequest): QueryOwnerRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryOwnerRequest",
+      value: QueryOwnerRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryOwnerResponse(): QueryOwnerResponse {
   return {
@@ -287,6 +348,25 @@ export const QueryOwnerResponse = {
     const message = createBaseQueryOwnerResponse();
     message.owner = object.owner ?? "";
     return message;
+  },
+  fromAmino(object: QueryOwnerResponseAmino): QueryOwnerResponse {
+    return {
+      owner: object.owner,
+    };
+  },
+  toAmino(message: QueryOwnerResponse): QueryOwnerResponseAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    return obj;
+  },
+  fromAminoMsg(object: QueryOwnerResponseAminoMsg): QueryOwnerResponse {
+    return QueryOwnerResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryOwnerResponse): QueryOwnerResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryOwnerResponse",
+      value: QueryOwnerResponse.toAmino(message),
+    };
   },
 };
 function createBaseQuerySupplyRequest(): QuerySupplyRequest {
@@ -333,6 +413,25 @@ export const QuerySupplyRequest = {
     message.classId = object.classId ?? "";
     return message;
   },
+  fromAmino(object: QuerySupplyRequestAmino): QuerySupplyRequest {
+    return {
+      classId: object.class_id,
+    };
+  },
+  toAmino(message: QuerySupplyRequest): QuerySupplyRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySupplyRequestAminoMsg): QuerySupplyRequest {
+    return QuerySupplyRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySupplyRequest): QuerySupplyRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySupplyRequest",
+      value: QuerySupplyRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySupplyResponse(): QuerySupplyResponse {
   return {
@@ -378,6 +477,25 @@ export const QuerySupplyResponse = {
     message.amount =
       object.amount !== undefined && object.amount !== null ? Long.fromValue(object.amount) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: QuerySupplyResponseAmino): QuerySupplyResponse {
+    return {
+      amount: Long.fromString(object.amount),
+    };
+  },
+  toAmino(message: QuerySupplyResponse): QuerySupplyResponseAmino {
+    const obj: any = {};
+    obj.amount = message.amount ? message.amount.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySupplyResponseAminoMsg): QuerySupplyResponse {
+    return QuerySupplyResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySupplyResponse): QuerySupplyResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySupplyResponse",
+      value: QuerySupplyResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryNFTsRequest(): QueryNFTsRequest {
@@ -448,6 +566,29 @@ export const QueryNFTsRequest = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryNFTsRequestAmino): QueryNFTsRequest {
+    return {
+      classId: object.class_id,
+      owner: object.owner,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryNFTsRequest): QueryNFTsRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.owner = message.owner;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryNFTsRequestAminoMsg): QueryNFTsRequest {
+    return QueryNFTsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryNFTsRequest): QueryNFTsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryNFTsRequest",
+      value: QueryNFTsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryNFTsResponse(): QueryNFTsResponse {
   return {
@@ -511,6 +652,31 @@ export const QueryNFTsResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryNFTsResponseAmino): QueryNFTsResponse {
+    return {
+      nfts: Array.isArray(object?.nfts) ? object.nfts.map((e: any) => NFT.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryNFTsResponse): QueryNFTsResponseAmino {
+    const obj: any = {};
+    if (message.nfts) {
+      obj.nfts = message.nfts.map((e) => (e ? NFT.toAmino(e) : undefined));
+    } else {
+      obj.nfts = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryNFTsResponseAminoMsg): QueryNFTsResponse {
+    return QueryNFTsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryNFTsResponse): QueryNFTsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryNFTsResponse",
+      value: QueryNFTsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryNFTRequest(): QueryNFTRequest {
   return {
@@ -566,6 +732,27 @@ export const QueryNFTRequest = {
     message.id = object.id ?? "";
     return message;
   },
+  fromAmino(object: QueryNFTRequestAmino): QueryNFTRequest {
+    return {
+      classId: object.class_id,
+      id: object.id,
+    };
+  },
+  toAmino(message: QueryNFTRequest): QueryNFTRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    return obj;
+  },
+  fromAminoMsg(object: QueryNFTRequestAminoMsg): QueryNFTRequest {
+    return QueryNFTRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryNFTRequest): QueryNFTRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryNFTRequest",
+      value: QueryNFTRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryNFTResponse(): QueryNFTResponse {
   return {
@@ -610,6 +797,25 @@ export const QueryNFTResponse = {
     const message = createBaseQueryNFTResponse();
     message.nft = object.nft !== undefined && object.nft !== null ? NFT.fromPartial(object.nft) : undefined;
     return message;
+  },
+  fromAmino(object: QueryNFTResponseAmino): QueryNFTResponse {
+    return {
+      nft: object?.nft ? NFT.fromAmino(object.nft) : undefined,
+    };
+  },
+  toAmino(message: QueryNFTResponse): QueryNFTResponseAmino {
+    const obj: any = {};
+    obj.nft = message.nft ? NFT.toAmino(message.nft) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryNFTResponseAminoMsg): QueryNFTResponse {
+    return QueryNFTResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryNFTResponse): QueryNFTResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryNFTResponse",
+      value: QueryNFTResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryClassRequest(): QueryClassRequest {
@@ -656,6 +862,25 @@ export const QueryClassRequest = {
     message.classId = object.classId ?? "";
     return message;
   },
+  fromAmino(object: QueryClassRequestAmino): QueryClassRequest {
+    return {
+      classId: object.class_id,
+    };
+  },
+  toAmino(message: QueryClassRequest): QueryClassRequestAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClassRequestAminoMsg): QueryClassRequest {
+    return QueryClassRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClassRequest): QueryClassRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClassRequest",
+      value: QueryClassRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClassResponse(): QueryClassResponse {
   return {
@@ -701,6 +926,25 @@ export const QueryClassResponse = {
     message.class =
       object.class !== undefined && object.class !== null ? Class.fromPartial(object.class) : undefined;
     return message;
+  },
+  fromAmino(object: QueryClassResponseAmino): QueryClassResponse {
+    return {
+      class: object?.class ? Class.fromAmino(object.class) : undefined,
+    };
+  },
+  toAmino(message: QueryClassResponse): QueryClassResponseAmino {
+    const obj: any = {};
+    obj.class = message.class ? Class.toAmino(message.class) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClassResponseAminoMsg): QueryClassResponse {
+    return QueryClassResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClassResponse): QueryClassResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClassResponse",
+      value: QueryClassResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryClassesRequest(): QueryClassesRequest {
@@ -750,6 +994,25 @@ export const QueryClassesRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryClassesRequestAmino): QueryClassesRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryClassesRequest): QueryClassesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClassesRequestAminoMsg): QueryClassesRequest {
+    return QueryClassesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClassesRequest): QueryClassesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClassesRequest",
+      value: QueryClassesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryClassesResponse(): QueryClassesResponse {
@@ -813,6 +1076,31 @@ export const QueryClassesResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryClassesResponseAmino): QueryClassesResponse {
+    return {
+      classes: Array.isArray(object?.classes) ? object.classes.map((e: any) => Class.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryClassesResponse): QueryClassesResponseAmino {
+    const obj: any = {};
+    if (message.classes) {
+      obj.classes = message.classes.map((e) => (e ? Class.toAmino(e) : undefined));
+    } else {
+      obj.classes = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClassesResponseAminoMsg): QueryClassesResponse {
+    return QueryClassesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClassesResponse): QueryClassesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClassesResponse",
+      value: QueryClassesResponse.toAmino(message),
+    };
   },
 };
 /** Query defines the gRPC querier service. */

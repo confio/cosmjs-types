@@ -69,6 +69,25 @@ export const Capability = {
       object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.UZERO;
     return message;
   },
+  fromAmino(object: CapabilityAmino): Capability {
+    return {
+      index: Long.fromString(object.index),
+    };
+  },
+  toAmino(message: Capability): CapabilityAmino {
+    const obj: any = {};
+    obj.index = message.index ? message.index.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CapabilityAminoMsg): Capability {
+    return Capability.fromAmino(object.value);
+  },
+  toAminoMsg(message: Capability): CapabilityAminoMsg {
+    return {
+      type: "cosmos-sdk/Capability",
+      value: Capability.toAmino(message),
+    };
+  },
 };
 function createBaseOwner(): Owner {
   return {
@@ -124,6 +143,27 @@ export const Owner = {
     message.name = object.name ?? "";
     return message;
   },
+  fromAmino(object: OwnerAmino): Owner {
+    return {
+      module: object.module,
+      name: object.name,
+    };
+  },
+  toAmino(message: Owner): OwnerAmino {
+    const obj: any = {};
+    obj.module = message.module;
+    obj.name = message.name;
+    return obj;
+  },
+  fromAminoMsg(object: OwnerAminoMsg): Owner {
+    return Owner.fromAmino(object.value);
+  },
+  toAminoMsg(message: Owner): OwnerAminoMsg {
+    return {
+      type: "cosmos-sdk/Owner",
+      value: Owner.toAmino(message),
+    };
+  },
 };
 function createBaseCapabilityOwners(): CapabilityOwners {
   return {
@@ -172,5 +212,28 @@ export const CapabilityOwners = {
     const message = createBaseCapabilityOwners();
     message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CapabilityOwnersAmino): CapabilityOwners {
+    return {
+      owners: Array.isArray(object?.owners) ? object.owners.map((e: any) => Owner.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: CapabilityOwners): CapabilityOwnersAmino {
+    const obj: any = {};
+    if (message.owners) {
+      obj.owners = message.owners.map((e) => (e ? Owner.toAmino(e) : undefined));
+    } else {
+      obj.owners = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CapabilityOwnersAminoMsg): CapabilityOwners {
+    return CapabilityOwners.fromAmino(object.value);
+  },
+  toAminoMsg(message: CapabilityOwners): CapabilityOwnersAminoMsg {
+    return {
+      type: "cosmos-sdk/CapabilityOwners",
+      value: CapabilityOwners.toAmino(message),
+    };
   },
 };

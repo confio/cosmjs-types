@@ -74,6 +74,22 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -120,6 +136,25 @@ export const QueryParamsResponse = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySigningInfoRequest(): QuerySigningInfoRequest {
   return {
@@ -164,6 +199,25 @@ export const QuerySigningInfoRequest = {
     const message = createBaseQuerySigningInfoRequest();
     message.consAddress = object.consAddress ?? "";
     return message;
+  },
+  fromAmino(object: QuerySigningInfoRequestAmino): QuerySigningInfoRequest {
+    return {
+      consAddress: object.cons_address,
+    };
+  },
+  toAmino(message: QuerySigningInfoRequest): QuerySigningInfoRequestAmino {
+    const obj: any = {};
+    obj.cons_address = message.consAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySigningInfoRequestAminoMsg): QuerySigningInfoRequest {
+    return QuerySigningInfoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySigningInfoRequest): QuerySigningInfoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySigningInfoRequest",
+      value: QuerySigningInfoRequest.toAmino(message),
+    };
   },
 };
 function createBaseQuerySigningInfoResponse(): QuerySigningInfoResponse {
@@ -220,6 +274,29 @@ export const QuerySigningInfoResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QuerySigningInfoResponseAmino): QuerySigningInfoResponse {
+    return {
+      valSigningInfo: object?.val_signing_info
+        ? ValidatorSigningInfo.fromAmino(object.val_signing_info)
+        : undefined,
+    };
+  },
+  toAmino(message: QuerySigningInfoResponse): QuerySigningInfoResponseAmino {
+    const obj: any = {};
+    obj.val_signing_info = message.valSigningInfo
+      ? ValidatorSigningInfo.toAmino(message.valSigningInfo)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySigningInfoResponseAminoMsg): QuerySigningInfoResponse {
+    return QuerySigningInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySigningInfoResponse): QuerySigningInfoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySigningInfoResponse",
+      value: QuerySigningInfoResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySigningInfosRequest(): QuerySigningInfosRequest {
   return {
@@ -270,6 +347,25 @@ export const QuerySigningInfosRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QuerySigningInfosRequestAmino): QuerySigningInfosRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QuerySigningInfosRequest): QuerySigningInfosRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySigningInfosRequestAminoMsg): QuerySigningInfosRequest {
+    return QuerySigningInfosRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySigningInfosRequest): QuerySigningInfosRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySigningInfosRequest",
+      value: QuerySigningInfosRequest.toAmino(message),
+    };
   },
 };
 function createBaseQuerySigningInfosResponse(): QuerySigningInfosResponse {
@@ -335,6 +431,31 @@ export const QuerySigningInfosResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QuerySigningInfosResponseAmino): QuerySigningInfosResponse {
+    return {
+      info: Array.isArray(object?.info) ? object.info.map((e: any) => ValidatorSigningInfo.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QuerySigningInfosResponse): QuerySigningInfosResponseAmino {
+    const obj: any = {};
+    if (message.info) {
+      obj.info = message.info.map((e) => (e ? ValidatorSigningInfo.toAmino(e) : undefined));
+    } else {
+      obj.info = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySigningInfosResponseAminoMsg): QuerySigningInfosResponse {
+    return QuerySigningInfosResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySigningInfosResponse): QuerySigningInfosResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySigningInfosResponse",
+      value: QuerySigningInfosResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service */

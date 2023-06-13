@@ -2,6 +2,7 @@
 import { Any } from "../../../google/protobuf/any";
 import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
+import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 export enum AccessType {
@@ -227,6 +228,25 @@ export const AccessTypeParam = {
     message.value = object.value ?? 0;
     return message;
   },
+  fromAmino(object: AccessTypeParamAmino): AccessTypeParam {
+    return {
+      value: isSet(object.value) ? accessTypeFromJSON(object.value) : 0,
+    };
+  },
+  toAmino(message: AccessTypeParam): AccessTypeParamAmino {
+    const obj: any = {};
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: AccessTypeParamAminoMsg): AccessTypeParam {
+    return AccessTypeParam.fromAmino(object.value);
+  },
+  toAminoMsg(message: AccessTypeParam): AccessTypeParamAminoMsg {
+    return {
+      type: "wasm/AccessTypeParam",
+      value: AccessTypeParam.toAmino(message),
+    };
+  },
 };
 function createBaseAccessConfig(): AccessConfig {
   return {
@@ -296,6 +316,33 @@ export const AccessConfig = {
     message.addresses = object.addresses?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: AccessConfigAmino): AccessConfig {
+    return {
+      permission: isSet(object.permission) ? accessTypeFromJSON(object.permission) : 0,
+      address: object.address,
+      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: AccessConfig): AccessConfigAmino {
+    const obj: any = {};
+    obj.permission = message.permission;
+    obj.address = message.address;
+    if (message.addresses) {
+      obj.addresses = message.addresses.map((e) => e);
+    } else {
+      obj.addresses = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AccessConfigAminoMsg): AccessConfig {
+    return AccessConfig.fromAmino(object.value);
+  },
+  toAminoMsg(message: AccessConfig): AccessConfigAminoMsg {
+    return {
+      type: "wasm/AccessConfig",
+      value: AccessConfig.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -361,6 +408,33 @@ export const Params = {
         : undefined;
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      codeUploadAccess: object?.code_upload_access
+        ? AccessConfig.fromAmino(object.code_upload_access)
+        : undefined,
+      instantiateDefaultPermission: isSet(object.instantiate_default_permission)
+        ? accessTypeFromJSON(object.instantiate_default_permission)
+        : 0,
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.code_upload_access = message.codeUploadAccess
+      ? AccessConfig.toAmino(message.codeUploadAccess)
+      : undefined;
+    obj.instantiate_default_permission = message.instantiateDefaultPermission;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "wasm/Params",
+      value: Params.toAmino(message),
+    };
   },
 };
 function createBaseCodeInfo(): CodeInfo {
@@ -435,6 +509,33 @@ export const CodeInfo = {
         ? AccessConfig.fromPartial(object.instantiateConfig)
         : undefined;
     return message;
+  },
+  fromAmino(object: CodeInfoAmino): CodeInfo {
+    return {
+      codeHash: object.code_hash,
+      creator: object.creator,
+      instantiateConfig: object?.instantiate_config
+        ? AccessConfig.fromAmino(object.instantiate_config)
+        : undefined,
+    };
+  },
+  toAmino(message: CodeInfo): CodeInfoAmino {
+    const obj: any = {};
+    obj.code_hash = message.codeHash;
+    obj.creator = message.creator;
+    obj.instantiate_config = message.instantiateConfig
+      ? AccessConfig.toAmino(message.instantiateConfig)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo {
+    return CodeInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: CodeInfo): CodeInfoAminoMsg {
+    return {
+      type: "wasm/CodeInfo",
+      value: CodeInfo.toAmino(message),
+    };
   },
 };
 function createBaseContractInfo(): ContractInfo {
@@ -550,6 +651,37 @@ export const ContractInfo = {
         : undefined;
     return message;
   },
+  fromAmino(object: ContractInfoAmino): ContractInfo {
+    return {
+      codeId: Long.fromString(object.code_id),
+      creator: object.creator,
+      admin: object.admin,
+      label: object.label,
+      created: object?.created ? AbsoluteTxPosition.fromAmino(object.created) : undefined,
+      ibcPortId: object.ibc_port_id,
+      extension: object?.extension ? Any.fromAmino(object.extension) : undefined,
+    };
+  },
+  toAmino(message: ContractInfo): ContractInfoAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.creator = message.creator;
+    obj.admin = message.admin;
+    obj.label = message.label;
+    obj.created = message.created ? AbsoluteTxPosition.toAmino(message.created) : undefined;
+    obj.ibc_port_id = message.ibcPortId;
+    obj.extension = message.extension ? Any.toAmino(message.extension) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractInfoAminoMsg): ContractInfo {
+    return ContractInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: ContractInfo): ContractInfoAminoMsg {
+    return {
+      type: "wasm/ContractInfo",
+      value: ContractInfo.toAmino(message),
+    };
+  },
 };
 function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   return {
@@ -634,6 +766,31 @@ export const ContractCodeHistoryEntry = {
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: ContractCodeHistoryEntryAmino): ContractCodeHistoryEntry {
+    return {
+      operation: isSet(object.operation) ? contractCodeHistoryOperationTypeFromJSON(object.operation) : 0,
+      codeId: Long.fromString(object.code_id),
+      updated: object?.updated ? AbsoluteTxPosition.fromAmino(object.updated) : undefined,
+      msg: toUtf8(JSON.stringify(object.msg)),
+    };
+  },
+  toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino {
+    const obj: any = {};
+    obj.operation = message.operation;
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.updated = message.updated ? AbsoluteTxPosition.toAmino(message.updated) : undefined;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCodeHistoryEntryAminoMsg): ContractCodeHistoryEntry {
+    return ContractCodeHistoryEntry.fromAmino(object.value);
+  },
+  toAminoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAminoMsg {
+    return {
+      type: "wasm/ContractCodeHistoryEntry",
+      value: ContractCodeHistoryEntry.toAmino(message),
+    };
+  },
 };
 function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
   return {
@@ -693,6 +850,27 @@ export const AbsoluteTxPosition = {
       object.txIndex !== undefined && object.txIndex !== null ? Long.fromValue(object.txIndex) : Long.UZERO;
     return message;
   },
+  fromAmino(object: AbsoluteTxPositionAmino): AbsoluteTxPosition {
+    return {
+      blockHeight: Long.fromString(object.block_height),
+      txIndex: Long.fromString(object.tx_index),
+    };
+  },
+  toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino {
+    const obj: any = {};
+    obj.block_height = message.blockHeight ? message.blockHeight.toString() : undefined;
+    obj.tx_index = message.txIndex ? message.txIndex.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition {
+    return AbsoluteTxPosition.fromAmino(object.value);
+  },
+  toAminoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionAminoMsg {
+    return {
+      type: "wasm/AbsoluteTxPosition",
+      value: AbsoluteTxPosition.toAmino(message),
+    };
+  },
 };
 function createBaseModel(): Model {
   return {
@@ -749,5 +927,26 @@ export const Model = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ModelAmino): Model {
+    return {
+      key: object.key,
+      value: object.value,
+    };
+  },
+  toAmino(message: Model): ModelAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: ModelAminoMsg): Model {
+    return Model.fromAmino(object.value);
+  },
+  toAminoMsg(message: Model): ModelAminoMsg {
+    return {
+      type: "wasm/Model",
+      value: Model.toAmino(message),
+    };
   },
 };

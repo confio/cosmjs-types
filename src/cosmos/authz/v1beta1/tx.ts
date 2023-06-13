@@ -109,6 +109,29 @@ export const MsgGrant = {
       object.grant !== undefined && object.grant !== null ? Grant.fromPartial(object.grant) : undefined;
     return message;
   },
+  fromAmino(object: MsgGrantAmino): MsgGrant {
+    return {
+      granter: object.granter,
+      grantee: object.grantee,
+      grant: object?.grant ? Grant.fromAmino(object.grant) : undefined,
+    };
+  },
+  toAmino(message: MsgGrant): MsgGrantAmino {
+    const obj: any = {};
+    obj.granter = message.granter;
+    obj.grantee = message.grantee;
+    obj.grant = message.grant ? Grant.toAmino(message.grant) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgGrantAminoMsg): MsgGrant {
+    return MsgGrant.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgGrant): MsgGrantAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgGrant",
+      value: MsgGrant.toAmino(message),
+    };
+  },
 };
 function createBaseMsgExecResponse(): MsgExecResponse {
   return {
@@ -157,6 +180,29 @@ export const MsgExecResponse = {
     const message = createBaseMsgExecResponse();
     message.results = object.results?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: MsgExecResponseAmino): MsgExecResponse {
+    return {
+      results: Array.isArray(object?.results) ? object.results.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: MsgExecResponse): MsgExecResponseAmino {
+    const obj: any = {};
+    if (message.results) {
+      obj.results = message.results.map((e) => e);
+    } else {
+      obj.results = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgExecResponseAminoMsg): MsgExecResponse {
+    return MsgExecResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgExecResponse): MsgExecResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgExecResponse",
+      value: MsgExecResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgExec(): MsgExec {
@@ -217,6 +263,31 @@ export const MsgExec = {
     message.msgs = object.msgs?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgExecAmino): MsgExec {
+    return {
+      grantee: object.grantee,
+      msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Any.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: MsgExec): MsgExecAmino {
+    const obj: any = {};
+    obj.grantee = message.grantee;
+    if (message.msgs) {
+      obj.msgs = message.msgs.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.msgs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgExecAminoMsg): MsgExec {
+    return MsgExec.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgExec): MsgExecAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgExec",
+      value: MsgExec.toAmino(message),
+    };
+  },
 };
 function createBaseMsgGrantResponse(): MsgGrantResponse {
   return {};
@@ -249,6 +320,22 @@ export const MsgGrantResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgGrantResponse>, I>>(_: I): MsgGrantResponse {
     const message = createBaseMsgGrantResponse();
     return message;
+  },
+  fromAmino(_: MsgGrantResponseAmino): MsgGrantResponse {
+    return {};
+  },
+  toAmino(_: MsgGrantResponse): MsgGrantResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgGrantResponseAminoMsg): MsgGrantResponse {
+    return MsgGrantResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgGrantResponse): MsgGrantResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgGrantResponse",
+      value: MsgGrantResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRevoke(): MsgRevoke {
@@ -315,6 +402,29 @@ export const MsgRevoke = {
     message.msgTypeUrl = object.msgTypeUrl ?? "";
     return message;
   },
+  fromAmino(object: MsgRevokeAmino): MsgRevoke {
+    return {
+      granter: object.granter,
+      grantee: object.grantee,
+      msgTypeUrl: object.msg_type_url,
+    };
+  },
+  toAmino(message: MsgRevoke): MsgRevokeAmino {
+    const obj: any = {};
+    obj.granter = message.granter;
+    obj.grantee = message.grantee;
+    obj.msg_type_url = message.msgTypeUrl;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRevokeAminoMsg): MsgRevoke {
+    return MsgRevoke.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRevoke): MsgRevokeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRevoke",
+      value: MsgRevoke.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRevokeResponse(): MsgRevokeResponse {
   return {};
@@ -347,6 +457,22 @@ export const MsgRevokeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgRevokeResponse>, I>>(_: I): MsgRevokeResponse {
     const message = createBaseMsgRevokeResponse();
     return message;
+  },
+  fromAmino(_: MsgRevokeResponseAmino): MsgRevokeResponse {
+    return {};
+  },
+  toAmino(_: MsgRevokeResponse): MsgRevokeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRevokeResponseAminoMsg): MsgRevokeResponse {
+    return MsgRevokeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRevokeResponse): MsgRevokeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRevokeResponse",
+      value: MsgRevokeResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the authz Msg service. */

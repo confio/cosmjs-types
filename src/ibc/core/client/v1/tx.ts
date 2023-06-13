@@ -147,6 +147,29 @@ export const MsgCreateClient = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgCreateClientAmino): MsgCreateClient {
+    return {
+      clientState: object?.client_state ? Any.fromAmino(object.client_state) : undefined,
+      consensusState: object?.consensus_state ? Any.fromAmino(object.consensus_state) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgCreateClient): MsgCreateClientAmino {
+    const obj: any = {};
+    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
+    obj.consensus_state = message.consensusState ? Any.toAmino(message.consensusState) : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateClientAminoMsg): MsgCreateClient {
+    return MsgCreateClient.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateClient): MsgCreateClientAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreateClient",
+      value: MsgCreateClient.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCreateClientResponse(): MsgCreateClientResponse {
   return {};
@@ -179,6 +202,22 @@ export const MsgCreateClientResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgCreateClientResponse>, I>>(_: I): MsgCreateClientResponse {
     const message = createBaseMsgCreateClientResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateClientResponseAmino): MsgCreateClientResponse {
+    return {};
+  },
+  toAmino(_: MsgCreateClientResponse): MsgCreateClientResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateClientResponseAminoMsg): MsgCreateClientResponse {
+    return MsgCreateClientResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateClientResponse): MsgCreateClientResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreateClientResponse",
+      value: MsgCreateClientResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpdateClient(): MsgUpdateClient {
@@ -249,6 +288,29 @@ export const MsgUpdateClient = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgUpdateClientAmino): MsgUpdateClient {
+    return {
+      clientId: object.client_id,
+      clientMessage: object?.client_message ? Any.fromAmino(object.client_message) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgUpdateClient): MsgUpdateClientAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.client_message = message.clientMessage ? Any.toAmino(message.clientMessage) : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateClientAminoMsg): MsgUpdateClient {
+    return MsgUpdateClient.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateClient): MsgUpdateClientAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateClient",
+      value: MsgUpdateClient.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateClientResponse(): MsgUpdateClientResponse {
   return {};
@@ -281,6 +343,22 @@ export const MsgUpdateClientResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateClientResponse>, I>>(_: I): MsgUpdateClientResponse {
     const message = createBaseMsgUpdateClientResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateClientResponseAmino): MsgUpdateClientResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateClientResponse): MsgUpdateClientResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateClientResponseAminoMsg): MsgUpdateClientResponse {
+    return MsgUpdateClientResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateClientResponse): MsgUpdateClientResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateClientResponse",
+      value: MsgUpdateClientResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpgradeClient(): MsgUpgradeClient {
@@ -397,6 +475,35 @@ export const MsgUpgradeClient = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgUpgradeClientAmino): MsgUpgradeClient {
+    return {
+      clientId: object.client_id,
+      clientState: object?.client_state ? Any.fromAmino(object.client_state) : undefined,
+      consensusState: object?.consensus_state ? Any.fromAmino(object.consensus_state) : undefined,
+      proofUpgradeClient: object.proof_upgrade_client,
+      proofUpgradeConsensusState: object.proof_upgrade_consensus_state,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgUpgradeClient): MsgUpgradeClientAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
+    obj.consensus_state = message.consensusState ? Any.toAmino(message.consensusState) : undefined;
+    obj.proof_upgrade_client = message.proofUpgradeClient;
+    obj.proof_upgrade_consensus_state = message.proofUpgradeConsensusState;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpgradeClientAminoMsg): MsgUpgradeClient {
+    return MsgUpgradeClient.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpgradeClient): MsgUpgradeClientAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpgradeClient",
+      value: MsgUpgradeClient.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpgradeClientResponse(): MsgUpgradeClientResponse {
   return {};
@@ -429,6 +536,22 @@ export const MsgUpgradeClientResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpgradeClientResponse>, I>>(_: I): MsgUpgradeClientResponse {
     const message = createBaseMsgUpgradeClientResponse();
     return message;
+  },
+  fromAmino(_: MsgUpgradeClientResponseAmino): MsgUpgradeClientResponse {
+    return {};
+  },
+  toAmino(_: MsgUpgradeClientResponse): MsgUpgradeClientResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpgradeClientResponseAminoMsg): MsgUpgradeClientResponse {
+    return MsgUpgradeClientResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpgradeClientResponse): MsgUpgradeClientResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpgradeClientResponse",
+      value: MsgUpgradeClientResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSubmitMisbehaviour(): MsgSubmitMisbehaviour {
@@ -499,6 +622,29 @@ export const MsgSubmitMisbehaviour = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgSubmitMisbehaviourAmino): MsgSubmitMisbehaviour {
+    return {
+      clientId: object.client_id,
+      misbehaviour: object?.misbehaviour ? Any.fromAmino(object.misbehaviour) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgSubmitMisbehaviour): MsgSubmitMisbehaviourAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.misbehaviour = message.misbehaviour ? Any.toAmino(message.misbehaviour) : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitMisbehaviourAminoMsg): MsgSubmitMisbehaviour {
+    return MsgSubmitMisbehaviour.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitMisbehaviour): MsgSubmitMisbehaviourAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitMisbehaviour",
+      value: MsgSubmitMisbehaviour.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSubmitMisbehaviourResponse(): MsgSubmitMisbehaviourResponse {
   return {};
@@ -533,6 +679,22 @@ export const MsgSubmitMisbehaviourResponse = {
   ): MsgSubmitMisbehaviourResponse {
     const message = createBaseMsgSubmitMisbehaviourResponse();
     return message;
+  },
+  fromAmino(_: MsgSubmitMisbehaviourResponseAmino): MsgSubmitMisbehaviourResponse {
+    return {};
+  },
+  toAmino(_: MsgSubmitMisbehaviourResponse): MsgSubmitMisbehaviourResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitMisbehaviourResponseAminoMsg): MsgSubmitMisbehaviourResponse {
+    return MsgSubmitMisbehaviourResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitMisbehaviourResponse): MsgSubmitMisbehaviourResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitMisbehaviourResponse",
+      value: MsgSubmitMisbehaviourResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the ibc/client Msg service. */

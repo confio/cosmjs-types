@@ -51,4 +51,23 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      authority: object.authority,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

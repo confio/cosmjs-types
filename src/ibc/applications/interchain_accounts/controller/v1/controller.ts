@@ -54,4 +54,23 @@ export const Params = {
     message.controllerEnabled = object.controllerEnabled ?? false;
     return message;
   },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      controllerEnabled: object.controller_enabled,
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.controller_enabled = message.controllerEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
+  },
 };

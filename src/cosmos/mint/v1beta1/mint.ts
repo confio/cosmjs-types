@@ -78,6 +78,27 @@ export const Minter = {
     message.annualProvisions = object.annualProvisions ?? "";
     return message;
   },
+  fromAmino(object: MinterAmino): Minter {
+    return {
+      inflation: object.inflation,
+      annualProvisions: object.annual_provisions,
+    };
+  },
+  toAmino(message: Minter): MinterAmino {
+    const obj: any = {};
+    obj.inflation = message.inflation;
+    obj.annual_provisions = message.annualProvisions;
+    return obj;
+  },
+  fromAminoMsg(object: MinterAminoMsg): Minter {
+    return Minter.fromAmino(object.value);
+  },
+  toAminoMsg(message: Minter): MinterAminoMsg {
+    return {
+      type: "cosmos-sdk/Minter",
+      value: Minter.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -176,5 +197,34 @@ export const Params = {
         ? Long.fromValue(object.blocksPerYear)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      mintDenom: object.mint_denom,
+      inflationRateChange: object.inflation_rate_change,
+      inflationMax: object.inflation_max,
+      inflationMin: object.inflation_min,
+      goalBonded: object.goal_bonded,
+      blocksPerYear: Long.fromString(object.blocks_per_year),
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.mint_denom = message.mintDenom;
+    obj.inflation_rate_change = message.inflationRateChange;
+    obj.inflation_max = message.inflationMax;
+    obj.inflation_min = message.inflationMin;
+    obj.goal_bonded = message.goalBonded;
+    obj.blocks_per_year = message.blocksPerYear ? message.blocksPerYear.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/mint/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

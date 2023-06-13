@@ -90,6 +90,27 @@ export const MsgSoftwareUpgrade = {
       object.plan !== undefined && object.plan !== null ? Plan.fromPartial(object.plan) : undefined;
     return message;
   },
+  fromAmino(object: MsgSoftwareUpgradeAmino): MsgSoftwareUpgrade {
+    return {
+      authority: object.authority,
+      plan: object?.plan ? Plan.fromAmino(object.plan) : undefined,
+    };
+  },
+  toAmino(message: MsgSoftwareUpgrade): MsgSoftwareUpgradeAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.plan = message.plan ? Plan.toAmino(message.plan) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSoftwareUpgradeAminoMsg): MsgSoftwareUpgrade {
+    return MsgSoftwareUpgrade.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSoftwareUpgrade): MsgSoftwareUpgradeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSoftwareUpgrade",
+      value: MsgSoftwareUpgrade.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
   return {};
@@ -122,6 +143,22 @@ export const MsgSoftwareUpgradeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSoftwareUpgradeResponse>, I>>(_: I): MsgSoftwareUpgradeResponse {
     const message = createBaseMsgSoftwareUpgradeResponse();
     return message;
+  },
+  fromAmino(_: MsgSoftwareUpgradeResponseAmino): MsgSoftwareUpgradeResponse {
+    return {};
+  },
+  toAmino(_: MsgSoftwareUpgradeResponse): MsgSoftwareUpgradeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSoftwareUpgradeResponseAminoMsg): MsgSoftwareUpgradeResponse {
+    return MsgSoftwareUpgradeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSoftwareUpgradeResponse): MsgSoftwareUpgradeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSoftwareUpgradeResponse",
+      value: MsgSoftwareUpgradeResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
@@ -168,6 +205,25 @@ export const MsgCancelUpgrade = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: MsgCancelUpgradeAmino): MsgCancelUpgrade {
+    return {
+      authority: object.authority,
+    };
+  },
+  toAmino(message: MsgCancelUpgrade): MsgCancelUpgradeAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelUpgradeAminoMsg): MsgCancelUpgrade {
+    return MsgCancelUpgrade.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCancelUpgrade): MsgCancelUpgradeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCancelUpgrade",
+      value: MsgCancelUpgrade.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
   return {};
@@ -200,6 +256,22 @@ export const MsgCancelUpgradeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgCancelUpgradeResponse>, I>>(_: I): MsgCancelUpgradeResponse {
     const message = createBaseMsgCancelUpgradeResponse();
     return message;
+  },
+  fromAmino(_: MsgCancelUpgradeResponseAmino): MsgCancelUpgradeResponse {
+    return {};
+  },
+  toAmino(_: MsgCancelUpgradeResponse): MsgCancelUpgradeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelUpgradeResponseAminoMsg): MsgCancelUpgradeResponse {
+    return MsgCancelUpgradeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCancelUpgradeResponse): MsgCancelUpgradeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCancelUpgradeResponse",
+      value: MsgCancelUpgradeResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the upgrade Msg service. */

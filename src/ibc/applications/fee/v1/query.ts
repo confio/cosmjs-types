@@ -189,6 +189,27 @@ export const QueryIncentivizedPacketsRequest = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: QueryIncentivizedPacketsRequestAmino): QueryIncentivizedPacketsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      queryHeight: Long.fromString(object.query_height),
+    };
+  },
+  toAmino(message: QueryIncentivizedPacketsRequest): QueryIncentivizedPacketsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.query_height = message.queryHeight ? message.queryHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryIncentivizedPacketsRequestAminoMsg): QueryIncentivizedPacketsRequest {
+    return QueryIncentivizedPacketsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryIncentivizedPacketsRequest): QueryIncentivizedPacketsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketsRequest",
+      value: QueryIncentivizedPacketsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryIncentivizedPacketsResponse(): QueryIncentivizedPacketsResponse {
   return {
@@ -244,6 +265,33 @@ export const QueryIncentivizedPacketsResponse = {
     message.incentivizedPackets =
       object.incentivizedPackets?.map((e) => IdentifiedPacketFees.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryIncentivizedPacketsResponseAmino): QueryIncentivizedPacketsResponse {
+    return {
+      incentivizedPackets: Array.isArray(object?.incentivized_packets)
+        ? object.incentivized_packets.map((e: any) => IdentifiedPacketFees.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: QueryIncentivizedPacketsResponse): QueryIncentivizedPacketsResponseAmino {
+    const obj: any = {};
+    if (message.incentivizedPackets) {
+      obj.incentivized_packets = message.incentivizedPackets.map((e) =>
+        e ? IdentifiedPacketFees.toAmino(e) : undefined,
+      );
+    } else {
+      obj.incentivized_packets = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryIncentivizedPacketsResponseAminoMsg): QueryIncentivizedPacketsResponse {
+    return QueryIncentivizedPacketsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryIncentivizedPacketsResponse): QueryIncentivizedPacketsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketsResponse",
+      value: QueryIncentivizedPacketsResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryIncentivizedPacketRequest(): QueryIncentivizedPacketRequest {
@@ -309,6 +357,27 @@ export const QueryIncentivizedPacketRequest = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: QueryIncentivizedPacketRequestAmino): QueryIncentivizedPacketRequest {
+    return {
+      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined,
+      queryHeight: Long.fromString(object.query_height),
+    };
+  },
+  toAmino(message: QueryIncentivizedPacketRequest): QueryIncentivizedPacketRequestAmino {
+    const obj: any = {};
+    obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
+    obj.query_height = message.queryHeight ? message.queryHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryIncentivizedPacketRequestAminoMsg): QueryIncentivizedPacketRequest {
+    return QueryIncentivizedPacketRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryIncentivizedPacketRequest): QueryIncentivizedPacketRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketRequest",
+      value: QueryIncentivizedPacketRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryIncentivizedPacketResponse(): QueryIncentivizedPacketResponse {
   return {
@@ -363,6 +432,29 @@ export const QueryIncentivizedPacketResponse = {
         ? IdentifiedPacketFees.fromPartial(object.incentivizedPacket)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryIncentivizedPacketResponseAmino): QueryIncentivizedPacketResponse {
+    return {
+      incentivizedPacket: object?.incentivized_packet
+        ? IdentifiedPacketFees.fromAmino(object.incentivized_packet)
+        : undefined,
+    };
+  },
+  toAmino(message: QueryIncentivizedPacketResponse): QueryIncentivizedPacketResponseAmino {
+    const obj: any = {};
+    obj.incentivized_packet = message.incentivizedPacket
+      ? IdentifiedPacketFees.toAmino(message.incentivizedPacket)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryIncentivizedPacketResponseAminoMsg): QueryIncentivizedPacketResponse {
+    return QueryIncentivizedPacketResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryIncentivizedPacketResponse): QueryIncentivizedPacketResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketResponse",
+      value: QueryIncentivizedPacketResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryIncentivizedPacketsForChannelRequest(): QueryIncentivizedPacketsForChannelRequest {
@@ -451,6 +543,39 @@ export const QueryIncentivizedPacketsForChannelRequest = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(
+    object: QueryIncentivizedPacketsForChannelRequestAmino,
+  ): QueryIncentivizedPacketsForChannelRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      portId: object.port_id,
+      channelId: object.channel_id,
+      queryHeight: Long.fromString(object.query_height),
+    };
+  },
+  toAmino(
+    message: QueryIncentivizedPacketsForChannelRequest,
+  ): QueryIncentivizedPacketsForChannelRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.query_height = message.queryHeight ? message.queryHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(
+    object: QueryIncentivizedPacketsForChannelRequestAminoMsg,
+  ): QueryIncentivizedPacketsForChannelRequest {
+    return QueryIncentivizedPacketsForChannelRequest.fromAmino(object.value);
+  },
+  toAminoMsg(
+    message: QueryIncentivizedPacketsForChannelRequest,
+  ): QueryIncentivizedPacketsForChannelRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketsForChannelRequest",
+      value: QueryIncentivizedPacketsForChannelRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryIncentivizedPacketsForChannelResponse(): QueryIncentivizedPacketsForChannelResponse {
   return {
@@ -510,6 +635,41 @@ export const QueryIncentivizedPacketsForChannelResponse = {
       object.incentivizedPackets?.map((e) => IdentifiedPacketFees.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(
+    object: QueryIncentivizedPacketsForChannelResponseAmino,
+  ): QueryIncentivizedPacketsForChannelResponse {
+    return {
+      incentivizedPackets: Array.isArray(object?.incentivized_packets)
+        ? object.incentivized_packets.map((e: any) => IdentifiedPacketFees.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(
+    message: QueryIncentivizedPacketsForChannelResponse,
+  ): QueryIncentivizedPacketsForChannelResponseAmino {
+    const obj: any = {};
+    if (message.incentivizedPackets) {
+      obj.incentivized_packets = message.incentivizedPackets.map((e) =>
+        e ? IdentifiedPacketFees.toAmino(e) : undefined,
+      );
+    } else {
+      obj.incentivized_packets = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(
+    object: QueryIncentivizedPacketsForChannelResponseAminoMsg,
+  ): QueryIncentivizedPacketsForChannelResponse {
+    return QueryIncentivizedPacketsForChannelResponse.fromAmino(object.value);
+  },
+  toAminoMsg(
+    message: QueryIncentivizedPacketsForChannelResponse,
+  ): QueryIncentivizedPacketsForChannelResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryIncentivizedPacketsForChannelResponse",
+      value: QueryIncentivizedPacketsForChannelResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryTotalRecvFeesRequest(): QueryTotalRecvFeesRequest {
   return {
@@ -560,6 +720,25 @@ export const QueryTotalRecvFeesRequest = {
         ? PacketId.fromPartial(object.packetId)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryTotalRecvFeesRequestAmino): QueryTotalRecvFeesRequest {
+    return {
+      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined,
+    };
+  },
+  toAmino(message: QueryTotalRecvFeesRequest): QueryTotalRecvFeesRequestAmino {
+    const obj: any = {};
+    obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalRecvFeesRequestAminoMsg): QueryTotalRecvFeesRequest {
+    return QueryTotalRecvFeesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalRecvFeesRequest): QueryTotalRecvFeesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalRecvFeesRequest",
+      value: QueryTotalRecvFeesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryTotalRecvFeesResponse(): QueryTotalRecvFeesResponse {
@@ -612,6 +791,29 @@ export const QueryTotalRecvFeesResponse = {
     message.recvFees = object.recvFees?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: QueryTotalRecvFeesResponseAmino): QueryTotalRecvFeesResponse {
+    return {
+      recvFees: Array.isArray(object?.recv_fees) ? object.recv_fees.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: QueryTotalRecvFeesResponse): QueryTotalRecvFeesResponseAmino {
+    const obj: any = {};
+    if (message.recvFees) {
+      obj.recv_fees = message.recvFees.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.recv_fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalRecvFeesResponseAminoMsg): QueryTotalRecvFeesResponse {
+    return QueryTotalRecvFeesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalRecvFeesResponse): QueryTotalRecvFeesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalRecvFeesResponse",
+      value: QueryTotalRecvFeesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryTotalAckFeesRequest(): QueryTotalAckFeesRequest {
   return {
@@ -662,6 +864,25 @@ export const QueryTotalAckFeesRequest = {
         ? PacketId.fromPartial(object.packetId)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryTotalAckFeesRequestAmino): QueryTotalAckFeesRequest {
+    return {
+      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined,
+    };
+  },
+  toAmino(message: QueryTotalAckFeesRequest): QueryTotalAckFeesRequestAmino {
+    const obj: any = {};
+    obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalAckFeesRequestAminoMsg): QueryTotalAckFeesRequest {
+    return QueryTotalAckFeesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalAckFeesRequest): QueryTotalAckFeesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalAckFeesRequest",
+      value: QueryTotalAckFeesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryTotalAckFeesResponse(): QueryTotalAckFeesResponse {
@@ -714,6 +935,29 @@ export const QueryTotalAckFeesResponse = {
     message.ackFees = object.ackFees?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: QueryTotalAckFeesResponseAmino): QueryTotalAckFeesResponse {
+    return {
+      ackFees: Array.isArray(object?.ack_fees) ? object.ack_fees.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: QueryTotalAckFeesResponse): QueryTotalAckFeesResponseAmino {
+    const obj: any = {};
+    if (message.ackFees) {
+      obj.ack_fees = message.ackFees.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.ack_fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalAckFeesResponseAminoMsg): QueryTotalAckFeesResponse {
+    return QueryTotalAckFeesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalAckFeesResponse): QueryTotalAckFeesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalAckFeesResponse",
+      value: QueryTotalAckFeesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryTotalTimeoutFeesRequest(): QueryTotalTimeoutFeesRequest {
   return {
@@ -764,6 +1008,25 @@ export const QueryTotalTimeoutFeesRequest = {
         ? PacketId.fromPartial(object.packetId)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryTotalTimeoutFeesRequestAmino): QueryTotalTimeoutFeesRequest {
+    return {
+      packetId: object?.packet_id ? PacketId.fromAmino(object.packet_id) : undefined,
+    };
+  },
+  toAmino(message: QueryTotalTimeoutFeesRequest): QueryTotalTimeoutFeesRequestAmino {
+    const obj: any = {};
+    obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalTimeoutFeesRequestAminoMsg): QueryTotalTimeoutFeesRequest {
+    return QueryTotalTimeoutFeesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalTimeoutFeesRequest): QueryTotalTimeoutFeesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalTimeoutFeesRequest",
+      value: QueryTotalTimeoutFeesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryTotalTimeoutFeesResponse(): QueryTotalTimeoutFeesResponse {
@@ -817,6 +1080,31 @@ export const QueryTotalTimeoutFeesResponse = {
     const message = createBaseQueryTotalTimeoutFeesResponse();
     message.timeoutFees = object.timeoutFees?.map((e) => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryTotalTimeoutFeesResponseAmino): QueryTotalTimeoutFeesResponse {
+    return {
+      timeoutFees: Array.isArray(object?.timeout_fees)
+        ? object.timeout_fees.map((e: any) => Coin.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: QueryTotalTimeoutFeesResponse): QueryTotalTimeoutFeesResponseAmino {
+    const obj: any = {};
+    if (message.timeoutFees) {
+      obj.timeout_fees = message.timeoutFees.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.timeout_fees = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryTotalTimeoutFeesResponseAminoMsg): QueryTotalTimeoutFeesResponse {
+    return QueryTotalTimeoutFeesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTotalTimeoutFeesResponse): QueryTotalTimeoutFeesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTotalTimeoutFeesResponse",
+      value: QueryTotalTimeoutFeesResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryPayeeRequest(): QueryPayeeRequest {
@@ -873,6 +1161,27 @@ export const QueryPayeeRequest = {
     message.relayer = object.relayer ?? "";
     return message;
   },
+  fromAmino(object: QueryPayeeRequestAmino): QueryPayeeRequest {
+    return {
+      channelId: object.channel_id,
+      relayer: object.relayer,
+    };
+  },
+  toAmino(message: QueryPayeeRequest): QueryPayeeRequestAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId;
+    obj.relayer = message.relayer;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPayeeRequestAminoMsg): QueryPayeeRequest {
+    return QueryPayeeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryPayeeRequest): QueryPayeeRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryPayeeRequest",
+      value: QueryPayeeRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryPayeeResponse(): QueryPayeeResponse {
   return {
@@ -917,6 +1226,25 @@ export const QueryPayeeResponse = {
     const message = createBaseQueryPayeeResponse();
     message.payeeAddress = object.payeeAddress ?? "";
     return message;
+  },
+  fromAmino(object: QueryPayeeResponseAmino): QueryPayeeResponse {
+    return {
+      payeeAddress: object.payee_address,
+    };
+  },
+  toAmino(message: QueryPayeeResponse): QueryPayeeResponseAmino {
+    const obj: any = {};
+    obj.payee_address = message.payeeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPayeeResponseAminoMsg): QueryPayeeResponse {
+    return QueryPayeeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryPayeeResponse): QueryPayeeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryPayeeResponse",
+      value: QueryPayeeResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryCounterpartyPayeeRequest(): QueryCounterpartyPayeeRequest {
@@ -975,6 +1303,27 @@ export const QueryCounterpartyPayeeRequest = {
     message.relayer = object.relayer ?? "";
     return message;
   },
+  fromAmino(object: QueryCounterpartyPayeeRequestAmino): QueryCounterpartyPayeeRequest {
+    return {
+      channelId: object.channel_id,
+      relayer: object.relayer,
+    };
+  },
+  toAmino(message: QueryCounterpartyPayeeRequest): QueryCounterpartyPayeeRequestAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId;
+    obj.relayer = message.relayer;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCounterpartyPayeeRequestAminoMsg): QueryCounterpartyPayeeRequest {
+    return QueryCounterpartyPayeeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCounterpartyPayeeRequest): QueryCounterpartyPayeeRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryCounterpartyPayeeRequest",
+      value: QueryCounterpartyPayeeRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryCounterpartyPayeeResponse(): QueryCounterpartyPayeeResponse {
   return {
@@ -1021,6 +1370,25 @@ export const QueryCounterpartyPayeeResponse = {
     const message = createBaseQueryCounterpartyPayeeResponse();
     message.counterpartyPayee = object.counterpartyPayee ?? "";
     return message;
+  },
+  fromAmino(object: QueryCounterpartyPayeeResponseAmino): QueryCounterpartyPayeeResponse {
+    return {
+      counterpartyPayee: object.counterparty_payee,
+    };
+  },
+  toAmino(message: QueryCounterpartyPayeeResponse): QueryCounterpartyPayeeResponseAmino {
+    const obj: any = {};
+    obj.counterparty_payee = message.counterpartyPayee;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCounterpartyPayeeResponseAminoMsg): QueryCounterpartyPayeeResponse {
+    return QueryCounterpartyPayeeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCounterpartyPayeeResponse): QueryCounterpartyPayeeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryCounterpartyPayeeResponse",
+      value: QueryCounterpartyPayeeResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryFeeEnabledChannelsRequest(): QueryFeeEnabledChannelsRequest {
@@ -1086,6 +1454,27 @@ export const QueryFeeEnabledChannelsRequest = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: QueryFeeEnabledChannelsRequestAmino): QueryFeeEnabledChannelsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      queryHeight: Long.fromString(object.query_height),
+    };
+  },
+  toAmino(message: QueryFeeEnabledChannelsRequest): QueryFeeEnabledChannelsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.query_height = message.queryHeight ? message.queryHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeeEnabledChannelsRequestAminoMsg): QueryFeeEnabledChannelsRequest {
+    return QueryFeeEnabledChannelsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFeeEnabledChannelsRequest): QueryFeeEnabledChannelsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryFeeEnabledChannelsRequest",
+      value: QueryFeeEnabledChannelsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryFeeEnabledChannelsResponse(): QueryFeeEnabledChannelsResponse {
   return {
@@ -1141,6 +1530,33 @@ export const QueryFeeEnabledChannelsResponse = {
     message.feeEnabledChannels =
       object.feeEnabledChannels?.map((e) => FeeEnabledChannel.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QueryFeeEnabledChannelsResponseAmino): QueryFeeEnabledChannelsResponse {
+    return {
+      feeEnabledChannels: Array.isArray(object?.fee_enabled_channels)
+        ? object.fee_enabled_channels.map((e: any) => FeeEnabledChannel.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: QueryFeeEnabledChannelsResponse): QueryFeeEnabledChannelsResponseAmino {
+    const obj: any = {};
+    if (message.feeEnabledChannels) {
+      obj.fee_enabled_channels = message.feeEnabledChannels.map((e) =>
+        e ? FeeEnabledChannel.toAmino(e) : undefined,
+      );
+    } else {
+      obj.fee_enabled_channels = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeeEnabledChannelsResponseAminoMsg): QueryFeeEnabledChannelsResponse {
+    return QueryFeeEnabledChannelsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFeeEnabledChannelsResponse): QueryFeeEnabledChannelsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryFeeEnabledChannelsResponse",
+      value: QueryFeeEnabledChannelsResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryFeeEnabledChannelRequest(): QueryFeeEnabledChannelRequest {
@@ -1199,6 +1615,27 @@ export const QueryFeeEnabledChannelRequest = {
     message.channelId = object.channelId ?? "";
     return message;
   },
+  fromAmino(object: QueryFeeEnabledChannelRequestAmino): QueryFeeEnabledChannelRequest {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+    };
+  },
+  toAmino(message: QueryFeeEnabledChannelRequest): QueryFeeEnabledChannelRequestAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeeEnabledChannelRequestAminoMsg): QueryFeeEnabledChannelRequest {
+    return QueryFeeEnabledChannelRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFeeEnabledChannelRequest): QueryFeeEnabledChannelRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryFeeEnabledChannelRequest",
+      value: QueryFeeEnabledChannelRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryFeeEnabledChannelResponse(): QueryFeeEnabledChannelResponse {
   return {
@@ -1245,6 +1682,25 @@ export const QueryFeeEnabledChannelResponse = {
     const message = createBaseQueryFeeEnabledChannelResponse();
     message.feeEnabled = object.feeEnabled ?? false;
     return message;
+  },
+  fromAmino(object: QueryFeeEnabledChannelResponseAmino): QueryFeeEnabledChannelResponse {
+    return {
+      feeEnabled: object.fee_enabled,
+    };
+  },
+  toAmino(message: QueryFeeEnabledChannelResponse): QueryFeeEnabledChannelResponseAmino {
+    const obj: any = {};
+    obj.fee_enabled = message.feeEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFeeEnabledChannelResponseAminoMsg): QueryFeeEnabledChannelResponse {
+    return QueryFeeEnabledChannelResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFeeEnabledChannelResponse): QueryFeeEnabledChannelResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryFeeEnabledChannelResponse",
+      value: QueryFeeEnabledChannelResponse.toAmino(message),
+    };
   },
 };
 /** Query defines the ICS29 gRPC querier service. */

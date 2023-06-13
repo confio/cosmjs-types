@@ -141,6 +141,21 @@ export const InterfaceDescriptor = {
     message.description = object.description ?? "";
     return message;
   },
+  fromAmino(object: InterfaceDescriptorAmino): InterfaceDescriptor {
+    return {
+      name: object.name,
+      description: object.description,
+    };
+  },
+  toAmino(message: InterfaceDescriptor): InterfaceDescriptorAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.description = message.description;
+    return obj;
+  },
+  fromAminoMsg(object: InterfaceDescriptorAminoMsg): InterfaceDescriptor {
+    return InterfaceDescriptor.fromAmino(object.value);
+  },
 };
 function createBaseScalarDescriptor(): ScalarDescriptor {
   return {
@@ -220,5 +235,28 @@ export const ScalarDescriptor = {
     message.description = object.description ?? "";
     message.fieldType = object.fieldType?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ScalarDescriptorAmino): ScalarDescriptor {
+    return {
+      name: object.name,
+      description: object.description,
+      fieldType: Array.isArray(object?.field_type)
+        ? object.field_type.map((e: any) => scalarTypeFromJSON(e))
+        : [],
+    };
+  },
+  toAmino(message: ScalarDescriptor): ScalarDescriptorAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.description = message.description;
+    if (message.fieldType) {
+      obj.field_type = message.fieldType.map((e) => scalarTypeToJSON(e));
+    } else {
+      obj.field_type = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ScalarDescriptorAminoMsg): ScalarDescriptor {
+    return ScalarDescriptor.fromAmino(object.value);
   },
 };

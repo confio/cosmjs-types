@@ -61,6 +61,25 @@ export const PubKey = {
     message.key = object.key ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: PubKeyAmino): PubKey {
+    return {
+      key: object.key,
+    };
+  },
+  toAmino(message: PubKey): PubKeyAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    return obj;
+  },
+  fromAminoMsg(object: PubKeyAminoMsg): PubKey {
+    return PubKey.fromAmino(object.value);
+  },
+  toAminoMsg(message: PubKey): PubKeyAminoMsg {
+    return {
+      type: "tendermint/PubKeySecp256k1",
+      value: PubKey.toAmino(message),
+    };
+  },
 };
 function createBasePrivKey(): PrivKey {
   return {
@@ -106,5 +125,24 @@ export const PrivKey = {
     const message = createBasePrivKey();
     message.key = object.key ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PrivKeyAmino): PrivKey {
+    return {
+      key: object.key,
+    };
+  },
+  toAmino(message: PrivKey): PrivKeyAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    return obj;
+  },
+  fromAminoMsg(object: PrivKeyAminoMsg): PrivKey {
+    return PrivKey.fromAmino(object.value);
+  },
+  toAminoMsg(message: PrivKey): PrivKeyAminoMsg {
+    return {
+      type: "tendermint/PrivKeySecp256k1",
+      value: PrivKey.toAmino(message),
+    };
   },
 };

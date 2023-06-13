@@ -83,4 +83,35 @@ export const SendAuthorization = {
     message.allowList = object.allowList?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: SendAuthorizationAmino): SendAuthorization {
+    return {
+      spendLimit: Array.isArray(object?.spend_limit)
+        ? object.spend_limit.map((e: any) => Coin.fromAmino(e))
+        : [],
+      allowList: Array.isArray(object?.allow_list) ? object.allow_list.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: SendAuthorization): SendAuthorizationAmino {
+    const obj: any = {};
+    if (message.spendLimit) {
+      obj.spend_limit = message.spendLimit.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.spend_limit = [];
+    }
+    if (message.allowList) {
+      obj.allow_list = message.allowList.map((e) => e);
+    } else {
+      obj.allow_list = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SendAuthorizationAminoMsg): SendAuthorization {
+    return SendAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: SendAuthorization): SendAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/SendAuthorization",
+      value: SendAuthorization.toAmino(message),
+    };
+  },
 };

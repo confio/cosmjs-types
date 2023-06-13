@@ -94,4 +94,23 @@ export const Block = {
         : undefined;
     return message;
   },
+  fromAmino(object: BlockAmino): Block {
+    return {
+      header: object?.header ? Header.fromAmino(object.header) : undefined,
+      data: object?.data ? Data.fromAmino(object.data) : undefined,
+      evidence: object?.evidence ? EvidenceList.fromAmino(object.evidence) : undefined,
+      lastCommit: object?.last_commit ? Commit.fromAmino(object.last_commit) : undefined,
+    };
+  },
+  toAmino(message: Block): BlockAmino {
+    const obj: any = {};
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    obj.data = message.data ? Data.toAmino(message.data) : undefined;
+    obj.evidence = message.evidence ? EvidenceList.toAmino(message.evidence) : undefined;
+    obj.last_commit = message.lastCommit ? Commit.toAmino(message.lastCommit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockAminoMsg): Block {
+    return Block.fromAmino(object.value);
+  },
 };

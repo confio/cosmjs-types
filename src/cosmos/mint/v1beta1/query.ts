@@ -65,6 +65,22 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -111,6 +127,25 @@ export const QueryParamsResponse = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryInflationRequest(): QueryInflationRequest {
   return {};
@@ -143,6 +178,22 @@ export const QueryInflationRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryInflationRequest>, I>>(_: I): QueryInflationRequest {
     const message = createBaseQueryInflationRequest();
     return message;
+  },
+  fromAmino(_: QueryInflationRequestAmino): QueryInflationRequest {
+    return {};
+  },
+  toAmino(_: QueryInflationRequest): QueryInflationRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflationRequestAminoMsg): QueryInflationRequest {
+    return QueryInflationRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryInflationRequest): QueryInflationRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryInflationRequest",
+      value: QueryInflationRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryInflationResponse(): QueryInflationResponse {
@@ -192,6 +243,25 @@ export const QueryInflationResponse = {
     message.inflation = object.inflation ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QueryInflationResponseAmino): QueryInflationResponse {
+    return {
+      inflation: object.inflation,
+    };
+  },
+  toAmino(message: QueryInflationResponse): QueryInflationResponseAmino {
+    const obj: any = {};
+    obj.inflation = message.inflation;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInflationResponseAminoMsg): QueryInflationResponse {
+    return QueryInflationResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryInflationResponse): QueryInflationResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryInflationResponse",
+      value: QueryInflationResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAnnualProvisionsRequest(): QueryAnnualProvisionsRequest {
   return {};
@@ -226,6 +296,22 @@ export const QueryAnnualProvisionsRequest = {
   ): QueryAnnualProvisionsRequest {
     const message = createBaseQueryAnnualProvisionsRequest();
     return message;
+  },
+  fromAmino(_: QueryAnnualProvisionsRequestAmino): QueryAnnualProvisionsRequest {
+    return {};
+  },
+  toAmino(_: QueryAnnualProvisionsRequest): QueryAnnualProvisionsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryAnnualProvisionsRequestAminoMsg): QueryAnnualProvisionsRequest {
+    return QueryAnnualProvisionsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAnnualProvisionsRequest): QueryAnnualProvisionsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAnnualProvisionsRequest",
+      value: QueryAnnualProvisionsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAnnualProvisionsResponse(): QueryAnnualProvisionsResponse {
@@ -278,6 +364,25 @@ export const QueryAnnualProvisionsResponse = {
     const message = createBaseQueryAnnualProvisionsResponse();
     message.annualProvisions = object.annualProvisions ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: QueryAnnualProvisionsResponseAmino): QueryAnnualProvisionsResponse {
+    return {
+      annualProvisions: object.annual_provisions,
+    };
+  },
+  toAmino(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseAmino {
+    const obj: any = {};
+    obj.annual_provisions = message.annualProvisions;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAnnualProvisionsResponseAminoMsg): QueryAnnualProvisionsResponse {
+    return QueryAnnualProvisionsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAnnualProvisionsResponse): QueryAnnualProvisionsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAnnualProvisionsResponse",
+      value: QueryAnnualProvisionsResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service. */

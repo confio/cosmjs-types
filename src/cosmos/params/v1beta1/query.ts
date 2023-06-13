@@ -95,6 +95,27 @@ export const QueryParamsRequest = {
     message.key = object.key ?? "";
     return message;
   },
+  fromAmino(object: QueryParamsRequestAmino): QueryParamsRequest {
+    return {
+      subspace: object.subspace,
+      key: object.key,
+    };
+  },
+  toAmino(message: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace;
+    obj.key = message.key;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -142,6 +163,25 @@ export const QueryParamsResponse = {
       object.param !== undefined && object.param !== null ? ParamChange.fromPartial(object.param) : undefined;
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      param: object?.param ? ParamChange.fromAmino(object.param) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.param = message.param ? ParamChange.toAmino(message.param) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySubspacesRequest(): QuerySubspacesRequest {
   return {};
@@ -174,6 +214,22 @@ export const QuerySubspacesRequest = {
   fromPartial<I extends Exact<DeepPartial<QuerySubspacesRequest>, I>>(_: I): QuerySubspacesRequest {
     const message = createBaseQuerySubspacesRequest();
     return message;
+  },
+  fromAmino(_: QuerySubspacesRequestAmino): QuerySubspacesRequest {
+    return {};
+  },
+  toAmino(_: QuerySubspacesRequest): QuerySubspacesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QuerySubspacesRequestAminoMsg): QuerySubspacesRequest {
+    return QuerySubspacesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySubspacesRequest): QuerySubspacesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySubspacesRequest",
+      value: QuerySubspacesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQuerySubspacesResponse(): QuerySubspacesResponse {
@@ -225,6 +281,31 @@ export const QuerySubspacesResponse = {
     const message = createBaseQuerySubspacesResponse();
     message.subspaces = object.subspaces?.map((e) => Subspace.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QuerySubspacesResponseAmino): QuerySubspacesResponse {
+    return {
+      subspaces: Array.isArray(object?.subspaces)
+        ? object.subspaces.map((e: any) => Subspace.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: QuerySubspacesResponse): QuerySubspacesResponseAmino {
+    const obj: any = {};
+    if (message.subspaces) {
+      obj.subspaces = message.subspaces.map((e) => (e ? Subspace.toAmino(e) : undefined));
+    } else {
+      obj.subspaces = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QuerySubspacesResponseAminoMsg): QuerySubspacesResponse {
+    return QuerySubspacesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySubspacesResponse): QuerySubspacesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySubspacesResponse",
+      value: QuerySubspacesResponse.toAmino(message),
+    };
   },
 };
 function createBaseSubspace(): Subspace {
@@ -284,6 +365,31 @@ export const Subspace = {
     message.subspace = object.subspace ?? "";
     message.keys = object.keys?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: SubspaceAmino): Subspace {
+    return {
+      subspace: object.subspace,
+      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: Subspace): SubspaceAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace;
+    if (message.keys) {
+      obj.keys = message.keys.map((e) => e);
+    } else {
+      obj.keys = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubspaceAminoMsg): Subspace {
+    return Subspace.fromAmino(object.value);
+  },
+  toAminoMsg(message: Subspace): SubspaceAminoMsg {
+    return {
+      type: "cosmos-sdk/Subspace",
+      value: Subspace.toAmino(message),
+    };
   },
 };
 /** Query defines the gRPC querier service. */

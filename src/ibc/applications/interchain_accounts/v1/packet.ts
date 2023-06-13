@@ -116,6 +116,29 @@ export const InterchainAccountPacketData = {
     message.memo = object.memo ?? "";
     return message;
   },
+  fromAmino(object: InterchainAccountPacketDataAmino): InterchainAccountPacketData {
+    return {
+      type: isSet(object.type) ? typeFromJSON(object.type) : 0,
+      data: object.data,
+      memo: object.memo,
+    };
+  },
+  toAmino(message: InterchainAccountPacketData): InterchainAccountPacketDataAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.data = message.data;
+    obj.memo = message.memo;
+    return obj;
+  },
+  fromAminoMsg(object: InterchainAccountPacketDataAminoMsg): InterchainAccountPacketData {
+    return InterchainAccountPacketData.fromAmino(object.value);
+  },
+  toAminoMsg(message: InterchainAccountPacketData): InterchainAccountPacketDataAminoMsg {
+    return {
+      type: "cosmos-sdk/InterchainAccountPacketData",
+      value: InterchainAccountPacketData.toAmino(message),
+    };
+  },
 };
 function createBaseCosmosTx(): CosmosTx {
   return {
@@ -164,5 +187,28 @@ export const CosmosTx = {
     const message = createBaseCosmosTx();
     message.messages = object.messages?.map((e) => Any.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CosmosTxAmino): CosmosTx {
+    return {
+      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: CosmosTx): CosmosTxAmino {
+    const obj: any = {};
+    if (message.messages) {
+      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.messages = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CosmosTxAminoMsg): CosmosTx {
+    return CosmosTx.fromAmino(object.value);
+  },
+  toAminoMsg(message: CosmosTx): CosmosTxAminoMsg {
+    return {
+      type: "cosmos-sdk/CosmosTx",
+      value: CosmosTx.toAmino(message),
+    };
   },
 };

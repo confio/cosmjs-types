@@ -54,4 +54,23 @@ export const Module = {
     message.sealKeeper = object.sealKeeper ?? false;
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      sealKeeper: object.seal_keeper,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.seal_keeper = message.sealKeeper;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

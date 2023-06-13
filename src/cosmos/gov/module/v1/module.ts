@@ -70,4 +70,25 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      maxMetadataLen: Long.fromString(object.max_metadata_len),
+      authority: object.authority,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.max_metadata_len = message.maxMetadataLen ? message.maxMetadataLen.toString() : undefined;
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

@@ -72,4 +72,29 @@ export const Params = {
     message.allowMessages = object.allowMessages?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      hostEnabled: object.host_enabled,
+      allowMessages: Array.isArray(object?.allow_messages) ? object.allow_messages.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.host_enabled = message.hostEnabled;
+    if (message.allowMessages) {
+      obj.allow_messages = message.allowMessages.map((e) => e);
+    } else {
+      obj.allow_messages = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
+  },
 };

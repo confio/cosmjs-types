@@ -212,6 +212,25 @@ export const QueryClientStateRequest = {
     message.clientId = object.clientId ?? "";
     return message;
   },
+  fromAmino(object: QueryClientStateRequestAmino): QueryClientStateRequest {
+    return {
+      clientId: object.client_id,
+    };
+  },
+  toAmino(message: QueryClientStateRequest): QueryClientStateRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStateRequestAminoMsg): QueryClientStateRequest {
+    return QueryClientStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStateRequest): QueryClientStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStateRequest",
+      value: QueryClientStateRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClientStateResponse(): QueryClientStateResponse {
   return {
@@ -288,6 +307,29 @@ export const QueryClientStateResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryClientStateResponseAmino): QueryClientStateResponse {
+    return {
+      clientState: object?.client_state ? Any.fromAmino(object.client_state) : undefined,
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryClientStateResponse): QueryClientStateResponseAmino {
+    const obj: any = {};
+    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStateResponseAminoMsg): QueryClientStateResponse {
+    return QueryClientStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStateResponse): QueryClientStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStateResponse",
+      value: QueryClientStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClientStatesRequest(): QueryClientStatesRequest {
   return {
@@ -338,6 +380,25 @@ export const QueryClientStatesRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryClientStatesRequestAmino): QueryClientStatesRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryClientStatesRequest): QueryClientStatesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStatesRequestAminoMsg): QueryClientStatesRequest {
+    return QueryClientStatesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStatesRequest): QueryClientStatesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStatesRequest",
+      value: QueryClientStatesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryClientStatesResponse(): QueryClientStatesResponse {
@@ -405,6 +466,33 @@ export const QueryClientStatesResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryClientStatesResponseAmino): QueryClientStatesResponse {
+    return {
+      clientStates: Array.isArray(object?.client_states)
+        ? object.client_states.map((e: any) => IdentifiedClientState.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryClientStatesResponse): QueryClientStatesResponseAmino {
+    const obj: any = {};
+    if (message.clientStates) {
+      obj.client_states = message.clientStates.map((e) => (e ? IdentifiedClientState.toAmino(e) : undefined));
+    } else {
+      obj.client_states = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStatesResponseAminoMsg): QueryClientStatesResponse {
+    return QueryClientStatesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStatesResponse): QueryClientStatesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStatesResponse",
+      value: QueryClientStatesResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryConsensusStateRequest(): QueryConsensusStateRequest {
@@ -491,6 +579,31 @@ export const QueryConsensusStateRequest = {
     message.latestHeight = object.latestHeight ?? false;
     return message;
   },
+  fromAmino(object: QueryConsensusStateRequestAmino): QueryConsensusStateRequest {
+    return {
+      clientId: object.client_id,
+      revisionNumber: Long.fromString(object.revision_number),
+      revisionHeight: Long.fromString(object.revision_height),
+      latestHeight: object.latest_height,
+    };
+  },
+  toAmino(message: QueryConsensusStateRequest): QueryConsensusStateRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.revision_number = message.revisionNumber ? message.revisionNumber.toString() : undefined;
+    obj.revision_height = message.revisionHeight ? message.revisionHeight.toString() : undefined;
+    obj.latest_height = message.latestHeight;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStateRequestAminoMsg): QueryConsensusStateRequest {
+    return QueryConsensusStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStateRequest): QueryConsensusStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStateRequest",
+      value: QueryConsensusStateRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConsensusStateResponse(): QueryConsensusStateResponse {
   return {
@@ -567,6 +680,29 @@ export const QueryConsensusStateResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConsensusStateResponseAmino): QueryConsensusStateResponse {
+    return {
+      consensusState: object?.consensus_state ? Any.fromAmino(object.consensus_state) : undefined,
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryConsensusStateResponse): QueryConsensusStateResponseAmino {
+    const obj: any = {};
+    obj.consensus_state = message.consensusState ? Any.toAmino(message.consensusState) : undefined;
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStateResponseAminoMsg): QueryConsensusStateResponse {
+    return QueryConsensusStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStateResponse): QueryConsensusStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStateResponse",
+      value: QueryConsensusStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConsensusStatesRequest(): QueryConsensusStatesRequest {
   return {
@@ -627,6 +763,27 @@ export const QueryConsensusStatesRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryConsensusStatesRequestAmino): QueryConsensusStatesRequest {
+    return {
+      clientId: object.client_id,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryConsensusStatesRequest): QueryConsensusStatesRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStatesRequestAminoMsg): QueryConsensusStatesRequest {
+    return QueryConsensusStatesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStatesRequest): QueryConsensusStatesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStatesRequest",
+      value: QueryConsensusStatesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConsensusStatesResponse(): QueryConsensusStatesResponse {
@@ -698,6 +855,35 @@ export const QueryConsensusStatesResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConsensusStatesResponseAmino): QueryConsensusStatesResponse {
+    return {
+      consensusStates: Array.isArray(object?.consensus_states)
+        ? object.consensus_states.map((e: any) => ConsensusStateWithHeight.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryConsensusStatesResponse): QueryConsensusStatesResponseAmino {
+    const obj: any = {};
+    if (message.consensusStates) {
+      obj.consensus_states = message.consensusStates.map((e) =>
+        e ? ConsensusStateWithHeight.toAmino(e) : undefined,
+      );
+    } else {
+      obj.consensus_states = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStatesResponseAminoMsg): QueryConsensusStatesResponse {
+    return QueryConsensusStatesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStatesResponse): QueryConsensusStatesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStatesResponse",
+      value: QueryConsensusStatesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConsensusStateHeightsRequest(): QueryConsensusStateHeightsRequest {
   return {
@@ -758,6 +944,27 @@ export const QueryConsensusStateHeightsRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryConsensusStateHeightsRequestAmino): QueryConsensusStateHeightsRequest {
+    return {
+      clientId: object.client_id,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryConsensusStateHeightsRequest): QueryConsensusStateHeightsRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStateHeightsRequestAminoMsg): QueryConsensusStateHeightsRequest {
+    return QueryConsensusStateHeightsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStateHeightsRequest): QueryConsensusStateHeightsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStateHeightsRequest",
+      value: QueryConsensusStateHeightsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConsensusStateHeightsResponse(): QueryConsensusStateHeightsResponse {
@@ -828,6 +1035,35 @@ export const QueryConsensusStateHeightsResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConsensusStateHeightsResponseAmino): QueryConsensusStateHeightsResponse {
+    return {
+      consensusStateHeights: Array.isArray(object?.consensus_state_heights)
+        ? object.consensus_state_heights.map((e: any) => Height.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryConsensusStateHeightsResponse): QueryConsensusStateHeightsResponseAmino {
+    const obj: any = {};
+    if (message.consensusStateHeights) {
+      obj.consensus_state_heights = message.consensusStateHeights.map((e) =>
+        e ? Height.toAmino(e) : undefined,
+      );
+    } else {
+      obj.consensus_state_heights = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConsensusStateHeightsResponseAminoMsg): QueryConsensusStateHeightsResponse {
+    return QueryConsensusStateHeightsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConsensusStateHeightsResponse): QueryConsensusStateHeightsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConsensusStateHeightsResponse",
+      value: QueryConsensusStateHeightsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClientStatusRequest(): QueryClientStatusRequest {
   return {
@@ -874,6 +1110,25 @@ export const QueryClientStatusRequest = {
     const message = createBaseQueryClientStatusRequest();
     message.clientId = object.clientId ?? "";
     return message;
+  },
+  fromAmino(object: QueryClientStatusRequestAmino): QueryClientStatusRequest {
+    return {
+      clientId: object.client_id,
+    };
+  },
+  toAmino(message: QueryClientStatusRequest): QueryClientStatusRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStatusRequestAminoMsg): QueryClientStatusRequest {
+    return QueryClientStatusRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStatusRequest): QueryClientStatusRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStatusRequest",
+      value: QueryClientStatusRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryClientStatusResponse(): QueryClientStatusResponse {
@@ -922,6 +1177,25 @@ export const QueryClientStatusResponse = {
     message.status = object.status ?? "";
     return message;
   },
+  fromAmino(object: QueryClientStatusResponseAmino): QueryClientStatusResponse {
+    return {
+      status: object.status,
+    };
+  },
+  toAmino(message: QueryClientStatusResponse): QueryClientStatusResponseAmino {
+    const obj: any = {};
+    obj.status = message.status;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientStatusResponseAminoMsg): QueryClientStatusResponse {
+    return QueryClientStatusResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientStatusResponse): QueryClientStatusResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientStatusResponse",
+      value: QueryClientStatusResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClientParamsRequest(): QueryClientParamsRequest {
   return {};
@@ -954,6 +1228,22 @@ export const QueryClientParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryClientParamsRequest>, I>>(_: I): QueryClientParamsRequest {
     const message = createBaseQueryClientParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryClientParamsRequestAmino): QueryClientParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryClientParamsRequest): QueryClientParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientParamsRequestAminoMsg): QueryClientParamsRequest {
+    return QueryClientParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientParamsRequest): QueryClientParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientParamsRequest",
+      value: QueryClientParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryClientParamsResponse(): QueryClientParamsResponse {
@@ -1003,6 +1293,25 @@ export const QueryClientParamsResponse = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: QueryClientParamsResponseAmino): QueryClientParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryClientParamsResponse): QueryClientParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientParamsResponseAminoMsg): QueryClientParamsResponse {
+    return QueryClientParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientParamsResponse): QueryClientParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientParamsResponse",
+      value: QueryClientParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryUpgradedClientStateRequest(): QueryUpgradedClientStateRequest {
   return {};
@@ -1037,6 +1346,22 @@ export const QueryUpgradedClientStateRequest = {
   ): QueryUpgradedClientStateRequest {
     const message = createBaseQueryUpgradedClientStateRequest();
     return message;
+  },
+  fromAmino(_: QueryUpgradedClientStateRequestAmino): QueryUpgradedClientStateRequest {
+    return {};
+  },
+  toAmino(_: QueryUpgradedClientStateRequest): QueryUpgradedClientStateRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryUpgradedClientStateRequestAminoMsg): QueryUpgradedClientStateRequest {
+    return QueryUpgradedClientStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryUpgradedClientStateRequest): QueryUpgradedClientStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryUpgradedClientStateRequest",
+      value: QueryUpgradedClientStateRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryUpgradedClientStateResponse(): QueryUpgradedClientStateResponse {
@@ -1093,6 +1418,29 @@ export const QueryUpgradedClientStateResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryUpgradedClientStateResponseAmino): QueryUpgradedClientStateResponse {
+    return {
+      upgradedClientState: object?.upgraded_client_state
+        ? Any.fromAmino(object.upgraded_client_state)
+        : undefined,
+    };
+  },
+  toAmino(message: QueryUpgradedClientStateResponse): QueryUpgradedClientStateResponseAmino {
+    const obj: any = {};
+    obj.upgraded_client_state = message.upgradedClientState
+      ? Any.toAmino(message.upgradedClientState)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryUpgradedClientStateResponseAminoMsg): QueryUpgradedClientStateResponse {
+    return QueryUpgradedClientStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryUpgradedClientStateResponse): QueryUpgradedClientStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryUpgradedClientStateResponse",
+      value: QueryUpgradedClientStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
   return {};
@@ -1127,6 +1475,22 @@ export const QueryUpgradedConsensusStateRequest = {
   ): QueryUpgradedConsensusStateRequest {
     const message = createBaseQueryUpgradedConsensusStateRequest();
     return message;
+  },
+  fromAmino(_: QueryUpgradedConsensusStateRequestAmino): QueryUpgradedConsensusStateRequest {
+    return {};
+  },
+  toAmino(_: QueryUpgradedConsensusStateRequest): QueryUpgradedConsensusStateRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryUpgradedConsensusStateRequestAminoMsg): QueryUpgradedConsensusStateRequest {
+    return QueryUpgradedConsensusStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryUpgradedConsensusStateRequest): QueryUpgradedConsensusStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryUpgradedConsensusStateRequest",
+      value: QueryUpgradedConsensusStateRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
@@ -1182,6 +1546,29 @@ export const QueryUpgradedConsensusStateResponse = {
         ? Any.fromPartial(object.upgradedConsensusState)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryUpgradedConsensusStateResponseAmino): QueryUpgradedConsensusStateResponse {
+    return {
+      upgradedConsensusState: object?.upgraded_consensus_state
+        ? Any.fromAmino(object.upgraded_consensus_state)
+        : undefined,
+    };
+  },
+  toAmino(message: QueryUpgradedConsensusStateResponse): QueryUpgradedConsensusStateResponseAmino {
+    const obj: any = {};
+    obj.upgraded_consensus_state = message.upgradedConsensusState
+      ? Any.toAmino(message.upgradedConsensusState)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryUpgradedConsensusStateResponseAminoMsg): QueryUpgradedConsensusStateResponse {
+    return QueryUpgradedConsensusStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryUpgradedConsensusStateResponse): QueryUpgradedConsensusStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryUpgradedConsensusStateResponse",
+      value: QueryUpgradedConsensusStateResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service */

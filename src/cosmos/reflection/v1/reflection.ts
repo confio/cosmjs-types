@@ -42,6 +42,22 @@ export const FileDescriptorsRequest = {
     const message = createBaseFileDescriptorsRequest();
     return message;
   },
+  fromAmino(_: FileDescriptorsRequestAmino): FileDescriptorsRequest {
+    return {};
+  },
+  toAmino(_: FileDescriptorsRequest): FileDescriptorsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorsRequestAminoMsg): FileDescriptorsRequest {
+    return FileDescriptorsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: FileDescriptorsRequest): FileDescriptorsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/FileDescriptorsRequest",
+      value: FileDescriptorsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseFileDescriptorsResponse(): FileDescriptorsResponse {
   return {
@@ -92,6 +108,31 @@ export const FileDescriptorsResponse = {
     const message = createBaseFileDescriptorsResponse();
     message.files = object.files?.map((e) => FileDescriptorProto.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: FileDescriptorsResponseAmino): FileDescriptorsResponse {
+    return {
+      files: Array.isArray(object?.files)
+        ? object.files.map((e: any) => FileDescriptorProto.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: FileDescriptorsResponse): FileDescriptorsResponseAmino {
+    const obj: any = {};
+    if (message.files) {
+      obj.files = message.files.map((e) => (e ? FileDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.files = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorsResponseAminoMsg): FileDescriptorsResponse {
+    return FileDescriptorsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: FileDescriptorsResponse): FileDescriptorsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/FileDescriptorsResponse",
+      value: FileDescriptorsResponse.toAmino(message),
+    };
   },
 };
 /** Package cosmos.reflection.v1 provides support for inspecting protobuf

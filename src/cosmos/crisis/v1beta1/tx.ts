@@ -96,6 +96,29 @@ export const MsgVerifyInvariant = {
     message.invariantRoute = object.invariantRoute ?? "";
     return message;
   },
+  fromAmino(object: MsgVerifyInvariantAmino): MsgVerifyInvariant {
+    return {
+      sender: object.sender,
+      invariantModuleName: object.invariant_module_name,
+      invariantRoute: object.invariant_route,
+    };
+  },
+  toAmino(message: MsgVerifyInvariant): MsgVerifyInvariantAmino {
+    const obj: any = {};
+    obj.sender = message.sender;
+    obj.invariant_module_name = message.invariantModuleName;
+    obj.invariant_route = message.invariantRoute;
+    return obj;
+  },
+  fromAminoMsg(object: MsgVerifyInvariantAminoMsg): MsgVerifyInvariant {
+    return MsgVerifyInvariant.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgVerifyInvariant): MsgVerifyInvariantAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgVerifyInvariant",
+      value: MsgVerifyInvariant.toAmino(message),
+    };
+  },
 };
 function createBaseMsgVerifyInvariantResponse(): MsgVerifyInvariantResponse {
   return {};
@@ -128,6 +151,22 @@ export const MsgVerifyInvariantResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgVerifyInvariantResponse>, I>>(_: I): MsgVerifyInvariantResponse {
     const message = createBaseMsgVerifyInvariantResponse();
     return message;
+  },
+  fromAmino(_: MsgVerifyInvariantResponseAmino): MsgVerifyInvariantResponse {
+    return {};
+  },
+  toAmino(_: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgVerifyInvariantResponseAminoMsg): MsgVerifyInvariantResponse {
+    return MsgVerifyInvariantResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgVerifyInvariantResponse): MsgVerifyInvariantResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgVerifyInvariantResponse",
+      value: MsgVerifyInvariantResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -188,6 +227,27 @@ export const MsgUpdateParams = {
         : undefined;
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    return {
+      authority: object.authority,
+      constantFee: object?.constant_fee ? Coin.fromAmino(object.constant_fee) : undefined,
+    };
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.constant_fee = message.constantFee ? Coin.toAmino(message.constantFee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/crisis/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -220,6 +280,22 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the bank Msg service. */

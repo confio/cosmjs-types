@@ -87,6 +87,27 @@ export const DenomTrace = {
     message.baseDenom = object.baseDenom ?? "";
     return message;
   },
+  fromAmino(object: DenomTraceAmino): DenomTrace {
+    return {
+      path: object.path,
+      baseDenom: object.base_denom,
+    };
+  },
+  toAmino(message: DenomTrace): DenomTraceAmino {
+    const obj: any = {};
+    obj.path = message.path;
+    obj.base_denom = message.baseDenom;
+    return obj;
+  },
+  fromAminoMsg(object: DenomTraceAminoMsg): DenomTrace {
+    return DenomTrace.fromAmino(object.value);
+  },
+  toAminoMsg(message: DenomTrace): DenomTraceAminoMsg {
+    return {
+      type: "cosmos-sdk/DenomTrace",
+      value: DenomTrace.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -141,5 +162,26 @@ export const Params = {
     message.sendEnabled = object.sendEnabled ?? false;
     message.receiveEnabled = object.receiveEnabled ?? false;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      sendEnabled: object.send_enabled,
+      receiveEnabled: object.receive_enabled,
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.send_enabled = message.sendEnabled;
+    obj.receive_enabled = message.receiveEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

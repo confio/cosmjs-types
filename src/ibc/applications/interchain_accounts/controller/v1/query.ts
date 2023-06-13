@@ -75,6 +75,27 @@ export const QueryInterchainAccountRequest = {
     message.connectionId = object.connectionId ?? "";
     return message;
   },
+  fromAmino(object: QueryInterchainAccountRequestAmino): QueryInterchainAccountRequest {
+    return {
+      owner: object.owner,
+      connectionId: object.connection_id,
+    };
+  },
+  toAmino(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.connection_id = message.connectionId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountRequestAminoMsg): QueryInterchainAccountRequest {
+    return QueryInterchainAccountRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryInterchainAccountRequest): QueryInterchainAccountRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryInterchainAccountRequest",
+      value: QueryInterchainAccountRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryInterchainAccountResponse(): QueryInterchainAccountResponse {
   return {
@@ -122,6 +143,25 @@ export const QueryInterchainAccountResponse = {
     message.address = object.address ?? "";
     return message;
   },
+  fromAmino(object: QueryInterchainAccountResponseAmino): QueryInterchainAccountResponse {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryInterchainAccountResponseAminoMsg): QueryInterchainAccountResponse {
+    return QueryInterchainAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryInterchainAccountResponse): QueryInterchainAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryInterchainAccountResponse",
+      value: QueryInterchainAccountResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -154,6 +194,22 @@ export const QueryParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
@@ -200,6 +256,25 @@ export const QueryParamsResponse = {
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service. */

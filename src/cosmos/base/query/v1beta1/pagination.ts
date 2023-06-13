@@ -152,6 +152,33 @@ export const PageRequest = {
     message.reverse = object.reverse ?? false;
     return message;
   },
+  fromAmino(object: PageRequestAmino): PageRequest {
+    return {
+      key: object.key,
+      offset: Long.fromString(object.offset),
+      limit: Long.fromString(object.limit),
+      countTotal: object.count_total,
+      reverse: object.reverse,
+    };
+  },
+  toAmino(message: PageRequest): PageRequestAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.offset = message.offset ? message.offset.toString() : undefined;
+    obj.limit = message.limit ? message.limit.toString() : undefined;
+    obj.count_total = message.countTotal;
+    obj.reverse = message.reverse;
+    return obj;
+  },
+  fromAminoMsg(object: PageRequestAminoMsg): PageRequest {
+    return PageRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: PageRequest): PageRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/PageRequest",
+      value: PageRequest.toAmino(message),
+    };
+  },
 };
 function createBasePageResponse(): PageResponse {
   return {
@@ -208,5 +235,26 @@ export const PageResponse = {
     message.total =
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: PageResponseAmino): PageResponse {
+    return {
+      nextKey: object.next_key,
+      total: Long.fromString(object.total),
+    };
+  },
+  toAmino(message: PageResponse): PageResponseAmino {
+    const obj: any = {};
+    obj.next_key = message.nextKey;
+    obj.total = message.total ? message.total.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PageResponseAminoMsg): PageResponse {
+    return PageResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: PageResponse): PageResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/PageResponse",
+      value: PageResponse.toAmino(message),
+    };
   },
 };

@@ -66,4 +66,25 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      minter: object?.minter ? Minter.fromAmino(object.minter) : undefined,
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.minter = message.minter ? Minter.toAmino(message.minter) : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

@@ -71,4 +71,29 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      hooksOrder: Array.isArray(object?.hooks_order) ? object.hooks_order.map((e: any) => e) : [],
+      authority: object.authority,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    if (message.hooksOrder) {
+      obj.hooks_order = message.hooksOrder.map((e) => e);
+    } else {
+      obj.hooks_order = [];
+    }
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

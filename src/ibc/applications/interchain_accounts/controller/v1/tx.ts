@@ -94,6 +94,29 @@ export const MsgRegisterInterchainAccount = {
     message.version = object.version ?? "";
     return message;
   },
+  fromAmino(object: MsgRegisterInterchainAccountAmino): MsgRegisterInterchainAccount {
+    return {
+      owner: object.owner,
+      connectionId: object.connection_id,
+      version: object.version,
+    };
+  },
+  toAmino(message: MsgRegisterInterchainAccount): MsgRegisterInterchainAccountAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.connection_id = message.connectionId;
+    obj.version = message.version;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterInterchainAccountAminoMsg): MsgRegisterInterchainAccount {
+    return MsgRegisterInterchainAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterInterchainAccount): MsgRegisterInterchainAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterInterchainAccount",
+      value: MsgRegisterInterchainAccount.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchainAccountResponse {
   return {
@@ -143,6 +166,25 @@ export const MsgRegisterInterchainAccountResponse = {
     const message = createBaseMsgRegisterInterchainAccountResponse();
     message.channelId = object.channelId ?? "";
     return message;
+  },
+  fromAmino(object: MsgRegisterInterchainAccountResponseAmino): MsgRegisterInterchainAccountResponse {
+    return {
+      channelId: object.channel_id,
+    };
+  },
+  toAmino(message: MsgRegisterInterchainAccountResponse): MsgRegisterInterchainAccountResponseAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterInterchainAccountResponseAminoMsg): MsgRegisterInterchainAccountResponse {
+    return MsgRegisterInterchainAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterInterchainAccountResponse): MsgRegisterInterchainAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterInterchainAccountResponse",
+      value: MsgRegisterInterchainAccountResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSendTx(): MsgSendTx {
@@ -231,6 +273,33 @@ export const MsgSendTx = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: MsgSendTxAmino): MsgSendTx {
+    return {
+      owner: object.owner,
+      connectionId: object.connection_id,
+      packetData: object?.packet_data ? InterchainAccountPacketData.fromAmino(object.packet_data) : undefined,
+      relativeTimeout: Long.fromString(object.relative_timeout),
+    };
+  },
+  toAmino(message: MsgSendTx): MsgSendTxAmino {
+    const obj: any = {};
+    obj.owner = message.owner;
+    obj.connection_id = message.connectionId;
+    obj.packet_data = message.packetData
+      ? InterchainAccountPacketData.toAmino(message.packetData)
+      : undefined;
+    obj.relative_timeout = message.relativeTimeout ? message.relativeTimeout.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendTxAminoMsg): MsgSendTx {
+    return MsgSendTx.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSendTx): MsgSendTxAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSendTx",
+      value: MsgSendTx.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSendTxResponse(): MsgSendTxResponse {
   return {
@@ -278,6 +347,25 @@ export const MsgSendTxResponse = {
         ? Long.fromValue(object.sequence)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: MsgSendTxResponseAmino): MsgSendTxResponse {
+    return {
+      sequence: Long.fromString(object.sequence),
+    };
+  },
+  toAmino(message: MsgSendTxResponse): MsgSendTxResponseAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendTxResponseAminoMsg): MsgSendTxResponse {
+    return MsgSendTxResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSendTxResponse): MsgSendTxResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSendTxResponse",
+      value: MsgSendTxResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the 27-interchain-accounts/controller Msg service. */

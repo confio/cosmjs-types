@@ -139,6 +139,31 @@ export const Block = {
         : undefined;
     return message;
   },
+  fromAmino(object: BlockAmino): Block {
+    return {
+      header: object?.header ? Header.fromAmino(object.header) : undefined,
+      data: object?.data ? Data.fromAmino(object.data) : undefined,
+      evidence: object?.evidence ? EvidenceList.fromAmino(object.evidence) : undefined,
+      lastCommit: object?.last_commit ? Commit.fromAmino(object.last_commit) : undefined,
+    };
+  },
+  toAmino(message: Block): BlockAmino {
+    const obj: any = {};
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    obj.data = message.data ? Data.toAmino(message.data) : undefined;
+    obj.evidence = message.evidence ? EvidenceList.toAmino(message.evidence) : undefined;
+    obj.last_commit = message.lastCommit ? Commit.toAmino(message.lastCommit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockAminoMsg): Block {
+    return Block.fromAmino(object.value);
+  },
+  toAminoMsg(message: Block): BlockAminoMsg {
+    return {
+      type: "cosmos-sdk/Block",
+      value: Block.toAmino(message),
+    };
+  },
 };
 function createBaseHeader(): Header {
   return {
@@ -351,5 +376,50 @@ export const Header = {
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     message.proposerAddress = object.proposerAddress ?? "";
     return message;
+  },
+  fromAmino(object: HeaderAmino): Header {
+    return {
+      version: object?.version ? Consensus.fromAmino(object.version) : undefined,
+      chainId: object.chain_id,
+      height: Long.fromString(object.height),
+      time: object?.time ? Timestamp.fromAmino(object.time) : undefined,
+      lastBlockId: object?.last_block_id ? BlockID.fromAmino(object.last_block_id) : undefined,
+      lastCommitHash: object.last_commit_hash,
+      dataHash: object.data_hash,
+      validatorsHash: object.validators_hash,
+      nextValidatorsHash: object.next_validators_hash,
+      consensusHash: object.consensus_hash,
+      appHash: object.app_hash,
+      lastResultsHash: object.last_results_hash,
+      evidenceHash: object.evidence_hash,
+      proposerAddress: object.proposer_address,
+    };
+  },
+  toAmino(message: Header): HeaderAmino {
+    const obj: any = {};
+    obj.version = message.version ? Consensus.toAmino(message.version) : undefined;
+    obj.chain_id = message.chainId;
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
+    obj.last_block_id = message.lastBlockId ? BlockID.toAmino(message.lastBlockId) : undefined;
+    obj.last_commit_hash = message.lastCommitHash;
+    obj.data_hash = message.dataHash;
+    obj.validators_hash = message.validatorsHash;
+    obj.next_validators_hash = message.nextValidatorsHash;
+    obj.consensus_hash = message.consensusHash;
+    obj.app_hash = message.appHash;
+    obj.last_results_hash = message.lastResultsHash;
+    obj.evidence_hash = message.evidenceHash;
+    obj.proposer_address = message.proposerAddress;
+    return obj;
+  },
+  fromAminoMsg(object: HeaderAminoMsg): Header {
+    return Header.fromAmino(object.value);
+  },
+  toAminoMsg(message: Header): HeaderAminoMsg {
+    return {
+      type: "cosmos-sdk/Header",
+      value: Header.toAmino(message),
+    };
   },
 };

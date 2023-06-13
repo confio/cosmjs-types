@@ -163,6 +163,33 @@ export const Params = {
     message.defaultSendEnabled = object.defaultSendEnabled ?? false;
     return message;
   },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      sendEnabled: Array.isArray(object?.send_enabled)
+        ? object.send_enabled.map((e: any) => SendEnabled.fromAmino(e))
+        : [],
+      defaultSendEnabled: object.default_send_enabled,
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.sendEnabled) {
+      obj.send_enabled = message.sendEnabled.map((e) => (e ? SendEnabled.toAmino(e) : undefined));
+    } else {
+      obj.send_enabled = [];
+    }
+    obj.default_send_enabled = message.defaultSendEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/bank/Params",
+      value: Params.toAmino(message),
+    };
+  },
 };
 function createBaseSendEnabled(): SendEnabled {
   return {
@@ -217,6 +244,27 @@ export const SendEnabled = {
     message.denom = object.denom ?? "";
     message.enabled = object.enabled ?? false;
     return message;
+  },
+  fromAmino(object: SendEnabledAmino): SendEnabled {
+    return {
+      denom: object.denom,
+      enabled: object.enabled,
+    };
+  },
+  toAmino(message: SendEnabled): SendEnabledAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.enabled = message.enabled;
+    return obj;
+  },
+  fromAminoMsg(object: SendEnabledAminoMsg): SendEnabled {
+    return SendEnabled.fromAmino(object.value);
+  },
+  toAminoMsg(message: SendEnabled): SendEnabledAminoMsg {
+    return {
+      type: "cosmos-sdk/SendEnabled",
+      value: SendEnabled.toAmino(message),
+    };
   },
 };
 function createBaseInput(): Input {
@@ -277,6 +325,31 @@ export const Input = {
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: InputAmino): Input {
+    return {
+      address: object.address,
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: Input): InputAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.coins = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: InputAminoMsg): Input {
+    return Input.fromAmino(object.value);
+  },
+  toAminoMsg(message: Input): InputAminoMsg {
+    return {
+      type: "cosmos-sdk/Input",
+      value: Input.toAmino(message),
+    };
+  },
 };
 function createBaseOutput(): Output {
   return {
@@ -336,6 +409,31 @@ export const Output = {
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: OutputAmino): Output {
+    return {
+      address: object.address,
+      coins: Array.isArray(object?.coins) ? object.coins.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: Output): OutputAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.coins = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: OutputAminoMsg): Output {
+    return Output.fromAmino(object.value);
+  },
+  toAminoMsg(message: Output): OutputAminoMsg {
+    return {
+      type: "cosmos-sdk/Output",
+      value: Output.toAmino(message),
+    };
+  },
 };
 function createBaseSupply(): Supply {
   return {
@@ -384,6 +482,29 @@ export const Supply = {
     const message = createBaseSupply();
     message.total = object.total?.map((e) => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SupplyAmino): Supply {
+    return {
+      total: Array.isArray(object?.total) ? object.total.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: Supply): SupplyAmino {
+    const obj: any = {};
+    if (message.total) {
+      obj.total = message.total.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.total = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SupplyAminoMsg): Supply {
+    return Supply.fromAmino(object.value);
+  },
+  toAminoMsg(message: Supply): SupplyAminoMsg {
+    return {
+      type: "cosmos-sdk/Supply",
+      value: Supply.toAmino(message),
+    };
   },
 };
 function createBaseDenomUnit(): DenomUnit {
@@ -453,6 +574,33 @@ export const DenomUnit = {
     message.exponent = object.exponent ?? 0;
     message.aliases = object.aliases?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: DenomUnitAmino): DenomUnit {
+    return {
+      denom: object.denom,
+      exponent: object.exponent,
+      aliases: Array.isArray(object?.aliases) ? object.aliases.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: DenomUnit): DenomUnitAmino {
+    const obj: any = {};
+    obj.denom = message.denom;
+    obj.exponent = message.exponent;
+    if (message.aliases) {
+      obj.aliases = message.aliases.map((e) => e);
+    } else {
+      obj.aliases = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DenomUnitAminoMsg): DenomUnit {
+    return DenomUnit.fromAmino(object.value);
+  },
+  toAminoMsg(message: DenomUnit): DenomUnitAminoMsg {
+    return {
+      type: "cosmos-sdk/DenomUnit",
+      value: DenomUnit.toAmino(message),
+    };
   },
 };
 function createBaseMetadata(): Metadata {
@@ -574,5 +722,44 @@ export const Metadata = {
     message.uri = object.uri ?? "";
     message.uriHash = object.uriHash ?? "";
     return message;
+  },
+  fromAmino(object: MetadataAmino): Metadata {
+    return {
+      description: object.description,
+      denomUnits: Array.isArray(object?.denom_units)
+        ? object.denom_units.map((e: any) => DenomUnit.fromAmino(e))
+        : [],
+      base: object.base,
+      display: object.display,
+      name: object.name,
+      symbol: object.symbol,
+      uri: object.uri,
+      uriHash: object.uri_hash,
+    };
+  },
+  toAmino(message: Metadata): MetadataAmino {
+    const obj: any = {};
+    obj.description = message.description;
+    if (message.denomUnits) {
+      obj.denom_units = message.denomUnits.map((e) => (e ? DenomUnit.toAmino(e) : undefined));
+    } else {
+      obj.denom_units = [];
+    }
+    obj.base = message.base;
+    obj.display = message.display;
+    obj.name = message.name;
+    obj.symbol = message.symbol;
+    obj.uri = message.uri;
+    obj.uri_hash = message.uriHash;
+    return obj;
+  },
+  fromAminoMsg(object: MetadataAminoMsg): Metadata {
+    return Metadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: Metadata): MetadataAminoMsg {
+    return {
+      type: "cosmos-sdk/Metadata",
+      value: Metadata.toAmino(message),
+    };
   },
 };

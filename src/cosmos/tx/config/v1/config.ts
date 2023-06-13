@@ -69,4 +69,25 @@ export const Config = {
     message.skipPostHandler = object.skipPostHandler ?? false;
     return message;
   },
+  fromAmino(object: ConfigAmino): Config {
+    return {
+      skipAnteHandler: object.skip_ante_handler,
+      skipPostHandler: object.skip_post_handler,
+    };
+  },
+  toAmino(message: Config): ConfigAmino {
+    const obj: any = {};
+    obj.skip_ante_handler = message.skipAnteHandler;
+    obj.skip_post_handler = message.skipPostHandler;
+    return obj;
+  },
+  fromAminoMsg(object: ConfigAminoMsg): Config {
+    return Config.fromAmino(object.value);
+  },
+  toAminoMsg(message: Config): ConfigAminoMsg {
+    return {
+      type: "cosmos-sdk/Config",
+      value: Config.toAmino(message),
+    };
+  },
 };

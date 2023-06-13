@@ -140,6 +140,33 @@ export const MsgSend = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgSendAmino): MsgSend {
+    return {
+      fromAddress: object.from_address,
+      toAddress: object.to_address,
+      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: MsgSend): MsgSendAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress;
+    obj.to_address = message.toAddress;
+    if (message.amount) {
+      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.amount = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendAminoMsg): MsgSend {
+    return MsgSend.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSend): MsgSendAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSend",
+      value: MsgSend.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
@@ -172,6 +199,22 @@ export const MsgSendResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
     const message = createBaseMsgSendResponse();
     return message;
+  },
+  fromAmino(_: MsgSendResponseAmino): MsgSendResponse {
+    return {};
+  },
+  toAmino(_: MsgSendResponse): MsgSendResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSendResponseAminoMsg): MsgSendResponse {
+    return MsgSendResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSendResponse): MsgSendResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSendResponse",
+      value: MsgSendResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgMultiSend(): MsgMultiSend {
@@ -236,6 +279,35 @@ export const MsgMultiSend = {
     message.outputs = object.outputs?.map((e) => Output.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgMultiSendAmino): MsgMultiSend {
+    return {
+      inputs: Array.isArray(object?.inputs) ? object.inputs.map((e: any) => Input.fromAmino(e)) : [],
+      outputs: Array.isArray(object?.outputs) ? object.outputs.map((e: any) => Output.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: MsgMultiSend): MsgMultiSendAmino {
+    const obj: any = {};
+    if (message.inputs) {
+      obj.inputs = message.inputs.map((e) => (e ? Input.toAmino(e) : undefined));
+    } else {
+      obj.inputs = [];
+    }
+    if (message.outputs) {
+      obj.outputs = message.outputs.map((e) => (e ? Output.toAmino(e) : undefined));
+    } else {
+      obj.outputs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgMultiSendAminoMsg): MsgMultiSend {
+    return MsgMultiSend.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMultiSend): MsgMultiSendAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgMultiSend",
+      value: MsgMultiSend.toAmino(message),
+    };
+  },
 };
 function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
   return {};
@@ -268,6 +340,22 @@ export const MsgMultiSendResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgMultiSendResponse>, I>>(_: I): MsgMultiSendResponse {
     const message = createBaseMsgMultiSendResponse();
     return message;
+  },
+  fromAmino(_: MsgMultiSendResponseAmino): MsgMultiSendResponse {
+    return {};
+  },
+  toAmino(_: MsgMultiSendResponse): MsgMultiSendResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgMultiSendResponseAminoMsg): MsgMultiSendResponse {
+    return MsgMultiSendResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMultiSendResponse): MsgMultiSendResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgMultiSendResponse",
+      value: MsgMultiSendResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -325,6 +413,27 @@ export const MsgUpdateParams = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    return {
+      authority: object.authority,
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/bank/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -357,6 +466,22 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    return {};
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSetSendEnabled(): MsgSetSendEnabled {
@@ -435,6 +560,39 @@ export const MsgSetSendEnabled = {
     message.useDefaultFor = object.useDefaultFor?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgSetSendEnabledAmino): MsgSetSendEnabled {
+    return {
+      authority: object.authority,
+      sendEnabled: Array.isArray(object?.send_enabled)
+        ? object.send_enabled.map((e: any) => SendEnabled.fromAmino(e))
+        : [],
+      useDefaultFor: Array.isArray(object?.use_default_for) ? object.use_default_for.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: MsgSetSendEnabled): MsgSetSendEnabledAmino {
+    const obj: any = {};
+    obj.authority = message.authority;
+    if (message.sendEnabled) {
+      obj.send_enabled = message.sendEnabled.map((e) => (e ? SendEnabled.toAmino(e) : undefined));
+    } else {
+      obj.send_enabled = [];
+    }
+    if (message.useDefaultFor) {
+      obj.use_default_for = message.useDefaultFor.map((e) => e);
+    } else {
+      obj.use_default_for = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetSendEnabledAminoMsg): MsgSetSendEnabled {
+    return MsgSetSendEnabled.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetSendEnabled): MsgSetSendEnabledAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSetSendEnabled",
+      value: MsgSetSendEnabled.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSetSendEnabledResponse(): MsgSetSendEnabledResponse {
   return {};
@@ -467,6 +625,22 @@ export const MsgSetSendEnabledResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSetSendEnabledResponse>, I>>(_: I): MsgSetSendEnabledResponse {
     const message = createBaseMsgSetSendEnabledResponse();
     return message;
+  },
+  fromAmino(_: MsgSetSendEnabledResponseAmino): MsgSetSendEnabledResponse {
+    return {};
+  },
+  toAmino(_: MsgSetSendEnabledResponse): MsgSetSendEnabledResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetSendEnabledResponseAminoMsg): MsgSetSendEnabledResponse {
+    return MsgSetSendEnabledResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetSendEnabledResponse): MsgSetSendEnabledResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSetSendEnabledResponse",
+      value: MsgSetSendEnabledResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the bank Msg service. */

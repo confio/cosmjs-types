@@ -177,6 +177,35 @@ export const ModuleSchemaDescriptor = {
     message.prefix = object.prefix ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: ModuleSchemaDescriptorAmino): ModuleSchemaDescriptor {
+    return {
+      schemaFile: Array.isArray(object?.schema_file)
+        ? object.schema_file.map((e: any) => ModuleSchemaDescriptor_FileEntry.fromAmino(e))
+        : [],
+      prefix: object.prefix,
+    };
+  },
+  toAmino(message: ModuleSchemaDescriptor): ModuleSchemaDescriptorAmino {
+    const obj: any = {};
+    if (message.schemaFile) {
+      obj.schema_file = message.schemaFile.map((e) =>
+        e ? ModuleSchemaDescriptor_FileEntry.toAmino(e) : undefined,
+      );
+    } else {
+      obj.schema_file = [];
+    }
+    obj.prefix = message.prefix;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleSchemaDescriptorAminoMsg): ModuleSchemaDescriptor {
+    return ModuleSchemaDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleSchemaDescriptor): ModuleSchemaDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleSchemaDescriptor",
+      value: ModuleSchemaDescriptor.toAmino(message),
+    };
+  },
 };
 function createBaseModuleSchemaDescriptor_FileEntry(): ModuleSchemaDescriptor_FileEntry {
   return {
@@ -243,5 +272,28 @@ export const ModuleSchemaDescriptor_FileEntry = {
     message.protoFileName = object.protoFileName ?? "";
     message.storageType = object.storageType ?? 0;
     return message;
+  },
+  fromAmino(object: ModuleSchemaDescriptor_FileEntryAmino): ModuleSchemaDescriptor_FileEntry {
+    return {
+      id: object.id,
+      protoFileName: object.proto_file_name,
+      storageType: isSet(object.storage_type) ? storageTypeFromJSON(object.storage_type) : 0,
+    };
+  },
+  toAmino(message: ModuleSchemaDescriptor_FileEntry): ModuleSchemaDescriptor_FileEntryAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.proto_file_name = message.protoFileName;
+    obj.storage_type = message.storageType;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleSchemaDescriptor_FileEntryAminoMsg): ModuleSchemaDescriptor_FileEntry {
+    return ModuleSchemaDescriptor_FileEntry.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleSchemaDescriptor_FileEntry): ModuleSchemaDescriptor_FileEntryAminoMsg {
+    return {
+      type: "cosmos-sdk/FileEntry",
+      value: ModuleSchemaDescriptor_FileEntry.toAmino(message),
+    };
   },
 };

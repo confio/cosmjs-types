@@ -134,4 +134,17 @@ export const Duration = {
     message.nanos = object.nanos ?? 0;
     return message;
   },
+  fromAmino(object: DurationAmino): Duration {
+    const value = parseInt(object);
+    return {
+      seconds: Long.fromNumber(Math.floor(value / 1_000_000_000)),
+      nanos: value % 1_000_000_000,
+    };
+  },
+  toAmino(message: Duration): DurationAmino {
+    return (message.seconds.toInt() * 1_000_000_000 + message.nanos).toString();
+  },
+  fromAminoMsg(object: DurationAminoMsg): Duration {
+    return Duration.fromAmino(object.value);
+  },
 };

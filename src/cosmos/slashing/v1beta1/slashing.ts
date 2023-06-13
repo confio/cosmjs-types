@@ -157,6 +157,37 @@ export const ValidatorSigningInfo = {
         : Long.ZERO;
     return message;
   },
+  fromAmino(object: ValidatorSigningInfoAmino): ValidatorSigningInfo {
+    return {
+      address: object.address,
+      startHeight: Long.fromString(object.start_height),
+      indexOffset: Long.fromString(object.index_offset),
+      jailedUntil: object?.jailed_until ? Timestamp.fromAmino(object.jailed_until) : undefined,
+      tombstoned: object.tombstoned,
+      missedBlocksCounter: Long.fromString(object.missed_blocks_counter),
+    };
+  },
+  toAmino(message: ValidatorSigningInfo): ValidatorSigningInfoAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.start_height = message.startHeight ? message.startHeight.toString() : undefined;
+    obj.index_offset = message.indexOffset ? message.indexOffset.toString() : undefined;
+    obj.jailed_until = message.jailedUntil ? Timestamp.toAmino(message.jailedUntil) : undefined;
+    obj.tombstoned = message.tombstoned;
+    obj.missed_blocks_counter = message.missedBlocksCounter
+      ? message.missedBlocksCounter.toString()
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorSigningInfoAminoMsg): ValidatorSigningInfo {
+    return ValidatorSigningInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: ValidatorSigningInfo): ValidatorSigningInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/ValidatorSigningInfo",
+      value: ValidatorSigningInfo.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -270,5 +301,36 @@ export const Params = {
     message.slashFractionDoubleSign = object.slashFractionDoubleSign ?? new Uint8Array();
     message.slashFractionDowntime = object.slashFractionDowntime ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      signedBlocksWindow: Long.fromString(object.signed_blocks_window),
+      minSignedPerWindow: object.min_signed_per_window,
+      downtimeJailDuration: object?.downtime_jail_duration
+        ? Duration.fromAmino(object.downtime_jail_duration)
+        : undefined,
+      slashFractionDoubleSign: object.slash_fraction_double_sign,
+      slashFractionDowntime: object.slash_fraction_downtime,
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.signed_blocks_window = message.signedBlocksWindow ? message.signedBlocksWindow.toString() : undefined;
+    obj.min_signed_per_window = message.minSignedPerWindow;
+    obj.downtime_jail_duration = message.downtimeJailDuration
+      ? Duration.toAmino(message.downtimeJailDuration)
+      : undefined;
+    obj.slash_fraction_double_sign = message.slashFractionDoubleSign;
+    obj.slash_fraction_downtime = message.slashFractionDowntime;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/slashing/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

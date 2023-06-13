@@ -265,6 +265,21 @@ export const PartSetHeader = {
     message.hash = object.hash ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: PartSetHeaderAmino): PartSetHeader {
+    return {
+      total: object.total,
+      hash: object.hash,
+    };
+  },
+  toAmino(message: PartSetHeader): PartSetHeaderAmino {
+    const obj: any = {};
+    obj.total = message.total;
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: PartSetHeaderAminoMsg): PartSetHeader {
+    return PartSetHeader.fromAmino(object.value);
+  },
 };
 function createBasePart(): Part {
   return {
@@ -332,6 +347,23 @@ export const Part = {
       object.proof !== undefined && object.proof !== null ? Proof.fromPartial(object.proof) : undefined;
     return message;
   },
+  fromAmino(object: PartAmino): Part {
+    return {
+      index: object.index,
+      bytes: object.bytes,
+      proof: object?.proof ? Proof.fromAmino(object.proof) : undefined,
+    };
+  },
+  toAmino(message: Part): PartAmino {
+    const obj: any = {};
+    obj.index = message.index;
+    obj.bytes = message.bytes;
+    obj.proof = message.proof ? Proof.toAmino(message.proof) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PartAminoMsg): Part {
+    return Part.fromAmino(object.value);
+  },
 };
 function createBaseBlockID(): BlockID {
   return {
@@ -391,6 +423,21 @@ export const BlockID = {
         ? PartSetHeader.fromPartial(object.partSetHeader)
         : undefined;
     return message;
+  },
+  fromAmino(object: BlockIDAmino): BlockID {
+    return {
+      hash: object.hash,
+      partSetHeader: object?.part_set_header ? PartSetHeader.fromAmino(object.part_set_header) : undefined,
+    };
+  },
+  toAmino(message: BlockID): BlockIDAmino {
+    const obj: any = {};
+    obj.hash = message.hash;
+    obj.part_set_header = message.partSetHeader ? PartSetHeader.toAmino(message.partSetHeader) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockIDAminoMsg): BlockID {
+    return BlockID.fromAmino(object.value);
   },
 };
 function createBaseHeader(): Header {
@@ -610,6 +657,45 @@ export const Header = {
     message.proposerAddress = object.proposerAddress ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: HeaderAmino): Header {
+    return {
+      version: object?.version ? Consensus.fromAmino(object.version) : undefined,
+      chainId: object.chain_id,
+      height: Long.fromString(object.height),
+      time: object?.time ? Timestamp.fromAmino(object.time) : undefined,
+      lastBlockId: object?.last_block_id ? BlockID.fromAmino(object.last_block_id) : undefined,
+      lastCommitHash: object.last_commit_hash,
+      dataHash: object.data_hash,
+      validatorsHash: object.validators_hash,
+      nextValidatorsHash: object.next_validators_hash,
+      consensusHash: object.consensus_hash,
+      appHash: object.app_hash,
+      lastResultsHash: object.last_results_hash,
+      evidenceHash: object.evidence_hash,
+      proposerAddress: object.proposer_address,
+    };
+  },
+  toAmino(message: Header): HeaderAmino {
+    const obj: any = {};
+    obj.version = message.version ? Consensus.toAmino(message.version) : undefined;
+    obj.chain_id = message.chainId;
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
+    obj.last_block_id = message.lastBlockId ? BlockID.toAmino(message.lastBlockId) : undefined;
+    obj.last_commit_hash = message.lastCommitHash;
+    obj.data_hash = message.dataHash;
+    obj.validators_hash = message.validatorsHash;
+    obj.next_validators_hash = message.nextValidatorsHash;
+    obj.consensus_hash = message.consensusHash;
+    obj.app_hash = message.appHash;
+    obj.last_results_hash = message.lastResultsHash;
+    obj.evidence_hash = message.evidenceHash;
+    obj.proposer_address = message.proposerAddress;
+    return obj;
+  },
+  fromAminoMsg(object: HeaderAminoMsg): Header {
+    return Header.fromAmino(object.value);
+  },
 };
 function createBaseData(): Data {
   return {
@@ -658,6 +744,23 @@ export const Data = {
     const message = createBaseData();
     message.txs = object.txs?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: DataAmino): Data {
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: Data): DataAmino {
+    const obj: any = {};
+    if (message.txs) {
+      obj.txs = message.txs.map((e) => e);
+    } else {
+      obj.txs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DataAminoMsg): Data {
+    return Data.fromAmino(object.value);
   },
 };
 function createBaseVote(): Vote {
@@ -790,6 +893,33 @@ export const Vote = {
     message.signature = object.signature ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: VoteAmino): Vote {
+    return {
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
+      height: Long.fromString(object.height),
+      round: object.round,
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      timestamp: object?.timestamp ? Timestamp.fromAmino(object.timestamp) : undefined,
+      validatorAddress: object.validator_address,
+      validatorIndex: object.validator_index,
+      signature: object.signature,
+    };
+  },
+  toAmino(message: Vote): VoteAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.validator_address = message.validatorAddress;
+    obj.validator_index = message.validatorIndex;
+    obj.signature = message.signature;
+    return obj;
+  },
+  fromAminoMsg(object: VoteAminoMsg): Vote {
+    return Vote.fromAmino(object.value);
+  },
 };
 function createBaseCommit(): Commit {
   return {
@@ -876,6 +1006,31 @@ export const Commit = {
     message.signatures = object.signatures?.map((e) => CommitSig.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: CommitAmino): Commit {
+    return {
+      height: Long.fromString(object.height),
+      round: object.round,
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      signatures: Array.isArray(object?.signatures)
+        ? object.signatures.map((e: any) => CommitSig.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: Commit): CommitAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    if (message.signatures) {
+      obj.signatures = message.signatures.map((e) => (e ? CommitSig.toAmino(e) : undefined));
+    } else {
+      obj.signatures = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CommitAminoMsg): Commit {
+    return Commit.fromAmino(object.value);
+  },
 };
 function createBaseCommitSig(): CommitSig {
   return {
@@ -961,6 +1116,25 @@ export const CommitSig = {
         : undefined;
     message.signature = object.signature ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: CommitSigAmino): CommitSig {
+    return {
+      blockIdFlag: isSet(object.block_id_flag) ? blockIDFlagFromJSON(object.block_id_flag) : 0,
+      validatorAddress: object.validator_address,
+      timestamp: object?.timestamp ? Timestamp.fromAmino(object.timestamp) : undefined,
+      signature: object.signature,
+    };
+  },
+  toAmino(message: CommitSig): CommitSigAmino {
+    const obj: any = {};
+    obj.block_id_flag = message.blockIdFlag;
+    obj.validator_address = message.validatorAddress;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.signature = message.signature;
+    return obj;
+  },
+  fromAminoMsg(object: CommitSigAminoMsg): CommitSig {
+    return CommitSig.fromAmino(object.value);
   },
 };
 function createBaseProposal(): Proposal {
@@ -1078,6 +1252,31 @@ export const Proposal = {
     message.signature = object.signature ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: ProposalAmino): Proposal {
+    return {
+      type: isSet(object.type) ? signedMsgTypeFromJSON(object.type) : 0,
+      height: Long.fromString(object.height),
+      round: object.round,
+      polRound: object.pol_round,
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      timestamp: object?.timestamp ? Timestamp.fromAmino(object.timestamp) : undefined,
+      signature: object.signature,
+    };
+  },
+  toAmino(message: Proposal): ProposalAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.round = message.round;
+    obj.pol_round = message.polRound;
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.signature = message.signature;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalAminoMsg): Proposal {
+    return Proposal.fromAmino(object.value);
+  },
 };
 function createBaseSignedHeader(): SignedHeader {
   return {
@@ -1134,6 +1333,21 @@ export const SignedHeader = {
     message.commit =
       object.commit !== undefined && object.commit !== null ? Commit.fromPartial(object.commit) : undefined;
     return message;
+  },
+  fromAmino(object: SignedHeaderAmino): SignedHeader {
+    return {
+      header: object?.header ? Header.fromAmino(object.header) : undefined,
+      commit: object?.commit ? Commit.fromAmino(object.commit) : undefined,
+    };
+  },
+  toAmino(message: SignedHeader): SignedHeaderAmino {
+    const obj: any = {};
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    obj.commit = message.commit ? Commit.toAmino(message.commit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SignedHeaderAminoMsg): SignedHeader {
+    return SignedHeader.fromAmino(object.value);
   },
 };
 function createBaseLightBlock(): LightBlock {
@@ -1197,6 +1411,21 @@ export const LightBlock = {
         ? ValidatorSet.fromPartial(object.validatorSet)
         : undefined;
     return message;
+  },
+  fromAmino(object: LightBlockAmino): LightBlock {
+    return {
+      signedHeader: object?.signed_header ? SignedHeader.fromAmino(object.signed_header) : undefined,
+      validatorSet: object?.validator_set ? ValidatorSet.fromAmino(object.validator_set) : undefined,
+    };
+  },
+  toAmino(message: LightBlock): LightBlockAmino {
+    const obj: any = {};
+    obj.signed_header = message.signedHeader ? SignedHeader.toAmino(message.signedHeader) : undefined;
+    obj.validator_set = message.validatorSet ? ValidatorSet.toAmino(message.validatorSet) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: LightBlockAminoMsg): LightBlock {
+    return LightBlock.fromAmino(object.value);
   },
 };
 function createBaseBlockMeta(): BlockMeta {
@@ -1282,6 +1511,25 @@ export const BlockMeta = {
       object.numTxs !== undefined && object.numTxs !== null ? Long.fromValue(object.numTxs) : Long.ZERO;
     return message;
   },
+  fromAmino(object: BlockMetaAmino): BlockMeta {
+    return {
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      blockSize: Long.fromString(object.block_size),
+      header: object?.header ? Header.fromAmino(object.header) : undefined,
+      numTxs: Long.fromString(object.num_txs),
+    };
+  },
+  toAmino(message: BlockMeta): BlockMetaAmino {
+    const obj: any = {};
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    obj.block_size = message.blockSize ? message.blockSize.toString() : undefined;
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    obj.num_txs = message.numTxs ? message.numTxs.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockMetaAminoMsg): BlockMeta {
+    return BlockMeta.fromAmino(object.value);
+  },
 };
 function createBaseTxProof(): TxProof {
   return {
@@ -1349,5 +1597,22 @@ export const TxProof = {
     message.proof =
       object.proof !== undefined && object.proof !== null ? Proof.fromPartial(object.proof) : undefined;
     return message;
+  },
+  fromAmino(object: TxProofAmino): TxProof {
+    return {
+      rootHash: object.root_hash,
+      data: object.data,
+      proof: object?.proof ? Proof.fromAmino(object.proof) : undefined,
+    };
+  },
+  toAmino(message: TxProof): TxProofAmino {
+    const obj: any = {};
+    obj.root_hash = message.rootHash;
+    obj.data = message.data;
+    obj.proof = message.proof ? Proof.toAmino(message.proof) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TxProofAminoMsg): TxProof {
+    return TxProof.fromAmino(object.value);
   },
 };
