@@ -15,7 +15,7 @@ export interface MsgTransfer {
   /** the channel by which the packet will be sent */
   sourceChannel: string;
   /** the tokens to be transferred */
-  token?: Coin;
+  token: Coin;
   /** the sender address */
   sender: string;
   /** the recipient address on the destination chain */
@@ -24,7 +24,7 @@ export interface MsgTransfer {
    * Timeout height relative to the current block height.
    * The timeout is disabled when set to 0.
    */
-  timeoutHeight?: Height;
+  timeoutHeight: Height;
   /**
    * Timeout timestamp in absolute nanoseconds since unix epoch.
    * The timeout is disabled when set to 0.

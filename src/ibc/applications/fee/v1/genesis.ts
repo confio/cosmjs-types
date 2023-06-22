@@ -50,7 +50,7 @@ export interface ForwardRelayerAddress {
   /** the forward relayer address */
   address: string;
   /** unique packet identifer comprised of the channel ID, port ID and sequence */
-  packetId?: PacketId;
+  packetId: PacketId;
 }
 function createBaseGenesisState(): GenesisState {
   return {

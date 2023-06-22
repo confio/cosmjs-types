@@ -111,22 +111,22 @@ export interface PartSetHeader {
 export interface Part {
   index: number;
   bytes: Uint8Array;
-  proof?: Proof;
+  proof: Proof;
 }
 /** BlockID */
 export interface BlockID {
   hash: Uint8Array;
-  partSetHeader?: PartSetHeader;
+  partSetHeader: PartSetHeader;
 }
 /** Header defines the structure of a block header. */
 export interface Header {
   /** basic block info */
-  version?: Consensus;
+  version: Consensus;
   chainId: string;
   height: Long;
-  time?: Timestamp;
+  time: Timestamp;
   /** prev block info */
-  lastBlockId?: BlockID;
+  lastBlockId: BlockID;
   /** hashes of block data */
   lastCommitHash: Uint8Array;
   dataHash: Uint8Array;
@@ -161,8 +161,8 @@ export interface Vote {
   type: SignedMsgType;
   height: Long;
   round: number;
-  blockId?: BlockID;
-  timestamp?: Timestamp;
+  blockId: BlockID;
+  timestamp: Timestamp;
   validatorAddress: Uint8Array;
   validatorIndex: number;
   signature: Uint8Array;
@@ -171,14 +171,14 @@ export interface Vote {
 export interface Commit {
   height: Long;
   round: number;
-  blockId?: BlockID;
+  blockId: BlockID;
   signatures: CommitSig[];
 }
 /** CommitSig is a part of the Vote included in a Commit. */
 export interface CommitSig {
   blockIdFlag: BlockIDFlag;
   validatorAddress: Uint8Array;
-  timestamp?: Timestamp;
+  timestamp: Timestamp;
   signature: Uint8Array;
 }
 export interface Proposal {
@@ -186,29 +186,29 @@ export interface Proposal {
   height: Long;
   round: number;
   polRound: number;
-  blockId?: BlockID;
-  timestamp?: Timestamp;
+  blockId: BlockID;
+  timestamp: Timestamp;
   signature: Uint8Array;
 }
 export interface SignedHeader {
-  header?: Header;
-  commit?: Commit;
+  header: Header;
+  commit: Commit;
 }
 export interface LightBlock {
-  signedHeader?: SignedHeader;
-  validatorSet?: ValidatorSet;
+  signedHeader: SignedHeader;
+  validatorSet: ValidatorSet;
 }
 export interface BlockMeta {
-  blockId?: BlockID;
+  blockId: BlockID;
   blockSize: Long;
-  header?: Header;
+  header: Header;
   numTxs: Long;
 }
 /** TxProof represents a Merkle proof of the presence of a transaction in the Merkle tree. */
 export interface TxProof {
   rootHash: Uint8Array;
   data: Uint8Array;
-  proof?: Proof;
+  proof: Proof;
 }
 function createBasePartSetHeader(): PartSetHeader {
   return {

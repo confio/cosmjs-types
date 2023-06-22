@@ -19,7 +19,7 @@ export const protobufPackage = "cosmos.base.store.v1beta1";
 export interface CommitInfo {
   version: Long;
   storeInfos: StoreInfo[];
-  timestamp?: Timestamp;
+  timestamp: Timestamp;
 }
 /**
  * StoreInfo defines store-specific commit information. It contains a reference
@@ -27,7 +27,7 @@ export interface CommitInfo {
  */
 export interface StoreInfo {
   name: string;
-  commitId?: CommitID;
+  commitId: CommitID;
 }
 /**
  * CommitID defines the commitment information when a specific store is

@@ -42,7 +42,7 @@ export interface MsgSubmitProposalResponse {
  */
 export interface MsgExecLegacyContent {
   /** content is the proposal's content. */
-  content?: Any;
+  content: Any;
   /** authority must be the gov module address. */
   authority: string;
 }
@@ -98,7 +98,7 @@ export interface MsgUpdateParams {
    *
    * NOTE: All parameters must be supplied.
    */
-  params?: Params;
+  params: Params;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a

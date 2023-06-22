@@ -14,7 +14,7 @@ export interface MsgStoreCode {
    * InstantiatePermission access control to apply on contract creation,
    * optional
    */
-  instantiatePermission?: AccessConfig;
+  instantiatePermission: AccessConfig;
 }
 /** MsgStoreCodeResponse returns store result data. */
 export interface MsgStoreCodeResponse {
@@ -142,7 +142,7 @@ export interface MsgUpdateInstantiateConfig {
   /** CodeID references the stored WASM code */
   codeId: Long;
   /** NewInstantiatePermission is the new access control */
-  newInstantiatePermission?: AccessConfig;
+  newInstantiatePermission: AccessConfig;
 }
 /** MsgUpdateInstantiateConfigResponse returns empty data */
 export interface MsgUpdateInstantiateConfigResponse {}

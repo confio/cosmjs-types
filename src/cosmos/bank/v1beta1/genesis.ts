@@ -7,7 +7,7 @@ export const protobufPackage = "cosmos.bank.v1beta1";
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of the module. */
-  params?: Params;
+  params: Params;
   /** balances is an array containing the balances of all the accounts. */
   balances: Balance[];
   /**

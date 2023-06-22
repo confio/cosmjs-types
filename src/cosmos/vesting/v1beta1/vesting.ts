@@ -9,7 +9,7 @@ export const protobufPackage = "cosmos.vesting.v1beta1";
  * the necessary fields needed for any vesting account implementation.
  */
 export interface BaseVestingAccount {
-  baseAccount?: BaseAccount;
+  baseAccount: BaseAccount;
   originalVesting: Coin[];
   delegatedFree: Coin[];
   delegatedVesting: Coin[];
@@ -21,7 +21,7 @@ export interface BaseVestingAccount {
  * continuously vests by unlocking coins linearly with respect to time.
  */
 export interface ContinuousVestingAccount {
-  baseVestingAccount?: BaseVestingAccount;
+  baseVestingAccount: BaseVestingAccount;
   /** Vesting start time, as unix timestamp (in seconds). */
   startTime: Long;
 }
@@ -31,7 +31,7 @@ export interface ContinuousVestingAccount {
  * locked until a specified time.
  */
 export interface DelayedVestingAccount {
-  baseVestingAccount?: BaseVestingAccount;
+  baseVestingAccount: BaseVestingAccount;
 }
 /** Period defines a length of time and amount of coins that will vest. */
 export interface Period {
@@ -44,7 +44,7 @@ export interface Period {
  * periodically vests by unlocking coins during each specified period.
  */
 export interface PeriodicVestingAccount {
-  baseVestingAccount?: BaseVestingAccount;
+  baseVestingAccount: BaseVestingAccount;
   startTime: Long;
   vestingPeriods: Period[];
 }
@@ -56,7 +56,7 @@ export interface PeriodicVestingAccount {
  * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccount {
-  baseVestingAccount?: BaseVestingAccount;
+  baseVestingAccount: BaseVestingAccount;
 }
 function createBaseBaseVestingAccount(): BaseVestingAccount {
   return {

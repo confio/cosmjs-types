@@ -20,25 +20,25 @@ export interface QueryChannelRequest {
  */
 export interface QueryChannelResponse {
   /** channel associated with the request identifiers */
-  channel?: Channel;
+  channel: Channel;
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
   /** list of stored channels of the chain. */
   channels: IdentifiedChannel[];
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryConnectionChannelsRequest is the request type for the
@@ -48,7 +48,7 @@ export interface QueryConnectionChannelsRequest {
   /** connection unique identifier */
   connection: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryConnectionChannelsResponse is the Response type for the
@@ -58,9 +58,9 @@ export interface QueryConnectionChannelsResponse {
   /** list of channels associated with a connection. */
   channels: IdentifiedChannel[];
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryChannelClientStateRequest is the request type for the Query/ClientState
@@ -78,11 +78,11 @@ export interface QueryChannelClientStateRequest {
  */
 export interface QueryChannelClientStateResponse {
   /** client state associated with the channel */
-  identifiedClientState?: IdentifiedClientState;
+  identifiedClientState: IdentifiedClientState;
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /**
  * QueryChannelConsensusStateRequest is the request type for the
@@ -104,13 +104,13 @@ export interface QueryChannelConsensusStateRequest {
  */
 export interface QueryChannelConsensusStateResponse {
   /** consensus state associated with the channel */
-  consensusState?: Any;
+  consensusState: Any;
   /** client ID associated with the consensus state */
   clientId: string;
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /**
  * QueryPacketCommitmentRequest is the request type for the
@@ -135,7 +135,7 @@ export interface QueryPacketCommitmentResponse {
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /**
  * QueryPacketCommitmentsRequest is the request type for the
@@ -147,7 +147,7 @@ export interface QueryPacketCommitmentsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryPacketCommitmentsResponse is the request type for the
@@ -156,9 +156,9 @@ export interface QueryPacketCommitmentsRequest {
 export interface QueryPacketCommitmentsResponse {
   commitments: PacketState[];
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryPacketReceiptRequest is the request type for the
@@ -183,7 +183,7 @@ export interface QueryPacketReceiptResponse {
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /**
  * QueryPacketAcknowledgementRequest is the request type for the
@@ -208,7 +208,7 @@ export interface QueryPacketAcknowledgementResponse {
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 /**
  * QueryPacketAcknowledgementsRequest is the request type for the
@@ -220,7 +220,7 @@ export interface QueryPacketAcknowledgementsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   /** list of packet sequences */
   packetCommitmentSequences: Long[];
 }
@@ -231,9 +231,9 @@ export interface QueryPacketAcknowledgementsRequest {
 export interface QueryPacketAcknowledgementsResponse {
   acknowledgements: PacketState[];
   /** pagination response */
-  pagination?: PageResponse;
+  pagination: PageResponse;
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryUnreceivedPacketsRequest is the request type for the
@@ -255,7 +255,7 @@ export interface QueryUnreceivedPacketsResponse {
   /** list of unreceived packet sequences */
   sequences: Long[];
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryUnreceivedAcks is the request type for the
@@ -277,7 +277,7 @@ export interface QueryUnreceivedAcksResponse {
   /** list of unreceived acknowledgement sequences */
   sequences: Long[];
   /** query block height */
-  height?: Height;
+  height: Height;
 }
 /**
  * QueryNextSequenceReceiveRequest is the request type for the
@@ -299,7 +299,7 @@ export interface QueryNextSequenceReceiveResponse {
   /** merkle proof of existence */
   proof: Uint8Array;
   /** height at which the proof was retrieved */
-  proofHeight?: Height;
+  proofHeight: Height;
 }
 function createBaseQueryChannelRequest(): QueryChannelRequest {
   return {

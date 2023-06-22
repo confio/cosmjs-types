@@ -23,7 +23,7 @@ export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /** constant_fee defines the x/crisis parameter. */
-  constantFee?: Coin;
+  constantFee: Coin;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a

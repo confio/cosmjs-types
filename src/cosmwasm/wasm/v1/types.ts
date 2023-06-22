@@ -123,7 +123,7 @@ export interface AccessConfig {
 }
 /** Params defines the set of wasm parameters. */
 export interface Params {
-  codeUploadAccess?: AccessConfig;
+  codeUploadAccess: AccessConfig;
   instantiateDefaultPermission: AccessType;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
@@ -133,7 +133,7 @@ export interface CodeInfo {
   /** Creator address who initially stored the code */
   creator: string;
   /** InstantiateConfig access control to apply on contract creation, optional */
-  instantiateConfig?: AccessConfig;
+  instantiateConfig: AccessConfig;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
@@ -146,13 +146,13 @@ export interface ContractInfo {
   /** Label is optional metadata to be stored with a contract instance. */
   label: string;
   /** Created Tx position when the contract was instantiated. */
-  created?: AbsoluteTxPosition;
+  created: AbsoluteTxPosition;
   ibcPortId: string;
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
    */
-  extension?: Any;
+  extension: Any;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntry {
@@ -160,7 +160,7 @@ export interface ContractCodeHistoryEntry {
   /** CodeID is the reference to the stored WASM code */
   codeId: Long;
   /** Updated Tx position when the operation was executed. */
-  updated?: AbsoluteTxPosition;
+  updated: AbsoluteTxPosition;
   msg: Uint8Array;
 }
 /**

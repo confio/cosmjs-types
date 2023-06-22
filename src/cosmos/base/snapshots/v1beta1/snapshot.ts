@@ -8,7 +8,7 @@ export interface Snapshot {
   format: number;
   chunks: number;
   hash: Uint8Array;
-  metadata?: Metadata;
+  metadata: Metadata;
 }
 /** Metadata contains SDK-specific snapshot metadata. */
 export interface Metadata {

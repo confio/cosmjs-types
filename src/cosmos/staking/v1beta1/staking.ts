@@ -102,7 +102,7 @@ export function infractionToJSON(object: Infraction): string {
  * (`n` is set by the staking module's `historical_entries` parameter).
  */
 export interface HistoricalInfo {
-  header?: Header;
+  header: Header;
   valset: Validator[];
 }
 /**
@@ -120,9 +120,9 @@ export interface CommissionRates {
 /** Commission defines commission parameters for a given validator. */
 export interface Commission {
   /** commission_rates defines the initial commission rates to be used for creating a validator. */
-  commissionRates?: CommissionRates;
+  commissionRates: CommissionRates;
   /** update_time is the last time the commission rate was changed. */
-  updateTime?: Timestamp;
+  updateTime: Timestamp;
 }
 /** Description defines a validator description. */
 export interface Description {
@@ -151,7 +151,7 @@ export interface Validator {
   /** operator_address defines the address of the validator's operator; bech encoded in JSON. */
   operatorAddress: string;
   /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
-  consensusPubkey?: Any;
+  consensusPubkey: Any;
   /** jailed defined whether the validator has been jailed from bonded status or not. */
   jailed: boolean;
   /** status is the validator status (bonded/unbonding/unbonded). */
@@ -161,13 +161,13 @@ export interface Validator {
   /** delegator_shares defines total shares issued to a validator's delegators. */
   delegatorShares: string;
   /** description defines the description terms for the validator. */
-  description?: Description;
+  description: Description;
   /** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
   unbondingHeight: Long;
   /** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
-  unbondingTime?: Timestamp;
+  unbondingTime: Timestamp;
   /** commission defines the commission parameters. */
-  commission?: Commission;
+  commission: Commission;
   /**
    * min_self_delegation is the validator's self declared minimum self delegation.
    *
@@ -241,7 +241,7 @@ export interface UnbondingDelegationEntry {
   /** creation_height is the height which the unbonding took place. */
   creationHeight: Long;
   /** completion_time is the unix time for unbonding completion. */
-  completionTime?: Timestamp;
+  completionTime: Timestamp;
   /** initial_balance defines the tokens initially scheduled to receive at completion. */
   initialBalance: string;
   /** balance defines the tokens to receive at completion. */
@@ -256,7 +256,7 @@ export interface RedelegationEntry {
   /** creation_height  defines the height which the redelegation took place. */
   creationHeight: Long;
   /** completion_time defines the unix time for redelegation completion. */
-  completionTime?: Timestamp;
+  completionTime: Timestamp;
   /** initial_balance defines the initial balance when redelegation started. */
   initialBalance: string;
   /** shares_dst is the amount of destination-validator shares created by redelegation. */
@@ -283,7 +283,7 @@ export interface Redelegation {
 /** Params defines the parameters for the x/staking module. */
 export interface Params {
   /** unbonding_time is the time duration of unbonding. */
-  unbondingTime?: Duration;
+  unbondingTime: Duration;
   /** max_validators is the maximum number of validators. */
   maxValidators: number;
   /** max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio). */
@@ -300,8 +300,8 @@ export interface Params {
  * balance in addition to shares which is more suitable for client responses.
  */
 export interface DelegationResponse {
-  delegation?: Delegation;
-  balance?: Coin;
+  delegation: Delegation;
+  balance: Coin;
 }
 /**
  * RedelegationEntryResponse is equivalent to a RedelegationEntry except that it
@@ -309,7 +309,7 @@ export interface DelegationResponse {
  * responses.
  */
 export interface RedelegationEntryResponse {
-  redelegationEntry?: RedelegationEntry;
+  redelegationEntry: RedelegationEntry;
   balance: string;
 }
 /**
@@ -318,7 +318,7 @@ export interface RedelegationEntryResponse {
  * responses.
  */
 export interface RedelegationResponse {
-  redelegation?: Redelegation;
+  redelegation: Redelegation;
   entries: RedelegationEntryResponse[];
 }
 /**

@@ -9,7 +9,7 @@ export interface Record {
   /** name represents a name of Record */
   name: string;
   /** pub_key represents a public key in any format */
-  pubKey?: Any;
+  pubKey: Any;
   /** local stores the private key locally. */
   local?: Record_Local;
   /** ledger stores the information about a Ledger key. */
@@ -24,11 +24,11 @@ export interface Record {
  * Local item
  */
 export interface Record_Local {
-  privKey?: Any;
+  privKey: Any;
 }
 /** Ledger item */
 export interface Record_Ledger {
-  path?: BIP44Params;
+  path: BIP44Params;
 }
 /** Multi item */
 export interface Record_Multi {}

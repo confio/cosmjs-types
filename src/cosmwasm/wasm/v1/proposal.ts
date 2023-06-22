@@ -15,7 +15,7 @@ export interface StoreCodeProposal {
   /** WASMByteCode can be raw or gzip compressed */
   wasmByteCode: Uint8Array;
   /** InstantiatePermission to apply on contract creation, optional */
-  instantiatePermission?: AccessConfig;
+  instantiatePermission: AccessConfig;
   /** UnpinCode code on upload, optional */
   unpinCode: boolean;
   /** Source is the URL where the code is hosted */
@@ -179,7 +179,7 @@ export interface AccessConfigUpdate {
   /** CodeID is the reference to the stored WASM code to be updated */
   codeId: Long;
   /** InstantiatePermission to apply to the set of code ids */
-  instantiatePermission?: AccessConfig;
+  instantiatePermission: AccessConfig;
 }
 /**
  * UpdateInstantiateConfigProposal gov proposal content type to update
@@ -210,7 +210,7 @@ export interface StoreAndInstantiateContractProposal {
   /** WASMByteCode can be raw or gzip compressed */
   wasmByteCode: Uint8Array;
   /** InstantiatePermission to apply on contract creation, optional */
-  instantiatePermission?: AccessConfig;
+  instantiatePermission: AccessConfig;
   /** UnpinCode code on upload, optional */
   unpinCode: boolean;
   /** Admin is an optional address that can execute migrations */

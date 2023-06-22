@@ -39,7 +39,7 @@ export interface GetResponse {
    * result is the result of the get query. If no value is found, the gRPC
    * status code NOT_FOUND will be returned.
    */
-  result?: Any;
+  result: Any;
 }
 /** ListRequest is the Query/List request type. */
 export interface ListRequest {
@@ -55,7 +55,7 @@ export interface ListRequest {
   /** range defines a range query. */
   range?: ListRequest_Range;
   /** pagination is the pagination request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** Prefix specifies the arguments to a prefix query. */
 export interface ListRequest_Prefix {
@@ -86,7 +86,7 @@ export interface ListResponse {
   /** results are the results of the query. */
   results: Any[];
   /** pagination is the pagination response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 /** IndexValue represents the value of a field in an ORM index expression. */
 export interface IndexValue {

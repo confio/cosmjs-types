@@ -12,7 +12,7 @@ export interface MsgSoftwareUpgrade {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /** plan is the upgrade plan. */
-  plan?: Plan;
+  plan: Plan;
 }
 /**
  * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.

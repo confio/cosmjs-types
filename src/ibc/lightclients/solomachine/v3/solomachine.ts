@@ -12,7 +12,7 @@ export interface ClientState {
   sequence: Long;
   /** frozen sequence of the solo machine */
   isFrozen: boolean;
-  consensusState?: ConsensusState;
+  consensusState: ConsensusState;
 }
 /**
  * ConsensusState defines a solo machine consensus state. The sequence of a
@@ -21,7 +21,7 @@ export interface ClientState {
  */
 export interface ConsensusState {
   /** public key of the solo machine */
-  publicKey?: Any;
+  publicKey: Any;
   /**
    * diversifier allows the same public key to be re-used across different solo
    * machine clients (potentially on different chains) without being considered
@@ -34,7 +34,7 @@ export interface ConsensusState {
 export interface Header {
   timestamp: Long;
   signature: Uint8Array;
-  newPublicKey?: Any;
+  newPublicKey: Any;
   newDiversifier: string;
 }
 /**
@@ -43,8 +43,8 @@ export interface Header {
  */
 export interface Misbehaviour {
   sequence: Long;
-  signatureOne?: SignatureAndData;
-  signatureTwo?: SignatureAndData;
+  signatureOne: SignatureAndData;
+  signatureTwo: SignatureAndData;
 }
 /**
  * SignatureAndData contains a signature and the data signed over to create that
@@ -80,7 +80,7 @@ export interface SignBytes {
 /** HeaderData returns the SignBytes data for update verification. */
 export interface HeaderData {
   /** header public key */
-  newPubKey?: Any;
+  newPubKey: Any;
   /** header diversifier */
   newDiversifier: string;
 }

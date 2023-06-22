@@ -183,7 +183,7 @@ export interface Proposal {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
   /** content is the proposal's content. */
-  content?: Any;
+  content: Any;
   /** status defines the proposal status. */
   status: ProposalStatus;
   /**
@@ -191,17 +191,17 @@ export interface Proposal {
    * querying a proposal via gRPC, this field is not populated until the
    * proposal's voting period has ended.
    */
-  finalTallyResult?: TallyResult;
+  finalTallyResult: TallyResult;
   /** submit_time is the time of proposal submission. */
-  submitTime?: Timestamp;
+  submitTime: Timestamp;
   /** deposit_end_time is the end time for deposition. */
-  depositEndTime?: Timestamp;
+  depositEndTime: Timestamp;
   /** total_deposit is the total deposit on the proposal. */
   totalDeposit: Coin[];
   /** voting_start_time is the starting time to vote on a proposal. */
-  votingStartTime?: Timestamp;
+  votingStartTime: Timestamp;
   /** voting_end_time is the end time of voting on a proposal. */
-  votingEndTime?: Timestamp;
+  votingEndTime: Timestamp;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
 export interface TallyResult {
@@ -245,12 +245,12 @@ export interface DepositParams {
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
    * months.
    */
-  maxDepositPeriod?: Duration;
+  maxDepositPeriod: Duration;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
   /** Duration of the voting period. */
-  votingPeriod?: Duration;
+  votingPeriod: Duration;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParams {

@@ -11,7 +11,7 @@ export const protobufPackage = "cosmos.authz.v1beta1";
 export interface MsgGrant {
   granter: string;
   grantee: string;
-  grant?: Grant;
+  grant: Grant;
 }
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
 export interface MsgExecResponse {

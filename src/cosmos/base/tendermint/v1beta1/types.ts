@@ -20,20 +20,20 @@ export const protobufPackage = "cosmos.base.tendermint.v1beta1";
  * field converted to bech32 string.
  */
 export interface Block {
-  header?: Header;
-  data?: Data;
-  evidence?: EvidenceList;
-  lastCommit?: Commit;
+  header: Header;
+  data: Data;
+  evidence: EvidenceList;
+  lastCommit: Commit;
 }
 /** Header defines the structure of a Tendermint block header. */
 export interface Header {
   /** basic block info */
-  version?: Consensus;
+  version: Consensus;
   chainId: string;
   height: Long;
-  time?: Timestamp;
+  time: Timestamp;
   /** prev block info */
-  lastBlockId?: BlockID;
+  lastBlockId: BlockID;
   /** hashes of block data */
   lastCommitHash: Uint8Array;
   dataHash: Uint8Array;
