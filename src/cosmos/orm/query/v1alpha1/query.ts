@@ -234,7 +234,7 @@ function createBaseListRequest(): ListRequest {
     index: "",
     prefix: undefined,
     range: undefined,
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const ListRequest = {
@@ -440,7 +440,7 @@ export const ListRequest_Range = {
 function createBaseListResponse(): ListResponse {
   return {
     results: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const ListResponse = {

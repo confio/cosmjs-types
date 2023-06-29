@@ -91,7 +91,7 @@ export interface SingletonDescriptor {
 }
 function createBaseTableDescriptor(): TableDescriptor {
   return {
-    primaryKey: undefined,
+    primaryKey: PrimaryKeyDescriptor.fromPartial({}),
     index: [],
     id: 0,
   };

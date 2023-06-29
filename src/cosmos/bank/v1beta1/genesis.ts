@@ -36,7 +36,7 @@ export interface Balance {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     balances: [],
     supply: [],
     denomMetadata: [],

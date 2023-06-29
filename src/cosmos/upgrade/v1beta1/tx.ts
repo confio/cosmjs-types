@@ -38,7 +38,7 @@ export interface MsgCancelUpgradeResponse {}
 function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
   return {
     authority: "",
-    plan: undefined,
+    plan: Plan.fromPartial({}),
   };
 }
 export const MsgSoftwareUpgrade = {

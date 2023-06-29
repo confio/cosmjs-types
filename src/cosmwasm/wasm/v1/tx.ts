@@ -150,7 +150,7 @@ function createBaseMsgStoreCode(): MsgStoreCode {
   return {
     sender: "",
     wasmByteCode: new Uint8Array(),
-    instantiatePermission: undefined,
+    instantiatePermission: AccessConfig.fromPartial({}),
   };
 }
 export const MsgStoreCode = {
@@ -1061,7 +1061,7 @@ function createBaseMsgUpdateInstantiateConfig(): MsgUpdateInstantiateConfig {
   return {
     sender: "",
     codeId: Long.UZERO,
-    newInstantiatePermission: undefined,
+    newInstantiatePermission: AccessConfig.fromPartial({}),
   };
 }
 export const MsgUpdateInstantiateConfig = {

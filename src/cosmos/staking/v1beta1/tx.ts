@@ -114,8 +114,8 @@ export interface MsgUpdateParams {
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgCreateValidator(): MsgCreateValidator {
   return {
-    description: undefined,
-    commission: undefined,
+    description: Description.fromPartial({}),
+    commission: CommissionRates.fromPartial({}),
     minSelfDelegation: "",
     delegatorAddress: "",
     validatorAddress: "",
@@ -262,7 +262,7 @@ export const MsgCreateValidatorResponse = {
 };
 function createBaseMsgEditValidator(): MsgEditValidator {
   return {
-    description: undefined,
+    description: Description.fromPartial({}),
     validatorAddress: "",
     commissionRate: "",
     minSelfDelegation: "",
@@ -833,7 +833,7 @@ export const MsgCancelUnbondingDelegationResponse = {
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {

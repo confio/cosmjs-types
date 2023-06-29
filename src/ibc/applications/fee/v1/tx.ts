@@ -283,7 +283,7 @@ export const MsgRegisterCounterpartyPayeeResponse = {
 };
 function createBaseMsgPayPacketFee(): MsgPayPacketFee {
   return {
-    fee: undefined,
+    fee: Fee.fromPartial({}),
     sourcePortId: "",
     sourceChannelId: "",
     signer: "",
@@ -405,8 +405,8 @@ export const MsgPayPacketFeeResponse = {
 };
 function createBaseMsgPayPacketFeeAsync(): MsgPayPacketFeeAsync {
   return {
-    packetId: undefined,
-    packetFee: undefined,
+    packetId: PacketId.fromPartial({}),
+    packetFee: PacketFee.fromPartial({}),
   };
 }
 export const MsgPayPacketFeeAsync = {

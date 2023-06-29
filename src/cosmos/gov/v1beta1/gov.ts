@@ -454,7 +454,7 @@ function createBaseProposal(): Proposal {
     proposalId: Long.UZERO,
     content: undefined,
     status: 0,
-    finalTallyResult: undefined,
+    finalTallyResult: TallyResult.fromPartial({}),
     submitTime: undefined,
     depositEndTime: undefined,
     totalDeposit: [],

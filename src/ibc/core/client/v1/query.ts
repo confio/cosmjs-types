@@ -217,7 +217,7 @@ function createBaseQueryClientStateResponse(): QueryClientStateResponse {
   return {
     clientState: undefined,
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryClientStateResponse = {
@@ -291,7 +291,7 @@ export const QueryClientStateResponse = {
 };
 function createBaseQueryClientStatesRequest(): QueryClientStatesRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryClientStatesRequest = {
@@ -343,7 +343,7 @@ export const QueryClientStatesRequest = {
 function createBaseQueryClientStatesResponse(): QueryClientStatesResponse {
   return {
     clientStates: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryClientStatesResponse = {
@@ -496,7 +496,7 @@ function createBaseQueryConsensusStateResponse(): QueryConsensusStateResponse {
   return {
     consensusState: undefined,
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryConsensusStateResponse = {
@@ -571,7 +571,7 @@ export const QueryConsensusStateResponse = {
 function createBaseQueryConsensusStatesRequest(): QueryConsensusStatesRequest {
   return {
     clientId: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryConsensusStatesRequest = {
@@ -632,7 +632,7 @@ export const QueryConsensusStatesRequest = {
 function createBaseQueryConsensusStatesResponse(): QueryConsensusStatesResponse {
   return {
     consensusStates: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryConsensusStatesResponse = {
@@ -702,7 +702,7 @@ export const QueryConsensusStatesResponse = {
 function createBaseQueryConsensusStateHeightsRequest(): QueryConsensusStateHeightsRequest {
   return {
     clientId: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryConsensusStateHeightsRequest = {
@@ -763,7 +763,7 @@ export const QueryConsensusStateHeightsRequest = {
 function createBaseQueryConsensusStateHeightsResponse(): QueryConsensusStateHeightsResponse {
   return {
     consensusStateHeights: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryConsensusStateHeightsResponse = {
@@ -958,7 +958,7 @@ export const QueryClientParamsRequest = {
 };
 function createBaseQueryClientParamsResponse(): QueryClientParamsResponse {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const QueryClientParamsResponse = {

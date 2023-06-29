@@ -281,8 +281,8 @@ export interface AuxSignerData {
 }
 function createBaseTx(): Tx {
   return {
-    body: undefined,
-    authInfo: undefined,
+    body: TxBody.fromPartial({}),
+    authInfo: AuthInfo.fromPartial({}),
     signatures: [],
   };
 }
@@ -524,7 +524,7 @@ function createBaseSignDocDirectAux(): SignDocDirectAux {
     chainId: "",
     accountNumber: Long.UZERO,
     sequence: Long.UZERO,
-    tip: undefined,
+    tip: Tip.fromPartial({}),
   };
 }
 export const SignDocDirectAux = {
@@ -737,8 +737,8 @@ export const TxBody = {
 function createBaseAuthInfo(): AuthInfo {
   return {
     signerInfos: [],
-    fee: undefined,
-    tip: undefined,
+    fee: Fee.fromPartial({}),
+    tip: Tip.fromPartial({}),
   };
 }
 export const AuthInfo = {
@@ -808,7 +808,7 @@ export const AuthInfo = {
 function createBaseSignerInfo(): SignerInfo {
   return {
     publicKey: undefined,
-    modeInfo: undefined,
+    modeInfo: ModeInfo.fromPartial({}),
     sequence: Long.UZERO,
   };
 }
@@ -991,7 +991,7 @@ export const ModeInfo_Single = {
 };
 function createBaseModeInfo_Multi(): ModeInfo_Multi {
   return {
-    bitarray: undefined,
+    bitarray: CompactBitArray.fromPartial({}),
     modeInfos: [],
   };
 }
@@ -1198,7 +1198,7 @@ export const Tip = {
 function createBaseAuxSignerData(): AuxSignerData {
   return {
     address: "",
-    signDoc: undefined,
+    signDoc: SignDocDirectAux.fromPartial({}),
     mode: 0,
     sig: new Uint8Array(),
   };

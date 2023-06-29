@@ -57,10 +57,10 @@ export interface Header {
 }
 function createBaseBlock(): Block {
   return {
-    header: undefined,
-    data: undefined,
-    evidence: undefined,
-    lastCommit: undefined,
+    header: Header.fromPartial({}),
+    data: Data.fromPartial({}),
+    evidence: EvidenceList.fromPartial({}),
+    lastCommit: Commit.fromPartial({}),
   };
 }
 export const Block = {
@@ -142,11 +142,11 @@ export const Block = {
 };
 function createBaseHeader(): Header {
   return {
-    version: undefined,
+    version: Consensus.fromPartial({}),
     chainId: "",
     height: Long.ZERO,
     time: undefined,
-    lastBlockId: undefined,
+    lastBlockId: BlockID.fromPartial({}),
     lastCommitHash: new Uint8Array(),
     dataHash: new Uint8Array(),
     validatorsHash: new Uint8Array(),

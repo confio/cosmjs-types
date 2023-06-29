@@ -127,7 +127,7 @@ export const BaseAccount = {
 };
 function createBaseModuleAccount(): ModuleAccount {
   return {
-    baseAccount: undefined,
+    baseAccount: BaseAccount.fromPartial({}),
     name: "",
     permissions: [],
   };

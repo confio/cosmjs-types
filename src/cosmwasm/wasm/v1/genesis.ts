@@ -32,7 +32,7 @@ export interface Sequence {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     codes: [],
     contracts: [],
     sequences: [],
@@ -125,7 +125,7 @@ export const GenesisState = {
 function createBaseCode(): Code {
   return {
     codeId: Long.UZERO,
-    codeInfo: undefined,
+    codeInfo: CodeInfo.fromPartial({}),
     codeBytes: new Uint8Array(),
     pinned: false,
   };
@@ -208,7 +208,7 @@ export const Code = {
 function createBaseContract(): Contract {
   return {
     contractAddress: "",
-    contractInfo: undefined,
+    contractInfo: ContractInfo.fromPartial({}),
     contractState: [],
     contractCodeHistory: [],
   };

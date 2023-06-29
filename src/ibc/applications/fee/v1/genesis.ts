@@ -369,7 +369,7 @@ export const RegisteredCounterpartyPayee = {
 function createBaseForwardRelayerAddress(): ForwardRelayerAddress {
   return {
     address: "",
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
   };
 }
 export const ForwardRelayerAddress = {

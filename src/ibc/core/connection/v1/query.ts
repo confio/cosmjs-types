@@ -164,9 +164,9 @@ export const QueryConnectionRequest = {
 };
 function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   return {
-    connection: undefined,
+    connection: ConnectionEnd.fromPartial({}),
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryConnectionResponse = {
@@ -238,7 +238,7 @@ export const QueryConnectionResponse = {
 };
 function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryConnectionsRequest = {
@@ -288,8 +288,8 @@ export const QueryConnectionsRequest = {
 function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
   return {
     connections: [],
-    pagination: undefined,
-    height: undefined,
+    pagination: PageResponse.fromPartial({}),
+    height: Height.fromPartial({}),
   };
 }
 export const QueryConnectionsResponse = {
@@ -414,7 +414,7 @@ function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsRespo
   return {
     connectionPaths: [],
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryClientConnectionsResponse = {
@@ -537,9 +537,9 @@ export const QueryConnectionClientStateRequest = {
 };
 function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientStateResponse {
   return {
-    identifiedClientState: undefined,
+    identifiedClientState: IdentifiedClientState.fromPartial({}),
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryConnectionClientStateResponse = {
@@ -698,7 +698,7 @@ function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConse
     consensusState: undefined,
     clientId: "",
     proof: new Uint8Array(),
-    proofHeight: undefined,
+    proofHeight: Height.fromPartial({}),
   };
 }
 export const QueryConnectionConsensusStateResponse = {
@@ -819,7 +819,7 @@ export const QueryConnectionParamsRequest = {
 };
 function createBaseQueryConnectionParamsResponse(): QueryConnectionParamsResponse {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const QueryConnectionParamsResponse = {

@@ -149,7 +149,7 @@ function createBaseMsgSendTx(): MsgSendTx {
   return {
     owner: "",
     connectionId: "",
-    packetData: undefined,
+    packetData: InterchainAccountPacketData.fromPartial({}),
     relativeTimeout: Long.UZERO,
   };
 }

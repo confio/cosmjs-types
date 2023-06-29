@@ -28,7 +28,7 @@ export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {

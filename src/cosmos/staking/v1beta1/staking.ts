@@ -338,7 +338,7 @@ export interface ValidatorUpdates {
 }
 function createBaseHistoricalInfo(): HistoricalInfo {
   return {
-    header: undefined,
+    header: Header.fromPartial({}),
     valset: [],
   };
 }
@@ -463,7 +463,7 @@ export const CommissionRates = {
 };
 function createBaseCommission(): Commission {
   return {
-    commissionRates: undefined,
+    commissionRates: CommissionRates.fromPartial({}),
     updateTime: undefined,
   };
 }
@@ -620,10 +620,10 @@ function createBaseValidator(): Validator {
     status: 0,
     tokens: "",
     delegatorShares: "",
-    description: undefined,
+    description: Description.fromPartial({}),
     unbondingHeight: Long.ZERO,
     unbondingTime: undefined,
-    commission: undefined,
+    commission: Commission.fromPartial({}),
     minSelfDelegation: "",
     unbondingOnHoldRefCount: Long.ZERO,
     unbondingIds: [],
@@ -1632,7 +1632,7 @@ export const Params = {
 };
 function createBaseDelegationResponse(): DelegationResponse {
   return {
-    delegation: undefined,
+    delegation: Delegation.fromPartial({}),
     balance: undefined,
   };
 }
@@ -1693,7 +1693,7 @@ export const DelegationResponse = {
 };
 function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
   return {
-    redelegationEntry: undefined,
+    redelegationEntry: RedelegationEntry.fromPartial({}),
     balance: "",
   };
 }
@@ -1758,7 +1758,7 @@ export const RedelegationEntryResponse = {
 };
 function createBaseRedelegationResponse(): RedelegationResponse {
   return {
-    redelegation: undefined,
+    redelegation: Redelegation.fromPartial({}),
     entries: [],
   };
 }

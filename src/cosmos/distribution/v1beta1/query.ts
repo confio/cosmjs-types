@@ -203,7 +203,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {
@@ -431,7 +431,7 @@ export const QueryValidatorOutstandingRewardsRequest = {
 };
 function createBaseQueryValidatorOutstandingRewardsResponse(): QueryValidatorOutstandingRewardsResponse {
   return {
-    rewards: undefined,
+    rewards: ValidatorOutstandingRewards.fromPartial({}),
   };
 }
 export const QueryValidatorOutstandingRewardsResponse = {
@@ -532,7 +532,7 @@ export const QueryValidatorCommissionRequest = {
 };
 function createBaseQueryValidatorCommissionResponse(): QueryValidatorCommissionResponse {
   return {
-    commission: undefined,
+    commission: ValidatorAccumulatedCommission.fromPartial({}),
   };
 }
 export const QueryValidatorCommissionResponse = {
@@ -590,7 +590,7 @@ function createBaseQueryValidatorSlashesRequest(): QueryValidatorSlashesRequest 
     validatorAddress: "",
     startingHeight: Long.UZERO,
     endingHeight: Long.UZERO,
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryValidatorSlashesRequest = {
@@ -677,7 +677,7 @@ export const QueryValidatorSlashesRequest = {
 function createBaseQueryValidatorSlashesResponse(): QueryValidatorSlashesResponse {
   return {
     slashes: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryValidatorSlashesResponse = {

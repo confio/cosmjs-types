@@ -26,9 +26,9 @@ export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    block: undefined,
-    evidence: undefined,
-    validator: undefined,
+    block: BlockParams.fromPartial({}),
+    evidence: EvidenceParams.fromPartial({}),
+    validator: ValidatorParams.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {

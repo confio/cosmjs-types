@@ -316,7 +316,7 @@ export const QueryBalanceResponse = {
 function createBaseQueryAllBalancesRequest(): QueryAllBalancesRequest {
   return {
     address: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryAllBalancesRequest = {
@@ -375,7 +375,7 @@ export const QueryAllBalancesRequest = {
 function createBaseQueryAllBalancesResponse(): QueryAllBalancesResponse {
   return {
     balances: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryAllBalancesResponse = {
@@ -440,7 +440,7 @@ export const QueryAllBalancesResponse = {
 function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesRequest {
   return {
     address: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QuerySpendableBalancesRequest = {
@@ -501,7 +501,7 @@ export const QuerySpendableBalancesRequest = {
 function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesResponse {
   return {
     balances: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QuerySpendableBalancesResponse = {
@@ -674,7 +674,7 @@ export const QuerySpendableBalanceByDenomResponse = {
 };
 function createBaseQueryTotalSupplyRequest(): QueryTotalSupplyRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryTotalSupplyRequest = {
@@ -724,7 +724,7 @@ export const QueryTotalSupplyRequest = {
 function createBaseQueryTotalSupplyResponse(): QueryTotalSupplyResponse {
   return {
     supply: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryTotalSupplyResponse = {
@@ -912,7 +912,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {
@@ -958,7 +958,7 @@ export const QueryParamsResponse = {
 };
 function createBaseQueryDenomsMetadataRequest(): QueryDenomsMetadataRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryDenomsMetadataRequest = {
@@ -1010,7 +1010,7 @@ export const QueryDenomsMetadataRequest = {
 function createBaseQueryDenomsMetadataResponse(): QueryDenomsMetadataResponse {
   return {
     metadatas: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryDenomsMetadataResponse = {
@@ -1123,7 +1123,7 @@ export const QueryDenomMetadataRequest = {
 };
 function createBaseQueryDenomMetadataResponse(): QueryDenomMetadataResponse {
   return {
-    metadata: undefined,
+    metadata: Metadata.fromPartial({}),
   };
 }
 export const QueryDenomMetadataResponse = {
@@ -1175,7 +1175,7 @@ export const QueryDenomMetadataResponse = {
 function createBaseQueryDenomOwnersRequest(): QueryDenomOwnersRequest {
   return {
     denom: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryDenomOwnersRequest = {
@@ -1291,7 +1291,7 @@ export const DenomOwner = {
 function createBaseQueryDenomOwnersResponse(): QueryDenomOwnersResponse {
   return {
     denomOwners: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryDenomOwnersResponse = {
@@ -1358,7 +1358,7 @@ export const QueryDenomOwnersResponse = {
 function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
   return {
     denoms: [],
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QuerySendEnabledRequest = {
@@ -1421,7 +1421,7 @@ export const QuerySendEnabledRequest = {
 function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
   return {
     sendEnabled: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QuerySendEnabledResponse = {

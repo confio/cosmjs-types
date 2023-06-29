@@ -13,7 +13,7 @@ function createBaseGenesisState(): GenesisState {
   return {
     portId: "",
     denomTraces: [],
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const GenesisState = {

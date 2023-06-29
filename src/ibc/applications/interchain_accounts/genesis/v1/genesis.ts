@@ -41,8 +41,8 @@ export interface RegisteredInterchainAccount {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    controllerGenesisState: undefined,
-    hostGenesisState: undefined,
+    controllerGenesisState: ControllerGenesisState.fromPartial({}),
+    hostGenesisState: HostGenesisState.fromPartial({}),
   };
 }
 export const GenesisState = {
@@ -115,7 +115,7 @@ function createBaseControllerGenesisState(): ControllerGenesisState {
     activeChannels: [],
     interchainAccounts: [],
     ports: [],
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const ControllerGenesisState = {
@@ -211,7 +211,7 @@ function createBaseHostGenesisState(): HostGenesisState {
     activeChannels: [],
     interchainAccounts: [],
     port: "",
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const HostGenesisState = {

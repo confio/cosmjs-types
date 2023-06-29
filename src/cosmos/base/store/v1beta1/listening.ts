@@ -122,12 +122,12 @@ export const StoreKVPair = {
 };
 function createBaseBlockMetadata(): BlockMetadata {
   return {
-    requestBeginBlock: undefined,
-    responseBeginBlock: undefined,
+    requestBeginBlock: RequestBeginBlock.fromPartial({}),
+    responseBeginBlock: ResponseBeginBlock.fromPartial({}),
     deliverTxs: [],
-    requestEndBlock: undefined,
-    responseEndBlock: undefined,
-    responseCommit: undefined,
+    requestEndBlock: RequestEndBlock.fromPartial({}),
+    responseEndBlock: ResponseEndBlock.fromPartial({}),
+    responseCommit: ResponseCommit.fromPartial({}),
   };
 }
 export const BlockMetadata = {
@@ -263,8 +263,8 @@ export const BlockMetadata = {
 };
 function createBaseBlockMetadata_DeliverTx(): BlockMetadata_DeliverTx {
   return {
-    request: undefined,
-    response: undefined,
+    request: RequestDeliverTx.fromPartial({}),
+    response: ResponseDeliverTx.fromPartial({}),
   };
 }
 export const BlockMetadata_DeliverTx = {

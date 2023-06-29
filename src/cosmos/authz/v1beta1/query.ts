@@ -51,7 +51,7 @@ function createBaseQueryGrantsRequest(): QueryGrantsRequest {
     granter: "",
     grantee: "",
     msgTypeUrl: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryGrantsRequest = {
@@ -128,7 +128,7 @@ export const QueryGrantsRequest = {
 function createBaseQueryGrantsResponse(): QueryGrantsResponse {
   return {
     grants: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryGrantsResponse = {
@@ -191,7 +191,7 @@ export const QueryGrantsResponse = {
 function createBaseQueryGranterGrantsRequest(): QueryGranterGrantsRequest {
   return {
     granter: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryGranterGrantsRequest = {
@@ -252,7 +252,7 @@ export const QueryGranterGrantsRequest = {
 function createBaseQueryGranterGrantsResponse(): QueryGranterGrantsResponse {
   return {
     grants: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryGranterGrantsResponse = {
@@ -319,7 +319,7 @@ export const QueryGranterGrantsResponse = {
 function createBaseQueryGranteeGrantsRequest(): QueryGranteeGrantsRequest {
   return {
     grantee: "",
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const QueryGranteeGrantsRequest = {
@@ -380,7 +380,7 @@ export const QueryGranteeGrantsRequest = {
 function createBaseQueryGranteeGrantsResponse(): QueryGranteeGrantsResponse {
   return {
     grants: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const QueryGranteeGrantsResponse = {

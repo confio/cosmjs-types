@@ -128,7 +128,7 @@ export const BasicAllowance = {
 };
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
-    basic: undefined,
+    basic: BasicAllowance.fromPartial({}),
     period: undefined,
     periodSpendLimit: [],
     periodCanSpend: [],

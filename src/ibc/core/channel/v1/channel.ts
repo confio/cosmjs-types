@@ -228,7 +228,7 @@ function createBaseChannel(): Channel {
   return {
     state: 0,
     ordering: 0,
-    counterparty: undefined,
+    counterparty: Counterparty.fromPartial({}),
     connectionHops: [],
     version: "",
   };
@@ -323,7 +323,7 @@ function createBaseIdentifiedChannel(): IdentifiedChannel {
   return {
     state: 0,
     ordering: 0,
-    counterparty: undefined,
+    counterparty: Counterparty.fromPartial({}),
     connectionHops: [],
     version: "",
     portId: "",
@@ -497,7 +497,7 @@ function createBasePacket(): Packet {
     destinationPort: "",
     destinationChannel: "",
     data: new Uint8Array(),
-    timeoutHeight: undefined,
+    timeoutHeight: Height.fromPartial({}),
     timeoutTimestamp: Long.UZERO,
   };
 }

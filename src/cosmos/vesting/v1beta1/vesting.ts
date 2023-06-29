@@ -60,7 +60,7 @@ export interface PermanentLockedAccount {
 }
 function createBaseBaseVestingAccount(): BaseVestingAccount {
   return {
-    baseAccount: undefined,
+    baseAccount: BaseAccount.fromPartial({}),
     originalVesting: [],
     delegatedFree: [],
     delegatedVesting: [],
@@ -168,7 +168,7 @@ export const BaseVestingAccount = {
 };
 function createBaseContinuousVestingAccount(): ContinuousVestingAccount {
   return {
-    baseVestingAccount: undefined,
+    baseVestingAccount: BaseVestingAccount.fromPartial({}),
     startTime: Long.ZERO,
   };
 }
@@ -236,7 +236,7 @@ export const ContinuousVestingAccount = {
 };
 function createBaseDelayedVestingAccount(): DelayedVestingAccount {
   return {
-    baseVestingAccount: undefined,
+    baseVestingAccount: BaseVestingAccount.fromPartial({}),
   };
 }
 export const DelayedVestingAccount = {
@@ -349,7 +349,7 @@ export const Period = {
 };
 function createBasePeriodicVestingAccount(): PeriodicVestingAccount {
   return {
-    baseVestingAccount: undefined,
+    baseVestingAccount: BaseVestingAccount.fromPartial({}),
     startTime: Long.ZERO,
     vestingPeriods: [],
   };
@@ -431,7 +431,7 @@ export const PeriodicVestingAccount = {
 };
 function createBasePermanentLockedAccount(): PermanentLockedAccount {
   return {
-    baseVestingAccount: undefined,
+    baseVestingAccount: BaseVestingAccount.fromPartial({}),
   };
 }
 export const PermanentLockedAccount = {

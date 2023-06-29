@@ -49,7 +49,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined,
+    params: ConsensusParams.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {

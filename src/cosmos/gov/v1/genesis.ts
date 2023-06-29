@@ -44,10 +44,10 @@ function createBaseGenesisState(): GenesisState {
     deposits: [],
     votes: [],
     proposals: [],
-    depositParams: undefined,
-    votingParams: undefined,
-    tallyParams: undefined,
-    params: undefined,
+    depositParams: DepositParams.fromPartial({}),
+    votingParams: VotingParams.fromPartial({}),
+    tallyParams: TallyParams.fromPartial({}),
+    params: Params.fromPartial({}),
   };
 }
 export const GenesisState = {

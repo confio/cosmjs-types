@@ -128,7 +128,7 @@ export interface QueryFeeEnabledChannelResponse {
 }
 function createBaseQueryIncentivizedPacketsRequest(): QueryIncentivizedPacketsRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
     queryHeight: Long.UZERO,
   };
 }
@@ -248,7 +248,7 @@ export const QueryIncentivizedPacketsResponse = {
 };
 function createBaseQueryIncentivizedPacketRequest(): QueryIncentivizedPacketRequest {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
     queryHeight: Long.UZERO,
   };
 }
@@ -312,7 +312,7 @@ export const QueryIncentivizedPacketRequest = {
 };
 function createBaseQueryIncentivizedPacketResponse(): QueryIncentivizedPacketResponse {
   return {
-    incentivizedPacket: undefined,
+    incentivizedPacket: IdentifiedPacketFees.fromPartial({}),
   };
 }
 export const QueryIncentivizedPacketResponse = {
@@ -367,7 +367,7 @@ export const QueryIncentivizedPacketResponse = {
 };
 function createBaseQueryIncentivizedPacketsForChannelRequest(): QueryIncentivizedPacketsForChannelRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
     portId: "",
     channelId: "",
     queryHeight: Long.UZERO,
@@ -513,7 +513,7 @@ export const QueryIncentivizedPacketsForChannelResponse = {
 };
 function createBaseQueryTotalRecvFeesRequest(): QueryTotalRecvFeesRequest {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
   };
 }
 export const QueryTotalRecvFeesRequest = {
@@ -615,7 +615,7 @@ export const QueryTotalRecvFeesResponse = {
 };
 function createBaseQueryTotalAckFeesRequest(): QueryTotalAckFeesRequest {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
   };
 }
 export const QueryTotalAckFeesRequest = {
@@ -717,7 +717,7 @@ export const QueryTotalAckFeesResponse = {
 };
 function createBaseQueryTotalTimeoutFeesRequest(): QueryTotalTimeoutFeesRequest {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
   };
 }
 export const QueryTotalTimeoutFeesRequest = {
@@ -1025,7 +1025,7 @@ export const QueryCounterpartyPayeeResponse = {
 };
 function createBaseQueryFeeEnabledChannelsRequest(): QueryFeeEnabledChannelsRequest {
   return {
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
     queryHeight: Long.UZERO,
   };
 }

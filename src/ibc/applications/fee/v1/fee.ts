@@ -115,7 +115,7 @@ export const Fee = {
 };
 function createBasePacketFee(): PacketFee {
   return {
-    fee: undefined,
+    fee: Fee.fromPartial({}),
     refundAddress: "",
     relayers: [],
   };
@@ -235,7 +235,7 @@ export const PacketFees = {
 };
 function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
     packetFees: [],
   };
 }
