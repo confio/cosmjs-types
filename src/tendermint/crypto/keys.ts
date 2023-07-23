@@ -63,4 +63,19 @@ export const PublicKey = {
     message.secp256k1 = object.secp256k1 ?? undefined;
     return message;
   },
+  fromAmino(object: PublicKeyAmino): PublicKey {
+    return {
+      ed25519: object?.ed25519,
+      secp256k1: object?.secp256k1,
+    };
+  },
+  toAmino(message: PublicKey): PublicKeyAmino {
+    const obj: any = {};
+    obj.ed25519 = message.ed25519;
+    obj.secp256k1 = message.secp256k1;
+    return obj;
+  },
+  fromAminoMsg(object: PublicKeyAminoMsg): PublicKey {
+    return PublicKey.fromAmino(object.value);
+  },
 };

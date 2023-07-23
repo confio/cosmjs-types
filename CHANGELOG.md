@@ -8,6 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Upgrade to Telescope 0.97.0
+- Enable Amino converters
+
 ## [0.8.0] - 2023-05-24
 
 - Upgrade Cosmos SDK types to 0.47.2 including new modules like group and NFT.

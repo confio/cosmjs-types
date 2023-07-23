@@ -3,6 +3,7 @@ import { AccessConfig } from "./types";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Long, isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
 import * as _m0 from "protobufjs/minimal";
+import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@cosmjs/encoding";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** StoreCodeProposal gov proposal content type to submit WASM code to the system */
 export interface StoreCodeProposal {
@@ -370,6 +371,45 @@ export const StoreCodeProposal = {
     message.codeHash = object.codeHash ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: StoreCodeProposalAmino): StoreCodeProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      runAs: object.run_as,
+      wasmByteCode: fromBase64(object.wasm_byte_code),
+      instantiatePermission: object?.instantiate_permission
+        ? AccessConfig.fromAmino(object.instantiate_permission)
+        : undefined,
+      unpinCode: object.unpin_code,
+      source: object.source,
+      builder: object.builder,
+      codeHash: object.code_hash,
+    };
+  },
+  toAmino(message: StoreCodeProposal): StoreCodeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.run_as = message.runAs;
+    obj.wasm_byte_code = message.wasmByteCode ? toBase64(message.wasmByteCode) : undefined;
+    obj.instantiate_permission = message.instantiatePermission
+      ? AccessConfig.toAmino(message.instantiatePermission)
+      : undefined;
+    obj.unpin_code = message.unpinCode;
+    obj.source = message.source;
+    obj.builder = message.builder;
+    obj.code_hash = message.codeHash;
+    return obj;
+  },
+  fromAminoMsg(object: StoreCodeProposalAminoMsg): StoreCodeProposal {
+    return StoreCodeProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: StoreCodeProposal): StoreCodeProposalAminoMsg {
+    return {
+      type: "wasm/StoreCodeProposal",
+      value: StoreCodeProposal.toAmino(message),
+    };
+  },
 };
 function createBaseInstantiateContractProposal(): InstantiateContractProposal {
   return {
@@ -492,6 +532,43 @@ export const InstantiateContractProposal = {
     message.msg = object.msg ?? new Uint8Array();
     message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: InstantiateContractProposalAmino): InstantiateContractProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      runAs: object.run_as,
+      admin: object.admin,
+      codeId: Long.fromString(object.code_id),
+      label: object.label,
+      msg: toUtf8(JSON.stringify(object.msg)),
+      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: InstantiateContractProposal): InstantiateContractProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.run_as = message.runAs;
+    obj.admin = message.admin;
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.label = message.label;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    if (message.funds) {
+      obj.funds = message.funds.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.funds = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: InstantiateContractProposalAminoMsg): InstantiateContractProposal {
+    return InstantiateContractProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: InstantiateContractProposal): InstantiateContractProposalAminoMsg {
+    return {
+      type: "wasm/InstantiateContractProposal",
+      value: InstantiateContractProposal.toAmino(message),
+    };
   },
 };
 function createBaseInstantiateContract2Proposal(): InstantiateContract2Proposal {
@@ -637,6 +714,47 @@ export const InstantiateContract2Proposal = {
     message.fixMsg = object.fixMsg ?? false;
     return message;
   },
+  fromAmino(object: InstantiateContract2ProposalAmino): InstantiateContract2Proposal {
+    return {
+      title: object.title,
+      description: object.description,
+      runAs: object.run_as,
+      admin: object.admin,
+      codeId: Long.fromString(object.code_id),
+      label: object.label,
+      msg: toUtf8(JSON.stringify(object.msg)),
+      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromAmino(e)) : [],
+      salt: object.salt,
+      fixMsg: object.fix_msg,
+    };
+  },
+  toAmino(message: InstantiateContract2Proposal): InstantiateContract2ProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.run_as = message.runAs;
+    obj.admin = message.admin;
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.label = message.label;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    if (message.funds) {
+      obj.funds = message.funds.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.funds = [];
+    }
+    obj.salt = message.salt;
+    obj.fix_msg = message.fixMsg;
+    return obj;
+  },
+  fromAminoMsg(object: InstantiateContract2ProposalAminoMsg): InstantiateContract2Proposal {
+    return InstantiateContract2Proposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: InstantiateContract2Proposal): InstantiateContract2ProposalAminoMsg {
+    return {
+      type: "wasm/InstantiateContract2Proposal",
+      value: InstantiateContract2Proposal.toAmino(message),
+    };
+  },
 };
 function createBaseMigrateContractProposal(): MigrateContractProposal {
   return {
@@ -724,6 +842,33 @@ export const MigrateContractProposal = {
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: MigrateContractProposalAmino): MigrateContractProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      contract: object.contract,
+      codeId: Long.fromString(object.code_id),
+      msg: toUtf8(JSON.stringify(object.msg)),
+    };
+  },
+  toAmino(message: MigrateContractProposal): MigrateContractProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.contract = message.contract;
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MigrateContractProposalAminoMsg): MigrateContractProposal {
+    return MigrateContractProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: MigrateContractProposal): MigrateContractProposalAminoMsg {
+    return {
+      type: "wasm/MigrateContractProposal",
+      value: MigrateContractProposal.toAmino(message),
+    };
+  },
 };
 function createBaseSudoContractProposal(): SudoContractProposal {
   return {
@@ -799,6 +944,31 @@ export const SudoContractProposal = {
     message.contract = object.contract ?? "";
     message.msg = object.msg ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: SudoContractProposalAmino): SudoContractProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      contract: object.contract,
+      msg: toUtf8(JSON.stringify(object.msg)),
+    };
+  },
+  toAmino(message: SudoContractProposal): SudoContractProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.contract = message.contract;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SudoContractProposalAminoMsg): SudoContractProposal {
+    return SudoContractProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: SudoContractProposal): SudoContractProposalAminoMsg {
+    return {
+      type: "wasm/SudoContractProposal",
+      value: SudoContractProposal.toAmino(message),
+    };
   },
 };
 function createBaseExecuteContractProposal(): ExecuteContractProposal {
@@ -900,6 +1070,39 @@ export const ExecuteContractProposal = {
     message.funds = object.funds?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ExecuteContractProposalAmino): ExecuteContractProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      runAs: object.run_as,
+      contract: object.contract,
+      msg: toUtf8(JSON.stringify(object.msg)),
+      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: ExecuteContractProposal): ExecuteContractProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.run_as = message.runAs;
+    obj.contract = message.contract;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    if (message.funds) {
+      obj.funds = message.funds.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.funds = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ExecuteContractProposalAminoMsg): ExecuteContractProposal {
+    return ExecuteContractProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: ExecuteContractProposal): ExecuteContractProposalAminoMsg {
+    return {
+      type: "wasm/ExecuteContractProposal",
+      value: ExecuteContractProposal.toAmino(message),
+    };
+  },
 };
 function createBaseUpdateAdminProposal(): UpdateAdminProposal {
   return {
@@ -975,6 +1178,31 @@ export const UpdateAdminProposal = {
     message.contract = object.contract ?? "";
     return message;
   },
+  fromAmino(object: UpdateAdminProposalAmino): UpdateAdminProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      newAdmin: object.new_admin,
+      contract: object.contract,
+    };
+  },
+  toAmino(message: UpdateAdminProposal): UpdateAdminProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.new_admin = message.newAdmin;
+    obj.contract = message.contract;
+    return obj;
+  },
+  fromAminoMsg(object: UpdateAdminProposalAminoMsg): UpdateAdminProposal {
+    return UpdateAdminProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: UpdateAdminProposal): UpdateAdminProposalAminoMsg {
+    return {
+      type: "wasm/UpdateAdminProposal",
+      value: UpdateAdminProposal.toAmino(message),
+    };
+  },
 };
 function createBaseClearAdminProposal(): ClearAdminProposal {
   return {
@@ -1039,6 +1267,29 @@ export const ClearAdminProposal = {
     message.description = object.description ?? "";
     message.contract = object.contract ?? "";
     return message;
+  },
+  fromAmino(object: ClearAdminProposalAmino): ClearAdminProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      contract: object.contract,
+    };
+  },
+  toAmino(message: ClearAdminProposal): ClearAdminProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.contract = message.contract;
+    return obj;
+  },
+  fromAminoMsg(object: ClearAdminProposalAminoMsg): ClearAdminProposal {
+    return ClearAdminProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClearAdminProposal): ClearAdminProposalAminoMsg {
+    return {
+      type: "wasm/ClearAdminProposal",
+      value: ClearAdminProposal.toAmino(message),
+    };
   },
 };
 function createBasePinCodesProposal(): PinCodesProposal {
@@ -1118,6 +1369,33 @@ export const PinCodesProposal = {
     message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
+  fromAmino(object: PinCodesProposalAmino): PinCodesProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      codeIds: Array.isArray(object?.code_ids) ? object.code_ids.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: PinCodesProposal): PinCodesProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.codeIds) {
+      obj.code_ids = message.codeIds.map((e) => e);
+    } else {
+      obj.code_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PinCodesProposalAminoMsg): PinCodesProposal {
+    return PinCodesProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: PinCodesProposal): PinCodesProposalAminoMsg {
+    return {
+      type: "wasm/PinCodesProposal",
+      value: PinCodesProposal.toAmino(message),
+    };
+  },
 };
 function createBaseUnpinCodesProposal(): UnpinCodesProposal {
   return {
@@ -1196,6 +1474,33 @@ export const UnpinCodesProposal = {
     message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
+  fromAmino(object: UnpinCodesProposalAmino): UnpinCodesProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      codeIds: Array.isArray(object?.code_ids) ? object.code_ids.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: UnpinCodesProposal): UnpinCodesProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.codeIds) {
+      obj.code_ids = message.codeIds.map((e) => e);
+    } else {
+      obj.code_ids = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: UnpinCodesProposalAminoMsg): UnpinCodesProposal {
+    return UnpinCodesProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: UnpinCodesProposal): UnpinCodesProposalAminoMsg {
+    return {
+      type: "wasm/UnpinCodesProposal",
+      value: UnpinCodesProposal.toAmino(message),
+    };
+  },
 };
 function createBaseAccessConfigUpdate(): AccessConfigUpdate {
   return {
@@ -1259,6 +1564,31 @@ export const AccessConfigUpdate = {
         ? AccessConfig.fromPartial(object.instantiatePermission)
         : undefined;
     return message;
+  },
+  fromAmino(object: AccessConfigUpdateAmino): AccessConfigUpdate {
+    return {
+      codeId: Long.fromString(object.code_id),
+      instantiatePermission: object?.instantiate_permission
+        ? AccessConfig.fromAmino(object.instantiate_permission)
+        : undefined,
+    };
+  },
+  toAmino(message: AccessConfigUpdate): AccessConfigUpdateAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId ? message.codeId.toString() : undefined;
+    obj.instantiate_permission = message.instantiatePermission
+      ? AccessConfig.toAmino(message.instantiatePermission)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AccessConfigUpdateAminoMsg): AccessConfigUpdate {
+    return AccessConfigUpdate.fromAmino(object.value);
+  },
+  toAminoMsg(message: AccessConfigUpdate): AccessConfigUpdateAminoMsg {
+    return {
+      type: "wasm/AccessConfigUpdate",
+      value: AccessConfigUpdate.toAmino(message),
+    };
   },
 };
 function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigProposal {
@@ -1335,6 +1665,37 @@ export const UpdateInstantiateConfigProposal = {
     message.accessConfigUpdates =
       object.accessConfigUpdates?.map((e) => AccessConfigUpdate.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: UpdateInstantiateConfigProposalAmino): UpdateInstantiateConfigProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      accessConfigUpdates: Array.isArray(object?.access_config_updates)
+        ? object.access_config_updates.map((e: any) => AccessConfigUpdate.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: UpdateInstantiateConfigProposal): UpdateInstantiateConfigProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.accessConfigUpdates) {
+      obj.access_config_updates = message.accessConfigUpdates.map((e) =>
+        e ? AccessConfigUpdate.toAmino(e) : undefined,
+      );
+    } else {
+      obj.access_config_updates = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: UpdateInstantiateConfigProposalAminoMsg): UpdateInstantiateConfigProposal {
+    return UpdateInstantiateConfigProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: UpdateInstantiateConfigProposal): UpdateInstantiateConfigProposalAminoMsg {
+    return {
+      type: "wasm/UpdateInstantiateConfigProposal",
+      value: UpdateInstantiateConfigProposal.toAmino(message),
+    };
   },
 };
 function createBaseStoreAndInstantiateContractProposal(): StoreAndInstantiateContractProposal {
@@ -1519,5 +1880,56 @@ export const StoreAndInstantiateContractProposal = {
     message.builder = object.builder ?? "";
     message.codeHash = object.codeHash ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: StoreAndInstantiateContractProposalAmino): StoreAndInstantiateContractProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      runAs: object.run_as,
+      wasmByteCode: fromBase64(object.wasm_byte_code),
+      instantiatePermission: object?.instantiate_permission
+        ? AccessConfig.fromAmino(object.instantiate_permission)
+        : undefined,
+      unpinCode: object.unpin_code,
+      admin: object.admin,
+      label: object.label,
+      msg: toUtf8(JSON.stringify(object.msg)),
+      funds: Array.isArray(object?.funds) ? object.funds.map((e: any) => Coin.fromAmino(e)) : [],
+      source: object.source,
+      builder: object.builder,
+      codeHash: object.code_hash,
+    };
+  },
+  toAmino(message: StoreAndInstantiateContractProposal): StoreAndInstantiateContractProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    obj.run_as = message.runAs;
+    obj.wasm_byte_code = message.wasmByteCode ? toBase64(message.wasmByteCode) : undefined;
+    obj.instantiate_permission = message.instantiatePermission
+      ? AccessConfig.toAmino(message.instantiatePermission)
+      : undefined;
+    obj.unpin_code = message.unpinCode;
+    obj.admin = message.admin;
+    obj.label = message.label;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    if (message.funds) {
+      obj.funds = message.funds.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.funds = [];
+    }
+    obj.source = message.source;
+    obj.builder = message.builder;
+    obj.code_hash = message.codeHash;
+    return obj;
+  },
+  fromAminoMsg(object: StoreAndInstantiateContractProposalAminoMsg): StoreAndInstantiateContractProposal {
+    return StoreAndInstantiateContractProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: StoreAndInstantiateContractProposal): StoreAndInstantiateContractProposalAminoMsg {
+    return {
+      type: "wasm/StoreAndInstantiateContractProposal",
+      value: StoreAndInstantiateContractProposal.toAmino(message),
+    };
   },
 };

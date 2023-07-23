@@ -172,6 +172,33 @@ export const StakeAuthorization = {
     message.authorizationType = object.authorizationType ?? 0;
     return message;
   },
+  fromAmino(object: StakeAuthorizationAmino): StakeAuthorization {
+    return {
+      maxTokens: object?.max_tokens ? Coin.fromAmino(object.max_tokens) : undefined,
+      allowList: object?.allow_list ? StakeAuthorization_Validators.fromAmino(object.allow_list) : undefined,
+      denyList: object?.deny_list ? StakeAuthorization_Validators.fromAmino(object.deny_list) : undefined,
+      authorizationType: isSet(object.authorization_type)
+        ? authorizationTypeFromJSON(object.authorization_type)
+        : 0,
+    };
+  },
+  toAmino(message: StakeAuthorization): StakeAuthorizationAmino {
+    const obj: any = {};
+    obj.max_tokens = message.maxTokens ? Coin.toAmino(message.maxTokens) : undefined;
+    obj.allow_list = message.allowList ? StakeAuthorization_Validators.toAmino(message.allowList) : undefined;
+    obj.deny_list = message.denyList ? StakeAuthorization_Validators.toAmino(message.denyList) : undefined;
+    obj.authorization_type = message.authorizationType;
+    return obj;
+  },
+  fromAminoMsg(object: StakeAuthorizationAminoMsg): StakeAuthorization {
+    return StakeAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: StakeAuthorization): StakeAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/StakeAuthorization",
+      value: StakeAuthorization.toAmino(message),
+    };
+  },
 };
 function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validators {
   return {
@@ -222,5 +249,28 @@ export const StakeAuthorization_Validators = {
     const message = createBaseStakeAuthorization_Validators();
     message.address = object.address?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: StakeAuthorization_ValidatorsAmino): StakeAuthorization_Validators {
+    return {
+      address: Array.isArray(object?.address) ? object.address.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: StakeAuthorization_Validators): StakeAuthorization_ValidatorsAmino {
+    const obj: any = {};
+    if (message.address) {
+      obj.address = message.address.map((e) => e);
+    } else {
+      obj.address = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: StakeAuthorization_ValidatorsAminoMsg): StakeAuthorization_Validators {
+    return StakeAuthorization_Validators.fromAmino(object.value);
+  },
+  toAminoMsg(message: StakeAuthorization_Validators): StakeAuthorization_ValidatorsAminoMsg {
+    return {
+      type: "cosmos-sdk/Validators",
+      value: StakeAuthorization_Validators.toAmino(message),
+    };
   },
 };

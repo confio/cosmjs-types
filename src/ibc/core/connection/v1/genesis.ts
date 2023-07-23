@@ -107,4 +107,45 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      connections: Array.isArray(object?.connections)
+        ? object.connections.map((e: any) => IdentifiedConnection.fromAmino(e))
+        : [],
+      clientConnectionPaths: Array.isArray(object?.client_connection_paths)
+        ? object.client_connection_paths.map((e: any) => ConnectionPaths.fromAmino(e))
+        : [],
+      nextConnectionSequence: Long.fromString(object.next_connection_sequence),
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.connections) {
+      obj.connections = message.connections.map((e) => (e ? IdentifiedConnection.toAmino(e) : undefined));
+    } else {
+      obj.connections = [];
+    }
+    if (message.clientConnectionPaths) {
+      obj.client_connection_paths = message.clientConnectionPaths.map((e) =>
+        e ? ConnectionPaths.toAmino(e) : undefined,
+      );
+    } else {
+      obj.client_connection_paths = [];
+    }
+    obj.next_connection_sequence = message.nextConnectionSequence
+      ? message.nextConnectionSequence.toString()
+      : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

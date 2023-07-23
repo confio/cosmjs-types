@@ -114,6 +114,31 @@ export const MsgIBCSend = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: MsgIBCSendAmino): MsgIBCSend {
+    return {
+      channel: object.channel,
+      timeoutHeight: Long.fromString(object.timeout_height),
+      timeoutTimestamp: Long.fromString(object.timeout_timestamp),
+      data: object.data,
+    };
+  },
+  toAmino(message: MsgIBCSend): MsgIBCSendAmino {
+    const obj: any = {};
+    obj.channel = message.channel;
+    obj.timeout_height = message.timeoutHeight ? message.timeoutHeight.toString() : undefined;
+    obj.timeout_timestamp = message.timeoutTimestamp ? message.timeoutTimestamp.toString() : undefined;
+    obj.data = message.data;
+    return obj;
+  },
+  fromAminoMsg(object: MsgIBCSendAminoMsg): MsgIBCSend {
+    return MsgIBCSend.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgIBCSend): MsgIBCSendAminoMsg {
+    return {
+      type: "wasm/MsgIBCSend",
+      value: MsgIBCSend.toAmino(message),
+    };
+  },
 };
 function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
   return {
@@ -162,6 +187,25 @@ export const MsgIBCSendResponse = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: MsgIBCSendResponseAmino): MsgIBCSendResponse {
+    return {
+      sequence: Long.fromString(object.sequence),
+    };
+  },
+  toAmino(message: MsgIBCSendResponse): MsgIBCSendResponseAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgIBCSendResponseAminoMsg): MsgIBCSendResponse {
+    return MsgIBCSendResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgIBCSendResponse): MsgIBCSendResponseAminoMsg {
+    return {
+      type: "wasm/MsgIBCSendResponse",
+      value: MsgIBCSendResponse.toAmino(message),
+    };
+  },
 };
 function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
   return {
@@ -206,5 +250,24 @@ export const MsgIBCCloseChannel = {
     const message = createBaseMsgIBCCloseChannel();
     message.channel = object.channel ?? "";
     return message;
+  },
+  fromAmino(object: MsgIBCCloseChannelAmino): MsgIBCCloseChannel {
+    return {
+      channel: object.channel,
+    };
+  },
+  toAmino(message: MsgIBCCloseChannel): MsgIBCCloseChannelAmino {
+    const obj: any = {};
+    obj.channel = message.channel;
+    return obj;
+  },
+  fromAminoMsg(object: MsgIBCCloseChannelAminoMsg): MsgIBCCloseChannel {
+    return MsgIBCCloseChannel.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgIBCCloseChannel): MsgIBCCloseChannelAminoMsg {
+    return {
+      type: "wasm/MsgIBCCloseChannel",
+      value: MsgIBCCloseChannel.toAmino(message),
+    };
   },
 };

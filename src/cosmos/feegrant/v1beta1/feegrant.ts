@@ -125,6 +125,33 @@ export const BasicAllowance = {
         : undefined;
     return message;
   },
+  fromAmino(object: BasicAllowanceAmino): BasicAllowance {
+    return {
+      spendLimit: Array.isArray(object?.spend_limit)
+        ? object.spend_limit.map((e: any) => Coin.fromAmino(e))
+        : [],
+      expiration: object?.expiration ? Timestamp.fromAmino(object.expiration) : undefined,
+    };
+  },
+  toAmino(message: BasicAllowance): BasicAllowanceAmino {
+    const obj: any = {};
+    if (message.spendLimit) {
+      obj.spend_limit = message.spendLimit.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.spend_limit = [];
+    }
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BasicAllowanceAminoMsg): BasicAllowance {
+    return BasicAllowance.fromAmino(object.value);
+  },
+  toAminoMsg(message: BasicAllowance): BasicAllowanceAminoMsg {
+    return {
+      type: "cosmos-sdk/BasicAllowance",
+      value: BasicAllowance.toAmino(message),
+    };
+  },
 };
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
@@ -231,6 +258,45 @@ export const PeriodicAllowance = {
         : undefined;
     return message;
   },
+  fromAmino(object: PeriodicAllowanceAmino): PeriodicAllowance {
+    return {
+      basic: object?.basic ? BasicAllowance.fromAmino(object.basic) : undefined,
+      period: object?.period ? Duration.fromAmino(object.period) : undefined,
+      periodSpendLimit: Array.isArray(object?.period_spend_limit)
+        ? object.period_spend_limit.map((e: any) => Coin.fromAmino(e))
+        : [],
+      periodCanSpend: Array.isArray(object?.period_can_spend)
+        ? object.period_can_spend.map((e: any) => Coin.fromAmino(e))
+        : [],
+      periodReset: object?.period_reset ? Timestamp.fromAmino(object.period_reset) : undefined,
+    };
+  },
+  toAmino(message: PeriodicAllowance): PeriodicAllowanceAmino {
+    const obj: any = {};
+    obj.basic = message.basic ? BasicAllowance.toAmino(message.basic) : undefined;
+    obj.period = message.period ? Duration.toAmino(message.period) : undefined;
+    if (message.periodSpendLimit) {
+      obj.period_spend_limit = message.periodSpendLimit.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.period_spend_limit = [];
+    }
+    if (message.periodCanSpend) {
+      obj.period_can_spend = message.periodCanSpend.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.period_can_spend = [];
+    }
+    obj.period_reset = message.periodReset ? Timestamp.toAmino(message.periodReset) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PeriodicAllowanceAminoMsg): PeriodicAllowance {
+    return PeriodicAllowance.fromAmino(object.value);
+  },
+  toAminoMsg(message: PeriodicAllowance): PeriodicAllowanceAminoMsg {
+    return {
+      type: "cosmos-sdk/PeriodicAllowance",
+      value: PeriodicAllowance.toAmino(message),
+    };
+  },
 };
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
   return {
@@ -295,6 +361,33 @@ export const AllowedMsgAllowance = {
         : undefined;
     message.allowedMessages = object.allowedMessages?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: AllowedMsgAllowanceAmino): AllowedMsgAllowance {
+    return {
+      allowance: object?.allowance ? Any.fromAmino(object.allowance) : undefined,
+      allowedMessages: Array.isArray(object?.allowed_messages)
+        ? object.allowed_messages.map((e: any) => e)
+        : [],
+    };
+  },
+  toAmino(message: AllowedMsgAllowance): AllowedMsgAllowanceAmino {
+    const obj: any = {};
+    obj.allowance = message.allowance ? Any.toAmino(message.allowance) : undefined;
+    if (message.allowedMessages) {
+      obj.allowed_messages = message.allowedMessages.map((e) => e);
+    } else {
+      obj.allowed_messages = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AllowedMsgAllowanceAminoMsg): AllowedMsgAllowance {
+    return AllowedMsgAllowance.fromAmino(object.value);
+  },
+  toAminoMsg(message: AllowedMsgAllowance): AllowedMsgAllowanceAminoMsg {
+    return {
+      type: "cosmos-sdk/AllowedMsgAllowance",
+      value: AllowedMsgAllowance.toAmino(message),
+    };
   },
 };
 function createBaseGrant(): Grant {
@@ -364,5 +457,28 @@ export const Grant = {
         ? Any.fromPartial(object.allowance)
         : undefined;
     return message;
+  },
+  fromAmino(object: GrantAmino): Grant {
+    return {
+      granter: object.granter,
+      grantee: object.grantee,
+      allowance: object?.allowance ? Any.fromAmino(object.allowance) : undefined,
+    };
+  },
+  toAmino(message: Grant): GrantAmino {
+    const obj: any = {};
+    obj.granter = message.granter;
+    obj.grantee = message.grantee;
+    obj.allowance = message.allowance ? Any.toAmino(message.allowance) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GrantAminoMsg): Grant {
+    return Grant.fromAmino(object.value);
+  },
+  toAminoMsg(message: Grant): GrantAminoMsg {
+    return {
+      type: "cosmos-sdk/Grant",
+      value: Grant.toAmino(message),
+    };
   },
 };

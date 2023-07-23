@@ -138,6 +138,37 @@ export const Class = {
       object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
     return message;
   },
+  fromAmino(object: ClassAmino): Class {
+    return {
+      id: object.id,
+      name: object.name,
+      symbol: object.symbol,
+      description: object.description,
+      uri: object.uri,
+      uriHash: object.uri_hash,
+      data: object?.data ? Any.fromAmino(object.data) : undefined,
+    };
+  },
+  toAmino(message: Class): ClassAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.name = message.name;
+    obj.symbol = message.symbol;
+    obj.description = message.description;
+    obj.uri = message.uri;
+    obj.uri_hash = message.uriHash;
+    obj.data = message.data ? Any.toAmino(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ClassAminoMsg): Class {
+    return Class.fromAmino(object.value);
+  },
+  toAminoMsg(message: Class): ClassAminoMsg {
+    return {
+      type: "cosmos-sdk/Class",
+      value: Class.toAmino(message),
+    };
+  },
 };
 function createBaseNFT(): NFT {
   return {
@@ -223,5 +254,32 @@ export const NFT = {
     message.data =
       object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
     return message;
+  },
+  fromAmino(object: NFTAmino): NFT {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      uri: object.uri,
+      uriHash: object.uri_hash,
+      data: object?.data ? Any.fromAmino(object.data) : undefined,
+    };
+  },
+  toAmino(message: NFT): NFTAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.uri = message.uri;
+    obj.uri_hash = message.uriHash;
+    obj.data = message.data ? Any.toAmino(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: NFTAminoMsg): NFT {
+    return NFT.fromAmino(object.value);
+  },
+  toAminoMsg(message: NFT): NFTAminoMsg {
+    return {
+      type: "cosmos-sdk/NFT",
+      value: NFT.toAmino(message),
+    };
   },
 };

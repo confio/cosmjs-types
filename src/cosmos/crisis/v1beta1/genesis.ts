@@ -59,4 +59,23 @@ export const GenesisState = {
         : undefined;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      constantFee: object?.constant_fee ? Coin.fromAmino(object.constant_fee) : undefined,
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.constant_fee = message.constantFee ? Coin.toAmino(message.constantFee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

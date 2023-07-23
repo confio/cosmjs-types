@@ -186,6 +186,83 @@ export const GenesisState = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => IdentifiedChannel.fromAmino(e))
+        : [],
+      acknowledgements: Array.isArray(object?.acknowledgements)
+        ? object.acknowledgements.map((e: any) => PacketState.fromAmino(e))
+        : [],
+      commitments: Array.isArray(object?.commitments)
+        ? object.commitments.map((e: any) => PacketState.fromAmino(e))
+        : [],
+      receipts: Array.isArray(object?.receipts)
+        ? object.receipts.map((e: any) => PacketState.fromAmino(e))
+        : [],
+      sendSequences: Array.isArray(object?.send_sequences)
+        ? object.send_sequences.map((e: any) => PacketSequence.fromAmino(e))
+        : [],
+      recvSequences: Array.isArray(object?.recv_sequences)
+        ? object.recv_sequences.map((e: any) => PacketSequence.fromAmino(e))
+        : [],
+      ackSequences: Array.isArray(object?.ack_sequences)
+        ? object.ack_sequences.map((e: any) => PacketSequence.fromAmino(e))
+        : [],
+      nextChannelSequence: Long.fromString(object.next_channel_sequence),
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.channels) {
+      obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toAmino(e) : undefined));
+    } else {
+      obj.channels = [];
+    }
+    if (message.acknowledgements) {
+      obj.acknowledgements = message.acknowledgements.map((e) => (e ? PacketState.toAmino(e) : undefined));
+    } else {
+      obj.acknowledgements = [];
+    }
+    if (message.commitments) {
+      obj.commitments = message.commitments.map((e) => (e ? PacketState.toAmino(e) : undefined));
+    } else {
+      obj.commitments = [];
+    }
+    if (message.receipts) {
+      obj.receipts = message.receipts.map((e) => (e ? PacketState.toAmino(e) : undefined));
+    } else {
+      obj.receipts = [];
+    }
+    if (message.sendSequences) {
+      obj.send_sequences = message.sendSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
+    } else {
+      obj.send_sequences = [];
+    }
+    if (message.recvSequences) {
+      obj.recv_sequences = message.recvSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
+    } else {
+      obj.recv_sequences = [];
+    }
+    if (message.ackSequences) {
+      obj.ack_sequences = message.ackSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
+    } else {
+      obj.ack_sequences = [];
+    }
+    obj.next_channel_sequence = message.nextChannelSequence
+      ? message.nextChannelSequence.toString()
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };
 function createBasePacketSequence(): PacketSequence {
   return {
@@ -253,5 +330,28 @@ export const PacketSequence = {
         ? Long.fromValue(object.sequence)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: PacketSequenceAmino): PacketSequence {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+      sequence: Long.fromString(object.sequence),
+    };
+  },
+  toAmino(message: PacketSequence): PacketSequenceAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PacketSequenceAminoMsg): PacketSequence {
+    return PacketSequence.fromAmino(object.value);
+  },
+  toAminoMsg(message: PacketSequence): PacketSequenceAminoMsg {
+    return {
+      type: "cosmos-sdk/PacketSequence",
+      value: PacketSequence.toAmino(message),
+    };
   },
 };

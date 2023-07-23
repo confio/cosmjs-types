@@ -124,6 +124,31 @@ export const BaseAccount = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: BaseAccountAmino): BaseAccount {
+    return {
+      address: object.address,
+      pubKey: object?.pub_key ? Any.fromAmino(object.pub_key) : undefined,
+      accountNumber: Long.fromString(object.account_number),
+      sequence: Long.fromString(object.sequence),
+    };
+  },
+  toAmino(message: BaseAccount): BaseAccountAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.pub_key = message.pubKey ? Any.toAmino(message.pubKey) : undefined;
+    obj.account_number = message.accountNumber ? message.accountNumber.toString() : undefined;
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BaseAccountAminoMsg): BaseAccount {
+    return BaseAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: BaseAccount): BaseAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/BaseAccount",
+      value: BaseAccount.toAmino(message),
+    };
+  },
 };
 function createBaseModuleAccount(): ModuleAccount {
   return {
@@ -197,6 +222,33 @@ export const ModuleAccount = {
     message.permissions = object.permissions?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ModuleAccountAmino): ModuleAccount {
+    return {
+      baseAccount: object?.base_account ? BaseAccount.fromAmino(object.base_account) : undefined,
+      name: object.name,
+      permissions: Array.isArray(object?.permissions) ? object.permissions.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ModuleAccount): ModuleAccountAmino {
+    const obj: any = {};
+    obj.base_account = message.baseAccount ? BaseAccount.toAmino(message.baseAccount) : undefined;
+    obj.name = message.name;
+    if (message.permissions) {
+      obj.permissions = message.permissions.map((e) => e);
+    } else {
+      obj.permissions = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAccountAminoMsg): ModuleAccount {
+    return ModuleAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleAccount): ModuleAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleAccount",
+      value: ModuleAccount.toAmino(message),
+    };
+  },
 };
 function createBaseModuleCredential(): ModuleCredential {
   return {
@@ -259,6 +311,31 @@ export const ModuleCredential = {
     message.moduleName = object.moduleName ?? "";
     message.derivationKeys = object.derivationKeys?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ModuleCredentialAmino): ModuleCredential {
+    return {
+      moduleName: object.module_name,
+      derivationKeys: Array.isArray(object?.derivation_keys) ? object.derivation_keys.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ModuleCredential): ModuleCredentialAmino {
+    const obj: any = {};
+    obj.module_name = message.moduleName;
+    if (message.derivationKeys) {
+      obj.derivation_keys = message.derivationKeys.map((e) => e);
+    } else {
+      obj.derivation_keys = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleCredentialAminoMsg): ModuleCredential {
+    return ModuleCredential.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleCredential): ModuleCredentialAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleCredential",
+      value: ModuleCredential.toAmino(message),
+    };
   },
 };
 function createBaseParams(): Params {
@@ -371,5 +448,36 @@ export const Params = {
         ? Long.fromValue(object.sigVerifyCostSecp256k1)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      maxMemoCharacters: Long.fromString(object.max_memo_characters),
+      txSigLimit: Long.fromString(object.tx_sig_limit),
+      txSizeCostPerByte: Long.fromString(object.tx_size_cost_per_byte),
+      sigVerifyCostEd25519: Long.fromString(object.sig_verify_cost_ed25519),
+      sigVerifyCostSecp256k1: Long.fromString(object.sig_verify_cost_secp256k1),
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.max_memo_characters = message.maxMemoCharacters ? message.maxMemoCharacters.toString() : undefined;
+    obj.tx_sig_limit = message.txSigLimit ? message.txSigLimit.toString() : undefined;
+    obj.tx_size_cost_per_byte = message.txSizeCostPerByte ? message.txSizeCostPerByte.toString() : undefined;
+    obj.sig_verify_cost_ed25519 = message.sigVerifyCostEd25519
+      ? message.sigVerifyCostEd25519.toString()
+      : undefined;
+    obj.sig_verify_cost_secp256k1 = message.sigVerifyCostSecp256k1
+      ? message.sigVerifyCostSecp256k1.toString()
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/auth/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

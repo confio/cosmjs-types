@@ -117,6 +117,25 @@ export const QueryDenomTraceRequest = {
     message.hash = object.hash ?? "";
     return message;
   },
+  fromAmino(object: QueryDenomTraceRequestAmino): QueryDenomTraceRequest {
+    return {
+      hash: object.hash,
+    };
+  },
+  toAmino(message: QueryDenomTraceRequest): QueryDenomTraceRequestAmino {
+    const obj: any = {};
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomTraceRequestAminoMsg): QueryDenomTraceRequest {
+    return QueryDenomTraceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomTraceRequest): QueryDenomTraceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomTraceRequest",
+      value: QueryDenomTraceRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomTraceResponse(): QueryDenomTraceResponse {
   return {
@@ -166,6 +185,25 @@ export const QueryDenomTraceResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryDenomTraceResponseAmino): QueryDenomTraceResponse {
+    return {
+      denomTrace: object?.denom_trace ? DenomTrace.fromAmino(object.denom_trace) : undefined,
+    };
+  },
+  toAmino(message: QueryDenomTraceResponse): QueryDenomTraceResponseAmino {
+    const obj: any = {};
+    obj.denom_trace = message.denomTrace ? DenomTrace.toAmino(message.denomTrace) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomTraceResponseAminoMsg): QueryDenomTraceResponse {
+    return QueryDenomTraceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomTraceResponse): QueryDenomTraceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomTraceResponse",
+      value: QueryDenomTraceResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomTracesRequest(): QueryDenomTracesRequest {
   return {
@@ -214,6 +252,25 @@ export const QueryDenomTracesRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryDenomTracesRequestAmino): QueryDenomTracesRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryDenomTracesRequest): QueryDenomTracesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomTracesRequestAminoMsg): QueryDenomTracesRequest {
+    return QueryDenomTracesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomTracesRequest): QueryDenomTracesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomTracesRequest",
+      value: QueryDenomTracesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryDenomTracesResponse(): QueryDenomTracesResponse {
@@ -282,6 +339,33 @@ export const QueryDenomTracesResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryDenomTracesResponseAmino): QueryDenomTracesResponse {
+    return {
+      denomTraces: Array.isArray(object?.denom_traces)
+        ? object.denom_traces.map((e: any) => DenomTrace.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryDenomTracesResponse): QueryDenomTracesResponseAmino {
+    const obj: any = {};
+    if (message.denomTraces) {
+      obj.denom_traces = message.denomTraces.map((e) => (e ? DenomTrace.toAmino(e) : undefined));
+    } else {
+      obj.denom_traces = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomTracesResponseAminoMsg): QueryDenomTracesResponse {
+    return QueryDenomTracesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomTracesResponse): QueryDenomTracesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomTracesResponse",
+      value: QueryDenomTracesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -314,6 +398,22 @@ export const QueryParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
@@ -361,6 +461,25 @@ export const QueryParamsResponse = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomHashRequest(): QueryDenomHashRequest {
   return {
@@ -406,6 +525,25 @@ export const QueryDenomHashRequest = {
     message.trace = object.trace ?? "";
     return message;
   },
+  fromAmino(object: QueryDenomHashRequestAmino): QueryDenomHashRequest {
+    return {
+      trace: object.trace,
+    };
+  },
+  toAmino(message: QueryDenomHashRequest): QueryDenomHashRequestAmino {
+    const obj: any = {};
+    obj.trace = message.trace;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomHashRequestAminoMsg): QueryDenomHashRequest {
+    return QueryDenomHashRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomHashRequest): QueryDenomHashRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomHashRequest",
+      value: QueryDenomHashRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomHashResponse(): QueryDenomHashResponse {
   return {
@@ -450,6 +588,25 @@ export const QueryDenomHashResponse = {
     const message = createBaseQueryDenomHashResponse();
     message.hash = object.hash ?? "";
     return message;
+  },
+  fromAmino(object: QueryDenomHashResponseAmino): QueryDenomHashResponse {
+    return {
+      hash: object.hash,
+    };
+  },
+  toAmino(message: QueryDenomHashResponse): QueryDenomHashResponseAmino {
+    const obj: any = {};
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomHashResponseAminoMsg): QueryDenomHashResponse {
+    return QueryDenomHashResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomHashResponse): QueryDenomHashResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryDenomHashResponse",
+      value: QueryDenomHashResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryEscrowAddressRequest(): QueryEscrowAddressRequest {
@@ -508,6 +665,27 @@ export const QueryEscrowAddressRequest = {
     message.channelId = object.channelId ?? "";
     return message;
   },
+  fromAmino(object: QueryEscrowAddressRequestAmino): QueryEscrowAddressRequest {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+    };
+  },
+  toAmino(message: QueryEscrowAddressRequest): QueryEscrowAddressRequestAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEscrowAddressRequestAminoMsg): QueryEscrowAddressRequest {
+    return QueryEscrowAddressRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEscrowAddressRequest): QueryEscrowAddressRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEscrowAddressRequest",
+      value: QueryEscrowAddressRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryEscrowAddressResponse(): QueryEscrowAddressResponse {
   return {
@@ -554,6 +732,25 @@ export const QueryEscrowAddressResponse = {
     const message = createBaseQueryEscrowAddressResponse();
     message.escrowAddress = object.escrowAddress ?? "";
     return message;
+  },
+  fromAmino(object: QueryEscrowAddressResponseAmino): QueryEscrowAddressResponse {
+    return {
+      escrowAddress: object.escrow_address,
+    };
+  },
+  toAmino(message: QueryEscrowAddressResponse): QueryEscrowAddressResponseAmino {
+    const obj: any = {};
+    obj.escrow_address = message.escrowAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEscrowAddressResponseAminoMsg): QueryEscrowAddressResponse {
+    return QueryEscrowAddressResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEscrowAddressResponse): QueryEscrowAddressResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEscrowAddressResponse",
+      value: QueryEscrowAddressResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service. */

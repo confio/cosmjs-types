@@ -161,6 +161,25 @@ export const QueryConnectionRequest = {
     message.connectionId = object.connectionId ?? "";
     return message;
   },
+  fromAmino(object: QueryConnectionRequestAmino): QueryConnectionRequest {
+    return {
+      connectionId: object.connection_id,
+    };
+  },
+  toAmino(message: QueryConnectionRequest): QueryConnectionRequestAmino {
+    const obj: any = {};
+    obj.connection_id = message.connectionId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionRequestAminoMsg): QueryConnectionRequest {
+    return QueryConnectionRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionRequest): QueryConnectionRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionRequest",
+      value: QueryConnectionRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   return {
@@ -235,6 +254,29 @@ export const QueryConnectionResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConnectionResponseAmino): QueryConnectionResponse {
+    return {
+      connection: object?.connection ? ConnectionEnd.fromAmino(object.connection) : undefined,
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionResponse): QueryConnectionResponseAmino {
+    const obj: any = {};
+    obj.connection = message.connection ? ConnectionEnd.toAmino(message.connection) : undefined;
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionResponseAminoMsg): QueryConnectionResponse {
+    return QueryConnectionResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionResponse): QueryConnectionResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionResponse",
+      value: QueryConnectionResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
   return {
@@ -283,6 +325,25 @@ export const QueryConnectionsRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryConnectionsRequestAmino): QueryConnectionsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionsRequest): QueryConnectionsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionsRequestAminoMsg): QueryConnectionsRequest {
+    return QueryConnectionsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionsRequest): QueryConnectionsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionsRequest",
+      value: QueryConnectionsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
@@ -362,6 +423,35 @@ export const QueryConnectionsResponse = {
       object.height !== undefined && object.height !== null ? Height.fromPartial(object.height) : undefined;
     return message;
   },
+  fromAmino(object: QueryConnectionsResponseAmino): QueryConnectionsResponse {
+    return {
+      connections: Array.isArray(object?.connections)
+        ? object.connections.map((e: any) => IdentifiedConnection.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+      height: object?.height ? Height.fromAmino(object.height) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionsResponse): QueryConnectionsResponseAmino {
+    const obj: any = {};
+    if (message.connections) {
+      obj.connections = message.connections.map((e) => (e ? IdentifiedConnection.toAmino(e) : undefined));
+    } else {
+      obj.connections = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    obj.height = message.height ? Height.toAmino(message.height) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionsResponseAminoMsg): QueryConnectionsResponse {
+    return QueryConnectionsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionsResponse): QueryConnectionsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionsResponse",
+      value: QueryConnectionsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsRequest {
   return {
@@ -408,6 +498,25 @@ export const QueryClientConnectionsRequest = {
     const message = createBaseQueryClientConnectionsRequest();
     message.clientId = object.clientId ?? "";
     return message;
+  },
+  fromAmino(object: QueryClientConnectionsRequestAmino): QueryClientConnectionsRequest {
+    return {
+      clientId: object.client_id,
+    };
+  },
+  toAmino(message: QueryClientConnectionsRequest): QueryClientConnectionsRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientConnectionsRequestAminoMsg): QueryClientConnectionsRequest {
+    return QueryClientConnectionsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientConnectionsRequest): QueryClientConnectionsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientConnectionsRequest",
+      value: QueryClientConnectionsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsResponse {
@@ -487,6 +596,35 @@ export const QueryClientConnectionsResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryClientConnectionsResponseAmino): QueryClientConnectionsResponse {
+    return {
+      connectionPaths: Array.isArray(object?.connection_paths)
+        ? object.connection_paths.map((e: any) => e)
+        : [],
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryClientConnectionsResponse): QueryClientConnectionsResponseAmino {
+    const obj: any = {};
+    if (message.connectionPaths) {
+      obj.connection_paths = message.connectionPaths.map((e) => e);
+    } else {
+      obj.connection_paths = [];
+    }
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientConnectionsResponseAminoMsg): QueryClientConnectionsResponse {
+    return QueryClientConnectionsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientConnectionsResponse): QueryClientConnectionsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientConnectionsResponse",
+      value: QueryClientConnectionsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientStateRequest {
   return {
@@ -533,6 +671,25 @@ export const QueryConnectionClientStateRequest = {
     const message = createBaseQueryConnectionClientStateRequest();
     message.connectionId = object.connectionId ?? "";
     return message;
+  },
+  fromAmino(object: QueryConnectionClientStateRequestAmino): QueryConnectionClientStateRequest {
+    return {
+      connectionId: object.connection_id,
+    };
+  },
+  toAmino(message: QueryConnectionClientStateRequest): QueryConnectionClientStateRequestAmino {
+    const obj: any = {};
+    obj.connection_id = message.connectionId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionClientStateRequestAminoMsg): QueryConnectionClientStateRequest {
+    return QueryConnectionClientStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionClientStateRequest): QueryConnectionClientStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionClientStateRequest",
+      value: QueryConnectionClientStateRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientStateResponse {
@@ -614,6 +771,33 @@ export const QueryConnectionClientStateResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConnectionClientStateResponseAmino): QueryConnectionClientStateResponse {
+    return {
+      identifiedClientState: object?.identified_client_state
+        ? IdentifiedClientState.fromAmino(object.identified_client_state)
+        : undefined,
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionClientStateResponse): QueryConnectionClientStateResponseAmino {
+    const obj: any = {};
+    obj.identified_client_state = message.identifiedClientState
+      ? IdentifiedClientState.toAmino(message.identifiedClientState)
+      : undefined;
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionClientStateResponseAminoMsg): QueryConnectionClientStateResponse {
+    return QueryConnectionClientStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionClientStateResponse): QueryConnectionClientStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionClientStateResponse",
+      value: QueryConnectionClientStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsensusStateRequest {
   return {
@@ -691,6 +875,29 @@ export const QueryConnectionConsensusStateRequest = {
         ? Long.fromValue(object.revisionHeight)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: QueryConnectionConsensusStateRequestAmino): QueryConnectionConsensusStateRequest {
+    return {
+      connectionId: object.connection_id,
+      revisionNumber: Long.fromString(object.revision_number),
+      revisionHeight: Long.fromString(object.revision_height),
+    };
+  },
+  toAmino(message: QueryConnectionConsensusStateRequest): QueryConnectionConsensusStateRequestAmino {
+    const obj: any = {};
+    obj.connection_id = message.connectionId;
+    obj.revision_number = message.revisionNumber ? message.revisionNumber.toString() : undefined;
+    obj.revision_height = message.revisionHeight ? message.revisionHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionConsensusStateRequestAminoMsg): QueryConnectionConsensusStateRequest {
+    return QueryConnectionConsensusStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionConsensusStateRequest): QueryConnectionConsensusStateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionConsensusStateRequest",
+      value: QueryConnectionConsensusStateRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConsensusStateResponse {
@@ -781,6 +988,31 @@ export const QueryConnectionConsensusStateResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryConnectionConsensusStateResponseAmino): QueryConnectionConsensusStateResponse {
+    return {
+      consensusState: object?.consensus_state ? Any.fromAmino(object.consensus_state) : undefined,
+      clientId: object.client_id,
+      proof: object.proof,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionConsensusStateResponse): QueryConnectionConsensusStateResponseAmino {
+    const obj: any = {};
+    obj.consensus_state = message.consensusState ? Any.toAmino(message.consensusState) : undefined;
+    obj.client_id = message.clientId;
+    obj.proof = message.proof;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionConsensusStateResponseAminoMsg): QueryConnectionConsensusStateResponse {
+    return QueryConnectionConsensusStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionConsensusStateResponse): QueryConnectionConsensusStateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionConsensusStateResponse",
+      value: QueryConnectionConsensusStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryConnectionParamsRequest(): QueryConnectionParamsRequest {
   return {};
@@ -815,6 +1047,22 @@ export const QueryConnectionParamsRequest = {
   ): QueryConnectionParamsRequest {
     const message = createBaseQueryConnectionParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryConnectionParamsRequestAmino): QueryConnectionParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryConnectionParamsRequest): QueryConnectionParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionParamsRequestAminoMsg): QueryConnectionParamsRequest {
+    return QueryConnectionParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionParamsRequest): QueryConnectionParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionParamsRequest",
+      value: QueryConnectionParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryConnectionParamsResponse(): QueryConnectionParamsResponse {
@@ -863,6 +1111,25 @@ export const QueryConnectionParamsResponse = {
     message.params =
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
+  },
+  fromAmino(object: QueryConnectionParamsResponseAmino): QueryConnectionParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryConnectionParamsResponse): QueryConnectionParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryConnectionParamsResponseAminoMsg): QueryConnectionParamsResponse {
+    return QueryConnectionParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryConnectionParamsResponse): QueryConnectionParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryConnectionParamsResponse",
+      value: QueryConnectionParamsResponse.toAmino(message),
+    };
   },
 };
 /** Query provides defines the gRPC querier service */

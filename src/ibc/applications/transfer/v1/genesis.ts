@@ -80,4 +80,33 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      portId: object.port_id,
+      denomTraces: Array.isArray(object?.denom_traces)
+        ? object.denom_traces.map((e: any) => DenomTrace.fromAmino(e))
+        : [],
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    if (message.denomTraces) {
+      obj.denom_traces = message.denomTraces.map((e) => (e ? DenomTrace.toAmino(e) : undefined));
+    } else {
+      obj.denom_traces = [];
+    }
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

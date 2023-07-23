@@ -103,6 +103,25 @@ export const EventCreateGroup = {
       object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
     return message;
   },
+  fromAmino(object: EventCreateGroupAmino): EventCreateGroup {
+    return {
+      groupId: Long.fromString(object.group_id),
+    };
+  },
+  toAmino(message: EventCreateGroup): EventCreateGroupAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventCreateGroupAminoMsg): EventCreateGroup {
+    return EventCreateGroup.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventCreateGroup): EventCreateGroupAminoMsg {
+    return {
+      type: "cosmos-sdk/EventCreateGroup",
+      value: EventCreateGroup.toAmino(message),
+    };
+  },
 };
 function createBaseEventUpdateGroup(): EventUpdateGroup {
   return {
@@ -149,6 +168,25 @@ export const EventUpdateGroup = {
       object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
     return message;
   },
+  fromAmino(object: EventUpdateGroupAmino): EventUpdateGroup {
+    return {
+      groupId: Long.fromString(object.group_id),
+    };
+  },
+  toAmino(message: EventUpdateGroup): EventUpdateGroupAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventUpdateGroupAminoMsg): EventUpdateGroup {
+    return EventUpdateGroup.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventUpdateGroup): EventUpdateGroupAminoMsg {
+    return {
+      type: "cosmos-sdk/EventUpdateGroup",
+      value: EventUpdateGroup.toAmino(message),
+    };
+  },
 };
 function createBaseEventCreateGroupPolicy(): EventCreateGroupPolicy {
   return {
@@ -194,6 +232,25 @@ export const EventCreateGroupPolicy = {
     message.address = object.address ?? "";
     return message;
   },
+  fromAmino(object: EventCreateGroupPolicyAmino): EventCreateGroupPolicy {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: EventCreateGroupPolicy): EventCreateGroupPolicyAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: EventCreateGroupPolicyAminoMsg): EventCreateGroupPolicy {
+    return EventCreateGroupPolicy.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventCreateGroupPolicy): EventCreateGroupPolicyAminoMsg {
+    return {
+      type: "cosmos-sdk/EventCreateGroupPolicy",
+      value: EventCreateGroupPolicy.toAmino(message),
+    };
+  },
 };
 function createBaseEventUpdateGroupPolicy(): EventUpdateGroupPolicy {
   return {
@@ -238,6 +295,25 @@ export const EventUpdateGroupPolicy = {
     const message = createBaseEventUpdateGroupPolicy();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: EventUpdateGroupPolicyAmino): EventUpdateGroupPolicy {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: EventUpdateGroupPolicy): EventUpdateGroupPolicyAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: EventUpdateGroupPolicyAminoMsg): EventUpdateGroupPolicy {
+    return EventUpdateGroupPolicy.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventUpdateGroupPolicy): EventUpdateGroupPolicyAminoMsg {
+    return {
+      type: "cosmos-sdk/EventUpdateGroupPolicy",
+      value: EventUpdateGroupPolicy.toAmino(message),
+    };
   },
 };
 function createBaseEventSubmitProposal(): EventSubmitProposal {
@@ -287,6 +363,25 @@ export const EventSubmitProposal = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: EventSubmitProposalAmino): EventSubmitProposal {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+    };
+  },
+  toAmino(message: EventSubmitProposal): EventSubmitProposalAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventSubmitProposalAminoMsg): EventSubmitProposal {
+    return EventSubmitProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventSubmitProposal): EventSubmitProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/EventSubmitProposal",
+      value: EventSubmitProposal.toAmino(message),
+    };
+  },
 };
 function createBaseEventWithdrawProposal(): EventWithdrawProposal {
   return {
@@ -335,6 +430,25 @@ export const EventWithdrawProposal = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: EventWithdrawProposalAmino): EventWithdrawProposal {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+    };
+  },
+  toAmino(message: EventWithdrawProposal): EventWithdrawProposalAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventWithdrawProposalAminoMsg): EventWithdrawProposal {
+    return EventWithdrawProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventWithdrawProposal): EventWithdrawProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/EventWithdrawProposal",
+      value: EventWithdrawProposal.toAmino(message),
+    };
+  },
 };
 function createBaseEventVote(): EventVote {
   return {
@@ -382,6 +496,25 @@ export const EventVote = {
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: EventVoteAmino): EventVote {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+    };
+  },
+  toAmino(message: EventVote): EventVoteAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EventVoteAminoMsg): EventVote {
+    return EventVote.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventVote): EventVoteAminoMsg {
+    return {
+      type: "cosmos-sdk/EventVote",
+      value: EventVote.toAmino(message),
+    };
   },
 };
 function createBaseEventExec(): EventExec {
@@ -451,6 +584,29 @@ export const EventExec = {
     message.logs = object.logs ?? "";
     return message;
   },
+  fromAmino(object: EventExecAmino): EventExec {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+      result: isSet(object.result) ? proposalExecutorResultFromJSON(object.result) : 0,
+      logs: object.logs,
+    };
+  },
+  toAmino(message: EventExec): EventExecAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.result = message.result;
+    obj.logs = message.logs;
+    return obj;
+  },
+  fromAminoMsg(object: EventExecAminoMsg): EventExec {
+    return EventExec.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventExec): EventExecAminoMsg {
+    return {
+      type: "cosmos-sdk/EventExec",
+      value: EventExec.toAmino(message),
+    };
+  },
 };
 function createBaseEventLeaveGroup(): EventLeaveGroup {
   return {
@@ -506,5 +662,26 @@ export const EventLeaveGroup = {
       object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: EventLeaveGroupAmino): EventLeaveGroup {
+    return {
+      groupId: Long.fromString(object.group_id),
+      address: object.address,
+    };
+  },
+  toAmino(message: EventLeaveGroup): EventLeaveGroupAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: EventLeaveGroupAminoMsg): EventLeaveGroup {
+    return EventLeaveGroup.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventLeaveGroup): EventLeaveGroupAminoMsg {
+    return {
+      type: "cosmos-sdk/EventLeaveGroup",
+      value: EventLeaveGroup.toAmino(message),
+    };
   },
 };

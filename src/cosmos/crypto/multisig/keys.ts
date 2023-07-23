@@ -70,4 +70,31 @@ export const LegacyAminoPubKey = {
     message.publicKeys = object.publicKeys?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: LegacyAminoPubKeyAmino): LegacyAminoPubKey {
+    return {
+      threshold: object.threshold,
+      publicKeys: Array.isArray(object?.public_keys)
+        ? object.public_keys.map((e: any) => Any.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: LegacyAminoPubKey): LegacyAminoPubKeyAmino {
+    const obj: any = {};
+    obj.threshold = message.threshold;
+    if (message.publicKeys) {
+      obj.public_keys = message.publicKeys.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.public_keys = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: LegacyAminoPubKeyAminoMsg): LegacyAminoPubKey {
+    return LegacyAminoPubKey.fromAmino(object.value);
+  },
+  toAminoMsg(message: LegacyAminoPubKey): LegacyAminoPubKeyAminoMsg {
+    return {
+      type: "tendermint/PubKeyMultisigThreshold",
+      value: LegacyAminoPubKey.toAmino(message),
+    };
+  },
 };

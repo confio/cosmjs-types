@@ -161,6 +161,39 @@ export const MsgTransfer = {
     message.memo = object.memo ?? "";
     return message;
   },
+  fromAmino(object: MsgTransferAmino): MsgTransfer {
+    return {
+      sourcePort: object.source_port,
+      sourceChannel: object.source_channel,
+      token: object?.token ? Coin.fromAmino(object.token) : undefined,
+      sender: object.sender,
+      receiver: object.receiver,
+      timeoutHeight: object?.timeout_height ? Height.fromAmino(object.timeout_height) : undefined,
+      timeoutTimestamp: Long.fromString(object.timeout_timestamp),
+      memo: object.memo,
+    };
+  },
+  toAmino(message: MsgTransfer): MsgTransferAmino {
+    const obj: any = {};
+    obj.source_port = message.sourcePort;
+    obj.source_channel = message.sourceChannel;
+    obj.token = message.token ? Coin.toAmino(message.token) : undefined;
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    obj.timeout_height = message.timeoutHeight ? Height.toAmino(message.timeoutHeight) : {};
+    obj.timeout_timestamp = message.timeoutTimestamp ? message.timeoutTimestamp.toString() : undefined;
+    obj.memo = message.memo;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTransferAminoMsg): MsgTransfer {
+    return MsgTransfer.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTransfer): MsgTransferAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTransfer",
+      value: MsgTransfer.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTransferResponse(): MsgTransferResponse {
   return {
@@ -208,6 +241,25 @@ export const MsgTransferResponse = {
         ? Long.fromValue(object.sequence)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: MsgTransferResponseAmino): MsgTransferResponse {
+    return {
+      sequence: Long.fromString(object.sequence),
+    };
+  },
+  toAmino(message: MsgTransferResponse): MsgTransferResponseAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTransferResponseAminoMsg): MsgTransferResponse {
+    return MsgTransferResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTransferResponse): MsgTransferResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTransferResponse",
+      value: MsgTransferResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the ibc/transfer Msg service. */

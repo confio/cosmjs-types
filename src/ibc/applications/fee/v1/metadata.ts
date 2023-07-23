@@ -66,4 +66,25 @@ export const Metadata = {
     message.appVersion = object.appVersion ?? "";
     return message;
   },
+  fromAmino(object: MetadataAmino): Metadata {
+    return {
+      feeVersion: object.fee_version,
+      appVersion: object.app_version,
+    };
+  },
+  toAmino(message: Metadata): MetadataAmino {
+    const obj: any = {};
+    obj.fee_version = message.feeVersion;
+    obj.app_version = message.appVersion;
+    return obj;
+  },
+  fromAminoMsg(object: MetadataAminoMsg): Metadata {
+    return Metadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: Metadata): MetadataAminoMsg {
+    return {
+      type: "cosmos-sdk/Metadata",
+      value: Metadata.toAmino(message),
+    };
+  },
 };

@@ -102,4 +102,31 @@ export const BIP44Params = {
     message.addressIndex = object.addressIndex ?? 0;
     return message;
   },
+  fromAmino(object: BIP44ParamsAmino): BIP44Params {
+    return {
+      purpose: object.purpose,
+      coinType: object.coin_type,
+      account: object.account,
+      change: object.change,
+      addressIndex: object.address_index,
+    };
+  },
+  toAmino(message: BIP44Params): BIP44ParamsAmino {
+    const obj: any = {};
+    obj.purpose = message.purpose;
+    obj.coin_type = message.coinType;
+    obj.account = message.account;
+    obj.change = message.change;
+    obj.address_index = message.addressIndex;
+    return obj;
+  },
+  fromAminoMsg(object: BIP44ParamsAminoMsg): BIP44Params {
+    return BIP44Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: BIP44Params): BIP44ParamsAminoMsg {
+    return {
+      type: "crypto/keys/hd/BIP44Params",
+      value: BIP44Params.toAmino(message),
+    };
+  },
 };

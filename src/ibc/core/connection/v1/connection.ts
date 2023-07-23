@@ -243,6 +243,37 @@ export const ConnectionEnd = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: ConnectionEndAmino): ConnectionEnd {
+    return {
+      clientId: object.client_id,
+      versions: Array.isArray(object?.versions) ? object.versions.map((e: any) => Version.fromAmino(e)) : [],
+      state: isSet(object.state) ? stateFromJSON(object.state) : 0,
+      counterparty: object?.counterparty ? Counterparty.fromAmino(object.counterparty) : undefined,
+      delayPeriod: Long.fromString(object.delay_period),
+    };
+  },
+  toAmino(message: ConnectionEnd): ConnectionEndAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    if (message.versions) {
+      obj.versions = message.versions.map((e) => (e ? Version.toAmino(e) : undefined));
+    } else {
+      obj.versions = [];
+    }
+    obj.state = message.state;
+    obj.counterparty = message.counterparty ? Counterparty.toAmino(message.counterparty) : undefined;
+    obj.delay_period = message.delayPeriod ? message.delayPeriod.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConnectionEndAminoMsg): ConnectionEnd {
+    return ConnectionEnd.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConnectionEnd): ConnectionEndAminoMsg {
+    return {
+      type: "cosmos-sdk/ConnectionEnd",
+      value: ConnectionEnd.toAmino(message),
+    };
+  },
 };
 function createBaseIdentifiedConnection(): IdentifiedConnection {
   return {
@@ -349,6 +380,39 @@ export const IdentifiedConnection = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: IdentifiedConnectionAmino): IdentifiedConnection {
+    return {
+      id: object.id,
+      clientId: object.client_id,
+      versions: Array.isArray(object?.versions) ? object.versions.map((e: any) => Version.fromAmino(e)) : [],
+      state: isSet(object.state) ? stateFromJSON(object.state) : 0,
+      counterparty: object?.counterparty ? Counterparty.fromAmino(object.counterparty) : undefined,
+      delayPeriod: Long.fromString(object.delay_period),
+    };
+  },
+  toAmino(message: IdentifiedConnection): IdentifiedConnectionAmino {
+    const obj: any = {};
+    obj.id = message.id;
+    obj.client_id = message.clientId;
+    if (message.versions) {
+      obj.versions = message.versions.map((e) => (e ? Version.toAmino(e) : undefined));
+    } else {
+      obj.versions = [];
+    }
+    obj.state = message.state;
+    obj.counterparty = message.counterparty ? Counterparty.toAmino(message.counterparty) : undefined;
+    obj.delay_period = message.delayPeriod ? message.delayPeriod.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: IdentifiedConnectionAminoMsg): IdentifiedConnection {
+    return IdentifiedConnection.fromAmino(object.value);
+  },
+  toAminoMsg(message: IdentifiedConnection): IdentifiedConnectionAminoMsg {
+    return {
+      type: "cosmos-sdk/IdentifiedConnection",
+      value: IdentifiedConnection.toAmino(message),
+    };
+  },
 };
 function createBaseCounterparty(): Counterparty {
   return {
@@ -418,6 +482,29 @@ export const Counterparty = {
         : undefined;
     return message;
   },
+  fromAmino(object: CounterpartyAmino): Counterparty {
+    return {
+      clientId: object.client_id,
+      connectionId: object.connection_id,
+      prefix: object?.prefix ? MerklePrefix.fromAmino(object.prefix) : undefined,
+    };
+  },
+  toAmino(message: Counterparty): CounterpartyAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    obj.connection_id = message.connectionId;
+    obj.prefix = message.prefix ? MerklePrefix.toAmino(message.prefix) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: CounterpartyAminoMsg): Counterparty {
+    return Counterparty.fromAmino(object.value);
+  },
+  toAminoMsg(message: Counterparty): CounterpartyAminoMsg {
+    return {
+      type: "cosmos-sdk/Counterparty",
+      value: Counterparty.toAmino(message),
+    };
+  },
 };
 function createBaseClientPaths(): ClientPaths {
   return {
@@ -466,6 +553,29 @@ export const ClientPaths = {
     const message = createBaseClientPaths();
     message.paths = object.paths?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ClientPathsAmino): ClientPaths {
+    return {
+      paths: Array.isArray(object?.paths) ? object.paths.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ClientPaths): ClientPathsAmino {
+    const obj: any = {};
+    if (message.paths) {
+      obj.paths = message.paths.map((e) => e);
+    } else {
+      obj.paths = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ClientPathsAminoMsg): ClientPaths {
+    return ClientPaths.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientPaths): ClientPathsAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientPaths",
+      value: ClientPaths.toAmino(message),
+    };
   },
 };
 function createBaseConnectionPaths(): ConnectionPaths {
@@ -526,6 +636,31 @@ export const ConnectionPaths = {
     message.paths = object.paths?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ConnectionPathsAmino): ConnectionPaths {
+    return {
+      clientId: object.client_id,
+      paths: Array.isArray(object?.paths) ? object.paths.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ConnectionPaths): ConnectionPathsAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId;
+    if (message.paths) {
+      obj.paths = message.paths.map((e) => e);
+    } else {
+      obj.paths = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ConnectionPathsAminoMsg): ConnectionPaths {
+    return ConnectionPaths.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConnectionPaths): ConnectionPathsAminoMsg {
+    return {
+      type: "cosmos-sdk/ConnectionPaths",
+      value: ConnectionPaths.toAmino(message),
+    };
+  },
 };
 function createBaseVersion(): Version {
   return {
@@ -585,6 +720,31 @@ export const Version = {
     message.features = object.features?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: VersionAmino): Version {
+    return {
+      identifier: object.identifier,
+      features: Array.isArray(object?.features) ? object.features.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: Version): VersionAmino {
+    const obj: any = {};
+    obj.identifier = message.identifier;
+    if (message.features) {
+      obj.features = message.features.map((e) => e);
+    } else {
+      obj.features = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: VersionAminoMsg): Version {
+    return Version.fromAmino(object.value);
+  },
+  toAminoMsg(message: Version): VersionAminoMsg {
+    return {
+      type: "cosmos-sdk/Version",
+      value: Version.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -635,5 +795,26 @@ export const Params = {
         ? Long.fromValue(object.maxExpectedTimePerBlock)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    return {
+      maxExpectedTimePerBlock: Long.fromString(object.max_expected_time_per_block),
+    };
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.max_expected_time_per_block = message.maxExpectedTimePerBlock
+      ? message.maxExpectedTimePerBlock.toString()
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

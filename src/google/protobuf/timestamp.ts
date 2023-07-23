@@ -156,4 +156,19 @@ export const Timestamp = {
     message.nanos = object.nanos ?? 0;
     return message;
   },
+  fromAmino(object: TimestampAmino): Timestamp {
+    return {
+      seconds: Long.fromString(object.seconds),
+      nanos: object.nanos,
+    };
+  },
+  toAmino(message: Timestamp): TimestampAmino {
+    const obj: any = {};
+    obj.seconds = message.seconds ? message.seconds.toString() : undefined;
+    obj.nanos = message.nanos;
+    return obj;
+  },
+  fromAminoMsg(object: TimestampAminoMsg): Timestamp {
+    return Timestamp.fromAmino(object.value);
+  },
 };

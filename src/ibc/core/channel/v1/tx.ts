@@ -253,6 +253,29 @@ export const MsgChannelOpenInit = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenInitAmino): MsgChannelOpenInit {
+    return {
+      portId: object.port_id,
+      channel: object?.channel ? Channel.fromAmino(object.channel) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelOpenInit): MsgChannelOpenInitAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel = message.channel ? Channel.toAmino(message.channel) : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenInitAminoMsg): MsgChannelOpenInit {
+    return MsgChannelOpenInit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenInit): MsgChannelOpenInitAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenInit",
+      value: MsgChannelOpenInit.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenInitResponse(): MsgChannelOpenInitResponse {
   return {
@@ -309,6 +332,27 @@ export const MsgChannelOpenInitResponse = {
     message.channelId = object.channelId ?? "";
     message.version = object.version ?? "";
     return message;
+  },
+  fromAmino(object: MsgChannelOpenInitResponseAmino): MsgChannelOpenInitResponse {
+    return {
+      channelId: object.channel_id,
+      version: object.version,
+    };
+  },
+  toAmino(message: MsgChannelOpenInitResponse): MsgChannelOpenInitResponseAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId;
+    obj.version = message.version;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenInitResponseAminoMsg): MsgChannelOpenInitResponse {
+    return MsgChannelOpenInitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenInitResponse): MsgChannelOpenInitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenInitResponse",
+      value: MsgChannelOpenInitResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
@@ -426,6 +470,37 @@ export const MsgChannelOpenTry = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenTryAmino): MsgChannelOpenTry {
+    return {
+      portId: object.port_id,
+      previousChannelId: object.previous_channel_id,
+      channel: object?.channel ? Channel.fromAmino(object.channel) : undefined,
+      counterpartyVersion: object.counterparty_version,
+      proofInit: object.proof_init,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelOpenTry): MsgChannelOpenTryAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.previous_channel_id = message.previousChannelId;
+    obj.channel = message.channel ? Channel.toAmino(message.channel) : undefined;
+    obj.counterparty_version = message.counterpartyVersion;
+    obj.proof_init = message.proofInit;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenTryAminoMsg): MsgChannelOpenTry {
+    return MsgChannelOpenTry.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenTry): MsgChannelOpenTryAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenTry",
+      value: MsgChannelOpenTry.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenTryResponse(): MsgChannelOpenTryResponse {
   return {
@@ -472,6 +547,25 @@ export const MsgChannelOpenTryResponse = {
     const message = createBaseMsgChannelOpenTryResponse();
     message.version = object.version ?? "";
     return message;
+  },
+  fromAmino(object: MsgChannelOpenTryResponseAmino): MsgChannelOpenTryResponse {
+    return {
+      version: object.version,
+    };
+  },
+  toAmino(message: MsgChannelOpenTryResponse): MsgChannelOpenTryResponseAmino {
+    const obj: any = {};
+    obj.version = message.version;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenTryResponseAminoMsg): MsgChannelOpenTryResponse {
+    return MsgChannelOpenTryResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenTryResponse): MsgChannelOpenTryResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenTryResponse",
+      value: MsgChannelOpenTryResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
@@ -584,6 +678,37 @@ export const MsgChannelOpenAck = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenAckAmino): MsgChannelOpenAck {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+      counterpartyChannelId: object.counterparty_channel_id,
+      counterpartyVersion: object.counterparty_version,
+      proofTry: object.proof_try,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelOpenAck): MsgChannelOpenAckAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.counterparty_channel_id = message.counterpartyChannelId;
+    obj.counterparty_version = message.counterpartyVersion;
+    obj.proof_try = message.proofTry;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenAckAminoMsg): MsgChannelOpenAck {
+    return MsgChannelOpenAck.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenAck): MsgChannelOpenAckAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenAck",
+      value: MsgChannelOpenAck.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenAckResponse(): MsgChannelOpenAckResponse {
   return {};
@@ -616,6 +741,22 @@ export const MsgChannelOpenAckResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgChannelOpenAckResponse>, I>>(_: I): MsgChannelOpenAckResponse {
     const message = createBaseMsgChannelOpenAckResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelOpenAckResponseAmino): MsgChannelOpenAckResponse {
+    return {};
+  },
+  toAmino(_: MsgChannelOpenAckResponse): MsgChannelOpenAckResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenAckResponseAminoMsg): MsgChannelOpenAckResponse {
+    return MsgChannelOpenAckResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenAckResponse): MsgChannelOpenAckResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenAckResponse",
+      value: MsgChannelOpenAckResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
@@ -707,6 +848,33 @@ export const MsgChannelOpenConfirm = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenConfirmAmino): MsgChannelOpenConfirm {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+      proofAck: object.proof_ack,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelOpenConfirm): MsgChannelOpenConfirmAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.proof_ack = message.proofAck;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenConfirmAminoMsg): MsgChannelOpenConfirm {
+    return MsgChannelOpenConfirm.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenConfirm): MsgChannelOpenConfirmAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenConfirm",
+      value: MsgChannelOpenConfirm.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenConfirmResponse(): MsgChannelOpenConfirmResponse {
   return {};
@@ -741,6 +909,22 @@ export const MsgChannelOpenConfirmResponse = {
   ): MsgChannelOpenConfirmResponse {
     const message = createBaseMsgChannelOpenConfirmResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelOpenConfirmResponseAmino): MsgChannelOpenConfirmResponse {
+    return {};
+  },
+  toAmino(_: MsgChannelOpenConfirmResponse): MsgChannelOpenConfirmResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenConfirmResponseAminoMsg): MsgChannelOpenConfirmResponse {
+    return MsgChannelOpenConfirmResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenConfirmResponse): MsgChannelOpenConfirmResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenConfirmResponse",
+      value: MsgChannelOpenConfirmResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelCloseInit(): MsgChannelCloseInit {
@@ -807,6 +991,29 @@ export const MsgChannelCloseInit = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelCloseInitAmino): MsgChannelCloseInit {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelCloseInit): MsgChannelCloseInitAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseInitAminoMsg): MsgChannelCloseInit {
+    return MsgChannelCloseInit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseInit): MsgChannelCloseInitAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseInit",
+      value: MsgChannelCloseInit.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelCloseInitResponse(): MsgChannelCloseInitResponse {
   return {};
@@ -841,6 +1048,22 @@ export const MsgChannelCloseInitResponse = {
   ): MsgChannelCloseInitResponse {
     const message = createBaseMsgChannelCloseInitResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelCloseInitResponseAmino): MsgChannelCloseInitResponse {
+    return {};
+  },
+  toAmino(_: MsgChannelCloseInitResponse): MsgChannelCloseInitResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseInitResponseAminoMsg): MsgChannelCloseInitResponse {
+    return MsgChannelCloseInitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseInitResponse): MsgChannelCloseInitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseInitResponse",
+      value: MsgChannelCloseInitResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
@@ -934,6 +1157,33 @@ export const MsgChannelCloseConfirm = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelCloseConfirmAmino): MsgChannelCloseConfirm {
+    return {
+      portId: object.port_id,
+      channelId: object.channel_id,
+      proofInit: object.proof_init,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgChannelCloseConfirm): MsgChannelCloseConfirmAmino {
+    const obj: any = {};
+    obj.port_id = message.portId;
+    obj.channel_id = message.channelId;
+    obj.proof_init = message.proofInit;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseConfirmAminoMsg): MsgChannelCloseConfirm {
+    return MsgChannelCloseConfirm.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseConfirm): MsgChannelCloseConfirmAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseConfirm",
+      value: MsgChannelCloseConfirm.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelCloseConfirmResponse(): MsgChannelCloseConfirmResponse {
   return {};
@@ -968,6 +1218,22 @@ export const MsgChannelCloseConfirmResponse = {
   ): MsgChannelCloseConfirmResponse {
     const message = createBaseMsgChannelCloseConfirmResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelCloseConfirmResponseAmino): MsgChannelCloseConfirmResponse {
+    return {};
+  },
+  toAmino(_: MsgChannelCloseConfirmResponse): MsgChannelCloseConfirmResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseConfirmResponseAminoMsg): MsgChannelCloseConfirmResponse {
+    return MsgChannelCloseConfirmResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseConfirmResponse): MsgChannelCloseConfirmResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseConfirmResponse",
+      value: MsgChannelCloseConfirmResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRecvPacket(): MsgRecvPacket {
@@ -1054,6 +1320,31 @@ export const MsgRecvPacket = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgRecvPacketAmino): MsgRecvPacket {
+    return {
+      packet: object?.packet ? Packet.fromAmino(object.packet) : undefined,
+      proofCommitment: object.proof_commitment,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgRecvPacket): MsgRecvPacketAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_commitment = message.proofCommitment;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRecvPacketAminoMsg): MsgRecvPacket {
+    return MsgRecvPacket.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRecvPacket): MsgRecvPacketAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRecvPacket",
+      value: MsgRecvPacket.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
   return {
@@ -1098,6 +1389,25 @@ export const MsgRecvPacketResponse = {
     const message = createBaseMsgRecvPacketResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgRecvPacketResponseAmino): MsgRecvPacketResponse {
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
+  },
+  toAmino(message: MsgRecvPacketResponse): MsgRecvPacketResponseAmino {
+    const obj: any = {};
+    obj.result = message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRecvPacketResponseAminoMsg): MsgRecvPacketResponse {
+    return MsgRecvPacketResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRecvPacketResponse): MsgRecvPacketResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRecvPacketResponse",
+      value: MsgRecvPacketResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgTimeout(): MsgTimeout {
@@ -1198,6 +1508,33 @@ export const MsgTimeout = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgTimeoutAmino): MsgTimeout {
+    return {
+      packet: object?.packet ? Packet.fromAmino(object.packet) : undefined,
+      proofUnreceived: object.proof_unreceived,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      nextSequenceRecv: Long.fromString(object.next_sequence_recv),
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgTimeout): MsgTimeoutAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_unreceived = message.proofUnreceived;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.next_sequence_recv = message.nextSequenceRecv ? message.nextSequenceRecv.toString() : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutAminoMsg): MsgTimeout {
+    return MsgTimeout.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeout): MsgTimeoutAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeout",
+      value: MsgTimeout.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
   return {
@@ -1242,6 +1579,25 @@ export const MsgTimeoutResponse = {
     const message = createBaseMsgTimeoutResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgTimeoutResponseAmino): MsgTimeoutResponse {
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
+  },
+  toAmino(message: MsgTimeoutResponse): MsgTimeoutResponseAmino {
+    const obj: any = {};
+    obj.result = message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutResponseAminoMsg): MsgTimeoutResponse {
+    return MsgTimeoutResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutResponse): MsgTimeoutResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutResponse",
+      value: MsgTimeoutResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgTimeoutOnClose(): MsgTimeoutOnClose {
@@ -1355,6 +1711,35 @@ export const MsgTimeoutOnClose = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgTimeoutOnCloseAmino): MsgTimeoutOnClose {
+    return {
+      packet: object?.packet ? Packet.fromAmino(object.packet) : undefined,
+      proofUnreceived: object.proof_unreceived,
+      proofClose: object.proof_close,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      nextSequenceRecv: Long.fromString(object.next_sequence_recv),
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgTimeoutOnClose): MsgTimeoutOnCloseAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_unreceived = message.proofUnreceived;
+    obj.proof_close = message.proofClose;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.next_sequence_recv = message.nextSequenceRecv ? message.nextSequenceRecv.toString() : undefined;
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutOnCloseAminoMsg): MsgTimeoutOnClose {
+    return MsgTimeoutOnClose.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutOnClose): MsgTimeoutOnCloseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutOnClose",
+      value: MsgTimeoutOnClose.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTimeoutOnCloseResponse(): MsgTimeoutOnCloseResponse {
   return {
@@ -1401,6 +1786,25 @@ export const MsgTimeoutOnCloseResponse = {
     const message = createBaseMsgTimeoutOnCloseResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgTimeoutOnCloseResponseAmino): MsgTimeoutOnCloseResponse {
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
+  },
+  toAmino(message: MsgTimeoutOnCloseResponse): MsgTimeoutOnCloseResponseAmino {
+    const obj: any = {};
+    obj.result = message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutOnCloseResponseAminoMsg): MsgTimeoutOnCloseResponse {
+    return MsgTimeoutOnCloseResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutOnCloseResponse): MsgTimeoutOnCloseResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutOnCloseResponse",
+      value: MsgTimeoutOnCloseResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgAcknowledgement(): MsgAcknowledgement {
@@ -1500,6 +1904,33 @@ export const MsgAcknowledgement = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgAcknowledgementAmino): MsgAcknowledgement {
+    return {
+      packet: object?.packet ? Packet.fromAmino(object.packet) : undefined,
+      acknowledgement: object.acknowledgement,
+      proofAcked: object.proof_acked,
+      proofHeight: object?.proof_height ? Height.fromAmino(object.proof_height) : undefined,
+      signer: object.signer,
+    };
+  },
+  toAmino(message: MsgAcknowledgement): MsgAcknowledgementAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.acknowledgement = message.acknowledgement;
+    obj.proof_acked = message.proofAcked;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAcknowledgementAminoMsg): MsgAcknowledgement {
+    return MsgAcknowledgement.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAcknowledgement): MsgAcknowledgementAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAcknowledgement",
+      value: MsgAcknowledgement.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
   return {
@@ -1546,6 +1977,25 @@ export const MsgAcknowledgementResponse = {
     const message = createBaseMsgAcknowledgementResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgAcknowledgementResponseAmino): MsgAcknowledgementResponse {
+    return {
+      result: isSet(object.result) ? responseResultTypeFromJSON(object.result) : 0,
+    };
+  },
+  toAmino(message: MsgAcknowledgementResponse): MsgAcknowledgementResponseAmino {
+    const obj: any = {};
+    obj.result = message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAcknowledgementResponseAminoMsg): MsgAcknowledgementResponse {
+    return MsgAcknowledgementResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAcknowledgementResponse): MsgAcknowledgementResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAcknowledgementResponse",
+      value: MsgAcknowledgementResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the ibc/channel Msg service. */

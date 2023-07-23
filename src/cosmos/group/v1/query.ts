@@ -233,6 +233,25 @@ export const QueryGroupInfoRequest = {
       object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
     return message;
   },
+  fromAmino(object: QueryGroupInfoRequestAmino): QueryGroupInfoRequest {
+    return {
+      groupId: Long.fromString(object.group_id),
+    };
+  },
+  toAmino(message: QueryGroupInfoRequest): QueryGroupInfoRequestAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupInfoRequestAminoMsg): QueryGroupInfoRequest {
+    return QueryGroupInfoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupInfoRequest): QueryGroupInfoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupInfoRequest",
+      value: QueryGroupInfoRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupInfoResponse(): QueryGroupInfoResponse {
   return {
@@ -278,6 +297,25 @@ export const QueryGroupInfoResponse = {
     message.info =
       object.info !== undefined && object.info !== null ? GroupInfo.fromPartial(object.info) : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupInfoResponseAmino): QueryGroupInfoResponse {
+    return {
+      info: object?.info ? GroupInfo.fromAmino(object.info) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupInfoResponse): QueryGroupInfoResponseAmino {
+    const obj: any = {};
+    obj.info = message.info ? GroupInfo.toAmino(message.info) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupInfoResponseAminoMsg): QueryGroupInfoResponse {
+    return QueryGroupInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupInfoResponse): QueryGroupInfoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupInfoResponse",
+      value: QueryGroupInfoResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupPolicyInfoRequest(): QueryGroupPolicyInfoRequest {
@@ -325,6 +363,25 @@ export const QueryGroupPolicyInfoRequest = {
     const message = createBaseQueryGroupPolicyInfoRequest();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: QueryGroupPolicyInfoRequestAmino): QueryGroupPolicyInfoRequest {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: QueryGroupPolicyInfoRequest): QueryGroupPolicyInfoRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPolicyInfoRequestAminoMsg): QueryGroupPolicyInfoRequest {
+    return QueryGroupPolicyInfoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPolicyInfoRequest): QueryGroupPolicyInfoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPolicyInfoRequest",
+      value: QueryGroupPolicyInfoRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupPolicyInfoResponse(): QueryGroupPolicyInfoResponse {
@@ -376,6 +433,25 @@ export const QueryGroupPolicyInfoResponse = {
         ? GroupPolicyInfo.fromPartial(object.info)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupPolicyInfoResponseAmino): QueryGroupPolicyInfoResponse {
+    return {
+      info: object?.info ? GroupPolicyInfo.fromAmino(object.info) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupPolicyInfoResponse): QueryGroupPolicyInfoResponseAmino {
+    const obj: any = {};
+    obj.info = message.info ? GroupPolicyInfo.toAmino(message.info) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPolicyInfoResponseAminoMsg): QueryGroupPolicyInfoResponse {
+    return QueryGroupPolicyInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPolicyInfoResponse): QueryGroupPolicyInfoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPolicyInfoResponse",
+      value: QueryGroupPolicyInfoResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupMembersRequest(): QueryGroupMembersRequest {
@@ -438,6 +514,27 @@ export const QueryGroupMembersRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupMembersRequestAmino): QueryGroupMembersRequest {
+    return {
+      groupId: Long.fromString(object.group_id),
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupMembersRequest): QueryGroupMembersRequestAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupMembersRequestAminoMsg): QueryGroupMembersRequest {
+    return QueryGroupMembersRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupMembersRequest): QueryGroupMembersRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupMembersRequest",
+      value: QueryGroupMembersRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupMembersResponse(): QueryGroupMembersResponse {
@@ -504,6 +601,31 @@ export const QueryGroupMembersResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryGroupMembersResponseAmino): QueryGroupMembersResponse {
+    return {
+      members: Array.isArray(object?.members) ? object.members.map((e: any) => GroupMember.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupMembersResponse): QueryGroupMembersResponseAmino {
+    const obj: any = {};
+    if (message.members) {
+      obj.members = message.members.map((e) => (e ? GroupMember.toAmino(e) : undefined));
+    } else {
+      obj.members = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupMembersResponseAminoMsg): QueryGroupMembersResponse {
+    return QueryGroupMembersResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupMembersResponse): QueryGroupMembersResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupMembersResponse",
+      value: QueryGroupMembersResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupsByAdminRequest(): QueryGroupsByAdminRequest {
   return {
@@ -564,6 +686,27 @@ export const QueryGroupsByAdminRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupsByAdminRequestAmino): QueryGroupsByAdminRequest {
+    return {
+      admin: object.admin,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsByAdminRequest): QueryGroupsByAdminRequestAmino {
+    const obj: any = {};
+    obj.admin = message.admin;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsByAdminRequestAminoMsg): QueryGroupsByAdminRequest {
+    return QueryGroupsByAdminRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsByAdminRequest): QueryGroupsByAdminRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsByAdminRequest",
+      value: QueryGroupsByAdminRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupsByAdminResponse(): QueryGroupsByAdminResponse {
@@ -630,6 +773,31 @@ export const QueryGroupsByAdminResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryGroupsByAdminResponseAmino): QueryGroupsByAdminResponse {
+    return {
+      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => GroupInfo.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsByAdminResponse): QueryGroupsByAdminResponseAmino {
+    const obj: any = {};
+    if (message.groups) {
+      obj.groups = message.groups.map((e) => (e ? GroupInfo.toAmino(e) : undefined));
+    } else {
+      obj.groups = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsByAdminResponseAminoMsg): QueryGroupsByAdminResponse {
+    return QueryGroupsByAdminResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsByAdminResponse): QueryGroupsByAdminResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsByAdminResponse",
+      value: QueryGroupsByAdminResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupPoliciesByGroupRequest(): QueryGroupPoliciesByGroupRequest {
   return {
@@ -691,6 +859,27 @@ export const QueryGroupPoliciesByGroupRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupPoliciesByGroupRequestAmino): QueryGroupPoliciesByGroupRequest {
+    return {
+      groupId: Long.fromString(object.group_id),
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupPoliciesByGroupRequest): QueryGroupPoliciesByGroupRequestAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPoliciesByGroupRequestAminoMsg): QueryGroupPoliciesByGroupRequest {
+    return QueryGroupPoliciesByGroupRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPoliciesByGroupRequest): QueryGroupPoliciesByGroupRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPoliciesByGroupRequest",
+      value: QueryGroupPoliciesByGroupRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupPoliciesByGroupResponse(): QueryGroupPoliciesByGroupResponse {
@@ -759,6 +948,33 @@ export const QueryGroupPoliciesByGroupResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryGroupPoliciesByGroupResponseAmino): QueryGroupPoliciesByGroupResponse {
+    return {
+      groupPolicies: Array.isArray(object?.group_policies)
+        ? object.group_policies.map((e: any) => GroupPolicyInfo.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupPoliciesByGroupResponse): QueryGroupPoliciesByGroupResponseAmino {
+    const obj: any = {};
+    if (message.groupPolicies) {
+      obj.group_policies = message.groupPolicies.map((e) => (e ? GroupPolicyInfo.toAmino(e) : undefined));
+    } else {
+      obj.group_policies = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPoliciesByGroupResponseAminoMsg): QueryGroupPoliciesByGroupResponse {
+    return QueryGroupPoliciesByGroupResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPoliciesByGroupResponse): QueryGroupPoliciesByGroupResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPoliciesByGroupResponse",
+      value: QueryGroupPoliciesByGroupResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupPoliciesByAdminRequest(): QueryGroupPoliciesByAdminRequest {
   return {
@@ -819,6 +1035,27 @@ export const QueryGroupPoliciesByAdminRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupPoliciesByAdminRequestAmino): QueryGroupPoliciesByAdminRequest {
+    return {
+      admin: object.admin,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupPoliciesByAdminRequest): QueryGroupPoliciesByAdminRequestAmino {
+    const obj: any = {};
+    obj.admin = message.admin;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPoliciesByAdminRequestAminoMsg): QueryGroupPoliciesByAdminRequest {
+    return QueryGroupPoliciesByAdminRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPoliciesByAdminRequest): QueryGroupPoliciesByAdminRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPoliciesByAdminRequest",
+      value: QueryGroupPoliciesByAdminRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupPoliciesByAdminResponse(): QueryGroupPoliciesByAdminResponse {
@@ -887,6 +1124,33 @@ export const QueryGroupPoliciesByAdminResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryGroupPoliciesByAdminResponseAmino): QueryGroupPoliciesByAdminResponse {
+    return {
+      groupPolicies: Array.isArray(object?.group_policies)
+        ? object.group_policies.map((e: any) => GroupPolicyInfo.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupPoliciesByAdminResponse): QueryGroupPoliciesByAdminResponseAmino {
+    const obj: any = {};
+    if (message.groupPolicies) {
+      obj.group_policies = message.groupPolicies.map((e) => (e ? GroupPolicyInfo.toAmino(e) : undefined));
+    } else {
+      obj.group_policies = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupPoliciesByAdminResponseAminoMsg): QueryGroupPoliciesByAdminResponse {
+    return QueryGroupPoliciesByAdminResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupPoliciesByAdminResponse): QueryGroupPoliciesByAdminResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupPoliciesByAdminResponse",
+      value: QueryGroupPoliciesByAdminResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryProposalRequest(): QueryProposalRequest {
   return {
@@ -934,6 +1198,25 @@ export const QueryProposalRequest = {
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: QueryProposalRequestAmino): QueryProposalRequest {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+    };
+  },
+  toAmino(message: QueryProposalRequest): QueryProposalRequestAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryProposalRequestAminoMsg): QueryProposalRequest {
+    return QueryProposalRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryProposalRequest): QueryProposalRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryProposalRequest",
+      value: QueryProposalRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryProposalResponse(): QueryProposalResponse {
@@ -983,6 +1266,25 @@ export const QueryProposalResponse = {
         ? Proposal.fromPartial(object.proposal)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryProposalResponseAmino): QueryProposalResponse {
+    return {
+      proposal: object?.proposal ? Proposal.fromAmino(object.proposal) : undefined,
+    };
+  },
+  toAmino(message: QueryProposalResponse): QueryProposalResponseAmino {
+    const obj: any = {};
+    obj.proposal = message.proposal ? Proposal.toAmino(message.proposal) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryProposalResponseAminoMsg): QueryProposalResponse {
+    return QueryProposalResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryProposalResponse): QueryProposalResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryProposalResponse",
+      value: QueryProposalResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryProposalsByGroupPolicyRequest(): QueryProposalsByGroupPolicyRequest {
@@ -1044,6 +1346,27 @@ export const QueryProposalsByGroupPolicyRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryProposalsByGroupPolicyRequestAmino): QueryProposalsByGroupPolicyRequest {
+    return {
+      address: object.address,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryProposalsByGroupPolicyRequest): QueryProposalsByGroupPolicyRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryProposalsByGroupPolicyRequestAminoMsg): QueryProposalsByGroupPolicyRequest {
+    return QueryProposalsByGroupPolicyRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryProposalsByGroupPolicyRequest): QueryProposalsByGroupPolicyRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryProposalsByGroupPolicyRequest",
+      value: QueryProposalsByGroupPolicyRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryProposalsByGroupPolicyResponse(): QueryProposalsByGroupPolicyResponse {
@@ -1112,6 +1435,33 @@ export const QueryProposalsByGroupPolicyResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryProposalsByGroupPolicyResponseAmino): QueryProposalsByGroupPolicyResponse {
+    return {
+      proposals: Array.isArray(object?.proposals)
+        ? object.proposals.map((e: any) => Proposal.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryProposalsByGroupPolicyResponse): QueryProposalsByGroupPolicyResponseAmino {
+    const obj: any = {};
+    if (message.proposals) {
+      obj.proposals = message.proposals.map((e) => (e ? Proposal.toAmino(e) : undefined));
+    } else {
+      obj.proposals = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryProposalsByGroupPolicyResponseAminoMsg): QueryProposalsByGroupPolicyResponse {
+    return QueryProposalsByGroupPolicyResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryProposalsByGroupPolicyResponse): QueryProposalsByGroupPolicyResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryProposalsByGroupPolicyResponse",
+      value: QueryProposalsByGroupPolicyResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryVoteByProposalVoterRequest(): QueryVoteByProposalVoterRequest {
   return {
@@ -1172,6 +1522,27 @@ export const QueryVoteByProposalVoterRequest = {
     message.voter = object.voter ?? "";
     return message;
   },
+  fromAmino(object: QueryVoteByProposalVoterRequestAmino): QueryVoteByProposalVoterRequest {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+      voter: object.voter,
+    };
+  },
+  toAmino(message: QueryVoteByProposalVoterRequest): QueryVoteByProposalVoterRequestAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.voter = message.voter;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVoteByProposalVoterRequestAminoMsg): QueryVoteByProposalVoterRequest {
+    return QueryVoteByProposalVoterRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVoteByProposalVoterRequest): QueryVoteByProposalVoterRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVoteByProposalVoterRequest",
+      value: QueryVoteByProposalVoterRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryVoteByProposalVoterResponse(): QueryVoteByProposalVoterResponse {
   return {
@@ -1219,6 +1590,25 @@ export const QueryVoteByProposalVoterResponse = {
     message.vote =
       object.vote !== undefined && object.vote !== null ? Vote.fromPartial(object.vote) : undefined;
     return message;
+  },
+  fromAmino(object: QueryVoteByProposalVoterResponseAmino): QueryVoteByProposalVoterResponse {
+    return {
+      vote: object?.vote ? Vote.fromAmino(object.vote) : undefined,
+    };
+  },
+  toAmino(message: QueryVoteByProposalVoterResponse): QueryVoteByProposalVoterResponseAmino {
+    const obj: any = {};
+    obj.vote = message.vote ? Vote.toAmino(message.vote) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVoteByProposalVoterResponseAminoMsg): QueryVoteByProposalVoterResponse {
+    return QueryVoteByProposalVoterResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVoteByProposalVoterResponse): QueryVoteByProposalVoterResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVoteByProposalVoterResponse",
+      value: QueryVoteByProposalVoterResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryVotesByProposalRequest(): QueryVotesByProposalRequest {
@@ -1283,6 +1673,27 @@ export const QueryVotesByProposalRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryVotesByProposalRequestAmino): QueryVotesByProposalRequest {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryVotesByProposalRequest): QueryVotesByProposalRequestAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVotesByProposalRequestAminoMsg): QueryVotesByProposalRequest {
+    return QueryVotesByProposalRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVotesByProposalRequest): QueryVotesByProposalRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVotesByProposalRequest",
+      value: QueryVotesByProposalRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryVotesByProposalResponse(): QueryVotesByProposalResponse {
@@ -1349,6 +1760,31 @@ export const QueryVotesByProposalResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryVotesByProposalResponseAmino): QueryVotesByProposalResponse {
+    return {
+      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryVotesByProposalResponse): QueryVotesByProposalResponseAmino {
+    const obj: any = {};
+    if (message.votes) {
+      obj.votes = message.votes.map((e) => (e ? Vote.toAmino(e) : undefined));
+    } else {
+      obj.votes = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVotesByProposalResponseAminoMsg): QueryVotesByProposalResponse {
+    return QueryVotesByProposalResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVotesByProposalResponse): QueryVotesByProposalResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVotesByProposalResponse",
+      value: QueryVotesByProposalResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryVotesByVoterRequest(): QueryVotesByVoterRequest {
   return {
@@ -1409,6 +1845,27 @@ export const QueryVotesByVoterRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryVotesByVoterRequestAmino): QueryVotesByVoterRequest {
+    return {
+      voter: object.voter,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryVotesByVoterRequest): QueryVotesByVoterRequestAmino {
+    const obj: any = {};
+    obj.voter = message.voter;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVotesByVoterRequestAminoMsg): QueryVotesByVoterRequest {
+    return QueryVotesByVoterRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVotesByVoterRequest): QueryVotesByVoterRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVotesByVoterRequest",
+      value: QueryVotesByVoterRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryVotesByVoterResponse(): QueryVotesByVoterResponse {
@@ -1475,6 +1932,31 @@ export const QueryVotesByVoterResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryVotesByVoterResponseAmino): QueryVotesByVoterResponse {
+    return {
+      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryVotesByVoterResponse): QueryVotesByVoterResponseAmino {
+    const obj: any = {};
+    if (message.votes) {
+      obj.votes = message.votes.map((e) => (e ? Vote.toAmino(e) : undefined));
+    } else {
+      obj.votes = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVotesByVoterResponseAminoMsg): QueryVotesByVoterResponse {
+    return QueryVotesByVoterResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryVotesByVoterResponse): QueryVotesByVoterResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryVotesByVoterResponse",
+      value: QueryVotesByVoterResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupsByMemberRequest(): QueryGroupsByMemberRequest {
   return {
@@ -1535,6 +2017,27 @@ export const QueryGroupsByMemberRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupsByMemberRequestAmino): QueryGroupsByMemberRequest {
+    return {
+      address: object.address,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsByMemberRequest): QueryGroupsByMemberRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsByMemberRequestAminoMsg): QueryGroupsByMemberRequest {
+    return QueryGroupsByMemberRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsByMemberRequest): QueryGroupsByMemberRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsByMemberRequest",
+      value: QueryGroupsByMemberRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupsByMemberResponse(): QueryGroupsByMemberResponse {
@@ -1601,6 +2104,31 @@ export const QueryGroupsByMemberResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryGroupsByMemberResponseAmino): QueryGroupsByMemberResponse {
+    return {
+      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => GroupInfo.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsByMemberResponse): QueryGroupsByMemberResponseAmino {
+    const obj: any = {};
+    if (message.groups) {
+      obj.groups = message.groups.map((e) => (e ? GroupInfo.toAmino(e) : undefined));
+    } else {
+      obj.groups = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsByMemberResponseAminoMsg): QueryGroupsByMemberResponse {
+    return QueryGroupsByMemberResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsByMemberResponse): QueryGroupsByMemberResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsByMemberResponse",
+      value: QueryGroupsByMemberResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryTallyResultRequest(): QueryTallyResultRequest {
   return {
@@ -1648,6 +2176,25 @@ export const QueryTallyResultRequest = {
         ? Long.fromValue(object.proposalId)
         : Long.UZERO;
     return message;
+  },
+  fromAmino(object: QueryTallyResultRequestAmino): QueryTallyResultRequest {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+    };
+  },
+  toAmino(message: QueryTallyResultRequest): QueryTallyResultRequestAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTallyResultRequestAminoMsg): QueryTallyResultRequest {
+    return QueryTallyResultRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTallyResultRequest): QueryTallyResultRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTallyResultRequest",
+      value: QueryTallyResultRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
@@ -1698,6 +2245,25 @@ export const QueryTallyResultResponse = {
       object.tally !== undefined && object.tally !== null ? TallyResult.fromPartial(object.tally) : undefined;
     return message;
   },
+  fromAmino(object: QueryTallyResultResponseAmino): QueryTallyResultResponse {
+    return {
+      tally: object?.tally ? TallyResult.fromAmino(object.tally) : undefined,
+    };
+  },
+  toAmino(message: QueryTallyResultResponse): QueryTallyResultResponseAmino {
+    const obj: any = {};
+    obj.tally = message.tally ? TallyResult.toAmino(message.tally) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryTallyResultResponseAminoMsg): QueryTallyResultResponse {
+    return QueryTallyResultResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryTallyResultResponse): QueryTallyResultResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryTallyResultResponse",
+      value: QueryTallyResultResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryGroupsRequest(): QueryGroupsRequest {
   return {
@@ -1746,6 +2312,25 @@ export const QueryGroupsRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupsRequestAmino): QueryGroupsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsRequest): QueryGroupsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsRequestAminoMsg): QueryGroupsRequest {
+    return QueryGroupsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsRequest): QueryGroupsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsRequest",
+      value: QueryGroupsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryGroupsResponse(): QueryGroupsResponse {
@@ -1809,6 +2394,31 @@ export const QueryGroupsResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryGroupsResponseAmino): QueryGroupsResponse {
+    return {
+      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => GroupInfo.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryGroupsResponse): QueryGroupsResponseAmino {
+    const obj: any = {};
+    if (message.groups) {
+      obj.groups = message.groups.map((e) => (e ? GroupInfo.toAmino(e) : undefined));
+    } else {
+      obj.groups = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryGroupsResponseAminoMsg): QueryGroupsResponse {
+    return QueryGroupsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryGroupsResponse): QueryGroupsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryGroupsResponse",
+      value: QueryGroupsResponse.toAmino(message),
+    };
   },
 };
 /** Query is the cosmos.group.v1 Query service. */

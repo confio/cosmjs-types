@@ -158,6 +158,25 @@ export const ConsensusParams = {
         : undefined;
     return message;
   },
+  fromAmino(object: ConsensusParamsAmino): ConsensusParams {
+    return {
+      block: object?.block ? BlockParams.fromAmino(object.block) : undefined,
+      evidence: object?.evidence ? EvidenceParams.fromAmino(object.evidence) : undefined,
+      validator: object?.validator ? ValidatorParams.fromAmino(object.validator) : undefined,
+      version: object?.version ? VersionParams.fromAmino(object.version) : undefined,
+    };
+  },
+  toAmino(message: ConsensusParams): ConsensusParamsAmino {
+    const obj: any = {};
+    obj.block = message.block ? BlockParams.toAmino(message.block) : undefined;
+    obj.evidence = message.evidence ? EvidenceParams.toAmino(message.evidence) : undefined;
+    obj.validator = message.validator ? ValidatorParams.toAmino(message.validator) : undefined;
+    obj.version = message.version ? VersionParams.toAmino(message.version) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConsensusParamsAminoMsg): ConsensusParams {
+    return ConsensusParams.fromAmino(object.value);
+  },
 };
 function createBaseBlockParams(): BlockParams {
   return {
@@ -214,6 +233,21 @@ export const BlockParams = {
     message.maxGas =
       object.maxGas !== undefined && object.maxGas !== null ? Long.fromValue(object.maxGas) : Long.ZERO;
     return message;
+  },
+  fromAmino(object: BlockParamsAmino): BlockParams {
+    return {
+      maxBytes: Long.fromString(object.max_bytes),
+      maxGas: Long.fromString(object.max_gas),
+    };
+  },
+  toAmino(message: BlockParams): BlockParamsAmino {
+    const obj: any = {};
+    obj.max_bytes = message.maxBytes ? message.maxBytes.toString() : undefined;
+    obj.max_gas = message.maxGas ? message.maxGas.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockParamsAminoMsg): BlockParams {
+    return BlockParams.fromAmino(object.value);
   },
 };
 function createBaseEvidenceParams(): EvidenceParams {
@@ -289,6 +323,23 @@ export const EvidenceParams = {
       object.maxBytes !== undefined && object.maxBytes !== null ? Long.fromValue(object.maxBytes) : Long.ZERO;
     return message;
   },
+  fromAmino(object: EvidenceParamsAmino): EvidenceParams {
+    return {
+      maxAgeNumBlocks: Long.fromString(object.max_age_num_blocks),
+      maxAgeDuration: object?.max_age_duration ? Duration.fromAmino(object.max_age_duration) : undefined,
+      maxBytes: Long.fromString(object.max_bytes),
+    };
+  },
+  toAmino(message: EvidenceParams): EvidenceParamsAmino {
+    const obj: any = {};
+    obj.max_age_num_blocks = message.maxAgeNumBlocks ? message.maxAgeNumBlocks.toString() : undefined;
+    obj.max_age_duration = message.maxAgeDuration ? Duration.toAmino(message.maxAgeDuration) : undefined;
+    obj.max_bytes = message.maxBytes ? message.maxBytes.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EvidenceParamsAminoMsg): EvidenceParams {
+    return EvidenceParams.fromAmino(object.value);
+  },
 };
 function createBaseValidatorParams(): ValidatorParams {
   return {
@@ -338,6 +389,23 @@ export const ValidatorParams = {
     message.pubKeyTypes = object.pubKeyTypes?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ValidatorParamsAmino): ValidatorParams {
+    return {
+      pubKeyTypes: Array.isArray(object?.pub_key_types) ? object.pub_key_types.map((e: any) => e) : [],
+    };
+  },
+  toAmino(message: ValidatorParams): ValidatorParamsAmino {
+    const obj: any = {};
+    if (message.pubKeyTypes) {
+      obj.pub_key_types = message.pubKeyTypes.map((e) => e);
+    } else {
+      obj.pub_key_types = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorParamsAminoMsg): ValidatorParams {
+    return ValidatorParams.fromAmino(object.value);
+  },
 };
 function createBaseVersionParams(): VersionParams {
   return {
@@ -382,6 +450,19 @@ export const VersionParams = {
     const message = createBaseVersionParams();
     message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: VersionParamsAmino): VersionParams {
+    return {
+      app: Long.fromString(object.app),
+    };
+  },
+  toAmino(message: VersionParams): VersionParamsAmino {
+    const obj: any = {};
+    obj.app = message.app ? message.app.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VersionParamsAminoMsg): VersionParams {
+    return VersionParams.fromAmino(object.value);
   },
 };
 function createBaseHashedParams(): HashedParams {
@@ -444,5 +525,20 @@ export const HashedParams = {
         ? Long.fromValue(object.blockMaxGas)
         : Long.ZERO;
     return message;
+  },
+  fromAmino(object: HashedParamsAmino): HashedParams {
+    return {
+      blockMaxBytes: Long.fromString(object.block_max_bytes),
+      blockMaxGas: Long.fromString(object.block_max_gas),
+    };
+  },
+  toAmino(message: HashedParams): HashedParamsAmino {
+    const obj: any = {};
+    obj.block_max_bytes = message.blockMaxBytes ? message.blockMaxBytes.toString() : undefined;
+    obj.block_max_gas = message.blockMaxGas ? message.blockMaxGas.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: HashedParamsAminoMsg): HashedParams {
+    return HashedParams.fromAmino(object.value);
   },
 };

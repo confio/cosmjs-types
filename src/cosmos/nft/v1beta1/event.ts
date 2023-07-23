@@ -105,6 +105,31 @@ export const EventSend = {
     message.receiver = object.receiver ?? "";
     return message;
   },
+  fromAmino(object: EventSendAmino): EventSend {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      sender: object.sender,
+      receiver: object.receiver,
+    };
+  },
+  toAmino(message: EventSend): EventSendAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.sender = message.sender;
+    obj.receiver = message.receiver;
+    return obj;
+  },
+  fromAminoMsg(object: EventSendAminoMsg): EventSend {
+    return EventSend.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventSend): EventSendAminoMsg {
+    return {
+      type: "cosmos-sdk/EventSend",
+      value: EventSend.toAmino(message),
+    };
+  },
 };
 function createBaseEventMint(): EventMint {
   return {
@@ -170,6 +195,29 @@ export const EventMint = {
     message.owner = object.owner ?? "";
     return message;
   },
+  fromAmino(object: EventMintAmino): EventMint {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      owner: object.owner,
+    };
+  },
+  toAmino(message: EventMint): EventMintAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.owner = message.owner;
+    return obj;
+  },
+  fromAminoMsg(object: EventMintAminoMsg): EventMint {
+    return EventMint.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventMint): EventMintAminoMsg {
+    return {
+      type: "cosmos-sdk/EventMint",
+      value: EventMint.toAmino(message),
+    };
+  },
 };
 function createBaseEventBurn(): EventBurn {
   return {
@@ -234,5 +282,28 @@ export const EventBurn = {
     message.id = object.id ?? "";
     message.owner = object.owner ?? "";
     return message;
+  },
+  fromAmino(object: EventBurnAmino): EventBurn {
+    return {
+      classId: object.class_id,
+      id: object.id,
+      owner: object.owner,
+    };
+  },
+  toAmino(message: EventBurn): EventBurnAmino {
+    const obj: any = {};
+    obj.class_id = message.classId;
+    obj.id = message.id;
+    obj.owner = message.owner;
+    return obj;
+  },
+  fromAminoMsg(object: EventBurnAminoMsg): EventBurn {
+    return EventBurn.fromAmino(object.value);
+  },
+  toAminoMsg(message: EventBurn): EventBurnAminoMsg {
+    return {
+      type: "cosmos-sdk/EventBurn",
+      value: EventBurn.toAmino(message),
+    };
   },
 };

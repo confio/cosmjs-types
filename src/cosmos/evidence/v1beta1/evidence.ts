@@ -94,4 +94,29 @@ export const Equivocation = {
     message.consensusAddress = object.consensusAddress ?? "";
     return message;
   },
+  fromAmino(object: EquivocationAmino): Equivocation {
+    return {
+      height: Long.fromString(object.height),
+      time: object?.time ? Timestamp.fromAmino(object.time) : undefined,
+      power: Long.fromString(object.power),
+      consensusAddress: object.consensus_address,
+    };
+  },
+  toAmino(message: Equivocation): EquivocationAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : undefined;
+    obj.power = message.power ? message.power.toString() : undefined;
+    obj.consensus_address = message.consensusAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EquivocationAminoMsg): Equivocation {
+    return Equivocation.fromAmino(object.value);
+  },
+  toAminoMsg(message: Equivocation): EquivocationAminoMsg {
+    return {
+      type: "cosmos-sdk/Equivocation",
+      value: Equivocation.toAmino(message),
+    };
+  },
 };

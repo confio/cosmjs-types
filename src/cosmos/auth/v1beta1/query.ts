@@ -206,6 +206,25 @@ export const QueryAccountsRequest = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryAccountsRequestAmino): QueryAccountsRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryAccountsRequest): QueryAccountsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountsRequestAminoMsg): QueryAccountsRequest {
+    return QueryAccountsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountsRequest): QueryAccountsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountsRequest",
+      value: QueryAccountsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAccountsResponse(): QueryAccountsResponse {
   return {
@@ -269,6 +288,31 @@ export const QueryAccountsResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryAccountsResponseAmino): QueryAccountsResponse {
+    return {
+      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Any.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryAccountsResponse): QueryAccountsResponseAmino {
+    const obj: any = {};
+    if (message.accounts) {
+      obj.accounts = message.accounts.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.accounts = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountsResponseAminoMsg): QueryAccountsResponse {
+    return QueryAccountsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountsResponse): QueryAccountsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountsResponse",
+      value: QueryAccountsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAccountRequest(): QueryAccountRequest {
   return {
@@ -313,6 +357,25 @@ export const QueryAccountRequest = {
     const message = createBaseQueryAccountRequest();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: QueryAccountRequestAmino): QueryAccountRequest {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: QueryAccountRequest): QueryAccountRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountRequestAminoMsg): QueryAccountRequest {
+    return QueryAccountRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountRequest): QueryAccountRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountRequest",
+      value: QueryAccountRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAccountResponse(): QueryAccountResponse {
@@ -361,6 +424,25 @@ export const QueryAccountResponse = {
       object.account !== undefined && object.account !== null ? Any.fromPartial(object.account) : undefined;
     return message;
   },
+  fromAmino(object: QueryAccountResponseAmino): QueryAccountResponse {
+    return {
+      account: object?.account ? Any.fromAmino(object.account) : undefined,
+    };
+  },
+  toAmino(message: QueryAccountResponse): QueryAccountResponseAmino {
+    const obj: any = {};
+    obj.account = message.account ? Any.toAmino(message.account) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountResponseAminoMsg): QueryAccountResponse {
+    return QueryAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountResponse): QueryAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountResponse",
+      value: QueryAccountResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -393,6 +475,22 @@ export const QueryParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    return {};
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
@@ -440,6 +538,25 @@ export const QueryParamsResponse = {
       object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    return {
+      params: object?.params ? Params.fromAmino(object.params) : undefined,
+    };
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
   return {};
@@ -472,6 +589,22 @@ export const QueryModuleAccountsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryModuleAccountsRequest>, I>>(_: I): QueryModuleAccountsRequest {
     const message = createBaseQueryModuleAccountsRequest();
     return message;
+  },
+  fromAmino(_: QueryModuleAccountsRequestAmino): QueryModuleAccountsRequest {
+    return {};
+  },
+  toAmino(_: QueryModuleAccountsRequest): QueryModuleAccountsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAccountsRequestAminoMsg): QueryModuleAccountsRequest {
+    return QueryModuleAccountsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryModuleAccountsRequest): QueryModuleAccountsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryModuleAccountsRequest",
+      value: QueryModuleAccountsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
@@ -524,6 +657,29 @@ export const QueryModuleAccountsResponse = {
     message.accounts = object.accounts?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: QueryModuleAccountsResponseAmino): QueryModuleAccountsResponse {
+    return {
+      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => Any.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: QueryModuleAccountsResponse): QueryModuleAccountsResponseAmino {
+    const obj: any = {};
+    if (message.accounts) {
+      obj.accounts = message.accounts.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.accounts = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAccountsResponseAminoMsg): QueryModuleAccountsResponse {
+    return QueryModuleAccountsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryModuleAccountsResponse): QueryModuleAccountsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryModuleAccountsResponse",
+      value: QueryModuleAccountsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryModuleAccountByNameRequest(): QueryModuleAccountByNameRequest {
   return {
@@ -570,6 +726,25 @@ export const QueryModuleAccountByNameRequest = {
     const message = createBaseQueryModuleAccountByNameRequest();
     message.name = object.name ?? "";
     return message;
+  },
+  fromAmino(object: QueryModuleAccountByNameRequestAmino): QueryModuleAccountByNameRequest {
+    return {
+      name: object.name,
+    };
+  },
+  toAmino(message: QueryModuleAccountByNameRequest): QueryModuleAccountByNameRequestAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAccountByNameRequestAminoMsg): QueryModuleAccountByNameRequest {
+    return QueryModuleAccountByNameRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryModuleAccountByNameRequest): QueryModuleAccountByNameRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryModuleAccountByNameRequest",
+      value: QueryModuleAccountByNameRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryModuleAccountByNameResponse(): QueryModuleAccountByNameResponse {
@@ -620,6 +795,25 @@ export const QueryModuleAccountByNameResponse = {
       object.account !== undefined && object.account !== null ? Any.fromPartial(object.account) : undefined;
     return message;
   },
+  fromAmino(object: QueryModuleAccountByNameResponseAmino): QueryModuleAccountByNameResponse {
+    return {
+      account: object?.account ? Any.fromAmino(object.account) : undefined,
+    };
+  },
+  toAmino(message: QueryModuleAccountByNameResponse): QueryModuleAccountByNameResponseAmino {
+    const obj: any = {};
+    obj.account = message.account ? Any.toAmino(message.account) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryModuleAccountByNameResponseAminoMsg): QueryModuleAccountByNameResponse {
+    return QueryModuleAccountByNameResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryModuleAccountByNameResponse): QueryModuleAccountByNameResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryModuleAccountByNameResponse",
+      value: QueryModuleAccountByNameResponse.toAmino(message),
+    };
+  },
 };
 function createBaseBech32PrefixRequest(): Bech32PrefixRequest {
   return {};
@@ -652,6 +846,22 @@ export const Bech32PrefixRequest = {
   fromPartial<I extends Exact<DeepPartial<Bech32PrefixRequest>, I>>(_: I): Bech32PrefixRequest {
     const message = createBaseBech32PrefixRequest();
     return message;
+  },
+  fromAmino(_: Bech32PrefixRequestAmino): Bech32PrefixRequest {
+    return {};
+  },
+  toAmino(_: Bech32PrefixRequest): Bech32PrefixRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: Bech32PrefixRequestAminoMsg): Bech32PrefixRequest {
+    return Bech32PrefixRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: Bech32PrefixRequest): Bech32PrefixRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/Bech32PrefixRequest",
+      value: Bech32PrefixRequest.toAmino(message),
+    };
   },
 };
 function createBaseBech32PrefixResponse(): Bech32PrefixResponse {
@@ -697,6 +907,25 @@ export const Bech32PrefixResponse = {
     const message = createBaseBech32PrefixResponse();
     message.bech32Prefix = object.bech32Prefix ?? "";
     return message;
+  },
+  fromAmino(object: Bech32PrefixResponseAmino): Bech32PrefixResponse {
+    return {
+      bech32Prefix: object.bech32_prefix,
+    };
+  },
+  toAmino(message: Bech32PrefixResponse): Bech32PrefixResponseAmino {
+    const obj: any = {};
+    obj.bech32_prefix = message.bech32Prefix;
+    return obj;
+  },
+  fromAminoMsg(object: Bech32PrefixResponseAminoMsg): Bech32PrefixResponse {
+    return Bech32PrefixResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: Bech32PrefixResponse): Bech32PrefixResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/Bech32PrefixResponse",
+      value: Bech32PrefixResponse.toAmino(message),
+    };
   },
 };
 function createBaseAddressBytesToStringRequest(): AddressBytesToStringRequest {
@@ -748,6 +977,25 @@ export const AddressBytesToStringRequest = {
     message.addressBytes = object.addressBytes ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: AddressBytesToStringRequestAmino): AddressBytesToStringRequest {
+    return {
+      addressBytes: object.address_bytes,
+    };
+  },
+  toAmino(message: AddressBytesToStringRequest): AddressBytesToStringRequestAmino {
+    const obj: any = {};
+    obj.address_bytes = message.addressBytes;
+    return obj;
+  },
+  fromAminoMsg(object: AddressBytesToStringRequestAminoMsg): AddressBytesToStringRequest {
+    return AddressBytesToStringRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: AddressBytesToStringRequest): AddressBytesToStringRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/AddressBytesToStringRequest",
+      value: AddressBytesToStringRequest.toAmino(message),
+    };
+  },
 };
 function createBaseAddressBytesToStringResponse(): AddressBytesToStringResponse {
   return {
@@ -795,6 +1043,25 @@ export const AddressBytesToStringResponse = {
     message.addressString = object.addressString ?? "";
     return message;
   },
+  fromAmino(object: AddressBytesToStringResponseAmino): AddressBytesToStringResponse {
+    return {
+      addressString: object.address_string,
+    };
+  },
+  toAmino(message: AddressBytesToStringResponse): AddressBytesToStringResponseAmino {
+    const obj: any = {};
+    obj.address_string = message.addressString;
+    return obj;
+  },
+  fromAminoMsg(object: AddressBytesToStringResponseAminoMsg): AddressBytesToStringResponse {
+    return AddressBytesToStringResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: AddressBytesToStringResponse): AddressBytesToStringResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/AddressBytesToStringResponse",
+      value: AddressBytesToStringResponse.toAmino(message),
+    };
+  },
 };
 function createBaseAddressStringToBytesRequest(): AddressStringToBytesRequest {
   return {
@@ -841,6 +1108,25 @@ export const AddressStringToBytesRequest = {
     const message = createBaseAddressStringToBytesRequest();
     message.addressString = object.addressString ?? "";
     return message;
+  },
+  fromAmino(object: AddressStringToBytesRequestAmino): AddressStringToBytesRequest {
+    return {
+      addressString: object.address_string,
+    };
+  },
+  toAmino(message: AddressStringToBytesRequest): AddressStringToBytesRequestAmino {
+    const obj: any = {};
+    obj.address_string = message.addressString;
+    return obj;
+  },
+  fromAminoMsg(object: AddressStringToBytesRequestAminoMsg): AddressStringToBytesRequest {
+    return AddressStringToBytesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: AddressStringToBytesRequest): AddressStringToBytesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/AddressStringToBytesRequest",
+      value: AddressStringToBytesRequest.toAmino(message),
+    };
   },
 };
 function createBaseAddressStringToBytesResponse(): AddressStringToBytesResponse {
@@ -891,6 +1177,25 @@ export const AddressStringToBytesResponse = {
     const message = createBaseAddressStringToBytesResponse();
     message.addressBytes = object.addressBytes ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: AddressStringToBytesResponseAmino): AddressStringToBytesResponse {
+    return {
+      addressBytes: object.address_bytes,
+    };
+  },
+  toAmino(message: AddressStringToBytesResponse): AddressStringToBytesResponseAmino {
+    const obj: any = {};
+    obj.address_bytes = message.addressBytes;
+    return obj;
+  },
+  fromAminoMsg(object: AddressStringToBytesResponseAminoMsg): AddressStringToBytesResponse {
+    return AddressStringToBytesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: AddressStringToBytesResponse): AddressStringToBytesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/AddressStringToBytesResponse",
+      value: AddressStringToBytesResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryAccountAddressByIDRequest(): QueryAccountAddressByIDRequest {
@@ -952,6 +1257,27 @@ export const QueryAccountAddressByIDRequest = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: QueryAccountAddressByIDRequestAmino): QueryAccountAddressByIDRequest {
+    return {
+      id: Long.fromString(object.id),
+      accountId: Long.fromString(object.account_id),
+    };
+  },
+  toAmino(message: QueryAccountAddressByIDRequest): QueryAccountAddressByIDRequestAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.account_id = message.accountId ? message.accountId.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountAddressByIDRequestAminoMsg): QueryAccountAddressByIDRequest {
+    return QueryAccountAddressByIDRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountAddressByIDRequest): QueryAccountAddressByIDRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountAddressByIDRequest",
+      value: QueryAccountAddressByIDRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAccountAddressByIDResponse(): QueryAccountAddressByIDResponse {
   return {
@@ -999,6 +1325,25 @@ export const QueryAccountAddressByIDResponse = {
     message.accountAddress = object.accountAddress ?? "";
     return message;
   },
+  fromAmino(object: QueryAccountAddressByIDResponseAmino): QueryAccountAddressByIDResponse {
+    return {
+      accountAddress: object.account_address,
+    };
+  },
+  toAmino(message: QueryAccountAddressByIDResponse): QueryAccountAddressByIDResponseAmino {
+    const obj: any = {};
+    obj.account_address = message.accountAddress;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountAddressByIDResponseAminoMsg): QueryAccountAddressByIDResponse {
+    return QueryAccountAddressByIDResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountAddressByIDResponse): QueryAccountAddressByIDResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountAddressByIDResponse",
+      value: QueryAccountAddressByIDResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAccountInfoRequest(): QueryAccountInfoRequest {
   return {
@@ -1043,6 +1388,25 @@ export const QueryAccountInfoRequest = {
     const message = createBaseQueryAccountInfoRequest();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: QueryAccountInfoRequestAmino): QueryAccountInfoRequest {
+    return {
+      address: object.address,
+    };
+  },
+  toAmino(message: QueryAccountInfoRequest): QueryAccountInfoRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountInfoRequestAminoMsg): QueryAccountInfoRequest {
+    return QueryAccountInfoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountInfoRequest): QueryAccountInfoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountInfoRequest",
+      value: QueryAccountInfoRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAccountInfoResponse(): QueryAccountInfoResponse {
@@ -1091,6 +1455,25 @@ export const QueryAccountInfoResponse = {
     message.info =
       object.info !== undefined && object.info !== null ? BaseAccount.fromPartial(object.info) : undefined;
     return message;
+  },
+  fromAmino(object: QueryAccountInfoResponseAmino): QueryAccountInfoResponse {
+    return {
+      info: object?.info ? BaseAccount.fromAmino(object.info) : undefined,
+    };
+  },
+  toAmino(message: QueryAccountInfoResponse): QueryAccountInfoResponseAmino {
+    const obj: any = {};
+    obj.info = message.info ? BaseAccount.toAmino(message.info) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAccountInfoResponseAminoMsg): QueryAccountInfoResponse {
+    return QueryAccountInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAccountInfoResponse): QueryAccountInfoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAccountInfoResponse",
+      value: QueryAccountInfoResponse.toAmino(message),
+    };
   },
 };
 /** Query defines the gRPC querier service. */

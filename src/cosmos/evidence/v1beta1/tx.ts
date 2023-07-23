@@ -76,6 +76,27 @@ export const MsgSubmitEvidence = {
         : undefined;
     return message;
   },
+  fromAmino(object: MsgSubmitEvidenceAmino): MsgSubmitEvidence {
+    return {
+      submitter: object.submitter,
+      evidence: object?.evidence ? Any.fromAmino(object.evidence) : undefined,
+    };
+  },
+  toAmino(message: MsgSubmitEvidence): MsgSubmitEvidenceAmino {
+    const obj: any = {};
+    obj.submitter = message.submitter;
+    obj.evidence = message.evidence ? Any.toAmino(message.evidence) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitEvidenceAminoMsg): MsgSubmitEvidence {
+    return MsgSubmitEvidence.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitEvidence): MsgSubmitEvidenceAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitEvidence",
+      value: MsgSubmitEvidence.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
   return {
@@ -123,6 +144,25 @@ export const MsgSubmitEvidenceResponse = {
     const message = createBaseMsgSubmitEvidenceResponse();
     message.hash = object.hash ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: MsgSubmitEvidenceResponseAmino): MsgSubmitEvidenceResponse {
+    return {
+      hash: object.hash,
+    };
+  },
+  toAmino(message: MsgSubmitEvidenceResponse): MsgSubmitEvidenceResponseAmino {
+    const obj: any = {};
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitEvidenceResponseAminoMsg): MsgSubmitEvidenceResponse {
+    return MsgSubmitEvidenceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitEvidenceResponse): MsgSubmitEvidenceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitEvidenceResponse",
+      value: MsgSubmitEvidenceResponse.toAmino(message),
+    };
   },
 };
 /** Msg defines the evidence Msg service. */

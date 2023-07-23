@@ -85,6 +85,33 @@ export const ParameterChangeProposal = {
     message.changes = object.changes?.map((e) => ParamChange.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ParameterChangeProposalAmino): ParameterChangeProposal {
+    return {
+      title: object.title,
+      description: object.description,
+      changes: Array.isArray(object?.changes) ? object.changes.map((e: any) => ParamChange.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: ParameterChangeProposal): ParameterChangeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title;
+    obj.description = message.description;
+    if (message.changes) {
+      obj.changes = message.changes.map((e) => (e ? ParamChange.toAmino(e) : undefined));
+    } else {
+      obj.changes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParameterChangeProposalAminoMsg): ParameterChangeProposal {
+    return ParameterChangeProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: ParameterChangeProposal): ParameterChangeProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/ParameterChangeProposal",
+      value: ParameterChangeProposal.toAmino(message),
+    };
+  },
 };
 function createBaseParamChange(): ParamChange {
   return {
@@ -149,5 +176,28 @@ export const ParamChange = {
     message.key = object.key ?? "";
     message.value = object.value ?? "";
     return message;
+  },
+  fromAmino(object: ParamChangeAmino): ParamChange {
+    return {
+      subspace: object.subspace,
+      key: object.key,
+      value: object.value,
+    };
+  },
+  toAmino(message: ParamChange): ParamChangeAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace;
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: ParamChangeAminoMsg): ParamChange {
+    return ParamChange.fromAmino(object.value);
+  },
+  toAminoMsg(message: ParamChange): ParamChangeAminoMsg {
+    return {
+      type: "cosmos-sdk/ParamChange",
+      value: ParamChange.toAmino(message),
+    };
   },
 };

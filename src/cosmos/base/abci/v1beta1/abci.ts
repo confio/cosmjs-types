@@ -331,6 +331,57 @@ export const TxResponse = {
     message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: TxResponseAmino): TxResponse {
+    return {
+      height: Long.fromString(object.height),
+      txhash: object.txhash,
+      codespace: object.codespace,
+      code: object.code,
+      data: object.data,
+      rawLog: object.raw_log,
+      logs: Array.isArray(object?.logs) ? object.logs.map((e: any) => ABCIMessageLog.fromAmino(e)) : [],
+      info: object.info,
+      gasWanted: Long.fromString(object.gas_wanted),
+      gasUsed: Long.fromString(object.gas_used),
+      tx: object?.tx ? Any.fromAmino(object.tx) : undefined,
+      timestamp: object.timestamp,
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: TxResponse): TxResponseAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.txhash = message.txhash;
+    obj.codespace = message.codespace;
+    obj.code = message.code;
+    obj.data = message.data;
+    obj.raw_log = message.rawLog;
+    if (message.logs) {
+      obj.logs = message.logs.map((e) => (e ? ABCIMessageLog.toAmino(e) : undefined));
+    } else {
+      obj.logs = [];
+    }
+    obj.info = message.info;
+    obj.gas_wanted = message.gasWanted ? message.gasWanted.toString() : undefined;
+    obj.gas_used = message.gasUsed ? message.gasUsed.toString() : undefined;
+    obj.tx = message.tx ? Any.toAmino(message.tx) : undefined;
+    obj.timestamp = message.timestamp;
+    if (message.events) {
+      obj.events = message.events.map((e) => (e ? Event.toAmino(e) : undefined));
+    } else {
+      obj.events = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: TxResponseAminoMsg): TxResponse {
+    return TxResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxResponse): TxResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/TxResponse",
+      value: TxResponse.toAmino(message),
+    };
+  },
 };
 function createBaseABCIMessageLog(): ABCIMessageLog {
   return {
@@ -400,6 +451,33 @@ export const ABCIMessageLog = {
     message.events = object.events?.map((e) => StringEvent.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ABCIMessageLogAmino): ABCIMessageLog {
+    return {
+      msgIndex: object.msg_index,
+      log: object.log,
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => StringEvent.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: ABCIMessageLog): ABCIMessageLogAmino {
+    const obj: any = {};
+    obj.msg_index = message.msgIndex;
+    obj.log = message.log;
+    if (message.events) {
+      obj.events = message.events.map((e) => (e ? StringEvent.toAmino(e) : undefined));
+    } else {
+      obj.events = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ABCIMessageLogAminoMsg): ABCIMessageLog {
+    return ABCIMessageLog.fromAmino(object.value);
+  },
+  toAminoMsg(message: ABCIMessageLog): ABCIMessageLogAminoMsg {
+    return {
+      type: "cosmos-sdk/ABCIMessageLog",
+      value: ABCIMessageLog.toAmino(message),
+    };
+  },
 };
 function createBaseStringEvent(): StringEvent {
   return {
@@ -461,6 +539,33 @@ export const StringEvent = {
     message.attributes = object.attributes?.map((e) => Attribute.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: StringEventAmino): StringEvent {
+    return {
+      type: object.type,
+      attributes: Array.isArray(object?.attributes)
+        ? object.attributes.map((e: any) => Attribute.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: StringEvent): StringEventAmino {
+    const obj: any = {};
+    obj.type = message.type;
+    if (message.attributes) {
+      obj.attributes = message.attributes.map((e) => (e ? Attribute.toAmino(e) : undefined));
+    } else {
+      obj.attributes = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: StringEventAminoMsg): StringEvent {
+    return StringEvent.fromAmino(object.value);
+  },
+  toAminoMsg(message: StringEvent): StringEventAminoMsg {
+    return {
+      type: "cosmos-sdk/StringEvent",
+      value: StringEvent.toAmino(message),
+    };
+  },
 };
 function createBaseAttribute(): Attribute {
   return {
@@ -515,6 +620,27 @@ export const Attribute = {
     message.key = object.key ?? "";
     message.value = object.value ?? "";
     return message;
+  },
+  fromAmino(object: AttributeAmino): Attribute {
+    return {
+      key: object.key,
+      value: object.value,
+    };
+  },
+  toAmino(message: Attribute): AttributeAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: AttributeAminoMsg): Attribute {
+    return Attribute.fromAmino(object.value);
+  },
+  toAminoMsg(message: Attribute): AttributeAminoMsg {
+    return {
+      type: "cosmos-sdk/Attribute",
+      value: Attribute.toAmino(message),
+    };
   },
 };
 function createBaseGasInfo(): GasInfo {
@@ -574,6 +700,27 @@ export const GasInfo = {
     message.gasUsed =
       object.gasUsed !== undefined && object.gasUsed !== null ? Long.fromValue(object.gasUsed) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: GasInfoAmino): GasInfo {
+    return {
+      gasWanted: Long.fromString(object.gas_wanted),
+      gasUsed: Long.fromString(object.gas_used),
+    };
+  },
+  toAmino(message: GasInfo): GasInfoAmino {
+    const obj: any = {};
+    obj.gas_wanted = message.gasWanted ? message.gasWanted.toString() : undefined;
+    obj.gas_used = message.gasUsed ? message.gasUsed.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GasInfoAminoMsg): GasInfo {
+    return GasInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: GasInfo): GasInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/GasInfo",
+      value: GasInfo.toAmino(message),
+    };
   },
 };
 function createBaseResult(): Result {
@@ -661,6 +808,41 @@ export const Result = {
     message.msgResponses = object.msgResponses?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ResultAmino): Result {
+    return {
+      data: object.data,
+      log: object.log,
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => Event.fromAmino(e)) : [],
+      msgResponses: Array.isArray(object?.msg_responses)
+        ? object.msg_responses.map((e: any) => Any.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: Result): ResultAmino {
+    const obj: any = {};
+    obj.data = message.data;
+    obj.log = message.log;
+    if (message.events) {
+      obj.events = message.events.map((e) => (e ? Event.toAmino(e) : undefined));
+    } else {
+      obj.events = [];
+    }
+    if (message.msgResponses) {
+      obj.msg_responses = message.msgResponses.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.msg_responses = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ResultAminoMsg): Result {
+    return Result.fromAmino(object.value);
+  },
+  toAminoMsg(message: Result): ResultAminoMsg {
+    return {
+      type: "cosmos-sdk/Result",
+      value: Result.toAmino(message),
+    };
+  },
 };
 function createBaseSimulationResponse(): SimulationResponse {
   return {
@@ -721,6 +903,27 @@ export const SimulationResponse = {
       object.result !== undefined && object.result !== null ? Result.fromPartial(object.result) : undefined;
     return message;
   },
+  fromAmino(object: SimulationResponseAmino): SimulationResponse {
+    return {
+      gasInfo: object?.gas_info ? GasInfo.fromAmino(object.gas_info) : undefined,
+      result: object?.result ? Result.fromAmino(object.result) : undefined,
+    };
+  },
+  toAmino(message: SimulationResponse): SimulationResponseAmino {
+    const obj: any = {};
+    obj.gas_info = message.gasInfo ? GasInfo.toAmino(message.gasInfo) : undefined;
+    obj.result = message.result ? Result.toAmino(message.result) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SimulationResponseAminoMsg): SimulationResponse {
+    return SimulationResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: SimulationResponse): SimulationResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/SimulationResponse",
+      value: SimulationResponse.toAmino(message),
+    };
+  },
 };
 function createBaseMsgData(): MsgData {
   return {
@@ -776,6 +979,27 @@ export const MsgData = {
     message.msgType = object.msgType ?? "";
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: MsgDataAmino): MsgData {
+    return {
+      msgType: object.msg_type,
+      data: object.data,
+    };
+  },
+  toAmino(message: MsgData): MsgDataAmino {
+    const obj: any = {};
+    obj.msg_type = message.msgType;
+    obj.data = message.data;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDataAminoMsg): MsgData {
+    return MsgData.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgData): MsgDataAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgData",
+      value: MsgData.toAmino(message),
+    };
   },
 };
 function createBaseTxMsgData(): TxMsgData {
@@ -841,6 +1065,37 @@ export const TxMsgData = {
     message.data = object.data?.map((e) => MsgData.fromPartial(e)) || [];
     message.msgResponses = object.msgResponses?.map((e) => Any.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: TxMsgDataAmino): TxMsgData {
+    return {
+      data: Array.isArray(object?.data) ? object.data.map((e: any) => MsgData.fromAmino(e)) : [],
+      msgResponses: Array.isArray(object?.msg_responses)
+        ? object.msg_responses.map((e: any) => Any.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: TxMsgData): TxMsgDataAmino {
+    const obj: any = {};
+    if (message.data) {
+      obj.data = message.data.map((e) => (e ? MsgData.toAmino(e) : undefined));
+    } else {
+      obj.data = [];
+    }
+    if (message.msgResponses) {
+      obj.msg_responses = message.msgResponses.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.msg_responses = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: TxMsgDataAminoMsg): TxMsgData {
+    return TxMsgData.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxMsgData): TxMsgDataAminoMsg {
+    return {
+      type: "cosmos-sdk/TxMsgData",
+      value: TxMsgData.toAmino(message),
+    };
   },
 };
 function createBaseSearchTxsResult(): SearchTxsResult {
@@ -951,5 +1206,38 @@ export const SearchTxsResult = {
       object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     message.txs = object.txs?.map((e) => TxResponse.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SearchTxsResultAmino): SearchTxsResult {
+    return {
+      totalCount: Long.fromString(object.total_count),
+      count: Long.fromString(object.count),
+      pageNumber: Long.fromString(object.page_number),
+      pageTotal: Long.fromString(object.page_total),
+      limit: Long.fromString(object.limit),
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => TxResponse.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: SearchTxsResult): SearchTxsResultAmino {
+    const obj: any = {};
+    obj.total_count = message.totalCount ? message.totalCount.toString() : undefined;
+    obj.count = message.count ? message.count.toString() : undefined;
+    obj.page_number = message.pageNumber ? message.pageNumber.toString() : undefined;
+    obj.page_total = message.pageTotal ? message.pageTotal.toString() : undefined;
+    obj.limit = message.limit ? message.limit.toString() : undefined;
+    if (message.txs) {
+      obj.txs = message.txs.map((e) => (e ? TxResponse.toAmino(e) : undefined));
+    } else {
+      obj.txs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SearchTxsResultAminoMsg): SearchTxsResult {
+    return SearchTxsResult.fromAmino(object.value);
+  },
+  toAminoMsg(message: SearchTxsResult): SearchTxsResultAminoMsg {
+    return {
+      type: "cosmos-sdk/SearchTxsResult",
+      value: SearchTxsResult.toAmino(message),
+    };
   },
 };

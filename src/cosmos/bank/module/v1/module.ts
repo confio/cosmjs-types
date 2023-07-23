@@ -73,4 +73,31 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      blockedModuleAccountsOverride: Array.isArray(object?.blocked_module_accounts_override)
+        ? object.blocked_module_accounts_override.map((e: any) => e)
+        : [],
+      authority: object.authority,
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    if (message.blockedModuleAccountsOverride) {
+      obj.blocked_module_accounts_override = message.blockedModuleAccountsOverride.map((e) => e);
+    } else {
+      obj.blocked_module_accounts_override = [];
+    }
+    obj.authority = message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

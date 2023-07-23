@@ -119,6 +119,31 @@ export const StoreKVPair = {
     message.value = object.value ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: StoreKVPairAmino): StoreKVPair {
+    return {
+      storeKey: object.store_key,
+      delete: object.delete,
+      key: object.key,
+      value: object.value,
+    };
+  },
+  toAmino(message: StoreKVPair): StoreKVPairAmino {
+    const obj: any = {};
+    obj.store_key = message.storeKey;
+    obj.delete = message.delete;
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: StoreKVPairAminoMsg): StoreKVPair {
+    return StoreKVPair.fromAmino(object.value);
+  },
+  toAminoMsg(message: StoreKVPair): StoreKVPairAminoMsg {
+    return {
+      type: "cosmos-sdk/StoreKVPair",
+      value: StoreKVPair.toAmino(message),
+    };
+  },
 };
 function createBaseBlockMetadata(): BlockMetadata {
   return {
@@ -260,6 +285,57 @@ export const BlockMetadata = {
         : undefined;
     return message;
   },
+  fromAmino(object: BlockMetadataAmino): BlockMetadata {
+    return {
+      requestBeginBlock: object?.request_begin_block
+        ? RequestBeginBlock.fromAmino(object.request_begin_block)
+        : undefined,
+      responseBeginBlock: object?.response_begin_block
+        ? ResponseBeginBlock.fromAmino(object.response_begin_block)
+        : undefined,
+      deliverTxs: Array.isArray(object?.deliver_txs)
+        ? object.deliver_txs.map((e: any) => BlockMetadata_DeliverTx.fromAmino(e))
+        : [],
+      requestEndBlock: object?.request_end_block
+        ? RequestEndBlock.fromAmino(object.request_end_block)
+        : undefined,
+      responseEndBlock: object?.response_end_block
+        ? ResponseEndBlock.fromAmino(object.response_end_block)
+        : undefined,
+      responseCommit: object?.response_commit ? ResponseCommit.fromAmino(object.response_commit) : undefined,
+    };
+  },
+  toAmino(message: BlockMetadata): BlockMetadataAmino {
+    const obj: any = {};
+    obj.request_begin_block = message.requestBeginBlock
+      ? RequestBeginBlock.toAmino(message.requestBeginBlock)
+      : undefined;
+    obj.response_begin_block = message.responseBeginBlock
+      ? ResponseBeginBlock.toAmino(message.responseBeginBlock)
+      : undefined;
+    if (message.deliverTxs) {
+      obj.deliver_txs = message.deliverTxs.map((e) => (e ? BlockMetadata_DeliverTx.toAmino(e) : undefined));
+    } else {
+      obj.deliver_txs = [];
+    }
+    obj.request_end_block = message.requestEndBlock
+      ? RequestEndBlock.toAmino(message.requestEndBlock)
+      : undefined;
+    obj.response_end_block = message.responseEndBlock
+      ? ResponseEndBlock.toAmino(message.responseEndBlock)
+      : undefined;
+    obj.response_commit = message.responseCommit ? ResponseCommit.toAmino(message.responseCommit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockMetadataAminoMsg): BlockMetadata {
+    return BlockMetadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: BlockMetadata): BlockMetadataAminoMsg {
+    return {
+      type: "cosmos-sdk/BlockMetadata",
+      value: BlockMetadata.toAmino(message),
+    };
+  },
 };
 function createBaseBlockMetadata_DeliverTx(): BlockMetadata_DeliverTx {
   return {
@@ -322,5 +398,26 @@ export const BlockMetadata_DeliverTx = {
         ? ResponseDeliverTx.fromPartial(object.response)
         : undefined;
     return message;
+  },
+  fromAmino(object: BlockMetadata_DeliverTxAmino): BlockMetadata_DeliverTx {
+    return {
+      request: object?.request ? RequestDeliverTx.fromAmino(object.request) : undefined,
+      response: object?.response ? ResponseDeliverTx.fromAmino(object.response) : undefined,
+    };
+  },
+  toAmino(message: BlockMetadata_DeliverTx): BlockMetadata_DeliverTxAmino {
+    const obj: any = {};
+    obj.request = message.request ? RequestDeliverTx.toAmino(message.request) : undefined;
+    obj.response = message.response ? ResponseDeliverTx.toAmino(message.response) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockMetadata_DeliverTxAminoMsg): BlockMetadata_DeliverTx {
+    return BlockMetadata_DeliverTx.fromAmino(object.value);
+  },
+  toAminoMsg(message: BlockMetadata_DeliverTx): BlockMetadata_DeliverTxAminoMsg {
+    return {
+      type: "cosmos-sdk/DeliverTx",
+      value: BlockMetadata_DeliverTx.toAmino(message),
+    };
   },
 };

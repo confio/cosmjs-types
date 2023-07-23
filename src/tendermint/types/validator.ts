@@ -96,6 +96,29 @@ export const ValidatorSet = {
         : Long.ZERO;
     return message;
   },
+  fromAmino(object: ValidatorSetAmino): ValidatorSet {
+    return {
+      validators: Array.isArray(object?.validators)
+        ? object.validators.map((e: any) => Validator.fromAmino(e))
+        : [],
+      proposer: object?.proposer ? Validator.fromAmino(object.proposer) : undefined,
+      totalVotingPower: Long.fromString(object.total_voting_power),
+    };
+  },
+  toAmino(message: ValidatorSet): ValidatorSetAmino {
+    const obj: any = {};
+    if (message.validators) {
+      obj.validators = message.validators.map((e) => (e ? Validator.toAmino(e) : undefined));
+    } else {
+      obj.validators = [];
+    }
+    obj.proposer = message.proposer ? Validator.toAmino(message.proposer) : undefined;
+    obj.total_voting_power = message.totalVotingPower ? message.totalVotingPower.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorSetAminoMsg): ValidatorSet {
+    return ValidatorSet.fromAmino(object.value);
+  },
 };
 function createBaseValidator(): Validator {
   return {
@@ -183,6 +206,25 @@ export const Validator = {
         : Long.ZERO;
     return message;
   },
+  fromAmino(object: ValidatorAmino): Validator {
+    return {
+      address: object.address,
+      pubKey: object?.pub_key ? PublicKey.fromAmino(object.pub_key) : undefined,
+      votingPower: Long.fromString(object.voting_power),
+      proposerPriority: Long.fromString(object.proposer_priority),
+    };
+  },
+  toAmino(message: Validator): ValidatorAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.pub_key = message.pubKey ? PublicKey.toAmino(message.pubKey) : undefined;
+    obj.voting_power = message.votingPower ? message.votingPower.toString() : undefined;
+    obj.proposer_priority = message.proposerPriority ? message.proposerPriority.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorAminoMsg): Validator {
+    return Validator.fromAmino(object.value);
+  },
 };
 function createBaseSimpleValidator(): SimpleValidator {
   return {
@@ -244,5 +286,20 @@ export const SimpleValidator = {
         ? Long.fromValue(object.votingPower)
         : Long.ZERO;
     return message;
+  },
+  fromAmino(object: SimpleValidatorAmino): SimpleValidator {
+    return {
+      pubKey: object?.pub_key ? PublicKey.fromAmino(object.pub_key) : undefined,
+      votingPower: Long.fromString(object.voting_power),
+    };
+  },
+  toAmino(message: SimpleValidator): SimpleValidatorAmino {
+    const obj: any = {};
+    obj.pub_key = message.pubKey ? PublicKey.toAmino(message.pubKey) : undefined;
+    obj.voting_power = message.votingPower ? message.votingPower.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SimpleValidatorAminoMsg): SimpleValidator {
+    return SimpleValidator.fromAmino(object.value);
   },
 };

@@ -181,6 +181,33 @@ export const GetRequest = {
     message.values = object.values?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: GetRequestAmino): GetRequest {
+    return {
+      messageName: object.message_name,
+      index: object.index,
+      values: Array.isArray(object?.values) ? object.values.map((e: any) => IndexValue.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: GetRequest): GetRequestAmino {
+    const obj: any = {};
+    obj.message_name = message.messageName;
+    obj.index = message.index;
+    if (message.values) {
+      obj.values = message.values.map((e) => (e ? IndexValue.toAmino(e) : undefined));
+    } else {
+      obj.values = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GetRequestAminoMsg): GetRequest {
+    return GetRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetRequest): GetRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/GetRequest",
+      value: GetRequest.toAmino(message),
+    };
+  },
 };
 function createBaseGetResponse(): GetResponse {
   return {
@@ -226,6 +253,25 @@ export const GetResponse = {
     message.result =
       object.result !== undefined && object.result !== null ? Any.fromPartial(object.result) : undefined;
     return message;
+  },
+  fromAmino(object: GetResponseAmino): GetResponse {
+    return {
+      result: object?.result ? Any.fromAmino(object.result) : undefined,
+    };
+  },
+  toAmino(message: GetResponse): GetResponseAmino {
+    const obj: any = {};
+    obj.result = message.result ? Any.toAmino(message.result) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetResponseAminoMsg): GetResponse {
+    return GetResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetResponse): GetResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/GetResponse",
+      value: GetResponse.toAmino(message),
+    };
   },
 };
 function createBaseListRequest(): ListRequest {
@@ -324,6 +370,33 @@ export const ListRequest = {
         : undefined;
     return message;
   },
+  fromAmino(object: ListRequestAmino): ListRequest {
+    return {
+      messageName: object.message_name,
+      index: object.index,
+      prefix: object?.prefix ? ListRequest_Prefix.fromAmino(object.prefix) : undefined,
+      range: object?.range ? ListRequest_Range.fromAmino(object.range) : undefined,
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: ListRequest): ListRequestAmino {
+    const obj: any = {};
+    obj.message_name = message.messageName;
+    obj.index = message.index;
+    obj.prefix = message.prefix ? ListRequest_Prefix.toAmino(message.prefix) : undefined;
+    obj.range = message.range ? ListRequest_Range.toAmino(message.range) : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ListRequestAminoMsg): ListRequest {
+    return ListRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListRequest): ListRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/ListRequest",
+      value: ListRequest.toAmino(message),
+    };
+  },
 };
 function createBaseListRequest_Prefix(): ListRequest_Prefix {
   return {
@@ -372,6 +445,29 @@ export const ListRequest_Prefix = {
     const message = createBaseListRequest_Prefix();
     message.values = object.values?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ListRequest_PrefixAmino): ListRequest_Prefix {
+    return {
+      values: Array.isArray(object?.values) ? object.values.map((e: any) => IndexValue.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: ListRequest_Prefix): ListRequest_PrefixAmino {
+    const obj: any = {};
+    if (message.values) {
+      obj.values = message.values.map((e) => (e ? IndexValue.toAmino(e) : undefined));
+    } else {
+      obj.values = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ListRequest_PrefixAminoMsg): ListRequest_Prefix {
+    return ListRequest_Prefix.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListRequest_Prefix): ListRequest_PrefixAminoMsg {
+    return {
+      type: "cosmos-sdk/Prefix",
+      value: ListRequest_Prefix.toAmino(message),
+    };
   },
 };
 function createBaseListRequest_Range(): ListRequest_Range {
@@ -436,6 +532,35 @@ export const ListRequest_Range = {
     message.end = object.end?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ListRequest_RangeAmino): ListRequest_Range {
+    return {
+      start: Array.isArray(object?.start) ? object.start.map((e: any) => IndexValue.fromAmino(e)) : [],
+      end: Array.isArray(object?.end) ? object.end.map((e: any) => IndexValue.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: ListRequest_Range): ListRequest_RangeAmino {
+    const obj: any = {};
+    if (message.start) {
+      obj.start = message.start.map((e) => (e ? IndexValue.toAmino(e) : undefined));
+    } else {
+      obj.start = [];
+    }
+    if (message.end) {
+      obj.end = message.end.map((e) => (e ? IndexValue.toAmino(e) : undefined));
+    } else {
+      obj.end = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ListRequest_RangeAminoMsg): ListRequest_Range {
+    return ListRequest_Range.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListRequest_Range): ListRequest_RangeAminoMsg {
+    return {
+      type: "cosmos-sdk/Range",
+      value: ListRequest_Range.toAmino(message),
+    };
+  },
 };
 function createBaseListResponse(): ListResponse {
   return {
@@ -498,6 +623,31 @@ export const ListResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: ListResponseAmino): ListResponse {
+    return {
+      results: Array.isArray(object?.results) ? object.results.map((e: any) => Any.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: ListResponse): ListResponseAmino {
+    const obj: any = {};
+    if (message.results) {
+      obj.results = message.results.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.results = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ListResponseAminoMsg): ListResponse {
+    return ListResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListResponse): ListResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/ListResponse",
+      value: ListResponse.toAmino(message),
+    };
   },
 };
 function createBaseIndexValue(): IndexValue {
@@ -622,6 +772,39 @@ export const IndexValue = {
         ? Duration.fromPartial(object.duration)
         : undefined;
     return message;
+  },
+  fromAmino(object: IndexValueAmino): IndexValue {
+    return {
+      uint: object?.uint ? Long.fromString(object.uint) : undefined,
+      int: object?.int ? Long.fromString(object.int) : undefined,
+      str: object?.str,
+      bytes: object?.bytes,
+      enum: object?.enum,
+      bool: object?.bool,
+      timestamp: object?.timestamp ? Timestamp.fromAmino(object.timestamp) : undefined,
+      duration: object?.duration ? Duration.fromAmino(object.duration) : undefined,
+    };
+  },
+  toAmino(message: IndexValue): IndexValueAmino {
+    const obj: any = {};
+    obj.uint = message.uint ? message.uint.toString() : undefined;
+    obj.int = message.int ? message.int.toString() : undefined;
+    obj.str = message.str;
+    obj.bytes = message.bytes;
+    obj.enum = message.enum;
+    obj.bool = message.bool;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.duration = message.duration ? Duration.toAmino(message.duration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: IndexValueAminoMsg): IndexValue {
+    return IndexValue.fromAmino(object.value);
+  },
+  toAminoMsg(message: IndexValue): IndexValueAminoMsg {
+    return {
+      type: "cosmos-sdk/IndexValue",
+      value: IndexValue.toAmino(message),
+    };
   },
 };
 /** Query is a generic gRPC service for querying ORM data. */

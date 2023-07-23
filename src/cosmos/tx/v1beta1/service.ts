@@ -398,6 +398,37 @@ export const GetTxsEventRequest = {
       object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
     return message;
   },
+  fromAmino(object: GetTxsEventRequestAmino): GetTxsEventRequest {
+    return {
+      events: Array.isArray(object?.events) ? object.events.map((e: any) => e) : [],
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+      orderBy: isSet(object.order_by) ? orderByFromJSON(object.order_by) : 0,
+      page: Long.fromString(object.page),
+      limit: Long.fromString(object.limit),
+    };
+  },
+  toAmino(message: GetTxsEventRequest): GetTxsEventRequestAmino {
+    const obj: any = {};
+    if (message.events) {
+      obj.events = message.events.map((e) => e);
+    } else {
+      obj.events = [];
+    }
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    obj.order_by = message.orderBy;
+    obj.page = message.page ? message.page.toString() : undefined;
+    obj.limit = message.limit ? message.limit.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetTxsEventRequestAminoMsg): GetTxsEventRequest {
+    return GetTxsEventRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetTxsEventRequest): GetTxsEventRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/GetTxsEventRequest",
+      value: GetTxsEventRequest.toAmino(message),
+    };
+  },
 };
 function createBaseGetTxsEventResponse(): GetTxsEventResponse {
   return {
@@ -488,6 +519,41 @@ export const GetTxsEventResponse = {
       object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
     return message;
   },
+  fromAmino(object: GetTxsEventResponseAmino): GetTxsEventResponse {
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromAmino(e)) : [],
+      txResponses: Array.isArray(object?.tx_responses)
+        ? object.tx_responses.map((e: any) => TxResponse.fromAmino(e))
+        : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+      total: Long.fromString(object.total),
+    };
+  },
+  toAmino(message: GetTxsEventResponse): GetTxsEventResponseAmino {
+    const obj: any = {};
+    if (message.txs) {
+      obj.txs = message.txs.map((e) => (e ? Tx.toAmino(e) : undefined));
+    } else {
+      obj.txs = [];
+    }
+    if (message.txResponses) {
+      obj.tx_responses = message.txResponses.map((e) => (e ? TxResponse.toAmino(e) : undefined));
+    } else {
+      obj.tx_responses = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    obj.total = message.total ? message.total.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetTxsEventResponseAminoMsg): GetTxsEventResponse {
+    return GetTxsEventResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetTxsEventResponse): GetTxsEventResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/GetTxsEventResponse",
+      value: GetTxsEventResponse.toAmino(message),
+    };
+  },
 };
 function createBaseBroadcastTxRequest(): BroadcastTxRequest {
   return {
@@ -544,6 +610,27 @@ export const BroadcastTxRequest = {
     message.mode = object.mode ?? 0;
     return message;
   },
+  fromAmino(object: BroadcastTxRequestAmino): BroadcastTxRequest {
+    return {
+      txBytes: object.tx_bytes,
+      mode: isSet(object.mode) ? broadcastModeFromJSON(object.mode) : 0,
+    };
+  },
+  toAmino(message: BroadcastTxRequest): BroadcastTxRequestAmino {
+    const obj: any = {};
+    obj.tx_bytes = message.txBytes;
+    obj.mode = message.mode;
+    return obj;
+  },
+  fromAminoMsg(object: BroadcastTxRequestAminoMsg): BroadcastTxRequest {
+    return BroadcastTxRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: BroadcastTxRequest): BroadcastTxRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/BroadcastTxRequest",
+      value: BroadcastTxRequest.toAmino(message),
+    };
+  },
 };
 function createBaseBroadcastTxResponse(): BroadcastTxResponse {
   return {
@@ -592,6 +679,25 @@ export const BroadcastTxResponse = {
         ? TxResponse.fromPartial(object.txResponse)
         : undefined;
     return message;
+  },
+  fromAmino(object: BroadcastTxResponseAmino): BroadcastTxResponse {
+    return {
+      txResponse: object?.tx_response ? TxResponse.fromAmino(object.tx_response) : undefined,
+    };
+  },
+  toAmino(message: BroadcastTxResponse): BroadcastTxResponseAmino {
+    const obj: any = {};
+    obj.tx_response = message.txResponse ? TxResponse.toAmino(message.txResponse) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BroadcastTxResponseAminoMsg): BroadcastTxResponse {
+    return BroadcastTxResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: BroadcastTxResponse): BroadcastTxResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/BroadcastTxResponse",
+      value: BroadcastTxResponse.toAmino(message),
+    };
   },
 };
 function createBaseSimulateRequest(): SimulateRequest {
@@ -648,6 +754,27 @@ export const SimulateRequest = {
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     message.txBytes = object.txBytes ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: SimulateRequestAmino): SimulateRequest {
+    return {
+      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
+      txBytes: object.tx_bytes,
+    };
+  },
+  toAmino(message: SimulateRequest): SimulateRequestAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? Tx.toAmino(message.tx) : undefined;
+    obj.tx_bytes = message.txBytes;
+    return obj;
+  },
+  fromAminoMsg(object: SimulateRequestAminoMsg): SimulateRequest {
+    return SimulateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: SimulateRequest): SimulateRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/SimulateRequest",
+      value: SimulateRequest.toAmino(message),
+    };
   },
 };
 function createBaseSimulateResponse(): SimulateResponse {
@@ -709,6 +836,27 @@ export const SimulateResponse = {
       object.result !== undefined && object.result !== null ? Result.fromPartial(object.result) : undefined;
     return message;
   },
+  fromAmino(object: SimulateResponseAmino): SimulateResponse {
+    return {
+      gasInfo: object?.gas_info ? GasInfo.fromAmino(object.gas_info) : undefined,
+      result: object?.result ? Result.fromAmino(object.result) : undefined,
+    };
+  },
+  toAmino(message: SimulateResponse): SimulateResponseAmino {
+    const obj: any = {};
+    obj.gas_info = message.gasInfo ? GasInfo.toAmino(message.gasInfo) : undefined;
+    obj.result = message.result ? Result.toAmino(message.result) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SimulateResponseAminoMsg): SimulateResponse {
+    return SimulateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: SimulateResponse): SimulateResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/SimulateResponse",
+      value: SimulateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseGetTxRequest(): GetTxRequest {
   return {
@@ -753,6 +901,25 @@ export const GetTxRequest = {
     const message = createBaseGetTxRequest();
     message.hash = object.hash ?? "";
     return message;
+  },
+  fromAmino(object: GetTxRequestAmino): GetTxRequest {
+    return {
+      hash: object.hash,
+    };
+  },
+  toAmino(message: GetTxRequest): GetTxRequestAmino {
+    const obj: any = {};
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: GetTxRequestAminoMsg): GetTxRequest {
+    return GetTxRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetTxRequest): GetTxRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/GetTxRequest",
+      value: GetTxRequest.toAmino(message),
+    };
   },
 };
 function createBaseGetTxResponse(): GetTxResponse {
@@ -813,6 +980,27 @@ export const GetTxResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: GetTxResponseAmino): GetTxResponse {
+    return {
+      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
+      txResponse: object?.tx_response ? TxResponse.fromAmino(object.tx_response) : undefined,
+    };
+  },
+  toAmino(message: GetTxResponse): GetTxResponseAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? Tx.toAmino(message.tx) : undefined;
+    obj.tx_response = message.txResponse ? TxResponse.toAmino(message.txResponse) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetTxResponseAminoMsg): GetTxResponse {
+    return GetTxResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetTxResponse): GetTxResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/GetTxResponse",
+      value: GetTxResponse.toAmino(message),
+    };
+  },
 };
 function createBaseGetBlockWithTxsRequest(): GetBlockWithTxsRequest {
   return {
@@ -872,6 +1060,27 @@ export const GetBlockWithTxsRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: GetBlockWithTxsRequestAmino): GetBlockWithTxsRequest {
+    return {
+      height: Long.fromString(object.height),
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: GetBlockWithTxsRequest): GetBlockWithTxsRequestAmino {
+    const obj: any = {};
+    obj.height = message.height ? message.height.toString() : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetBlockWithTxsRequestAminoMsg): GetBlockWithTxsRequest {
+    return GetBlockWithTxsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetBlockWithTxsRequest): GetBlockWithTxsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/GetBlockWithTxsRequest",
+      value: GetBlockWithTxsRequest.toAmino(message),
+    };
   },
 };
 function createBaseGetBlockWithTxsResponse(): GetBlockWithTxsResponse {
@@ -961,6 +1170,35 @@ export const GetBlockWithTxsResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: GetBlockWithTxsResponseAmino): GetBlockWithTxsResponse {
+    return {
+      txs: Array.isArray(object?.txs) ? object.txs.map((e: any) => Tx.fromAmino(e)) : [],
+      blockId: object?.block_id ? BlockID.fromAmino(object.block_id) : undefined,
+      block: object?.block ? Block.fromAmino(object.block) : undefined,
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: GetBlockWithTxsResponse): GetBlockWithTxsResponseAmino {
+    const obj: any = {};
+    if (message.txs) {
+      obj.txs = message.txs.map((e) => (e ? Tx.toAmino(e) : undefined));
+    } else {
+      obj.txs = [];
+    }
+    obj.block_id = message.blockId ? BlockID.toAmino(message.blockId) : undefined;
+    obj.block = message.block ? Block.toAmino(message.block) : undefined;
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GetBlockWithTxsResponseAminoMsg): GetBlockWithTxsResponse {
+    return GetBlockWithTxsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: GetBlockWithTxsResponse): GetBlockWithTxsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/GetBlockWithTxsResponse",
+      value: GetBlockWithTxsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseTxDecodeRequest(): TxDecodeRequest {
   return {
@@ -1007,6 +1245,25 @@ export const TxDecodeRequest = {
     message.txBytes = object.txBytes ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: TxDecodeRequestAmino): TxDecodeRequest {
+    return {
+      txBytes: object.tx_bytes,
+    };
+  },
+  toAmino(message: TxDecodeRequest): TxDecodeRequestAmino {
+    const obj: any = {};
+    obj.tx_bytes = message.txBytes;
+    return obj;
+  },
+  fromAminoMsg(object: TxDecodeRequestAminoMsg): TxDecodeRequest {
+    return TxDecodeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxDecodeRequest): TxDecodeRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/TxDecodeRequest",
+      value: TxDecodeRequest.toAmino(message),
+    };
+  },
 };
 function createBaseTxDecodeResponse(): TxDecodeResponse {
   return {
@@ -1052,6 +1309,25 @@ export const TxDecodeResponse = {
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     return message;
   },
+  fromAmino(object: TxDecodeResponseAmino): TxDecodeResponse {
+    return {
+      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
+    };
+  },
+  toAmino(message: TxDecodeResponse): TxDecodeResponseAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? Tx.toAmino(message.tx) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TxDecodeResponseAminoMsg): TxDecodeResponse {
+    return TxDecodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxDecodeResponse): TxDecodeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/TxDecodeResponse",
+      value: TxDecodeResponse.toAmino(message),
+    };
+  },
 };
 function createBaseTxEncodeRequest(): TxEncodeRequest {
   return {
@@ -1096,6 +1372,25 @@ export const TxEncodeRequest = {
     const message = createBaseTxEncodeRequest();
     message.tx = object.tx !== undefined && object.tx !== null ? Tx.fromPartial(object.tx) : undefined;
     return message;
+  },
+  fromAmino(object: TxEncodeRequestAmino): TxEncodeRequest {
+    return {
+      tx: object?.tx ? Tx.fromAmino(object.tx) : undefined,
+    };
+  },
+  toAmino(message: TxEncodeRequest): TxEncodeRequestAmino {
+    const obj: any = {};
+    obj.tx = message.tx ? Tx.toAmino(message.tx) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TxEncodeRequestAminoMsg): TxEncodeRequest {
+    return TxEncodeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxEncodeRequest): TxEncodeRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/TxEncodeRequest",
+      value: TxEncodeRequest.toAmino(message),
+    };
   },
 };
 function createBaseTxEncodeResponse(): TxEncodeResponse {
@@ -1143,6 +1438,25 @@ export const TxEncodeResponse = {
     message.txBytes = object.txBytes ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: TxEncodeResponseAmino): TxEncodeResponse {
+    return {
+      txBytes: object.tx_bytes,
+    };
+  },
+  toAmino(message: TxEncodeResponse): TxEncodeResponseAmino {
+    const obj: any = {};
+    obj.tx_bytes = message.txBytes;
+    return obj;
+  },
+  fromAminoMsg(object: TxEncodeResponseAminoMsg): TxEncodeResponse {
+    return TxEncodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxEncodeResponse): TxEncodeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/TxEncodeResponse",
+      value: TxEncodeResponse.toAmino(message),
+    };
+  },
 };
 function createBaseTxEncodeAminoRequest(): TxEncodeAminoRequest {
   return {
@@ -1187,6 +1501,25 @@ export const TxEncodeAminoRequest = {
     const message = createBaseTxEncodeAminoRequest();
     message.aminoJson = object.aminoJson ?? "";
     return message;
+  },
+  fromAmino(object: TxEncodeAminoRequestAmino): TxEncodeAminoRequest {
+    return {
+      aminoJson: object.amino_json,
+    };
+  },
+  toAmino(message: TxEncodeAminoRequest): TxEncodeAminoRequestAmino {
+    const obj: any = {};
+    obj.amino_json = message.aminoJson;
+    return obj;
+  },
+  fromAminoMsg(object: TxEncodeAminoRequestAminoMsg): TxEncodeAminoRequest {
+    return TxEncodeAminoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxEncodeAminoRequest): TxEncodeAminoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/TxEncodeAminoRequest",
+      value: TxEncodeAminoRequest.toAmino(message),
+    };
   },
 };
 function createBaseTxEncodeAminoResponse(): TxEncodeAminoResponse {
@@ -1236,6 +1569,25 @@ export const TxEncodeAminoResponse = {
     message.aminoBinary = object.aminoBinary ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: TxEncodeAminoResponseAmino): TxEncodeAminoResponse {
+    return {
+      aminoBinary: object.amino_binary,
+    };
+  },
+  toAmino(message: TxEncodeAminoResponse): TxEncodeAminoResponseAmino {
+    const obj: any = {};
+    obj.amino_binary = message.aminoBinary;
+    return obj;
+  },
+  fromAminoMsg(object: TxEncodeAminoResponseAminoMsg): TxEncodeAminoResponse {
+    return TxEncodeAminoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxEncodeAminoResponse): TxEncodeAminoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/TxEncodeAminoResponse",
+      value: TxEncodeAminoResponse.toAmino(message),
+    };
+  },
 };
 function createBaseTxDecodeAminoRequest(): TxDecodeAminoRequest {
   return {
@@ -1284,6 +1636,25 @@ export const TxDecodeAminoRequest = {
     message.aminoBinary = object.aminoBinary ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: TxDecodeAminoRequestAmino): TxDecodeAminoRequest {
+    return {
+      aminoBinary: object.amino_binary,
+    };
+  },
+  toAmino(message: TxDecodeAminoRequest): TxDecodeAminoRequestAmino {
+    const obj: any = {};
+    obj.amino_binary = message.aminoBinary;
+    return obj;
+  },
+  fromAminoMsg(object: TxDecodeAminoRequestAminoMsg): TxDecodeAminoRequest {
+    return TxDecodeAminoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxDecodeAminoRequest): TxDecodeAminoRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/TxDecodeAminoRequest",
+      value: TxDecodeAminoRequest.toAmino(message),
+    };
+  },
 };
 function createBaseTxDecodeAminoResponse(): TxDecodeAminoResponse {
   return {
@@ -1328,6 +1699,25 @@ export const TxDecodeAminoResponse = {
     const message = createBaseTxDecodeAminoResponse();
     message.aminoJson = object.aminoJson ?? "";
     return message;
+  },
+  fromAmino(object: TxDecodeAminoResponseAmino): TxDecodeAminoResponse {
+    return {
+      aminoJson: object.amino_json,
+    };
+  },
+  toAmino(message: TxDecodeAminoResponse): TxDecodeAminoResponseAmino {
+    const obj: any = {};
+    obj.amino_json = message.aminoJson;
+    return obj;
+  },
+  fromAminoMsg(object: TxDecodeAminoResponseAminoMsg): TxDecodeAminoResponse {
+    return TxDecodeAminoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: TxDecodeAminoResponse): TxDecodeAminoResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/TxDecodeAminoResponse",
+      value: TxDecodeAminoResponse.toAmino(message),
+    };
   },
 };
 /** Service defines a gRPC service for interacting with transactions. */

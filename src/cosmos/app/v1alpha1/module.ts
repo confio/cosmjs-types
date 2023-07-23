@@ -158,6 +158,41 @@ export const ModuleDescriptor = {
     message.canMigrateFrom = object.canMigrateFrom?.map((e) => MigrateFromInfo.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ModuleDescriptorAmino): ModuleDescriptor {
+    return {
+      goImport: object.go_import,
+      usePackage: Array.isArray(object?.use_package)
+        ? object.use_package.map((e: any) => PackageReference.fromAmino(e))
+        : [],
+      canMigrateFrom: Array.isArray(object?.can_migrate_from)
+        ? object.can_migrate_from.map((e: any) => MigrateFromInfo.fromAmino(e))
+        : [],
+    };
+  },
+  toAmino(message: ModuleDescriptor): ModuleDescriptorAmino {
+    const obj: any = {};
+    obj.go_import = message.goImport;
+    if (message.usePackage) {
+      obj.use_package = message.usePackage.map((e) => (e ? PackageReference.toAmino(e) : undefined));
+    } else {
+      obj.use_package = [];
+    }
+    if (message.canMigrateFrom) {
+      obj.can_migrate_from = message.canMigrateFrom.map((e) => (e ? MigrateFromInfo.toAmino(e) : undefined));
+    } else {
+      obj.can_migrate_from = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleDescriptorAminoMsg): ModuleDescriptor {
+    return ModuleDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleDescriptor): ModuleDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleDescriptor",
+      value: ModuleDescriptor.toAmino(message),
+    };
+  },
 };
 function createBasePackageReference(): PackageReference {
   return {
@@ -213,6 +248,27 @@ export const PackageReference = {
     message.revision = object.revision ?? 0;
     return message;
   },
+  fromAmino(object: PackageReferenceAmino): PackageReference {
+    return {
+      name: object.name,
+      revision: object.revision,
+    };
+  },
+  toAmino(message: PackageReference): PackageReferenceAmino {
+    const obj: any = {};
+    obj.name = message.name;
+    obj.revision = message.revision;
+    return obj;
+  },
+  fromAminoMsg(object: PackageReferenceAminoMsg): PackageReference {
+    return PackageReference.fromAmino(object.value);
+  },
+  toAminoMsg(message: PackageReference): PackageReferenceAminoMsg {
+    return {
+      type: "cosmos-sdk/PackageReference",
+      value: PackageReference.toAmino(message),
+    };
+  },
 };
 function createBaseMigrateFromInfo(): MigrateFromInfo {
   return {
@@ -257,5 +313,24 @@ export const MigrateFromInfo = {
     const message = createBaseMigrateFromInfo();
     message.module = object.module ?? "";
     return message;
+  },
+  fromAmino(object: MigrateFromInfoAmino): MigrateFromInfo {
+    return {
+      module: object.module,
+    };
+  },
+  toAmino(message: MigrateFromInfo): MigrateFromInfoAmino {
+    const obj: any = {};
+    obj.module = message.module;
+    return obj;
+  },
+  fromAminoMsg(object: MigrateFromInfoAminoMsg): MigrateFromInfo {
+    return MigrateFromInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: MigrateFromInfo): MigrateFromInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/MigrateFromInfo",
+      value: MigrateFromInfo.toAmino(message),
+    };
   },
 };

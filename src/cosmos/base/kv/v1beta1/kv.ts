@@ -59,6 +59,29 @@ export const Pairs = {
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: PairsAmino): Pairs {
+    return {
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => Pair.fromAmino(e)) : [],
+    };
+  },
+  toAmino(message: Pairs): PairsAmino {
+    const obj: any = {};
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? Pair.toAmino(e) : undefined));
+    } else {
+      obj.pairs = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PairsAminoMsg): Pairs {
+    return Pairs.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pairs): PairsAminoMsg {
+    return {
+      type: "cosmos-sdk/Pairs",
+      value: Pairs.toAmino(message),
+    };
+  },
 };
 function createBasePair(): Pair {
   return {
@@ -115,5 +138,26 @@ export const Pair = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PairAmino): Pair {
+    return {
+      key: object.key,
+      value: object.value,
+    };
+  },
+  toAmino(message: Pair): PairAmino {
+    const obj: any = {};
+    obj.key = message.key;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: PairAminoMsg): Pair {
+    return Pair.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pair): PairAminoMsg {
+    return {
+      type: "cosmos-sdk/Pair",
+      value: Pair.toAmino(message),
+    };
   },
 };

@@ -476,6 +476,31 @@ export const Member = {
         : undefined;
     return message;
   },
+  fromAmino(object: MemberAmino): Member {
+    return {
+      address: object.address,
+      weight: object.weight,
+      metadata: object.metadata,
+      addedAt: object?.added_at ? Timestamp.fromAmino(object.added_at) : undefined,
+    };
+  },
+  toAmino(message: Member): MemberAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.weight = message.weight;
+    obj.metadata = message.metadata;
+    obj.added_at = message.addedAt ? Timestamp.toAmino(message.addedAt) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MemberAminoMsg): Member {
+    return Member.fromAmino(object.value);
+  },
+  toAminoMsg(message: Member): MemberAminoMsg {
+    return {
+      type: "cosmos-sdk/Member",
+      value: Member.toAmino(message),
+    };
+  },
 };
 function createBaseMemberRequest(): MemberRequest {
   return {
@@ -541,6 +566,29 @@ export const MemberRequest = {
     message.metadata = object.metadata ?? "";
     return message;
   },
+  fromAmino(object: MemberRequestAmino): MemberRequest {
+    return {
+      address: object.address,
+      weight: object.weight,
+      metadata: object.metadata,
+    };
+  },
+  toAmino(message: MemberRequest): MemberRequestAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.weight = message.weight;
+    obj.metadata = message.metadata;
+    return obj;
+  },
+  fromAminoMsg(object: MemberRequestAminoMsg): MemberRequest {
+    return MemberRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: MemberRequest): MemberRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/MemberRequest",
+      value: MemberRequest.toAmino(message),
+    };
+  },
 };
 function createBaseThresholdDecisionPolicy(): ThresholdDecisionPolicy {
   return {
@@ -599,6 +647,27 @@ export const ThresholdDecisionPolicy = {
         ? DecisionPolicyWindows.fromPartial(object.windows)
         : undefined;
     return message;
+  },
+  fromAmino(object: ThresholdDecisionPolicyAmino): ThresholdDecisionPolicy {
+    return {
+      threshold: object.threshold,
+      windows: object?.windows ? DecisionPolicyWindows.fromAmino(object.windows) : undefined,
+    };
+  },
+  toAmino(message: ThresholdDecisionPolicy): ThresholdDecisionPolicyAmino {
+    const obj: any = {};
+    obj.threshold = message.threshold;
+    obj.windows = message.windows ? DecisionPolicyWindows.toAmino(message.windows) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ThresholdDecisionPolicyAminoMsg): ThresholdDecisionPolicy {
+    return ThresholdDecisionPolicy.fromAmino(object.value);
+  },
+  toAminoMsg(message: ThresholdDecisionPolicy): ThresholdDecisionPolicyAminoMsg {
+    return {
+      type: "cosmos-sdk/ThresholdDecisionPolicy",
+      value: ThresholdDecisionPolicy.toAmino(message),
+    };
   },
 };
 function createBasePercentageDecisionPolicy(): PercentageDecisionPolicy {
@@ -660,6 +729,27 @@ export const PercentageDecisionPolicy = {
         ? DecisionPolicyWindows.fromPartial(object.windows)
         : undefined;
     return message;
+  },
+  fromAmino(object: PercentageDecisionPolicyAmino): PercentageDecisionPolicy {
+    return {
+      percentage: object.percentage,
+      windows: object?.windows ? DecisionPolicyWindows.fromAmino(object.windows) : undefined,
+    };
+  },
+  toAmino(message: PercentageDecisionPolicy): PercentageDecisionPolicyAmino {
+    const obj: any = {};
+    obj.percentage = message.percentage;
+    obj.windows = message.windows ? DecisionPolicyWindows.toAmino(message.windows) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PercentageDecisionPolicyAminoMsg): PercentageDecisionPolicy {
+    return PercentageDecisionPolicy.fromAmino(object.value);
+  },
+  toAminoMsg(message: PercentageDecisionPolicy): PercentageDecisionPolicyAminoMsg {
+    return {
+      type: "cosmos-sdk/PercentageDecisionPolicy",
+      value: PercentageDecisionPolicy.toAmino(message),
+    };
   },
 };
 function createBaseDecisionPolicyWindows(): DecisionPolicyWindows {
@@ -727,6 +817,31 @@ export const DecisionPolicyWindows = {
         ? Duration.fromPartial(object.minExecutionPeriod)
         : undefined;
     return message;
+  },
+  fromAmino(object: DecisionPolicyWindowsAmino): DecisionPolicyWindows {
+    return {
+      votingPeriod: object?.voting_period ? Duration.fromAmino(object.voting_period) : undefined,
+      minExecutionPeriod: object?.min_execution_period
+        ? Duration.fromAmino(object.min_execution_period)
+        : undefined,
+    };
+  },
+  toAmino(message: DecisionPolicyWindows): DecisionPolicyWindowsAmino {
+    const obj: any = {};
+    obj.voting_period = message.votingPeriod ? Duration.toAmino(message.votingPeriod) : undefined;
+    obj.min_execution_period = message.minExecutionPeriod
+      ? Duration.toAmino(message.minExecutionPeriod)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DecisionPolicyWindowsAminoMsg): DecisionPolicyWindows {
+    return DecisionPolicyWindows.fromAmino(object.value);
+  },
+  toAminoMsg(message: DecisionPolicyWindows): DecisionPolicyWindowsAminoMsg {
+    return {
+      type: "cosmos-sdk/DecisionPolicyWindows",
+      value: DecisionPolicyWindows.toAmino(message),
+    };
   },
 };
 function createBaseGroupInfo(): GroupInfo {
@@ -827,6 +942,35 @@ export const GroupInfo = {
         : undefined;
     return message;
   },
+  fromAmino(object: GroupInfoAmino): GroupInfo {
+    return {
+      id: Long.fromString(object.id),
+      admin: object.admin,
+      metadata: object.metadata,
+      version: Long.fromString(object.version),
+      totalWeight: object.total_weight,
+      createdAt: object?.created_at ? Timestamp.fromAmino(object.created_at) : undefined,
+    };
+  },
+  toAmino(message: GroupInfo): GroupInfoAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.admin = message.admin;
+    obj.metadata = message.metadata;
+    obj.version = message.version ? message.version.toString() : undefined;
+    obj.total_weight = message.totalWeight;
+    obj.created_at = message.createdAt ? Timestamp.toAmino(message.createdAt) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GroupInfoAminoMsg): GroupInfo {
+    return GroupInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: GroupInfo): GroupInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/GroupInfo",
+      value: GroupInfo.toAmino(message),
+    };
+  },
 };
 function createBaseGroupMember(): GroupMember {
   return {
@@ -883,6 +1027,27 @@ export const GroupMember = {
     message.member =
       object.member !== undefined && object.member !== null ? Member.fromPartial(object.member) : undefined;
     return message;
+  },
+  fromAmino(object: GroupMemberAmino): GroupMember {
+    return {
+      groupId: Long.fromString(object.group_id),
+      member: object?.member ? Member.fromAmino(object.member) : undefined,
+    };
+  },
+  toAmino(message: GroupMember): GroupMemberAmino {
+    const obj: any = {};
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.member = message.member ? Member.toAmino(message.member) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GroupMemberAminoMsg): GroupMember {
+    return GroupMember.fromAmino(object.value);
+  },
+  toAminoMsg(message: GroupMember): GroupMemberAminoMsg {
+    return {
+      type: "cosmos-sdk/GroupMember",
+      value: GroupMember.toAmino(message),
+    };
   },
 };
 function createBaseGroupPolicyInfo(): GroupPolicyInfo {
@@ -997,6 +1162,37 @@ export const GroupPolicyInfo = {
         ? Timestamp.fromPartial(object.createdAt)
         : undefined;
     return message;
+  },
+  fromAmino(object: GroupPolicyInfoAmino): GroupPolicyInfo {
+    return {
+      address: object.address,
+      groupId: Long.fromString(object.group_id),
+      admin: object.admin,
+      metadata: object.metadata,
+      version: Long.fromString(object.version),
+      decisionPolicy: object?.decision_policy ? Any.fromAmino(object.decision_policy) : undefined,
+      createdAt: object?.created_at ? Timestamp.fromAmino(object.created_at) : undefined,
+    };
+  },
+  toAmino(message: GroupPolicyInfo): GroupPolicyInfoAmino {
+    const obj: any = {};
+    obj.address = message.address;
+    obj.group_id = message.groupId ? message.groupId.toString() : undefined;
+    obj.admin = message.admin;
+    obj.metadata = message.metadata;
+    obj.version = message.version ? message.version.toString() : undefined;
+    obj.decision_policy = message.decisionPolicy ? Any.toAmino(message.decisionPolicy) : undefined;
+    obj.created_at = message.createdAt ? Timestamp.toAmino(message.createdAt) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GroupPolicyInfoAminoMsg): GroupPolicyInfo {
+    return GroupPolicyInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: GroupPolicyInfo): GroupPolicyInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/GroupPolicyInfo",
+      value: GroupPolicyInfo.toAmino(message),
+    };
   },
 };
 function createBaseProposal(): Proposal {
@@ -1209,6 +1405,65 @@ export const Proposal = {
     message.summary = object.summary ?? "";
     return message;
   },
+  fromAmino(object: ProposalAmino): Proposal {
+    return {
+      id: Long.fromString(object.id),
+      groupPolicyAddress: object.group_policy_address,
+      metadata: object.metadata,
+      proposers: Array.isArray(object?.proposers) ? object.proposers.map((e: any) => e) : [],
+      submitTime: object?.submit_time ? Timestamp.fromAmino(object.submit_time) : undefined,
+      groupVersion: Long.fromString(object.group_version),
+      groupPolicyVersion: Long.fromString(object.group_policy_version),
+      status: isSet(object.status) ? proposalStatusFromJSON(object.status) : 0,
+      finalTallyResult: object?.final_tally_result
+        ? TallyResult.fromAmino(object.final_tally_result)
+        : undefined,
+      votingPeriodEnd: object?.voting_period_end ? Timestamp.fromAmino(object.voting_period_end) : undefined,
+      executorResult: isSet(object.executor_result)
+        ? proposalExecutorResultFromJSON(object.executor_result)
+        : 0,
+      messages: Array.isArray(object?.messages) ? object.messages.map((e: any) => Any.fromAmino(e)) : [],
+      title: object.title,
+      summary: object.summary,
+    };
+  },
+  toAmino(message: Proposal): ProposalAmino {
+    const obj: any = {};
+    obj.id = message.id ? message.id.toString() : undefined;
+    obj.group_policy_address = message.groupPolicyAddress;
+    obj.metadata = message.metadata;
+    if (message.proposers) {
+      obj.proposers = message.proposers.map((e) => e);
+    } else {
+      obj.proposers = [];
+    }
+    obj.submit_time = message.submitTime ? Timestamp.toAmino(message.submitTime) : undefined;
+    obj.group_version = message.groupVersion ? message.groupVersion.toString() : undefined;
+    obj.group_policy_version = message.groupPolicyVersion ? message.groupPolicyVersion.toString() : undefined;
+    obj.status = message.status;
+    obj.final_tally_result = message.finalTallyResult
+      ? TallyResult.toAmino(message.finalTallyResult)
+      : undefined;
+    obj.voting_period_end = message.votingPeriodEnd ? Timestamp.toAmino(message.votingPeriodEnd) : undefined;
+    obj.executor_result = message.executorResult;
+    if (message.messages) {
+      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.messages = [];
+    }
+    obj.title = message.title;
+    obj.summary = message.summary;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalAminoMsg): Proposal {
+    return Proposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: Proposal): ProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/Proposal",
+      value: Proposal.toAmino(message),
+    };
+  },
 };
 function createBaseTallyResult(): TallyResult {
   return {
@@ -1283,6 +1538,31 @@ export const TallyResult = {
     message.noCount = object.noCount ?? "";
     message.noWithVetoCount = object.noWithVetoCount ?? "";
     return message;
+  },
+  fromAmino(object: TallyResultAmino): TallyResult {
+    return {
+      yesCount: object.yes_count,
+      abstainCount: object.abstain_count,
+      noCount: object.no_count,
+      noWithVetoCount: object.no_with_veto_count,
+    };
+  },
+  toAmino(message: TallyResult): TallyResultAmino {
+    const obj: any = {};
+    obj.yes_count = message.yesCount;
+    obj.abstain_count = message.abstainCount;
+    obj.no_count = message.noCount;
+    obj.no_with_veto_count = message.noWithVetoCount;
+    return obj;
+  },
+  fromAminoMsg(object: TallyResultAminoMsg): TallyResult {
+    return TallyResult.fromAmino(object.value);
+  },
+  toAminoMsg(message: TallyResult): TallyResultAminoMsg {
+    return {
+      type: "cosmos-sdk/TallyResult",
+      value: TallyResult.toAmino(message),
+    };
   },
 };
 function createBaseVote(): Vote {
@@ -1374,5 +1654,32 @@ export const Vote = {
         ? Timestamp.fromPartial(object.submitTime)
         : undefined;
     return message;
+  },
+  fromAmino(object: VoteAmino): Vote {
+    return {
+      proposalId: Long.fromString(object.proposal_id),
+      voter: object.voter,
+      option: isSet(object.option) ? voteOptionFromJSON(object.option) : 0,
+      metadata: object.metadata,
+      submitTime: object?.submit_time ? Timestamp.fromAmino(object.submit_time) : undefined,
+    };
+  },
+  toAmino(message: Vote): VoteAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId.toString() : undefined;
+    obj.voter = message.voter;
+    obj.option = message.option;
+    obj.metadata = message.metadata;
+    obj.submit_time = message.submitTime ? Timestamp.toAmino(message.submitTime) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: VoteAminoMsg): Vote {
+    return Vote.fromAmino(object.value);
+  },
+  toAminoMsg(message: Vote): VoteAminoMsg {
+    return {
+      type: "cosmos-sdk/Vote",
+      value: Vote.toAmino(message),
+    };
   },
 };

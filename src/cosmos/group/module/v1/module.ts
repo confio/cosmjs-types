@@ -82,4 +82,29 @@ export const Module = {
         : Long.UZERO;
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    return {
+      maxExecutionPeriod: object?.max_execution_period
+        ? Duration.fromAmino(object.max_execution_period)
+        : undefined,
+      maxMetadataLen: Long.fromString(object.max_metadata_len),
+    };
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.max_execution_period = message.maxExecutionPeriod
+      ? Duration.toAmino(message.maxExecutionPeriod)
+      : undefined;
+    obj.max_metadata_len = message.maxMetadataLen ? message.maxMetadataLen.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };

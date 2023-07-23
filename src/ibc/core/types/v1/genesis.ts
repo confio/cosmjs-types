@@ -98,4 +98,31 @@ export const GenesisState = {
         : undefined;
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    return {
+      clientGenesis: object?.client_genesis ? GenesisState1.fromAmino(object.client_genesis) : undefined,
+      connectionGenesis: object?.connection_genesis
+        ? GenesisState2.fromAmino(object.connection_genesis)
+        : undefined,
+      channelGenesis: object?.channel_genesis ? GenesisState3.fromAmino(object.channel_genesis) : undefined,
+    };
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.client_genesis = message.clientGenesis ? GenesisState1.toAmino(message.clientGenesis) : undefined;
+    obj.connection_genesis = message.connectionGenesis
+      ? GenesisState2.toAmino(message.connectionGenesis)
+      : undefined;
+    obj.channel_genesis = message.channelGenesis ? GenesisState3.toAmino(message.channelGenesis) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };

@@ -40,6 +40,22 @@ export const ConfigRequest = {
     const message = createBaseConfigRequest();
     return message;
   },
+  fromAmino(_: ConfigRequestAmino): ConfigRequest {
+    return {};
+  },
+  toAmino(_: ConfigRequest): ConfigRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ConfigRequestAminoMsg): ConfigRequest {
+    return ConfigRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConfigRequest): ConfigRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/ConfigRequest",
+      value: ConfigRequest.toAmino(message),
+    };
+  },
 };
 function createBaseConfigResponse(): ConfigResponse {
   return {
@@ -84,6 +100,25 @@ export const ConfigResponse = {
     const message = createBaseConfigResponse();
     message.minimumGasPrice = object.minimumGasPrice ?? "";
     return message;
+  },
+  fromAmino(object: ConfigResponseAmino): ConfigResponse {
+    return {
+      minimumGasPrice: object.minimum_gas_price,
+    };
+  },
+  toAmino(message: ConfigResponse): ConfigResponseAmino {
+    const obj: any = {};
+    obj.minimum_gas_price = message.minimumGasPrice;
+    return obj;
+  },
+  fromAminoMsg(object: ConfigResponseAminoMsg): ConfigResponse {
+    return ConfigResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConfigResponse): ConfigResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/ConfigResponse",
+      value: ConfigResponse.toAmino(message),
+    };
   },
 };
 /** Service defines the gRPC querier service for node related queries. */

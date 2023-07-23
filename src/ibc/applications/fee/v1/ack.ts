@@ -83,4 +83,27 @@ export const IncentivizedAcknowledgement = {
     message.underlyingAppSuccess = object.underlyingAppSuccess ?? false;
     return message;
   },
+  fromAmino(object: IncentivizedAcknowledgementAmino): IncentivizedAcknowledgement {
+    return {
+      appAcknowledgement: object.app_acknowledgement,
+      forwardRelayerAddress: object.forward_relayer_address,
+      underlyingAppSuccess: object.underlying_app_success,
+    };
+  },
+  toAmino(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementAmino {
+    const obj: any = {};
+    obj.app_acknowledgement = message.appAcknowledgement;
+    obj.forward_relayer_address = message.forwardRelayerAddress;
+    obj.underlying_app_success = message.underlyingAppSuccess;
+    return obj;
+  },
+  fromAminoMsg(object: IncentivizedAcknowledgementAminoMsg): IncentivizedAcknowledgement {
+    return IncentivizedAcknowledgement.fromAmino(object.value);
+  },
+  toAminoMsg(message: IncentivizedAcknowledgement): IncentivizedAcknowledgementAminoMsg {
+    return {
+      type: "cosmos-sdk/IncentivizedAcknowledgement",
+      value: IncentivizedAcknowledgement.toAmino(message),
+    };
+  },
 };

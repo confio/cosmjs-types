@@ -77,6 +77,21 @@ export const App = {
     message.software = object.software ?? "";
     return message;
   },
+  fromAmino(object: AppAmino): App {
+    return {
+      protocol: Long.fromString(object.protocol),
+      software: object.software,
+    };
+  },
+  toAmino(message: App): AppAmino {
+    const obj: any = {};
+    obj.protocol = message.protocol ? message.protocol.toString() : undefined;
+    obj.software = message.software;
+    return obj;
+  },
+  fromAminoMsg(object: AppAminoMsg): App {
+    return App.fromAmino(object.value);
+  },
 };
 function createBaseConsensus(): Consensus {
   return {
@@ -132,5 +147,20 @@ export const Consensus = {
       object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
     message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
     return message;
+  },
+  fromAmino(object: ConsensusAmino): Consensus {
+    return {
+      block: Long.fromString(object.block),
+      app: Long.fromString(object.app),
+    };
+  },
+  toAmino(message: Consensus): ConsensusAmino {
+    const obj: any = {};
+    obj.block = message.block ? message.block.toString() : undefined;
+    obj.app = message.app ? message.app.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConsensusAminoMsg): Consensus {
+    return Consensus.fromAmino(object.value);
   },
 };

@@ -15,6 +15,10 @@ telescope({
   ],
   outPath: outPath,
   options: {
+    aminoEncoding: {
+      enabled: true,
+      useRecursiveV2encoding: true,
+    },
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
@@ -59,6 +63,8 @@ telescope({
         // See https://github.com/cosmos/cosmjs/pull/1329
         fromJSON: true,
         toJSON: true,
+        fromAmino: true,
+        toAmino: true,
       },
       typingsFormat: {
         useDeepPartial: true,

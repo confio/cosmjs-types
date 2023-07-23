@@ -99,6 +99,27 @@ export const QueryEvidenceRequest = {
     message.hash = object.hash ?? "";
     return message;
   },
+  fromAmino(object: QueryEvidenceRequestAmino): QueryEvidenceRequest {
+    return {
+      evidenceHash: object.evidence_hash,
+      hash: object.hash,
+    };
+  },
+  toAmino(message: QueryEvidenceRequest): QueryEvidenceRequestAmino {
+    const obj: any = {};
+    obj.evidence_hash = message.evidenceHash;
+    obj.hash = message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEvidenceRequestAminoMsg): QueryEvidenceRequest {
+    return QueryEvidenceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEvidenceRequest): QueryEvidenceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEvidenceRequest",
+      value: QueryEvidenceRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
   return {
@@ -148,6 +169,25 @@ export const QueryEvidenceResponse = {
         : undefined;
     return message;
   },
+  fromAmino(object: QueryEvidenceResponseAmino): QueryEvidenceResponse {
+    return {
+      evidence: object?.evidence ? Any.fromAmino(object.evidence) : undefined,
+    };
+  },
+  toAmino(message: QueryEvidenceResponse): QueryEvidenceResponseAmino {
+    const obj: any = {};
+    obj.evidence = message.evidence ? Any.toAmino(message.evidence) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEvidenceResponseAminoMsg): QueryEvidenceResponse {
+    return QueryEvidenceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEvidenceResponse): QueryEvidenceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEvidenceResponse",
+      value: QueryEvidenceResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
   return {
@@ -196,6 +236,25 @@ export const QueryAllEvidenceRequest = {
         ? PageRequest.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryAllEvidenceRequestAmino): QueryAllEvidenceRequest {
+    return {
+      pagination: object?.pagination ? PageRequest.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryAllEvidenceRequest): QueryAllEvidenceRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEvidenceRequestAminoMsg): QueryAllEvidenceRequest {
+    return QueryAllEvidenceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllEvidenceRequest): QueryAllEvidenceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAllEvidenceRequest",
+      value: QueryAllEvidenceRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
@@ -261,6 +320,31 @@ export const QueryAllEvidenceResponse = {
         ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
+  },
+  fromAmino(object: QueryAllEvidenceResponseAmino): QueryAllEvidenceResponse {
+    return {
+      evidence: Array.isArray(object?.evidence) ? object.evidence.map((e: any) => Any.fromAmino(e)) : [],
+      pagination: object?.pagination ? PageResponse.fromAmino(object.pagination) : undefined,
+    };
+  },
+  toAmino(message: QueryAllEvidenceResponse): QueryAllEvidenceResponseAmino {
+    const obj: any = {};
+    if (message.evidence) {
+      obj.evidence = message.evidence.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.evidence = [];
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEvidenceResponseAminoMsg): QueryAllEvidenceResponse {
+    return QueryAllEvidenceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllEvidenceResponse): QueryAllEvidenceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAllEvidenceResponse",
+      value: QueryAllEvidenceResponse.toAmino(message),
+    };
   },
 };
 /** Query defines the gRPC querier service. */
