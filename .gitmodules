@@ -7,3 +7,6 @@
 [submodule "ibc-go"]
 	path = protos/ibc-go-src
 	url = https://github.com/cosmos/ibc-go
+[submodule "protos/pob"]
+	path = protos/pob
+	url = https://github.com/skip-mev/pob
