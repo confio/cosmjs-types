@@ -77,8 +77,8 @@ export interface MsgSubmitMisbehaviour {
 export interface MsgSubmitMisbehaviourResponse {}
 function createBaseMsgCreateClient(): MsgCreateClient {
   return {
-    clientState: undefined,
-    consensusState: undefined,
+    clientState: Any.fromPartial({}),
+    consensusState: Any.fromPartial({}),
     signer: "",
   };
 }
@@ -184,7 +184,7 @@ export const MsgCreateClientResponse = {
 function createBaseMsgUpdateClient(): MsgUpdateClient {
   return {
     clientId: "",
-    clientMessage: undefined,
+    clientMessage: Any.fromPartial({}),
     signer: "",
   };
 }
@@ -286,8 +286,8 @@ export const MsgUpdateClientResponse = {
 function createBaseMsgUpgradeClient(): MsgUpgradeClient {
   return {
     clientId: "",
-    clientState: undefined,
-    consensusState: undefined,
+    clientState: Any.fromPartial({}),
+    consensusState: Any.fromPartial({}),
     proofUpgradeClient: new Uint8Array(),
     proofUpgradeConsensusState: new Uint8Array(),
     signer: "",
@@ -434,7 +434,7 @@ export const MsgUpgradeClientResponse = {
 function createBaseMsgSubmitMisbehaviour(): MsgSubmitMisbehaviour {
   return {
     clientId: "",
-    misbehaviour: undefined,
+    misbehaviour: Any.fromPartial({}),
     signer: "",
   };
 }

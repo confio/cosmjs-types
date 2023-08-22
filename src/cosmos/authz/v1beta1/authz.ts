@@ -87,7 +87,7 @@ export const GenericAuthorization = {
 };
 function createBaseGrant(): Grant {
   return {
-    authorization: undefined,
+    authorization: Any.fromPartial({}),
     expiration: undefined,
   };
 }
@@ -151,8 +151,8 @@ function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     granter: "",
     grantee: "",
-    authorization: undefined,
-    expiration: undefined,
+    authorization: Any.fromPartial({}),
+    expiration: Timestamp.fromPartial({}),
   };
 }
 export const GrantAuthorization = {

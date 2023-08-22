@@ -21,7 +21,7 @@ export interface MsgSubmitEvidenceResponse {
 function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
   return {
     submitter: "",
-    evidence: undefined,
+    evidence: Any.fromPartial({}),
   };
 }
 export const MsgSubmitEvidence = {

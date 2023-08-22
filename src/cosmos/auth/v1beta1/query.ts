@@ -317,7 +317,7 @@ export const QueryAccountRequest = {
 };
 function createBaseQueryAccountResponse(): QueryAccountResponse {
   return {
-    account: undefined,
+    account: Any.fromPartial({}),
   };
 }
 export const QueryAccountResponse = {
@@ -574,7 +574,7 @@ export const QueryModuleAccountByNameRequest = {
 };
 function createBaseQueryModuleAccountByNameResponse(): QueryModuleAccountByNameResponse {
   return {
-    account: undefined,
+    account: Any.fromPartial({}),
   };
 }
 export const QueryModuleAccountByNameResponse = {

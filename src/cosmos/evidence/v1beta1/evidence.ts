@@ -20,7 +20,7 @@ export interface Equivocation {
 function createBaseEquivocation(): Equivocation {
   return {
     height: Long.ZERO,
-    time: undefined,
+    time: Timestamp.fromPartial({}),
     power: Long.ZERO,
     consensusAddress: "",
   };

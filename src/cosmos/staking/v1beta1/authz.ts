@@ -81,7 +81,7 @@ export interface StakeAuthorization_Validators {
 }
 function createBaseStakeAuthorization(): StakeAuthorization {
   return {
-    maxTokens: undefined,
+    maxTokens: Coin.fromPartial({}),
     allowList: undefined,
     denyList: undefined,
     authorizationType: 0,
@@ -138,7 +138,7 @@ export const StakeAuthorization = {
       denyList: isSet(object.denyList) ? StakeAuthorization_Validators.fromJSON(object.denyList) : undefined,
       authorizationType: isSet(object.authorizationType)
         ? authorizationTypeFromJSON(object.authorizationType)
-        : 0,
+        : -1,
     };
   },
   toJSON(message: StakeAuthorization): unknown {

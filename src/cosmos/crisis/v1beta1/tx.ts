@@ -133,7 +133,7 @@ export const MsgVerifyInvariantResponse = {
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    constantFee: undefined,
+    constantFee: Coin.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {

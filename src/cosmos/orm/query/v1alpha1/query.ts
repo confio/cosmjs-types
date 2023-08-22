@@ -184,7 +184,7 @@ export const GetRequest = {
 };
 function createBaseGetResponse(): GetResponse {
   return {
-    result: undefined,
+    result: Any.fromPartial({}),
   };
 }
 export const GetResponse = {

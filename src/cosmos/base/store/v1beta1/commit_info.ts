@@ -41,7 +41,7 @@ function createBaseCommitInfo(): CommitInfo {
   return {
     version: Long.ZERO,
     storeInfos: [],
-    timestamp: undefined,
+    timestamp: Timestamp.fromPartial({}),
   };
 }
 export const CommitInfo = {

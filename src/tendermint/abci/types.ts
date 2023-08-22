@@ -1001,7 +1001,7 @@ export const RequestInfo = {
 };
 function createBaseRequestInitChain(): RequestInitChain {
   return {
-    time: undefined,
+    time: Timestamp.fromPartial({}),
     chainId: "",
     consensusParams: ConsensusParams.fromPartial({}),
     validators: [],
@@ -1321,7 +1321,7 @@ export const RequestCheckTx = {
   fromJSON(object: any): RequestCheckTx {
     return {
       tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(),
-      type: isSet(object.type) ? checkTxTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? checkTxTypeFromJSON(object.type) : -1,
     };
   },
   toJSON(message: RequestCheckTx): unknown {
@@ -1699,7 +1699,7 @@ function createBaseRequestPrepareProposal(): RequestPrepareProposal {
     localLastCommit: ExtendedCommitInfo.fromPartial({}),
     misbehavior: [],
     height: Long.ZERO,
-    time: undefined,
+    time: Timestamp.fromPartial({}),
     nextValidatorsHash: new Uint8Array(),
     proposerAddress: new Uint8Array(),
   };
@@ -1847,7 +1847,7 @@ function createBaseRequestProcessProposal(): RequestProcessProposal {
     misbehavior: [],
     hash: new Uint8Array(),
     height: Long.ZERO,
-    time: undefined,
+    time: Timestamp.fromPartial({}),
     nextValidatorsHash: new Uint8Array(),
     proposerAddress: new Uint8Array(),
   };
@@ -3262,7 +3262,7 @@ export const ResponseOfferSnapshot = {
   },
   fromJSON(object: any): ResponseOfferSnapshot {
     return {
-      result: isSet(object.result) ? responseOfferSnapshot_ResultFromJSON(object.result) : 0,
+      result: isSet(object.result) ? responseOfferSnapshot_ResultFromJSON(object.result) : -1,
     };
   },
   toJSON(message: ResponseOfferSnapshot): unknown {
@@ -3378,7 +3378,7 @@ export const ResponseApplySnapshotChunk = {
   },
   fromJSON(object: any): ResponseApplySnapshotChunk {
     return {
-      result: isSet(object.result) ? responseApplySnapshotChunk_ResultFromJSON(object.result) : 0,
+      result: isSet(object.result) ? responseApplySnapshotChunk_ResultFromJSON(object.result) : -1,
       refetchChunks: Array.isArray(object?.refetchChunks)
         ? object.refetchChunks.map((e: any) => Number(e))
         : [],
@@ -3492,7 +3492,7 @@ export const ResponseProcessProposal = {
   },
   fromJSON(object: any): ResponseProcessProposal {
     return {
-      status: isSet(object.status) ? responseProcessProposal_ProposalStatusFromJSON(object.status) : 0,
+      status: isSet(object.status) ? responseProcessProposal_ProposalStatusFromJSON(object.status) : -1,
     };
   },
   toJSON(message: ResponseProcessProposal): unknown {
@@ -4085,7 +4085,7 @@ function createBaseMisbehavior(): Misbehavior {
     type: 0,
     validator: Validator.fromPartial({}),
     height: Long.ZERO,
-    time: undefined,
+    time: Timestamp.fromPartial({}),
     totalVotingPower: Long.ZERO,
   };
 }
@@ -4139,7 +4139,7 @@ export const Misbehavior = {
   },
   fromJSON(object: any): Misbehavior {
     return {
-      type: isSet(object.type) ? misbehaviorTypeFromJSON(object.type) : 0,
+      type: isSet(object.type) ? misbehaviorTypeFromJSON(object.type) : -1,
       validator: isSet(object.validator) ? Validator.fromJSON(object.validator) : undefined,
       height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
       time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,

@@ -119,8 +119,8 @@ function createBaseMsgCreateValidator(): MsgCreateValidator {
     minSelfDelegation: "",
     delegatorAddress: "",
     validatorAddress: "",
-    pubkey: undefined,
-    value: undefined,
+    pubkey: Any.fromPartial({}),
+    value: Coin.fromPartial({}),
   };
 }
 export const MsgCreateValidator = {
@@ -376,7 +376,7 @@ function createBaseMsgDelegate(): MsgDelegate {
   return {
     delegatorAddress: "",
     validatorAddress: "",
-    amount: undefined,
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgDelegate = {
@@ -476,7 +476,7 @@ function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
     delegatorAddress: "",
     validatorSrcAddress: "",
     validatorDstAddress: "",
-    amount: undefined,
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgBeginRedelegate = {
@@ -549,7 +549,7 @@ export const MsgBeginRedelegate = {
 };
 function createBaseMsgBeginRedelegateResponse(): MsgBeginRedelegateResponse {
   return {
-    completionTime: undefined,
+    completionTime: Timestamp.fromPartial({}),
   };
 }
 export const MsgBeginRedelegateResponse = {
@@ -602,7 +602,7 @@ function createBaseMsgUndelegate(): MsgUndelegate {
   return {
     delegatorAddress: "",
     validatorAddress: "",
-    amount: undefined,
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgUndelegate = {
@@ -666,7 +666,7 @@ export const MsgUndelegate = {
 };
 function createBaseMsgUndelegateResponse(): MsgUndelegateResponse {
   return {
-    completionTime: undefined,
+    completionTime: Timestamp.fromPartial({}),
   };
 }
 export const MsgUndelegateResponse = {
@@ -717,7 +717,7 @@ function createBaseMsgCancelUnbondingDelegation(): MsgCancelUnbondingDelegation 
   return {
     delegatorAddress: "",
     validatorAddress: "",
-    amount: undefined,
+    amount: Coin.fromPartial({}),
     creationHeight: Long.ZERO,
   };
 }

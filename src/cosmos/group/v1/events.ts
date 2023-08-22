@@ -430,7 +430,7 @@ export const EventExec = {
   fromJSON(object: any): EventExec {
     return {
       proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      result: isSet(object.result) ? proposalExecutorResultFromJSON(object.result) : 0,
+      result: isSet(object.result) ? proposalExecutorResultFromJSON(object.result) : -1,
       logs: isSet(object.logs) ? String(object.logs) : "",
     };
   },

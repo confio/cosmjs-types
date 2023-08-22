@@ -115,7 +115,7 @@ function createBaseControllerGenesisState(): ControllerGenesisState {
     activeChannels: [],
     interchainAccounts: [],
     ports: [],
-    params: Params.fromPartial({}),
+    params: Params1.fromPartial({}),
   };
 }
 export const ControllerGenesisState = {
@@ -211,7 +211,7 @@ function createBaseHostGenesisState(): HostGenesisState {
     activeChannels: [],
     interchainAccounts: [],
     port: "",
-    params: Params.fromPartial({}),
+    params: Params2.fromPartial({}),
   };
 }
 export const HostGenesisState = {

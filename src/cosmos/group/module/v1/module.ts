@@ -18,7 +18,7 @@ export interface Module {
 }
 function createBaseModule(): Module {
   return {
-    maxExecutionPeriod: undefined,
+    maxExecutionPeriod: Duration.fromPartial({}),
     maxMetadataLen: Long.UZERO,
   };
 }
