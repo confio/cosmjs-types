@@ -8,7 +8,7 @@ and this project adheres to
 
 ## [Unreleased]
 
-- Upgrade to Telescope 0.99.0. This changes a lot of fields from optional to
+- Upgrade to Telescope 0.105.0. This changes a lot of fields from optional to
   non-optional by utilizing the `(gogoproto.nullable) = false` annotations of
   proto files. See https://github.com/osmosis-labs/telescope/issues/386
 
