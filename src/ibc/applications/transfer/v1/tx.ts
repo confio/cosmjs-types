@@ -117,16 +117,16 @@ export const MsgTransfer = {
     return message;
   },
   fromJSON(object: any): MsgTransfer {
-    return {
-      sourcePort: isSet(object.sourcePort) ? String(object.sourcePort) : "",
-      sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : "",
-      token: isSet(object.token) ? Coin.fromJSON(object.token) : undefined,
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      receiver: isSet(object.receiver) ? String(object.receiver) : "",
-      timeoutHeight: isSet(object.timeoutHeight) ? Height.fromJSON(object.timeoutHeight) : undefined,
-      timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromValue(object.timeoutTimestamp) : Long.UZERO,
-      memo: isSet(object.memo) ? String(object.memo) : "",
-    };
+    const obj = createBaseMsgTransfer();
+    if (isSet(object.sourcePort)) obj.sourcePort = String(object.sourcePort);
+    if (isSet(object.sourceChannel)) obj.sourceChannel = String(object.sourceChannel);
+    if (isSet(object.token)) obj.token = Coin.fromJSON(object.token);
+    if (isSet(object.sender)) obj.sender = String(object.sender);
+    if (isSet(object.receiver)) obj.receiver = String(object.receiver);
+    if (isSet(object.timeoutHeight)) obj.timeoutHeight = Height.fromJSON(object.timeoutHeight);
+    if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+    if (isSet(object.memo)) obj.memo = String(object.memo);
+    return obj;
   },
   toJSON(message: MsgTransfer): unknown {
     const obj: any = {};
@@ -146,18 +146,17 @@ export const MsgTransfer = {
     const message = createBaseMsgTransfer();
     message.sourcePort = object.sourcePort ?? "";
     message.sourceChannel = object.sourceChannel ?? "";
-    message.token =
-      object.token !== undefined && object.token !== null ? Coin.fromPartial(object.token) : undefined;
+    if (object.token !== undefined && object.token !== null) {
+      message.token = Coin.fromPartial(object.token);
+    }
     message.sender = object.sender ?? "";
     message.receiver = object.receiver ?? "";
-    message.timeoutHeight =
-      object.timeoutHeight !== undefined && object.timeoutHeight !== null
-        ? Height.fromPartial(object.timeoutHeight)
-        : undefined;
-    message.timeoutTimestamp =
-      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
-        ? Long.fromValue(object.timeoutTimestamp)
-        : Long.UZERO;
+    if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
+      message.timeoutHeight = Height.fromPartial(object.timeoutHeight);
+    }
+    if (object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null) {
+      message.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+    }
     message.memo = object.memo ?? "";
     return message;
   },
@@ -192,9 +191,9 @@ export const MsgTransferResponse = {
     return message;
   },
   fromJSON(object: any): MsgTransferResponse {
-    return {
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
+    const obj = createBaseMsgTransferResponse();
+    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    return obj;
   },
   toJSON(message: MsgTransferResponse): unknown {
     const obj: any = {};
@@ -203,10 +202,9 @@ export const MsgTransferResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<MsgTransferResponse>, I>>(object: I): MsgTransferResponse {
     const message = createBaseMsgTransferResponse();
-    message.sequence =
-      object.sequence !== undefined && object.sequence !== null
-        ? Long.fromValue(object.sequence)
-        : Long.UZERO;
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = Long.fromValue(object.sequence);
+    }
     return message;
   },
 };

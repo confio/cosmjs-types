@@ -88,9 +88,9 @@ export const EventCreateGroup = {
     return message;
   },
   fromJSON(object: any): EventCreateGroup {
-    return {
-      groupId: isSet(object.groupId) ? Long.fromValue(object.groupId) : Long.UZERO,
-    };
+    const obj = createBaseEventCreateGroup();
+    if (isSet(object.groupId)) obj.groupId = Long.fromValue(object.groupId);
+    return obj;
   },
   toJSON(message: EventCreateGroup): unknown {
     const obj: any = {};
@@ -99,8 +99,9 @@ export const EventCreateGroup = {
   },
   fromPartial<I extends Exact<DeepPartial<EventCreateGroup>, I>>(object: I): EventCreateGroup {
     const message = createBaseEventCreateGroup();
-    message.groupId =
-      object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
+    if (object.groupId !== undefined && object.groupId !== null) {
+      message.groupId = Long.fromValue(object.groupId);
+    }
     return message;
   },
 };
@@ -134,9 +135,9 @@ export const EventUpdateGroup = {
     return message;
   },
   fromJSON(object: any): EventUpdateGroup {
-    return {
-      groupId: isSet(object.groupId) ? Long.fromValue(object.groupId) : Long.UZERO,
-    };
+    const obj = createBaseEventUpdateGroup();
+    if (isSet(object.groupId)) obj.groupId = Long.fromValue(object.groupId);
+    return obj;
   },
   toJSON(message: EventUpdateGroup): unknown {
     const obj: any = {};
@@ -145,8 +146,9 @@ export const EventUpdateGroup = {
   },
   fromPartial<I extends Exact<DeepPartial<EventUpdateGroup>, I>>(object: I): EventUpdateGroup {
     const message = createBaseEventUpdateGroup();
-    message.groupId =
-      object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
+    if (object.groupId !== undefined && object.groupId !== null) {
+      message.groupId = Long.fromValue(object.groupId);
+    }
     return message;
   },
 };
@@ -180,9 +182,9 @@ export const EventCreateGroupPolicy = {
     return message;
   },
   fromJSON(object: any): EventCreateGroupPolicy {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    const obj = createBaseEventCreateGroupPolicy();
+    if (isSet(object.address)) obj.address = String(object.address);
+    return obj;
   },
   toJSON(message: EventCreateGroupPolicy): unknown {
     const obj: any = {};
@@ -225,9 +227,9 @@ export const EventUpdateGroupPolicy = {
     return message;
   },
   fromJSON(object: any): EventUpdateGroupPolicy {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    const obj = createBaseEventUpdateGroupPolicy();
+    if (isSet(object.address)) obj.address = String(object.address);
+    return obj;
   },
   toJSON(message: EventUpdateGroupPolicy): unknown {
     const obj: any = {};
@@ -270,9 +272,9 @@ export const EventSubmitProposal = {
     return message;
   },
   fromJSON(object: any): EventSubmitProposal {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    const obj = createBaseEventSubmitProposal();
+    if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
+    return obj;
   },
   toJSON(message: EventSubmitProposal): unknown {
     const obj: any = {};
@@ -281,10 +283,9 @@ export const EventSubmitProposal = {
   },
   fromPartial<I extends Exact<DeepPartial<EventSubmitProposal>, I>>(object: I): EventSubmitProposal {
     const message = createBaseEventSubmitProposal();
-    message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null
-        ? Long.fromValue(object.proposalId)
-        : Long.UZERO;
+    if (object.proposalId !== undefined && object.proposalId !== null) {
+      message.proposalId = Long.fromValue(object.proposalId);
+    }
     return message;
   },
 };
@@ -318,9 +319,9 @@ export const EventWithdrawProposal = {
     return message;
   },
   fromJSON(object: any): EventWithdrawProposal {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    const obj = createBaseEventWithdrawProposal();
+    if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
+    return obj;
   },
   toJSON(message: EventWithdrawProposal): unknown {
     const obj: any = {};
@@ -329,10 +330,9 @@ export const EventWithdrawProposal = {
   },
   fromPartial<I extends Exact<DeepPartial<EventWithdrawProposal>, I>>(object: I): EventWithdrawProposal {
     const message = createBaseEventWithdrawProposal();
-    message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null
-        ? Long.fromValue(object.proposalId)
-        : Long.UZERO;
+    if (object.proposalId !== undefined && object.proposalId !== null) {
+      message.proposalId = Long.fromValue(object.proposalId);
+    }
     return message;
   },
 };
@@ -366,9 +366,9 @@ export const EventVote = {
     return message;
   },
   fromJSON(object: any): EventVote {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-    };
+    const obj = createBaseEventVote();
+    if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
+    return obj;
   },
   toJSON(message: EventVote): unknown {
     const obj: any = {};
@@ -377,10 +377,9 @@ export const EventVote = {
   },
   fromPartial<I extends Exact<DeepPartial<EventVote>, I>>(object: I): EventVote {
     const message = createBaseEventVote();
-    message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null
-        ? Long.fromValue(object.proposalId)
-        : Long.UZERO;
+    if (object.proposalId !== undefined && object.proposalId !== null) {
+      message.proposalId = Long.fromValue(object.proposalId);
+    }
     return message;
   },
 };
@@ -428,11 +427,11 @@ export const EventExec = {
     return message;
   },
   fromJSON(object: any): EventExec {
-    return {
-      proposalId: isSet(object.proposalId) ? Long.fromValue(object.proposalId) : Long.UZERO,
-      result: isSet(object.result) ? proposalExecutorResultFromJSON(object.result) : -1,
-      logs: isSet(object.logs) ? String(object.logs) : "",
-    };
+    const obj = createBaseEventExec();
+    if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
+    if (isSet(object.result)) obj.result = proposalExecutorResultFromJSON(object.result);
+    if (isSet(object.logs)) obj.logs = String(object.logs);
+    return obj;
   },
   toJSON(message: EventExec): unknown {
     const obj: any = {};
@@ -443,10 +442,9 @@ export const EventExec = {
   },
   fromPartial<I extends Exact<DeepPartial<EventExec>, I>>(object: I): EventExec {
     const message = createBaseEventExec();
-    message.proposalId =
-      object.proposalId !== undefined && object.proposalId !== null
-        ? Long.fromValue(object.proposalId)
-        : Long.UZERO;
+    if (object.proposalId !== undefined && object.proposalId !== null) {
+      message.proposalId = Long.fromValue(object.proposalId);
+    }
     message.result = object.result ?? 0;
     message.logs = object.logs ?? "";
     return message;
@@ -489,10 +487,10 @@ export const EventLeaveGroup = {
     return message;
   },
   fromJSON(object: any): EventLeaveGroup {
-    return {
-      groupId: isSet(object.groupId) ? Long.fromValue(object.groupId) : Long.UZERO,
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    const obj = createBaseEventLeaveGroup();
+    if (isSet(object.groupId)) obj.groupId = Long.fromValue(object.groupId);
+    if (isSet(object.address)) obj.address = String(object.address);
+    return obj;
   },
   toJSON(message: EventLeaveGroup): unknown {
     const obj: any = {};
@@ -502,8 +500,9 @@ export const EventLeaveGroup = {
   },
   fromPartial<I extends Exact<DeepPartial<EventLeaveGroup>, I>>(object: I): EventLeaveGroup {
     const message = createBaseEventLeaveGroup();
-    message.groupId =
-      object.groupId !== undefined && object.groupId !== null ? Long.fromValue(object.groupId) : Long.UZERO;
+    if (object.groupId !== undefined && object.groupId !== null) {
+      message.groupId = Long.fromValue(object.groupId);
+    }
     message.address = object.address ?? "";
     return message;
   },

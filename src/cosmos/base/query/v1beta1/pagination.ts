@@ -123,13 +123,13 @@ export const PageRequest = {
     return message;
   },
   fromJSON(object: any): PageRequest {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      offset: isSet(object.offset) ? Long.fromValue(object.offset) : Long.UZERO,
-      limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.UZERO,
-      countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false,
-      reverse: isSet(object.reverse) ? Boolean(object.reverse) : false,
-    };
+    const obj = createBasePageRequest();
+    if (isSet(object.key)) obj.key = bytesFromBase64(object.key);
+    if (isSet(object.offset)) obj.offset = Long.fromValue(object.offset);
+    if (isSet(object.limit)) obj.limit = Long.fromValue(object.limit);
+    if (isSet(object.countTotal)) obj.countTotal = Boolean(object.countTotal);
+    if (isSet(object.reverse)) obj.reverse = Boolean(object.reverse);
+    return obj;
   },
   toJSON(message: PageRequest): unknown {
     const obj: any = {};
@@ -144,10 +144,12 @@ export const PageRequest = {
   fromPartial<I extends Exact<DeepPartial<PageRequest>, I>>(object: I): PageRequest {
     const message = createBasePageRequest();
     message.key = object.key ?? new Uint8Array();
-    message.offset =
-      object.offset !== undefined && object.offset !== null ? Long.fromValue(object.offset) : Long.UZERO;
-    message.limit =
-      object.limit !== undefined && object.limit !== null ? Long.fromValue(object.limit) : Long.UZERO;
+    if (object.offset !== undefined && object.offset !== null) {
+      message.offset = Long.fromValue(object.offset);
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = Long.fromValue(object.limit);
+    }
     message.countTotal = object.countTotal ?? false;
     message.reverse = object.reverse ?? false;
     return message;
@@ -190,10 +192,10 @@ export const PageResponse = {
     return message;
   },
   fromJSON(object: any): PageResponse {
-    return {
-      nextKey: isSet(object.nextKey) ? bytesFromBase64(object.nextKey) : new Uint8Array(),
-      total: isSet(object.total) ? Long.fromValue(object.total) : Long.UZERO,
-    };
+    const obj = createBasePageResponse();
+    if (isSet(object.nextKey)) obj.nextKey = bytesFromBase64(object.nextKey);
+    if (isSet(object.total)) obj.total = Long.fromValue(object.total);
+    return obj;
   },
   toJSON(message: PageResponse): unknown {
     const obj: any = {};
@@ -205,8 +207,9 @@ export const PageResponse = {
   fromPartial<I extends Exact<DeepPartial<PageResponse>, I>>(object: I): PageResponse {
     const message = createBasePageResponse();
     message.nextKey = object.nextKey ?? new Uint8Array();
-    message.total =
-      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.UZERO;
+    if (object.total !== undefined && object.total !== null) {
+      message.total = Long.fromValue(object.total);
+    }
     return message;
   },
 };

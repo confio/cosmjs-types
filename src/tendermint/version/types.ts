@@ -57,10 +57,10 @@ export const App = {
     return message;
   },
   fromJSON(object: any): App {
-    return {
-      protocol: isSet(object.protocol) ? Long.fromValue(object.protocol) : Long.UZERO,
-      software: isSet(object.software) ? String(object.software) : "",
-    };
+    const obj = createBaseApp();
+    if (isSet(object.protocol)) obj.protocol = Long.fromValue(object.protocol);
+    if (isSet(object.software)) obj.software = String(object.software);
+    return obj;
   },
   toJSON(message: App): unknown {
     const obj: any = {};
@@ -70,10 +70,9 @@ export const App = {
   },
   fromPartial<I extends Exact<DeepPartial<App>, I>>(object: I): App {
     const message = createBaseApp();
-    message.protocol =
-      object.protocol !== undefined && object.protocol !== null
-        ? Long.fromValue(object.protocol)
-        : Long.UZERO;
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = Long.fromValue(object.protocol);
+    }
     message.software = object.software ?? "";
     return message;
   },
@@ -115,10 +114,10 @@ export const Consensus = {
     return message;
   },
   fromJSON(object: any): Consensus {
-    return {
-      block: isSet(object.block) ? Long.fromValue(object.block) : Long.UZERO,
-      app: isSet(object.app) ? Long.fromValue(object.app) : Long.UZERO,
-    };
+    const obj = createBaseConsensus();
+    if (isSet(object.block)) obj.block = Long.fromValue(object.block);
+    if (isSet(object.app)) obj.app = Long.fromValue(object.app);
+    return obj;
   },
   toJSON(message: Consensus): unknown {
     const obj: any = {};
@@ -128,9 +127,12 @@ export const Consensus = {
   },
   fromPartial<I extends Exact<DeepPartial<Consensus>, I>>(object: I): Consensus {
     const message = createBaseConsensus();
-    message.block =
-      object.block !== undefined && object.block !== null ? Long.fromValue(object.block) : Long.UZERO;
-    message.app = object.app !== undefined && object.app !== null ? Long.fromValue(object.app) : Long.UZERO;
+    if (object.block !== undefined && object.block !== null) {
+      message.block = Long.fromValue(object.block);
+    }
+    if (object.app !== undefined && object.app !== null) {
+      message.app = Long.fromValue(object.app);
+    }
     return message;
   },
 };

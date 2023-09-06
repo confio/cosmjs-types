@@ -49,10 +49,10 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      maxMetadataLen: isSet(object.maxMetadataLen) ? Long.fromValue(object.maxMetadataLen) : Long.UZERO,
-      authority: isSet(object.authority) ? String(object.authority) : "",
-    };
+    const obj = createBaseModule();
+    if (isSet(object.maxMetadataLen)) obj.maxMetadataLen = Long.fromValue(object.maxMetadataLen);
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};
@@ -63,10 +63,9 @@ export const Module = {
   },
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule();
-    message.maxMetadataLen =
-      object.maxMetadataLen !== undefined && object.maxMetadataLen !== null
-        ? Long.fromValue(object.maxMetadataLen)
-        : Long.UZERO;
+    if (object.maxMetadataLen !== undefined && object.maxMetadataLen !== null) {
+      message.maxMetadataLen = Long.fromValue(object.maxMetadataLen);
+    }
     message.authority = object.authority ?? "";
     return message;
   },

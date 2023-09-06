@@ -52,10 +52,10 @@ export const Config = {
     return message;
   },
   fromJSON(object: any): Config {
-    return {
-      skipAnteHandler: isSet(object.skipAnteHandler) ? Boolean(object.skipAnteHandler) : false,
-      skipPostHandler: isSet(object.skipPostHandler) ? Boolean(object.skipPostHandler) : false,
-    };
+    const obj = createBaseConfig();
+    if (isSet(object.skipAnteHandler)) obj.skipAnteHandler = Boolean(object.skipAnteHandler);
+    if (isSet(object.skipPostHandler)) obj.skipPostHandler = Boolean(object.skipPostHandler);
+    return obj;
   },
   toJSON(message: Config): unknown {
     const obj: any = {};

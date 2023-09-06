@@ -93,12 +93,11 @@ export const Config = {
     return message;
   },
   fromJSON(object: any): Config {
-    return {
-      modules: Array.isArray(object?.modules) ? object.modules.map((e: any) => ModuleConfig.fromJSON(e)) : [],
-      golangBindings: Array.isArray(object?.golangBindings)
-        ? object.golangBindings.map((e: any) => GolangBinding.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseConfig();
+    if (Array.isArray(object?.modules)) object.modules.map((e: any) => ModuleConfig.fromJSON(e));
+    if (Array.isArray(object?.golangBindings))
+      object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
+    return obj;
   },
   toJSON(message: Config): unknown {
     const obj: any = {};
@@ -165,13 +164,12 @@ export const ModuleConfig = {
     return message;
   },
   fromJSON(object: any): ModuleConfig {
-    return {
-      name: isSet(object.name) ? String(object.name) : "",
-      config: isSet(object.config) ? Any.fromJSON(object.config) : undefined,
-      golangBindings: Array.isArray(object?.golangBindings)
-        ? object.golangBindings.map((e: any) => GolangBinding.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseModuleConfig();
+    if (isSet(object.name)) obj.name = String(object.name);
+    if (isSet(object.config)) obj.config = Any.fromJSON(object.config);
+    if (Array.isArray(object?.golangBindings))
+      object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
+    return obj;
   },
   toJSON(message: ModuleConfig): unknown {
     const obj: any = {};
@@ -187,8 +185,9 @@ export const ModuleConfig = {
   fromPartial<I extends Exact<DeepPartial<ModuleConfig>, I>>(object: I): ModuleConfig {
     const message = createBaseModuleConfig();
     message.name = object.name ?? "";
-    message.config =
-      object.config !== undefined && object.config !== null ? Any.fromPartial(object.config) : undefined;
+    if (object.config !== undefined && object.config !== null) {
+      message.config = Any.fromPartial(object.config);
+    }
     message.golangBindings = object.golangBindings?.map((e) => GolangBinding.fromPartial(e)) || [];
     return message;
   },
@@ -230,10 +229,10 @@ export const GolangBinding = {
     return message;
   },
   fromJSON(object: any): GolangBinding {
-    return {
-      interfaceType: isSet(object.interfaceType) ? String(object.interfaceType) : "",
-      implementation: isSet(object.implementation) ? String(object.implementation) : "",
-    };
+    const obj = createBaseGolangBinding();
+    if (isSet(object.interfaceType)) obj.interfaceType = String(object.interfaceType);
+    if (isSet(object.implementation)) obj.implementation = String(object.implementation);
+    return obj;
   },
   toJSON(message: GolangBinding): unknown {
     const obj: any = {};

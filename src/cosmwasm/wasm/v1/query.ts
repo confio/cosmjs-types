@@ -218,9 +218,9 @@ export const QueryContractInfoRequest = {
     return message;
   },
   fromJSON(object: any): QueryContractInfoRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    const obj = createBaseQueryContractInfoRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    return obj;
   },
   toJSON(message: QueryContractInfoRequest): unknown {
     const obj: any = {};
@@ -272,10 +272,10 @@ export const QueryContractInfoResponse = {
     return message;
   },
   fromJSON(object: any): QueryContractInfoResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      contractInfo: isSet(object.contractInfo) ? ContractInfo.fromJSON(object.contractInfo) : undefined,
-    };
+    const obj = createBaseQueryContractInfoResponse();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.contractInfo)) obj.contractInfo = ContractInfo.fromJSON(object.contractInfo);
+    return obj;
   },
   toJSON(message: QueryContractInfoResponse): unknown {
     const obj: any = {};
@@ -289,10 +289,9 @@ export const QueryContractInfoResponse = {
   ): QueryContractInfoResponse {
     const message = createBaseQueryContractInfoResponse();
     message.address = object.address ?? "";
-    message.contractInfo =
-      object.contractInfo !== undefined && object.contractInfo !== null
-        ? ContractInfo.fromPartial(object.contractInfo)
-        : undefined;
+    if (object.contractInfo !== undefined && object.contractInfo !== null) {
+      message.contractInfo = ContractInfo.fromPartial(object.contractInfo);
+    }
     return message;
   },
 };
@@ -333,10 +332,10 @@ export const QueryContractHistoryRequest = {
     return message;
   },
   fromJSON(object: any): QueryContractHistoryRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractHistoryRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractHistoryRequest): unknown {
     const obj: any = {};
@@ -350,10 +349,9 @@ export const QueryContractHistoryRequest = {
   ): QueryContractHistoryRequest {
     const message = createBaseQueryContractHistoryRequest();
     message.address = object.address ?? "";
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -394,12 +392,10 @@ export const QueryContractHistoryResponse = {
     return message;
   },
   fromJSON(object: any): QueryContractHistoryResponse {
-    return {
-      entries: Array.isArray(object?.entries)
-        ? object.entries.map((e: any) => ContractCodeHistoryEntry.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractHistoryResponse();
+    if (Array.isArray(object?.entries)) object.entries.map((e: any) => ContractCodeHistoryEntry.fromJSON(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractHistoryResponse): unknown {
     const obj: any = {};
@@ -417,10 +413,9 @@ export const QueryContractHistoryResponse = {
   ): QueryContractHistoryResponse {
     const message = createBaseQueryContractHistoryResponse();
     message.entries = object.entries?.map((e) => ContractCodeHistoryEntry.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -461,10 +456,10 @@ export const QueryContractsByCodeRequest = {
     return message;
   },
   fromJSON(object: any): QueryContractsByCodeRequest {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractsByCodeRequest();
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractsByCodeRequest): unknown {
     const obj: any = {};
@@ -477,12 +472,12 @@ export const QueryContractsByCodeRequest = {
     object: I,
   ): QueryContractsByCodeRequest {
     const message = createBaseQueryContractsByCodeRequest();
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -523,10 +518,10 @@ export const QueryContractsByCodeResponse = {
     return message;
   },
   fromJSON(object: any): QueryContractsByCodeResponse {
-    return {
-      contracts: Array.isArray(object?.contracts) ? object.contracts.map((e: any) => String(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractsByCodeResponse();
+    if (Array.isArray(object?.contracts)) object.contracts.map((e: any) => String(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractsByCodeResponse): unknown {
     const obj: any = {};
@@ -544,10 +539,9 @@ export const QueryContractsByCodeResponse = {
   ): QueryContractsByCodeResponse {
     const message = createBaseQueryContractsByCodeResponse();
     message.contracts = object.contracts?.map((e) => e) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -588,10 +582,10 @@ export const QueryAllContractStateRequest = {
     return message;
   },
   fromJSON(object: any): QueryAllContractStateRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryAllContractStateRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryAllContractStateRequest): unknown {
     const obj: any = {};
@@ -605,10 +599,9 @@ export const QueryAllContractStateRequest = {
   ): QueryAllContractStateRequest {
     const message = createBaseQueryAllContractStateRequest();
     message.address = object.address ?? "";
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -649,10 +642,10 @@ export const QueryAllContractStateResponse = {
     return message;
   },
   fromJSON(object: any): QueryAllContractStateResponse {
-    return {
-      models: Array.isArray(object?.models) ? object.models.map((e: any) => Model.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryAllContractStateResponse();
+    if (Array.isArray(object?.models)) object.models.map((e: any) => Model.fromJSON(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryAllContractStateResponse): unknown {
     const obj: any = {};
@@ -670,10 +663,9 @@ export const QueryAllContractStateResponse = {
   ): QueryAllContractStateResponse {
     const message = createBaseQueryAllContractStateResponse();
     message.models = object.models?.map((e) => Model.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -714,10 +706,10 @@ export const QueryRawContractStateRequest = {
     return message;
   },
   fromJSON(object: any): QueryRawContractStateRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      queryData: isSet(object.queryData) ? bytesFromBase64(object.queryData) : new Uint8Array(),
-    };
+    const obj = createBaseQueryRawContractStateRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.queryData)) obj.queryData = bytesFromBase64(object.queryData);
+    return obj;
   },
   toJSON(message: QueryRawContractStateRequest): unknown {
     const obj: any = {};
@@ -767,9 +759,9 @@ export const QueryRawContractStateResponse = {
     return message;
   },
   fromJSON(object: any): QueryRawContractStateResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    const obj = createBaseQueryRawContractStateResponse();
+    if (isSet(object.data)) obj.data = bytesFromBase64(object.data);
+    return obj;
   },
   toJSON(message: QueryRawContractStateResponse): unknown {
     const obj: any = {};
@@ -822,10 +814,10 @@ export const QuerySmartContractStateRequest = {
     return message;
   },
   fromJSON(object: any): QuerySmartContractStateRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      queryData: isSet(object.queryData) ? bytesFromBase64(object.queryData) : new Uint8Array(),
-    };
+    const obj = createBaseQuerySmartContractStateRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.queryData)) obj.queryData = bytesFromBase64(object.queryData);
+    return obj;
   },
   toJSON(message: QuerySmartContractStateRequest): unknown {
     const obj: any = {};
@@ -875,9 +867,9 @@ export const QuerySmartContractStateResponse = {
     return message;
   },
   fromJSON(object: any): QuerySmartContractStateResponse {
-    return {
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    const obj = createBaseQuerySmartContractStateResponse();
+    if (isSet(object.data)) obj.data = bytesFromBase64(object.data);
+    return obj;
   },
   toJSON(message: QuerySmartContractStateResponse): unknown {
     const obj: any = {};
@@ -923,9 +915,9 @@ export const QueryCodeRequest = {
     return message;
   },
   fromJSON(object: any): QueryCodeRequest {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-    };
+    const obj = createBaseQueryCodeRequest();
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    return obj;
   },
   toJSON(message: QueryCodeRequest): unknown {
     const obj: any = {};
@@ -934,8 +926,9 @@ export const QueryCodeRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryCodeRequest>, I>>(object: I): QueryCodeRequest {
     const message = createBaseQueryCodeRequest();
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
     return message;
   },
 };
@@ -990,14 +983,13 @@ export const CodeInfoResponse = {
     return message;
   },
   fromJSON(object: any): CodeInfoResponse {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      dataHash: isSet(object.dataHash) ? bytesFromBase64(object.dataHash) : new Uint8Array(),
-      instantiatePermission: isSet(object.instantiatePermission)
-        ? AccessConfig.fromJSON(object.instantiatePermission)
-        : undefined,
-    };
+    const obj = createBaseCodeInfoResponse();
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.dataHash)) obj.dataHash = bytesFromBase64(object.dataHash);
+    if (isSet(object.instantiatePermission))
+      obj.instantiatePermission = AccessConfig.fromJSON(object.instantiatePermission);
+    return obj;
   },
   toJSON(message: CodeInfoResponse): unknown {
     const obj: any = {};
@@ -1013,14 +1005,14 @@ export const CodeInfoResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<CodeInfoResponse>, I>>(object: I): CodeInfoResponse {
     const message = createBaseCodeInfoResponse();
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
     message.creator = object.creator ?? "";
     message.dataHash = object.dataHash ?? new Uint8Array();
-    message.instantiatePermission =
-      object.instantiatePermission !== undefined && object.instantiatePermission !== null
-        ? AccessConfig.fromPartial(object.instantiatePermission)
-        : undefined;
+    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
+      message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
+    }
     return message;
   },
 };
@@ -1061,10 +1053,10 @@ export const QueryCodeResponse = {
     return message;
   },
   fromJSON(object: any): QueryCodeResponse {
-    return {
-      codeInfo: isSet(object.codeInfo) ? CodeInfoResponse.fromJSON(object.codeInfo) : undefined,
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    const obj = createBaseQueryCodeResponse();
+    if (isSet(object.codeInfo)) obj.codeInfo = CodeInfoResponse.fromJSON(object.codeInfo);
+    if (isSet(object.data)) obj.data = bytesFromBase64(object.data);
+    return obj;
   },
   toJSON(message: QueryCodeResponse): unknown {
     const obj: any = {};
@@ -1076,10 +1068,9 @@ export const QueryCodeResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryCodeResponse>, I>>(object: I): QueryCodeResponse {
     const message = createBaseQueryCodeResponse();
-    message.codeInfo =
-      object.codeInfo !== undefined && object.codeInfo !== null
-        ? CodeInfoResponse.fromPartial(object.codeInfo)
-        : undefined;
+    if (object.codeInfo !== undefined && object.codeInfo !== null) {
+      message.codeInfo = CodeInfoResponse.fromPartial(object.codeInfo);
+    }
     message.data = object.data ?? new Uint8Array();
     return message;
   },
@@ -1114,9 +1105,9 @@ export const QueryCodesRequest = {
     return message;
   },
   fromJSON(object: any): QueryCodesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryCodesRequest();
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryCodesRequest): unknown {
     const obj: any = {};
@@ -1126,10 +1117,9 @@ export const QueryCodesRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryCodesRequest>, I>>(object: I): QueryCodesRequest {
     const message = createBaseQueryCodesRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1170,12 +1160,10 @@ export const QueryCodesResponse = {
     return message;
   },
   fromJSON(object: any): QueryCodesResponse {
-    return {
-      codeInfos: Array.isArray(object?.codeInfos)
-        ? object.codeInfos.map((e: any) => CodeInfoResponse.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryCodesResponse();
+    if (Array.isArray(object?.codeInfos)) object.codeInfos.map((e: any) => CodeInfoResponse.fromJSON(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryCodesResponse): unknown {
     const obj: any = {};
@@ -1191,10 +1179,9 @@ export const QueryCodesResponse = {
   fromPartial<I extends Exact<DeepPartial<QueryCodesResponse>, I>>(object: I): QueryCodesResponse {
     const message = createBaseQueryCodesResponse();
     message.codeInfos = object.codeInfos?.map((e) => CodeInfoResponse.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1228,9 +1215,9 @@ export const QueryPinnedCodesRequest = {
     return message;
   },
   fromJSON(object: any): QueryPinnedCodesRequest {
-    return {
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryPinnedCodesRequest();
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryPinnedCodesRequest): unknown {
     const obj: any = {};
@@ -1240,10 +1227,9 @@ export const QueryPinnedCodesRequest = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryPinnedCodesRequest>, I>>(object: I): QueryPinnedCodesRequest {
     const message = createBaseQueryPinnedCodesRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1293,10 +1279,10 @@ export const QueryPinnedCodesResponse = {
     return message;
   },
   fromJSON(object: any): QueryPinnedCodesResponse {
-    return {
-      codeIds: Array.isArray(object?.codeIds) ? object.codeIds.map((e: any) => Long.fromValue(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryPinnedCodesResponse();
+    if (Array.isArray(object?.codeIds)) object.codeIds.map((e: any) => Long.fromValue(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryPinnedCodesResponse): unknown {
     const obj: any = {};
@@ -1314,10 +1300,9 @@ export const QueryPinnedCodesResponse = {
   ): QueryPinnedCodesResponse {
     const message = createBaseQueryPinnedCodesResponse();
     message.codeIds = object.codeIds?.map((e) => Long.fromValue(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1343,7 +1328,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromJSON(_: any): QueryParamsRequest {
-    return {};
+    const obj = createBaseQueryParamsRequest();
+    return obj;
   },
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
@@ -1384,9 +1370,9 @@ export const QueryParamsResponse = {
     return message;
   },
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    const obj = createBaseQueryParamsResponse();
+    if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
+    return obj;
   },
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
@@ -1395,8 +1381,9 @@ export const QueryParamsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromPartial(object.params);
+    }
     return message;
   },
 };
@@ -1437,10 +1424,10 @@ export const QueryContractsByCreatorRequest = {
     return message;
   },
   fromJSON(object: any): QueryContractsByCreatorRequest {
-    return {
-      creatorAddress: isSet(object.creatorAddress) ? String(object.creatorAddress) : "",
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractsByCreatorRequest();
+    if (isSet(object.creatorAddress)) obj.creatorAddress = String(object.creatorAddress);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractsByCreatorRequest): unknown {
     const obj: any = {};
@@ -1454,10 +1441,9 @@ export const QueryContractsByCreatorRequest = {
   ): QueryContractsByCreatorRequest {
     const message = createBaseQueryContractsByCreatorRequest();
     message.creatorAddress = object.creatorAddress ?? "";
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1498,12 +1484,10 @@ export const QueryContractsByCreatorResponse = {
     return message;
   },
   fromJSON(object: any): QueryContractsByCreatorResponse {
-    return {
-      contractAddresses: Array.isArray(object?.contractAddresses)
-        ? object.contractAddresses.map((e: any) => String(e))
-        : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseQueryContractsByCreatorResponse();
+    if (Array.isArray(object?.contractAddresses)) object.contractAddresses.map((e: any) => String(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: QueryContractsByCreatorResponse): unknown {
     const obj: any = {};
@@ -1521,10 +1505,9 @@ export const QueryContractsByCreatorResponse = {
   ): QueryContractsByCreatorResponse {
     const message = createBaseQueryContractsByCreatorResponse();
     message.contractAddresses = object.contractAddresses?.map((e) => e) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -1606,7 +1589,7 @@ export class QueryClientImpl implements Query {
   }
   Codes(
     request: QueryCodesRequest = {
-      pagination: undefined,
+      pagination: PageRequest.fromPartial({}),
     },
   ): Promise<QueryCodesResponse> {
     const data = QueryCodesRequest.encode(request).finish();
@@ -1615,7 +1598,7 @@ export class QueryClientImpl implements Query {
   }
   PinnedCodes(
     request: QueryPinnedCodesRequest = {
-      pagination: undefined,
+      pagination: PageRequest.fromPartial({}),
     },
   ): Promise<QueryPinnedCodesResponse> {
     const data = QueryPinnedCodesRequest.encode(request).finish();

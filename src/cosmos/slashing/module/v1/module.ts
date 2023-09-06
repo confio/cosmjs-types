@@ -37,9 +37,9 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-    };
+    const obj = createBaseModule();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};

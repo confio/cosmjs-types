@@ -94,12 +94,12 @@ export const StoreKVPair = {
     return message;
   },
   fromJSON(object: any): StoreKVPair {
-    return {
-      storeKey: isSet(object.storeKey) ? String(object.storeKey) : "",
-      delete: isSet(object.delete) ? Boolean(object.delete) : false,
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-    };
+    const obj = createBaseStoreKVPair();
+    if (isSet(object.storeKey)) obj.storeKey = String(object.storeKey);
+    if (isSet(object.delete)) obj.delete = Boolean(object.delete);
+    if (isSet(object.key)) obj.key = bytesFromBase64(object.key);
+    if (isSet(object.value)) obj.value = bytesFromBase64(object.value);
+    return obj;
   },
   toJSON(message: StoreKVPair): unknown {
     const obj: any = {};
@@ -185,26 +185,18 @@ export const BlockMetadata = {
     return message;
   },
   fromJSON(object: any): BlockMetadata {
-    return {
-      requestBeginBlock: isSet(object.requestBeginBlock)
-        ? RequestBeginBlock.fromJSON(object.requestBeginBlock)
-        : undefined,
-      responseBeginBlock: isSet(object.responseBeginBlock)
-        ? ResponseBeginBlock.fromJSON(object.responseBeginBlock)
-        : undefined,
-      deliverTxs: Array.isArray(object?.deliverTxs)
-        ? object.deliverTxs.map((e: any) => BlockMetadata_DeliverTx.fromJSON(e))
-        : [],
-      requestEndBlock: isSet(object.requestEndBlock)
-        ? RequestEndBlock.fromJSON(object.requestEndBlock)
-        : undefined,
-      responseEndBlock: isSet(object.responseEndBlock)
-        ? ResponseEndBlock.fromJSON(object.responseEndBlock)
-        : undefined,
-      responseCommit: isSet(object.responseCommit)
-        ? ResponseCommit.fromJSON(object.responseCommit)
-        : undefined,
-    };
+    const obj = createBaseBlockMetadata();
+    if (isSet(object.requestBeginBlock))
+      obj.requestBeginBlock = RequestBeginBlock.fromJSON(object.requestBeginBlock);
+    if (isSet(object.responseBeginBlock))
+      obj.responseBeginBlock = ResponseBeginBlock.fromJSON(object.responseBeginBlock);
+    if (Array.isArray(object?.deliverTxs))
+      object.deliverTxs.map((e: any) => BlockMetadata_DeliverTx.fromJSON(e));
+    if (isSet(object.requestEndBlock)) obj.requestEndBlock = RequestEndBlock.fromJSON(object.requestEndBlock);
+    if (isSet(object.responseEndBlock))
+      obj.responseEndBlock = ResponseEndBlock.fromJSON(object.responseEndBlock);
+    if (isSet(object.responseCommit)) obj.responseCommit = ResponseCommit.fromJSON(object.responseCommit);
+    return obj;
   },
   toJSON(message: BlockMetadata): unknown {
     const obj: any = {};
@@ -237,27 +229,22 @@ export const BlockMetadata = {
   },
   fromPartial<I extends Exact<DeepPartial<BlockMetadata>, I>>(object: I): BlockMetadata {
     const message = createBaseBlockMetadata();
-    message.requestBeginBlock =
-      object.requestBeginBlock !== undefined && object.requestBeginBlock !== null
-        ? RequestBeginBlock.fromPartial(object.requestBeginBlock)
-        : undefined;
-    message.responseBeginBlock =
-      object.responseBeginBlock !== undefined && object.responseBeginBlock !== null
-        ? ResponseBeginBlock.fromPartial(object.responseBeginBlock)
-        : undefined;
+    if (object.requestBeginBlock !== undefined && object.requestBeginBlock !== null) {
+      message.requestBeginBlock = RequestBeginBlock.fromPartial(object.requestBeginBlock);
+    }
+    if (object.responseBeginBlock !== undefined && object.responseBeginBlock !== null) {
+      message.responseBeginBlock = ResponseBeginBlock.fromPartial(object.responseBeginBlock);
+    }
     message.deliverTxs = object.deliverTxs?.map((e) => BlockMetadata_DeliverTx.fromPartial(e)) || [];
-    message.requestEndBlock =
-      object.requestEndBlock !== undefined && object.requestEndBlock !== null
-        ? RequestEndBlock.fromPartial(object.requestEndBlock)
-        : undefined;
-    message.responseEndBlock =
-      object.responseEndBlock !== undefined && object.responseEndBlock !== null
-        ? ResponseEndBlock.fromPartial(object.responseEndBlock)
-        : undefined;
-    message.responseCommit =
-      object.responseCommit !== undefined && object.responseCommit !== null
-        ? ResponseCommit.fromPartial(object.responseCommit)
-        : undefined;
+    if (object.requestEndBlock !== undefined && object.requestEndBlock !== null) {
+      message.requestEndBlock = RequestEndBlock.fromPartial(object.requestEndBlock);
+    }
+    if (object.responseEndBlock !== undefined && object.responseEndBlock !== null) {
+      message.responseEndBlock = ResponseEndBlock.fromPartial(object.responseEndBlock);
+    }
+    if (object.responseCommit !== undefined && object.responseCommit !== null) {
+      message.responseCommit = ResponseCommit.fromPartial(object.responseCommit);
+    }
     return message;
   },
 };
@@ -298,10 +285,10 @@ export const BlockMetadata_DeliverTx = {
     return message;
   },
   fromJSON(object: any): BlockMetadata_DeliverTx {
-    return {
-      request: isSet(object.request) ? RequestDeliverTx.fromJSON(object.request) : undefined,
-      response: isSet(object.response) ? ResponseDeliverTx.fromJSON(object.response) : undefined,
-    };
+    const obj = createBaseBlockMetadata_DeliverTx();
+    if (isSet(object.request)) obj.request = RequestDeliverTx.fromJSON(object.request);
+    if (isSet(object.response)) obj.response = ResponseDeliverTx.fromJSON(object.response);
+    return obj;
   },
   toJSON(message: BlockMetadata_DeliverTx): unknown {
     const obj: any = {};
@@ -313,14 +300,12 @@ export const BlockMetadata_DeliverTx = {
   },
   fromPartial<I extends Exact<DeepPartial<BlockMetadata_DeliverTx>, I>>(object: I): BlockMetadata_DeliverTx {
     const message = createBaseBlockMetadata_DeliverTx();
-    message.request =
-      object.request !== undefined && object.request !== null
-        ? RequestDeliverTx.fromPartial(object.request)
-        : undefined;
-    message.response =
-      object.response !== undefined && object.response !== null
-        ? ResponseDeliverTx.fromPartial(object.response)
-        : undefined;
+    if (object.request !== undefined && object.request !== null) {
+      message.request = RequestDeliverTx.fromPartial(object.request);
+    }
+    if (object.response !== undefined && object.response !== null) {
+      message.response = ResponseDeliverTx.fromPartial(object.response);
+    }
     return message;
   },
 };

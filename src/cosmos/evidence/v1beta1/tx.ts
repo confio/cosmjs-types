@@ -55,10 +55,10 @@ export const MsgSubmitEvidence = {
     return message;
   },
   fromJSON(object: any): MsgSubmitEvidence {
-    return {
-      submitter: isSet(object.submitter) ? String(object.submitter) : "",
-      evidence: isSet(object.evidence) ? Any.fromJSON(object.evidence) : undefined,
-    };
+    const obj = createBaseMsgSubmitEvidence();
+    if (isSet(object.submitter)) obj.submitter = String(object.submitter);
+    if (isSet(object.evidence)) obj.evidence = Any.fromJSON(object.evidence);
+    return obj;
   },
   toJSON(message: MsgSubmitEvidence): unknown {
     const obj: any = {};
@@ -70,10 +70,9 @@ export const MsgSubmitEvidence = {
   fromPartial<I extends Exact<DeepPartial<MsgSubmitEvidence>, I>>(object: I): MsgSubmitEvidence {
     const message = createBaseMsgSubmitEvidence();
     message.submitter = object.submitter ?? "";
-    message.evidence =
-      object.evidence !== undefined && object.evidence !== null
-        ? Any.fromPartial(object.evidence)
-        : undefined;
+    if (object.evidence !== undefined && object.evidence !== null) {
+      message.evidence = Any.fromPartial(object.evidence);
+    }
     return message;
   },
 };
@@ -107,9 +106,9 @@ export const MsgSubmitEvidenceResponse = {
     return message;
   },
   fromJSON(object: any): MsgSubmitEvidenceResponse {
-    return {
-      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
-    };
+    const obj = createBaseMsgSubmitEvidenceResponse();
+    if (isSet(object.hash)) obj.hash = bytesFromBase64(object.hash);
+    return obj;
   },
   toJSON(message: MsgSubmitEvidenceResponse): unknown {
     const obj: any = {};

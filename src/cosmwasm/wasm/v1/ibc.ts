@@ -82,12 +82,12 @@ export const MsgIBCSend = {
     return message;
   },
   fromJSON(object: any): MsgIBCSend {
-    return {
-      channel: isSet(object.channel) ? String(object.channel) : "",
-      timeoutHeight: isSet(object.timeoutHeight) ? Long.fromValue(object.timeoutHeight) : Long.UZERO,
-      timeoutTimestamp: isSet(object.timeoutTimestamp) ? Long.fromValue(object.timeoutTimestamp) : Long.UZERO,
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    const obj = createBaseMsgIBCSend();
+    if (isSet(object.channel)) obj.channel = String(object.channel);
+    if (isSet(object.timeoutHeight)) obj.timeoutHeight = Long.fromValue(object.timeoutHeight);
+    if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+    if (isSet(object.data)) obj.data = bytesFromBase64(object.data);
+    return obj;
   },
   toJSON(message: MsgIBCSend): unknown {
     const obj: any = {};
@@ -103,14 +103,12 @@ export const MsgIBCSend = {
   fromPartial<I extends Exact<DeepPartial<MsgIBCSend>, I>>(object: I): MsgIBCSend {
     const message = createBaseMsgIBCSend();
     message.channel = object.channel ?? "";
-    message.timeoutHeight =
-      object.timeoutHeight !== undefined && object.timeoutHeight !== null
-        ? Long.fromValue(object.timeoutHeight)
-        : Long.UZERO;
-    message.timeoutTimestamp =
-      object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null
-        ? Long.fromValue(object.timeoutTimestamp)
-        : Long.UZERO;
+    if (object.timeoutHeight !== undefined && object.timeoutHeight !== null) {
+      message.timeoutHeight = Long.fromValue(object.timeoutHeight);
+    }
+    if (object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null) {
+      message.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+    }
     message.data = object.data ?? new Uint8Array();
     return message;
   },
@@ -145,9 +143,9 @@ export const MsgIBCSendResponse = {
     return message;
   },
   fromJSON(object: any): MsgIBCSendResponse {
-    return {
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
+    const obj = createBaseMsgIBCSendResponse();
+    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    return obj;
   },
   toJSON(message: MsgIBCSendResponse): unknown {
     const obj: any = {};
@@ -156,10 +154,9 @@ export const MsgIBCSendResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<MsgIBCSendResponse>, I>>(object: I): MsgIBCSendResponse {
     const message = createBaseMsgIBCSendResponse();
-    message.sequence =
-      object.sequence !== undefined && object.sequence !== null
-        ? Long.fromValue(object.sequence)
-        : Long.UZERO;
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = Long.fromValue(object.sequence);
+    }
     return message;
   },
 };
@@ -193,9 +190,9 @@ export const MsgIBCCloseChannel = {
     return message;
   },
   fromJSON(object: any): MsgIBCCloseChannel {
-    return {
-      channel: isSet(object.channel) ? String(object.channel) : "",
-    };
+    const obj = createBaseMsgIBCCloseChannel();
+    if (isSet(object.channel)) obj.channel = String(object.channel);
+    return obj;
   },
   toJSON(message: MsgIBCCloseChannel): unknown {
     const obj: any = {};
