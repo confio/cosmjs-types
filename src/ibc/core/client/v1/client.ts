@@ -254,7 +254,7 @@ export const ClientConsensusStates = {
     const obj = createBaseClientConsensusStates();
     if (isSet(object.clientId)) obj.clientId = String(object.clientId);
     if (Array.isArray(object?.consensusStates))
-      object.consensusStates.map((e: any) => ConsensusStateWithHeight.fromJSON(e));
+      obj.consensusStates = object.consensusStates.map((e: any) => ConsensusStateWithHeight.fromJSON(e));
     return obj;
   },
   toJSON(message: ClientConsensusStates): unknown {
@@ -526,7 +526,8 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     const obj = createBaseParams();
-    if (Array.isArray(object?.allowedClients)) object.allowedClients.map((e: any) => String(e));
+    if (Array.isArray(object?.allowedClients))
+      obj.allowedClients = object.allowedClients.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: Params): unknown {

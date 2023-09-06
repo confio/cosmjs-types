@@ -114,15 +114,17 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const obj = createBaseGenesisState();
     if (Array.isArray(object?.identifiedFees))
-      object.identifiedFees.map((e: any) => IdentifiedPacketFees.fromJSON(e));
+      obj.identifiedFees = object.identifiedFees.map((e: any) => IdentifiedPacketFees.fromJSON(e));
     if (Array.isArray(object?.feeEnabledChannels))
-      object.feeEnabledChannels.map((e: any) => FeeEnabledChannel.fromJSON(e));
+      obj.feeEnabledChannels = object.feeEnabledChannels.map((e: any) => FeeEnabledChannel.fromJSON(e));
     if (Array.isArray(object?.registeredPayees))
-      object.registeredPayees.map((e: any) => RegisteredPayee.fromJSON(e));
+      obj.registeredPayees = object.registeredPayees.map((e: any) => RegisteredPayee.fromJSON(e));
     if (Array.isArray(object?.registeredCounterpartyPayees))
-      object.registeredCounterpartyPayees.map((e: any) => RegisteredCounterpartyPayee.fromJSON(e));
+      obj.registeredCounterpartyPayees = object.registeredCounterpartyPayees.map((e: any) =>
+        RegisteredCounterpartyPayee.fromJSON(e),
+      );
     if (Array.isArray(object?.forwardRelayers))
-      object.forwardRelayers.map((e: any) => ForwardRelayerAddress.fromJSON(e));
+      obj.forwardRelayers = object.forwardRelayers.map((e: any) => ForwardRelayerAddress.fromJSON(e));
     return obj;
   },
   toJSON(message: GenesisState): unknown {

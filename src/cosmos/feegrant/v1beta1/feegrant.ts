@@ -100,7 +100,8 @@ export const BasicAllowance = {
   },
   fromJSON(object: any): BasicAllowance {
     const obj = createBaseBasicAllowance();
-    if (Array.isArray(object?.spendLimit)) object.spendLimit.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.spendLimit))
+      obj.spendLimit = object.spendLimit.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.expiration)) obj.expiration = fromJsonTimestamp(object.expiration);
     return obj;
   },
@@ -184,8 +185,10 @@ export const PeriodicAllowance = {
     const obj = createBasePeriodicAllowance();
     if (isSet(object.basic)) obj.basic = BasicAllowance.fromJSON(object.basic);
     if (isSet(object.period)) obj.period = Duration.fromJSON(object.period);
-    if (Array.isArray(object?.periodSpendLimit)) object.periodSpendLimit.map((e: any) => Coin.fromJSON(e));
-    if (Array.isArray(object?.periodCanSpend)) object.periodCanSpend.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.periodSpendLimit))
+      obj.periodSpendLimit = object.periodSpendLimit.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.periodCanSpend))
+      obj.periodCanSpend = object.periodCanSpend.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.periodReset)) obj.periodReset = fromJsonTimestamp(object.periodReset);
     return obj;
   },
@@ -263,7 +266,8 @@ export const AllowedMsgAllowance = {
   fromJSON(object: any): AllowedMsgAllowance {
     const obj = createBaseAllowedMsgAllowance();
     if (isSet(object.allowance)) obj.allowance = Any.fromJSON(object.allowance);
-    if (Array.isArray(object?.allowedMessages)) object.allowedMessages.map((e: any) => String(e));
+    if (Array.isArray(object?.allowedMessages))
+      obj.allowedMessages = object.allowedMessages.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: AllowedMsgAllowance): unknown {

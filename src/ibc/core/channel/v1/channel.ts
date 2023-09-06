@@ -286,7 +286,8 @@ export const Channel = {
     if (isSet(object.state)) obj.state = stateFromJSON(object.state);
     if (isSet(object.ordering)) obj.ordering = orderFromJSON(object.ordering);
     if (isSet(object.counterparty)) obj.counterparty = Counterparty.fromJSON(object.counterparty);
-    if (Array.isArray(object?.connectionHops)) object.connectionHops.map((e: any) => String(e));
+    if (Array.isArray(object?.connectionHops))
+      obj.connectionHops = object.connectionHops.map((e: any) => String(e));
     if (isSet(object.version)) obj.version = String(object.version);
     return obj;
   },
@@ -392,7 +393,8 @@ export const IdentifiedChannel = {
     if (isSet(object.state)) obj.state = stateFromJSON(object.state);
     if (isSet(object.ordering)) obj.ordering = orderFromJSON(object.ordering);
     if (isSet(object.counterparty)) obj.counterparty = Counterparty.fromJSON(object.counterparty);
-    if (Array.isArray(object?.connectionHops)) object.connectionHops.map((e: any) => String(e));
+    if (Array.isArray(object?.connectionHops))
+      obj.connectionHops = object.connectionHops.map((e: any) => String(e));
     if (isSet(object.version)) obj.version = String(object.version);
     if (isSet(object.portId)) obj.portId = String(object.portId);
     if (isSet(object.channelId)) obj.channelId = String(object.channelId);

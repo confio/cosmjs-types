@@ -32,7 +32,7 @@ export interface QueryClientStateResponse {
  */
 export interface QueryClientStatesRequest {
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryClientStatesResponse is the response type for the Query/ClientStates RPC
@@ -60,7 +60,7 @@ export interface QueryConsensusStateRequest {
    * latest_height overrrides the height field and queries the latest stored
    * ConsensusState
    */
-  latestHeight: boolean;
+  latestHeight?: boolean;
 }
 /**
  * QueryConsensusStateResponse is the response type for the Query/ConsensusState
@@ -82,7 +82,7 @@ export interface QueryConsensusStatesRequest {
   /** client identifier */
   clientId: string;
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryConsensusStatesResponse is the response type for the
@@ -102,7 +102,7 @@ export interface QueryConsensusStateHeightsRequest {
   /** client identifier */
   clientId: string;
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryConsensusStateHeightsResponse is the response type for the
@@ -376,7 +376,7 @@ export const QueryClientStatesResponse = {
   fromJSON(object: any): QueryClientStatesResponse {
     const obj = createBaseQueryClientStatesResponse();
     if (Array.isArray(object?.clientStates))
-      object.clientStates.map((e: any) => IdentifiedClientState.fromJSON(e));
+      obj.clientStates = object.clientStates.map((e: any) => IdentifiedClientState.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -658,7 +658,7 @@ export const QueryConsensusStatesResponse = {
   fromJSON(object: any): QueryConsensusStatesResponse {
     const obj = createBaseQueryConsensusStatesResponse();
     if (Array.isArray(object?.consensusStates))
-      object.consensusStates.map((e: any) => ConsensusStateWithHeight.fromJSON(e));
+      obj.consensusStates = object.consensusStates.map((e: any) => ConsensusStateWithHeight.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -786,7 +786,7 @@ export const QueryConsensusStateHeightsResponse = {
   fromJSON(object: any): QueryConsensusStateHeightsResponse {
     const obj = createBaseQueryConsensusStateHeightsResponse();
     if (Array.isArray(object?.consensusStateHeights))
-      object.consensusStateHeights.map((e: any) => Height.fromJSON(e));
+      obj.consensusStateHeights = object.consensusStateHeights.map((e: any) => Height.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

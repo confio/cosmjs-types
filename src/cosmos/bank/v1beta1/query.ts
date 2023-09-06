@@ -22,7 +22,7 @@ export interface QueryAllBalancesRequest {
   /** address is the address to query balances for. */
   address: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
@@ -44,7 +44,7 @@ export interface QuerySpendableBalancesRequest {
   /** address is the address to query spendable balances for. */
   address: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
@@ -68,7 +68,7 @@ export interface QuerySpendableBalanceByDenomRequest {
   /** address is the address to query balances for. */
   address: string;
   /** denom is the coin denom to query balances for. */
-  denom: string;
+  denom?: string;
 }
 /**
  * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
@@ -90,7 +90,7 @@ export interface QueryTotalSupplyRequest {
    *
    * Since: cosmos-sdk 0.43
    */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryTotalSupplyResponse is the response type for the Query/TotalSupply RPC
@@ -109,7 +109,7 @@ export interface QueryTotalSupplyResponse {
 /** QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfRequest {
   /** denom is the coin denom to query balances for. */
-  denom: string;
+  denom?: string;
 }
 /** QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method. */
 export interface QuerySupplyOfResponse {
@@ -125,7 +125,7 @@ export interface QueryParamsResponse {
 /** QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method. */
 export interface QueryDenomsMetadataRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryDenomsMetadataResponse is the response type for the Query/DenomsMetadata RPC
@@ -159,7 +159,7 @@ export interface QueryDenomOwnersRequest {
   /** denom defines the coin denomination to query all account holders for. */
   denom: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * DenomOwner defines structure representing an account that owns or holds a
@@ -191,12 +191,12 @@ export interface QueryDenomOwnersResponse {
  */
 export interface QuerySendEnabledRequest {
   /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
-  denoms: string[];
+  denoms?: string[];
   /**
    * pagination defines an optional pagination for the request. This field is
    * only read if the denoms field is empty.
    */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
@@ -410,7 +410,7 @@ export const QueryAllBalancesResponse = {
   },
   fromJSON(object: any): QueryAllBalancesResponse {
     const obj = createBaseQueryAllBalancesResponse();
-    if (Array.isArray(object?.balances)) object.balances.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.balances)) obj.balances = object.balances.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -534,7 +534,7 @@ export const QuerySpendableBalancesResponse = {
   },
   fromJSON(object: any): QuerySpendableBalancesResponse {
     const obj = createBaseQuerySpendableBalancesResponse();
-    if (Array.isArray(object?.balances)) object.balances.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.balances)) obj.balances = object.balances.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -756,7 +756,7 @@ export const QueryTotalSupplyResponse = {
   },
   fromJSON(object: any): QueryTotalSupplyResponse {
     const obj = createBaseQueryTotalSupplyResponse();
-    if (Array.isArray(object?.supply)) object.supply.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.supply)) obj.supply = object.supply.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1043,7 +1043,8 @@ export const QueryDenomsMetadataResponse = {
   },
   fromJSON(object: any): QueryDenomsMetadataResponse {
     const obj = createBaseQueryDenomsMetadataResponse();
-    if (Array.isArray(object?.metadatas)) object.metadatas.map((e: any) => Metadata.fromJSON(e));
+    if (Array.isArray(object?.metadatas))
+      obj.metadatas = object.metadatas.map((e: any) => Metadata.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1320,7 +1321,8 @@ export const QueryDenomOwnersResponse = {
   },
   fromJSON(object: any): QueryDenomOwnersResponse {
     const obj = createBaseQueryDenomOwnersResponse();
-    if (Array.isArray(object?.denomOwners)) object.denomOwners.map((e: any) => DenomOwner.fromJSON(e));
+    if (Array.isArray(object?.denomOwners))
+      obj.denomOwners = object.denomOwners.map((e: any) => DenomOwner.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1384,7 +1386,7 @@ export const QuerySendEnabledRequest = {
   },
   fromJSON(object: any): QuerySendEnabledRequest {
     const obj = createBaseQuerySendEnabledRequest();
-    if (Array.isArray(object?.denoms)) object.denoms.map((e: any) => String(e));
+    if (Array.isArray(object?.denoms)) obj.denoms = object.denoms.map((e: any) => String(e));
     if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
     return obj;
   },
@@ -1446,7 +1448,8 @@ export const QuerySendEnabledResponse = {
   },
   fromJSON(object: any): QuerySendEnabledResponse {
     const obj = createBaseQuerySendEnabledResponse();
-    if (Array.isArray(object?.sendEnabled)) object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
+    if (Array.isArray(object?.sendEnabled))
+      obj.sendEnabled = object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

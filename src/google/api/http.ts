@@ -392,7 +392,7 @@ export const Http = {
   },
   fromJSON(object: any): Http {
     const obj = createBaseHttp();
-    if (Array.isArray(object?.rules)) object.rules.map((e: any) => HttpRule.fromJSON(e));
+    if (Array.isArray(object?.rules)) obj.rules = object.rules.map((e: any) => HttpRule.fromJSON(e));
     if (isSet(object.fullyDecodeReservedExpansion))
       obj.fullyDecodeReservedExpansion = Boolean(object.fullyDecodeReservedExpansion);
     return obj;
@@ -519,7 +519,7 @@ export const HttpRule = {
     if (isSet(object.body)) obj.body = String(object.body);
     if (isSet(object.responseBody)) obj.responseBody = String(object.responseBody);
     if (Array.isArray(object?.additionalBindings))
-      object.additionalBindings.map((e: any) => HttpRule.fromJSON(e));
+      obj.additionalBindings = object.additionalBindings.map((e: any) => HttpRule.fromJSON(e));
     return obj;
   },
   toJSON(message: HttpRule): unknown {

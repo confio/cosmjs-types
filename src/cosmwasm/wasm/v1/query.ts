@@ -29,7 +29,7 @@ export interface QueryContractHistoryRequest {
   /** address is the address of the contract to query */
   address: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryContractHistoryResponse is the response type for the
@@ -50,7 +50,7 @@ export interface QueryContractsByCodeRequest {
    * pagination defines an optional pagination for the request.
    */
   codeId: Long;
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryContractsByCodeResponse is the response type for the
@@ -70,7 +70,7 @@ export interface QueryAllContractStateRequest {
   /** address is the address of the contract */
   address: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryAllContractStateResponse is the response type for the
@@ -136,7 +136,7 @@ export interface QueryCodeResponse {
 /** QueryCodesRequest is the request type for the Query/Codes RPC method */
 export interface QueryCodesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryCodesResponse is the response type for the Query/Codes RPC method */
 export interface QueryCodesResponse {
@@ -150,7 +150,7 @@ export interface QueryCodesResponse {
  */
 export interface QueryPinnedCodesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryPinnedCodesResponse is the response type for the
@@ -176,7 +176,7 @@ export interface QueryContractsByCreatorRequest {
   /** CreatorAddress is the address of contract creator */
   creatorAddress: string;
   /** Pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryContractsByCreatorResponse is the response type for the
@@ -393,7 +393,8 @@ export const QueryContractHistoryResponse = {
   },
   fromJSON(object: any): QueryContractHistoryResponse {
     const obj = createBaseQueryContractHistoryResponse();
-    if (Array.isArray(object?.entries)) object.entries.map((e: any) => ContractCodeHistoryEntry.fromJSON(e));
+    if (Array.isArray(object?.entries))
+      obj.entries = object.entries.map((e: any) => ContractCodeHistoryEntry.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -519,7 +520,7 @@ export const QueryContractsByCodeResponse = {
   },
   fromJSON(object: any): QueryContractsByCodeResponse {
     const obj = createBaseQueryContractsByCodeResponse();
-    if (Array.isArray(object?.contracts)) object.contracts.map((e: any) => String(e));
+    if (Array.isArray(object?.contracts)) obj.contracts = object.contracts.map((e: any) => String(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -643,7 +644,7 @@ export const QueryAllContractStateResponse = {
   },
   fromJSON(object: any): QueryAllContractStateResponse {
     const obj = createBaseQueryAllContractStateResponse();
-    if (Array.isArray(object?.models)) object.models.map((e: any) => Model.fromJSON(e));
+    if (Array.isArray(object?.models)) obj.models = object.models.map((e: any) => Model.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1161,7 +1162,8 @@ export const QueryCodesResponse = {
   },
   fromJSON(object: any): QueryCodesResponse {
     const obj = createBaseQueryCodesResponse();
-    if (Array.isArray(object?.codeInfos)) object.codeInfos.map((e: any) => CodeInfoResponse.fromJSON(e));
+    if (Array.isArray(object?.codeInfos))
+      obj.codeInfos = object.codeInfos.map((e: any) => CodeInfoResponse.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1280,7 +1282,7 @@ export const QueryPinnedCodesResponse = {
   },
   fromJSON(object: any): QueryPinnedCodesResponse {
     const obj = createBaseQueryPinnedCodesResponse();
-    if (Array.isArray(object?.codeIds)) object.codeIds.map((e: any) => Long.fromValue(e));
+    if (Array.isArray(object?.codeIds)) obj.codeIds = object.codeIds.map((e: any) => Long.fromValue(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1485,7 +1487,8 @@ export const QueryContractsByCreatorResponse = {
   },
   fromJSON(object: any): QueryContractsByCreatorResponse {
     const obj = createBaseQueryContractsByCreatorResponse();
-    if (Array.isArray(object?.contractAddresses)) object.contractAddresses.map((e: any) => String(e));
+    if (Array.isArray(object?.contractAddresses))
+      obj.contractAddresses = object.contractAddresses.map((e: any) => String(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

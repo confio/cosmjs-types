@@ -1047,7 +1047,8 @@ export const RequestInitChain = {
     if (isSet(object.time)) obj.time = fromJsonTimestamp(object.time);
     if (isSet(object.chainId)) obj.chainId = String(object.chainId);
     if (isSet(object.consensusParams)) obj.consensusParams = ConsensusParams.fromJSON(object.consensusParams);
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => ValidatorUpdate.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => ValidatorUpdate.fromJSON(e));
     if (isSet(object.appStateBytes)) obj.appStateBytes = bytesFromBase64(object.appStateBytes);
     if (isSet(object.initialHeight)) obj.initialHeight = Long.fromValue(object.initialHeight);
     return obj;
@@ -1224,7 +1225,7 @@ export const RequestBeginBlock = {
     if (isSet(object.header)) obj.header = Header.fromJSON(object.header);
     if (isSet(object.lastCommitInfo)) obj.lastCommitInfo = CommitInfo.fromJSON(object.lastCommitInfo);
     if (Array.isArray(object?.byzantineValidators))
-      object.byzantineValidators.map((e: any) => Misbehavior.fromJSON(e));
+      obj.byzantineValidators = object.byzantineValidators.map((e: any) => Misbehavior.fromJSON(e));
     return obj;
   },
   toJSON(message: RequestBeginBlock): unknown {
@@ -1750,10 +1751,11 @@ export const RequestPrepareProposal = {
   fromJSON(object: any): RequestPrepareProposal {
     const obj = createBaseRequestPrepareProposal();
     if (isSet(object.maxTxBytes)) obj.maxTxBytes = Long.fromValue(object.maxTxBytes);
-    if (Array.isArray(object?.txs)) object.txs.map((e: any) => bytesFromBase64(e));
+    if (Array.isArray(object?.txs)) obj.txs = object.txs.map((e: any) => bytesFromBase64(e));
     if (isSet(object.localLastCommit))
       obj.localLastCommit = ExtendedCommitInfo.fromJSON(object.localLastCommit);
-    if (Array.isArray(object?.misbehavior)) object.misbehavior.map((e: any) => Misbehavior.fromJSON(e));
+    if (Array.isArray(object?.misbehavior))
+      obj.misbehavior = object.misbehavior.map((e: any) => Misbehavior.fromJSON(e));
     if (isSet(object.height)) obj.height = Long.fromValue(object.height);
     if (isSet(object.time)) obj.time = fromJsonTimestamp(object.time);
     if (isSet(object.nextValidatorsHash)) obj.nextValidatorsHash = bytesFromBase64(object.nextValidatorsHash);
@@ -1890,10 +1892,11 @@ export const RequestProcessProposal = {
   },
   fromJSON(object: any): RequestProcessProposal {
     const obj = createBaseRequestProcessProposal();
-    if (Array.isArray(object?.txs)) object.txs.map((e: any) => bytesFromBase64(e));
+    if (Array.isArray(object?.txs)) obj.txs = object.txs.map((e: any) => bytesFromBase64(e));
     if (isSet(object.proposedLastCommit))
       obj.proposedLastCommit = CommitInfo.fromJSON(object.proposedLastCommit);
-    if (Array.isArray(object?.misbehavior)) object.misbehavior.map((e: any) => Misbehavior.fromJSON(e));
+    if (Array.isArray(object?.misbehavior))
+      obj.misbehavior = object.misbehavior.map((e: any) => Misbehavior.fromJSON(e));
     if (isSet(object.hash)) obj.hash = bytesFromBase64(object.hash);
     if (isSet(object.height)) obj.height = Long.fromValue(object.height);
     if (isSet(object.time)) obj.time = fromJsonTimestamp(object.time);
@@ -2483,7 +2486,8 @@ export const ResponseInitChain = {
   fromJSON(object: any): ResponseInitChain {
     const obj = createBaseResponseInitChain();
     if (isSet(object.consensusParams)) obj.consensusParams = ConsensusParams.fromJSON(object.consensusParams);
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => ValidatorUpdate.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => ValidatorUpdate.fromJSON(e));
     if (isSet(object.appHash)) obj.appHash = bytesFromBase64(object.appHash);
     return obj;
   },
@@ -2677,7 +2681,7 @@ export const ResponseBeginBlock = {
   },
   fromJSON(object: any): ResponseBeginBlock {
     const obj = createBaseResponseBeginBlock();
-    if (Array.isArray(object?.events)) object.events.map((e: any) => Event.fromJSON(e));
+    if (Array.isArray(object?.events)) obj.events = object.events.map((e: any) => Event.fromJSON(e));
     return obj;
   },
   toJSON(message: ResponseBeginBlock): unknown {
@@ -2802,7 +2806,7 @@ export const ResponseCheckTx = {
     if (isSet(object.info)) obj.info = String(object.info);
     if (isSet(object.gas_wanted)) obj.gasWanted = Long.fromValue(object.gas_wanted);
     if (isSet(object.gas_used)) obj.gasUsed = Long.fromValue(object.gas_used);
-    if (Array.isArray(object?.events)) object.events.map((e: any) => Event.fromJSON(e));
+    if (Array.isArray(object?.events)) obj.events = object.events.map((e: any) => Event.fromJSON(e));
     if (isSet(object.codespace)) obj.codespace = String(object.codespace);
     if (isSet(object.sender)) obj.sender = String(object.sender);
     if (isSet(object.priority)) obj.priority = Long.fromValue(object.priority);
@@ -2937,7 +2941,7 @@ export const ResponseDeliverTx = {
     if (isSet(object.info)) obj.info = String(object.info);
     if (isSet(object.gas_wanted)) obj.gasWanted = Long.fromValue(object.gas_wanted);
     if (isSet(object.gas_used)) obj.gasUsed = Long.fromValue(object.gas_used);
-    if (Array.isArray(object?.events)) object.events.map((e: any) => Event.fromJSON(e));
+    if (Array.isArray(object?.events)) obj.events = object.events.map((e: any) => Event.fromJSON(e));
     if (isSet(object.codespace)) obj.codespace = String(object.codespace);
     return obj;
   },
@@ -3021,10 +3025,10 @@ export const ResponseEndBlock = {
   fromJSON(object: any): ResponseEndBlock {
     const obj = createBaseResponseEndBlock();
     if (Array.isArray(object?.validatorUpdates))
-      object.validatorUpdates.map((e: any) => ValidatorUpdate.fromJSON(e));
+      obj.validatorUpdates = object.validatorUpdates.map((e: any) => ValidatorUpdate.fromJSON(e));
     if (isSet(object.consensusParamUpdates))
       obj.consensusParamUpdates = ConsensusParams.fromJSON(object.consensusParamUpdates);
-    if (Array.isArray(object?.events)) object.events.map((e: any) => Event.fromJSON(e));
+    if (Array.isArray(object?.events)) obj.events = object.events.map((e: any) => Event.fromJSON(e));
     return obj;
   },
   toJSON(message: ResponseEndBlock): unknown {
@@ -3144,7 +3148,8 @@ export const ResponseListSnapshots = {
   },
   fromJSON(object: any): ResponseListSnapshots {
     const obj = createBaseResponseListSnapshots();
-    if (Array.isArray(object?.snapshots)) object.snapshots.map((e: any) => Snapshot.fromJSON(e));
+    if (Array.isArray(object?.snapshots))
+      obj.snapshots = object.snapshots.map((e: any) => Snapshot.fromJSON(e));
     return obj;
   },
   toJSON(message: ResponseListSnapshots): unknown {
@@ -3310,8 +3315,10 @@ export const ResponseApplySnapshotChunk = {
   fromJSON(object: any): ResponseApplySnapshotChunk {
     const obj = createBaseResponseApplySnapshotChunk();
     if (isSet(object.result)) obj.result = responseApplySnapshotChunk_ResultFromJSON(object.result);
-    if (Array.isArray(object?.refetchChunks)) object.refetchChunks.map((e: any) => Number(e));
-    if (Array.isArray(object?.rejectSenders)) object.rejectSenders.map((e: any) => String(e));
+    if (Array.isArray(object?.refetchChunks))
+      obj.refetchChunks = object.refetchChunks.map((e: any) => Number(e));
+    if (Array.isArray(object?.rejectSenders))
+      obj.rejectSenders = object.rejectSenders.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: ResponseApplySnapshotChunk): unknown {
@@ -3370,7 +3377,7 @@ export const ResponsePrepareProposal = {
   },
   fromJSON(object: any): ResponsePrepareProposal {
     const obj = createBaseResponsePrepareProposal();
-    if (Array.isArray(object?.txs)) object.txs.map((e: any) => bytesFromBase64(e));
+    if (Array.isArray(object?.txs)) obj.txs = object.txs.map((e: any) => bytesFromBase64(e));
     return obj;
   },
   toJSON(message: ResponsePrepareProposal): unknown {
@@ -3473,7 +3480,7 @@ export const CommitInfo = {
   fromJSON(object: any): CommitInfo {
     const obj = createBaseCommitInfo();
     if (isSet(object.round)) obj.round = Number(object.round);
-    if (Array.isArray(object?.votes)) object.votes.map((e: any) => VoteInfo.fromJSON(e));
+    if (Array.isArray(object?.votes)) obj.votes = object.votes.map((e: any) => VoteInfo.fromJSON(e));
     return obj;
   },
   toJSON(message: CommitInfo): unknown {
@@ -3532,7 +3539,7 @@ export const ExtendedCommitInfo = {
   fromJSON(object: any): ExtendedCommitInfo {
     const obj = createBaseExtendedCommitInfo();
     if (isSet(object.round)) obj.round = Number(object.round);
-    if (Array.isArray(object?.votes)) object.votes.map((e: any) => ExtendedVoteInfo.fromJSON(e));
+    if (Array.isArray(object?.votes)) obj.votes = object.votes.map((e: any) => ExtendedVoteInfo.fromJSON(e));
     return obj;
   },
   toJSON(message: ExtendedCommitInfo): unknown {
@@ -3591,7 +3598,8 @@ export const Event = {
   fromJSON(object: any): Event {
     const obj = createBaseEvent();
     if (isSet(object.type)) obj.type = String(object.type);
-    if (Array.isArray(object?.attributes)) object.attributes.map((e: any) => EventAttribute.fromJSON(e));
+    if (Array.isArray(object?.attributes))
+      obj.attributes = object.attributes.map((e: any) => EventAttribute.fromJSON(e));
     return obj;
   },
   toJSON(message: Event): unknown {

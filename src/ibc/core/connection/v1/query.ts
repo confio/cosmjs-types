@@ -32,7 +32,7 @@ export interface QueryConnectionResponse {
  * method
  */
 export interface QueryConnectionsRequest {
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryConnectionsResponse is the response type for the Query/Connections RPC
@@ -328,7 +328,7 @@ export const QueryConnectionsResponse = {
   fromJSON(object: any): QueryConnectionsResponse {
     const obj = createBaseQueryConnectionsResponse();
     if (Array.isArray(object?.connections))
-      object.connections.map((e: any) => IdentifiedConnection.fromJSON(e));
+      obj.connections = object.connections.map((e: any) => IdentifiedConnection.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
@@ -451,7 +451,8 @@ export const QueryClientConnectionsResponse = {
   },
   fromJSON(object: any): QueryClientConnectionsResponse {
     const obj = createBaseQueryClientConnectionsResponse();
-    if (Array.isArray(object?.connectionPaths)) object.connectionPaths.map((e: any) => String(e));
+    if (Array.isArray(object?.connectionPaths))
+      obj.connectionPaths = object.connectionPaths.map((e: any) => String(e));
     if (isSet(object.proof)) obj.proof = bytesFromBase64(object.proof);
     if (isSet(object.proofHeight)) obj.proofHeight = Height.fromJSON(object.proofHeight);
     return obj;

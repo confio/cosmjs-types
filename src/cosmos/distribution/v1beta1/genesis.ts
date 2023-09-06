@@ -197,7 +197,7 @@ export const ValidatorOutstandingRewardsRecord = {
     const obj = createBaseValidatorOutstandingRewardsRecord();
     if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
     if (Array.isArray(object?.outstandingRewards))
-      object.outstandingRewards.map((e: any) => DecCoin.fromJSON(e));
+      obj.outstandingRewards = object.outstandingRewards.map((e: any) => DecCoin.fromJSON(e));
     return obj;
   },
   toJSON(message: ValidatorOutstandingRewardsRecord): unknown {
@@ -677,22 +677,34 @@ export const GenesisState = {
     if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
     if (isSet(object.feePool)) obj.feePool = FeePool.fromJSON(object.feePool);
     if (Array.isArray(object?.delegatorWithdrawInfos))
-      object.delegatorWithdrawInfos.map((e: any) => DelegatorWithdrawInfo.fromJSON(e));
+      obj.delegatorWithdrawInfos = object.delegatorWithdrawInfos.map((e: any) =>
+        DelegatorWithdrawInfo.fromJSON(e),
+      );
     if (isSet(object.previousProposer)) obj.previousProposer = String(object.previousProposer);
     if (Array.isArray(object?.outstandingRewards))
-      object.outstandingRewards.map((e: any) => ValidatorOutstandingRewardsRecord.fromJSON(e));
+      obj.outstandingRewards = object.outstandingRewards.map((e: any) =>
+        ValidatorOutstandingRewardsRecord.fromJSON(e),
+      );
     if (Array.isArray(object?.validatorAccumulatedCommissions))
-      object.validatorAccumulatedCommissions.map((e: any) =>
+      obj.validatorAccumulatedCommissions = object.validatorAccumulatedCommissions.map((e: any) =>
         ValidatorAccumulatedCommissionRecord.fromJSON(e),
       );
     if (Array.isArray(object?.validatorHistoricalRewards))
-      object.validatorHistoricalRewards.map((e: any) => ValidatorHistoricalRewardsRecord.fromJSON(e));
+      obj.validatorHistoricalRewards = object.validatorHistoricalRewards.map((e: any) =>
+        ValidatorHistoricalRewardsRecord.fromJSON(e),
+      );
     if (Array.isArray(object?.validatorCurrentRewards))
-      object.validatorCurrentRewards.map((e: any) => ValidatorCurrentRewardsRecord.fromJSON(e));
+      obj.validatorCurrentRewards = object.validatorCurrentRewards.map((e: any) =>
+        ValidatorCurrentRewardsRecord.fromJSON(e),
+      );
     if (Array.isArray(object?.delegatorStartingInfos))
-      object.delegatorStartingInfos.map((e: any) => DelegatorStartingInfoRecord.fromJSON(e));
+      obj.delegatorStartingInfos = object.delegatorStartingInfos.map((e: any) =>
+        DelegatorStartingInfoRecord.fromJSON(e),
+      );
     if (Array.isArray(object?.validatorSlashEvents))
-      object.validatorSlashEvents.map((e: any) => ValidatorSlashEventRecord.fromJSON(e));
+      obj.validatorSlashEvents = object.validatorSlashEvents.map((e: any) =>
+        ValidatorSlashEventRecord.fromJSON(e),
+      );
     return obj;
   },
   toJSON(message: GenesisState): unknown {

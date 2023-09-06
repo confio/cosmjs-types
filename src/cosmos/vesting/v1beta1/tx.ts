@@ -116,7 +116,7 @@ export const MsgCreateVestingAccount = {
     const obj = createBaseMsgCreateVestingAccount();
     if (isSet(object.fromAddress)) obj.fromAddress = String(object.fromAddress);
     if (isSet(object.toAddress)) obj.toAddress = String(object.toAddress);
-    if (Array.isArray(object?.amount)) object.amount.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.endTime)) obj.endTime = Long.fromValue(object.endTime);
     if (isSet(object.delayed)) obj.delayed = Boolean(object.delayed);
     return obj;
@@ -229,7 +229,7 @@ export const MsgCreatePermanentLockedAccount = {
     const obj = createBaseMsgCreatePermanentLockedAccount();
     if (isSet(object.fromAddress)) obj.fromAddress = String(object.fromAddress);
     if (isSet(object.toAddress)) obj.toAddress = String(object.toAddress);
-    if (Array.isArray(object?.amount)) object.amount.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgCreatePermanentLockedAccount): unknown {
@@ -344,7 +344,8 @@ export const MsgCreatePeriodicVestingAccount = {
     if (isSet(object.fromAddress)) obj.fromAddress = String(object.fromAddress);
     if (isSet(object.toAddress)) obj.toAddress = String(object.toAddress);
     if (isSet(object.startTime)) obj.startTime = Long.fromValue(object.startTime);
-    if (Array.isArray(object?.vestingPeriods)) object.vestingPeriods.map((e: any) => Period.fromJSON(e));
+    if (Array.isArray(object?.vestingPeriods))
+      obj.vestingPeriods = object.vestingPeriods.map((e: any) => Period.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgCreatePeriodicVestingAccount): unknown {

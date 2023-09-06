@@ -10,7 +10,7 @@ export const protobufPackage = "ibc.applications.transfer.v1";
  */
 export interface QueryDenomTraceRequest {
   /** hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information. */
-  hash: string;
+  hash?: string;
 }
 /**
  * QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
@@ -26,7 +26,7 @@ export interface QueryDenomTraceResponse {
  */
 export interface QueryDenomTracesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
@@ -51,7 +51,7 @@ export interface QueryParamsResponse {
  */
 export interface QueryDenomHashRequest {
   /** The denomination trace ([port_id]/[channel_id])+/[denom] */
-  trace: string;
+  trace?: string;
 }
 /**
  * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
@@ -252,7 +252,8 @@ export const QueryDenomTracesResponse = {
   },
   fromJSON(object: any): QueryDenomTracesResponse {
     const obj = createBaseQueryDenomTracesResponse();
-    if (Array.isArray(object?.denomTraces)) object.denomTraces.map((e: any) => DenomTrace.fromJSON(e));
+    if (Array.isArray(object?.denomTraces))
+      obj.denomTraces = object.denomTraces.map((e: any) => DenomTrace.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

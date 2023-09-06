@@ -346,7 +346,7 @@ export const MsgPayPacketFee = {
     if (isSet(object.sourcePortId)) obj.sourcePortId = String(object.sourcePortId);
     if (isSet(object.sourceChannelId)) obj.sourceChannelId = String(object.sourceChannelId);
     if (isSet(object.signer)) obj.signer = String(object.signer);
-    if (Array.isArray(object?.relayers)) object.relayers.map((e: any) => String(e));
+    if (Array.isArray(object?.relayers)) obj.relayers = object.relayers.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: MsgPayPacketFee): unknown {

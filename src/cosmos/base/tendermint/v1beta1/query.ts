@@ -12,7 +12,7 @@ export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 export interface GetValidatorSetByHeightRequest {
   height: Long;
   /** pagination defines an pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** GetValidatorSetByHeightResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightResponse {
@@ -24,7 +24,7 @@ export interface GetValidatorSetByHeightResponse {
 /** GetLatestValidatorSetRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetRequest {
   /** pagination defines an pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** GetLatestValidatorSetResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetResponse {
@@ -98,10 +98,10 @@ export interface Module {
 }
 /** ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query. */
 export interface ABCIQueryRequest {
-  data: Uint8Array;
-  path: string;
-  height: Long;
-  prove: boolean;
+  data?: Uint8Array;
+  path?: string;
+  height?: Long;
+  prove?: boolean;
 }
 /**
  * ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.
@@ -250,7 +250,8 @@ export const GetValidatorSetByHeightResponse = {
   fromJSON(object: any): GetValidatorSetByHeightResponse {
     const obj = createBaseGetValidatorSetByHeightResponse();
     if (isSet(object.blockHeight)) obj.blockHeight = Long.fromValue(object.blockHeight);
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => Validator.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => Validator.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -376,7 +377,8 @@ export const GetLatestValidatorSetResponse = {
   fromJSON(object: any): GetLatestValidatorSetResponse {
     const obj = createBaseGetLatestValidatorSetResponse();
     if (isSet(object.blockHeight)) obj.blockHeight = Long.fromValue(object.blockHeight);
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => Validator.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => Validator.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -982,7 +984,8 @@ export const VersionInfo = {
     if (isSet(object.gitCommit)) obj.gitCommit = String(object.gitCommit);
     if (isSet(object.buildTags)) obj.buildTags = String(object.buildTags);
     if (isSet(object.goVersion)) obj.goVersion = String(object.goVersion);
-    if (Array.isArray(object?.buildDeps)) object.buildDeps.map((e: any) => Module.fromJSON(e));
+    if (Array.isArray(object?.buildDeps))
+      obj.buildDeps = object.buildDeps.map((e: any) => Module.fromJSON(e));
     if (isSet(object.cosmosSdkVersion)) obj.cosmosSdkVersion = String(object.cosmosSdkVersion);
     return obj;
   },
@@ -1390,7 +1393,7 @@ export const ProofOps = {
   },
   fromJSON(object: any): ProofOps {
     const obj = createBaseProofOps();
-    if (Array.isArray(object?.ops)) object.ops.map((e: any) => ProofOp.fromJSON(e));
+    if (Array.isArray(object?.ops)) obj.ops = object.ops.map((e: any) => ProofOp.fromJSON(e));
     return obj;
   },
   toJSON(message: ProofOps): unknown {

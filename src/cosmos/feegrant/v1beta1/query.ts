@@ -20,7 +20,7 @@ export interface QueryAllowanceResponse {
 export interface QueryAllowancesRequest {
   grantee: string;
   /** pagination defines an pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryAllowancesResponse is the response type for the Query/Allowances RPC method. */
 export interface QueryAllowancesResponse {
@@ -37,7 +37,7 @@ export interface QueryAllowancesResponse {
 export interface QueryAllowancesByGranterRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method.
@@ -249,7 +249,8 @@ export const QueryAllowancesResponse = {
   },
   fromJSON(object: any): QueryAllowancesResponse {
     const obj = createBaseQueryAllowancesResponse();
-    if (Array.isArray(object?.allowances)) object.allowances.map((e: any) => Grant.fromJSON(e));
+    if (Array.isArray(object?.allowances))
+      obj.allowances = object.allowances.map((e: any) => Grant.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -371,7 +372,8 @@ export const QueryAllowancesByGranterResponse = {
   },
   fromJSON(object: any): QueryAllowancesByGranterResponse {
     const obj = createBaseQueryAllowancesByGranterResponse();
-    if (Array.isArray(object?.allowances)) object.allowances.map((e: any) => Grant.fromJSON(e));
+    if (Array.isArray(object?.allowances))
+      obj.allowances = object.allowances.map((e: any) => Grant.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

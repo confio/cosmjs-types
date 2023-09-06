@@ -11,7 +11,7 @@ export interface QueryEvidenceRequest {
    * Deprecated: Use hash, a HEX encoded string, instead.
    */
   /** @deprecated */
-  evidenceHash: Uint8Array;
+  evidenceHash?: Uint8Array;
   /**
    * hash defines the evidence hash of the requested evidence.
    *
@@ -30,7 +30,7 @@ export interface QueryEvidenceResponse {
  */
 export interface QueryAllEvidenceRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
@@ -234,7 +234,7 @@ export const QueryAllEvidenceResponse = {
   },
   fromJSON(object: any): QueryAllEvidenceResponse {
     const obj = createBaseQueryAllEvidenceResponse();
-    if (Array.isArray(object?.evidence)) object.evidence.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.evidence)) obj.evidence = object.evidence.map((e: any) => Any.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

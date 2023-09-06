@@ -94,10 +94,12 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const obj = createBaseGenesisState();
     if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
-    if (Array.isArray(object?.balances)) object.balances.map((e: any) => Balance.fromJSON(e));
-    if (Array.isArray(object?.supply)) object.supply.map((e: any) => Coin.fromJSON(e));
-    if (Array.isArray(object?.denomMetadata)) object.denomMetadata.map((e: any) => Metadata.fromJSON(e));
-    if (Array.isArray(object?.sendEnabled)) object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
+    if (Array.isArray(object?.balances)) obj.balances = object.balances.map((e: any) => Balance.fromJSON(e));
+    if (Array.isArray(object?.supply)) obj.supply = object.supply.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.denomMetadata))
+      obj.denomMetadata = object.denomMetadata.map((e: any) => Metadata.fromJSON(e));
+    if (Array.isArray(object?.sendEnabled))
+      obj.sendEnabled = object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
     return obj;
   },
   toJSON(message: GenesisState): unknown {
@@ -176,7 +178,7 @@ export const Balance = {
   fromJSON(object: any): Balance {
     const obj = createBaseBalance();
     if (isSet(object.address)) obj.address = String(object.address);
-    if (Array.isArray(object?.coins)) object.coins.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.coins)) obj.coins = object.coins.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Balance): unknown {

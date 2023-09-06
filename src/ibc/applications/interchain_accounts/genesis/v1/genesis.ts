@@ -159,10 +159,12 @@ export const ControllerGenesisState = {
   fromJSON(object: any): ControllerGenesisState {
     const obj = createBaseControllerGenesisState();
     if (Array.isArray(object?.activeChannels))
-      object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e));
+      obj.activeChannels = object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e));
     if (Array.isArray(object?.interchainAccounts))
-      object.interchainAccounts.map((e: any) => RegisteredInterchainAccount.fromJSON(e));
-    if (Array.isArray(object?.ports)) object.ports.map((e: any) => String(e));
+      obj.interchainAccounts = object.interchainAccounts.map((e: any) =>
+        RegisteredInterchainAccount.fromJSON(e),
+      );
+    if (Array.isArray(object?.ports)) obj.ports = object.ports.map((e: any) => String(e));
     if (isSet(object.params)) obj.params = Params1.fromJSON(object.params);
     return obj;
   },
@@ -254,9 +256,11 @@ export const HostGenesisState = {
   fromJSON(object: any): HostGenesisState {
     const obj = createBaseHostGenesisState();
     if (Array.isArray(object?.activeChannels))
-      object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e));
+      obj.activeChannels = object.activeChannels.map((e: any) => ActiveChannel.fromJSON(e));
     if (Array.isArray(object?.interchainAccounts))
-      object.interchainAccounts.map((e: any) => RegisteredInterchainAccount.fromJSON(e));
+      obj.interchainAccounts = object.interchainAccounts.map((e: any) =>
+        RegisteredInterchainAccount.fromJSON(e),
+      );
     if (isSet(object.port)) obj.port = String(object.port);
     if (isSet(object.params)) obj.params = Params2.fromJSON(object.params);
     return obj;

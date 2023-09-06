@@ -94,9 +94,10 @@ export const Config = {
   },
   fromJSON(object: any): Config {
     const obj = createBaseConfig();
-    if (Array.isArray(object?.modules)) object.modules.map((e: any) => ModuleConfig.fromJSON(e));
+    if (Array.isArray(object?.modules))
+      obj.modules = object.modules.map((e: any) => ModuleConfig.fromJSON(e));
     if (Array.isArray(object?.golangBindings))
-      object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
+      obj.golangBindings = object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
     return obj;
   },
   toJSON(message: Config): unknown {
@@ -168,7 +169,7 @@ export const ModuleConfig = {
     if (isSet(object.name)) obj.name = String(object.name);
     if (isSet(object.config)) obj.config = Any.fromJSON(object.config);
     if (Array.isArray(object?.golangBindings))
-      object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
+      obj.golangBindings = object.golangBindings.map((e: any) => GolangBinding.fromJSON(e));
     return obj;
   },
   toJSON(message: ModuleConfig): unknown {

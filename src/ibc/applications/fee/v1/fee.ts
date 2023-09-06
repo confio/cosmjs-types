@@ -79,9 +79,10 @@ export const Fee = {
   },
   fromJSON(object: any): Fee {
     const obj = createBaseFee();
-    if (Array.isArray(object?.recvFee)) object.recvFee.map((e: any) => Coin.fromJSON(e));
-    if (Array.isArray(object?.ackFee)) object.ackFee.map((e: any) => Coin.fromJSON(e));
-    if (Array.isArray(object?.timeoutFee)) object.timeoutFee.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.recvFee)) obj.recvFee = object.recvFee.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.ackFee)) obj.ackFee = object.ackFee.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.timeoutFee))
+      obj.timeoutFee = object.timeoutFee.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Fee): unknown {
@@ -158,7 +159,7 @@ export const PacketFee = {
     const obj = createBasePacketFee();
     if (isSet(object.fee)) obj.fee = Fee.fromJSON(object.fee);
     if (isSet(object.refundAddress)) obj.refundAddress = String(object.refundAddress);
-    if (Array.isArray(object?.relayers)) object.relayers.map((e: any) => String(e));
+    if (Array.isArray(object?.relayers)) obj.relayers = object.relayers.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: PacketFee): unknown {
@@ -213,7 +214,8 @@ export const PacketFees = {
   },
   fromJSON(object: any): PacketFees {
     const obj = createBasePacketFees();
-    if (Array.isArray(object?.packetFees)) object.packetFees.map((e: any) => PacketFee.fromJSON(e));
+    if (Array.isArray(object?.packetFees))
+      obj.packetFees = object.packetFees.map((e: any) => PacketFee.fromJSON(e));
     return obj;
   },
   toJSON(message: PacketFees): unknown {
@@ -270,7 +272,8 @@ export const IdentifiedPacketFees = {
   fromJSON(object: any): IdentifiedPacketFees {
     const obj = createBaseIdentifiedPacketFees();
     if (isSet(object.packetId)) obj.packetId = PacketId.fromJSON(object.packetId);
-    if (Array.isArray(object?.packetFees)) object.packetFees.map((e: any) => PacketFee.fromJSON(e));
+    if (Array.isArray(object?.packetFees))
+      obj.packetFees = object.packetFees.map((e: any) => PacketFee.fromJSON(e));
     return obj;
   },
   toJSON(message: IdentifiedPacketFees): unknown {

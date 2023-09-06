@@ -27,13 +27,13 @@ export interface QueryProposalResponse {
 /** QueryProposalsRequest is the request type for the Query/Proposals RPC method. */
 export interface QueryProposalsRequest {
   /** proposal_status defines the status of the proposals. */
-  proposalStatus: ProposalStatus;
+  proposalStatus?: ProposalStatus;
   /** voter defines the voter address for the proposals. */
-  voter: string;
+  voter?: string;
   /** depositor defines the deposit addresses from the proposals. */
-  depositor: string;
+  depositor?: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryProposalsResponse is the response type for the Query/Proposals RPC
@@ -62,7 +62,7 @@ export interface QueryVotesRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryVotesResponse is the response type for the Query/Votes RPC method. */
 export interface QueryVotesResponse {
@@ -105,7 +105,7 @@ export interface QueryDepositsRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: Long;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
@@ -336,7 +336,8 @@ export const QueryProposalsResponse = {
   },
   fromJSON(object: any): QueryProposalsResponse {
     const obj = createBaseQueryProposalsResponse();
-    if (Array.isArray(object?.proposals)) object.proposals.map((e: any) => Proposal.fromJSON(e));
+    if (Array.isArray(object?.proposals))
+      obj.proposals = object.proposals.map((e: any) => Proposal.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -562,7 +563,7 @@ export const QueryVotesResponse = {
   },
   fromJSON(object: any): QueryVotesResponse {
     const obj = createBaseQueryVotesResponse();
-    if (Array.isArray(object?.votes)) object.votes.map((e: any) => Vote.fromJSON(e));
+    if (Array.isArray(object?.votes)) obj.votes = object.votes.map((e: any) => Vote.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -908,7 +909,7 @@ export const QueryDepositsResponse = {
   },
   fromJSON(object: any): QueryDepositsResponse {
     const obj = createBaseQueryDepositsResponse();
-    if (Array.isArray(object?.deposits)) object.deposits.map((e: any) => Deposit.fromJSON(e));
+    if (Array.isArray(object?.deposits)) obj.deposits = object.deposits.map((e: any) => Deposit.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

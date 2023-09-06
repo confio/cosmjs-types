@@ -256,7 +256,7 @@ export const LightClientAttackEvidence = {
     if (isSet(object.conflictingBlock)) obj.conflictingBlock = LightBlock.fromJSON(object.conflictingBlock);
     if (isSet(object.commonHeight)) obj.commonHeight = Long.fromValue(object.commonHeight);
     if (Array.isArray(object?.byzantineValidators))
-      object.byzantineValidators.map((e: any) => Validator.fromJSON(e));
+      obj.byzantineValidators = object.byzantineValidators.map((e: any) => Validator.fromJSON(e));
     if (isSet(object.totalVotingPower)) obj.totalVotingPower = Long.fromValue(object.totalVotingPower);
     if (isSet(object.timestamp)) obj.timestamp = fromJsonTimestamp(object.timestamp);
     return obj;
@@ -329,7 +329,7 @@ export const EvidenceList = {
   },
   fromJSON(object: any): EvidenceList {
     const obj = createBaseEvidenceList();
-    if (Array.isArray(object?.evidence)) object.evidence.map((e: any) => Evidence.fromJSON(e));
+    if (Array.isArray(object?.evidence)) obj.evidence = object.evidence.map((e: any) => Evidence.fromJSON(e));
     return obj;
   },
   toJSON(message: EvidenceList): unknown {

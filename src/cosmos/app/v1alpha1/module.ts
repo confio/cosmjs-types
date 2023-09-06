@@ -128,9 +128,10 @@ export const ModuleDescriptor = {
   fromJSON(object: any): ModuleDescriptor {
     const obj = createBaseModuleDescriptor();
     if (isSet(object.goImport)) obj.goImport = String(object.goImport);
-    if (Array.isArray(object?.usePackage)) object.usePackage.map((e: any) => PackageReference.fromJSON(e));
+    if (Array.isArray(object?.usePackage))
+      obj.usePackage = object.usePackage.map((e: any) => PackageReference.fromJSON(e));
     if (Array.isArray(object?.canMigrateFrom))
-      object.canMigrateFrom.map((e: any) => MigrateFromInfo.fromJSON(e));
+      obj.canMigrateFrom = object.canMigrateFrom.map((e: any) => MigrateFromInfo.fromJSON(e));
     return obj;
   },
   toJSON(message: ModuleDescriptor): unknown {

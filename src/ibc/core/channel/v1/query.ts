@@ -29,7 +29,7 @@ export interface QueryChannelResponse {
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
@@ -48,7 +48,7 @@ export interface QueryConnectionChannelsRequest {
   /** connection unique identifier */
   connection: string;
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryConnectionChannelsResponse is the Response type for the
@@ -147,7 +147,7 @@ export interface QueryPacketCommitmentsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryPacketCommitmentsResponse is the request type for the
@@ -220,9 +220,9 @@ export interface QueryPacketAcknowledgementsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** list of packet sequences */
-  packetCommitmentSequences: Long[];
+  packetCommitmentSequences?: Long[];
 }
 /**
  * QueryPacketAcknowledgemetsResponse is the request type for the
@@ -521,7 +521,8 @@ export const QueryChannelsResponse = {
   },
   fromJSON(object: any): QueryChannelsResponse {
     const obj = createBaseQueryChannelsResponse();
-    if (Array.isArray(object?.channels)) object.channels.map((e: any) => IdentifiedChannel.fromJSON(e));
+    if (Array.isArray(object?.channels))
+      obj.channels = object.channels.map((e: any) => IdentifiedChannel.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
@@ -655,7 +656,8 @@ export const QueryConnectionChannelsResponse = {
   },
   fromJSON(object: any): QueryConnectionChannelsResponse {
     const obj = createBaseQueryConnectionChannelsResponse();
-    if (Array.isArray(object?.channels)) object.channels.map((e: any) => IdentifiedChannel.fromJSON(e));
+    if (Array.isArray(object?.channels))
+      obj.channels = object.channels.map((e: any) => IdentifiedChannel.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
@@ -1245,7 +1247,8 @@ export const QueryPacketCommitmentsResponse = {
   },
   fromJSON(object: any): QueryPacketCommitmentsResponse {
     const obj = createBaseQueryPacketCommitmentsResponse();
-    if (Array.isArray(object?.commitments)) object.commitments.map((e: any) => PacketState.fromJSON(e));
+    if (Array.isArray(object?.commitments))
+      obj.commitments = object.commitments.map((e: any) => PacketState.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
@@ -1624,7 +1627,7 @@ export const QueryPacketAcknowledgementsRequest = {
     if (isSet(object.channelId)) obj.channelId = String(object.channelId);
     if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
     if (Array.isArray(object?.packetCommitmentSequences))
-      object.packetCommitmentSequences.map((e: any) => Long.fromValue(e));
+      obj.packetCommitmentSequences = object.packetCommitmentSequences.map((e: any) => Long.fromValue(e));
     return obj;
   },
   toJSON(message: QueryPacketAcknowledgementsRequest): unknown {
@@ -1701,7 +1704,7 @@ export const QueryPacketAcknowledgementsResponse = {
   fromJSON(object: any): QueryPacketAcknowledgementsResponse {
     const obj = createBaseQueryPacketAcknowledgementsResponse();
     if (Array.isArray(object?.acknowledgements))
-      object.acknowledgements.map((e: any) => PacketState.fromJSON(e));
+      obj.acknowledgements = object.acknowledgements.map((e: any) => PacketState.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
@@ -1789,7 +1792,7 @@ export const QueryUnreceivedPacketsRequest = {
     if (isSet(object.portId)) obj.portId = String(object.portId);
     if (isSet(object.channelId)) obj.channelId = String(object.channelId);
     if (Array.isArray(object?.packetCommitmentSequences))
-      object.packetCommitmentSequences.map((e: any) => Long.fromValue(e));
+      obj.packetCommitmentSequences = object.packetCommitmentSequences.map((e: any) => Long.fromValue(e));
     return obj;
   },
   toJSON(message: QueryUnreceivedPacketsRequest): unknown {
@@ -1862,7 +1865,7 @@ export const QueryUnreceivedPacketsResponse = {
   },
   fromJSON(object: any): QueryUnreceivedPacketsResponse {
     const obj = createBaseQueryUnreceivedPacketsResponse();
-    if (Array.isArray(object?.sequences)) object.sequences.map((e: any) => Long.fromValue(e));
+    if (Array.isArray(object?.sequences)) obj.sequences = object.sequences.map((e: any) => Long.fromValue(e));
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
   },
@@ -1944,7 +1947,7 @@ export const QueryUnreceivedAcksRequest = {
     if (isSet(object.portId)) obj.portId = String(object.portId);
     if (isSet(object.channelId)) obj.channelId = String(object.channelId);
     if (Array.isArray(object?.packetAckSequences))
-      object.packetAckSequences.map((e: any) => Long.fromValue(e));
+      obj.packetAckSequences = object.packetAckSequences.map((e: any) => Long.fromValue(e));
     return obj;
   },
   toJSON(message: QueryUnreceivedAcksRequest): unknown {
@@ -2015,7 +2018,7 @@ export const QueryUnreceivedAcksResponse = {
   },
   fromJSON(object: any): QueryUnreceivedAcksResponse {
     const obj = createBaseQueryUnreceivedAcksResponse();
-    if (Array.isArray(object?.sequences)) object.sequences.map((e: any) => Long.fromValue(e));
+    if (Array.isArray(object?.sequences)) obj.sequences = object.sequences.map((e: any) => Long.fromValue(e));
     if (isSet(object.height)) obj.height = Height.fromJSON(object.height);
     return obj;
   },

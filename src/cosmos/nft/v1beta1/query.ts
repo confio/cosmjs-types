@@ -41,11 +41,11 @@ export interface QuerySupplyResponse {
 /** QueryNFTstRequest is the request type for the Query/NFTs RPC method */
 export interface QueryNFTsRequest {
   /** class_id associated with the nft */
-  classId: string;
+  classId?: string;
   /** owner is the owner address of the nft */
-  owner: string;
+  owner?: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryNFTsResponse is the response type for the Query/NFTs RPC methods */
 export interface QueryNFTsResponse {
@@ -79,7 +79,7 @@ export interface QueryClassResponse {
 /** QueryClassesRequest is the request type for the Query/Classes RPC method */
 export interface QueryClassesRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryClassesResponse is the response type for the Query/Classes RPC method */
 export interface QueryClassesResponse {
@@ -488,7 +488,7 @@ export const QueryNFTsResponse = {
   },
   fromJSON(object: any): QueryNFTsResponse {
     const obj = createBaseQueryNFTsResponse();
-    if (Array.isArray(object?.nfts)) object.nfts.map((e: any) => NFT.fromJSON(e));
+    if (Array.isArray(object?.nfts)) obj.nfts = object.nfts.map((e: any) => NFT.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -792,7 +792,7 @@ export const QueryClassesResponse = {
   },
   fromJSON(object: any): QueryClassesResponse {
     const obj = createBaseQueryClassesResponse();
-    if (Array.isArray(object?.classes)) object.classes.map((e: any) => Class.fromJSON(e));
+    if (Array.isArray(object?.classes)) obj.classes = object.classes.map((e: any) => Class.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

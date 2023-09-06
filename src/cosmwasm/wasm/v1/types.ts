@@ -275,7 +275,7 @@ export const AccessConfig = {
     const obj = createBaseAccessConfig();
     if (isSet(object.permission)) obj.permission = accessTypeFromJSON(object.permission);
     if (isSet(object.address)) obj.address = String(object.address);
-    if (Array.isArray(object?.addresses)) object.addresses.map((e: any) => String(e));
+    if (Array.isArray(object?.addresses)) obj.addresses = object.addresses.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: AccessConfig): unknown {

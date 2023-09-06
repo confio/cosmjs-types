@@ -64,9 +64,9 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const obj = createBaseGenesisState();
     if (Array.isArray(object?.connections))
-      object.connections.map((e: any) => IdentifiedConnection.fromJSON(e));
+      obj.connections = object.connections.map((e: any) => IdentifiedConnection.fromJSON(e));
     if (Array.isArray(object?.clientConnectionPaths))
-      object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e));
+      obj.clientConnectionPaths = object.clientConnectionPaths.map((e: any) => ConnectionPaths.fromJSON(e));
     if (isSet(object.nextConnectionSequence))
       obj.nextConnectionSequence = Long.fromValue(object.nextConnectionSequence);
     if (isSet(object.params)) obj.params = Params.fromJSON(object.params);

@@ -308,7 +308,8 @@ export const MsgCreateGroup = {
   fromJSON(object: any): MsgCreateGroup {
     const obj = createBaseMsgCreateGroup();
     if (isSet(object.admin)) obj.admin = String(object.admin);
-    if (Array.isArray(object?.members)) object.members.map((e: any) => MemberRequest.fromJSON(e));
+    if (Array.isArray(object?.members))
+      obj.members = object.members.map((e: any) => MemberRequest.fromJSON(e));
     if (isSet(object.metadata)) obj.metadata = String(object.metadata);
     return obj;
   },
@@ -425,7 +426,8 @@ export const MsgUpdateGroupMembers = {
     const obj = createBaseMsgUpdateGroupMembers();
     if (isSet(object.admin)) obj.admin = String(object.admin);
     if (isSet(object.groupId)) obj.groupId = Long.fromValue(object.groupId);
-    if (Array.isArray(object?.memberUpdates)) object.memberUpdates.map((e: any) => MemberRequest.fromJSON(e));
+    if (Array.isArray(object?.memberUpdates))
+      obj.memberUpdates = object.memberUpdates.map((e: any) => MemberRequest.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgUpdateGroupMembers): unknown {
@@ -988,7 +990,8 @@ export const MsgCreateGroupWithPolicy = {
   fromJSON(object: any): MsgCreateGroupWithPolicy {
     const obj = createBaseMsgCreateGroupWithPolicy();
     if (isSet(object.admin)) obj.admin = String(object.admin);
-    if (Array.isArray(object?.members)) object.members.map((e: any) => MemberRequest.fromJSON(e));
+    if (Array.isArray(object?.members))
+      obj.members = object.members.map((e: any) => MemberRequest.fromJSON(e));
     if (isSet(object.groupMetadata)) obj.groupMetadata = String(object.groupMetadata);
     if (isSet(object.groupPolicyMetadata)) obj.groupPolicyMetadata = String(object.groupPolicyMetadata);
     if (isSet(object.groupPolicyAsAdmin)) obj.groupPolicyAsAdmin = Boolean(object.groupPolicyAsAdmin);
@@ -1370,9 +1373,9 @@ export const MsgSubmitProposal = {
   fromJSON(object: any): MsgSubmitProposal {
     const obj = createBaseMsgSubmitProposal();
     if (isSet(object.groupPolicyAddress)) obj.groupPolicyAddress = String(object.groupPolicyAddress);
-    if (Array.isArray(object?.proposers)) object.proposers.map((e: any) => String(e));
+    if (Array.isArray(object?.proposers)) obj.proposers = object.proposers.map((e: any) => String(e));
     if (isSet(object.metadata)) obj.metadata = String(object.metadata);
-    if (Array.isArray(object?.messages)) object.messages.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.messages)) obj.messages = object.messages.map((e: any) => Any.fromJSON(e));
     if (isSet(object.exec)) obj.exec = execFromJSON(object.exec);
     if (isSet(object.title)) obj.title = String(object.title);
     if (isSet(object.summary)) obj.summary = String(object.summary);

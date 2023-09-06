@@ -52,7 +52,7 @@ export const Module = {
   fromJSON(object: any): Module {
     const obj = createBaseModule();
     if (Array.isArray(object?.blockedModuleAccountsOverride))
-      object.blockedModuleAccountsOverride.map((e: any) => String(e));
+      obj.blockedModuleAccountsOverride = object.blockedModuleAccountsOverride.map((e: any) => String(e));
     if (isSet(object.authority)) obj.authority = String(object.authority);
     return obj;
   },

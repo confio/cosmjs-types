@@ -75,7 +75,8 @@ export const FileDescriptorsResponse = {
   },
   fromJSON(object: any): FileDescriptorsResponse {
     const obj = createBaseFileDescriptorsResponse();
-    if (Array.isArray(object?.files)) object.files.map((e: any) => FileDescriptorProto.fromJSON(e));
+    if (Array.isArray(object?.files))
+      obj.files = object.files.map((e: any) => FileDescriptorProto.fromJSON(e));
     return obj;
   },
   toJSON(message: FileDescriptorsResponse): unknown {

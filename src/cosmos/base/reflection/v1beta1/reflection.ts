@@ -89,7 +89,8 @@ export const ListAllInterfacesResponse = {
   },
   fromJSON(object: any): ListAllInterfacesResponse {
     const obj = createBaseListAllInterfacesResponse();
-    if (Array.isArray(object?.interfaceNames)) object.interfaceNames.map((e: any) => String(e));
+    if (Array.isArray(object?.interfaceNames))
+      obj.interfaceNames = object.interfaceNames.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: ListAllInterfacesResponse): unknown {
@@ -188,7 +189,7 @@ export const ListImplementationsResponse = {
   fromJSON(object: any): ListImplementationsResponse {
     const obj = createBaseListImplementationsResponse();
     if (Array.isArray(object?.implementationMessageNames))
-      object.implementationMessageNames.map((e: any) => String(e));
+      obj.implementationMessageNames = object.implementationMessageNames.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: ListImplementationsResponse): unknown {

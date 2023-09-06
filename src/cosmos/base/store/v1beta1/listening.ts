@@ -191,7 +191,7 @@ export const BlockMetadata = {
     if (isSet(object.responseBeginBlock))
       obj.responseBeginBlock = ResponseBeginBlock.fromJSON(object.responseBeginBlock);
     if (Array.isArray(object?.deliverTxs))
-      object.deliverTxs.map((e: any) => BlockMetadata_DeliverTx.fromJSON(e));
+      obj.deliverTxs = object.deliverTxs.map((e: any) => BlockMetadata_DeliverTx.fromJSON(e));
     if (isSet(object.requestEndBlock)) obj.requestEndBlock = RequestEndBlock.fromJSON(object.requestEndBlock);
     if (isSet(object.responseEndBlock))
       obj.responseEndBlock = ResponseEndBlock.fromJSON(object.responseEndBlock);

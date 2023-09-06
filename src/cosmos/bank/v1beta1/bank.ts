@@ -141,7 +141,8 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     const obj = createBaseParams();
-    if (Array.isArray(object?.sendEnabled)) object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
+    if (Array.isArray(object?.sendEnabled))
+      obj.sendEnabled = object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
     if (isSet(object.defaultSendEnabled)) obj.defaultSendEnabled = Boolean(object.defaultSendEnabled);
     return obj;
   },
@@ -256,7 +257,7 @@ export const Input = {
   fromJSON(object: any): Input {
     const obj = createBaseInput();
     if (isSet(object.address)) obj.address = String(object.address);
-    if (Array.isArray(object?.coins)) object.coins.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.coins)) obj.coins = object.coins.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Input): unknown {
@@ -315,7 +316,7 @@ export const Output = {
   fromJSON(object: any): Output {
     const obj = createBaseOutput();
     if (isSet(object.address)) obj.address = String(object.address);
-    if (Array.isArray(object?.coins)) object.coins.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.coins)) obj.coins = object.coins.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Output): unknown {
@@ -366,7 +367,7 @@ export const Supply = {
   },
   fromJSON(object: any): Supply {
     const obj = createBaseSupply();
-    if (Array.isArray(object?.total)) object.total.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.total)) obj.total = object.total.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Supply): unknown {
@@ -431,7 +432,7 @@ export const DenomUnit = {
     const obj = createBaseDenomUnit();
     if (isSet(object.denom)) obj.denom = String(object.denom);
     if (isSet(object.exponent)) obj.exponent = Number(object.exponent);
-    if (Array.isArray(object?.aliases)) object.aliases.map((e: any) => String(e));
+    if (Array.isArray(object?.aliases)) obj.aliases = object.aliases.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: DenomUnit): unknown {
@@ -534,7 +535,8 @@ export const Metadata = {
   fromJSON(object: any): Metadata {
     const obj = createBaseMetadata();
     if (isSet(object.description)) obj.description = String(object.description);
-    if (Array.isArray(object?.denomUnits)) object.denomUnits.map((e: any) => DenomUnit.fromJSON(e));
+    if (Array.isArray(object?.denomUnits))
+      obj.denomUnits = object.denomUnits.map((e: any) => DenomUnit.fromJSON(e));
     if (isSet(object.base)) obj.base = String(object.base);
     if (isSet(object.display)) obj.display = String(object.display);
     if (isSet(object.name)) obj.name = String(object.name);

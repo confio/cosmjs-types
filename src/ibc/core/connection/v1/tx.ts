@@ -343,7 +343,7 @@ export const MsgConnectionOpenTry = {
     if (isSet(object.counterparty)) obj.counterparty = Counterparty.fromJSON(object.counterparty);
     if (isSet(object.delayPeriod)) obj.delayPeriod = Long.fromValue(object.delayPeriod);
     if (Array.isArray(object?.counterpartyVersions))
-      object.counterpartyVersions.map((e: any) => Version.fromJSON(e));
+      obj.counterpartyVersions = object.counterpartyVersions.map((e: any) => Version.fromJSON(e));
     if (isSet(object.proofHeight)) obj.proofHeight = Height.fromJSON(object.proofHeight);
     if (isSet(object.proofInit)) obj.proofInit = bytesFromBase64(object.proofInit);
     if (isSet(object.proofClient)) obj.proofClient = bytesFromBase64(object.proofClient);

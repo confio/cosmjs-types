@@ -113,12 +113,14 @@ export const Module = {
   fromJSON(object: any): Module {
     const obj = createBaseModule();
     if (isSet(object.appName)) obj.appName = String(object.appName);
-    if (Array.isArray(object?.beginBlockers)) object.beginBlockers.map((e: any) => String(e));
-    if (Array.isArray(object?.endBlockers)) object.endBlockers.map((e: any) => String(e));
-    if (Array.isArray(object?.initGenesis)) object.initGenesis.map((e: any) => String(e));
-    if (Array.isArray(object?.exportGenesis)) object.exportGenesis.map((e: any) => String(e));
+    if (Array.isArray(object?.beginBlockers))
+      obj.beginBlockers = object.beginBlockers.map((e: any) => String(e));
+    if (Array.isArray(object?.endBlockers)) obj.endBlockers = object.endBlockers.map((e: any) => String(e));
+    if (Array.isArray(object?.initGenesis)) obj.initGenesis = object.initGenesis.map((e: any) => String(e));
+    if (Array.isArray(object?.exportGenesis))
+      obj.exportGenesis = object.exportGenesis.map((e: any) => String(e));
     if (Array.isArray(object?.overrideStoreKeys))
-      object.overrideStoreKeys.map((e: any) => StoreKeyConfig.fromJSON(e));
+      obj.overrideStoreKeys = object.overrideStoreKeys.map((e: any) => StoreKeyConfig.fromJSON(e));
     return obj;
   },
   toJSON(message: Module): unknown {

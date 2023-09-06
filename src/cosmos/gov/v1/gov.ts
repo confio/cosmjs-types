@@ -393,7 +393,7 @@ export const Deposit = {
     const obj = createBaseDeposit();
     if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
     if (isSet(object.depositor)) obj.depositor = String(object.depositor);
-    if (Array.isArray(object?.amount)) object.amount.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: Deposit): unknown {
@@ -533,12 +533,13 @@ export const Proposal = {
   fromJSON(object: any): Proposal {
     const obj = createBaseProposal();
     if (isSet(object.id)) obj.id = Long.fromValue(object.id);
-    if (Array.isArray(object?.messages)) object.messages.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.messages)) obj.messages = object.messages.map((e: any) => Any.fromJSON(e));
     if (isSet(object.status)) obj.status = proposalStatusFromJSON(object.status);
     if (isSet(object.finalTallyResult)) obj.finalTallyResult = TallyResult.fromJSON(object.finalTallyResult);
     if (isSet(object.submitTime)) obj.submitTime = fromJsonTimestamp(object.submitTime);
     if (isSet(object.depositEndTime)) obj.depositEndTime = fromJsonTimestamp(object.depositEndTime);
-    if (Array.isArray(object?.totalDeposit)) object.totalDeposit.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.totalDeposit))
+      obj.totalDeposit = object.totalDeposit.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.votingStartTime)) obj.votingStartTime = fromJsonTimestamp(object.votingStartTime);
     if (isSet(object.votingEndTime)) obj.votingEndTime = fromJsonTimestamp(object.votingEndTime);
     if (isSet(object.metadata)) obj.metadata = String(object.metadata);
@@ -737,7 +738,8 @@ export const Vote = {
     const obj = createBaseVote();
     if (isSet(object.proposalId)) obj.proposalId = Long.fromValue(object.proposalId);
     if (isSet(object.voter)) obj.voter = String(object.voter);
-    if (Array.isArray(object?.options)) object.options.map((e: any) => WeightedVoteOption.fromJSON(e));
+    if (Array.isArray(object?.options))
+      obj.options = object.options.map((e: any) => WeightedVoteOption.fromJSON(e));
     if (isSet(object.metadata)) obj.metadata = String(object.metadata);
     return obj;
   },
@@ -802,7 +804,8 @@ export const DepositParams = {
   },
   fromJSON(object: any): DepositParams {
     const obj = createBaseDepositParams();
-    if (Array.isArray(object?.minDeposit)) object.minDeposit.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.minDeposit))
+      obj.minDeposit = object.minDeposit.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.maxDepositPeriod)) obj.maxDepositPeriod = Duration.fromJSON(object.maxDepositPeriod);
     return obj;
   },
@@ -1035,7 +1038,8 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     const obj = createBaseParams();
-    if (Array.isArray(object?.minDeposit)) object.minDeposit.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.minDeposit))
+      obj.minDeposit = object.minDeposit.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.maxDepositPeriod)) obj.maxDepositPeriod = Duration.fromJSON(object.maxDepositPeriod);
     if (isSet(object.votingPeriod)) obj.votingPeriod = Duration.fromJSON(object.votingPeriod);
     if (isSet(object.quorum)) obj.quorum = String(object.quorum);

@@ -10,9 +10,9 @@ export const protobufPackage = "ibc.applications.fee.v1";
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** block height at which to query */
-  queryHeight: Long;
+  queryHeight?: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsResponse {
@@ -22,9 +22,9 @@ export interface QueryIncentivizedPacketsResponse {
 /** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketRequest {
   /** unique packet identifier comprised of channel ID, port ID and sequence */
-  packetId: PacketId;
+  packetId?: PacketId;
   /** block height at which to query */
-  queryHeight: Long;
+  queryHeight?: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketResponse {
@@ -37,11 +37,11 @@ export interface QueryIncentivizedPacketResponse {
  */
 export interface QueryIncentivizedPacketsForChannelRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   portId: string;
   channelId: string;
   /** Height to query at */
-  queryHeight: Long;
+  queryHeight?: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the incentivized packets RPC */
 export interface QueryIncentivizedPacketsForChannelResponse {
@@ -51,7 +51,7 @@ export interface QueryIncentivizedPacketsForChannelResponse {
 /** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId: PacketId;
+  packetId?: PacketId;
 }
 /** QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesResponse {
@@ -61,7 +61,7 @@ export interface QueryTotalRecvFeesResponse {
 /** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId: PacketId;
+  packetId?: PacketId;
 }
 /** QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesResponse {
@@ -71,7 +71,7 @@ export interface QueryTotalAckFeesResponse {
 /** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId: PacketId;
+  packetId?: PacketId;
 }
 /** QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesResponse {
@@ -105,9 +105,9 @@ export interface QueryCounterpartyPayeeResponse {
 /** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** block height at which to query */
-  queryHeight: Long;
+  queryHeight?: Long;
 }
 /** QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsResponse {
@@ -220,7 +220,7 @@ export const QueryIncentivizedPacketsResponse = {
   fromJSON(object: any): QueryIncentivizedPacketsResponse {
     const obj = createBaseQueryIncentivizedPacketsResponse();
     if (Array.isArray(object?.incentivizedPackets))
-      object.incentivizedPackets.map((e: any) => IdentifiedPacketFees.fromJSON(e));
+      obj.incentivizedPackets = object.incentivizedPackets.map((e: any) => IdentifiedPacketFees.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryIncentivizedPacketsResponse): unknown {
@@ -478,7 +478,7 @@ export const QueryIncentivizedPacketsForChannelResponse = {
   fromJSON(object: any): QueryIncentivizedPacketsForChannelResponse {
     const obj = createBaseQueryIncentivizedPacketsForChannelResponse();
     if (Array.isArray(object?.incentivizedPackets))
-      object.incentivizedPackets.map((e: any) => IdentifiedPacketFees.fromJSON(e));
+      obj.incentivizedPackets = object.incentivizedPackets.map((e: any) => IdentifiedPacketFees.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryIncentivizedPacketsForChannelResponse): unknown {
@@ -582,7 +582,7 @@ export const QueryTotalRecvFeesResponse = {
   },
   fromJSON(object: any): QueryTotalRecvFeesResponse {
     const obj = createBaseQueryTotalRecvFeesResponse();
-    if (Array.isArray(object?.recvFees)) object.recvFees.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.recvFees)) obj.recvFees = object.recvFees.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryTotalRecvFeesResponse): unknown {
@@ -683,7 +683,7 @@ export const QueryTotalAckFeesResponse = {
   },
   fromJSON(object: any): QueryTotalAckFeesResponse {
     const obj = createBaseQueryTotalAckFeesResponse();
-    if (Array.isArray(object?.ackFees)) object.ackFees.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.ackFees)) obj.ackFees = object.ackFees.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryTotalAckFeesResponse): unknown {
@@ -784,7 +784,8 @@ export const QueryTotalTimeoutFeesResponse = {
   },
   fromJSON(object: any): QueryTotalTimeoutFeesResponse {
     const obj = createBaseQueryTotalTimeoutFeesResponse();
-    if (Array.isArray(object?.timeoutFees)) object.timeoutFees.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.timeoutFees))
+      obj.timeoutFees = object.timeoutFees.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryTotalTimeoutFeesResponse): unknown {
@@ -1102,7 +1103,7 @@ export const QueryFeeEnabledChannelsResponse = {
   fromJSON(object: any): QueryFeeEnabledChannelsResponse {
     const obj = createBaseQueryFeeEnabledChannelsResponse();
     if (Array.isArray(object?.feeEnabledChannels))
-      object.feeEnabledChannels.map((e: any) => FeeEnabledChannel.fromJSON(e));
+      obj.feeEnabledChannels = object.feeEnabledChannels.map((e: any) => FeeEnabledChannel.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryFeeEnabledChannelsResponse): unknown {

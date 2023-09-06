@@ -65,7 +65,7 @@ export interface QueryModuleVersionsRequest {
    * consensus version from state. Leaving this empty will
    * fetch the full list of module versions from state
    */
-  moduleName: string;
+  moduleName?: string;
 }
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
@@ -447,7 +447,7 @@ export const QueryModuleVersionsResponse = {
   fromJSON(object: any): QueryModuleVersionsResponse {
     const obj = createBaseQueryModuleVersionsResponse();
     if (Array.isArray(object?.moduleVersions))
-      object.moduleVersions.map((e: any) => ModuleVersion.fromJSON(e));
+      obj.moduleVersions = object.moduleVersions.map((e: any) => ModuleVersion.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryModuleVersionsResponse): unknown {

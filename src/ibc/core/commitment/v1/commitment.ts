@@ -161,7 +161,7 @@ export const MerklePath = {
   },
   fromJSON(object: any): MerklePath {
     const obj = createBaseMerklePath();
-    if (Array.isArray(object?.keyPath)) object.keyPath.map((e: any) => String(e));
+    if (Array.isArray(object?.keyPath)) obj.keyPath = object.keyPath.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: MerklePath): unknown {
@@ -210,7 +210,8 @@ export const MerkleProof = {
   },
   fromJSON(object: any): MerkleProof {
     const obj = createBaseMerkleProof();
-    if (Array.isArray(object?.proofs)) object.proofs.map((e: any) => CommitmentProof.fromJSON(e));
+    if (Array.isArray(object?.proofs))
+      obj.proofs = object.proofs.map((e: any) => CommitmentProof.fromJSON(e));
     return obj;
   },
   toJSON(message: MerkleProof): unknown {

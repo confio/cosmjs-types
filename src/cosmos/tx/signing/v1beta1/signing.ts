@@ -179,7 +179,8 @@ export const SignatureDescriptors = {
   },
   fromJSON(object: any): SignatureDescriptors {
     const obj = createBaseSignatureDescriptors();
-    if (Array.isArray(object?.signatures)) object.signatures.map((e: any) => SignatureDescriptor.fromJSON(e));
+    if (Array.isArray(object?.signatures))
+      obj.signatures = object.signatures.map((e: any) => SignatureDescriptor.fromJSON(e));
     return obj;
   },
   toJSON(message: SignatureDescriptors): unknown {
@@ -433,7 +434,7 @@ export const SignatureDescriptor_Data_Multi = {
     const obj = createBaseSignatureDescriptor_Data_Multi();
     if (isSet(object.bitarray)) obj.bitarray = CompactBitArray.fromJSON(object.bitarray);
     if (Array.isArray(object?.signatures))
-      object.signatures.map((e: any) => SignatureDescriptor_Data.fromJSON(e));
+      obj.signatures = object.signatures.map((e: any) => SignatureDescriptor_Data.fromJSON(e));
     return obj;
   },
   toJSON(message: SignatureDescriptor_Data_Multi): unknown {

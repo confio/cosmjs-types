@@ -12,7 +12,7 @@ export const protobufPackage = "cosmos.auth.v1beta1";
  */
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryAccountsResponse is the response type for the Query/Accounts RPC method.
@@ -130,7 +130,7 @@ export interface QueryAccountAddressByIDRequest {
    *
    * Since: cosmos-sdk 0.47
    */
-  accountId: Long;
+  accountId?: Long;
 }
 /**
  * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
@@ -244,7 +244,7 @@ export const QueryAccountsResponse = {
   },
   fromJSON(object: any): QueryAccountsResponse {
     const obj = createBaseQueryAccountsResponse();
-    if (Array.isArray(object?.accounts)) object.accounts.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.accounts)) obj.accounts = object.accounts.map((e: any) => Any.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -507,7 +507,7 @@ export const QueryModuleAccountsResponse = {
   },
   fromJSON(object: any): QueryModuleAccountsResponse {
     const obj = createBaseQueryModuleAccountsResponse();
-    if (Array.isArray(object?.accounts)) object.accounts.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.accounts)) obj.accounts = object.accounts.map((e: any) => Any.fromJSON(e));
     return obj;
   },
   toJSON(message: QueryModuleAccountsResponse): unknown {

@@ -375,7 +375,7 @@ export const HistoricalInfo = {
   fromJSON(object: any): HistoricalInfo {
     const obj = createBaseHistoricalInfo();
     if (isSet(object.header)) obj.header = Header.fromJSON(object.header);
-    if (Array.isArray(object?.valset)) object.valset.map((e: any) => Validator.fromJSON(e));
+    if (Array.isArray(object?.valset)) obj.valset = object.valset.map((e: any) => Validator.fromJSON(e));
     return obj;
   },
   toJSON(message: HistoricalInfo): unknown {
@@ -746,7 +746,8 @@ export const Validator = {
     if (isSet(object.minSelfDelegation)) obj.minSelfDelegation = String(object.minSelfDelegation);
     if (isSet(object.unbondingOnHoldRefCount))
       obj.unbondingOnHoldRefCount = Long.fromValue(object.unbondingOnHoldRefCount);
-    if (Array.isArray(object?.unbondingIds)) object.unbondingIds.map((e: any) => Long.fromValue(e));
+    if (Array.isArray(object?.unbondingIds))
+      obj.unbondingIds = object.unbondingIds.map((e: any) => Long.fromValue(e));
     return obj;
   },
   toJSON(message: Validator): unknown {
@@ -837,7 +838,7 @@ export const ValAddresses = {
   },
   fromJSON(object: any): ValAddresses {
     const obj = createBaseValAddresses();
-    if (Array.isArray(object?.addresses)) object.addresses.map((e: any) => String(e));
+    if (Array.isArray(object?.addresses)) obj.addresses = object.addresses.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: ValAddresses): unknown {
@@ -941,7 +942,7 @@ export const DVPairs = {
   },
   fromJSON(object: any): DVPairs {
     const obj = createBaseDVPairs();
-    if (Array.isArray(object?.pairs)) object.pairs.map((e: any) => DVPair.fromJSON(e));
+    if (Array.isArray(object?.pairs)) obj.pairs = object.pairs.map((e: any) => DVPair.fromJSON(e));
     return obj;
   },
   toJSON(message: DVPairs): unknown {
@@ -1055,7 +1056,8 @@ export const DVVTriplets = {
   },
   fromJSON(object: any): DVVTriplets {
     const obj = createBaseDVVTriplets();
-    if (Array.isArray(object?.triplets)) object.triplets.map((e: any) => DVVTriplet.fromJSON(e));
+    if (Array.isArray(object?.triplets))
+      obj.triplets = object.triplets.map((e: any) => DVVTriplet.fromJSON(e));
     return obj;
   },
   toJSON(message: DVVTriplets): unknown {
@@ -1185,7 +1187,8 @@ export const UnbondingDelegation = {
     const obj = createBaseUnbondingDelegation();
     if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
     if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
-    if (Array.isArray(object?.entries)) object.entries.map((e: any) => UnbondingDelegationEntry.fromJSON(e));
+    if (Array.isArray(object?.entries))
+      obj.entries = object.entries.map((e: any) => UnbondingDelegationEntry.fromJSON(e));
     return obj;
   },
   toJSON(message: UnbondingDelegation): unknown {
@@ -1478,7 +1481,8 @@ export const Redelegation = {
     if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
     if (isSet(object.validatorSrcAddress)) obj.validatorSrcAddress = String(object.validatorSrcAddress);
     if (isSet(object.validatorDstAddress)) obj.validatorDstAddress = String(object.validatorDstAddress);
-    if (Array.isArray(object?.entries)) object.entries.map((e: any) => RedelegationEntry.fromJSON(e));
+    if (Array.isArray(object?.entries))
+      obj.entries = object.entries.map((e: any) => RedelegationEntry.fromJSON(e));
     return obj;
   },
   toJSON(message: Redelegation): unknown {
@@ -1764,7 +1768,8 @@ export const RedelegationResponse = {
   fromJSON(object: any): RedelegationResponse {
     const obj = createBaseRedelegationResponse();
     if (isSet(object.redelegation)) obj.redelegation = Redelegation.fromJSON(object.redelegation);
-    if (Array.isArray(object?.entries)) object.entries.map((e: any) => RedelegationEntryResponse.fromJSON(e));
+    if (Array.isArray(object?.entries))
+      obj.entries = object.entries.map((e: any) => RedelegationEntryResponse.fromJSON(e));
     return obj;
   },
   toJSON(message: RedelegationResponse): unknown {
@@ -1873,7 +1878,8 @@ export const ValidatorUpdates = {
   },
   fromJSON(object: any): ValidatorUpdates {
     const obj = createBaseValidatorUpdates();
-    if (Array.isArray(object?.updates)) object.updates.map((e: any) => ValidatorUpdate.fromJSON(e));
+    if (Array.isArray(object?.updates))
+      obj.updates = object.updates.map((e: any) => ValidatorUpdate.fromJSON(e));
     return obj;
   },
   toJSON(message: ValidatorUpdates): unknown {

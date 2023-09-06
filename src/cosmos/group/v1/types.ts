@@ -1122,7 +1122,7 @@ export const Proposal = {
     if (isSet(object.id)) obj.id = Long.fromValue(object.id);
     if (isSet(object.groupPolicyAddress)) obj.groupPolicyAddress = String(object.groupPolicyAddress);
     if (isSet(object.metadata)) obj.metadata = String(object.metadata);
-    if (Array.isArray(object?.proposers)) object.proposers.map((e: any) => String(e));
+    if (Array.isArray(object?.proposers)) obj.proposers = object.proposers.map((e: any) => String(e));
     if (isSet(object.submitTime)) obj.submitTime = fromJsonTimestamp(object.submitTime);
     if (isSet(object.groupVersion)) obj.groupVersion = Long.fromValue(object.groupVersion);
     if (isSet(object.groupPolicyVersion)) obj.groupPolicyVersion = Long.fromValue(object.groupPolicyVersion);
@@ -1131,7 +1131,7 @@ export const Proposal = {
     if (isSet(object.votingPeriodEnd)) obj.votingPeriodEnd = fromJsonTimestamp(object.votingPeriodEnd);
     if (isSet(object.executorResult))
       obj.executorResult = proposalExecutorResultFromJSON(object.executorResult);
-    if (Array.isArray(object?.messages)) object.messages.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.messages)) obj.messages = object.messages.map((e: any) => Any.fromJSON(e));
     if (isSet(object.title)) obj.title = String(object.title);
     if (isSet(object.summary)) obj.summary = String(object.summary);
     return obj;

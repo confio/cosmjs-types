@@ -160,7 +160,7 @@ export const GetRequest = {
     const obj = createBaseGetRequest();
     if (isSet(object.messageName)) obj.messageName = String(object.messageName);
     if (isSet(object.index)) obj.index = String(object.index);
-    if (Array.isArray(object?.values)) object.values.map((e: any) => IndexValue.fromJSON(e));
+    if (Array.isArray(object?.values)) obj.values = object.values.map((e: any) => IndexValue.fromJSON(e));
     return obj;
   },
   toJSON(message: GetRequest): unknown {
@@ -354,7 +354,7 @@ export const ListRequest_Prefix = {
   },
   fromJSON(object: any): ListRequest_Prefix {
     const obj = createBaseListRequest_Prefix();
-    if (Array.isArray(object?.values)) object.values.map((e: any) => IndexValue.fromJSON(e));
+    if (Array.isArray(object?.values)) obj.values = object.values.map((e: any) => IndexValue.fromJSON(e));
     return obj;
   },
   toJSON(message: ListRequest_Prefix): unknown {
@@ -410,8 +410,8 @@ export const ListRequest_Range = {
   },
   fromJSON(object: any): ListRequest_Range {
     const obj = createBaseListRequest_Range();
-    if (Array.isArray(object?.start)) object.start.map((e: any) => IndexValue.fromJSON(e));
-    if (Array.isArray(object?.end)) object.end.map((e: any) => IndexValue.fromJSON(e));
+    if (Array.isArray(object?.start)) obj.start = object.start.map((e: any) => IndexValue.fromJSON(e));
+    if (Array.isArray(object?.end)) obj.end = object.end.map((e: any) => IndexValue.fromJSON(e));
     return obj;
   },
   toJSON(message: ListRequest_Range): unknown {
@@ -473,7 +473,7 @@ export const ListResponse = {
   },
   fromJSON(object: any): ListResponse {
     const obj = createBaseListResponse();
-    if (Array.isArray(object?.results)) object.results.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.results)) obj.results = object.results.map((e: any) => Any.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

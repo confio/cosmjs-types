@@ -15,9 +15,9 @@ export const protobufPackage = "cosmos.staking.v1beta1";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {
   /** status enables to query for validators matching a given status. */
-  status: string;
+  status?: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryValidatorsResponse is response type for the Query/Validators RPC method */
 export interface QueryValidatorsResponse {
@@ -44,7 +44,7 @@ export interface QueryValidatorDelegationsRequest {
   /** validator_addr defines the validator address to query for. */
   validatorAddr: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryValidatorDelegationsResponse is response type for the
@@ -63,7 +63,7 @@ export interface QueryValidatorUnbondingDelegationsRequest {
   /** validator_addr defines the validator address to query for. */
   validatorAddr: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryValidatorUnbondingDelegationsResponse is response type for the
@@ -112,7 +112,7 @@ export interface QueryDelegatorDelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryDelegatorDelegationsResponse is response type for the
@@ -132,7 +132,7 @@ export interface QueryDelegatorUnbondingDelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryUnbondingDelegatorDelegationsResponse is response type for the
@@ -151,11 +151,11 @@ export interface QueryRedelegationsRequest {
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** src_validator_addr defines the validator address to redelegate from. */
-  srcValidatorAddr: string;
+  srcValidatorAddr?: string;
   /** dst_validator_addr defines the validator address to redelegate to. */
-  dstValidatorAddr: string;
+  dstValidatorAddr?: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
@@ -174,7 +174,7 @@ export interface QueryDelegatorValidatorsRequest {
   /** delegator_addr defines the delegator address to query for. */
   delegatorAddr: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryDelegatorValidatorsResponse is response type for the
@@ -330,7 +330,8 @@ export const QueryValidatorsResponse = {
   },
   fromJSON(object: any): QueryValidatorsResponse {
     const obj = createBaseQueryValidatorsResponse();
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => Validator.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => Validator.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -546,7 +547,7 @@ export const QueryValidatorDelegationsResponse = {
   fromJSON(object: any): QueryValidatorDelegationsResponse {
     const obj = createBaseQueryValidatorDelegationsResponse();
     if (Array.isArray(object?.delegationResponses))
-      object.delegationResponses.map((e: any) => DelegationResponse.fromJSON(e));
+      obj.delegationResponses = object.delegationResponses.map((e: any) => DelegationResponse.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -680,7 +681,7 @@ export const QueryValidatorUnbondingDelegationsResponse = {
   fromJSON(object: any): QueryValidatorUnbondingDelegationsResponse {
     const obj = createBaseQueryValidatorUnbondingDelegationsResponse();
     if (Array.isArray(object?.unbondingResponses))
-      object.unbondingResponses.map((e: any) => UnbondingDelegation.fromJSON(e));
+      obj.unbondingResponses = object.unbondingResponses.map((e: any) => UnbondingDelegation.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1021,7 +1022,7 @@ export const QueryDelegatorDelegationsResponse = {
   fromJSON(object: any): QueryDelegatorDelegationsResponse {
     const obj = createBaseQueryDelegatorDelegationsResponse();
     if (Array.isArray(object?.delegationResponses))
-      object.delegationResponses.map((e: any) => DelegationResponse.fromJSON(e));
+      obj.delegationResponses = object.delegationResponses.map((e: any) => DelegationResponse.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1155,7 +1156,7 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
   fromJSON(object: any): QueryDelegatorUnbondingDelegationsResponse {
     const obj = createBaseQueryDelegatorUnbondingDelegationsResponse();
     if (Array.isArray(object?.unbondingResponses))
-      object.unbondingResponses.map((e: any) => UnbondingDelegation.fromJSON(e));
+      obj.unbondingResponses = object.unbondingResponses.map((e: any) => UnbondingDelegation.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1303,7 +1304,9 @@ export const QueryRedelegationsResponse = {
   fromJSON(object: any): QueryRedelegationsResponse {
     const obj = createBaseQueryRedelegationsResponse();
     if (Array.isArray(object?.redelegationResponses))
-      object.redelegationResponses.map((e: any) => RedelegationResponse.fromJSON(e));
+      obj.redelegationResponses = object.redelegationResponses.map((e: any) =>
+        RedelegationResponse.fromJSON(e),
+      );
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },
@@ -1430,7 +1433,8 @@ export const QueryDelegatorValidatorsResponse = {
   },
   fromJSON(object: any): QueryDelegatorValidatorsResponse {
     const obj = createBaseQueryDelegatorValidatorsResponse();
-    if (Array.isArray(object?.validators)) object.validators.map((e: any) => Validator.fromJSON(e));
+    if (Array.isArray(object?.validators))
+      obj.validators = object.validators.map((e: any) => Validator.fromJSON(e));
     if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
     return obj;
   },

@@ -148,7 +148,7 @@ export const CosmosTx = {
   },
   fromJSON(object: any): CosmosTx {
     const obj = createBaseCosmosTx();
-    if (Array.isArray(object?.messages)) object.messages.map((e: any) => Any.fromJSON(e));
+    if (Array.isArray(object?.messages)) obj.messages = object.messages.map((e: any) => Any.fromJSON(e));
     return obj;
   },
   toJSON(message: CosmosTx): unknown {

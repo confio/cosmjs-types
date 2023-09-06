@@ -119,7 +119,7 @@ export const MsgSend = {
     const obj = createBaseMsgSend();
     if (isSet(object.fromAddress)) obj.fromAddress = String(object.fromAddress);
     if (isSet(object.toAddress)) obj.toAddress = String(object.toAddress);
-    if (Array.isArray(object?.amount)) object.amount.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgSend): unknown {
@@ -213,8 +213,8 @@ export const MsgMultiSend = {
   },
   fromJSON(object: any): MsgMultiSend {
     const obj = createBaseMsgMultiSend();
-    if (Array.isArray(object?.inputs)) object.inputs.map((e: any) => Input.fromJSON(e));
-    if (Array.isArray(object?.outputs)) object.outputs.map((e: any) => Output.fromJSON(e));
+    if (Array.isArray(object?.inputs)) obj.inputs = object.inputs.map((e: any) => Input.fromJSON(e));
+    if (Array.isArray(object?.outputs)) obj.outputs = object.outputs.map((e: any) => Output.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgMultiSend): unknown {
@@ -409,8 +409,10 @@ export const MsgSetSendEnabled = {
   fromJSON(object: any): MsgSetSendEnabled {
     const obj = createBaseMsgSetSendEnabled();
     if (isSet(object.authority)) obj.authority = String(object.authority);
-    if (Array.isArray(object?.sendEnabled)) object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
-    if (Array.isArray(object?.useDefaultFor)) object.useDefaultFor.map((e: any) => String(e));
+    if (Array.isArray(object?.sendEnabled))
+      obj.sendEnabled = object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
+    if (Array.isArray(object?.useDefaultFor))
+      obj.useDefaultFor = object.useDefaultFor.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: MsgSetSendEnabled): unknown {

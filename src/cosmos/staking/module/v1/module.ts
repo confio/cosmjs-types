@@ -51,7 +51,7 @@ export const Module = {
   },
   fromJSON(object: any): Module {
     const obj = createBaseModule();
-    if (Array.isArray(object?.hooksOrder)) object.hooksOrder.map((e: any) => String(e));
+    if (Array.isArray(object?.hooksOrder)) obj.hooksOrder = object.hooksOrder.map((e: any) => String(e));
     if (isSet(object.authority)) obj.authority = String(object.authority);
     return obj;
   },

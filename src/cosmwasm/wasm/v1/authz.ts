@@ -121,7 +121,7 @@ export const ContractExecutionAuthorization = {
   },
   fromJSON(object: any): ContractExecutionAuthorization {
     const obj = createBaseContractExecutionAuthorization();
-    if (Array.isArray(object?.grants)) object.grants.map((e: any) => ContractGrant.fromJSON(e));
+    if (Array.isArray(object?.grants)) obj.grants = object.grants.map((e: any) => ContractGrant.fromJSON(e));
     return obj;
   },
   toJSON(message: ContractExecutionAuthorization): unknown {
@@ -172,7 +172,7 @@ export const ContractMigrationAuthorization = {
   },
   fromJSON(object: any): ContractMigrationAuthorization {
     const obj = createBaseContractMigrationAuthorization();
-    if (Array.isArray(object?.grants)) object.grants.map((e: any) => ContractGrant.fromJSON(e));
+    if (Array.isArray(object?.grants)) obj.grants = object.grants.map((e: any) => ContractGrant.fromJSON(e));
     return obj;
   },
   toJSON(message: ContractMigrationAuthorization): unknown {
@@ -339,7 +339,7 @@ export const MaxFundsLimit = {
   },
   fromJSON(object: any): MaxFundsLimit {
     const obj = createBaseMaxFundsLimit();
-    if (Array.isArray(object?.amounts)) object.amounts.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amounts)) obj.amounts = object.amounts.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: MaxFundsLimit): unknown {
@@ -396,7 +396,7 @@ export const CombinedLimit = {
   fromJSON(object: any): CombinedLimit {
     const obj = createBaseCombinedLimit();
     if (isSet(object.callsRemaining)) obj.callsRemaining = Long.fromValue(object.callsRemaining);
-    if (Array.isArray(object?.amounts)) object.amounts.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.amounts)) obj.amounts = object.amounts.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: CombinedLimit): unknown {
@@ -484,7 +484,7 @@ export const AcceptedMessageKeysFilter = {
   },
   fromJSON(object: any): AcceptedMessageKeysFilter {
     const obj = createBaseAcceptedMessageKeysFilter();
-    if (Array.isArray(object?.keys)) object.keys.map((e: any) => String(e));
+    if (Array.isArray(object?.keys)) obj.keys = object.keys.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: AcceptedMessageKeysFilter): unknown {
@@ -535,7 +535,7 @@ export const AcceptedMessagesFilter = {
   },
   fromJSON(object: any): AcceptedMessagesFilter {
     const obj = createBaseAcceptedMessagesFilter();
-    if (Array.isArray(object?.messages)) object.messages.map((e: any) => bytesFromBase64(e));
+    if (Array.isArray(object?.messages)) obj.messages = object.messages.map((e: any) => bytesFromBase64(e));
     return obj;
   },
   toJSON(message: AcceptedMessagesFilter): unknown {

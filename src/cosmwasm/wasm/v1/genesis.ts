@@ -83,9 +83,11 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const obj = createBaseGenesisState();
     if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
-    if (Array.isArray(object?.codes)) object.codes.map((e: any) => Code.fromJSON(e));
-    if (Array.isArray(object?.contracts)) object.contracts.map((e: any) => Contract.fromJSON(e));
-    if (Array.isArray(object?.sequences)) object.sequences.map((e: any) => Sequence.fromJSON(e));
+    if (Array.isArray(object?.codes)) obj.codes = object.codes.map((e: any) => Code.fromJSON(e));
+    if (Array.isArray(object?.contracts))
+      obj.contracts = object.contracts.map((e: any) => Contract.fromJSON(e));
+    if (Array.isArray(object?.sequences))
+      obj.sequences = object.sequences.map((e: any) => Sequence.fromJSON(e));
     return obj;
   },
   toJSON(message: GenesisState): unknown {
@@ -256,9 +258,12 @@ export const Contract = {
     const obj = createBaseContract();
     if (isSet(object.contractAddress)) obj.contractAddress = String(object.contractAddress);
     if (isSet(object.contractInfo)) obj.contractInfo = ContractInfo.fromJSON(object.contractInfo);
-    if (Array.isArray(object?.contractState)) object.contractState.map((e: any) => Model.fromJSON(e));
+    if (Array.isArray(object?.contractState))
+      obj.contractState = object.contractState.map((e: any) => Model.fromJSON(e));
     if (Array.isArray(object?.contractCodeHistory))
-      object.contractCodeHistory.map((e: any) => ContractCodeHistoryEntry.fromJSON(e));
+      obj.contractCodeHistory = object.contractCodeHistory.map((e: any) =>
+        ContractCodeHistoryEntry.fromJSON(e),
+      );
     return obj;
   },
   toJSON(message: Contract): unknown {
