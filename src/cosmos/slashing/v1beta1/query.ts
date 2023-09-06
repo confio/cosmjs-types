@@ -31,7 +31,7 @@ export interface QuerySigningInfoResponse {
  * method
  */
 export interface QuerySigningInfosRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC

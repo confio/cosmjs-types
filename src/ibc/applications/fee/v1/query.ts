@@ -10,9 +10,9 @@ export const protobufPackage = "ibc.applications.fee.v1";
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   /** block height at which to query */
-  queryHeight?: Long;
+  queryHeight: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsResponse {
@@ -22,9 +22,9 @@ export interface QueryIncentivizedPacketsResponse {
 /** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketRequest {
   /** unique packet identifier comprised of channel ID, port ID and sequence */
-  packetId?: PacketId;
+  packetId: PacketId;
   /** block height at which to query */
-  queryHeight?: Long;
+  queryHeight: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketResponse {
@@ -37,11 +37,11 @@ export interface QueryIncentivizedPacketResponse {
  */
 export interface QueryIncentivizedPacketsForChannelRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   portId: string;
   channelId: string;
   /** Height to query at */
-  queryHeight?: Long;
+  queryHeight: Long;
 }
 /** QueryIncentivizedPacketsResponse defines the response type for the incentivized packets RPC */
 export interface QueryIncentivizedPacketsForChannelResponse {
@@ -51,7 +51,7 @@ export interface QueryIncentivizedPacketsForChannelResponse {
 /** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId?: PacketId;
+  packetId: PacketId;
 }
 /** QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesResponse {
@@ -61,7 +61,7 @@ export interface QueryTotalRecvFeesResponse {
 /** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId?: PacketId;
+  packetId: PacketId;
 }
 /** QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesResponse {
@@ -71,7 +71,7 @@ export interface QueryTotalAckFeesResponse {
 /** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesRequest {
   /** the packet identifier for the associated fees */
-  packetId?: PacketId;
+  packetId: PacketId;
 }
 /** QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesResponse {
@@ -105,9 +105,9 @@ export interface QueryCounterpartyPayeeResponse {
 /** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   /** block height at which to query */
-  queryHeight?: Long;
+  queryHeight: Long;
 }
 /** QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsResponse {

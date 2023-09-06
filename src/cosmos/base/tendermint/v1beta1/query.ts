@@ -12,7 +12,7 @@ export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 export interface GetValidatorSetByHeightRequest {
   height: Long;
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** GetValidatorSetByHeightResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightResponse {
@@ -24,7 +24,7 @@ export interface GetValidatorSetByHeightResponse {
 /** GetLatestValidatorSetRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetRequest {
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** GetLatestValidatorSetResponse is the response type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetLatestValidatorSetResponse {
@@ -98,10 +98,10 @@ export interface Module {
 }
 /** ABCIQueryRequest defines the request structure for the ABCIQuery gRPC query. */
 export interface ABCIQueryRequest {
-  data?: Uint8Array;
-  path?: string;
-  height?: Long;
-  prove?: boolean;
+  data: Uint8Array;
+  path: string;
+  height: Long;
+  prove: boolean;
 }
 /**
  * ABCIQueryResponse defines the response structure for the ABCIQuery gRPC query.

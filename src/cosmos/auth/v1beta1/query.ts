@@ -12,7 +12,7 @@ export const protobufPackage = "cosmos.auth.v1beta1";
  */
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryAccountsResponse is the response type for the Query/Accounts RPC method.
@@ -130,7 +130,7 @@ export interface QueryAccountAddressByIDRequest {
    *
    * Since: cosmos-sdk 0.47
    */
-  accountId?: Long;
+  accountId: Long;
 }
 /**
  * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method

@@ -29,7 +29,7 @@ export interface QueryChannelResponse {
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** QueryChannelsResponse is the response type for the Query/Channels RPC method. */
 export interface QueryChannelsResponse {
@@ -48,7 +48,7 @@ export interface QueryConnectionChannelsRequest {
   /** connection unique identifier */
   connection: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryConnectionChannelsResponse is the Response type for the
@@ -147,7 +147,7 @@ export interface QueryPacketCommitmentsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryPacketCommitmentsResponse is the request type for the
@@ -220,9 +220,9 @@ export interface QueryPacketAcknowledgementsRequest {
   /** channel unique identifier */
   channelId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
   /** list of packet sequences */
-  packetCommitmentSequences?: Long[];
+  packetCommitmentSequences: Long[];
 }
 /**
  * QueryPacketAcknowledgemetsResponse is the request type for the

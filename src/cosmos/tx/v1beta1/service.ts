@@ -109,21 +109,21 @@ export function broadcastModeToJSON(object: BroadcastMode): string {
  */
 export interface GetTxsEventRequest {
   /** events is the list of transaction event type. */
-  events?: string[];
+  events: string[];
   /**
    * pagination defines a pagination for the request.
    * Deprecated post v0.46.x: use page and limit instead.
    */
   /** @deprecated */
-  pagination?: PageRequest;
-  orderBy?: OrderBy;
+  pagination: PageRequest;
+  orderBy: OrderBy;
   /** page is the page number to query, starts at 1. If not provided, will default to first page. */
-  page?: Long;
+  page: Long;
   /**
    * limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    */
-  limit?: Long;
+  limit: Long;
 }
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
@@ -213,7 +213,7 @@ export interface GetBlockWithTxsRequest {
   /** height is the height of the block to query. */
   height: Long;
   /** pagination defines a pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.

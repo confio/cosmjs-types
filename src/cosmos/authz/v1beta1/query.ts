@@ -6,12 +6,12 @@ import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 export interface QueryGrantsRequest {
-  granter?: string;
-  grantee?: string;
+  granter: string;
+  grantee: string;
   /** Optional, msg_type_url, when set, will query only grants matching given msg type. */
-  msgTypeUrl?: string;
+  msgTypeUrl: string;
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** QueryGrantsResponse is the response type for the Query/Authorizations RPC method. */
 export interface QueryGrantsResponse {
@@ -24,7 +24,7 @@ export interface QueryGrantsResponse {
 export interface QueryGranterGrantsRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** QueryGranterGrantsResponse is the response type for the Query/GranterGrants RPC method. */
 export interface QueryGranterGrantsResponse {
@@ -37,7 +37,7 @@ export interface QueryGranterGrantsResponse {
 export interface QueryGranteeGrantsRequest {
   grantee: string;
   /** pagination defines an pagination for the request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method. */
 export interface QueryGranteeGrantsResponse {

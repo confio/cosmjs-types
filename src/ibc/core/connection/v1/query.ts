@@ -32,7 +32,7 @@ export interface QueryConnectionResponse {
  * method
  */
 export interface QueryConnectionsRequest {
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryConnectionsResponse is the response type for the Query/Connections RPC

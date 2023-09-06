@@ -30,8 +30,6 @@ telescope({
       includePackageVar: true,
       strictNullCheckForPrototypeMethods: true,
       paginationDefaultFromPartial: true,
-      useOptionalNullable: true,
-      optionalQueryParams: true,
       excluded: {
         protos: [
           "cosmos/autocli/v1/options.proto",

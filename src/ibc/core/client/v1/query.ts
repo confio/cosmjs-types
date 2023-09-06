@@ -32,7 +32,7 @@ export interface QueryClientStateResponse {
  */
 export interface QueryClientStatesRequest {
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryClientStatesResponse is the response type for the Query/ClientStates RPC
@@ -60,7 +60,7 @@ export interface QueryConsensusStateRequest {
    * latest_height overrrides the height field and queries the latest stored
    * ConsensusState
    */
-  latestHeight?: boolean;
+  latestHeight: boolean;
 }
 /**
  * QueryConsensusStateResponse is the response type for the Query/ConsensusState
@@ -82,7 +82,7 @@ export interface QueryConsensusStatesRequest {
   /** client identifier */
   clientId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryConsensusStatesResponse is the response type for the
@@ -102,7 +102,7 @@ export interface QueryConsensusStateHeightsRequest {
   /** client identifier */
   clientId: string;
   /** pagination request */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /**
  * QueryConsensusStateHeightsResponse is the response type for the
