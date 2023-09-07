@@ -588,8 +588,8 @@ export const IndexValue = {
   },
   toJSON(message: IndexValue): unknown {
     const obj: any = {};
-    message.uint !== undefined && (obj.uint = (message.uint || undefined).toString());
-    message.int !== undefined && (obj.int = (message.int || undefined).toString());
+    message.uint !== undefined && (obj.uint = message.uint.toString());
+    message.int !== undefined && (obj.int = message.int.toString());
     message.str !== undefined && (obj.str = message.str);
     message.bytes !== undefined &&
       (obj.bytes = message.bytes !== undefined ? base64FromBytes(message.bytes) : undefined);
