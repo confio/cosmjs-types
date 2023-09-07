@@ -14,9 +14,9 @@ export interface MsgUpdateParams {
    *
    * NOTE: All parameters must be supplied.
    */
-  block?: BlockParams;
-  evidence?: EvidenceParams;
-  validator?: ValidatorParams;
+  block: BlockParams;
+  evidence: EvidenceParams;
+  validator: ValidatorParams;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -26,9 +26,9 @@ export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    block: undefined,
-    evidence: undefined,
-    validator: undefined,
+    block: BlockParams.fromPartial({}),
+    evidence: EvidenceParams.fromPartial({}),
+    validator: ValidatorParams.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
@@ -74,12 +74,12 @@ export const MsgUpdateParams = {
     return message;
   },
   fromJSON(object: any): MsgUpdateParams {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      block: isSet(object.block) ? BlockParams.fromJSON(object.block) : undefined,
-      evidence: isSet(object.evidence) ? EvidenceParams.fromJSON(object.evidence) : undefined,
-      validator: isSet(object.validator) ? ValidatorParams.fromJSON(object.validator) : undefined,
-    };
+    const obj = createBaseMsgUpdateParams();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.block)) obj.block = BlockParams.fromJSON(object.block);
+    if (isSet(object.evidence)) obj.evidence = EvidenceParams.fromJSON(object.evidence);
+    if (isSet(object.validator)) obj.validator = ValidatorParams.fromJSON(object.validator);
+    return obj;
   },
   toJSON(message: MsgUpdateParams): unknown {
     const obj: any = {};
@@ -95,16 +95,15 @@ export const MsgUpdateParams = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(object: I): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
     message.authority = object.authority ?? "";
-    message.block =
-      object.block !== undefined && object.block !== null ? BlockParams.fromPartial(object.block) : undefined;
-    message.evidence =
-      object.evidence !== undefined && object.evidence !== null
-        ? EvidenceParams.fromPartial(object.evidence)
-        : undefined;
-    message.validator =
-      object.validator !== undefined && object.validator !== null
-        ? ValidatorParams.fromPartial(object.validator)
-        : undefined;
+    if (object.block !== undefined && object.block !== null) {
+      message.block = BlockParams.fromPartial(object.block);
+    }
+    if (object.evidence !== undefined && object.evidence !== null) {
+      message.evidence = EvidenceParams.fromPartial(object.evidence);
+    }
+    if (object.validator !== undefined && object.validator !== null) {
+      message.validator = ValidatorParams.fromPartial(object.validator);
+    }
     return message;
   },
 };
@@ -130,7 +129,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
-    return {};
+    const obj = createBaseMsgUpdateParamsResponse();
+    return obj;
   },
   toJSON(_: MsgUpdateParamsResponse): unknown {
     const obj: any = {};

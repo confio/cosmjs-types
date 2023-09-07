@@ -116,10 +116,10 @@ export const Duration = {
     return message;
   },
   fromJSON(object: any): Duration {
-    return {
-      seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
-      nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
-    };
+    const obj = createBaseDuration();
+    if (isSet(object.seconds)) obj.seconds = Long.fromValue(object.seconds);
+    if (isSet(object.nanos)) obj.nanos = Number(object.nanos);
+    return obj;
   },
   toJSON(message: Duration): unknown {
     const obj: any = {};
@@ -129,8 +129,9 @@ export const Duration = {
   },
   fromPartial<I extends Exact<DeepPartial<Duration>, I>>(object: I): Duration {
     const message = createBaseDuration();
-    message.seconds =
-      object.seconds !== undefined && object.seconds !== null ? Long.fromValue(object.seconds) : Long.ZERO;
+    if (object.seconds !== undefined && object.seconds !== null) {
+      message.seconds = Long.fromValue(object.seconds);
+    }
     message.nanos = object.nanos ?? 0;
     return message;
   },

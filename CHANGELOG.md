@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Upgrade to Telescope 0.109.1. This changes a lot of fields from optional to
+  non-optional by utilizing the `(gogoproto.nullable) = false` annotations of
+  proto files. See https://github.com/osmosis-labs/telescope/issues/386
+
 ## [0.8.0] - 2023-05-24
 
 - Upgrade Cosmos SDK types to 0.47.2 including new modules like group and NFT.

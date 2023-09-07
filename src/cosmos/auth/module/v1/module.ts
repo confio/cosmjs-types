@@ -65,13 +65,14 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      bech32Prefix: isSet(object.bech32Prefix) ? String(object.bech32Prefix) : "",
-      moduleAccountPermissions: Array.isArray(object?.moduleAccountPermissions)
-        ? object.moduleAccountPermissions.map((e: any) => ModuleAccountPermission.fromJSON(e))
-        : [],
-      authority: isSet(object.authority) ? String(object.authority) : "",
-    };
+    const obj = createBaseModule();
+    if (isSet(object.bech32Prefix)) obj.bech32Prefix = String(object.bech32Prefix);
+    if (Array.isArray(object?.moduleAccountPermissions))
+      obj.moduleAccountPermissions = object.moduleAccountPermissions.map((e: any) =>
+        ModuleAccountPermission.fromJSON(e),
+      );
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};
@@ -132,10 +133,10 @@ export const ModuleAccountPermission = {
     return message;
   },
   fromJSON(object: any): ModuleAccountPermission {
-    return {
-      account: isSet(object.account) ? String(object.account) : "",
-      permissions: Array.isArray(object?.permissions) ? object.permissions.map((e: any) => String(e)) : [],
-    };
+    const obj = createBaseModuleAccountPermission();
+    if (isSet(object.account)) obj.account = String(object.account);
+    if (Array.isArray(object?.permissions)) obj.permissions = object.permissions.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: ModuleAccountPermission): unknown {
     const obj: any = {};

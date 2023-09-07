@@ -5,12 +5,12 @@ import { isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccount {
-  baseAccount?: BaseAccount;
+  baseAccount: BaseAccount;
   accountOwner: string;
 }
 function createBaseInterchainAccount(): InterchainAccount {
   return {
-    baseAccount: undefined,
+    baseAccount: BaseAccount.fromPartial({}),
     accountOwner: "",
   };
 }
@@ -45,10 +45,10 @@ export const InterchainAccount = {
     return message;
   },
   fromJSON(object: any): InterchainAccount {
-    return {
-      baseAccount: isSet(object.baseAccount) ? BaseAccount.fromJSON(object.baseAccount) : undefined,
-      accountOwner: isSet(object.accountOwner) ? String(object.accountOwner) : "",
-    };
+    const obj = createBaseInterchainAccount();
+    if (isSet(object.baseAccount)) obj.baseAccount = BaseAccount.fromJSON(object.baseAccount);
+    if (isSet(object.accountOwner)) obj.accountOwner = String(object.accountOwner);
+    return obj;
   },
   toJSON(message: InterchainAccount): unknown {
     const obj: any = {};
@@ -59,10 +59,9 @@ export const InterchainAccount = {
   },
   fromPartial<I extends Exact<DeepPartial<InterchainAccount>, I>>(object: I): InterchainAccount {
     const message = createBaseInterchainAccount();
-    message.baseAccount =
-      object.baseAccount !== undefined && object.baseAccount !== null
-        ? BaseAccount.fromPartial(object.baseAccount)
-        : undefined;
+    if (object.baseAccount !== undefined && object.baseAccount !== null) {
+      message.baseAccount = BaseAccount.fromPartial(object.baseAccount);
+    }
     message.accountOwner = object.accountOwner ?? "";
     return message;
   },

@@ -50,10 +50,10 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      hooksOrder: Array.isArray(object?.hooksOrder) ? object.hooksOrder.map((e: any) => String(e)) : [],
-      authority: isSet(object.authority) ? String(object.authority) : "",
-    };
+    const obj = createBaseModule();
+    if (Array.isArray(object?.hooksOrder)) obj.hooksOrder = object.hooksOrder.map((e: any) => String(e));
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};

@@ -17,7 +17,7 @@ export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
-  params?: Params;
+  params: Params;
 }
 function createBaseQueryInterchainAccountRequest(): QueryInterchainAccountRequest {
   return {
@@ -56,10 +56,10 @@ export const QueryInterchainAccountRequest = {
     return message;
   },
   fromJSON(object: any): QueryInterchainAccountRequest {
-    return {
-      owner: isSet(object.owner) ? String(object.owner) : "",
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-    };
+    const obj = createBaseQueryInterchainAccountRequest();
+    if (isSet(object.owner)) obj.owner = String(object.owner);
+    if (isSet(object.connectionId)) obj.connectionId = String(object.connectionId);
+    return obj;
   },
   toJSON(message: QueryInterchainAccountRequest): unknown {
     const obj: any = {};
@@ -106,9 +106,9 @@ export const QueryInterchainAccountResponse = {
     return message;
   },
   fromJSON(object: any): QueryInterchainAccountResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-    };
+    const obj = createBaseQueryInterchainAccountResponse();
+    if (isSet(object.address)) obj.address = String(object.address);
+    return obj;
   },
   toJSON(message: QueryInterchainAccountResponse): unknown {
     const obj: any = {};
@@ -145,7 +145,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromJSON(_: any): QueryParamsRequest {
-    return {};
+    const obj = createBaseQueryParamsRequest();
+    return obj;
   },
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
@@ -158,7 +159,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {
@@ -186,9 +187,9 @@ export const QueryParamsResponse = {
     return message;
   },
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    const obj = createBaseQueryParamsResponse();
+    if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
+    return obj;
   },
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
@@ -197,8 +198,9 @@ export const QueryParamsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromPartial(object.params);
+    }
     return message;
   },
 };

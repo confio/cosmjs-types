@@ -36,7 +36,7 @@ export interface MsgUpdateParams {
    *
    * NOTE: All parameters must be supplied.
    */
-  params?: Params;
+  params: Params;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -116,11 +116,11 @@ export const MsgSend = {
     return message;
   },
   fromJSON(object: any): MsgSend {
-    return {
-      fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-      toAddress: isSet(object.toAddress) ? String(object.toAddress) : "",
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgSend();
+    if (isSet(object.fromAddress)) obj.fromAddress = String(object.fromAddress);
+    if (isSet(object.toAddress)) obj.toAddress = String(object.toAddress);
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgSend): unknown {
     const obj: any = {};
@@ -163,7 +163,8 @@ export const MsgSendResponse = {
     return message;
   },
   fromJSON(_: any): MsgSendResponse {
-    return {};
+    const obj = createBaseMsgSendResponse();
+    return obj;
   },
   toJSON(_: MsgSendResponse): unknown {
     const obj: any = {};
@@ -211,10 +212,10 @@ export const MsgMultiSend = {
     return message;
   },
   fromJSON(object: any): MsgMultiSend {
-    return {
-      inputs: Array.isArray(object?.inputs) ? object.inputs.map((e: any) => Input.fromJSON(e)) : [],
-      outputs: Array.isArray(object?.outputs) ? object.outputs.map((e: any) => Output.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgMultiSend();
+    if (Array.isArray(object?.inputs)) obj.inputs = object.inputs.map((e: any) => Input.fromJSON(e));
+    if (Array.isArray(object?.outputs)) obj.outputs = object.outputs.map((e: any) => Output.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgMultiSend): unknown {
     const obj: any = {};
@@ -259,7 +260,8 @@ export const MsgMultiSendResponse = {
     return message;
   },
   fromJSON(_: any): MsgMultiSendResponse {
-    return {};
+    const obj = createBaseMsgMultiSendResponse();
+    return obj;
   },
   toJSON(_: MsgMultiSendResponse): unknown {
     const obj: any = {};
@@ -273,7 +275,7 @@ export const MsgMultiSendResponse = {
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
@@ -307,10 +309,10 @@ export const MsgUpdateParams = {
     return message;
   },
   fromJSON(object: any): MsgUpdateParams {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    const obj = createBaseMsgUpdateParams();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
+    return obj;
   },
   toJSON(message: MsgUpdateParams): unknown {
     const obj: any = {};
@@ -321,8 +323,9 @@ export const MsgUpdateParams = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(object: I): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
     message.authority = object.authority ?? "";
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromPartial(object.params);
+    }
     return message;
   },
 };
@@ -348,7 +351,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
-    return {};
+    const obj = createBaseMsgUpdateParamsResponse();
+    return obj;
   },
   toJSON(_: MsgUpdateParamsResponse): unknown {
     const obj: any = {};
@@ -403,15 +407,13 @@ export const MsgSetSendEnabled = {
     return message;
   },
   fromJSON(object: any): MsgSetSendEnabled {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      sendEnabled: Array.isArray(object?.sendEnabled)
-        ? object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e))
-        : [],
-      useDefaultFor: Array.isArray(object?.useDefaultFor)
-        ? object.useDefaultFor.map((e: any) => String(e))
-        : [],
-    };
+    const obj = createBaseMsgSetSendEnabled();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (Array.isArray(object?.sendEnabled))
+      obj.sendEnabled = object.sendEnabled.map((e: any) => SendEnabled.fromJSON(e));
+    if (Array.isArray(object?.useDefaultFor))
+      obj.useDefaultFor = object.useDefaultFor.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: MsgSetSendEnabled): unknown {
     const obj: any = {};
@@ -458,7 +460,8 @@ export const MsgSetSendEnabledResponse = {
     return message;
   },
   fromJSON(_: any): MsgSetSendEnabledResponse {
-    return {};
+    const obj = createBaseMsgSetSendEnabledResponse();
+    return obj;
   },
   toJSON(_: MsgSetSendEnabledResponse): unknown {
     const obj: any = {};

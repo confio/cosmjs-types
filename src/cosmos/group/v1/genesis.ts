@@ -110,22 +110,19 @@ export const GenesisState = {
     return message;
   },
   fromJSON(object: any): GenesisState {
-    return {
-      groupSeq: isSet(object.groupSeq) ? Long.fromValue(object.groupSeq) : Long.UZERO,
-      groups: Array.isArray(object?.groups) ? object.groups.map((e: any) => GroupInfo.fromJSON(e)) : [],
-      groupMembers: Array.isArray(object?.groupMembers)
-        ? object.groupMembers.map((e: any) => GroupMember.fromJSON(e))
-        : [],
-      groupPolicySeq: isSet(object.groupPolicySeq) ? Long.fromValue(object.groupPolicySeq) : Long.UZERO,
-      groupPolicies: Array.isArray(object?.groupPolicies)
-        ? object.groupPolicies.map((e: any) => GroupPolicyInfo.fromJSON(e))
-        : [],
-      proposalSeq: isSet(object.proposalSeq) ? Long.fromValue(object.proposalSeq) : Long.UZERO,
-      proposals: Array.isArray(object?.proposals)
-        ? object.proposals.map((e: any) => Proposal.fromJSON(e))
-        : [],
-      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
-    };
+    const obj = createBaseGenesisState();
+    if (isSet(object.groupSeq)) obj.groupSeq = Long.fromValue(object.groupSeq);
+    if (Array.isArray(object?.groups)) obj.groups = object.groups.map((e: any) => GroupInfo.fromJSON(e));
+    if (Array.isArray(object?.groupMembers))
+      obj.groupMembers = object.groupMembers.map((e: any) => GroupMember.fromJSON(e));
+    if (isSet(object.groupPolicySeq)) obj.groupPolicySeq = Long.fromValue(object.groupPolicySeq);
+    if (Array.isArray(object?.groupPolicies))
+      obj.groupPolicies = object.groupPolicies.map((e: any) => GroupPolicyInfo.fromJSON(e));
+    if (isSet(object.proposalSeq)) obj.proposalSeq = Long.fromValue(object.proposalSeq);
+    if (Array.isArray(object?.proposals))
+      obj.proposals = object.proposals.map((e: any) => Proposal.fromJSON(e));
+    if (Array.isArray(object?.votes)) obj.votes = object.votes.map((e: any) => Vote.fromJSON(e));
+    return obj;
   },
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
@@ -162,21 +159,18 @@ export const GenesisState = {
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.groupSeq =
-      object.groupSeq !== undefined && object.groupSeq !== null
-        ? Long.fromValue(object.groupSeq)
-        : Long.UZERO;
+    if (object.groupSeq !== undefined && object.groupSeq !== null) {
+      message.groupSeq = Long.fromValue(object.groupSeq);
+    }
     message.groups = object.groups?.map((e) => GroupInfo.fromPartial(e)) || [];
     message.groupMembers = object.groupMembers?.map((e) => GroupMember.fromPartial(e)) || [];
-    message.groupPolicySeq =
-      object.groupPolicySeq !== undefined && object.groupPolicySeq !== null
-        ? Long.fromValue(object.groupPolicySeq)
-        : Long.UZERO;
+    if (object.groupPolicySeq !== undefined && object.groupPolicySeq !== null) {
+      message.groupPolicySeq = Long.fromValue(object.groupPolicySeq);
+    }
     message.groupPolicies = object.groupPolicies?.map((e) => GroupPolicyInfo.fromPartial(e)) || [];
-    message.proposalSeq =
-      object.proposalSeq !== undefined && object.proposalSeq !== null
-        ? Long.fromValue(object.proposalSeq)
-        : Long.UZERO;
+    if (object.proposalSeq !== undefined && object.proposalSeq !== null) {
+      message.proposalSeq = Long.fromValue(object.proposalSeq);
+    }
     message.proposals = object.proposals?.map((e) => Proposal.fromPartial(e)) || [];
     message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || [];
     return message;

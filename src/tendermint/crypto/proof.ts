@@ -12,7 +12,7 @@ export interface ValueOp {
   /** Encoded in ProofOp.Key. */
   key: Uint8Array;
   /** To encode in ProofOp.Data */
-  proof?: Proof;
+  proof: Proof;
 }
 export interface DominoOp {
   key: string;
@@ -84,12 +84,12 @@ export const Proof = {
     return message;
   },
   fromJSON(object: any): Proof {
-    return {
-      total: isSet(object.total) ? Long.fromValue(object.total) : Long.ZERO,
-      index: isSet(object.index) ? Long.fromValue(object.index) : Long.ZERO,
-      leafHash: isSet(object.leafHash) ? bytesFromBase64(object.leafHash) : new Uint8Array(),
-      aunts: Array.isArray(object?.aunts) ? object.aunts.map((e: any) => bytesFromBase64(e)) : [],
-    };
+    const obj = createBaseProof();
+    if (isSet(object.total)) obj.total = Long.fromValue(object.total);
+    if (isSet(object.index)) obj.index = Long.fromValue(object.index);
+    if (isSet(object.leafHash)) obj.leafHash = bytesFromBase64(object.leafHash);
+    if (Array.isArray(object?.aunts)) obj.aunts = object.aunts.map((e: any) => bytesFromBase64(e));
+    return obj;
   },
   toJSON(message: Proof): unknown {
     const obj: any = {};
@@ -106,10 +106,12 @@ export const Proof = {
   },
   fromPartial<I extends Exact<DeepPartial<Proof>, I>>(object: I): Proof {
     const message = createBaseProof();
-    message.total =
-      object.total !== undefined && object.total !== null ? Long.fromValue(object.total) : Long.ZERO;
-    message.index =
-      object.index !== undefined && object.index !== null ? Long.fromValue(object.index) : Long.ZERO;
+    if (object.total !== undefined && object.total !== null) {
+      message.total = Long.fromValue(object.total);
+    }
+    if (object.index !== undefined && object.index !== null) {
+      message.index = Long.fromValue(object.index);
+    }
     message.leafHash = object.leafHash ?? new Uint8Array();
     message.aunts = object.aunts?.map((e) => e) || [];
     return message;
@@ -118,7 +120,7 @@ export const Proof = {
 function createBaseValueOp(): ValueOp {
   return {
     key: new Uint8Array(),
-    proof: undefined,
+    proof: Proof.fromPartial({}),
   };
 }
 export const ValueOp = {
@@ -152,10 +154,10 @@ export const ValueOp = {
     return message;
   },
   fromJSON(object: any): ValueOp {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      proof: isSet(object.proof) ? Proof.fromJSON(object.proof) : undefined,
-    };
+    const obj = createBaseValueOp();
+    if (isSet(object.key)) obj.key = bytesFromBase64(object.key);
+    if (isSet(object.proof)) obj.proof = Proof.fromJSON(object.proof);
+    return obj;
   },
   toJSON(message: ValueOp): unknown {
     const obj: any = {};
@@ -167,8 +169,9 @@ export const ValueOp = {
   fromPartial<I extends Exact<DeepPartial<ValueOp>, I>>(object: I): ValueOp {
     const message = createBaseValueOp();
     message.key = object.key ?? new Uint8Array();
-    message.proof =
-      object.proof !== undefined && object.proof !== null ? Proof.fromPartial(object.proof) : undefined;
+    if (object.proof !== undefined && object.proof !== null) {
+      message.proof = Proof.fromPartial(object.proof);
+    }
     return message;
   },
 };
@@ -216,11 +219,11 @@ export const DominoOp = {
     return message;
   },
   fromJSON(object: any): DominoOp {
-    return {
-      key: isSet(object.key) ? String(object.key) : "",
-      input: isSet(object.input) ? String(object.input) : "",
-      output: isSet(object.output) ? String(object.output) : "",
-    };
+    const obj = createBaseDominoOp();
+    if (isSet(object.key)) obj.key = String(object.key);
+    if (isSet(object.input)) obj.input = String(object.input);
+    if (isSet(object.output)) obj.output = String(object.output);
+    return obj;
   },
   toJSON(message: DominoOp): unknown {
     const obj: any = {};
@@ -281,11 +284,11 @@ export const ProofOp = {
     return message;
   },
   fromJSON(object: any): ProofOp {
-    return {
-      type: isSet(object.type) ? String(object.type) : "",
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-    };
+    const obj = createBaseProofOp();
+    if (isSet(object.type)) obj.type = String(object.type);
+    if (isSet(object.key)) obj.key = bytesFromBase64(object.key);
+    if (isSet(object.data)) obj.data = bytesFromBase64(object.data);
+    return obj;
   },
   toJSON(message: ProofOp): unknown {
     const obj: any = {};
@@ -334,9 +337,9 @@ export const ProofOps = {
     return message;
   },
   fromJSON(object: any): ProofOps {
-    return {
-      ops: Array.isArray(object?.ops) ? object.ops.map((e: any) => ProofOp.fromJSON(e)) : [],
-    };
+    const obj = createBaseProofOps();
+    if (Array.isArray(object?.ops)) obj.ops = object.ops.map((e: any) => ProofOp.fromJSON(e));
+    return obj;
   },
   toJSON(message: ProofOps): unknown {
     const obj: any = {};

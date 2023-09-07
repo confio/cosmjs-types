@@ -71,7 +71,7 @@ export interface MsgUpdateParams {
    *
    * NOTE: All parameters must be supplied.
    */
-  params?: Params;
+  params: Params;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -137,10 +137,10 @@ export const MsgSetWithdrawAddress = {
     return message;
   },
   fromJSON(object: any): MsgSetWithdrawAddress {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-      withdrawAddress: isSet(object.withdrawAddress) ? String(object.withdrawAddress) : "",
-    };
+    const obj = createBaseMsgSetWithdrawAddress();
+    if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
+    if (isSet(object.withdrawAddress)) obj.withdrawAddress = String(object.withdrawAddress);
+    return obj;
   },
   toJSON(message: MsgSetWithdrawAddress): unknown {
     const obj: any = {};
@@ -177,7 +177,8 @@ export const MsgSetWithdrawAddressResponse = {
     return message;
   },
   fromJSON(_: any): MsgSetWithdrawAddressResponse {
-    return {};
+    const obj = createBaseMsgSetWithdrawAddressResponse();
+    return obj;
   },
   toJSON(_: MsgSetWithdrawAddressResponse): unknown {
     const obj: any = {};
@@ -227,10 +228,10 @@ export const MsgWithdrawDelegatorReward = {
     return message;
   },
   fromJSON(object: any): MsgWithdrawDelegatorReward {
-    return {
-      delegatorAddress: isSet(object.delegatorAddress) ? String(object.delegatorAddress) : "",
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
+    const obj = createBaseMsgWithdrawDelegatorReward();
+    if (isSet(object.delegatorAddress)) obj.delegatorAddress = String(object.delegatorAddress);
+    if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
+    return obj;
   },
   toJSON(message: MsgWithdrawDelegatorReward): unknown {
     const obj: any = {};
@@ -277,9 +278,9 @@ export const MsgWithdrawDelegatorRewardResponse = {
     return message;
   },
   fromJSON(object: any): MsgWithdrawDelegatorRewardResponse {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgWithdrawDelegatorRewardResponse();
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgWithdrawDelegatorRewardResponse): unknown {
     const obj: any = {};
@@ -328,9 +329,9 @@ export const MsgWithdrawValidatorCommission = {
     return message;
   },
   fromJSON(object: any): MsgWithdrawValidatorCommission {
-    return {
-      validatorAddress: isSet(object.validatorAddress) ? String(object.validatorAddress) : "",
-    };
+    const obj = createBaseMsgWithdrawValidatorCommission();
+    if (isSet(object.validatorAddress)) obj.validatorAddress = String(object.validatorAddress);
+    return obj;
   },
   toJSON(message: MsgWithdrawValidatorCommission): unknown {
     const obj: any = {};
@@ -378,9 +379,9 @@ export const MsgWithdrawValidatorCommissionResponse = {
     return message;
   },
   fromJSON(object: any): MsgWithdrawValidatorCommissionResponse {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgWithdrawValidatorCommissionResponse();
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgWithdrawValidatorCommissionResponse): unknown {
     const obj: any = {};
@@ -436,10 +437,10 @@ export const MsgFundCommunityPool = {
     return message;
   },
   fromJSON(object: any): MsgFundCommunityPool {
-    return {
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
-    };
+    const obj = createBaseMsgFundCommunityPool();
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
+    if (isSet(object.depositor)) obj.depositor = String(object.depositor);
+    return obj;
   },
   toJSON(message: MsgFundCommunityPool): unknown {
     const obj: any = {};
@@ -480,7 +481,8 @@ export const MsgFundCommunityPoolResponse = {
     return message;
   },
   fromJSON(_: any): MsgFundCommunityPoolResponse {
-    return {};
+    const obj = createBaseMsgFundCommunityPoolResponse();
+    return obj;
   },
   toJSON(_: MsgFundCommunityPoolResponse): unknown {
     const obj: any = {};
@@ -496,7 +498,7 @@ export const MsgFundCommunityPoolResponse = {
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    params: undefined,
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
@@ -530,10 +532,10 @@ export const MsgUpdateParams = {
     return message;
   },
   fromJSON(object: any): MsgUpdateParams {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    const obj = createBaseMsgUpdateParams();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
+    return obj;
   },
   toJSON(message: MsgUpdateParams): unknown {
     const obj: any = {};
@@ -544,8 +546,9 @@ export const MsgUpdateParams = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(object: I): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
     message.authority = object.authority ?? "";
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromPartial(object.params);
+    }
     return message;
   },
 };
@@ -571,7 +574,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
-    return {};
+    const obj = createBaseMsgUpdateParamsResponse();
+    return obj;
   },
   toJSON(_: MsgUpdateParamsResponse): unknown {
     const obj: any = {};
@@ -626,11 +630,11 @@ export const MsgCommunityPoolSpend = {
     return message;
   },
   fromJSON(object: any): MsgCommunityPoolSpend {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      recipient: isSet(object.recipient) ? String(object.recipient) : "",
-      amount: Array.isArray(object?.amount) ? object.amount.map((e: any) => Coin.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgCommunityPoolSpend();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.recipient)) obj.recipient = String(object.recipient);
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgCommunityPoolSpend): unknown {
     const obj: any = {};
@@ -673,7 +677,8 @@ export const MsgCommunityPoolSpendResponse = {
     return message;
   },
   fromJSON(_: any): MsgCommunityPoolSpendResponse {
-    return {};
+    const obj = createBaseMsgCommunityPoolSpendResponse();
+    return obj;
   },
   toJSON(_: MsgCommunityPoolSpendResponse): unknown {
     const obj: any = {};

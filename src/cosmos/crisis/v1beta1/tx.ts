@@ -23,7 +23,7 @@ export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /** constant_fee defines the x/crisis parameter. */
-  constantFee?: Coin;
+  constantFee: Coin;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -76,11 +76,11 @@ export const MsgVerifyInvariant = {
     return message;
   },
   fromJSON(object: any): MsgVerifyInvariant {
-    return {
-      sender: isSet(object.sender) ? String(object.sender) : "",
-      invariantModuleName: isSet(object.invariantModuleName) ? String(object.invariantModuleName) : "",
-      invariantRoute: isSet(object.invariantRoute) ? String(object.invariantRoute) : "",
-    };
+    const obj = createBaseMsgVerifyInvariant();
+    if (isSet(object.sender)) obj.sender = String(object.sender);
+    if (isSet(object.invariantModuleName)) obj.invariantModuleName = String(object.invariantModuleName);
+    if (isSet(object.invariantRoute)) obj.invariantRoute = String(object.invariantRoute);
+    return obj;
   },
   toJSON(message: MsgVerifyInvariant): unknown {
     const obj: any = {};
@@ -119,7 +119,8 @@ export const MsgVerifyInvariantResponse = {
     return message;
   },
   fromJSON(_: any): MsgVerifyInvariantResponse {
-    return {};
+    const obj = createBaseMsgVerifyInvariantResponse();
+    return obj;
   },
   toJSON(_: MsgVerifyInvariantResponse): unknown {
     const obj: any = {};
@@ -133,7 +134,7 @@ export const MsgVerifyInvariantResponse = {
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    constantFee: undefined,
+    constantFee: Coin.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
@@ -167,10 +168,10 @@ export const MsgUpdateParams = {
     return message;
   },
   fromJSON(object: any): MsgUpdateParams {
-    return {
-      authority: isSet(object.authority) ? String(object.authority) : "",
-      constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined,
-    };
+    const obj = createBaseMsgUpdateParams();
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.constantFee)) obj.constantFee = Coin.fromJSON(object.constantFee);
+    return obj;
   },
   toJSON(message: MsgUpdateParams): unknown {
     const obj: any = {};
@@ -182,10 +183,9 @@ export const MsgUpdateParams = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(object: I): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
     message.authority = object.authority ?? "";
-    message.constantFee =
-      object.constantFee !== undefined && object.constantFee !== null
-        ? Coin.fromPartial(object.constantFee)
-        : undefined;
+    if (object.constantFee !== undefined && object.constantFee !== null) {
+      message.constantFee = Coin.fromPartial(object.constantFee);
+    }
     return message;
   },
 };
@@ -211,7 +211,8 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
   fromJSON(_: any): MsgUpdateParamsResponse {
-    return {};
+    const obj = createBaseMsgUpdateParamsResponse();
+    return obj;
   },
   toJSON(_: MsgUpdateParamsResponse): unknown {
     const obj: any = {};

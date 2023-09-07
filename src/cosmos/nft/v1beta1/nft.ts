@@ -18,7 +18,7 @@ export interface Class {
   /** uri_hash is a hash of the document pointed by uri. Optional */
   uriHash: string;
   /** data is the app specific metadata of the NFT class. Optional */
-  data?: Any;
+  data: Any;
 }
 /** NFT defines the NFT. */
 export interface NFT {
@@ -31,7 +31,7 @@ export interface NFT {
   /** uri_hash is a hash of the document pointed by uri */
   uriHash: string;
   /** data is an app specific data of the NFT. Optional */
-  data?: Any;
+  data: Any;
 }
 function createBaseClass(): Class {
   return {
@@ -41,7 +41,7 @@ function createBaseClass(): Class {
     description: "",
     uri: "",
     uriHash: "",
-    data: undefined,
+    data: Any.fromPartial({}),
   };
 }
 export const Class = {
@@ -105,15 +105,15 @@ export const Class = {
     return message;
   },
   fromJSON(object: any): Class {
-    return {
-      id: isSet(object.id) ? String(object.id) : "",
-      name: isSet(object.name) ? String(object.name) : "",
-      symbol: isSet(object.symbol) ? String(object.symbol) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      uri: isSet(object.uri) ? String(object.uri) : "",
-      uriHash: isSet(object.uriHash) ? String(object.uriHash) : "",
-      data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
-    };
+    const obj = createBaseClass();
+    if (isSet(object.id)) obj.id = String(object.id);
+    if (isSet(object.name)) obj.name = String(object.name);
+    if (isSet(object.symbol)) obj.symbol = String(object.symbol);
+    if (isSet(object.description)) obj.description = String(object.description);
+    if (isSet(object.uri)) obj.uri = String(object.uri);
+    if (isSet(object.uriHash)) obj.uriHash = String(object.uriHash);
+    if (isSet(object.data)) obj.data = Any.fromJSON(object.data);
+    return obj;
   },
   toJSON(message: Class): unknown {
     const obj: any = {};
@@ -134,8 +134,9 @@ export const Class = {
     message.description = object.description ?? "";
     message.uri = object.uri ?? "";
     message.uriHash = object.uriHash ?? "";
-    message.data =
-      object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Any.fromPartial(object.data);
+    }
     return message;
   },
 };
@@ -145,7 +146,7 @@ function createBaseNFT(): NFT {
     id: "",
     uri: "",
     uriHash: "",
-    data: undefined,
+    data: Any.fromPartial({}),
   };
 }
 export const NFT = {
@@ -197,13 +198,13 @@ export const NFT = {
     return message;
   },
   fromJSON(object: any): NFT {
-    return {
-      classId: isSet(object.classId) ? String(object.classId) : "",
-      id: isSet(object.id) ? String(object.id) : "",
-      uri: isSet(object.uri) ? String(object.uri) : "",
-      uriHash: isSet(object.uriHash) ? String(object.uriHash) : "",
-      data: isSet(object.data) ? Any.fromJSON(object.data) : undefined,
-    };
+    const obj = createBaseNFT();
+    if (isSet(object.classId)) obj.classId = String(object.classId);
+    if (isSet(object.id)) obj.id = String(object.id);
+    if (isSet(object.uri)) obj.uri = String(object.uri);
+    if (isSet(object.uriHash)) obj.uriHash = String(object.uriHash);
+    if (isSet(object.data)) obj.data = Any.fromJSON(object.data);
+    return obj;
   },
   toJSON(message: NFT): unknown {
     const obj: any = {};
@@ -220,8 +221,9 @@ export const NFT = {
     message.id = object.id ?? "";
     message.uri = object.uri ?? "";
     message.uriHash = object.uriHash ?? "";
-    message.data =
-      object.data !== undefined && object.data !== null ? Any.fromPartial(object.data) : undefined;
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Any.fromPartial(object.data);
+    }
     return message;
   },
 };

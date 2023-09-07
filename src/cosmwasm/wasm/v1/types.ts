@@ -123,7 +123,7 @@ export interface AccessConfig {
 }
 /** Params defines the set of wasm parameters. */
 export interface Params {
-  codeUploadAccess?: AccessConfig;
+  codeUploadAccess: AccessConfig;
   instantiateDefaultPermission: AccessType;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
@@ -133,7 +133,7 @@ export interface CodeInfo {
   /** Creator address who initially stored the code */
   creator: string;
   /** InstantiateConfig access control to apply on contract creation, optional */
-  instantiateConfig?: AccessConfig;
+  instantiateConfig: AccessConfig;
 }
 /** ContractInfo stores a WASM contract instance */
 export interface ContractInfo {
@@ -146,13 +146,13 @@ export interface ContractInfo {
   /** Label is optional metadata to be stored with a contract instance. */
   label: string;
   /** Created Tx position when the contract was instantiated. */
-  created?: AbsoluteTxPosition;
+  created: AbsoluteTxPosition;
   ibcPortId: string;
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
    */
-  extension?: Any;
+  extension: Any;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntry {
@@ -160,7 +160,7 @@ export interface ContractCodeHistoryEntry {
   /** CodeID is the reference to the stored WASM code */
   codeId: Long;
   /** Updated Tx position when the operation was executed. */
-  updated?: AbsoluteTxPosition;
+  updated: AbsoluteTxPosition;
   msg: Uint8Array;
 }
 /**
@@ -213,9 +213,9 @@ export const AccessTypeParam = {
     return message;
   },
   fromJSON(object: any): AccessTypeParam {
-    return {
-      value: isSet(object.value) ? accessTypeFromJSON(object.value) : 0,
-    };
+    const obj = createBaseAccessTypeParam();
+    if (isSet(object.value)) obj.value = accessTypeFromJSON(object.value);
+    return obj;
   },
   toJSON(message: AccessTypeParam): unknown {
     const obj: any = {};
@@ -272,11 +272,11 @@ export const AccessConfig = {
     return message;
   },
   fromJSON(object: any): AccessConfig {
-    return {
-      permission: isSet(object.permission) ? accessTypeFromJSON(object.permission) : 0,
-      address: isSet(object.address) ? String(object.address) : "",
-      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => String(e)) : [],
-    };
+    const obj = createBaseAccessConfig();
+    if (isSet(object.permission)) obj.permission = accessTypeFromJSON(object.permission);
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (Array.isArray(object?.addresses)) obj.addresses = object.addresses.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: AccessConfig): unknown {
     const obj: any = {};
@@ -299,7 +299,7 @@ export const AccessConfig = {
 };
 function createBaseParams(): Params {
   return {
-    codeUploadAccess: undefined,
+    codeUploadAccess: AccessConfig.fromPartial({}),
     instantiateDefaultPermission: 0,
   };
 }
@@ -334,14 +334,11 @@ export const Params = {
     return message;
   },
   fromJSON(object: any): Params {
-    return {
-      codeUploadAccess: isSet(object.codeUploadAccess)
-        ? AccessConfig.fromJSON(object.codeUploadAccess)
-        : undefined,
-      instantiateDefaultPermission: isSet(object.instantiateDefaultPermission)
-        ? accessTypeFromJSON(object.instantiateDefaultPermission)
-        : 0,
-    };
+    const obj = createBaseParams();
+    if (isSet(object.codeUploadAccess)) obj.codeUploadAccess = AccessConfig.fromJSON(object.codeUploadAccess);
+    if (isSet(object.instantiateDefaultPermission))
+      obj.instantiateDefaultPermission = accessTypeFromJSON(object.instantiateDefaultPermission);
+    return obj;
   },
   toJSON(message: Params): unknown {
     const obj: any = {};
@@ -355,10 +352,9 @@ export const Params = {
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.codeUploadAccess =
-      object.codeUploadAccess !== undefined && object.codeUploadAccess !== null
-        ? AccessConfig.fromPartial(object.codeUploadAccess)
-        : undefined;
+    if (object.codeUploadAccess !== undefined && object.codeUploadAccess !== null) {
+      message.codeUploadAccess = AccessConfig.fromPartial(object.codeUploadAccess);
+    }
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
     return message;
   },
@@ -367,7 +363,7 @@ function createBaseCodeInfo(): CodeInfo {
   return {
     codeHash: new Uint8Array(),
     creator: "",
-    instantiateConfig: undefined,
+    instantiateConfig: AccessConfig.fromPartial({}),
   };
 }
 export const CodeInfo = {
@@ -407,13 +403,12 @@ export const CodeInfo = {
     return message;
   },
   fromJSON(object: any): CodeInfo {
-    return {
-      codeHash: isSet(object.codeHash) ? bytesFromBase64(object.codeHash) : new Uint8Array(),
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      instantiateConfig: isSet(object.instantiateConfig)
-        ? AccessConfig.fromJSON(object.instantiateConfig)
-        : undefined,
-    };
+    const obj = createBaseCodeInfo();
+    if (isSet(object.codeHash)) obj.codeHash = bytesFromBase64(object.codeHash);
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.instantiateConfig))
+      obj.instantiateConfig = AccessConfig.fromJSON(object.instantiateConfig);
+    return obj;
   },
   toJSON(message: CodeInfo): unknown {
     const obj: any = {};
@@ -430,10 +425,9 @@ export const CodeInfo = {
     const message = createBaseCodeInfo();
     message.codeHash = object.codeHash ?? new Uint8Array();
     message.creator = object.creator ?? "";
-    message.instantiateConfig =
-      object.instantiateConfig !== undefined && object.instantiateConfig !== null
-        ? AccessConfig.fromPartial(object.instantiateConfig)
-        : undefined;
+    if (object.instantiateConfig !== undefined && object.instantiateConfig !== null) {
+      message.instantiateConfig = AccessConfig.fromPartial(object.instantiateConfig);
+    }
     return message;
   },
 };
@@ -443,9 +437,9 @@ function createBaseContractInfo(): ContractInfo {
     creator: "",
     admin: "",
     label: "",
-    created: undefined,
+    created: AbsoluteTxPosition.fromPartial({}),
     ibcPortId: "",
-    extension: undefined,
+    extension: Any.fromPartial({}),
   };
 }
 export const ContractInfo = {
@@ -509,15 +503,15 @@ export const ContractInfo = {
     return message;
   },
   fromJSON(object: any): ContractInfo {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      creator: isSet(object.creator) ? String(object.creator) : "",
-      admin: isSet(object.admin) ? String(object.admin) : "",
-      label: isSet(object.label) ? String(object.label) : "",
-      created: isSet(object.created) ? AbsoluteTxPosition.fromJSON(object.created) : undefined,
-      ibcPortId: isSet(object.ibcPortId) ? String(object.ibcPortId) : "",
-      extension: isSet(object.extension) ? Any.fromJSON(object.extension) : undefined,
-    };
+    const obj = createBaseContractInfo();
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.admin)) obj.admin = String(object.admin);
+    if (isSet(object.label)) obj.label = String(object.label);
+    if (isSet(object.created)) obj.created = AbsoluteTxPosition.fromJSON(object.created);
+    if (isSet(object.ibcPortId)) obj.ibcPortId = String(object.ibcPortId);
+    if (isSet(object.extension)) obj.extension = Any.fromJSON(object.extension);
+    return obj;
   },
   toJSON(message: ContractInfo): unknown {
     const obj: any = {};
@@ -534,20 +528,19 @@ export const ContractInfo = {
   },
   fromPartial<I extends Exact<DeepPartial<ContractInfo>, I>>(object: I): ContractInfo {
     const message = createBaseContractInfo();
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
     message.creator = object.creator ?? "";
     message.admin = object.admin ?? "";
     message.label = object.label ?? "";
-    message.created =
-      object.created !== undefined && object.created !== null
-        ? AbsoluteTxPosition.fromPartial(object.created)
-        : undefined;
+    if (object.created !== undefined && object.created !== null) {
+      message.created = AbsoluteTxPosition.fromPartial(object.created);
+    }
     message.ibcPortId = object.ibcPortId ?? "";
-    message.extension =
-      object.extension !== undefined && object.extension !== null
-        ? Any.fromPartial(object.extension)
-        : undefined;
+    if (object.extension !== undefined && object.extension !== null) {
+      message.extension = Any.fromPartial(object.extension);
+    }
     return message;
   },
 };
@@ -555,7 +548,7 @@ function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   return {
     operation: 0,
     codeId: Long.UZERO,
-    updated: undefined,
+    updated: AbsoluteTxPosition.fromPartial({}),
     msg: new Uint8Array(),
   };
 }
@@ -602,12 +595,12 @@ export const ContractCodeHistoryEntry = {
     return message;
   },
   fromJSON(object: any): ContractCodeHistoryEntry {
-    return {
-      operation: isSet(object.operation) ? contractCodeHistoryOperationTypeFromJSON(object.operation) : 0,
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      updated: isSet(object.updated) ? AbsoluteTxPosition.fromJSON(object.updated) : undefined,
-      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-    };
+    const obj = createBaseContractCodeHistoryEntry();
+    if (isSet(object.operation)) obj.operation = contractCodeHistoryOperationTypeFromJSON(object.operation);
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    if (isSet(object.updated)) obj.updated = AbsoluteTxPosition.fromJSON(object.updated);
+    if (isSet(object.msg)) obj.msg = bytesFromBase64(object.msg);
+    return obj;
   },
   toJSON(message: ContractCodeHistoryEntry): unknown {
     const obj: any = {};
@@ -625,12 +618,12 @@ export const ContractCodeHistoryEntry = {
   ): ContractCodeHistoryEntry {
     const message = createBaseContractCodeHistoryEntry();
     message.operation = object.operation ?? 0;
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
-    message.updated =
-      object.updated !== undefined && object.updated !== null
-        ? AbsoluteTxPosition.fromPartial(object.updated)
-        : undefined;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
+    if (object.updated !== undefined && object.updated !== null) {
+      message.updated = AbsoluteTxPosition.fromPartial(object.updated);
+    }
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
@@ -672,10 +665,10 @@ export const AbsoluteTxPosition = {
     return message;
   },
   fromJSON(object: any): AbsoluteTxPosition {
-    return {
-      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
-      txIndex: isSet(object.txIndex) ? Long.fromValue(object.txIndex) : Long.UZERO,
-    };
+    const obj = createBaseAbsoluteTxPosition();
+    if (isSet(object.blockHeight)) obj.blockHeight = Long.fromValue(object.blockHeight);
+    if (isSet(object.txIndex)) obj.txIndex = Long.fromValue(object.txIndex);
+    return obj;
   },
   toJSON(message: AbsoluteTxPosition): unknown {
     const obj: any = {};
@@ -685,12 +678,12 @@ export const AbsoluteTxPosition = {
   },
   fromPartial<I extends Exact<DeepPartial<AbsoluteTxPosition>, I>>(object: I): AbsoluteTxPosition {
     const message = createBaseAbsoluteTxPosition();
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Long.fromValue(object.blockHeight)
-        : Long.UZERO;
-    message.txIndex =
-      object.txIndex !== undefined && object.txIndex !== null ? Long.fromValue(object.txIndex) : Long.UZERO;
+    if (object.blockHeight !== undefined && object.blockHeight !== null) {
+      message.blockHeight = Long.fromValue(object.blockHeight);
+    }
+    if (object.txIndex !== undefined && object.txIndex !== null) {
+      message.txIndex = Long.fromValue(object.txIndex);
+    }
     return message;
   },
 };
@@ -731,10 +724,10 @@ export const Model = {
     return message;
   },
   fromJSON(object: any): Model {
-    return {
-      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
-    };
+    const obj = createBaseModel();
+    if (isSet(object.key)) obj.key = bytesFromBase64(object.key);
+    if (isSet(object.value)) obj.value = bytesFromBase64(object.value);
+    return obj;
   },
   toJSON(message: Model): unknown {
     const obj: any = {};

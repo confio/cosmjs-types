@@ -11,7 +11,7 @@ export const protobufPackage = "cosmos.authz.v1beta1";
 export interface MsgGrant {
   granter: string;
   grantee: string;
-  grant?: Grant;
+  grant: Grant;
 }
 /** MsgExecResponse defines the Msg/MsgExecResponse response type. */
 export interface MsgExecResponse {
@@ -48,7 +48,7 @@ function createBaseMsgGrant(): MsgGrant {
   return {
     granter: "",
     grantee: "",
-    grant: undefined,
+    grant: Grant.fromPartial({}),
   };
 }
 export const MsgGrant = {
@@ -88,11 +88,11 @@ export const MsgGrant = {
     return message;
   },
   fromJSON(object: any): MsgGrant {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      grant: isSet(object.grant) ? Grant.fromJSON(object.grant) : undefined,
-    };
+    const obj = createBaseMsgGrant();
+    if (isSet(object.granter)) obj.granter = String(object.granter);
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    if (isSet(object.grant)) obj.grant = Grant.fromJSON(object.grant);
+    return obj;
   },
   toJSON(message: MsgGrant): unknown {
     const obj: any = {};
@@ -105,8 +105,9 @@ export const MsgGrant = {
     const message = createBaseMsgGrant();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    message.grant =
-      object.grant !== undefined && object.grant !== null ? Grant.fromPartial(object.grant) : undefined;
+    if (object.grant !== undefined && object.grant !== null) {
+      message.grant = Grant.fromPartial(object.grant);
+    }
     return message;
   },
 };
@@ -140,9 +141,9 @@ export const MsgExecResponse = {
     return message;
   },
   fromJSON(object: any): MsgExecResponse {
-    return {
-      results: Array.isArray(object?.results) ? object.results.map((e: any) => bytesFromBase64(e)) : [],
-    };
+    const obj = createBaseMsgExecResponse();
+    if (Array.isArray(object?.results)) obj.results = object.results.map((e: any) => bytesFromBase64(e));
+    return obj;
   },
   toJSON(message: MsgExecResponse): unknown {
     const obj: any = {};
@@ -196,10 +197,10 @@ export const MsgExec = {
     return message;
   },
   fromJSON(object: any): MsgExec {
-    return {
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      msgs: Array.isArray(object?.msgs) ? object.msgs.map((e: any) => Any.fromJSON(e)) : [],
-    };
+    const obj = createBaseMsgExec();
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    if (Array.isArray(object?.msgs)) obj.msgs = object.msgs.map((e: any) => Any.fromJSON(e));
+    return obj;
   },
   toJSON(message: MsgExec): unknown {
     const obj: any = {};
@@ -240,7 +241,8 @@ export const MsgGrantResponse = {
     return message;
   },
   fromJSON(_: any): MsgGrantResponse {
-    return {};
+    const obj = createBaseMsgGrantResponse();
+    return obj;
   },
   toJSON(_: MsgGrantResponse): unknown {
     const obj: any = {};
@@ -295,11 +297,11 @@ export const MsgRevoke = {
     return message;
   },
   fromJSON(object: any): MsgRevoke {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      msgTypeUrl: isSet(object.msgTypeUrl) ? String(object.msgTypeUrl) : "",
-    };
+    const obj = createBaseMsgRevoke();
+    if (isSet(object.granter)) obj.granter = String(object.granter);
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    if (isSet(object.msgTypeUrl)) obj.msgTypeUrl = String(object.msgTypeUrl);
+    return obj;
   },
   toJSON(message: MsgRevoke): unknown {
     const obj: any = {};
@@ -338,7 +340,8 @@ export const MsgRevokeResponse = {
     return message;
   },
   fromJSON(_: any): MsgRevokeResponse {
-    return {};
+    const obj = createBaseMsgRevokeResponse();
+    return obj;
   },
   toJSON(_: MsgRevokeResponse): unknown {
     const obj: any = {};

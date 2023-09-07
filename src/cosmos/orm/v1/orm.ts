@@ -5,7 +5,7 @@ export const protobufPackage = "cosmos.orm.v1";
 /** TableDescriptor describes an ORM table. */
 export interface TableDescriptor {
   /** primary_key defines the primary key for the table. */
-  primaryKey?: PrimaryKeyDescriptor;
+  primaryKey: PrimaryKeyDescriptor;
   /** index defines one or more secondary indexes. */
   index: SecondaryIndexDescriptor[];
   /**
@@ -91,7 +91,7 @@ export interface SingletonDescriptor {
 }
 function createBaseTableDescriptor(): TableDescriptor {
   return {
-    primaryKey: undefined,
+    primaryKey: PrimaryKeyDescriptor.fromPartial({}),
     index: [],
     id: 0,
   };
@@ -133,13 +133,12 @@ export const TableDescriptor = {
     return message;
   },
   fromJSON(object: any): TableDescriptor {
-    return {
-      primaryKey: isSet(object.primaryKey) ? PrimaryKeyDescriptor.fromJSON(object.primaryKey) : undefined,
-      index: Array.isArray(object?.index)
-        ? object.index.map((e: any) => SecondaryIndexDescriptor.fromJSON(e))
-        : [],
-      id: isSet(object.id) ? Number(object.id) : 0,
-    };
+    const obj = createBaseTableDescriptor();
+    if (isSet(object.primaryKey)) obj.primaryKey = PrimaryKeyDescriptor.fromJSON(object.primaryKey);
+    if (Array.isArray(object?.index))
+      obj.index = object.index.map((e: any) => SecondaryIndexDescriptor.fromJSON(e));
+    if (isSet(object.id)) obj.id = Number(object.id);
+    return obj;
   },
   toJSON(message: TableDescriptor): unknown {
     const obj: any = {};
@@ -155,10 +154,9 @@ export const TableDescriptor = {
   },
   fromPartial<I extends Exact<DeepPartial<TableDescriptor>, I>>(object: I): TableDescriptor {
     const message = createBaseTableDescriptor();
-    message.primaryKey =
-      object.primaryKey !== undefined && object.primaryKey !== null
-        ? PrimaryKeyDescriptor.fromPartial(object.primaryKey)
-        : undefined;
+    if (object.primaryKey !== undefined && object.primaryKey !== null) {
+      message.primaryKey = PrimaryKeyDescriptor.fromPartial(object.primaryKey);
+    }
     message.index = object.index?.map((e) => SecondaryIndexDescriptor.fromPartial(e)) || [];
     message.id = object.id ?? 0;
     return message;
@@ -201,10 +199,10 @@ export const PrimaryKeyDescriptor = {
     return message;
   },
   fromJSON(object: any): PrimaryKeyDescriptor {
-    return {
-      fields: isSet(object.fields) ? String(object.fields) : "",
-      autoIncrement: isSet(object.autoIncrement) ? Boolean(object.autoIncrement) : false,
-    };
+    const obj = createBasePrimaryKeyDescriptor();
+    if (isSet(object.fields)) obj.fields = String(object.fields);
+    if (isSet(object.autoIncrement)) obj.autoIncrement = Boolean(object.autoIncrement);
+    return obj;
   },
   toJSON(message: PrimaryKeyDescriptor): unknown {
     const obj: any = {};
@@ -263,11 +261,11 @@ export const SecondaryIndexDescriptor = {
     return message;
   },
   fromJSON(object: any): SecondaryIndexDescriptor {
-    return {
-      fields: isSet(object.fields) ? String(object.fields) : "",
-      id: isSet(object.id) ? Number(object.id) : 0,
-      unique: isSet(object.unique) ? Boolean(object.unique) : false,
-    };
+    const obj = createBaseSecondaryIndexDescriptor();
+    if (isSet(object.fields)) obj.fields = String(object.fields);
+    if (isSet(object.id)) obj.id = Number(object.id);
+    if (isSet(object.unique)) obj.unique = Boolean(object.unique);
+    return obj;
   },
   toJSON(message: SecondaryIndexDescriptor): unknown {
     const obj: any = {};
@@ -316,9 +314,9 @@ export const SingletonDescriptor = {
     return message;
   },
   fromJSON(object: any): SingletonDescriptor {
-    return {
-      id: isSet(object.id) ? Number(object.id) : 0,
-    };
+    const obj = createBaseSingletonDescriptor();
+    if (isSet(object.id)) obj.id = Number(object.id);
+    return obj;
   },
   toJSON(message: SingletonDescriptor): unknown {
     const obj: any = {};

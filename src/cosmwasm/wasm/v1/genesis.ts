@@ -5,7 +5,7 @@ import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
-  params?: Params;
+  params: Params;
   codes: Code[];
   contracts: Contract[];
   sequences: Sequence[];
@@ -13,7 +13,7 @@ export interface GenesisState {
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface Code {
   codeId: Long;
-  codeInfo?: CodeInfo;
+  codeInfo: CodeInfo;
   codeBytes: Uint8Array;
   /** Pinned to wasmvm cache */
   pinned: boolean;
@@ -21,7 +21,7 @@ export interface Code {
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface Contract {
   contractAddress: string;
-  contractInfo?: ContractInfo;
+  contractInfo: ContractInfo;
   contractState: Model[];
   contractCodeHistory: ContractCodeHistoryEntry[];
 }
@@ -32,7 +32,7 @@ export interface Sequence {
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    params: undefined,
+    params: Params.fromPartial({}),
     codes: [],
     contracts: [],
     sequences: [],
@@ -81,16 +81,14 @@ export const GenesisState = {
     return message;
   },
   fromJSON(object: any): GenesisState {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      codes: Array.isArray(object?.codes) ? object.codes.map((e: any) => Code.fromJSON(e)) : [],
-      contracts: Array.isArray(object?.contracts)
-        ? object.contracts.map((e: any) => Contract.fromJSON(e))
-        : [],
-      sequences: Array.isArray(object?.sequences)
-        ? object.sequences.map((e: any) => Sequence.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseGenesisState();
+    if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
+    if (Array.isArray(object?.codes)) obj.codes = object.codes.map((e: any) => Code.fromJSON(e));
+    if (Array.isArray(object?.contracts))
+      obj.contracts = object.contracts.map((e: any) => Contract.fromJSON(e));
+    if (Array.isArray(object?.sequences))
+      obj.sequences = object.sequences.map((e: any) => Sequence.fromJSON(e));
+    return obj;
   },
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
@@ -114,8 +112,9 @@ export const GenesisState = {
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.params =
-      object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromPartial(object.params);
+    }
     message.codes = object.codes?.map((e) => Code.fromPartial(e)) || [];
     message.contracts = object.contracts?.map((e) => Contract.fromPartial(e)) || [];
     message.sequences = object.sequences?.map((e) => Sequence.fromPartial(e)) || [];
@@ -125,7 +124,7 @@ export const GenesisState = {
 function createBaseCode(): Code {
   return {
     codeId: Long.UZERO,
-    codeInfo: undefined,
+    codeInfo: CodeInfo.fromPartial({}),
     codeBytes: new Uint8Array(),
     pinned: false,
   };
@@ -173,12 +172,12 @@ export const Code = {
     return message;
   },
   fromJSON(object: any): Code {
-    return {
-      codeId: isSet(object.codeId) ? Long.fromValue(object.codeId) : Long.UZERO,
-      codeInfo: isSet(object.codeInfo) ? CodeInfo.fromJSON(object.codeInfo) : undefined,
-      codeBytes: isSet(object.codeBytes) ? bytesFromBase64(object.codeBytes) : new Uint8Array(),
-      pinned: isSet(object.pinned) ? Boolean(object.pinned) : false,
-    };
+    const obj = createBaseCode();
+    if (isSet(object.codeId)) obj.codeId = Long.fromValue(object.codeId);
+    if (isSet(object.codeInfo)) obj.codeInfo = CodeInfo.fromJSON(object.codeInfo);
+    if (isSet(object.codeBytes)) obj.codeBytes = bytesFromBase64(object.codeBytes);
+    if (isSet(object.pinned)) obj.pinned = Boolean(object.pinned);
+    return obj;
   },
   toJSON(message: Code): unknown {
     const obj: any = {};
@@ -194,12 +193,12 @@ export const Code = {
   },
   fromPartial<I extends Exact<DeepPartial<Code>, I>>(object: I): Code {
     const message = createBaseCode();
-    message.codeId =
-      object.codeId !== undefined && object.codeId !== null ? Long.fromValue(object.codeId) : Long.UZERO;
-    message.codeInfo =
-      object.codeInfo !== undefined && object.codeInfo !== null
-        ? CodeInfo.fromPartial(object.codeInfo)
-        : undefined;
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = Long.fromValue(object.codeId);
+    }
+    if (object.codeInfo !== undefined && object.codeInfo !== null) {
+      message.codeInfo = CodeInfo.fromPartial(object.codeInfo);
+    }
     message.codeBytes = object.codeBytes ?? new Uint8Array();
     message.pinned = object.pinned ?? false;
     return message;
@@ -208,7 +207,7 @@ export const Code = {
 function createBaseContract(): Contract {
   return {
     contractAddress: "",
-    contractInfo: undefined,
+    contractInfo: ContractInfo.fromPartial({}),
     contractState: [],
     contractCodeHistory: [],
   };
@@ -256,16 +255,16 @@ export const Contract = {
     return message;
   },
   fromJSON(object: any): Contract {
-    return {
-      contractAddress: isSet(object.contractAddress) ? String(object.contractAddress) : "",
-      contractInfo: isSet(object.contractInfo) ? ContractInfo.fromJSON(object.contractInfo) : undefined,
-      contractState: Array.isArray(object?.contractState)
-        ? object.contractState.map((e: any) => Model.fromJSON(e))
-        : [],
-      contractCodeHistory: Array.isArray(object?.contractCodeHistory)
-        ? object.contractCodeHistory.map((e: any) => ContractCodeHistoryEntry.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseContract();
+    if (isSet(object.contractAddress)) obj.contractAddress = String(object.contractAddress);
+    if (isSet(object.contractInfo)) obj.contractInfo = ContractInfo.fromJSON(object.contractInfo);
+    if (Array.isArray(object?.contractState))
+      obj.contractState = object.contractState.map((e: any) => Model.fromJSON(e));
+    if (Array.isArray(object?.contractCodeHistory))
+      obj.contractCodeHistory = object.contractCodeHistory.map((e: any) =>
+        ContractCodeHistoryEntry.fromJSON(e),
+      );
+    return obj;
   },
   toJSON(message: Contract): unknown {
     const obj: any = {};
@@ -289,10 +288,9 @@ export const Contract = {
   fromPartial<I extends Exact<DeepPartial<Contract>, I>>(object: I): Contract {
     const message = createBaseContract();
     message.contractAddress = object.contractAddress ?? "";
-    message.contractInfo =
-      object.contractInfo !== undefined && object.contractInfo !== null
-        ? ContractInfo.fromPartial(object.contractInfo)
-        : undefined;
+    if (object.contractInfo !== undefined && object.contractInfo !== null) {
+      message.contractInfo = ContractInfo.fromPartial(object.contractInfo);
+    }
     message.contractState = object.contractState?.map((e) => Model.fromPartial(e)) || [];
     message.contractCodeHistory =
       object.contractCodeHistory?.map((e) => ContractCodeHistoryEntry.fromPartial(e)) || [];
@@ -336,10 +334,10 @@ export const Sequence = {
     return message;
   },
   fromJSON(object: any): Sequence {
-    return {
-      idKey: isSet(object.idKey) ? bytesFromBase64(object.idKey) : new Uint8Array(),
-      value: isSet(object.value) ? Long.fromValue(object.value) : Long.UZERO,
-    };
+    const obj = createBaseSequence();
+    if (isSet(object.idKey)) obj.idKey = bytesFromBase64(object.idKey);
+    if (isSet(object.value)) obj.value = Long.fromValue(object.value);
+    return obj;
   },
   toJSON(message: Sequence): unknown {
     const obj: any = {};
@@ -351,8 +349,9 @@ export const Sequence = {
   fromPartial<I extends Exact<DeepPartial<Sequence>, I>>(object: I): Sequence {
     const message = createBaseSequence();
     message.idKey = object.idKey ?? new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null ? Long.fromValue(object.value) : Long.UZERO;
+    if (object.value !== undefined && object.value !== null) {
+      message.value = Long.fromValue(object.value);
+    }
     return message;
   },
 };

@@ -46,10 +46,10 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      feeCollectorName: isSet(object.feeCollectorName) ? String(object.feeCollectorName) : "",
-      authority: isSet(object.authority) ? String(object.authority) : "",
-    };
+    const obj = createBaseModule();
+    if (isSet(object.feeCollectorName)) obj.feeCollectorName = String(object.feeCollectorName);
+    if (isSet(object.authority)) obj.authority = String(object.authority);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};

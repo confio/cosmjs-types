@@ -32,7 +32,8 @@ export const FileDescriptorsRequest = {
     return message;
   },
   fromJSON(_: any): FileDescriptorsRequest {
-    return {};
+    const obj = createBaseFileDescriptorsRequest();
+    return obj;
   },
   toJSON(_: FileDescriptorsRequest): unknown {
     const obj: any = {};
@@ -73,11 +74,10 @@ export const FileDescriptorsResponse = {
     return message;
   },
   fromJSON(object: any): FileDescriptorsResponse {
-    return {
-      files: Array.isArray(object?.files)
-        ? object.files.map((e: any) => FileDescriptorProto.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseFileDescriptorsResponse();
+    if (Array.isArray(object?.files))
+      obj.files = object.files.map((e: any) => FileDescriptorProto.fromJSON(e));
+    return obj;
   },
   toJSON(message: FileDescriptorsResponse): unknown {
     const obj: any = {};

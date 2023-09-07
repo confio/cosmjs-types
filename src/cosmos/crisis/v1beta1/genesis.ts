@@ -9,11 +9,11 @@ export interface GenesisState {
    * constant_fee is the fee used to verify the invariant in the crisis
    * module.
    */
-  constantFee?: Coin;
+  constantFee: Coin;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    constantFee: undefined,
+    constantFee: Coin.fromPartial({}),
   };
 }
 export const GenesisState = {
@@ -41,9 +41,9 @@ export const GenesisState = {
     return message;
   },
   fromJSON(object: any): GenesisState {
-    return {
-      constantFee: isSet(object.constantFee) ? Coin.fromJSON(object.constantFee) : undefined,
-    };
+    const obj = createBaseGenesisState();
+    if (isSet(object.constantFee)) obj.constantFee = Coin.fromJSON(object.constantFee);
+    return obj;
   },
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
@@ -53,10 +53,9 @@ export const GenesisState = {
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.constantFee =
-      object.constantFee !== undefined && object.constantFee !== null
-        ? Coin.fromPartial(object.constantFee)
-        : undefined;
+    if (object.constantFee !== undefined && object.constantFee !== null) {
+      message.constantFee = Coin.fromPartial(object.constantFee);
+    }
     return message;
   },
 };

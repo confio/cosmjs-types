@@ -17,7 +17,7 @@ export interface MsgRegisterInterchainAccountResponse {
 export interface MsgSendTx {
   owner: string;
   connectionId: string;
-  packetData?: InterchainAccountPacketData;
+  packetData: InterchainAccountPacketData;
   /**
    * Relative timeout timestamp provided will be added to the current block time during transaction execution.
    * The timeout timestamp must be non-zero.
@@ -72,11 +72,11 @@ export const MsgRegisterInterchainAccount = {
     return message;
   },
   fromJSON(object: any): MsgRegisterInterchainAccount {
-    return {
-      owner: isSet(object.owner) ? String(object.owner) : "",
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-      version: isSet(object.version) ? String(object.version) : "",
-    };
+    const obj = createBaseMsgRegisterInterchainAccount();
+    if (isSet(object.owner)) obj.owner = String(object.owner);
+    if (isSet(object.connectionId)) obj.connectionId = String(object.connectionId);
+    if (isSet(object.version)) obj.version = String(object.version);
+    return obj;
   },
   toJSON(message: MsgRegisterInterchainAccount): unknown {
     const obj: any = {};
@@ -128,9 +128,9 @@ export const MsgRegisterInterchainAccountResponse = {
     return message;
   },
   fromJSON(object: any): MsgRegisterInterchainAccountResponse {
-    return {
-      channelId: isSet(object.channelId) ? String(object.channelId) : "",
-    };
+    const obj = createBaseMsgRegisterInterchainAccountResponse();
+    if (isSet(object.channelId)) obj.channelId = String(object.channelId);
+    return obj;
   },
   toJSON(message: MsgRegisterInterchainAccountResponse): unknown {
     const obj: any = {};
@@ -149,7 +149,7 @@ function createBaseMsgSendTx(): MsgSendTx {
   return {
     owner: "",
     connectionId: "",
-    packetData: undefined,
+    packetData: InterchainAccountPacketData.fromPartial({}),
     relativeTimeout: Long.UZERO,
   };
 }
@@ -196,14 +196,12 @@ export const MsgSendTx = {
     return message;
   },
   fromJSON(object: any): MsgSendTx {
-    return {
-      owner: isSet(object.owner) ? String(object.owner) : "",
-      connectionId: isSet(object.connectionId) ? String(object.connectionId) : "",
-      packetData: isSet(object.packetData)
-        ? InterchainAccountPacketData.fromJSON(object.packetData)
-        : undefined,
-      relativeTimeout: isSet(object.relativeTimeout) ? Long.fromValue(object.relativeTimeout) : Long.UZERO,
-    };
+    const obj = createBaseMsgSendTx();
+    if (isSet(object.owner)) obj.owner = String(object.owner);
+    if (isSet(object.connectionId)) obj.connectionId = String(object.connectionId);
+    if (isSet(object.packetData)) obj.packetData = InterchainAccountPacketData.fromJSON(object.packetData);
+    if (isSet(object.relativeTimeout)) obj.relativeTimeout = Long.fromValue(object.relativeTimeout);
+    return obj;
   },
   toJSON(message: MsgSendTx): unknown {
     const obj: any = {};
@@ -221,14 +219,12 @@ export const MsgSendTx = {
     const message = createBaseMsgSendTx();
     message.owner = object.owner ?? "";
     message.connectionId = object.connectionId ?? "";
-    message.packetData =
-      object.packetData !== undefined && object.packetData !== null
-        ? InterchainAccountPacketData.fromPartial(object.packetData)
-        : undefined;
-    message.relativeTimeout =
-      object.relativeTimeout !== undefined && object.relativeTimeout !== null
-        ? Long.fromValue(object.relativeTimeout)
-        : Long.UZERO;
+    if (object.packetData !== undefined && object.packetData !== null) {
+      message.packetData = InterchainAccountPacketData.fromPartial(object.packetData);
+    }
+    if (object.relativeTimeout !== undefined && object.relativeTimeout !== null) {
+      message.relativeTimeout = Long.fromValue(object.relativeTimeout);
+    }
     return message;
   },
 };
@@ -262,9 +258,9 @@ export const MsgSendTxResponse = {
     return message;
   },
   fromJSON(object: any): MsgSendTxResponse {
-    return {
-      sequence: isSet(object.sequence) ? Long.fromValue(object.sequence) : Long.UZERO,
-    };
+    const obj = createBaseMsgSendTxResponse();
+    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    return obj;
   },
   toJSON(message: MsgSendTxResponse): unknown {
     const obj: any = {};
@@ -273,10 +269,9 @@ export const MsgSendTxResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<MsgSendTxResponse>, I>>(object: I): MsgSendTxResponse {
     const message = createBaseMsgSendTxResponse();
-    message.sequence =
-      object.sequence !== undefined && object.sequence !== null
-        ? Long.fromValue(object.sequence)
-        : Long.UZERO;
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = Long.fromValue(object.sequence);
+    }
     return message;
   },
 };

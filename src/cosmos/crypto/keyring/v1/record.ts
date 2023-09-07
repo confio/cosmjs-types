@@ -9,7 +9,7 @@ export interface Record {
   /** name represents a name of Record */
   name: string;
   /** pub_key represents a public key in any format */
-  pubKey?: Any;
+  pubKey: Any;
   /** local stores the private key locally. */
   local?: Record_Local;
   /** ledger stores the information about a Ledger key. */
@@ -24,11 +24,11 @@ export interface Record {
  * Local item
  */
 export interface Record_Local {
-  privKey?: Any;
+  privKey: Any;
 }
 /** Ledger item */
 export interface Record_Ledger {
-  path?: BIP44Params;
+  path: BIP44Params;
 }
 /** Multi item */
 export interface Record_Multi {}
@@ -37,7 +37,7 @@ export interface Record_Offline {}
 function createBaseRecord(): Record {
   return {
     name: "",
-    pubKey: undefined,
+    pubKey: Any.fromPartial({}),
     local: undefined,
     ledger: undefined,
     multi: undefined,
@@ -99,14 +99,14 @@ export const Record = {
     return message;
   },
   fromJSON(object: any): Record {
-    return {
-      name: isSet(object.name) ? String(object.name) : "",
-      pubKey: isSet(object.pubKey) ? Any.fromJSON(object.pubKey) : undefined,
-      local: isSet(object.local) ? Record_Local.fromJSON(object.local) : undefined,
-      ledger: isSet(object.ledger) ? Record_Ledger.fromJSON(object.ledger) : undefined,
-      multi: isSet(object.multi) ? Record_Multi.fromJSON(object.multi) : undefined,
-      offline: isSet(object.offline) ? Record_Offline.fromJSON(object.offline) : undefined,
-    };
+    const obj = createBaseRecord();
+    if (isSet(object.name)) obj.name = String(object.name);
+    if (isSet(object.pubKey)) obj.pubKey = Any.fromJSON(object.pubKey);
+    if (isSet(object.local)) obj.local = Record_Local.fromJSON(object.local);
+    if (isSet(object.ledger)) obj.ledger = Record_Ledger.fromJSON(object.ledger);
+    if (isSet(object.multi)) obj.multi = Record_Multi.fromJSON(object.multi);
+    if (isSet(object.offline)) obj.offline = Record_Offline.fromJSON(object.offline);
+    return obj;
   },
   toJSON(message: Record): unknown {
     const obj: any = {};
@@ -125,30 +125,27 @@ export const Record = {
   fromPartial<I extends Exact<DeepPartial<Record>, I>>(object: I): Record {
     const message = createBaseRecord();
     message.name = object.name ?? "";
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null ? Any.fromPartial(object.pubKey) : undefined;
-    message.local =
-      object.local !== undefined && object.local !== null
-        ? Record_Local.fromPartial(object.local)
-        : undefined;
-    message.ledger =
-      object.ledger !== undefined && object.ledger !== null
-        ? Record_Ledger.fromPartial(object.ledger)
-        : undefined;
-    message.multi =
-      object.multi !== undefined && object.multi !== null
-        ? Record_Multi.fromPartial(object.multi)
-        : undefined;
-    message.offline =
-      object.offline !== undefined && object.offline !== null
-        ? Record_Offline.fromPartial(object.offline)
-        : undefined;
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = Any.fromPartial(object.pubKey);
+    }
+    if (object.local !== undefined && object.local !== null) {
+      message.local = Record_Local.fromPartial(object.local);
+    }
+    if (object.ledger !== undefined && object.ledger !== null) {
+      message.ledger = Record_Ledger.fromPartial(object.ledger);
+    }
+    if (object.multi !== undefined && object.multi !== null) {
+      message.multi = Record_Multi.fromPartial(object.multi);
+    }
+    if (object.offline !== undefined && object.offline !== null) {
+      message.offline = Record_Offline.fromPartial(object.offline);
+    }
     return message;
   },
 };
 function createBaseRecord_Local(): Record_Local {
   return {
-    privKey: undefined,
+    privKey: Any.fromPartial({}),
   };
 }
 export const Record_Local = {
@@ -176,9 +173,9 @@ export const Record_Local = {
     return message;
   },
   fromJSON(object: any): Record_Local {
-    return {
-      privKey: isSet(object.privKey) ? Any.fromJSON(object.privKey) : undefined,
-    };
+    const obj = createBaseRecord_Local();
+    if (isSet(object.privKey)) obj.privKey = Any.fromJSON(object.privKey);
+    return obj;
   },
   toJSON(message: Record_Local): unknown {
     const obj: any = {};
@@ -188,14 +185,15 @@ export const Record_Local = {
   },
   fromPartial<I extends Exact<DeepPartial<Record_Local>, I>>(object: I): Record_Local {
     const message = createBaseRecord_Local();
-    message.privKey =
-      object.privKey !== undefined && object.privKey !== null ? Any.fromPartial(object.privKey) : undefined;
+    if (object.privKey !== undefined && object.privKey !== null) {
+      message.privKey = Any.fromPartial(object.privKey);
+    }
     return message;
   },
 };
 function createBaseRecord_Ledger(): Record_Ledger {
   return {
-    path: undefined,
+    path: BIP44Params.fromPartial({}),
   };
 }
 export const Record_Ledger = {
@@ -223,9 +221,9 @@ export const Record_Ledger = {
     return message;
   },
   fromJSON(object: any): Record_Ledger {
-    return {
-      path: isSet(object.path) ? BIP44Params.fromJSON(object.path) : undefined,
-    };
+    const obj = createBaseRecord_Ledger();
+    if (isSet(object.path)) obj.path = BIP44Params.fromJSON(object.path);
+    return obj;
   },
   toJSON(message: Record_Ledger): unknown {
     const obj: any = {};
@@ -234,8 +232,9 @@ export const Record_Ledger = {
   },
   fromPartial<I extends Exact<DeepPartial<Record_Ledger>, I>>(object: I): Record_Ledger {
     const message = createBaseRecord_Ledger();
-    message.path =
-      object.path !== undefined && object.path !== null ? BIP44Params.fromPartial(object.path) : undefined;
+    if (object.path !== undefined && object.path !== null) {
+      message.path = BIP44Params.fromPartial(object.path);
+    }
     return message;
   },
 };
@@ -261,7 +260,8 @@ export const Record_Multi = {
     return message;
   },
   fromJSON(_: any): Record_Multi {
-    return {};
+    const obj = createBaseRecord_Multi();
+    return obj;
   },
   toJSON(_: Record_Multi): unknown {
     const obj: any = {};
@@ -294,7 +294,8 @@ export const Record_Offline = {
     return message;
   },
   fromJSON(_: any): Record_Offline {
-    return {};
+    const obj = createBaseRecord_Offline();
+    return obj;
   },
   toJSON(_: Record_Offline): unknown {
     const obj: any = {};

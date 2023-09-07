@@ -111,20 +111,17 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      appName: isSet(object.appName) ? String(object.appName) : "",
-      beginBlockers: Array.isArray(object?.beginBlockers)
-        ? object.beginBlockers.map((e: any) => String(e))
-        : [],
-      endBlockers: Array.isArray(object?.endBlockers) ? object.endBlockers.map((e: any) => String(e)) : [],
-      initGenesis: Array.isArray(object?.initGenesis) ? object.initGenesis.map((e: any) => String(e)) : [],
-      exportGenesis: Array.isArray(object?.exportGenesis)
-        ? object.exportGenesis.map((e: any) => String(e))
-        : [],
-      overrideStoreKeys: Array.isArray(object?.overrideStoreKeys)
-        ? object.overrideStoreKeys.map((e: any) => StoreKeyConfig.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseModule();
+    if (isSet(object.appName)) obj.appName = String(object.appName);
+    if (Array.isArray(object?.beginBlockers))
+      obj.beginBlockers = object.beginBlockers.map((e: any) => String(e));
+    if (Array.isArray(object?.endBlockers)) obj.endBlockers = object.endBlockers.map((e: any) => String(e));
+    if (Array.isArray(object?.initGenesis)) obj.initGenesis = object.initGenesis.map((e: any) => String(e));
+    if (Array.isArray(object?.exportGenesis))
+      obj.exportGenesis = object.exportGenesis.map((e: any) => String(e));
+    if (Array.isArray(object?.overrideStoreKeys))
+      obj.overrideStoreKeys = object.overrideStoreKeys.map((e: any) => StoreKeyConfig.fromJSON(e));
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};
@@ -206,10 +203,10 @@ export const StoreKeyConfig = {
     return message;
   },
   fromJSON(object: any): StoreKeyConfig {
-    return {
-      moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
-      kvStoreKey: isSet(object.kvStoreKey) ? String(object.kvStoreKey) : "",
-    };
+    const obj = createBaseStoreKeyConfig();
+    if (isSet(object.moduleName)) obj.moduleName = String(object.moduleName);
+    if (isSet(object.kvStoreKey)) obj.kvStoreKey = String(object.kvStoreKey);
+    return obj;
   },
   toJSON(message: StoreKeyConfig): unknown {
     const obj: any = {};

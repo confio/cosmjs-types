@@ -13,7 +13,7 @@ export interface QueryParamsRequest {
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** param defines the queried parameter. */
-  param?: ParamChange;
+  param: ParamChange;
 }
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
@@ -78,10 +78,10 @@ export const QueryParamsRequest = {
     return message;
   },
   fromJSON(object: any): QueryParamsRequest {
-    return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : "",
-      key: isSet(object.key) ? String(object.key) : "",
-    };
+    const obj = createBaseQueryParamsRequest();
+    if (isSet(object.subspace)) obj.subspace = String(object.subspace);
+    if (isSet(object.key)) obj.key = String(object.key);
+    return obj;
   },
   toJSON(message: QueryParamsRequest): unknown {
     const obj: any = {};
@@ -98,7 +98,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    param: undefined,
+    param: ParamChange.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {
@@ -126,9 +126,9 @@ export const QueryParamsResponse = {
     return message;
   },
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      param: isSet(object.param) ? ParamChange.fromJSON(object.param) : undefined,
-    };
+    const obj = createBaseQueryParamsResponse();
+    if (isSet(object.param)) obj.param = ParamChange.fromJSON(object.param);
+    return obj;
   },
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
@@ -138,8 +138,9 @@ export const QueryParamsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
-    message.param =
-      object.param !== undefined && object.param !== null ? ParamChange.fromPartial(object.param) : undefined;
+    if (object.param !== undefined && object.param !== null) {
+      message.param = ParamChange.fromPartial(object.param);
+    }
     return message;
   },
 };
@@ -165,7 +166,8 @@ export const QuerySubspacesRequest = {
     return message;
   },
   fromJSON(_: any): QuerySubspacesRequest {
-    return {};
+    const obj = createBaseQuerySubspacesRequest();
+    return obj;
   },
   toJSON(_: QuerySubspacesRequest): unknown {
     const obj: any = {};
@@ -206,11 +208,10 @@ export const QuerySubspacesResponse = {
     return message;
   },
   fromJSON(object: any): QuerySubspacesResponse {
-    return {
-      subspaces: Array.isArray(object?.subspaces)
-        ? object.subspaces.map((e: any) => Subspace.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseQuerySubspacesResponse();
+    if (Array.isArray(object?.subspaces))
+      obj.subspaces = object.subspaces.map((e: any) => Subspace.fromJSON(e));
+    return obj;
   },
   toJSON(message: QuerySubspacesResponse): unknown {
     const obj: any = {};
@@ -264,10 +265,10 @@ export const Subspace = {
     return message;
   },
   fromJSON(object: any): Subspace {
-    return {
-      subspace: isSet(object.subspace) ? String(object.subspace) : "",
-      keys: Array.isArray(object?.keys) ? object.keys.map((e: any) => String(e)) : [],
-    };
+    const obj = createBaseSubspace();
+    if (isSet(object.subspace)) obj.subspace = String(object.subspace);
+    if (Array.isArray(object?.keys)) obj.keys = object.keys.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: Subspace): unknown {
     const obj: any = {};

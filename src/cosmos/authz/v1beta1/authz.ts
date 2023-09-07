@@ -17,7 +17,7 @@ export interface GenericAuthorization {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: Any;
+  authorization: Any;
   /**
    * time when the grant will expire and will be pruned. If null, then the grant
    * doesn't have a time expiration (other conditions  in `authorization`
@@ -32,8 +32,8 @@ export interface Grant {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization?: Any;
-  expiration?: Timestamp;
+  authorization: Any;
+  expiration: Timestamp;
 }
 /** GrantQueueItem contains the list of TypeURL of a sdk.Msg. */
 export interface GrantQueueItem {
@@ -70,9 +70,9 @@ export const GenericAuthorization = {
     return message;
   },
   fromJSON(object: any): GenericAuthorization {
-    return {
-      msg: isSet(object.msg) ? String(object.msg) : "",
-    };
+    const obj = createBaseGenericAuthorization();
+    if (isSet(object.msg)) obj.msg = String(object.msg);
+    return obj;
   },
   toJSON(message: GenericAuthorization): unknown {
     const obj: any = {};
@@ -87,7 +87,7 @@ export const GenericAuthorization = {
 };
 function createBaseGrant(): Grant {
   return {
-    authorization: undefined,
+    authorization: Any.fromPartial({}),
     expiration: undefined,
   };
 }
@@ -122,10 +122,10 @@ export const Grant = {
     return message;
   },
   fromJSON(object: any): Grant {
-    return {
-      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
-      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
-    };
+    const obj = createBaseGrant();
+    if (isSet(object.authorization)) obj.authorization = Any.fromJSON(object.authorization);
+    if (isSet(object.expiration)) obj.expiration = fromJsonTimestamp(object.expiration);
+    return obj;
   },
   toJSON(message: Grant): unknown {
     const obj: any = {};
@@ -136,14 +136,12 @@ export const Grant = {
   },
   fromPartial<I extends Exact<DeepPartial<Grant>, I>>(object: I): Grant {
     const message = createBaseGrant();
-    message.authorization =
-      object.authorization !== undefined && object.authorization !== null
-        ? Any.fromPartial(object.authorization)
-        : undefined;
-    message.expiration =
-      object.expiration !== undefined && object.expiration !== null
-        ? Timestamp.fromPartial(object.expiration)
-        : undefined;
+    if (object.authorization !== undefined && object.authorization !== null) {
+      message.authorization = Any.fromPartial(object.authorization);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromPartial(object.expiration);
+    }
     return message;
   },
 };
@@ -151,8 +149,8 @@ function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     granter: "",
     grantee: "",
-    authorization: undefined,
-    expiration: undefined,
+    authorization: Any.fromPartial({}),
+    expiration: Timestamp.fromPartial({}),
   };
 }
 export const GrantAuthorization = {
@@ -198,12 +196,12 @@ export const GrantAuthorization = {
     return message;
   },
   fromJSON(object: any): GrantAuthorization {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      authorization: isSet(object.authorization) ? Any.fromJSON(object.authorization) : undefined,
-      expiration: isSet(object.expiration) ? fromJsonTimestamp(object.expiration) : undefined,
-    };
+    const obj = createBaseGrantAuthorization();
+    if (isSet(object.granter)) obj.granter = String(object.granter);
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    if (isSet(object.authorization)) obj.authorization = Any.fromJSON(object.authorization);
+    if (isSet(object.expiration)) obj.expiration = fromJsonTimestamp(object.expiration);
+    return obj;
   },
   toJSON(message: GrantAuthorization): unknown {
     const obj: any = {};
@@ -218,14 +216,12 @@ export const GrantAuthorization = {
     const message = createBaseGrantAuthorization();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    message.authorization =
-      object.authorization !== undefined && object.authorization !== null
-        ? Any.fromPartial(object.authorization)
-        : undefined;
-    message.expiration =
-      object.expiration !== undefined && object.expiration !== null
-        ? Timestamp.fromPartial(object.expiration)
-        : undefined;
+    if (object.authorization !== undefined && object.authorization !== null) {
+      message.authorization = Any.fromPartial(object.authorization);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromPartial(object.expiration);
+    }
     return message;
   },
 };
@@ -259,9 +255,9 @@ export const GrantQueueItem = {
     return message;
   },
   fromJSON(object: any): GrantQueueItem {
-    return {
-      msgTypeUrls: Array.isArray(object?.msgTypeUrls) ? object.msgTypeUrls.map((e: any) => String(e)) : [],
-    };
+    const obj = createBaseGrantQueueItem();
+    if (Array.isArray(object?.msgTypeUrls)) obj.msgTypeUrls = object.msgTypeUrls.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: GrantQueueItem): unknown {
     const obj: any = {};

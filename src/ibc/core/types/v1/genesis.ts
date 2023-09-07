@@ -8,17 +8,17 @@ export const protobufPackage = "ibc.core.types.v1";
 /** GenesisState defines the ibc module's genesis state. */
 export interface GenesisState {
   /** ICS002 - Clients genesis state */
-  clientGenesis?: GenesisState1;
+  clientGenesis: GenesisState1;
   /** ICS003 - Connections genesis state */
-  connectionGenesis?: GenesisState2;
+  connectionGenesis: GenesisState2;
   /** ICS004 - Channel genesis state */
-  channelGenesis?: GenesisState3;
+  channelGenesis: GenesisState3;
 }
 function createBaseGenesisState(): GenesisState {
   return {
-    clientGenesis: undefined,
-    connectionGenesis: undefined,
-    channelGenesis: undefined,
+    clientGenesis: GenesisState1.fromPartial({}),
+    connectionGenesis: GenesisState2.fromPartial({}),
+    channelGenesis: GenesisState3.fromPartial({}),
   };
 }
 export const GenesisState = {
@@ -58,15 +58,12 @@ export const GenesisState = {
     return message;
   },
   fromJSON(object: any): GenesisState {
-    return {
-      clientGenesis: isSet(object.clientGenesis) ? GenesisState1.fromJSON(object.clientGenesis) : undefined,
-      connectionGenesis: isSet(object.connectionGenesis)
-        ? GenesisState2.fromJSON(object.connectionGenesis)
-        : undefined,
-      channelGenesis: isSet(object.channelGenesis)
-        ? GenesisState3.fromJSON(object.channelGenesis)
-        : undefined,
-    };
+    const obj = createBaseGenesisState();
+    if (isSet(object.clientGenesis)) obj.clientGenesis = GenesisState1.fromJSON(object.clientGenesis);
+    if (isSet(object.connectionGenesis))
+      obj.connectionGenesis = GenesisState2.fromJSON(object.connectionGenesis);
+    if (isSet(object.channelGenesis)) obj.channelGenesis = GenesisState3.fromJSON(object.channelGenesis);
+    return obj;
   },
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
@@ -84,18 +81,15 @@ export const GenesisState = {
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.clientGenesis =
-      object.clientGenesis !== undefined && object.clientGenesis !== null
-        ? GenesisState1.fromPartial(object.clientGenesis)
-        : undefined;
-    message.connectionGenesis =
-      object.connectionGenesis !== undefined && object.connectionGenesis !== null
-        ? GenesisState2.fromPartial(object.connectionGenesis)
-        : undefined;
-    message.channelGenesis =
-      object.channelGenesis !== undefined && object.channelGenesis !== null
-        ? GenesisState3.fromPartial(object.channelGenesis)
-        : undefined;
+    if (object.clientGenesis !== undefined && object.clientGenesis !== null) {
+      message.clientGenesis = GenesisState1.fromPartial(object.clientGenesis);
+    }
+    if (object.connectionGenesis !== undefined && object.connectionGenesis !== null) {
+      message.connectionGenesis = GenesisState2.fromPartial(object.connectionGenesis);
+    }
+    if (object.channelGenesis !== undefined && object.channelGenesis !== null) {
+      message.channelGenesis = GenesisState3.fromPartial(object.channelGenesis);
+    }
     return message;
   },
 };

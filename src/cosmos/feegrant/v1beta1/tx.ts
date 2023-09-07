@@ -13,7 +13,7 @@ export interface MsgGrantAllowance {
   /** grantee is the address of the user being granted an allowance of another user's funds. */
   grantee: string;
   /** allowance can be any of basic, periodic, allowed fee allowance. */
-  allowance?: Any;
+  allowance: Any;
 }
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
 export interface MsgGrantAllowanceResponse {}
@@ -30,7 +30,7 @@ function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   return {
     granter: "",
     grantee: "",
-    allowance: undefined,
+    allowance: Any.fromPartial({}),
   };
 }
 export const MsgGrantAllowance = {
@@ -70,11 +70,11 @@ export const MsgGrantAllowance = {
     return message;
   },
   fromJSON(object: any): MsgGrantAllowance {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-      allowance: isSet(object.allowance) ? Any.fromJSON(object.allowance) : undefined,
-    };
+    const obj = createBaseMsgGrantAllowance();
+    if (isSet(object.granter)) obj.granter = String(object.granter);
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    if (isSet(object.allowance)) obj.allowance = Any.fromJSON(object.allowance);
+    return obj;
   },
   toJSON(message: MsgGrantAllowance): unknown {
     const obj: any = {};
@@ -88,10 +88,9 @@ export const MsgGrantAllowance = {
     const message = createBaseMsgGrantAllowance();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    message.allowance =
-      object.allowance !== undefined && object.allowance !== null
-        ? Any.fromPartial(object.allowance)
-        : undefined;
+    if (object.allowance !== undefined && object.allowance !== null) {
+      message.allowance = Any.fromPartial(object.allowance);
+    }
     return message;
   },
 };
@@ -117,7 +116,8 @@ export const MsgGrantAllowanceResponse = {
     return message;
   },
   fromJSON(_: any): MsgGrantAllowanceResponse {
-    return {};
+    const obj = createBaseMsgGrantAllowanceResponse();
+    return obj;
   },
   toJSON(_: MsgGrantAllowanceResponse): unknown {
     const obj: any = {};
@@ -165,10 +165,10 @@ export const MsgRevokeAllowance = {
     return message;
   },
   fromJSON(object: any): MsgRevokeAllowance {
-    return {
-      granter: isSet(object.granter) ? String(object.granter) : "",
-      grantee: isSet(object.grantee) ? String(object.grantee) : "",
-    };
+    const obj = createBaseMsgRevokeAllowance();
+    if (isSet(object.granter)) obj.granter = String(object.granter);
+    if (isSet(object.grantee)) obj.grantee = String(object.grantee);
+    return obj;
   },
   toJSON(message: MsgRevokeAllowance): unknown {
     const obj: any = {};
@@ -205,7 +205,8 @@ export const MsgRevokeAllowanceResponse = {
     return message;
   },
   fromJSON(_: any): MsgRevokeAllowanceResponse {
-    return {};
+    const obj = createBaseMsgRevokeAllowanceResponse();
+    return obj;
   },
   toJSON(_: MsgRevokeAllowanceResponse): unknown {
     const obj: any = {};

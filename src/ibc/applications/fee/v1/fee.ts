@@ -16,7 +16,7 @@ export interface Fee {
 /** PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers */
 export interface PacketFee {
   /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
-  fee?: Fee;
+  fee: Fee;
   /** the refund address for unspent fees */
   refundAddress: string;
   /** optional list of relayers permitted to receive fees */
@@ -30,7 +30,7 @@ export interface PacketFees {
 /** IdentifiedPacketFees contains a list of type PacketFee and associated PacketId */
 export interface IdentifiedPacketFees {
   /** unique packet identifier comprised of the channel ID, port ID and sequence */
-  packetId?: PacketId;
+  packetId: PacketId;
   /** list of packet fees */
   packetFees: PacketFee[];
 }
@@ -78,13 +78,12 @@ export const Fee = {
     return message;
   },
   fromJSON(object: any): Fee {
-    return {
-      recvFee: Array.isArray(object?.recvFee) ? object.recvFee.map((e: any) => Coin.fromJSON(e)) : [],
-      ackFee: Array.isArray(object?.ackFee) ? object.ackFee.map((e: any) => Coin.fromJSON(e)) : [],
-      timeoutFee: Array.isArray(object?.timeoutFee)
-        ? object.timeoutFee.map((e: any) => Coin.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseFee();
+    if (Array.isArray(object?.recvFee)) obj.recvFee = object.recvFee.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.ackFee)) obj.ackFee = object.ackFee.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.timeoutFee))
+      obj.timeoutFee = object.timeoutFee.map((e: any) => Coin.fromJSON(e));
+    return obj;
   },
   toJSON(message: Fee): unknown {
     const obj: any = {};
@@ -115,7 +114,7 @@ export const Fee = {
 };
 function createBasePacketFee(): PacketFee {
   return {
-    fee: undefined,
+    fee: Fee.fromPartial({}),
     refundAddress: "",
     relayers: [],
   };
@@ -157,11 +156,11 @@ export const PacketFee = {
     return message;
   },
   fromJSON(object: any): PacketFee {
-    return {
-      fee: isSet(object.fee) ? Fee.fromJSON(object.fee) : undefined,
-      refundAddress: isSet(object.refundAddress) ? String(object.refundAddress) : "",
-      relayers: Array.isArray(object?.relayers) ? object.relayers.map((e: any) => String(e)) : [],
-    };
+    const obj = createBasePacketFee();
+    if (isSet(object.fee)) obj.fee = Fee.fromJSON(object.fee);
+    if (isSet(object.refundAddress)) obj.refundAddress = String(object.refundAddress);
+    if (Array.isArray(object?.relayers)) obj.relayers = object.relayers.map((e: any) => String(e));
+    return obj;
   },
   toJSON(message: PacketFee): unknown {
     const obj: any = {};
@@ -176,7 +175,9 @@ export const PacketFee = {
   },
   fromPartial<I extends Exact<DeepPartial<PacketFee>, I>>(object: I): PacketFee {
     const message = createBasePacketFee();
-    message.fee = object.fee !== undefined && object.fee !== null ? Fee.fromPartial(object.fee) : undefined;
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromPartial(object.fee);
+    }
     message.refundAddress = object.refundAddress ?? "";
     message.relayers = object.relayers?.map((e) => e) || [];
     return message;
@@ -212,11 +213,10 @@ export const PacketFees = {
     return message;
   },
   fromJSON(object: any): PacketFees {
-    return {
-      packetFees: Array.isArray(object?.packetFees)
-        ? object.packetFees.map((e: any) => PacketFee.fromJSON(e))
-        : [],
-    };
+    const obj = createBasePacketFees();
+    if (Array.isArray(object?.packetFees))
+      obj.packetFees = object.packetFees.map((e: any) => PacketFee.fromJSON(e));
+    return obj;
   },
   toJSON(message: PacketFees): unknown {
     const obj: any = {};
@@ -235,7 +235,7 @@ export const PacketFees = {
 };
 function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
   return {
-    packetId: undefined,
+    packetId: PacketId.fromPartial({}),
     packetFees: [],
   };
 }
@@ -270,12 +270,11 @@ export const IdentifiedPacketFees = {
     return message;
   },
   fromJSON(object: any): IdentifiedPacketFees {
-    return {
-      packetId: isSet(object.packetId) ? PacketId.fromJSON(object.packetId) : undefined,
-      packetFees: Array.isArray(object?.packetFees)
-        ? object.packetFees.map((e: any) => PacketFee.fromJSON(e))
-        : [],
-    };
+    const obj = createBaseIdentifiedPacketFees();
+    if (isSet(object.packetId)) obj.packetId = PacketId.fromJSON(object.packetId);
+    if (Array.isArray(object?.packetFees))
+      obj.packetFees = object.packetFees.map((e: any) => PacketFee.fromJSON(e));
+    return obj;
   },
   toJSON(message: IdentifiedPacketFees): unknown {
     const obj: any = {};
@@ -290,10 +289,9 @@ export const IdentifiedPacketFees = {
   },
   fromPartial<I extends Exact<DeepPartial<IdentifiedPacketFees>, I>>(object: I): IdentifiedPacketFees {
     const message = createBaseIdentifiedPacketFees();
-    message.packetId =
-      object.packetId !== undefined && object.packetId !== null
-        ? PacketId.fromPartial(object.packetId)
-        : undefined;
+    if (object.packetId !== undefined && object.packetId !== null) {
+      message.packetId = PacketId.fromPartial(object.packetId);
+    }
     message.packetFees = object.packetFees?.map((e) => PacketFee.fromPartial(e)) || [];
     return message;
   },

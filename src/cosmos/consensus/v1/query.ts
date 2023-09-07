@@ -12,7 +12,7 @@ export interface QueryParamsResponse {
    * Please note that `params.version` is not populated in this response, it is
    * tracked separately in the x/upgrade module.
    */
-  params?: ConsensusParams;
+  params: ConsensusParams;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -36,7 +36,8 @@ export const QueryParamsRequest = {
     return message;
   },
   fromJSON(_: any): QueryParamsRequest {
-    return {};
+    const obj = createBaseQueryParamsRequest();
+    return obj;
   },
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
@@ -49,7 +50,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: undefined,
+    params: ConsensusParams.fromPartial({}),
   };
 }
 export const QueryParamsResponse = {
@@ -77,9 +78,9 @@ export const QueryParamsResponse = {
     return message;
   },
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? ConsensusParams.fromJSON(object.params) : undefined,
-    };
+    const obj = createBaseQueryParamsResponse();
+    if (isSet(object.params)) obj.params = ConsensusParams.fromJSON(object.params);
+    return obj;
   },
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
@@ -89,10 +90,9 @@ export const QueryParamsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? ConsensusParams.fromPartial(object.params)
-        : undefined;
+    if (object.params !== undefined && object.params !== null) {
+      message.params = ConsensusParams.fromPartial(object.params);
+    }
     return message;
   },
 };

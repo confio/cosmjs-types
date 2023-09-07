@@ -39,7 +39,7 @@ export interface GetResponse {
    * result is the result of the get query. If no value is found, the gRPC
    * status code NOT_FOUND will be returned.
    */
-  result?: Any;
+  result: Any;
 }
 /** ListRequest is the Query/List request type. */
 export interface ListRequest {
@@ -55,7 +55,7 @@ export interface ListRequest {
   /** range defines a range query. */
   range?: ListRequest_Range;
   /** pagination is the pagination request. */
-  pagination?: PageRequest;
+  pagination: PageRequest;
 }
 /** Prefix specifies the arguments to a prefix query. */
 export interface ListRequest_Prefix {
@@ -86,7 +86,7 @@ export interface ListResponse {
   /** results are the results of the query. */
   results: Any[];
   /** pagination is the pagination response. */
-  pagination?: PageResponse;
+  pagination: PageResponse;
 }
 /** IndexValue represents the value of a field in an ORM index expression. */
 export interface IndexValue {
@@ -157,11 +157,11 @@ export const GetRequest = {
     return message;
   },
   fromJSON(object: any): GetRequest {
-    return {
-      messageName: isSet(object.messageName) ? String(object.messageName) : "",
-      index: isSet(object.index) ? String(object.index) : "",
-      values: Array.isArray(object?.values) ? object.values.map((e: any) => IndexValue.fromJSON(e)) : [],
-    };
+    const obj = createBaseGetRequest();
+    if (isSet(object.messageName)) obj.messageName = String(object.messageName);
+    if (isSet(object.index)) obj.index = String(object.index);
+    if (Array.isArray(object?.values)) obj.values = object.values.map((e: any) => IndexValue.fromJSON(e));
+    return obj;
   },
   toJSON(message: GetRequest): unknown {
     const obj: any = {};
@@ -184,7 +184,7 @@ export const GetRequest = {
 };
 function createBaseGetResponse(): GetResponse {
   return {
-    result: undefined,
+    result: Any.fromPartial({}),
   };
 }
 export const GetResponse = {
@@ -212,9 +212,9 @@ export const GetResponse = {
     return message;
   },
   fromJSON(object: any): GetResponse {
-    return {
-      result: isSet(object.result) ? Any.fromJSON(object.result) : undefined,
-    };
+    const obj = createBaseGetResponse();
+    if (isSet(object.result)) obj.result = Any.fromJSON(object.result);
+    return obj;
   },
   toJSON(message: GetResponse): unknown {
     const obj: any = {};
@@ -223,8 +223,9 @@ export const GetResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<GetResponse>, I>>(object: I): GetResponse {
     const message = createBaseGetResponse();
-    message.result =
-      object.result !== undefined && object.result !== null ? Any.fromPartial(object.result) : undefined;
+    if (object.result !== undefined && object.result !== null) {
+      message.result = Any.fromPartial(object.result);
+    }
     return message;
   },
 };
@@ -234,7 +235,7 @@ function createBaseListRequest(): ListRequest {
     index: "",
     prefix: undefined,
     range: undefined,
-    pagination: undefined,
+    pagination: PageRequest.fromPartial({}),
   };
 }
 export const ListRequest = {
@@ -286,13 +287,13 @@ export const ListRequest = {
     return message;
   },
   fromJSON(object: any): ListRequest {
-    return {
-      messageName: isSet(object.messageName) ? String(object.messageName) : "",
-      index: isSet(object.index) ? String(object.index) : "",
-      prefix: isSet(object.prefix) ? ListRequest_Prefix.fromJSON(object.prefix) : undefined,
-      range: isSet(object.range) ? ListRequest_Range.fromJSON(object.range) : undefined,
-      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseListRequest();
+    if (isSet(object.messageName)) obj.messageName = String(object.messageName);
+    if (isSet(object.index)) obj.index = String(object.index);
+    if (isSet(object.prefix)) obj.prefix = ListRequest_Prefix.fromJSON(object.prefix);
+    if (isSet(object.range)) obj.range = ListRequest_Range.fromJSON(object.range);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: ListRequest): unknown {
     const obj: any = {};
@@ -310,18 +311,15 @@ export const ListRequest = {
     const message = createBaseListRequest();
     message.messageName = object.messageName ?? "";
     message.index = object.index ?? "";
-    message.prefix =
-      object.prefix !== undefined && object.prefix !== null
-        ? ListRequest_Prefix.fromPartial(object.prefix)
-        : undefined;
-    message.range =
-      object.range !== undefined && object.range !== null
-        ? ListRequest_Range.fromPartial(object.range)
-        : undefined;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    if (object.prefix !== undefined && object.prefix !== null) {
+      message.prefix = ListRequest_Prefix.fromPartial(object.prefix);
+    }
+    if (object.range !== undefined && object.range !== null) {
+      message.range = ListRequest_Range.fromPartial(object.range);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -355,9 +353,9 @@ export const ListRequest_Prefix = {
     return message;
   },
   fromJSON(object: any): ListRequest_Prefix {
-    return {
-      values: Array.isArray(object?.values) ? object.values.map((e: any) => IndexValue.fromJSON(e)) : [],
-    };
+    const obj = createBaseListRequest_Prefix();
+    if (Array.isArray(object?.values)) obj.values = object.values.map((e: any) => IndexValue.fromJSON(e));
+    return obj;
   },
   toJSON(message: ListRequest_Prefix): unknown {
     const obj: any = {};
@@ -411,10 +409,10 @@ export const ListRequest_Range = {
     return message;
   },
   fromJSON(object: any): ListRequest_Range {
-    return {
-      start: Array.isArray(object?.start) ? object.start.map((e: any) => IndexValue.fromJSON(e)) : [],
-      end: Array.isArray(object?.end) ? object.end.map((e: any) => IndexValue.fromJSON(e)) : [],
-    };
+    const obj = createBaseListRequest_Range();
+    if (Array.isArray(object?.start)) obj.start = object.start.map((e: any) => IndexValue.fromJSON(e));
+    if (Array.isArray(object?.end)) obj.end = object.end.map((e: any) => IndexValue.fromJSON(e));
+    return obj;
   },
   toJSON(message: ListRequest_Range): unknown {
     const obj: any = {};
@@ -440,7 +438,7 @@ export const ListRequest_Range = {
 function createBaseListResponse(): ListResponse {
   return {
     results: [],
-    pagination: undefined,
+    pagination: PageResponse.fromPartial({}),
   };
 }
 export const ListResponse = {
@@ -474,10 +472,10 @@ export const ListResponse = {
     return message;
   },
   fromJSON(object: any): ListResponse {
-    return {
-      results: Array.isArray(object?.results) ? object.results.map((e: any) => Any.fromJSON(e)) : [],
-      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
-    };
+    const obj = createBaseListResponse();
+    if (Array.isArray(object?.results)) obj.results = object.results.map((e: any) => Any.fromJSON(e));
+    if (isSet(object.pagination)) obj.pagination = PageResponse.fromJSON(object.pagination);
+    return obj;
   },
   toJSON(message: ListResponse): unknown {
     const obj: any = {};
@@ -493,10 +491,9 @@ export const ListResponse = {
   fromPartial<I extends Exact<DeepPartial<ListResponse>, I>>(object: I): ListResponse {
     const message = createBaseListResponse();
     message.results = object.results?.map((e) => Any.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    }
     return message;
   },
 };
@@ -579,16 +576,16 @@ export const IndexValue = {
     return message;
   },
   fromJSON(object: any): IndexValue {
-    return {
-      uint: isSet(object.uint) ? Long.fromValue(object.uint) : undefined,
-      int: isSet(object.int) ? Long.fromValue(object.int) : undefined,
-      str: isSet(object.str) ? String(object.str) : undefined,
-      bytes: isSet(object.bytes) ? bytesFromBase64(object.bytes) : undefined,
-      enum: isSet(object.enum) ? String(object.enum) : undefined,
-      bool: isSet(object.bool) ? Boolean(object.bool) : undefined,
-      timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
-      duration: isSet(object.duration) ? Duration.fromJSON(object.duration) : undefined,
-    };
+    const obj = createBaseIndexValue();
+    if (isSet(object.uint)) obj.uint = Long.fromValue(object.uint);
+    if (isSet(object.int)) obj.int = Long.fromValue(object.int);
+    if (isSet(object.str)) obj.str = String(object.str);
+    if (isSet(object.bytes)) obj.bytes = bytesFromBase64(object.bytes);
+    if (isSet(object.enum)) obj.enum = String(object.enum);
+    if (isSet(object.bool)) obj.bool = Boolean(object.bool);
+    if (isSet(object.timestamp)) obj.timestamp = fromJsonTimestamp(object.timestamp);
+    if (isSet(object.duration)) obj.duration = Duration.fromJSON(object.duration);
+    return obj;
   },
   toJSON(message: IndexValue): unknown {
     const obj: any = {};
@@ -606,21 +603,22 @@ export const IndexValue = {
   },
   fromPartial<I extends Exact<DeepPartial<IndexValue>, I>>(object: I): IndexValue {
     const message = createBaseIndexValue();
-    message.uint =
-      object.uint !== undefined && object.uint !== null ? Long.fromValue(object.uint) : undefined;
-    message.int = object.int !== undefined && object.int !== null ? Long.fromValue(object.int) : undefined;
+    if (object.uint !== undefined && object.uint !== null) {
+      message.uint = Long.fromValue(object.uint);
+    }
+    if (object.int !== undefined && object.int !== null) {
+      message.int = Long.fromValue(object.int);
+    }
     message.str = object.str ?? undefined;
     message.bytes = object.bytes ?? undefined;
     message.enum = object.enum ?? undefined;
     message.bool = object.bool ?? undefined;
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? Timestamp.fromPartial(object.timestamp)
-        : undefined;
-    message.duration =
-      object.duration !== undefined && object.duration !== null
-        ? Duration.fromPartial(object.duration)
-        : undefined;
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromPartial(object.timestamp);
+    }
+    if (object.duration !== undefined && object.duration !== null) {
+      message.duration = Duration.fromPartial(object.duration);
+    }
     return message;
   },
 };

@@ -9,7 +9,7 @@ export interface Module {
    * max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
    * to execute the proposal.
    */
-  maxExecutionPeriod?: Duration;
+  maxExecutionPeriod: Duration;
   /**
    * max_metadata_len defines the max length of the metadata bytes field for various entities within the group module.
    * Defaults to 255 if not explicitly set.
@@ -18,7 +18,7 @@ export interface Module {
 }
 function createBaseModule(): Module {
   return {
-    maxExecutionPeriod: undefined,
+    maxExecutionPeriod: Duration.fromPartial({}),
     maxMetadataLen: Long.UZERO,
   };
 }
@@ -53,12 +53,11 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      maxExecutionPeriod: isSet(object.maxExecutionPeriod)
-        ? Duration.fromJSON(object.maxExecutionPeriod)
-        : undefined,
-      maxMetadataLen: isSet(object.maxMetadataLen) ? Long.fromValue(object.maxMetadataLen) : Long.UZERO,
-    };
+    const obj = createBaseModule();
+    if (isSet(object.maxExecutionPeriod))
+      obj.maxExecutionPeriod = Duration.fromJSON(object.maxExecutionPeriod);
+    if (isSet(object.maxMetadataLen)) obj.maxMetadataLen = Long.fromValue(object.maxMetadataLen);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};
@@ -72,14 +71,12 @@ export const Module = {
   },
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule();
-    message.maxExecutionPeriod =
-      object.maxExecutionPeriod !== undefined && object.maxExecutionPeriod !== null
-        ? Duration.fromPartial(object.maxExecutionPeriod)
-        : undefined;
-    message.maxMetadataLen =
-      object.maxMetadataLen !== undefined && object.maxMetadataLen !== null
-        ? Long.fromValue(object.maxMetadataLen)
-        : Long.UZERO;
+    if (object.maxExecutionPeriod !== undefined && object.maxExecutionPeriod !== null) {
+      message.maxExecutionPeriod = Duration.fromPartial(object.maxExecutionPeriod);
+    }
+    if (object.maxMetadataLen !== undefined && object.maxMetadataLen !== null) {
+      message.maxMetadataLen = Long.fromValue(object.maxMetadataLen);
+    }
     return message;
   },
 };

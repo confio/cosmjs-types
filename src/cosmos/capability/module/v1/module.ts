@@ -40,9 +40,9 @@ export const Module = {
     return message;
   },
   fromJSON(object: any): Module {
-    return {
-      sealKeeper: isSet(object.sealKeeper) ? Boolean(object.sealKeeper) : false,
-    };
+    const obj = createBaseModule();
+    if (isSet(object.sealKeeper)) obj.sealKeeper = Boolean(object.sealKeeper);
+    return obj;
   },
   toJSON(message: Module): unknown {
     const obj: any = {};
