@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { IdentifiedChannel, PacketState } from "./channel";
-import { Long, isSet, DeepPartial, Exact } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { isSet, DeepPartial, Exact } from "../../../../helpers";
 export const protobufPackage = "ibc.core.channel.v1";
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {
@@ -13,7 +13,7 @@ export interface GenesisState {
   recvSequences: PacketSequence[];
   ackSequences: PacketSequence[];
   /** the sequence for the next generated channel identifier */
-  nextChannelSequence: Long;
+  nextChannelSequence: bigint;
 }
 /**
  * PacketSequence defines the genesis type necessary to retrieve and store
@@ -22,7 +22,7 @@ export interface GenesisState {
 export interface PacketSequence {
   portId: string;
   channelId: string;
-  sequence: Long;
+  sequence: bigint;
 }
 function createBaseGenesisState(): GenesisState {
   return {
@@ -33,11 +33,11 @@ function createBaseGenesisState(): GenesisState {
     sendSequences: [],
     recvSequences: [],
     ackSequences: [],
-    nextChannelSequence: Long.UZERO,
+    nextChannelSequence: BigInt(0),
   };
 }
 export const GenesisState = {
-  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.channels) {
       IdentifiedChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -59,13 +59,13 @@ export const GenesisState = {
     for (const v of message.ackSequences) {
       PacketSequence.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (!message.nextChannelSequence.isZero()) {
+    if (message.nextChannelSequence !== BigInt(0)) {
       writer.uint32(64).uint64(message.nextChannelSequence);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): GenesisState {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisState();
     while (reader.pos < end) {
@@ -93,7 +93,7 @@ export const GenesisState = {
           message.ackSequences.push(PacketSequence.decode(reader, reader.uint32()));
           break;
         case 8:
-          message.nextChannelSequence = reader.uint64() as Long;
+          message.nextChannelSequence = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -119,7 +119,7 @@ export const GenesisState = {
     if (Array.isArray(object?.ackSequences))
       obj.ackSequences = object.ackSequences.map((e: any) => PacketSequence.fromJSON(e));
     if (isSet(object.nextChannelSequence))
-      obj.nextChannelSequence = Long.fromValue(object.nextChannelSequence);
+      obj.nextChannelSequence = BigInt(object.nextChannelSequence.toString());
     return obj;
   },
   toJSON(message: GenesisState): unknown {
@@ -160,7 +160,7 @@ export const GenesisState = {
       obj.ackSequences = [];
     }
     message.nextChannelSequence !== undefined &&
-      (obj.nextChannelSequence = (message.nextChannelSequence || Long.UZERO).toString());
+      (obj.nextChannelSequence = (message.nextChannelSequence || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
@@ -173,7 +173,7 @@ export const GenesisState = {
     message.recvSequences = object.recvSequences?.map((e) => PacketSequence.fromPartial(e)) || [];
     message.ackSequences = object.ackSequences?.map((e) => PacketSequence.fromPartial(e)) || [];
     if (object.nextChannelSequence !== undefined && object.nextChannelSequence !== null) {
-      message.nextChannelSequence = Long.fromValue(object.nextChannelSequence);
+      message.nextChannelSequence = BigInt(object.nextChannelSequence.toString());
     }
     return message;
   },
@@ -182,24 +182,24 @@ function createBasePacketSequence(): PacketSequence {
   return {
     portId: "",
     channelId: "",
-    sequence: Long.UZERO,
+    sequence: BigInt(0),
   };
 }
 export const PacketSequence = {
-  encode(message: PacketSequence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: PacketSequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
     }
     if (message.channelId !== "") {
       writer.uint32(18).string(message.channelId);
     }
-    if (!message.sequence.isZero()) {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(24).uint64(message.sequence);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): PacketSequence {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): PacketSequence {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketSequence();
     while (reader.pos < end) {
@@ -212,7 +212,7 @@ export const PacketSequence = {
           message.channelId = reader.string();
           break;
         case 3:
-          message.sequence = reader.uint64() as Long;
+          message.sequence = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -225,14 +225,14 @@ export const PacketSequence = {
     const obj = createBasePacketSequence();
     if (isSet(object.portId)) obj.portId = String(object.portId);
     if (isSet(object.channelId)) obj.channelId = String(object.channelId);
-    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    if (isSet(object.sequence)) obj.sequence = BigInt(object.sequence.toString());
     return obj;
   },
   toJSON(message: PacketSequence): unknown {
     const obj: any = {};
     message.portId !== undefined && (obj.portId = message.portId);
     message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
+    message.sequence !== undefined && (obj.sequence = (message.sequence || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<PacketSequence>, I>>(object: I): PacketSequence {
@@ -240,7 +240,7 @@ export const PacketSequence = {
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
     if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromValue(object.sequence);
+      message.sequence = BigInt(object.sequence.toString());
     }
     return message;
   },

@@ -3,8 +3,8 @@ import { PageRequest, PageResponse } from "../../../base/query/v1beta1/paginatio
 import { Any } from "../../../../google/protobuf/any";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { Duration } from "../../../../google/protobuf/duration";
+import { BinaryReader, BinaryWriter } from "../../../../binary";
 import {
-  Long,
   isSet,
   DeepPartial,
   Exact,
@@ -14,7 +14,6 @@ import {
   fromTimestamp,
   Rpc,
 } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
 export const protobufPackage = "cosmos.orm.query.v1alpha1";
 /** GetRequest is the Query/Get request type. */
 export interface GetRequest {
@@ -94,12 +93,12 @@ export interface IndexValue {
    * uint specifies a value for an uint32, fixed32, uint64, or fixed64
    * index field.
    */
-  uint?: Long;
+  uint?: bigint;
   /**
    * int64 specifies a value for an int32, sfixed32, int64, or sfixed64
    * index field.
    */
-  int?: Long;
+  int?: bigint;
   /** str specifies a value for a string index field. */
   str?: string;
   /** bytes specifies a value for a bytes index field. */
@@ -121,7 +120,7 @@ function createBaseGetRequest(): GetRequest {
   };
 }
 export const GetRequest = {
-  encode(message: GetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: GetRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.messageName !== "") {
       writer.uint32(10).string(message.messageName);
     }
@@ -133,8 +132,8 @@ export const GetRequest = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): GetRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRequest();
     while (reader.pos < end) {
@@ -188,14 +187,14 @@ function createBaseGetResponse(): GetResponse {
   };
 }
 export const GetResponse = {
-  encode(message: GetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: GetResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== undefined) {
       Any.encode(message.result, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): GetResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): GetResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetResponse();
     while (reader.pos < end) {
@@ -239,7 +238,7 @@ function createBaseListRequest(): ListRequest {
   };
 }
 export const ListRequest = {
-  encode(message: ListRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.messageName !== "") {
       writer.uint32(10).string(message.messageName);
     }
@@ -257,8 +256,8 @@ export const ListRequest = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ListRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ListRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest();
     while (reader.pos < end) {
@@ -329,14 +328,14 @@ function createBaseListRequest_Prefix(): ListRequest_Prefix {
   };
 }
 export const ListRequest_Prefix = {
-  encode(message: ListRequest_Prefix, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ListRequest_Prefix, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.values) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ListRequest_Prefix {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ListRequest_Prefix {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest_Prefix();
     while (reader.pos < end) {
@@ -379,7 +378,7 @@ function createBaseListRequest_Range(): ListRequest_Range {
   };
 }
 export const ListRequest_Range = {
-  encode(message: ListRequest_Range, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ListRequest_Range, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.start) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -388,8 +387,8 @@ export const ListRequest_Range = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ListRequest_Range {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ListRequest_Range {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest_Range();
     while (reader.pos < end) {
@@ -442,7 +441,7 @@ function createBaseListResponse(): ListResponse {
   };
 }
 export const ListResponse = {
-  encode(message: ListResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ListResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.results) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -451,8 +450,8 @@ export const ListResponse = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ListResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ListResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListResponse();
     while (reader.pos < end) {
@@ -510,7 +509,7 @@ function createBaseIndexValue(): IndexValue {
   };
 }
 export const IndexValue = {
-  encode(message: IndexValue, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: IndexValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.uint !== undefined) {
       writer.uint32(8).uint64(message.uint);
     }
@@ -537,18 +536,18 @@ export const IndexValue = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): IndexValue {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): IndexValue {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIndexValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uint = reader.uint64() as Long;
+          message.uint = reader.uint64();
           break;
         case 2:
-          message.int = reader.int64() as Long;
+          message.int = reader.int64();
           break;
         case 3:
           message.str = reader.string();
@@ -577,8 +576,8 @@ export const IndexValue = {
   },
   fromJSON(object: any): IndexValue {
     const obj = createBaseIndexValue();
-    if (isSet(object.uint)) obj.uint = Long.fromValue(object.uint);
-    if (isSet(object.int)) obj.int = Long.fromValue(object.int);
+    if (isSet(object.uint)) obj.uint = BigInt(object.uint.toString());
+    if (isSet(object.int)) obj.int = BigInt(object.int.toString());
     if (isSet(object.str)) obj.str = String(object.str);
     if (isSet(object.bytes)) obj.bytes = bytesFromBase64(object.bytes);
     if (isSet(object.enum)) obj.enum = String(object.enum);
@@ -604,10 +603,10 @@ export const IndexValue = {
   fromPartial<I extends Exact<DeepPartial<IndexValue>, I>>(object: I): IndexValue {
     const message = createBaseIndexValue();
     if (object.uint !== undefined && object.uint !== null) {
-      message.uint = Long.fromValue(object.uint);
+      message.uint = BigInt(object.uint.toString());
     }
     if (object.int !== undefined && object.int !== null) {
-      message.int = Long.fromValue(object.int);
+      message.int = BigInt(object.int.toString());
     }
     message.str = object.str ?? undefined;
     message.bytes = object.bytes ?? undefined;
@@ -639,11 +638,11 @@ export class QueryClientImpl implements Query {
   Get(request: GetRequest): Promise<GetResponse> {
     const data = GetRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.orm.query.v1alpha1.Query", "Get", data);
-    return promise.then((data) => GetResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => GetResponse.decode(new BinaryReader(data)));
   }
   List(request: ListRequest): Promise<ListResponse> {
     const data = ListRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.orm.query.v1alpha1.Query", "List", data);
-    return promise.then((data) => ListResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => ListResponse.decode(new BinaryReader(data)));
   }
 }

@@ -5,18 +5,6 @@
  * and run the transpile command or yarn proto command to regenerate this bundle.
  */
 
-import * as _m0 from "protobufjs/minimal";
-import Long from "long";
-
-// @ts-ignore
-if (_m0.util.Long !== Long) {
-  _m0.util.Long = Long as any;
-
-  _m0.configure();
-}
-
-export { Long };
-
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
@@ -56,7 +44,7 @@ export interface AminoHeight {
   readonly revision_height?: string;
 }
 
-export function omitDefault<T extends string | number | Long>(input: T): T | undefined {
+export function omitDefault<T extends string | number | bigint>(input: T): T | undefined {
   if (typeof input === "string") {
     return input === "" ? undefined : input;
   }
@@ -65,8 +53,8 @@ export function omitDefault<T extends string | number | Long>(input: T): T | und
     return input === 0 ? undefined : input;
   }
 
-  if (Long.isLong(input)) {
-    return input.isZero() ? undefined : input;
+  if (typeof input === "bigint") {
+    return input === BigInt(0) ? undefined : input;
   }
 
   throw new Error(`Got unsupported type ${typeof input}`);
@@ -78,7 +66,7 @@ interface Duration {
    * to +315,576,000,000 inclusive. Note: these bounds are computed from:
    * 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
    */
-  seconds: Long;
+  seconds: bigint;
   /**
    * Signed fractions of a second at nanosecond resolution of the span
    * of time. Durations less than one second are represented with a 0
@@ -93,7 +81,7 @@ interface Duration {
 
 export function toDuration(duration: string): Duration {
   return {
-    seconds: Long.fromNumber(Math.floor(parseInt(duration) / 1000000000)),
+    seconds: BigInt(Math.floor(parseInt(duration) / 1000000000)),
     nanos: parseInt(duration) % 1000000000,
   };
 }
@@ -112,8 +100,8 @@ export function isObject(value: any): boolean {
 
 export interface PageRequest {
   key: Uint8Array;
-  offset: Long;
-  limit: Long;
+  offset: bigint;
+  limit: bigint;
   countTotal: boolean;
   reverse: boolean;
 }
@@ -158,12 +146,10 @@ export const setPaginationParams = (options: Params, pagination?: PageRequest) =
   return options;
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | bigint | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin
   ? T
-  : T extends Long
-  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -187,7 +173,7 @@ interface Timestamp {
    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
    * 9999-12-31T23:59:59Z inclusive.
    */
-  seconds: Long;
+  seconds: bigint;
   /**
    * Non-negative fractions of a second at nanosecond resolution. Negative
    * second values with fractions must still have non-negative nanos values
@@ -208,21 +194,21 @@ export function toTimestamp(date: Date): Timestamp {
 }
 
 export function fromTimestamp(t: Timestamp): Date {
-  let millis = t.seconds.toNumber() * 1000;
+  let millis = Number(t.seconds) * 1000;
   millis += t.nanos / 1000000;
   return new Date(millis);
 }
 
 const fromJSON = (object: any): Timestamp => {
   return {
-    seconds: isSet(object.seconds) ? Long.fromString(object.seconds) : Long.ZERO,
+    seconds: isSet(object.seconds) ? BigInt(object.seconds) : BigInt(0),
     nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
   };
 };
 
 const timestampFromJSON = (object: any): Timestamp => {
   return {
-    seconds: isSet(object.seconds) ? Long.fromValue(object.seconds) : Long.ZERO,
+    seconds: isSet(object.seconds) ? BigInt(object.seconds.toString()) : BigInt(0),
     nanos: isSet(object.nanos) ? Number(object.nanos) : 0,
   };
 };
@@ -238,5 +224,5 @@ export function fromJsonTimestamp(o: any): Timestamp {
 }
 
 function numberToLong(number: number) {
-  return Long.fromNumber(number);
+  return BigInt(number);
 }

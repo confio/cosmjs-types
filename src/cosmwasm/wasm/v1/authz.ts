@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Long, DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * ContractExecutionAuthorization defines authorization for wasm execute.
@@ -45,7 +45,7 @@ export interface ContractGrant {
  */
 export interface MaxCallsLimit {
   /** Remaining number that is decremented on each execution */
-  remaining: Long;
+  remaining: bigint;
 }
 /**
  * MaxFundsLimit defines the maximal amounts that can be sent to the contract.
@@ -62,7 +62,7 @@ export interface MaxFundsLimit {
  */
 export interface CombinedLimit {
   /** Remaining number that is decremented on each execution */
-  callsRemaining: Long;
+  callsRemaining: bigint;
   /** Amounts is the maximal amount of tokens transferable to the contract. */
   amounts: Coin[];
 }
@@ -96,14 +96,17 @@ function createBaseContractExecutionAuthorization(): ContractExecutionAuthorizat
   };
 }
 export const ContractExecutionAuthorization = {
-  encode(message: ContractExecutionAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ContractExecutionAuthorization,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
     for (const v of message.grants) {
       ContractGrant.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ContractExecutionAuthorization {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ContractExecutionAuthorization {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractExecutionAuthorization();
     while (reader.pos < end) {
@@ -147,14 +150,17 @@ function createBaseContractMigrationAuthorization(): ContractMigrationAuthorizat
   };
 }
 export const ContractMigrationAuthorization = {
-  encode(message: ContractMigrationAuthorization, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: ContractMigrationAuthorization,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
     for (const v of message.grants) {
       ContractGrant.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ContractMigrationAuthorization {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ContractMigrationAuthorization {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractMigrationAuthorization();
     while (reader.pos < end) {
@@ -200,7 +206,7 @@ function createBaseContractGrant(): ContractGrant {
   };
 }
 export const ContractGrant = {
-  encode(message: ContractGrant, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ContractGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contract !== "") {
       writer.uint32(10).string(message.contract);
     }
@@ -212,8 +218,8 @@ export const ContractGrant = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ContractGrant {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ContractGrant {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractGrant();
     while (reader.pos < end) {
@@ -263,25 +269,25 @@ export const ContractGrant = {
 };
 function createBaseMaxCallsLimit(): MaxCallsLimit {
   return {
-    remaining: Long.UZERO,
+    remaining: BigInt(0),
   };
 }
 export const MaxCallsLimit = {
-  encode(message: MaxCallsLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.remaining.isZero()) {
+  encode(message: MaxCallsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.remaining !== BigInt(0)) {
       writer.uint32(8).uint64(message.remaining);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MaxCallsLimit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MaxCallsLimit {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMaxCallsLimit();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.remaining = reader.uint64() as Long;
+          message.remaining = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -292,18 +298,18 @@ export const MaxCallsLimit = {
   },
   fromJSON(object: any): MaxCallsLimit {
     const obj = createBaseMaxCallsLimit();
-    if (isSet(object.remaining)) obj.remaining = Long.fromValue(object.remaining);
+    if (isSet(object.remaining)) obj.remaining = BigInt(object.remaining.toString());
     return obj;
   },
   toJSON(message: MaxCallsLimit): unknown {
     const obj: any = {};
-    message.remaining !== undefined && (obj.remaining = (message.remaining || Long.UZERO).toString());
+    message.remaining !== undefined && (obj.remaining = (message.remaining || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MaxCallsLimit>, I>>(object: I): MaxCallsLimit {
     const message = createBaseMaxCallsLimit();
     if (object.remaining !== undefined && object.remaining !== null) {
-      message.remaining = Long.fromValue(object.remaining);
+      message.remaining = BigInt(object.remaining.toString());
     }
     return message;
   },
@@ -314,14 +320,14 @@ function createBaseMaxFundsLimit(): MaxFundsLimit {
   };
 }
 export const MaxFundsLimit = {
-  encode(message: MaxFundsLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MaxFundsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.amounts) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MaxFundsLimit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MaxFundsLimit {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMaxFundsLimit();
     while (reader.pos < end) {
@@ -359,13 +365,13 @@ export const MaxFundsLimit = {
 };
 function createBaseCombinedLimit(): CombinedLimit {
   return {
-    callsRemaining: Long.UZERO,
+    callsRemaining: BigInt(0),
     amounts: [],
   };
 }
 export const CombinedLimit = {
-  encode(message: CombinedLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.callsRemaining.isZero()) {
+  encode(message: CombinedLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.callsRemaining !== BigInt(0)) {
       writer.uint32(8).uint64(message.callsRemaining);
     }
     for (const v of message.amounts) {
@@ -373,15 +379,15 @@ export const CombinedLimit = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): CombinedLimit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): CombinedLimit {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCombinedLimit();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.callsRemaining = reader.uint64() as Long;
+          message.callsRemaining = reader.uint64();
           break;
         case 2:
           message.amounts.push(Coin.decode(reader, reader.uint32()));
@@ -395,14 +401,14 @@ export const CombinedLimit = {
   },
   fromJSON(object: any): CombinedLimit {
     const obj = createBaseCombinedLimit();
-    if (isSet(object.callsRemaining)) obj.callsRemaining = Long.fromValue(object.callsRemaining);
+    if (isSet(object.callsRemaining)) obj.callsRemaining = BigInt(object.callsRemaining.toString());
     if (Array.isArray(object?.amounts)) obj.amounts = object.amounts.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: CombinedLimit): unknown {
     const obj: any = {};
     message.callsRemaining !== undefined &&
-      (obj.callsRemaining = (message.callsRemaining || Long.UZERO).toString());
+      (obj.callsRemaining = (message.callsRemaining || BigInt(0)).toString());
     if (message.amounts) {
       obj.amounts = message.amounts.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
@@ -413,7 +419,7 @@ export const CombinedLimit = {
   fromPartial<I extends Exact<DeepPartial<CombinedLimit>, I>>(object: I): CombinedLimit {
     const message = createBaseCombinedLimit();
     if (object.callsRemaining !== undefined && object.callsRemaining !== null) {
-      message.callsRemaining = Long.fromValue(object.callsRemaining);
+      message.callsRemaining = BigInt(object.callsRemaining.toString());
     }
     message.amounts = object.amounts?.map((e) => Coin.fromPartial(e)) || [];
     return message;
@@ -423,11 +429,11 @@ function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
   return {};
 }
 export const AllowAllMessagesFilter = {
-  encode(_: AllowAllMessagesFilter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(_: AllowAllMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): AllowAllMessagesFilter {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): AllowAllMessagesFilter {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAllowAllMessagesFilter();
     while (reader.pos < end) {
@@ -459,14 +465,14 @@ function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
   };
 }
 export const AcceptedMessageKeysFilter = {
-  encode(message: AcceptedMessageKeysFilter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: AcceptedMessageKeysFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.keys) {
       writer.uint32(10).string(v!);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): AcceptedMessageKeysFilter {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): AcceptedMessageKeysFilter {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcceptedMessageKeysFilter();
     while (reader.pos < end) {
@@ -510,14 +516,14 @@ function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
   };
 }
 export const AcceptedMessagesFilter = {
-  encode(message: AcceptedMessagesFilter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: AcceptedMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.messages) {
       writer.uint32(10).bytes(v!);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): AcceptedMessagesFilter {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): AcceptedMessagesFilter {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAcceptedMessagesFilter();
     while (reader.pos < end) {

@@ -67,6 +67,7 @@ telescope({
         useExact: true,
         timestamp: "timestamp",
         duration: "duration",
+        num64: "bigint",
       },
     },
     lcdClients: {
