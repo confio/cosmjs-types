@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Config } from "./config";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
 export const protobufPackage = "cosmos.app.v1alpha1";
 /** QueryConfigRequest is the Query/Config request type. */
@@ -14,11 +14,12 @@ function createBaseQueryConfigRequest(): QueryConfigRequest {
   return {};
 }
 export const QueryConfigRequest = {
-  encode(_: QueryConfigRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.app.v1alpha1.QueryConfigRequest",
+  encode(_: QueryConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryConfigRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryConfigRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryConfigRequest();
     while (reader.pos < end) {
@@ -50,14 +51,15 @@ function createBaseQueryConfigResponse(): QueryConfigResponse {
   };
 }
 export const QueryConfigResponse = {
-  encode(message: QueryConfigResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse",
+  encode(message: QueryConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.config !== undefined) {
       Config.encode(message.config, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryConfigResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryConfigResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryConfigResponse();
     while (reader.pos < end) {
@@ -105,6 +107,6 @@ export class QueryClientImpl implements Query {
   Config(request: QueryConfigRequest = {}): Promise<QueryConfigResponse> {
     const data = QueryConfigRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.app.v1alpha1.Query", "Config", data);
-    return promise.then((data) => QueryConfigResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryConfigResponse.decode(new BinaryReader(data)));
   }
 }

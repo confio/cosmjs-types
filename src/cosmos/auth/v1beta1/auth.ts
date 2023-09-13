@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
-import { Long, isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export const protobufPackage = "cosmos.auth.v1beta1";
 /**
  * BaseAccount defines a base account type. It contains all the necessary fields
@@ -11,8 +11,8 @@ export const protobufPackage = "cosmos.auth.v1beta1";
 export interface BaseAccount {
   address: string;
   pubKey: Any;
-  accountNumber: Long;
-  sequence: Long;
+  accountNumber: bigint;
+  sequence: bigint;
 }
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
 export interface ModuleAccount {
@@ -36,38 +36,39 @@ export interface ModuleCredential {
 }
 /** Params defines the parameters for the auth module. */
 export interface Params {
-  maxMemoCharacters: Long;
-  txSigLimit: Long;
-  txSizeCostPerByte: Long;
-  sigVerifyCostEd25519: Long;
-  sigVerifyCostSecp256k1: Long;
+  maxMemoCharacters: bigint;
+  txSigLimit: bigint;
+  txSizeCostPerByte: bigint;
+  sigVerifyCostEd25519: bigint;
+  sigVerifyCostSecp256k1: bigint;
 }
 function createBaseBaseAccount(): BaseAccount {
   return {
     address: "",
     pubKey: Any.fromPartial({}),
-    accountNumber: Long.UZERO,
-    sequence: Long.UZERO,
+    accountNumber: BigInt(0),
+    sequence: BigInt(0),
   };
 }
 export const BaseAccount = {
-  encode(message: BaseAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.auth.v1beta1.BaseAccount",
+  encode(message: BaseAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     if (message.pubKey !== undefined) {
       Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim();
     }
-    if (!message.accountNumber.isZero()) {
+    if (message.accountNumber !== BigInt(0)) {
       writer.uint32(24).uint64(message.accountNumber);
     }
-    if (!message.sequence.isZero()) {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(32).uint64(message.sequence);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): BaseAccount {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): BaseAccount {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBaseAccount();
     while (reader.pos < end) {
@@ -80,10 +81,10 @@ export const BaseAccount = {
           message.pubKey = Any.decode(reader, reader.uint32());
           break;
         case 3:
-          message.accountNumber = reader.uint64() as Long;
+          message.accountNumber = reader.uint64();
           break;
         case 4:
-          message.sequence = reader.uint64() as Long;
+          message.sequence = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -96,8 +97,8 @@ export const BaseAccount = {
     const obj = createBaseBaseAccount();
     if (isSet(object.address)) obj.address = String(object.address);
     if (isSet(object.pubKey)) obj.pubKey = Any.fromJSON(object.pubKey);
-    if (isSet(object.accountNumber)) obj.accountNumber = Long.fromValue(object.accountNumber);
-    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    if (isSet(object.accountNumber)) obj.accountNumber = BigInt(object.accountNumber.toString());
+    if (isSet(object.sequence)) obj.sequence = BigInt(object.sequence.toString());
     return obj;
   },
   toJSON(message: BaseAccount): unknown {
@@ -105,8 +106,8 @@ export const BaseAccount = {
     message.address !== undefined && (obj.address = message.address);
     message.pubKey !== undefined && (obj.pubKey = message.pubKey ? Any.toJSON(message.pubKey) : undefined);
     message.accountNumber !== undefined &&
-      (obj.accountNumber = (message.accountNumber || Long.UZERO).toString());
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
+      (obj.accountNumber = (message.accountNumber || BigInt(0)).toString());
+    message.sequence !== undefined && (obj.sequence = (message.sequence || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<BaseAccount>, I>>(object: I): BaseAccount {
@@ -116,10 +117,10 @@ export const BaseAccount = {
       message.pubKey = Any.fromPartial(object.pubKey);
     }
     if (object.accountNumber !== undefined && object.accountNumber !== null) {
-      message.accountNumber = Long.fromValue(object.accountNumber);
+      message.accountNumber = BigInt(object.accountNumber.toString());
     }
     if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromValue(object.sequence);
+      message.sequence = BigInt(object.sequence.toString());
     }
     return message;
   },
@@ -132,7 +133,8 @@ function createBaseModuleAccount(): ModuleAccount {
   };
 }
 export const ModuleAccount = {
-  encode(message: ModuleAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.auth.v1beta1.ModuleAccount",
+  encode(message: ModuleAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseAccount !== undefined) {
       BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
     }
@@ -144,8 +146,8 @@ export const ModuleAccount = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ModuleAccount {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ModuleAccount {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModuleAccount();
     while (reader.pos < end) {
@@ -203,7 +205,8 @@ function createBaseModuleCredential(): ModuleCredential {
   };
 }
 export const ModuleCredential = {
-  encode(message: ModuleCredential, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/cosmos.auth.v1beta1.ModuleCredential",
+  encode(message: ModuleCredential, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.moduleName !== "") {
       writer.uint32(10).string(message.moduleName);
     }
@@ -212,8 +215,8 @@ export const ModuleCredential = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): ModuleCredential {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): ModuleCredential {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModuleCredential();
     while (reader.pos < end) {
@@ -260,53 +263,54 @@ export const ModuleCredential = {
 };
 function createBaseParams(): Params {
   return {
-    maxMemoCharacters: Long.UZERO,
-    txSigLimit: Long.UZERO,
-    txSizeCostPerByte: Long.UZERO,
-    sigVerifyCostEd25519: Long.UZERO,
-    sigVerifyCostSecp256k1: Long.UZERO,
+    maxMemoCharacters: BigInt(0),
+    txSigLimit: BigInt(0),
+    txSizeCostPerByte: BigInt(0),
+    sigVerifyCostEd25519: BigInt(0),
+    sigVerifyCostSecp256k1: BigInt(0),
   };
 }
 export const Params = {
-  encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.maxMemoCharacters.isZero()) {
+  typeUrl: "/cosmos.auth.v1beta1.Params",
+  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.maxMemoCharacters !== BigInt(0)) {
       writer.uint32(8).uint64(message.maxMemoCharacters);
     }
-    if (!message.txSigLimit.isZero()) {
+    if (message.txSigLimit !== BigInt(0)) {
       writer.uint32(16).uint64(message.txSigLimit);
     }
-    if (!message.txSizeCostPerByte.isZero()) {
+    if (message.txSizeCostPerByte !== BigInt(0)) {
       writer.uint32(24).uint64(message.txSizeCostPerByte);
     }
-    if (!message.sigVerifyCostEd25519.isZero()) {
+    if (message.sigVerifyCostEd25519 !== BigInt(0)) {
       writer.uint32(32).uint64(message.sigVerifyCostEd25519);
     }
-    if (!message.sigVerifyCostSecp256k1.isZero()) {
+    if (message.sigVerifyCostSecp256k1 !== BigInt(0)) {
       writer.uint32(40).uint64(message.sigVerifyCostSecp256k1);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): Params {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.maxMemoCharacters = reader.uint64() as Long;
+          message.maxMemoCharacters = reader.uint64();
           break;
         case 2:
-          message.txSigLimit = reader.uint64() as Long;
+          message.txSigLimit = reader.uint64();
           break;
         case 3:
-          message.txSizeCostPerByte = reader.uint64() as Long;
+          message.txSizeCostPerByte = reader.uint64();
           break;
         case 4:
-          message.sigVerifyCostEd25519 = reader.uint64() as Long;
+          message.sigVerifyCostEd25519 = reader.uint64();
           break;
         case 5:
-          message.sigVerifyCostSecp256k1 = reader.uint64() as Long;
+          message.sigVerifyCostSecp256k1 = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -317,44 +321,44 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     const obj = createBaseParams();
-    if (isSet(object.maxMemoCharacters)) obj.maxMemoCharacters = Long.fromValue(object.maxMemoCharacters);
-    if (isSet(object.txSigLimit)) obj.txSigLimit = Long.fromValue(object.txSigLimit);
-    if (isSet(object.txSizeCostPerByte)) obj.txSizeCostPerByte = Long.fromValue(object.txSizeCostPerByte);
+    if (isSet(object.maxMemoCharacters)) obj.maxMemoCharacters = BigInt(object.maxMemoCharacters.toString());
+    if (isSet(object.txSigLimit)) obj.txSigLimit = BigInt(object.txSigLimit.toString());
+    if (isSet(object.txSizeCostPerByte)) obj.txSizeCostPerByte = BigInt(object.txSizeCostPerByte.toString());
     if (isSet(object.sigVerifyCostEd25519))
-      obj.sigVerifyCostEd25519 = Long.fromValue(object.sigVerifyCostEd25519);
+      obj.sigVerifyCostEd25519 = BigInt(object.sigVerifyCostEd25519.toString());
     if (isSet(object.sigVerifyCostSecp256k1))
-      obj.sigVerifyCostSecp256k1 = Long.fromValue(object.sigVerifyCostSecp256k1);
+      obj.sigVerifyCostSecp256k1 = BigInt(object.sigVerifyCostSecp256k1.toString());
     return obj;
   },
   toJSON(message: Params): unknown {
     const obj: any = {};
     message.maxMemoCharacters !== undefined &&
-      (obj.maxMemoCharacters = (message.maxMemoCharacters || Long.UZERO).toString());
-    message.txSigLimit !== undefined && (obj.txSigLimit = (message.txSigLimit || Long.UZERO).toString());
+      (obj.maxMemoCharacters = (message.maxMemoCharacters || BigInt(0)).toString());
+    message.txSigLimit !== undefined && (obj.txSigLimit = (message.txSigLimit || BigInt(0)).toString());
     message.txSizeCostPerByte !== undefined &&
-      (obj.txSizeCostPerByte = (message.txSizeCostPerByte || Long.UZERO).toString());
+      (obj.txSizeCostPerByte = (message.txSizeCostPerByte || BigInt(0)).toString());
     message.sigVerifyCostEd25519 !== undefined &&
-      (obj.sigVerifyCostEd25519 = (message.sigVerifyCostEd25519 || Long.UZERO).toString());
+      (obj.sigVerifyCostEd25519 = (message.sigVerifyCostEd25519 || BigInt(0)).toString());
     message.sigVerifyCostSecp256k1 !== undefined &&
-      (obj.sigVerifyCostSecp256k1 = (message.sigVerifyCostSecp256k1 || Long.UZERO).toString());
+      (obj.sigVerifyCostSecp256k1 = (message.sigVerifyCostSecp256k1 || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
     if (object.maxMemoCharacters !== undefined && object.maxMemoCharacters !== null) {
-      message.maxMemoCharacters = Long.fromValue(object.maxMemoCharacters);
+      message.maxMemoCharacters = BigInt(object.maxMemoCharacters.toString());
     }
     if (object.txSigLimit !== undefined && object.txSigLimit !== null) {
-      message.txSigLimit = Long.fromValue(object.txSigLimit);
+      message.txSigLimit = BigInt(object.txSigLimit.toString());
     }
     if (object.txSizeCostPerByte !== undefined && object.txSizeCostPerByte !== null) {
-      message.txSizeCostPerByte = Long.fromValue(object.txSizeCostPerByte);
+      message.txSizeCostPerByte = BigInt(object.txSizeCostPerByte.toString());
     }
     if (object.sigVerifyCostEd25519 !== undefined && object.sigVerifyCostEd25519 !== null) {
-      message.sigVerifyCostEd25519 = Long.fromValue(object.sigVerifyCostEd25519);
+      message.sigVerifyCostEd25519 = BigInt(object.sigVerifyCostEd25519.toString());
     }
     if (object.sigVerifyCostSecp256k1 !== undefined && object.sigVerifyCostSecp256k1 !== null) {
-      message.sigVerifyCostSecp256k1 = Long.fromValue(object.sigVerifyCostSecp256k1);
+      message.sigVerifyCostSecp256k1 = BigInt(object.sigVerifyCostSecp256k1.toString());
     }
     return message;
   },
