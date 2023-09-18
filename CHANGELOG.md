@@ -8,9 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
-- Upgrade to Telescope 0.109.1. This changes a lot of fields from optional to
+- Upgrade to Telescope 1.0. This changes a lot of fields from optional to
   non-optional by utilizing the `(gogoproto.nullable) = false` annotations of
   proto files. See https://github.com/osmosis-labs/telescope/issues/386
+- Switch to bigint for 64 bit integers. This means users can remove the
+  `"long": "^4.0.0"` dependency in most cases.
 
 ## [0.8.0] - 2023-05-24
 

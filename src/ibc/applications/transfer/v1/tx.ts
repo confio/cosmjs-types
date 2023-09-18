@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { Height } from "../../../core/client/v1/client";
-import { Long, isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
@@ -29,14 +29,14 @@ export interface MsgTransfer {
    * Timeout timestamp in absolute nanoseconds since unix epoch.
    * The timeout is disabled when set to 0.
    */
-  timeoutTimestamp: Long;
+  timeoutTimestamp: bigint;
   /** optional memo */
   memo: string;
 }
 /** MsgTransferResponse defines the Msg/Transfer response type. */
 export interface MsgTransferResponse {
   /** sequence number of the transfer packet sent */
-  sequence: Long;
+  sequence: bigint;
 }
 function createBaseMsgTransfer(): MsgTransfer {
   return {
@@ -46,12 +46,13 @@ function createBaseMsgTransfer(): MsgTransfer {
     sender: "",
     receiver: "",
     timeoutHeight: Height.fromPartial({}),
-    timeoutTimestamp: Long.UZERO,
+    timeoutTimestamp: BigInt(0),
     memo: "",
   };
 }
 export const MsgTransfer = {
-  encode(message: MsgTransfer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/ibc.applications.transfer.v1.MsgTransfer",
+  encode(message: MsgTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sourcePort !== "") {
       writer.uint32(10).string(message.sourcePort);
     }
@@ -70,7 +71,7 @@ export const MsgTransfer = {
     if (message.timeoutHeight !== undefined) {
       Height.encode(message.timeoutHeight, writer.uint32(50).fork()).ldelim();
     }
-    if (!message.timeoutTimestamp.isZero()) {
+    if (message.timeoutTimestamp !== BigInt(0)) {
       writer.uint32(56).uint64(message.timeoutTimestamp);
     }
     if (message.memo !== "") {
@@ -78,8 +79,8 @@ export const MsgTransfer = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransfer {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgTransfer {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTransfer();
     while (reader.pos < end) {
@@ -104,7 +105,7 @@ export const MsgTransfer = {
           message.timeoutHeight = Height.decode(reader, reader.uint32());
           break;
         case 7:
-          message.timeoutTimestamp = reader.uint64() as Long;
+          message.timeoutTimestamp = reader.uint64();
           break;
         case 8:
           message.memo = reader.string();
@@ -124,7 +125,7 @@ export const MsgTransfer = {
     if (isSet(object.sender)) obj.sender = String(object.sender);
     if (isSet(object.receiver)) obj.receiver = String(object.receiver);
     if (isSet(object.timeoutHeight)) obj.timeoutHeight = Height.fromJSON(object.timeoutHeight);
-    if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+    if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = BigInt(object.timeoutTimestamp.toString());
     if (isSet(object.memo)) obj.memo = String(object.memo);
     return obj;
   },
@@ -138,7 +139,7 @@ export const MsgTransfer = {
     message.timeoutHeight !== undefined &&
       (obj.timeoutHeight = message.timeoutHeight ? Height.toJSON(message.timeoutHeight) : undefined);
     message.timeoutTimestamp !== undefined &&
-      (obj.timeoutTimestamp = (message.timeoutTimestamp || Long.UZERO).toString());
+      (obj.timeoutTimestamp = (message.timeoutTimestamp || BigInt(0)).toString());
     message.memo !== undefined && (obj.memo = message.memo);
     return obj;
   },
@@ -155,7 +156,7 @@ export const MsgTransfer = {
       message.timeoutHeight = Height.fromPartial(object.timeoutHeight);
     }
     if (object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null) {
-      message.timeoutTimestamp = Long.fromValue(object.timeoutTimestamp);
+      message.timeoutTimestamp = BigInt(object.timeoutTimestamp.toString());
     }
     message.memo = object.memo ?? "";
     return message;
@@ -163,25 +164,26 @@ export const MsgTransfer = {
 };
 function createBaseMsgTransferResponse(): MsgTransferResponse {
   return {
-    sequence: Long.UZERO,
+    sequence: BigInt(0),
   };
 }
 export const MsgTransferResponse = {
-  encode(message: MsgTransferResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.sequence.isZero()) {
+  typeUrl: "/ibc.applications.transfer.v1.MsgTransferResponse",
+  encode(message: MsgTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgTransferResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTransferResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sequence = reader.uint64() as Long;
+          message.sequence = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -192,18 +194,18 @@ export const MsgTransferResponse = {
   },
   fromJSON(object: any): MsgTransferResponse {
     const obj = createBaseMsgTransferResponse();
-    if (isSet(object.sequence)) obj.sequence = Long.fromValue(object.sequence);
+    if (isSet(object.sequence)) obj.sequence = BigInt(object.sequence.toString());
     return obj;
   },
   toJSON(message: MsgTransferResponse): unknown {
     const obj: any = {};
-    message.sequence !== undefined && (obj.sequence = (message.sequence || Long.UZERO).toString());
+    message.sequence !== undefined && (obj.sequence = (message.sequence || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgTransferResponse>, I>>(object: I): MsgTransferResponse {
     const message = createBaseMsgTransferResponse();
     if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = Long.fromValue(object.sequence);
+      message.sequence = BigInt(object.sequence.toString());
     }
     return message;
   },
@@ -222,6 +224,6 @@ export class MsgClientImpl implements Msg {
   Transfer(request: MsgTransfer): Promise<MsgTransferResponse> {
     const data = MsgTransfer.encode(request).finish();
     const promise = this.rpc.request("ibc.applications.transfer.v1.Msg", "Transfer", data);
-    return promise.then((data) => MsgTransferResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgTransferResponse.decode(new BinaryReader(data)));
   }
 }

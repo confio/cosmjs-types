@@ -26,6 +26,9 @@ telescope({
     bundle: {
       enabled: false,
     },
+    interfaces: {
+      enabled: false,
+    },
     prototypes: {
       includePackageVar: true,
       strictNullCheckForPrototypeMethods: true,
@@ -61,12 +64,20 @@ telescope({
         // See https://github.com/cosmos/cosmjs/pull/1329
         fromJSON: true,
         toJSON: true,
+        fromAmino: false,
+        toAmino: false,
+        fromProto: false,
+        toProto: false,
       },
       typingsFormat: {
         useDeepPartial: true,
         useExact: true,
         timestamp: "timestamp",
         duration: "duration",
+        customTypes: {
+          useCosmosSDKDec: false,
+        },
+        num64: "bigint",
       },
     },
     lcdClients: {
@@ -81,6 +92,7 @@ telescope({
     },
     aminoEncoding: {
       enabled: false,
+      useLegacyInlineEncoding: true,
     },
   },
 }).then(
