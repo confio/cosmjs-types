@@ -63,6 +63,7 @@ function createBaseBlock(): Block {
   };
 }
 export const Block = {
+  typeUrl: "/cosmos.base.tendermint.v1beta1.Block",
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(10).fork()).ldelim();
@@ -158,6 +159,7 @@ function createBaseHeader(): Header {
   };
 }
 export const Header = {
+  typeUrl: "/cosmos.base.tendermint.v1beta1.Header",
   encode(message: Header, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.version !== undefined) {
       Consensus.encode(message.version, writer.uint32(10).fork()).ldelim();

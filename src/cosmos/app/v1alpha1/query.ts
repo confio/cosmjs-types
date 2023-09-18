@@ -14,6 +14,7 @@ function createBaseQueryConfigRequest(): QueryConfigRequest {
   return {};
 }
 export const QueryConfigRequest = {
+  typeUrl: "/cosmos.app.v1alpha1.QueryConfigRequest",
   encode(_: QueryConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -50,6 +51,7 @@ function createBaseQueryConfigResponse(): QueryConfigResponse {
   };
 }
 export const QueryConfigResponse = {
+  typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse",
   encode(message: QueryConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.config !== undefined) {
       Config.encode(message.config, writer.uint32(10).fork()).ldelim();

@@ -122,6 +122,7 @@ function createBaseClientState(): ClientState {
   };
 }
 export const ClientState = {
+  typeUrl: "/ibc.lightclients.tendermint.v1.ClientState",
   encode(message: ClientState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chainId !== "") {
       writer.uint32(10).string(message.chainId);
@@ -290,6 +291,7 @@ function createBaseConsensusState(): ConsensusState {
   };
 }
 export const ConsensusState = {
+  typeUrl: "/ibc.lightclients.tendermint.v1.ConsensusState",
   encode(message: ConsensusState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(10).fork()).ldelim();
@@ -362,6 +364,7 @@ function createBaseMisbehaviour(): Misbehaviour {
   };
 }
 export const Misbehaviour = {
+  typeUrl: "/ibc.lightclients.tendermint.v1.Misbehaviour",
   encode(message: Misbehaviour, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
@@ -434,6 +437,7 @@ function createBaseHeader(): Header {
   };
 }
 export const Header = {
+  typeUrl: "/ibc.lightclients.tendermint.v1.Header",
   encode(message: Header, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.signedHeader !== undefined) {
       SignedHeader.encode(message.signedHeader, writer.uint32(10).fork()).ldelim();
@@ -522,6 +526,7 @@ function createBaseFraction(): Fraction {
   };
 }
 export const Fraction = {
+  typeUrl: "/ibc.lightclients.tendermint.v1.Fraction",
   encode(message: Fraction, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.numerator !== BigInt(0)) {
       writer.uint32(8).uint64(message.numerator);

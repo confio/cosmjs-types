@@ -49,6 +49,7 @@ function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
   };
 }
 export const QueryEvidenceRequest = {
+  typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceRequest",
   encode(message: QueryEvidenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.evidenceHash.length !== 0) {
       writer.uint32(10).bytes(message.evidenceHash);
@@ -106,6 +107,7 @@ function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
   };
 }
 export const QueryEvidenceResponse = {
+  typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceResponse",
   encode(message: QueryEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.evidence !== undefined) {
       Any.encode(message.evidence, writer.uint32(10).fork()).ldelim();
@@ -154,6 +156,7 @@ function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
   };
 }
 export const QueryAllEvidenceRequest = {
+  typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceRequest",
   encode(message: QueryAllEvidenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -203,6 +206,7 @@ function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
   };
 }
 export const QueryAllEvidenceResponse = {
+  typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceResponse",
   encode(message: QueryAllEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.evidence) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();

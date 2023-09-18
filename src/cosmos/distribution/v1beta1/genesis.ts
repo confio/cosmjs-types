@@ -109,6 +109,7 @@ function createBaseDelegatorWithdrawInfo(): DelegatorWithdrawInfo {
   };
 }
 export const DelegatorWithdrawInfo = {
+  typeUrl: "/cosmos.distribution.v1beta1.DelegatorWithdrawInfo",
   encode(message: DelegatorWithdrawInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -164,6 +165,7 @@ function createBaseValidatorOutstandingRewardsRecord(): ValidatorOutstandingRewa
   };
 }
 export const ValidatorOutstandingRewardsRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord",
   encode(
     message: ValidatorOutstandingRewardsRecord,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -229,6 +231,7 @@ function createBaseValidatorAccumulatedCommissionRecord(): ValidatorAccumulatedC
   };
 }
 export const ValidatorAccumulatedCommissionRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord",
   encode(
     message: ValidatorAccumulatedCommissionRecord,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -296,6 +299,7 @@ function createBaseValidatorHistoricalRewardsRecord(): ValidatorHistoricalReward
   };
 }
 export const ValidatorHistoricalRewardsRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord",
   encode(
     message: ValidatorHistoricalRewardsRecord,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -370,6 +374,7 @@ function createBaseValidatorCurrentRewardsRecord(): ValidatorCurrentRewardsRecor
   };
 }
 export const ValidatorCurrentRewardsRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord",
   encode(message: ValidatorCurrentRewardsRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress);
@@ -431,6 +436,7 @@ function createBaseDelegatorStartingInfoRecord(): DelegatorStartingInfoRecord {
   };
 }
 export const DelegatorStartingInfoRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfoRecord",
   encode(message: DelegatorStartingInfoRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -504,6 +510,7 @@ function createBaseValidatorSlashEventRecord(): ValidatorSlashEventRecord {
   };
 }
 export const ValidatorSlashEventRecord = {
+  typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEventRecord",
   encode(message: ValidatorSlashEventRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorAddress !== "") {
       writer.uint32(10).string(message.validatorAddress);
@@ -597,6 +604,7 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
+  typeUrl: "/cosmos.distribution.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();

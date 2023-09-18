@@ -25,6 +25,7 @@ function createBaseParameterChangeProposal(): ParameterChangeProposal {
   };
 }
 export const ParameterChangeProposal = {
+  typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
   encode(message: ParameterChangeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -94,6 +95,7 @@ function createBaseParamChange(): ParamChange {
   };
 }
 export const ParamChange = {
+  typeUrl: "/cosmos.params.v1beta1.ParamChange",
   encode(message: ParamChange, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.subspace !== "") {
       writer.uint32(10).string(message.subspace);

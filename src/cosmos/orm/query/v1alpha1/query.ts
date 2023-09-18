@@ -120,6 +120,7 @@ function createBaseGetRequest(): GetRequest {
   };
 }
 export const GetRequest = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest",
   encode(message: GetRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.messageName !== "") {
       writer.uint32(10).string(message.messageName);
@@ -187,6 +188,7 @@ function createBaseGetResponse(): GetResponse {
   };
 }
 export const GetResponse = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse",
   encode(message: GetResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== undefined) {
       Any.encode(message.result, writer.uint32(10).fork()).ldelim();
@@ -238,6 +240,7 @@ function createBaseListRequest(): ListRequest {
   };
 }
 export const ListRequest = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest",
   encode(message: ListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.messageName !== "") {
       writer.uint32(10).string(message.messageName);
@@ -328,6 +331,7 @@ function createBaseListRequest_Prefix(): ListRequest_Prefix {
   };
 }
 export const ListRequest_Prefix = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.Prefix",
   encode(message: ListRequest_Prefix, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.values) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -378,6 +382,7 @@ function createBaseListRequest_Range(): ListRequest_Range {
   };
 }
 export const ListRequest_Range = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.Range",
   encode(message: ListRequest_Range, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.start) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -441,6 +446,7 @@ function createBaseListResponse(): ListResponse {
   };
 }
 export const ListResponse = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse",
   encode(message: ListResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.results) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -509,6 +515,7 @@ function createBaseIndexValue(): IndexValue {
   };
 }
 export const IndexValue = {
+  typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue",
   encode(message: IndexValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.uint !== undefined) {
       writer.uint32(8).uint64(message.uint);
@@ -588,8 +595,12 @@ export const IndexValue = {
   },
   toJSON(message: IndexValue): unknown {
     const obj: any = {};
-    message.uint !== undefined && (obj.uint = message.uint.toString());
-    message.int !== undefined && (obj.int = message.int.toString());
+    if (message.uint !== undefined) {
+      obj.uint = message.uint.toString();
+    }
+    if (message.int !== undefined) {
+      obj.int = message.int.toString();
+    }
     message.str !== undefined && (obj.str = message.str);
     message.bytes !== undefined &&
       (obj.bytes = message.bytes !== undefined ? base64FromBytes(message.bytes) : undefined);

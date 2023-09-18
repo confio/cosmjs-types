@@ -52,6 +52,7 @@ function createBaseStoreKVPair(): StoreKVPair {
   };
 }
 export const StoreKVPair = {
+  typeUrl: "/cosmos.base.store.v1beta1.StoreKVPair",
   encode(message: StoreKVPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.storeKey !== "") {
       writer.uint32(10).string(message.storeKey);
@@ -131,6 +132,7 @@ function createBaseBlockMetadata(): BlockMetadata {
   };
 }
 export const BlockMetadata = {
+  typeUrl: "/cosmos.base.store.v1beta1.BlockMetadata",
   encode(message: BlockMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.requestBeginBlock !== undefined) {
       RequestBeginBlock.encode(message.requestBeginBlock, writer.uint32(10).fork()).ldelim();
@@ -255,6 +257,7 @@ function createBaseBlockMetadata_DeliverTx(): BlockMetadata_DeliverTx {
   };
 }
 export const BlockMetadata_DeliverTx = {
+  typeUrl: "/cosmos.base.store.v1beta1.DeliverTx",
   encode(message: BlockMetadata_DeliverTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.request !== undefined) {
       RequestDeliverTx.encode(message.request, writer.uint32(10).fork()).ldelim();

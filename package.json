@@ -44,7 +44,7 @@
     "protobufjs": "~6.11.2"
   },
   "devDependencies": {
-    "@cosmology/telescope": "^0.109.1",
+    "@cosmology/telescope": "^1.0.1",
     "@types/long": "^4.0.1",
     "@types/node": "^15.6.2",
     "prettier": "^2.8.8",

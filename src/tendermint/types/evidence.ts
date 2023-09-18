@@ -35,6 +35,7 @@ function createBaseEvidence(): Evidence {
   };
 }
 export const Evidence = {
+  typeUrl: "/tendermint.types.Evidence",
   encode(message: Evidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.duplicateVoteEvidence !== undefined) {
       DuplicateVoteEvidence.encode(message.duplicateVoteEvidence, writer.uint32(10).fork()).ldelim();
@@ -107,6 +108,7 @@ function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
   };
 }
 export const DuplicateVoteEvidence = {
+  typeUrl: "/tendermint.types.DuplicateVoteEvidence",
   encode(message: DuplicateVoteEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.voteA !== undefined) {
       Vote.encode(message.voteA, writer.uint32(10).fork()).ldelim();
@@ -204,6 +206,7 @@ function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
   };
 }
 export const LightClientAttackEvidence = {
+  typeUrl: "/tendermint.types.LightClientAttackEvidence",
   encode(message: LightClientAttackEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.conflictingBlock !== undefined) {
       LightBlock.encode(message.conflictingBlock, writer.uint32(10).fork()).ldelim();
@@ -304,6 +307,7 @@ function createBaseEvidenceList(): EvidenceList {
   };
 }
 export const EvidenceList = {
+  typeUrl: "/tendermint.types.EvidenceList",
   encode(message: EvidenceList, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.evidence) {
       Evidence.encode(v!, writer.uint32(10).fork()).ldelim();

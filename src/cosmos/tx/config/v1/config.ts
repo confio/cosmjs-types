@@ -22,6 +22,7 @@ function createBaseConfig(): Config {
   };
 }
 export const Config = {
+  typeUrl: "/cosmos.tx.config.v1.Config",
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.skipAnteHandler === true) {
       writer.uint32(8).bool(message.skipAnteHandler);

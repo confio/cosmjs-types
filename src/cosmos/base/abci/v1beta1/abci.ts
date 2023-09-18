@@ -172,6 +172,7 @@ function createBaseTxResponse(): TxResponse {
   };
 }
 export const TxResponse = {
+  typeUrl: "/cosmos.base.abci.v1beta1.TxResponse",
   encode(message: TxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -343,6 +344,7 @@ function createBaseABCIMessageLog(): ABCIMessageLog {
   };
 }
 export const ABCIMessageLog = {
+  typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog",
   encode(message: ABCIMessageLog, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgIndex !== 0) {
       writer.uint32(8).uint32(message.msgIndex);
@@ -411,6 +413,7 @@ function createBaseStringEvent(): StringEvent {
   };
 }
 export const StringEvent = {
+  typeUrl: "/cosmos.base.abci.v1beta1.StringEvent",
   encode(message: StringEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
@@ -471,6 +474,7 @@ function createBaseAttribute(): Attribute {
   };
 }
 export const Attribute = {
+  typeUrl: "/cosmos.base.abci.v1beta1.Attribute",
   encode(message: Attribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -526,6 +530,7 @@ function createBaseGasInfo(): GasInfo {
   };
 }
 export const GasInfo = {
+  typeUrl: "/cosmos.base.abci.v1beta1.GasInfo",
   encode(message: GasInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.gasWanted !== BigInt(0)) {
       writer.uint32(8).uint64(message.gasWanted);
@@ -587,6 +592,7 @@ function createBaseResult(): Result {
   };
 }
 export const Result = {
+  typeUrl: "/cosmos.base.abci.v1beta1.Result",
   encode(message: Result, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
@@ -670,6 +676,7 @@ function createBaseSimulationResponse(): SimulationResponse {
   };
 }
 export const SimulationResponse = {
+  typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse",
   encode(message: SimulationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.gasInfo !== undefined) {
       GasInfo.encode(message.gasInfo, writer.uint32(10).fork()).ldelim();
@@ -730,6 +737,7 @@ function createBaseMsgData(): MsgData {
   };
 }
 export const MsgData = {
+  typeUrl: "/cosmos.base.abci.v1beta1.MsgData",
   encode(message: MsgData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgType !== "") {
       writer.uint32(10).string(message.msgType);
@@ -786,6 +794,7 @@ function createBaseTxMsgData(): TxMsgData {
   };
 }
 export const TxMsgData = {
+  typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData",
   encode(message: TxMsgData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.data) {
       MsgData.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -854,6 +863,7 @@ function createBaseSearchTxsResult(): SearchTxsResult {
   };
 }
 export const SearchTxsResult = {
+  typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult",
   encode(message: SearchTxsResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.totalCount !== BigInt(0)) {
       writer.uint32(8).uint64(message.totalCount);

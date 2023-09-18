@@ -26,6 +26,7 @@ function createBaseValidatorSet(): ValidatorSet {
   };
 }
 export const ValidatorSet = {
+  typeUrl: "/tendermint.types.ValidatorSet",
   encode(message: ValidatorSet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.validators) {
       Validator.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -103,6 +104,7 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
+  typeUrl: "/tendermint.types.Validator",
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
@@ -185,6 +187,7 @@ function createBaseSimpleValidator(): SimpleValidator {
   };
 }
 export const SimpleValidator = {
+  typeUrl: "/tendermint.types.SimpleValidator",
   encode(message: SimpleValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();

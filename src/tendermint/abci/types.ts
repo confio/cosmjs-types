@@ -582,6 +582,7 @@ function createBaseRequest(): Request {
   };
 }
 export const Request = {
+  typeUrl: "/tendermint.abci.Request",
   encode(message: Request, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.echo !== undefined) {
       RequestEcho.encode(message.echo, writer.uint32(10).fork()).ldelim();
@@ -824,6 +825,7 @@ function createBaseRequestEcho(): RequestEcho {
   };
 }
 export const RequestEcho = {
+  typeUrl: "/tendermint.abci.RequestEcho",
   encode(message: RequestEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.message !== "") {
       writer.uint32(10).string(message.message);
@@ -867,6 +869,7 @@ function createBaseRequestFlush(): RequestFlush {
   return {};
 }
 export const RequestFlush = {
+  typeUrl: "/tendermint.abci.RequestFlush",
   encode(_: RequestFlush, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -906,6 +909,7 @@ function createBaseRequestInfo(): RequestInfo {
   };
 }
 export const RequestInfo = {
+  typeUrl: "/tendermint.abci.RequestInfo",
   encode(message: RequestInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.version !== "") {
       writer.uint32(10).string(message.version);
@@ -987,6 +991,7 @@ function createBaseRequestInitChain(): RequestInitChain {
   };
 }
 export const RequestInitChain = {
+  typeUrl: "/tendermint.abci.RequestInitChain",
   encode(message: RequestInitChain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.time !== undefined) {
       Timestamp.encode(message.time, writer.uint32(10).fork()).ldelim();
@@ -1098,6 +1103,7 @@ function createBaseRequestQuery(): RequestQuery {
   };
 }
 export const RequestQuery = {
+  typeUrl: "/tendermint.abci.RequestQuery",
   encode(message: RequestQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
@@ -1176,6 +1182,7 @@ function createBaseRequestBeginBlock(): RequestBeginBlock {
   };
 }
 export const RequestBeginBlock = {
+  typeUrl: "/tendermint.abci.RequestBeginBlock",
   encode(message: RequestBeginBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash.length !== 0) {
       writer.uint32(10).bytes(message.hash);
@@ -1262,6 +1269,7 @@ function createBaseRequestCheckTx(): RequestCheckTx {
   };
 }
 export const RequestCheckTx = {
+  typeUrl: "/tendermint.abci.RequestCheckTx",
   encode(message: RequestCheckTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx.length !== 0) {
       writer.uint32(10).bytes(message.tx);
@@ -1317,6 +1325,7 @@ function createBaseRequestDeliverTx(): RequestDeliverTx {
   };
 }
 export const RequestDeliverTx = {
+  typeUrl: "/tendermint.abci.RequestDeliverTx",
   encode(message: RequestDeliverTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx.length !== 0) {
       writer.uint32(10).bytes(message.tx);
@@ -1363,6 +1372,7 @@ function createBaseRequestEndBlock(): RequestEndBlock {
   };
 }
 export const RequestEndBlock = {
+  typeUrl: "/tendermint.abci.RequestEndBlock",
   encode(message: RequestEndBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -1408,6 +1418,7 @@ function createBaseRequestCommit(): RequestCommit {
   return {};
 }
 export const RequestCommit = {
+  typeUrl: "/tendermint.abci.RequestCommit",
   encode(_: RequestCommit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1442,6 +1453,7 @@ function createBaseRequestListSnapshots(): RequestListSnapshots {
   return {};
 }
 export const RequestListSnapshots = {
+  typeUrl: "/tendermint.abci.RequestListSnapshots",
   encode(_: RequestListSnapshots, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1479,6 +1491,7 @@ function createBaseRequestOfferSnapshot(): RequestOfferSnapshot {
   };
 }
 export const RequestOfferSnapshot = {
+  typeUrl: "/tendermint.abci.RequestOfferSnapshot",
   encode(message: RequestOfferSnapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.snapshot !== undefined) {
       Snapshot.encode(message.snapshot, writer.uint32(10).fork()).ldelim();
@@ -1539,6 +1552,7 @@ function createBaseRequestLoadSnapshotChunk(): RequestLoadSnapshotChunk {
   };
 }
 export const RequestLoadSnapshotChunk = {
+  typeUrl: "/tendermint.abci.RequestLoadSnapshotChunk",
   encode(message: RequestLoadSnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
@@ -1608,6 +1622,7 @@ function createBaseRequestApplySnapshotChunk(): RequestApplySnapshotChunk {
   };
 }
 export const RequestApplySnapshotChunk = {
+  typeUrl: "/tendermint.abci.RequestApplySnapshotChunk",
   encode(message: RequestApplySnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.index !== 0) {
       writer.uint32(8).uint32(message.index);
@@ -1681,6 +1696,7 @@ function createBaseRequestPrepareProposal(): RequestPrepareProposal {
   };
 }
 export const RequestPrepareProposal = {
+  typeUrl: "/tendermint.abci.RequestPrepareProposal",
   encode(message: RequestPrepareProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxTxBytes !== BigInt(0)) {
       writer.uint32(8).int64(message.maxTxBytes);
@@ -1823,6 +1839,7 @@ function createBaseRequestProcessProposal(): RequestProcessProposal {
   };
 }
 export const RequestProcessProposal = {
+  typeUrl: "/tendermint.abci.RequestProcessProposal",
   encode(message: RequestProcessProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
       writer.uint32(10).bytes(v!);
@@ -1973,6 +1990,7 @@ function createBaseResponse(): Response {
   };
 }
 export const Response = {
+  typeUrl: "/tendermint.abci.Response",
   encode(message: Response, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.exception !== undefined) {
       ResponseException.encode(message.exception, writer.uint32(10).fork()).ldelim();
@@ -2227,6 +2245,7 @@ function createBaseResponseException(): ResponseException {
   };
 }
 export const ResponseException = {
+  typeUrl: "/tendermint.abci.ResponseException",
   encode(message: ResponseException, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.error !== "") {
       writer.uint32(10).string(message.error);
@@ -2272,6 +2291,7 @@ function createBaseResponseEcho(): ResponseEcho {
   };
 }
 export const ResponseEcho = {
+  typeUrl: "/tendermint.abci.ResponseEcho",
   encode(message: ResponseEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.message !== "") {
       writer.uint32(10).string(message.message);
@@ -2315,6 +2335,7 @@ function createBaseResponseFlush(): ResponseFlush {
   return {};
 }
 export const ResponseFlush = {
+  typeUrl: "/tendermint.abci.ResponseFlush",
   encode(_: ResponseFlush, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -2355,6 +2376,7 @@ function createBaseResponseInfo(): ResponseInfo {
   };
 }
 export const ResponseInfo = {
+  typeUrl: "/tendermint.abci.ResponseInfo",
   encode(message: ResponseInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data !== "") {
       writer.uint32(10).string(message.data);
@@ -2446,6 +2468,7 @@ function createBaseResponseInitChain(): ResponseInitChain {
   };
 }
 export const ResponseInitChain = {
+  typeUrl: "/tendermint.abci.ResponseInitChain",
   encode(message: ResponseInitChain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.consensusParams !== undefined) {
       ConsensusParams.encode(message.consensusParams, writer.uint32(10).fork()).ldelim();
@@ -2528,6 +2551,7 @@ function createBaseResponseQuery(): ResponseQuery {
   };
 }
 export const ResponseQuery = {
+  typeUrl: "/tendermint.abci.ResponseQuery",
   encode(message: ResponseQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
@@ -2654,6 +2678,7 @@ function createBaseResponseBeginBlock(): ResponseBeginBlock {
   };
 }
 export const ResponseBeginBlock = {
+  typeUrl: "/tendermint.abci.ResponseBeginBlock",
   encode(message: ResponseBeginBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -2713,6 +2738,7 @@ function createBaseResponseCheckTx(): ResponseCheckTx {
   };
 }
 export const ResponseCheckTx = {
+  typeUrl: "/tendermint.abci.ResponseCheckTx",
   encode(message: ResponseCheckTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
@@ -2866,6 +2892,7 @@ function createBaseResponseDeliverTx(): ResponseDeliverTx {
   };
 }
 export const ResponseDeliverTx = {
+  typeUrl: "/tendermint.abci.ResponseDeliverTx",
   encode(message: ResponseDeliverTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
@@ -2985,6 +3012,7 @@ function createBaseResponseEndBlock(): ResponseEndBlock {
   };
 }
 export const ResponseEndBlock = {
+  typeUrl: "/tendermint.abci.ResponseEndBlock",
   encode(message: ResponseEndBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.validatorUpdates) {
       ValidatorUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -3064,6 +3092,7 @@ function createBaseResponseCommit(): ResponseCommit {
   };
 }
 export const ResponseCommit = {
+  typeUrl: "/tendermint.abci.ResponseCommit",
   encode(message: ResponseCommit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
@@ -3121,6 +3150,7 @@ function createBaseResponseListSnapshots(): ResponseListSnapshots {
   };
 }
 export const ResponseListSnapshots = {
+  typeUrl: "/tendermint.abci.ResponseListSnapshots",
   encode(message: ResponseListSnapshots, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.snapshots) {
       Snapshot.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -3171,6 +3201,7 @@ function createBaseResponseOfferSnapshot(): ResponseOfferSnapshot {
   };
 }
 export const ResponseOfferSnapshot = {
+  typeUrl: "/tendermint.abci.ResponseOfferSnapshot",
   encode(message: ResponseOfferSnapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
@@ -3216,6 +3247,7 @@ function createBaseResponseLoadSnapshotChunk(): ResponseLoadSnapshotChunk {
   };
 }
 export const ResponseLoadSnapshotChunk = {
+  typeUrl: "/tendermint.abci.ResponseLoadSnapshotChunk",
   encode(message: ResponseLoadSnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chunk.length !== 0) {
       writer.uint32(10).bytes(message.chunk);
@@ -3266,6 +3298,7 @@ function createBaseResponseApplySnapshotChunk(): ResponseApplySnapshotChunk {
   };
 }
 export const ResponseApplySnapshotChunk = {
+  typeUrl: "/tendermint.abci.ResponseApplySnapshotChunk",
   encode(message: ResponseApplySnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
@@ -3350,6 +3383,7 @@ function createBaseResponsePrepareProposal(): ResponsePrepareProposal {
   };
 }
 export const ResponsePrepareProposal = {
+  typeUrl: "/tendermint.abci.ResponsePrepareProposal",
   encode(message: ResponsePrepareProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
       writer.uint32(10).bytes(v!);
@@ -3399,6 +3433,7 @@ function createBaseResponseProcessProposal(): ResponseProcessProposal {
   };
 }
 export const ResponseProcessProposal = {
+  typeUrl: "/tendermint.abci.ResponseProcessProposal",
   encode(message: ResponseProcessProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
@@ -3446,6 +3481,7 @@ function createBaseCommitInfo(): CommitInfo {
   };
 }
 export const CommitInfo = {
+  typeUrl: "/tendermint.abci.CommitInfo",
   encode(message: CommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.round !== 0) {
       writer.uint32(8).int32(message.round);
@@ -3505,6 +3541,7 @@ function createBaseExtendedCommitInfo(): ExtendedCommitInfo {
   };
 }
 export const ExtendedCommitInfo = {
+  typeUrl: "/tendermint.abci.ExtendedCommitInfo",
   encode(message: ExtendedCommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.round !== 0) {
       writer.uint32(8).int32(message.round);
@@ -3564,6 +3601,7 @@ function createBaseEvent(): Event {
   };
 }
 export const Event = {
+  typeUrl: "/tendermint.abci.Event",
   encode(message: Event, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
@@ -3625,6 +3663,7 @@ function createBaseEventAttribute(): EventAttribute {
   };
 }
 export const EventAttribute = {
+  typeUrl: "/tendermint.abci.EventAttribute",
   encode(message: EventAttribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
@@ -3691,6 +3730,7 @@ function createBaseTxResult(): TxResult {
   };
 }
 export const TxResult = {
+  typeUrl: "/tendermint.abci.TxResult",
   encode(message: TxResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -3770,6 +3810,7 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
+  typeUrl: "/tendermint.abci.Validator",
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
       writer.uint32(10).bytes(message.address);
@@ -3828,6 +3869,7 @@ function createBaseValidatorUpdate(): ValidatorUpdate {
   };
 }
 export const ValidatorUpdate = {
+  typeUrl: "/tendermint.abci.ValidatorUpdate",
   encode(message: ValidatorUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
@@ -3888,6 +3930,7 @@ function createBaseVoteInfo(): VoteInfo {
   };
 }
 export const VoteInfo = {
+  typeUrl: "/tendermint.abci.VoteInfo",
   encode(message: VoteInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validator !== undefined) {
       Validator.encode(message.validator, writer.uint32(10).fork()).ldelim();
@@ -3947,6 +3990,7 @@ function createBaseExtendedVoteInfo(): ExtendedVoteInfo {
   };
 }
 export const ExtendedVoteInfo = {
+  typeUrl: "/tendermint.abci.ExtendedVoteInfo",
   encode(message: ExtendedVoteInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validator !== undefined) {
       Validator.encode(message.validator, writer.uint32(10).fork()).ldelim();
@@ -4020,6 +4064,7 @@ function createBaseMisbehavior(): Misbehavior {
   };
 }
 export const Misbehavior = {
+  typeUrl: "/tendermint.abci.Misbehavior",
   encode(message: Misbehavior, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
@@ -4115,6 +4160,7 @@ function createBaseSnapshot(): Snapshot {
   };
 }
 export const Snapshot = {
+  typeUrl: "/tendermint.abci.Snapshot",
   encode(message: Snapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);

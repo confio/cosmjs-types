@@ -23,6 +23,7 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
+  typeUrl: "/cosmos.group.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxExecutionPeriod !== undefined) {
       Duration.encode(message.maxExecutionPeriod, writer.uint32(10).fork()).ldelim();
