@@ -40,7 +40,6 @@
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
   "dependencies": {
-    "protobufjs": "~6.11.2"
   },
   "devDependencies": {
     "@cosmology/telescope": "^1.0.1",
