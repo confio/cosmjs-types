@@ -15,9 +15,11 @@ node_modules/
 /google/
 /ibc/
 /tendermint/
+/binary.*
 /helpers.*
 /index.*
-/proofs.*
+/utf8.*
+/varint.*
 
 # IDEs
 .vscode/
