@@ -18,25 +18,25 @@ export interface GenesisState {
    * deposit_params defines all the paramaters of related to deposit.
    */
   /** @deprecated */
-  depositParams: DepositParams;
+  depositParams?: DepositParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * voting_params defines all the paramaters of related to voting.
    */
   /** @deprecated */
-  votingParams: VotingParams;
+  votingParams?: VotingParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * tally_params defines all the paramaters of related to tally.
    */
   /** @deprecated */
-  tallyParams: TallyParams;
+  tallyParams?: TallyParams;
   /**
    * params defines all the paramaters of x/gov module.
    *
    * Since: cosmos-sdk 0.47
    */
-  params: Params;
+  params?: Params;
 }
 function createBaseGenesisState(): GenesisState {
   return {
@@ -44,10 +44,10 @@ function createBaseGenesisState(): GenesisState {
     deposits: [],
     votes: [],
     proposals: [],
-    depositParams: DepositParams.fromPartial({}),
-    votingParams: VotingParams.fromPartial({}),
-    tallyParams: TallyParams.fromPartial({}),
-    params: Params.fromPartial({}),
+    depositParams: undefined,
+    votingParams: undefined,
+    tallyParams: undefined,
+    params: undefined,
   };
 }
 export const GenesisState = {

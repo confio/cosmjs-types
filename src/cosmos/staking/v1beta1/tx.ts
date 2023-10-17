@@ -13,7 +13,7 @@ export interface MsgCreateValidator {
   minSelfDelegation: string;
   delegatorAddress: string;
   validatorAddress: string;
-  pubkey: Any;
+  pubkey?: Any;
   value: Coin;
 }
 /** MsgCreateValidatorResponse defines the Msg/CreateValidator response type. */
@@ -119,7 +119,7 @@ function createBaseMsgCreateValidator(): MsgCreateValidator {
     minSelfDelegation: "",
     delegatorAddress: "",
     validatorAddress: "",
-    pubkey: Any.fromPartial({}),
+    pubkey: undefined,
     value: Coin.fromPartial({}),
   };
 }

@@ -11,15 +11,15 @@ export interface Evidence {
 }
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
 export interface DuplicateVoteEvidence {
-  voteA: Vote;
-  voteB: Vote;
+  voteA?: Vote;
+  voteB?: Vote;
   totalVotingPower: bigint;
   validatorPower: bigint;
   timestamp: Timestamp;
 }
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
 export interface LightClientAttackEvidence {
-  conflictingBlock: LightBlock;
+  conflictingBlock?: LightBlock;
   commonHeight: bigint;
   byzantineValidators: Validator[];
   totalVotingPower: bigint;
@@ -100,8 +100,8 @@ export const Evidence = {
 };
 function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
   return {
-    voteA: Vote.fromPartial({}),
-    voteB: Vote.fromPartial({}),
+    voteA: undefined,
+    voteB: undefined,
     totalVotingPower: BigInt(0),
     validatorPower: BigInt(0),
     timestamp: Timestamp.fromPartial({}),
@@ -198,7 +198,7 @@ export const DuplicateVoteEvidence = {
 };
 function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
   return {
-    conflictingBlock: LightBlock.fromPartial({}),
+    conflictingBlock: undefined,
     commonHeight: BigInt(0),
     byzantineValidators: [],
     totalVotingPower: BigInt(0),

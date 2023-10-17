@@ -11,7 +11,7 @@ export interface MsgSubmitEvidence {
   /** submitter is the signer account address of evidence. */
   submitter: string;
   /** evidence defines the evidence of misbehavior. */
-  evidence: Any;
+  evidence?: Any;
 }
 /** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
 export interface MsgSubmitEvidenceResponse {
@@ -21,7 +21,7 @@ export interface MsgSubmitEvidenceResponse {
 function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
   return {
     submitter: "",
-    evidence: Any.fromPartial({}),
+    evidence: undefined,
   };
 }
 export const MsgSubmitEvidence = {

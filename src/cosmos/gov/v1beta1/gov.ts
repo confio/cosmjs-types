@@ -182,7 +182,7 @@ export interface Proposal {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
   /** content is the proposal's content. */
-  content: Any;
+  content?: Any;
   /** status defines the proposal status. */
   status: ProposalStatus;
   /**
@@ -453,7 +453,7 @@ export const Deposit = {
 function createBaseProposal(): Proposal {
   return {
     proposalId: BigInt(0),
-    content: Any.fromPartial({}),
+    content: undefined,
     status: 0,
     finalTallyResult: TallyResult.fromPartial({}),
     submitTime: Timestamp.fromPartial({}),

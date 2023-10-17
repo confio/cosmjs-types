@@ -168,17 +168,17 @@ export interface Proposal {
    * querying a proposal via gRPC, this field is not populated until the
    * proposal's voting period has ended.
    */
-  finalTallyResult: TallyResult;
+  finalTallyResult?: TallyResult;
   /** submit_time is the time of proposal submission. */
-  submitTime: Timestamp;
+  submitTime?: Timestamp;
   /** deposit_end_time is the end time for deposition. */
-  depositEndTime: Timestamp;
+  depositEndTime?: Timestamp;
   /** total_deposit is the total deposit on the proposal. */
   totalDeposit: Coin[];
   /** voting_start_time is the starting time to vote on a proposal. */
-  votingStartTime: Timestamp;
+  votingStartTime?: Timestamp;
   /** voting_end_time is the end time of voting on a proposal. */
-  votingEndTime: Timestamp;
+  votingEndTime?: Timestamp;
   /** metadata is any arbitrary metadata attached to the proposal. */
   metadata: string;
   /**
@@ -233,12 +233,12 @@ export interface DepositParams {
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
    * months.
    */
-  maxDepositPeriod: Duration;
+  maxDepositPeriod?: Duration;
 }
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
   /** Duration of the voting period. */
-  votingPeriod: Duration;
+  votingPeriod?: Duration;
 }
 /** TallyParams defines the params for tallying votes on governance proposals. */
 export interface TallyParams {
@@ -267,9 +267,9 @@ export interface Params {
    * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
    * months.
    */
-  maxDepositPeriod: Duration;
+  maxDepositPeriod?: Duration;
   /** Duration of the voting period. */
-  votingPeriod: Duration;
+  votingPeriod?: Duration;
   /**
    * Minimum percentage of total stake needed to vote for a result to be
    *  considered valid.
@@ -424,12 +424,12 @@ function createBaseProposal(): Proposal {
     id: BigInt(0),
     messages: [],
     status: 0,
-    finalTallyResult: TallyResult.fromPartial({}),
-    submitTime: Timestamp.fromPartial({}),
-    depositEndTime: Timestamp.fromPartial({}),
+    finalTallyResult: undefined,
+    submitTime: undefined,
+    depositEndTime: undefined,
     totalDeposit: [],
-    votingStartTime: Timestamp.fromPartial({}),
-    votingEndTime: Timestamp.fromPartial({}),
+    votingStartTime: undefined,
+    votingEndTime: undefined,
     metadata: "",
     title: "",
     summary: "",
@@ -774,7 +774,7 @@ export const Vote = {
 function createBaseDepositParams(): DepositParams {
   return {
     minDeposit: [],
-    maxDepositPeriod: Duration.fromPartial({}),
+    maxDepositPeriod: undefined,
   };
 }
 export const DepositParams = {
@@ -839,7 +839,7 @@ export const DepositParams = {
 };
 function createBaseVotingParams(): VotingParams {
   return {
-    votingPeriod: Duration.fromPartial({}),
+    votingPeriod: undefined,
   };
 }
 export const VotingParams = {
@@ -955,8 +955,8 @@ export const TallyParams = {
 function createBaseParams(): Params {
   return {
     minDeposit: [],
-    maxDepositPeriod: Duration.fromPartial({}),
-    votingPeriod: Duration.fromPartial({}),
+    maxDepositPeriod: undefined,
+    votingPeriod: undefined,
     quorum: "",
     threshold: "",
     vetoThreshold: "",

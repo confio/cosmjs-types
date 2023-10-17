@@ -12,7 +12,7 @@ export interface IdentifiedClientState {
   /** client identifier */
   clientId: string;
   /** client state */
-  clientState: Any;
+  clientState?: Any;
 }
 /**
  * ConsensusStateWithHeight defines a consensus state with an additional height
@@ -22,7 +22,7 @@ export interface ConsensusStateWithHeight {
   /** consensus state height */
   height: Height;
   /** consensus state */
-  consensusState: Any;
+  consensusState?: Any;
 }
 /**
  * ClientConsensusStates defines all the stored consensus states for a given
@@ -69,7 +69,7 @@ export interface UpgradeProposal {
    * of the chain. This will allow IBC connections to persist smoothly across
    * planned chain upgrades
    */
-  upgradedClientState: Any;
+  upgradedClientState?: Any;
 }
 /**
  * Height is a monotonically increasing data type
@@ -97,7 +97,7 @@ export interface Params {
 function createBaseIdentifiedClientState(): IdentifiedClientState {
   return {
     clientId: "",
-    clientState: Any.fromPartial({}),
+    clientState: undefined,
   };
 }
 export const IdentifiedClientState = {
@@ -156,7 +156,7 @@ export const IdentifiedClientState = {
 function createBaseConsensusStateWithHeight(): ConsensusStateWithHeight {
   return {
     height: Height.fromPartial({}),
-    consensusState: Any.fromPartial({}),
+    consensusState: undefined,
   };
 }
 export const ConsensusStateWithHeight = {
@@ -361,7 +361,7 @@ function createBaseUpgradeProposal(): UpgradeProposal {
     title: "",
     description: "",
     plan: Plan.fromPartial({}),
-    upgradedClientState: Any.fromPartial({}),
+    upgradedClientState: undefined,
   };
 }
 export const UpgradeProposal = {

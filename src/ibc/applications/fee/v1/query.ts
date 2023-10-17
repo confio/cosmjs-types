@@ -10,7 +10,7 @@ export const protobufPackage = "ibc.applications.fee.v1";
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** block height at which to query */
   queryHeight: bigint;
 }
@@ -37,7 +37,7 @@ export interface QueryIncentivizedPacketResponse {
  */
 export interface QueryIncentivizedPacketsForChannelRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   portId: string;
   channelId: string;
   /** Height to query at */
@@ -105,7 +105,7 @@ export interface QueryCounterpartyPayeeResponse {
 /** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsRequest {
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
   /** block height at which to query */
   queryHeight: bigint;
 }
@@ -128,7 +128,7 @@ export interface QueryFeeEnabledChannelResponse {
 }
 function createBaseQueryIncentivizedPacketsRequest(): QueryIncentivizedPacketsRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     queryHeight: BigInt(0),
   };
 }
@@ -376,7 +376,7 @@ export const QueryIncentivizedPacketResponse = {
 };
 function createBaseQueryIncentivizedPacketsForChannelRequest(): QueryIncentivizedPacketsForChannelRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     portId: "",
     channelId: "",
     queryHeight: BigInt(0),
@@ -1042,7 +1042,7 @@ export const QueryCounterpartyPayeeResponse = {
 };
 function createBaseQueryFeeEnabledChannelsRequest(): QueryFeeEnabledChannelsRequest {
   return {
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
     queryHeight: BigInt(0),
   };
 }

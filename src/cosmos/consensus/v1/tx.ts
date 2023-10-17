@@ -14,9 +14,9 @@ export interface MsgUpdateParams {
    *
    * NOTE: All parameters must be supplied.
    */
-  block: BlockParams;
-  evidence: EvidenceParams;
-  validator: ValidatorParams;
+  block?: BlockParams;
+  evidence?: EvidenceParams;
+  validator?: ValidatorParams;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
@@ -26,9 +26,9 @@ export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
-    block: BlockParams.fromPartial({}),
-    evidence: EvidenceParams.fromPartial({}),
-    validator: ValidatorParams.fromPartial({}),
+    block: undefined,
+    evidence: undefined,
+    validator: undefined,
   };
 }
 export const MsgUpdateParams = {

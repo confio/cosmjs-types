@@ -36,7 +36,7 @@ export interface Plan {
    * If this field is not empty, an error will be thrown.
    */
   /** @deprecated */
-  upgradedClientState: Any;
+  upgradedClientState?: Any;
 }
 /**
  * SoftwareUpgradeProposal is a gov Content type for initiating a software
@@ -83,7 +83,7 @@ function createBasePlan(): Plan {
     time: Timestamp.fromPartial({}),
     height: BigInt(0),
     info: "",
-    upgradedClientState: Any.fromPartial({}),
+    upgradedClientState: undefined,
   };
 }
 export const Plan = {
