@@ -31,13 +31,13 @@ export interface ContractGrant {
    * Limit defines execution limits that are enforced and updated when the grant
    * is applied. When the limit lapsed the grant is removed.
    */
-  limit: Any;
+  limit?: Any;
   /**
    * Filter define more fine-grained control on the message payload passed
    * to the contract in the operation. When no filter applies on execution, the
    * operation is prohibited.
    */
-  filter: Any;
+  filter?: Any;
 }
 /**
  * MaxCallsLimit limited number of calls to the contract. No funds transferable.
@@ -203,8 +203,8 @@ export const ContractMigrationAuthorization = {
 function createBaseContractGrant(): ContractGrant {
   return {
     contract: "",
-    limit: Any.fromPartial({}),
-    filter: Any.fromPartial({}),
+    limit: undefined,
+    filter: undefined,
   };
 }
 export const ContractGrant = {

@@ -12,7 +12,7 @@ export interface ClientState {
   sequence: bigint;
   /** frozen sequence of the solo machine */
   isFrozen: boolean;
-  consensusState: ConsensusState;
+  consensusState?: ConsensusState;
 }
 /**
  * ConsensusState defines a solo machine consensus state. The sequence of a
@@ -21,7 +21,7 @@ export interface ClientState {
  */
 export interface ConsensusState {
   /** public key of the solo machine */
-  publicKey: Any;
+  publicKey?: Any;
   /**
    * diversifier allows the same public key to be re-used across different solo
    * machine clients (potentially on different chains) without being considered
@@ -34,7 +34,7 @@ export interface ConsensusState {
 export interface Header {
   timestamp: bigint;
   signature: Uint8Array;
-  newPublicKey: Any;
+  newPublicKey?: Any;
   newDiversifier: string;
 }
 /**
@@ -43,8 +43,8 @@ export interface Header {
  */
 export interface Misbehaviour {
   sequence: bigint;
-  signatureOne: SignatureAndData;
-  signatureTwo: SignatureAndData;
+  signatureOne?: SignatureAndData;
+  signatureTwo?: SignatureAndData;
 }
 /**
  * SignatureAndData contains a signature and the data signed over to create that
@@ -80,7 +80,7 @@ export interface SignBytes {
 /** HeaderData returns the SignBytes data for update verification. */
 export interface HeaderData {
   /** header public key */
-  newPubKey: Any;
+  newPubKey?: Any;
   /** header diversifier */
   newDiversifier: string;
 }
@@ -88,7 +88,7 @@ function createBaseClientState(): ClientState {
   return {
     sequence: BigInt(0),
     isFrozen: false,
-    consensusState: ConsensusState.fromPartial({}),
+    consensusState: undefined,
   };
 }
 export const ClientState = {
@@ -159,7 +159,7 @@ export const ClientState = {
 };
 function createBaseConsensusState(): ConsensusState {
   return {
-    publicKey: Any.fromPartial({}),
+    publicKey: undefined,
     diversifier: "",
     timestamp: BigInt(0),
   };
@@ -232,7 +232,7 @@ function createBaseHeader(): Header {
   return {
     timestamp: BigInt(0),
     signature: new Uint8Array(),
-    newPublicKey: Any.fromPartial({}),
+    newPublicKey: undefined,
     newDiversifier: "",
   };
 }
@@ -315,8 +315,8 @@ export const Header = {
 function createBaseMisbehaviour(): Misbehaviour {
   return {
     sequence: BigInt(0),
-    signatureOne: SignatureAndData.fromPartial({}),
-    signatureTwo: SignatureAndData.fromPartial({}),
+    signatureOne: undefined,
+    signatureTwo: undefined,
   };
 }
 export const Misbehaviour = {
@@ -626,7 +626,7 @@ export const SignBytes = {
 };
 function createBaseHeaderData(): HeaderData {
   return {
-    newPubKey: Any.fromPartial({}),
+    newPubKey: undefined,
     newDiversifier: "",
   };
 }

@@ -14,7 +14,7 @@ export interface MsgStoreCode {
    * InstantiatePermission access control to apply on contract creation,
    * optional
    */
-  instantiatePermission: AccessConfig;
+  instantiatePermission?: AccessConfig;
 }
 /** MsgStoreCodeResponse returns store result data. */
 export interface MsgStoreCodeResponse {
@@ -142,7 +142,7 @@ export interface MsgUpdateInstantiateConfig {
   /** CodeID references the stored WASM code */
   codeId: bigint;
   /** NewInstantiatePermission is the new access control */
-  newInstantiatePermission: AccessConfig;
+  newInstantiatePermission?: AccessConfig;
 }
 /** MsgUpdateInstantiateConfigResponse returns empty data */
 export interface MsgUpdateInstantiateConfigResponse {}
@@ -150,7 +150,7 @@ function createBaseMsgStoreCode(): MsgStoreCode {
   return {
     sender: "",
     wasmByteCode: new Uint8Array(),
-    instantiatePermission: AccessConfig.fromPartial({}),
+    instantiatePermission: undefined,
   };
 }
 export const MsgStoreCode = {
@@ -1085,7 +1085,7 @@ function createBaseMsgUpdateInstantiateConfig(): MsgUpdateInstantiateConfig {
   return {
     sender: "",
     codeId: BigInt(0),
-    newInstantiatePermission: AccessConfig.fromPartial({}),
+    newInstantiatePermission: undefined,
   };
 }
 export const MsgUpdateInstantiateConfig = {

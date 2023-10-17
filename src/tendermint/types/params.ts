@@ -8,10 +8,10 @@ export const protobufPackage = "tendermint.types";
  * validity of blocks.
  */
 export interface ConsensusParams {
-  block: BlockParams;
-  evidence: EvidenceParams;
-  validator: ValidatorParams;
-  version: VersionParams;
+  block?: BlockParams;
+  evidence?: EvidenceParams;
+  validator?: ValidatorParams;
+  version?: VersionParams;
 }
 /** BlockParams contains limits on the block size. */
 export interface BlockParams {
@@ -72,10 +72,10 @@ export interface HashedParams {
 }
 function createBaseConsensusParams(): ConsensusParams {
   return {
-    block: BlockParams.fromPartial({}),
-    evidence: EvidenceParams.fromPartial({}),
-    validator: ValidatorParams.fromPartial({}),
-    version: VersionParams.fromPartial({}),
+    block: undefined,
+    evidence: undefined,
+    validator: undefined,
+    version: undefined,
   };
 }
 export const ConsensusParams = {

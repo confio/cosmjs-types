@@ -190,12 +190,12 @@ export interface Proposal {
   signature: Uint8Array;
 }
 export interface SignedHeader {
-  header: Header;
-  commit: Commit;
+  header?: Header;
+  commit?: Commit;
 }
 export interface LightBlock {
-  signedHeader: SignedHeader;
-  validatorSet: ValidatorSet;
+  signedHeader?: SignedHeader;
+  validatorSet?: ValidatorSet;
 }
 export interface BlockMeta {
   blockId: BlockID;
@@ -207,7 +207,7 @@ export interface BlockMeta {
 export interface TxProof {
   rootHash: Uint8Array;
   data: Uint8Array;
-  proof: Proof;
+  proof?: Proof;
 }
 function createBasePartSetHeader(): PartSetHeader {
   return {
@@ -1071,8 +1071,8 @@ export const Proposal = {
 };
 function createBaseSignedHeader(): SignedHeader {
   return {
-    header: Header.fromPartial({}),
-    commit: Commit.fromPartial({}),
+    header: undefined,
+    commit: undefined,
   };
 }
 export const SignedHeader = {
@@ -1131,8 +1131,8 @@ export const SignedHeader = {
 };
 function createBaseLightBlock(): LightBlock {
   return {
-    signedHeader: SignedHeader.fromPartial({}),
-    validatorSet: ValidatorSet.fromPartial({}),
+    signedHeader: undefined,
+    validatorSet: undefined,
   };
 }
 export const LightBlock = {
@@ -1280,7 +1280,7 @@ function createBaseTxProof(): TxProof {
   return {
     rootHash: new Uint8Array(),
     data: new Uint8Array(),
-    proof: Proof.fromPartial({}),
+    proof: undefined,
   };
 }
 export const TxProof = {

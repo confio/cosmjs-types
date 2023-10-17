@@ -12,7 +12,7 @@ export interface QueryParamsResponse {
    * Please note that `params.version` is not populated in this response, it is
    * tracked separately in the x/upgrade module.
    */
-  params: ConsensusParams;
+  params?: ConsensusParams;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -51,7 +51,7 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    params: ConsensusParams.fromPartial({}),
+    params: undefined,
   };
 }
 export const QueryParamsResponse = {

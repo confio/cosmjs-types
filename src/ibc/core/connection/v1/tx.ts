@@ -12,7 +12,7 @@ export const protobufPackage = "ibc.core.connection.v1";
 export interface MsgConnectionOpenInit {
   clientId: string;
   counterparty: Counterparty;
-  version: Version;
+  version?: Version;
   delayPeriod: bigint;
   signer: string;
 }
@@ -30,7 +30,7 @@ export interface MsgConnectionOpenTry {
   /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
   /** @deprecated */
   previousConnectionId: string;
-  clientState: Any;
+  clientState?: Any;
   counterparty: Counterparty;
   delayPeriod: bigint;
   counterpartyVersions: Version[];
@@ -58,8 +58,8 @@ export interface MsgConnectionOpenTryResponse {}
 export interface MsgConnectionOpenAck {
   connectionId: string;
   counterpartyConnectionId: string;
-  version: Version;
-  clientState: Any;
+  version?: Version;
+  clientState?: Any;
   proofHeight: Height;
   /**
    * proof of the initialization the connection on Chain B: `UNITIALIZED ->
@@ -97,7 +97,7 @@ function createBaseMsgConnectionOpenInit(): MsgConnectionOpenInit {
   return {
     clientId: "",
     counterparty: Counterparty.fromPartial({}),
-    version: Version.fromPartial({}),
+    version: undefined,
     delayPeriod: BigInt(0),
     signer: "",
   };
@@ -228,7 +228,7 @@ function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
   return {
     clientId: "",
     previousConnectionId: "",
-    clientState: Any.fromPartial({}),
+    clientState: undefined,
     counterparty: Counterparty.fromPartial({}),
     delayPeriod: BigInt(0),
     counterpartyVersions: [],
@@ -463,8 +463,8 @@ function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
   return {
     connectionId: "",
     counterpartyConnectionId: "",
-    version: Version.fromPartial({}),
-    clientState: Any.fromPartial({}),
+    version: undefined,
+    clientState: undefined,
     proofHeight: Height.fromPartial({}),
     proofTry: new Uint8Array(),
     proofClient: new Uint8Array(),

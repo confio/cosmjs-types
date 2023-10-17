@@ -224,7 +224,7 @@ export interface ThresholdDecisionPolicy {
    */
   threshold: string;
   /** windows defines the different windows for voting and execution. */
-  windows: DecisionPolicyWindows;
+  windows?: DecisionPolicyWindows;
 }
 /**
  * PercentageDecisionPolicy is a decision policy where a proposal passes when
@@ -241,7 +241,7 @@ export interface PercentageDecisionPolicy {
    */
   percentage: string;
   /** windows defines the different windows for voting and execution. */
-  windows: DecisionPolicyWindows;
+  windows?: DecisionPolicyWindows;
 }
 /** DecisionPolicyWindows defines the different windows for voting and execution. */
 export interface DecisionPolicyWindows {
@@ -290,7 +290,7 @@ export interface GroupMember {
   /** group_id is the unique ID of the group. */
   groupId: bigint;
   /** member is the member data. */
-  member: Member;
+  member?: Member;
 }
 /** GroupPolicyInfo represents the high-level on-chain information for a group policy. */
 export interface GroupPolicyInfo {
@@ -308,7 +308,7 @@ export interface GroupPolicyInfo {
    */
   version: bigint;
   /** decision_policy specifies the group policy's decision policy. */
-  decisionPolicy: Any;
+  decisionPolicy?: Any;
   /** created_at is a timestamp specifying when a group policy was created. */
   createdAt: Timestamp;
 }
@@ -546,7 +546,7 @@ export const MemberRequest = {
 function createBaseThresholdDecisionPolicy(): ThresholdDecisionPolicy {
   return {
     threshold: "",
-    windows: DecisionPolicyWindows.fromPartial({}),
+    windows: undefined,
   };
 }
 export const ThresholdDecisionPolicy = {
@@ -605,7 +605,7 @@ export const ThresholdDecisionPolicy = {
 function createBasePercentageDecisionPolicy(): PercentageDecisionPolicy {
   return {
     percentage: "",
-    windows: DecisionPolicyWindows.fromPartial({}),
+    windows: undefined,
   };
 }
 export const PercentageDecisionPolicy = {
@@ -833,7 +833,7 @@ export const GroupInfo = {
 function createBaseGroupMember(): GroupMember {
   return {
     groupId: BigInt(0),
-    member: Member.fromPartial({}),
+    member: undefined,
   };
 }
 export const GroupMember = {
@@ -897,7 +897,7 @@ function createBaseGroupPolicyInfo(): GroupPolicyInfo {
     admin: "",
     metadata: "",
     version: BigInt(0),
-    decisionPolicy: Any.fromPartial({}),
+    decisionPolicy: undefined,
     createdAt: Timestamp.fromPartial({}),
   };
 }

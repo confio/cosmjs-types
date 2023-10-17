@@ -31,17 +31,17 @@ export interface StoreKVPair {
  * the file streamer dump them into files together with the state changes.
  */
 export interface BlockMetadata {
-  requestBeginBlock: RequestBeginBlock;
-  responseBeginBlock: ResponseBeginBlock;
+  requestBeginBlock?: RequestBeginBlock;
+  responseBeginBlock?: ResponseBeginBlock;
   deliverTxs: BlockMetadata_DeliverTx[];
-  requestEndBlock: RequestEndBlock;
-  responseEndBlock: ResponseEndBlock;
-  responseCommit: ResponseCommit;
+  requestEndBlock?: RequestEndBlock;
+  responseEndBlock?: ResponseEndBlock;
+  responseCommit?: ResponseCommit;
 }
 /** DeliverTx encapulate deliver tx request and response. */
 export interface BlockMetadata_DeliverTx {
-  request: RequestDeliverTx;
-  response: ResponseDeliverTx;
+  request?: RequestDeliverTx;
+  response?: ResponseDeliverTx;
 }
 function createBaseStoreKVPair(): StoreKVPair {
   return {
@@ -123,12 +123,12 @@ export const StoreKVPair = {
 };
 function createBaseBlockMetadata(): BlockMetadata {
   return {
-    requestBeginBlock: RequestBeginBlock.fromPartial({}),
-    responseBeginBlock: ResponseBeginBlock.fromPartial({}),
+    requestBeginBlock: undefined,
+    responseBeginBlock: undefined,
     deliverTxs: [],
-    requestEndBlock: RequestEndBlock.fromPartial({}),
-    responseEndBlock: ResponseEndBlock.fromPartial({}),
-    responseCommit: ResponseCommit.fromPartial({}),
+    requestEndBlock: undefined,
+    responseEndBlock: undefined,
+    responseCommit: undefined,
   };
 }
 export const BlockMetadata = {
@@ -252,8 +252,8 @@ export const BlockMetadata = {
 };
 function createBaseBlockMetadata_DeliverTx(): BlockMetadata_DeliverTx {
   return {
-    request: RequestDeliverTx.fromPartial({}),
-    response: ResponseDeliverTx.fromPartial({}),
+    request: undefined,
+    response: undefined,
   };
 }
 export const BlockMetadata_DeliverTx = {

@@ -24,7 +24,7 @@ export interface QueryProposalRequest {
 /** QueryProposalResponse is the response type for the Query/Proposal RPC method. */
 export interface QueryProposalResponse {
   /** proposal is the requested governance proposal. */
-  proposal: Proposal;
+  proposal?: Proposal;
 }
 /** QueryProposalsRequest is the request type for the Query/Proposals RPC method. */
 export interface QueryProposalsRequest {
@@ -35,7 +35,7 @@ export interface QueryProposalsRequest {
   /** depositor defines the deposit addresses from the proposals. */
   depositor: string;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /**
  * QueryProposalsResponse is the response type for the Query/Proposals RPC
@@ -45,7 +45,7 @@ export interface QueryProposalsResponse {
   /** proposals defines all the requested governance proposals. */
   proposals: Proposal[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 /** QueryVoteRequest is the request type for the Query/Vote RPC method. */
 export interface QueryVoteRequest {
@@ -57,21 +57,21 @@ export interface QueryVoteRequest {
 /** QueryVoteResponse is the response type for the Query/Vote RPC method. */
 export interface QueryVoteResponse {
   /** vote defines the queried vote. */
-  vote: Vote;
+  vote?: Vote;
 }
 /** QueryVotesRequest is the request type for the Query/Votes RPC method. */
 export interface QueryVotesRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryVotesResponse is the response type for the Query/Votes RPC method. */
 export interface QueryVotesResponse {
   /** votes defines the queried votes. */
   votes: Vote[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -88,25 +88,25 @@ export interface QueryParamsResponse {
    * voting_params defines the parameters related to voting.
    */
   /** @deprecated */
-  votingParams: VotingParams;
+  votingParams?: VotingParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * deposit_params defines the parameters related to deposit.
    */
   /** @deprecated */
-  depositParams: DepositParams;
+  depositParams?: DepositParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * tally_params defines the parameters related to tally.
    */
   /** @deprecated */
-  tallyParams: TallyParams;
+  tallyParams?: TallyParams;
   /**
    * params defines all the paramaters of x/gov module.
    *
    * Since: cosmos-sdk 0.47
    */
-  params: Params;
+  params?: Params;
 }
 /** QueryDepositRequest is the request type for the Query/Deposit RPC method. */
 export interface QueryDepositRequest {
@@ -118,21 +118,21 @@ export interface QueryDepositRequest {
 /** QueryDepositResponse is the response type for the Query/Deposit RPC method. */
 export interface QueryDepositResponse {
   /** deposit defines the requested deposit. */
-  deposit: Deposit;
+  deposit?: Deposit;
 }
 /** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
 export interface QueryDepositsRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
   /** pagination defines an optional pagination for the request. */
-  pagination: PageRequest;
+  pagination?: PageRequest;
 }
 /** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
 export interface QueryDepositsResponse {
   /** deposits defines the requested deposits. */
   deposits: Deposit[];
   /** pagination defines the pagination in the response. */
-  pagination: PageResponse;
+  pagination?: PageResponse;
 }
 /** QueryTallyResultRequest is the request type for the Query/Tally RPC method. */
 export interface QueryTallyResultRequest {
@@ -142,7 +142,7 @@ export interface QueryTallyResultRequest {
 /** QueryTallyResultResponse is the response type for the Query/Tally RPC method. */
 export interface QueryTallyResultResponse {
   /** tally defines the requested tally. */
-  tally: TallyResult;
+  tally?: TallyResult;
 }
 function createBaseQueryProposalRequest(): QueryProposalRequest {
   return {
@@ -194,7 +194,7 @@ export const QueryProposalRequest = {
 };
 function createBaseQueryProposalResponse(): QueryProposalResponse {
   return {
-    proposal: Proposal.fromPartial({}),
+    proposal: undefined,
   };
 }
 export const QueryProposalResponse = {
@@ -246,7 +246,7 @@ function createBaseQueryProposalsRequest(): QueryProposalsRequest {
     proposalStatus: 0,
     voter: "",
     depositor: "",
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryProposalsRequest = {
@@ -324,7 +324,7 @@ export const QueryProposalsRequest = {
 function createBaseQueryProposalsResponse(): QueryProposalsResponse {
   return {
     proposals: [],
-    pagination: PageResponse.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryProposalsResponse = {
@@ -445,7 +445,7 @@ export const QueryVoteRequest = {
 };
 function createBaseQueryVoteResponse(): QueryVoteResponse {
   return {
-    vote: Vote.fromPartial({}),
+    vote: undefined,
   };
 }
 export const QueryVoteResponse = {
@@ -494,7 +494,7 @@ export const QueryVoteResponse = {
 function createBaseQueryVotesRequest(): QueryVotesRequest {
   return {
     proposalId: BigInt(0),
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryVotesRequest = {
@@ -555,7 +555,7 @@ export const QueryVotesRequest = {
 function createBaseQueryVotesResponse(): QueryVotesResponse {
   return {
     votes: [],
-    pagination: PageResponse.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryVotesResponse = {
@@ -663,10 +663,10 @@ export const QueryParamsRequest = {
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
-    votingParams: VotingParams.fromPartial({}),
-    depositParams: DepositParams.fromPartial({}),
-    tallyParams: TallyParams.fromPartial({}),
-    params: Params.fromPartial({}),
+    votingParams: undefined,
+    depositParams: undefined,
+    tallyParams: undefined,
+    params: undefined,
   };
 }
 export const QueryParamsResponse = {
@@ -808,7 +808,7 @@ export const QueryDepositRequest = {
 };
 function createBaseQueryDepositResponse(): QueryDepositResponse {
   return {
-    deposit: Deposit.fromPartial({}),
+    deposit: undefined,
   };
 }
 export const QueryDepositResponse = {
@@ -858,7 +858,7 @@ export const QueryDepositResponse = {
 function createBaseQueryDepositsRequest(): QueryDepositsRequest {
   return {
     proposalId: BigInt(0),
-    pagination: PageRequest.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryDepositsRequest = {
@@ -919,7 +919,7 @@ export const QueryDepositsRequest = {
 function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   return {
     deposits: [],
-    pagination: PageResponse.fromPartial({}),
+    pagination: undefined,
   };
 }
 export const QueryDepositsResponse = {
@@ -1029,7 +1029,7 @@ export const QueryTallyResultRequest = {
 };
 function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
   return {
-    tally: TallyResult.fromPartial({}),
+    tally: undefined,
   };
 }
 export const QueryTallyResultResponse = {

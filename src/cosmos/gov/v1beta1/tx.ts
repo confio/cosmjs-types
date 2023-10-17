@@ -11,7 +11,7 @@ export const protobufPackage = "cosmos.gov.v1beta1";
  */
 export interface MsgSubmitProposal {
   /** content is the proposal's content. */
-  content: Any;
+  content?: Any;
   /** initial_deposit is the deposit value that must be paid at proposal submission. */
   initialDeposit: Coin[];
   /** proposer is the account address of the proposer. */
@@ -65,7 +65,7 @@ export interface MsgDeposit {
 export interface MsgDepositResponse {}
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   return {
-    content: Any.fromPartial({}),
+    content: undefined,
     initialDeposit: [],
     proposer: "",
   };
