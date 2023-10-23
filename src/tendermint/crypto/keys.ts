@@ -14,6 +14,7 @@ function createBasePublicKey(): PublicKey {
   };
 }
 export const PublicKey = {
+  typeUrl: "/tendermint.crypto.PublicKey",
   encode(message: PublicKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ed25519 !== undefined) {
       writer.uint32(10).bytes(message.ed25519);

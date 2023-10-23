@@ -62,6 +62,7 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
+  typeUrl: "/ibc.applications.fee.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.identifiedFees) {
       IdentifiedPacketFees.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -183,6 +184,7 @@ function createBaseFeeEnabledChannel(): FeeEnabledChannel {
   };
 }
 export const FeeEnabledChannel = {
+  typeUrl: "/ibc.applications.fee.v1.FeeEnabledChannel",
   encode(message: FeeEnabledChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -239,6 +241,7 @@ function createBaseRegisteredPayee(): RegisteredPayee {
   };
 }
 export const RegisteredPayee = {
+  typeUrl: "/ibc.applications.fee.v1.RegisteredPayee",
   encode(message: RegisteredPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
@@ -304,6 +307,7 @@ function createBaseRegisteredCounterpartyPayee(): RegisteredCounterpartyPayee {
   };
 }
 export const RegisteredCounterpartyPayee = {
+  typeUrl: "/ibc.applications.fee.v1.RegisteredCounterpartyPayee",
   encode(message: RegisteredCounterpartyPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
@@ -370,6 +374,7 @@ function createBaseForwardRelayerAddress(): ForwardRelayerAddress {
   };
 }
 export const ForwardRelayerAddress = {
+  typeUrl: "/ibc.applications.fee.v1.ForwardRelayerAddress",
   encode(message: ForwardRelayerAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);

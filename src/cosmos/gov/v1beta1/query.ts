@@ -130,6 +130,7 @@ function createBaseQueryProposalRequest(): QueryProposalRequest {
   };
 }
 export const QueryProposalRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryProposalRequest",
   encode(message: QueryProposalRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -177,6 +178,7 @@ function createBaseQueryProposalResponse(): QueryProposalResponse {
   };
 }
 export const QueryProposalResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryProposalResponse",
   encode(message: QueryProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposal !== undefined) {
       Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim();
@@ -228,6 +230,7 @@ function createBaseQueryProposalsRequest(): QueryProposalsRequest {
   };
 }
 export const QueryProposalsRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryProposalsRequest",
   encode(message: QueryProposalsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalStatus !== 0) {
       writer.uint32(8).int32(message.proposalStatus);
@@ -305,6 +308,7 @@ function createBaseQueryProposalsResponse(): QueryProposalsResponse {
   };
 }
 export const QueryProposalsResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryProposalsResponse",
   encode(message: QueryProposalsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.proposals) {
       Proposal.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -368,6 +372,7 @@ function createBaseQueryVoteRequest(): QueryVoteRequest {
   };
 }
 export const QueryVoteRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryVoteRequest",
   encode(message: QueryVoteRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -424,6 +429,7 @@ function createBaseQueryVoteResponse(): QueryVoteResponse {
   };
 }
 export const QueryVoteResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryVoteResponse",
   encode(message: QueryVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vote !== undefined) {
       Vote.encode(message.vote, writer.uint32(10).fork()).ldelim();
@@ -472,6 +478,7 @@ function createBaseQueryVotesRequest(): QueryVotesRequest {
   };
 }
 export const QueryVotesRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryVotesRequest",
   encode(message: QueryVotesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -532,6 +539,7 @@ function createBaseQueryVotesResponse(): QueryVotesResponse {
   };
 }
 export const QueryVotesResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryVotesResponse",
   encode(message: QueryVotesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.votes) {
       Vote.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -593,6 +601,7 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   };
 }
 export const QueryParamsRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryParamsRequest",
   encode(message: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.paramsType !== "") {
       writer.uint32(10).string(message.paramsType);
@@ -640,6 +649,7 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.votingParams !== undefined) {
       VotingParams.encode(message.votingParams, writer.uint32(10).fork()).ldelim();
@@ -713,6 +723,7 @@ function createBaseQueryDepositRequest(): QueryDepositRequest {
   };
 }
 export const QueryDepositRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryDepositRequest",
   encode(message: QueryDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -769,6 +780,7 @@ function createBaseQueryDepositResponse(): QueryDepositResponse {
   };
 }
 export const QueryDepositResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryDepositResponse",
   encode(message: QueryDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.deposit !== undefined) {
       Deposit.encode(message.deposit, writer.uint32(10).fork()).ldelim();
@@ -818,6 +830,7 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
   };
 }
 export const QueryDepositsRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryDepositsRequest",
   encode(message: QueryDepositsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -878,6 +891,7 @@ function createBaseQueryDepositsResponse(): QueryDepositsResponse {
   };
 }
 export const QueryDepositsResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryDepositsResponse",
   encode(message: QueryDepositsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.deposits) {
       Deposit.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -939,6 +953,7 @@ function createBaseQueryTallyResultRequest(): QueryTallyResultRequest {
   };
 }
 export const QueryTallyResultRequest = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryTallyResultRequest",
   encode(message: QueryTallyResultRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -986,6 +1001,7 @@ function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
   };
 }
 export const QueryTallyResultResponse = {
+  typeUrl: "/cosmos.gov.v1beta1.QueryTallyResultResponse",
   encode(message: QueryTallyResultResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tally !== undefined) {
       TallyResult.encode(message.tally, writer.uint32(10).fork()).ldelim();

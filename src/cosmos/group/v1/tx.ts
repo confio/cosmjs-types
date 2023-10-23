@@ -270,6 +270,7 @@ function createBaseMsgCreateGroup(): MsgCreateGroup {
   };
 }
 export const MsgCreateGroup = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroup",
   encode(message: MsgCreateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -338,6 +339,7 @@ function createBaseMsgCreateGroupResponse(): MsgCreateGroupResponse {
   };
 }
 export const MsgCreateGroupResponse = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroupResponse",
   encode(message: MsgCreateGroupResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.groupId !== BigInt(0)) {
       writer.uint32(8).uint64(message.groupId);
@@ -387,6 +389,7 @@ function createBaseMsgUpdateGroupMembers(): MsgUpdateGroupMembers {
   };
 }
 export const MsgUpdateGroupMembers = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembers",
   encode(message: MsgUpdateGroupMembers, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -455,6 +458,7 @@ function createBaseMsgUpdateGroupMembersResponse(): MsgUpdateGroupMembersRespons
   return {};
 }
 export const MsgUpdateGroupMembersResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembersResponse",
   encode(_: MsgUpdateGroupMembersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -495,6 +499,7 @@ function createBaseMsgUpdateGroupAdmin(): MsgUpdateGroupAdmin {
   };
 }
 export const MsgUpdateGroupAdmin = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdmin",
   encode(message: MsgUpdateGroupAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -558,6 +563,7 @@ function createBaseMsgUpdateGroupAdminResponse(): MsgUpdateGroupAdminResponse {
   return {};
 }
 export const MsgUpdateGroupAdminResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdminResponse",
   encode(_: MsgUpdateGroupAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -598,6 +604,7 @@ function createBaseMsgUpdateGroupMetadata(): MsgUpdateGroupMetadata {
   };
 }
 export const MsgUpdateGroupMetadata = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadata",
   encode(message: MsgUpdateGroupMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -661,6 +668,7 @@ function createBaseMsgUpdateGroupMetadataResponse(): MsgUpdateGroupMetadataRespo
   return {};
 }
 export const MsgUpdateGroupMetadataResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadataResponse",
   encode(_: MsgUpdateGroupMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -702,6 +710,7 @@ function createBaseMsgCreateGroupPolicy(): MsgCreateGroupPolicy {
   };
 }
 export const MsgCreateGroupPolicy = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicy",
   encode(message: MsgCreateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -779,6 +788,7 @@ function createBaseMsgCreateGroupPolicyResponse(): MsgCreateGroupPolicyResponse 
   };
 }
 export const MsgCreateGroupPolicyResponse = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicyResponse",
   encode(message: MsgCreateGroupPolicyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -828,6 +838,7 @@ function createBaseMsgUpdateGroupPolicyAdmin(): MsgUpdateGroupPolicyAdmin {
   };
 }
 export const MsgUpdateGroupPolicyAdmin = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdmin",
   encode(message: MsgUpdateGroupPolicyAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -891,6 +902,7 @@ function createBaseMsgUpdateGroupPolicyAdminResponse(): MsgUpdateGroupPolicyAdmi
   return {};
 }
 export const MsgUpdateGroupPolicyAdminResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse",
   encode(_: MsgUpdateGroupPolicyAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -934,6 +946,7 @@ function createBaseMsgCreateGroupWithPolicy(): MsgCreateGroupWithPolicy {
   };
 }
 export const MsgCreateGroupWithPolicy = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicy",
   encode(message: MsgCreateGroupWithPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -1035,6 +1048,7 @@ function createBaseMsgCreateGroupWithPolicyResponse(): MsgCreateGroupWithPolicyR
   };
 }
 export const MsgCreateGroupWithPolicyResponse = {
+  typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicyResponse",
   encode(
     message: MsgCreateGroupWithPolicyResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1098,6 +1112,7 @@ function createBaseMsgUpdateGroupPolicyDecisionPolicy(): MsgUpdateGroupPolicyDec
   };
 }
 export const MsgUpdateGroupPolicyDecisionPolicy = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy",
   encode(
     message: MsgUpdateGroupPolicyDecisionPolicy,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1167,6 +1182,7 @@ function createBaseMsgUpdateGroupPolicyDecisionPolicyResponse(): MsgUpdateGroupP
   return {};
 }
 export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse",
   encode(
     _: MsgUpdateGroupPolicyDecisionPolicyResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1210,6 +1226,7 @@ function createBaseMsgUpdateGroupPolicyMetadata(): MsgUpdateGroupPolicyMetadata 
   };
 }
 export const MsgUpdateGroupPolicyMetadata = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadata",
   encode(message: MsgUpdateGroupPolicyMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
@@ -1273,6 +1290,7 @@ function createBaseMsgUpdateGroupPolicyMetadataResponse(): MsgUpdateGroupPolicyM
   return {};
 }
 export const MsgUpdateGroupPolicyMetadataResponse = {
+  typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse",
   encode(
     _: MsgUpdateGroupPolicyMetadataResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1320,6 +1338,7 @@ function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   };
 }
 export const MsgSubmitProposal = {
+  typeUrl: "/cosmos.group.v1.MsgSubmitProposal",
   encode(message: MsgSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.groupPolicyAddress !== "") {
       writer.uint32(10).string(message.groupPolicyAddress);
@@ -1427,6 +1446,7 @@ function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
   };
 }
 export const MsgSubmitProposalResponse = {
+  typeUrl: "/cosmos.group.v1.MsgSubmitProposalResponse",
   encode(message: MsgSubmitProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -1477,6 +1497,7 @@ function createBaseMsgWithdrawProposal(): MsgWithdrawProposal {
   };
 }
 export const MsgWithdrawProposal = {
+  typeUrl: "/cosmos.group.v1.MsgWithdrawProposal",
   encode(message: MsgWithdrawProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -1531,6 +1552,7 @@ function createBaseMsgWithdrawProposalResponse(): MsgWithdrawProposalResponse {
   return {};
 }
 export const MsgWithdrawProposalResponse = {
+  typeUrl: "/cosmos.group.v1.MsgWithdrawProposalResponse",
   encode(_: MsgWithdrawProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1573,6 +1595,7 @@ function createBaseMsgVote(): MsgVote {
   };
 }
 export const MsgVote = {
+  typeUrl: "/cosmos.group.v1.MsgVote",
   encode(message: MsgVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -1654,6 +1677,7 @@ function createBaseMsgVoteResponse(): MsgVoteResponse {
   return {};
 }
 export const MsgVoteResponse = {
+  typeUrl: "/cosmos.group.v1.MsgVoteResponse",
   encode(_: MsgVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1691,6 +1715,7 @@ function createBaseMsgExec(): MsgExec {
   };
 }
 export const MsgExec = {
+  typeUrl: "/cosmos.group.v1.MsgExec",
   encode(message: MsgExec, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -1747,6 +1772,7 @@ function createBaseMsgExecResponse(): MsgExecResponse {
   };
 }
 export const MsgExecResponse = {
+  typeUrl: "/cosmos.group.v1.MsgExecResponse",
   encode(message: MsgExecResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== 0) {
       writer.uint32(16).int32(message.result);
@@ -1793,6 +1819,7 @@ function createBaseMsgLeaveGroup(): MsgLeaveGroup {
   };
 }
 export const MsgLeaveGroup = {
+  typeUrl: "/cosmos.group.v1.MsgLeaveGroup",
   encode(message: MsgLeaveGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -1847,6 +1874,7 @@ function createBaseMsgLeaveGroupResponse(): MsgLeaveGroupResponse {
   return {};
 }
 export const MsgLeaveGroupResponse = {
+  typeUrl: "/cosmos.group.v1.MsgLeaveGroupResponse",
   encode(_: MsgLeaveGroupResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

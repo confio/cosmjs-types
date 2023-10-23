@@ -64,6 +64,7 @@ function createBaseEventCreateGroup(): EventCreateGroup {
   };
 }
 export const EventCreateGroup = {
+  typeUrl: "/cosmos.group.v1.EventCreateGroup",
   encode(message: EventCreateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.groupId !== BigInt(0)) {
       writer.uint32(8).uint64(message.groupId);
@@ -111,6 +112,7 @@ function createBaseEventUpdateGroup(): EventUpdateGroup {
   };
 }
 export const EventUpdateGroup = {
+  typeUrl: "/cosmos.group.v1.EventUpdateGroup",
   encode(message: EventUpdateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.groupId !== BigInt(0)) {
       writer.uint32(8).uint64(message.groupId);
@@ -158,6 +160,7 @@ function createBaseEventCreateGroupPolicy(): EventCreateGroupPolicy {
   };
 }
 export const EventCreateGroupPolicy = {
+  typeUrl: "/cosmos.group.v1.EventCreateGroupPolicy",
   encode(message: EventCreateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -203,6 +206,7 @@ function createBaseEventUpdateGroupPolicy(): EventUpdateGroupPolicy {
   };
 }
 export const EventUpdateGroupPolicy = {
+  typeUrl: "/cosmos.group.v1.EventUpdateGroupPolicy",
   encode(message: EventUpdateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -248,6 +252,7 @@ function createBaseEventSubmitProposal(): EventSubmitProposal {
   };
 }
 export const EventSubmitProposal = {
+  typeUrl: "/cosmos.group.v1.EventSubmitProposal",
   encode(message: EventSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -295,6 +300,7 @@ function createBaseEventWithdrawProposal(): EventWithdrawProposal {
   };
 }
 export const EventWithdrawProposal = {
+  typeUrl: "/cosmos.group.v1.EventWithdrawProposal",
   encode(message: EventWithdrawProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -342,6 +348,7 @@ function createBaseEventVote(): EventVote {
   };
 }
 export const EventVote = {
+  typeUrl: "/cosmos.group.v1.EventVote",
   encode(message: EventVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -391,6 +398,7 @@ function createBaseEventExec(): EventExec {
   };
 }
 export const EventExec = {
+  typeUrl: "/cosmos.group.v1.EventExec",
   encode(message: EventExec, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposalId !== BigInt(0)) {
       writer.uint32(8).uint64(message.proposalId);
@@ -457,6 +465,7 @@ function createBaseEventLeaveGroup(): EventLeaveGroup {
   };
 }
 export const EventLeaveGroup = {
+  typeUrl: "/cosmos.group.v1.EventLeaveGroup",
   encode(message: EventLeaveGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.groupId !== BigInt(0)) {
       writer.uint32(8).uint64(message.groupId);

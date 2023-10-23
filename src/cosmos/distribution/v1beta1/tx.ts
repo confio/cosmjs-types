@@ -107,6 +107,7 @@ function createBaseMsgSetWithdrawAddress(): MsgSetWithdrawAddress {
   };
 }
 export const MsgSetWithdrawAddress = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress",
   encode(message: MsgSetWithdrawAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -159,6 +160,7 @@ function createBaseMsgSetWithdrawAddressResponse(): MsgSetWithdrawAddressRespons
   return {};
 }
 export const MsgSetWithdrawAddressResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddressResponse",
   encode(_: MsgSetWithdrawAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -198,6 +200,7 @@ function createBaseMsgWithdrawDelegatorReward(): MsgWithdrawDelegatorReward {
   };
 }
 export const MsgWithdrawDelegatorReward = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
   encode(message: MsgWithdrawDelegatorReward, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -254,6 +257,7 @@ function createBaseMsgWithdrawDelegatorRewardResponse(): MsgWithdrawDelegatorRew
   };
 }
 export const MsgWithdrawDelegatorRewardResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorRewardResponse",
   encode(
     message: MsgWithdrawDelegatorRewardResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -308,6 +312,7 @@ function createBaseMsgWithdrawValidatorCommission(): MsgWithdrawValidatorCommiss
   };
 }
 export const MsgWithdrawValidatorCommission = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission",
   encode(
     message: MsgWithdrawValidatorCommission,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -358,6 +363,7 @@ function createBaseMsgWithdrawValidatorCommissionResponse(): MsgWithdrawValidato
   };
 }
 export const MsgWithdrawValidatorCommissionResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommissionResponse",
   encode(
     message: MsgWithdrawValidatorCommissionResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -413,6 +419,7 @@ function createBaseMsgFundCommunityPool(): MsgFundCommunityPool {
   };
 }
 export const MsgFundCommunityPool = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPool",
   encode(message: MsgFundCommunityPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.amount) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -469,6 +476,7 @@ function createBaseMsgFundCommunityPoolResponse(): MsgFundCommunityPoolResponse 
   return {};
 }
 export const MsgFundCommunityPoolResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse",
   encode(_: MsgFundCommunityPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -508,6 +516,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
   };
 }
 export const MsgUpdateParams = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -562,6 +571,7 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -600,6 +610,7 @@ function createBaseMsgCommunityPoolSpend(): MsgCommunityPoolSpend {
   };
 }
 export const MsgCommunityPoolSpend = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgCommunityPoolSpend",
   encode(message: MsgCommunityPoolSpend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -665,6 +676,7 @@ function createBaseMsgCommunityPoolSpendResponse(): MsgCommunityPoolSpendRespons
   return {};
 }
 export const MsgCommunityPoolSpendResponse = {
+  typeUrl: "/cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse",
   encode(_: MsgCommunityPoolSpendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

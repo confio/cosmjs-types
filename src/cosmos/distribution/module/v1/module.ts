@@ -15,6 +15,7 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
+  typeUrl: "/cosmos.distribution.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feeCollectorName !== "") {
       writer.uint32(10).string(message.feeCollectorName);

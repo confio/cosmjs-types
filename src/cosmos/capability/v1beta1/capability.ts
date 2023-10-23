@@ -30,6 +30,7 @@ function createBaseCapability(): Capability {
   };
 }
 export const Capability = {
+  typeUrl: "/cosmos.capability.v1beta1.Capability",
   encode(message: Capability, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.index !== BigInt(0)) {
       writer.uint32(8).uint64(message.index);
@@ -78,6 +79,7 @@ function createBaseOwner(): Owner {
   };
 }
 export const Owner = {
+  typeUrl: "/cosmos.capability.v1beta1.Owner",
   encode(message: Owner, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.module !== "") {
       writer.uint32(10).string(message.module);
@@ -132,6 +134,7 @@ function createBaseCapabilityOwners(): CapabilityOwners {
   };
 }
 export const CapabilityOwners = {
+  typeUrl: "/cosmos.capability.v1beta1.CapabilityOwners",
   encode(message: CapabilityOwners, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.owners) {
       Owner.encode(v!, writer.uint32(10).fork()).ldelim();

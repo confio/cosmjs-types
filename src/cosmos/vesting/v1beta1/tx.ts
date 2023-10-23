@@ -65,6 +65,7 @@ function createBaseMsgCreateVestingAccount(): MsgCreateVestingAccount {
   };
 }
 export const MsgCreateVestingAccount = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
   encode(message: MsgCreateVestingAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress);
@@ -150,6 +151,7 @@ function createBaseMsgCreateVestingAccountResponse(): MsgCreateVestingAccountRes
   return {};
 }
 export const MsgCreateVestingAccountResponse = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse",
   encode(_: MsgCreateVestingAccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -190,6 +192,7 @@ function createBaseMsgCreatePermanentLockedAccount(): MsgCreatePermanentLockedAc
   };
 }
 export const MsgCreatePermanentLockedAccount = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
   encode(
     message: MsgCreatePermanentLockedAccount,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -260,6 +263,7 @@ function createBaseMsgCreatePermanentLockedAccountResponse(): MsgCreatePermanent
   return {};
 }
 export const MsgCreatePermanentLockedAccountResponse = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccountResponse",
   encode(
     _: MsgCreatePermanentLockedAccountResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -304,6 +308,7 @@ function createBaseMsgCreatePeriodicVestingAccount(): MsgCreatePeriodicVestingAc
   };
 }
 export const MsgCreatePeriodicVestingAccount = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount",
   encode(
     message: MsgCreatePeriodicVestingAccount,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -386,6 +391,7 @@ function createBaseMsgCreatePeriodicVestingAccountResponse(): MsgCreatePeriodicV
   return {};
 }
 export const MsgCreatePeriodicVestingAccountResponse = {
+  typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccountResponse",
   encode(
     _: MsgCreatePeriodicVestingAccountResponse,
     writer: BinaryWriter = BinaryWriter.create(),

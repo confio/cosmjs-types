@@ -97,6 +97,7 @@ function createBaseTableDescriptor(): TableDescriptor {
   };
 }
 export const TableDescriptor = {
+  typeUrl: "/cosmos.orm.v1.TableDescriptor",
   encode(message: TableDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.primaryKey !== undefined) {
       PrimaryKeyDescriptor.encode(message.primaryKey, writer.uint32(10).fork()).ldelim();
@@ -169,6 +170,7 @@ function createBasePrimaryKeyDescriptor(): PrimaryKeyDescriptor {
   };
 }
 export const PrimaryKeyDescriptor = {
+  typeUrl: "/cosmos.orm.v1.PrimaryKeyDescriptor",
   encode(message: PrimaryKeyDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fields !== "") {
       writer.uint32(10).string(message.fields);
@@ -225,6 +227,7 @@ function createBaseSecondaryIndexDescriptor(): SecondaryIndexDescriptor {
   };
 }
 export const SecondaryIndexDescriptor = {
+  typeUrl: "/cosmos.orm.v1.SecondaryIndexDescriptor",
   encode(message: SecondaryIndexDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fields !== "") {
       writer.uint32(10).string(message.fields);
@@ -290,6 +293,7 @@ function createBaseSingletonDescriptor(): SingletonDescriptor {
   };
 }
 export const SingletonDescriptor = {
+  typeUrl: "/cosmos.orm.v1.SingletonDescriptor",
   encode(message: SingletonDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== 0) {
       writer.uint32(8).uint32(message.id);

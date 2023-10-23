@@ -25,6 +25,7 @@ function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
   };
 }
 export const MsgSubmitEvidence = {
+  typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence",
   encode(message: MsgSubmitEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.submitter !== "") {
       writer.uint32(10).string(message.submitter);
@@ -82,6 +83,7 @@ function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
   };
 }
 export const MsgSubmitEvidenceResponse = {
+  typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse",
   encode(message: MsgSubmitEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash.length !== 0) {
       writer.uint32(34).bytes(message.hash);

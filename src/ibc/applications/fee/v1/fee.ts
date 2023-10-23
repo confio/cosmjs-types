@@ -42,6 +42,7 @@ function createBaseFee(): Fee {
   };
 }
 export const Fee = {
+  typeUrl: "/ibc.applications.fee.v1.Fee",
   encode(message: Fee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.recvFee) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -120,6 +121,7 @@ function createBasePacketFee(): PacketFee {
   };
 }
 export const PacketFee = {
+  typeUrl: "/ibc.applications.fee.v1.PacketFee",
   encode(message: PacketFee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fee !== undefined) {
       Fee.encode(message.fee, writer.uint32(10).fork()).ldelim();
@@ -189,6 +191,7 @@ function createBasePacketFees(): PacketFees {
   };
 }
 export const PacketFees = {
+  typeUrl: "/ibc.applications.fee.v1.PacketFees",
   encode(message: PacketFees, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.packetFees) {
       PacketFee.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -240,6 +243,7 @@ function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
   };
 }
 export const IdentifiedPacketFees = {
+  typeUrl: "/ibc.applications.fee.v1.IdentifiedPacketFees",
   encode(message: IdentifiedPacketFees, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetId !== undefined) {
       PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim();

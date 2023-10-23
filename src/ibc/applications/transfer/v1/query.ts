@@ -79,6 +79,7 @@ function createBaseQueryDenomTraceRequest(): QueryDenomTraceRequest {
   };
 }
 export const QueryDenomTraceRequest = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomTraceRequest",
   encode(message: QueryDenomTraceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash);
@@ -124,6 +125,7 @@ function createBaseQueryDenomTraceResponse(): QueryDenomTraceResponse {
   };
 }
 export const QueryDenomTraceResponse = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomTraceResponse",
   encode(message: QueryDenomTraceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denomTrace !== undefined) {
       DenomTrace.encode(message.denomTrace, writer.uint32(10).fork()).ldelim();
@@ -172,6 +174,7 @@ function createBaseQueryDenomTracesRequest(): QueryDenomTracesRequest {
   };
 }
 export const QueryDenomTracesRequest = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesRequest",
   encode(message: QueryDenomTracesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -221,6 +224,7 @@ function createBaseQueryDenomTracesResponse(): QueryDenomTracesResponse {
   };
 }
 export const QueryDenomTracesResponse = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesResponse",
   encode(message: QueryDenomTracesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.denomTraces) {
       DenomTrace.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -283,6 +287,7 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -319,6 +324,7 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -366,6 +372,7 @@ function createBaseQueryDenomHashRequest(): QueryDenomHashRequest {
   };
 }
 export const QueryDenomHashRequest = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomHashRequest",
   encode(message: QueryDenomHashRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.trace !== "") {
       writer.uint32(10).string(message.trace);
@@ -411,6 +418,7 @@ function createBaseQueryDenomHashResponse(): QueryDenomHashResponse {
   };
 }
 export const QueryDenomHashResponse = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryDenomHashResponse",
   encode(message: QueryDenomHashResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash !== "") {
       writer.uint32(10).string(message.hash);
@@ -457,6 +465,7 @@ function createBaseQueryEscrowAddressRequest(): QueryEscrowAddressRequest {
   };
 }
 export const QueryEscrowAddressRequest = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressRequest",
   encode(message: QueryEscrowAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -513,6 +522,7 @@ function createBaseQueryEscrowAddressResponse(): QueryEscrowAddressResponse {
   };
 }
 export const QueryEscrowAddressResponse = {
+  typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressResponse",
   encode(message: QueryEscrowAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.escrowAddress !== "") {
       writer.uint32(10).string(message.escrowAddress);

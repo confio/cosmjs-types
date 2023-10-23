@@ -92,6 +92,7 @@ function createBaseClientState(): ClientState {
   };
 }
 export const ClientState = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.ClientState",
   encode(message: ClientState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
@@ -164,6 +165,7 @@ function createBaseConsensusState(): ConsensusState {
   };
 }
 export const ConsensusState = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.ConsensusState",
   encode(message: ConsensusState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.publicKey !== undefined) {
       Any.encode(message.publicKey, writer.uint32(10).fork()).ldelim();
@@ -235,6 +237,7 @@ function createBaseHeader(): Header {
   };
 }
 export const Header = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.Header",
   encode(message: Header, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(8).uint64(message.timestamp);
@@ -317,6 +320,7 @@ function createBaseMisbehaviour(): Misbehaviour {
   };
 }
 export const Misbehaviour = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.Misbehaviour",
   encode(message: Misbehaviour, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
@@ -391,6 +395,7 @@ function createBaseSignatureAndData(): SignatureAndData {
   };
 }
 export const SignatureAndData = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.SignatureAndData",
   encode(message: SignatureAndData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.signature.length !== 0) {
       writer.uint32(10).bytes(message.signature);
@@ -471,6 +476,7 @@ function createBaseTimestampedSignatureData(): TimestampedSignatureData {
   };
 }
 export const TimestampedSignatureData = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.TimestampedSignatureData",
   encode(message: TimestampedSignatureData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.signatureData.length !== 0) {
       writer.uint32(10).bytes(message.signatureData);
@@ -536,6 +542,7 @@ function createBaseSignBytes(): SignBytes {
   };
 }
 export const SignBytes = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.SignBytes",
   encode(message: SignBytes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
@@ -624,6 +631,7 @@ function createBaseHeaderData(): HeaderData {
   };
 }
 export const HeaderData = {
+  typeUrl: "/ibc.lightclients.solomachine.v3.HeaderData",
   encode(message: HeaderData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newPubKey !== undefined) {
       Any.encode(message.newPubKey, writer.uint32(10).fork()).ldelim();

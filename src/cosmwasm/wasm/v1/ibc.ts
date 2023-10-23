@@ -40,6 +40,7 @@ function createBaseMsgIBCSend(): MsgIBCSend {
   };
 }
 export const MsgIBCSend = {
+  typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend",
   encode(message: MsgIBCSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channel !== "") {
       writer.uint32(18).string(message.channel);
@@ -119,6 +120,7 @@ function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
   };
 }
 export const MsgIBCSendResponse = {
+  typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse",
   encode(message: MsgIBCSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
@@ -166,6 +168,7 @@ function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
   };
 }
 export const MsgIBCCloseChannel = {
+  typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel",
   encode(message: MsgIBCCloseChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channel !== "") {
       writer.uint32(18).string(message.channel);
