@@ -19,7 +19,6 @@ function createBaseIncentivizedAcknowledgement(): IncentivizedAcknowledgement {
   };
 }
 export const IncentivizedAcknowledgement = {
-  typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement",
   encode(message: IncentivizedAcknowledgement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.appAcknowledgement.length !== 0) {
       writer.uint32(10).bytes(message.appAcknowledgement);

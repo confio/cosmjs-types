@@ -16,7 +16,6 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.controllerEnabled === true) {
       writer.uint32(8).bool(message.controllerEnabled);

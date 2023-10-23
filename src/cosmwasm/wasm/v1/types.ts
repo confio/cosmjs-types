@@ -189,7 +189,6 @@ function createBaseAccessTypeParam(): AccessTypeParam {
   };
 }
 export const AccessTypeParam = {
-  typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam",
   encode(message: AccessTypeParam, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(8).int32(message.value);
@@ -237,7 +236,6 @@ function createBaseAccessConfig(): AccessConfig {
   };
 }
 export const AccessConfig = {
-  typeUrl: "/cosmwasm.wasm.v1.AccessConfig",
   encode(message: AccessConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
@@ -306,7 +304,6 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/cosmwasm.wasm.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeUploadAccess !== undefined) {
       AccessConfig.encode(message.codeUploadAccess, writer.uint32(10).fork()).ldelim();
@@ -370,7 +367,6 @@ function createBaseCodeInfo(): CodeInfo {
   };
 }
 export const CodeInfo = {
-  typeUrl: "/cosmwasm.wasm.v1.CodeInfo",
   encode(message: CodeInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeHash.length !== 0) {
       writer.uint32(10).bytes(message.codeHash);
@@ -447,7 +443,6 @@ function createBaseContractInfo(): ContractInfo {
   };
 }
 export const ContractInfo = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
   encode(message: ContractInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -558,7 +553,6 @@ function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   };
 }
 export const ContractCodeHistoryEntry = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry",
   encode(message: ContractCodeHistoryEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.operation !== 0) {
       writer.uint32(8).int32(message.operation);
@@ -641,7 +635,6 @@ function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
   };
 }
 export const AbsoluteTxPosition = {
-  typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition",
   encode(message: AbsoluteTxPosition, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockHeight !== BigInt(0)) {
       writer.uint32(8).uint64(message.blockHeight);
@@ -701,7 +694,6 @@ function createBaseModel(): Model {
   };
 }
 export const Model = {
-  typeUrl: "/cosmwasm.wasm.v1.Model",
   encode(message: Model, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);

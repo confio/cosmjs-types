@@ -19,7 +19,6 @@ function createBaseMetadata(): Metadata {
   };
 }
 export const Metadata = {
-  typeUrl: "/ibc.applications.fee.v1.Metadata",
   encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.feeVersion !== "") {
       writer.uint32(10).string(message.feeVersion);

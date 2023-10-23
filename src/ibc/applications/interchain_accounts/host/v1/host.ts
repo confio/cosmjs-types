@@ -19,7 +19,6 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/ibc.applications.interchain_accounts.host.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hostEnabled === true) {
       writer.uint32(8).bool(message.hostEnabled);

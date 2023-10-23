@@ -28,7 +28,6 @@ function createBaseListAllInterfacesRequest(): ListAllInterfacesRequest {
   return {};
 }
 export const ListAllInterfacesRequest = {
-  typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesRequest",
   encode(_: ListAllInterfacesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -65,7 +64,6 @@ function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
   };
 }
 export const ListAllInterfacesResponse = {
-  typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesResponse",
   encode(message: ListAllInterfacesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.interfaceNames) {
       writer.uint32(10).string(v!);
@@ -118,7 +116,6 @@ function createBaseListImplementationsRequest(): ListImplementationsRequest {
   };
 }
 export const ListImplementationsRequest = {
-  typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsRequest",
   encode(message: ListImplementationsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.interfaceName !== "") {
       writer.uint32(10).string(message.interfaceName);
@@ -166,7 +163,6 @@ function createBaseListImplementationsResponse(): ListImplementationsResponse {
   };
 }
 export const ListImplementationsResponse = {
-  typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsResponse",
   encode(message: ListImplementationsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.implementationMessageNames) {
       writer.uint32(10).string(v!);

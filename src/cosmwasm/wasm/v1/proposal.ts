@@ -248,7 +248,6 @@ function createBaseStoreCodeProposal(): StoreCodeProposal {
   };
 }
 export const StoreCodeProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
   encode(message: StoreCodeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -383,7 +382,6 @@ function createBaseInstantiateContractProposal(): InstantiateContractProposal {
   };
 }
 export const InstantiateContractProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal",
   encode(message: InstantiateContractProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -510,7 +508,6 @@ function createBaseInstantiateContract2Proposal(): InstantiateContract2Proposal 
   };
 }
 export const InstantiateContract2Proposal = {
-  typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal",
   encode(message: InstantiateContract2Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -651,7 +648,6 @@ function createBaseMigrateContractProposal(): MigrateContractProposal {
   };
 }
 export const MigrateContractProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal",
   encode(message: MigrateContractProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -739,7 +735,6 @@ function createBaseSudoContractProposal(): SudoContractProposal {
   };
 }
 export const SudoContractProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal",
   encode(message: SudoContractProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -818,7 +813,6 @@ function createBaseExecuteContractProposal(): ExecuteContractProposal {
   };
 }
 export const ExecuteContractProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal",
   encode(message: ExecuteContractProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -917,7 +911,6 @@ function createBaseUpdateAdminProposal(): UpdateAdminProposal {
   };
 }
 export const UpdateAdminProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal",
   encode(message: UpdateAdminProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -992,7 +985,6 @@ function createBaseClearAdminProposal(): ClearAdminProposal {
   };
 }
 export const ClearAdminProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
   encode(message: ClearAdminProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -1058,7 +1050,6 @@ function createBasePinCodesProposal(): PinCodesProposal {
   };
 }
 export const PinCodesProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
   encode(message: PinCodesProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -1137,7 +1128,6 @@ function createBaseUnpinCodesProposal(): UnpinCodesProposal {
   };
 }
 export const UnpinCodesProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
   encode(message: UnpinCodesProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -1215,7 +1205,6 @@ function createBaseAccessConfigUpdate(): AccessConfigUpdate {
   };
 }
 export const AccessConfigUpdate = {
-  typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate",
   encode(message: AccessConfigUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -1280,7 +1269,6 @@ function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigPro
   };
 }
 export const UpdateInstantiateConfigProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal",
   encode(
     message: UpdateInstantiateConfigProposal,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1369,7 +1357,6 @@ function createBaseStoreAndInstantiateContractProposal(): StoreAndInstantiateCon
   };
 }
 export const StoreAndInstantiateContractProposal = {
-  typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
   encode(
     message: StoreAndInstantiateContractProposal,
     writer: BinaryWriter = BinaryWriter.create(),

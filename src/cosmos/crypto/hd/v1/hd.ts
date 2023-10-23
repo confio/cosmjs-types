@@ -28,7 +28,6 @@ function createBaseBIP44Params(): BIP44Params {
   };
 }
 export const BIP44Params = {
-  typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
   encode(message: BIP44Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.purpose !== 0) {
       writer.uint32(8).uint32(message.purpose);

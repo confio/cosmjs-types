@@ -40,7 +40,6 @@ function createBaseEventSend(): EventSend {
   };
 }
 export const EventSend = {
-  typeUrl: "/cosmos.nft.v1beta1.EventSend",
   encode(message: EventSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);
@@ -115,7 +114,6 @@ function createBaseEventMint(): EventMint {
   };
 }
 export const EventMint = {
-  typeUrl: "/cosmos.nft.v1beta1.EventMint",
   encode(message: EventMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);
@@ -181,7 +179,6 @@ function createBaseEventBurn(): EventBurn {
   };
 }
 export const EventBurn = {
-  typeUrl: "/cosmos.nft.v1beta1.EventBurn",
   encode(message: EventBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);
