@@ -218,7 +218,6 @@ function createBaseQueryBalanceRequest(): QueryBalanceRequest {
   };
 }
 export const QueryBalanceRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryBalanceRequest",
   encode(message: QueryBalanceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -273,7 +272,6 @@ function createBaseQueryBalanceResponse(): QueryBalanceResponse {
   };
 }
 export const QueryBalanceResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryBalanceResponse",
   encode(message: QueryBalanceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.balance !== undefined) {
       Coin.encode(message.balance, writer.uint32(10).fork()).ldelim();
@@ -323,7 +321,6 @@ function createBaseQueryAllBalancesRequest(): QueryAllBalancesRequest {
   };
 }
 export const QueryAllBalancesRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesRequest",
   encode(message: QueryAllBalancesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -382,7 +379,6 @@ function createBaseQueryAllBalancesResponse(): QueryAllBalancesResponse {
   };
 }
 export const QueryAllBalancesResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesResponse",
   encode(message: QueryAllBalancesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.balances) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -447,7 +443,6 @@ function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesReques
   };
 }
 export const QuerySpendableBalancesRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesRequest",
   encode(message: QuerySpendableBalancesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -508,7 +503,6 @@ function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesRespo
   };
 }
 export const QuerySpendableBalancesResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesResponse",
   encode(
     message: QuerySpendableBalancesResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -576,7 +570,6 @@ function createBaseQuerySpendableBalanceByDenomRequest(): QuerySpendableBalanceB
   };
 }
 export const QuerySpendableBalanceByDenomRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest",
   encode(
     message: QuerySpendableBalanceByDenomRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -636,7 +629,6 @@ function createBaseQuerySpendableBalanceByDenomResponse(): QuerySpendableBalance
   };
 }
 export const QuerySpendableBalanceByDenomResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse",
   encode(
     message: QuerySpendableBalanceByDenomResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -690,7 +682,6 @@ function createBaseQueryTotalSupplyRequest(): QueryTotalSupplyRequest {
   };
 }
 export const QueryTotalSupplyRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyRequest",
   encode(message: QueryTotalSupplyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -740,7 +731,6 @@ function createBaseQueryTotalSupplyResponse(): QueryTotalSupplyResponse {
   };
 }
 export const QueryTotalSupplyResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyResponse",
   encode(message: QueryTotalSupplyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.supply) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -804,7 +794,6 @@ function createBaseQuerySupplyOfRequest(): QuerySupplyOfRequest {
   };
 }
 export const QuerySupplyOfRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySupplyOfRequest",
   encode(message: QuerySupplyOfRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -850,7 +839,6 @@ function createBaseQuerySupplyOfResponse(): QuerySupplyOfResponse {
   };
 }
 export const QuerySupplyOfResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySupplyOfResponse",
   encode(message: QuerySupplyOfResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
@@ -896,7 +884,6 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -933,7 +920,6 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -981,7 +967,6 @@ function createBaseQueryDenomsMetadataRequest(): QueryDenomsMetadataRequest {
   };
 }
 export const QueryDenomsMetadataRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataRequest",
   encode(message: QueryDenomsMetadataRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -1033,7 +1018,6 @@ function createBaseQueryDenomsMetadataResponse(): QueryDenomsMetadataResponse {
   };
 }
 export const QueryDenomsMetadataResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataResponse",
   encode(message: QueryDenomsMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.metadatas) {
       Metadata.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1098,7 +1082,6 @@ function createBaseQueryDenomMetadataRequest(): QueryDenomMetadataRequest {
   };
 }
 export const QueryDenomMetadataRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataRequest",
   encode(message: QueryDenomMetadataRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -1146,7 +1129,6 @@ function createBaseQueryDenomMetadataResponse(): QueryDenomMetadataResponse {
   };
 }
 export const QueryDenomMetadataResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataResponse",
   encode(message: QueryDenomMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.metadata !== undefined) {
       Metadata.encode(message.metadata, writer.uint32(10).fork()).ldelim();
@@ -1198,7 +1180,6 @@ function createBaseQueryDenomOwnersRequest(): QueryDenomOwnersRequest {
   };
 }
 export const QueryDenomOwnersRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersRequest",
   encode(message: QueryDenomOwnersRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
@@ -1257,7 +1238,6 @@ function createBaseDenomOwner(): DenomOwner {
   };
 }
 export const DenomOwner = {
-  typeUrl: "/cosmos.bank.v1beta1.DenomOwner",
   encode(message: DenomOwner, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -1316,7 +1296,6 @@ function createBaseQueryDenomOwnersResponse(): QueryDenomOwnersResponse {
   };
 }
 export const QueryDenomOwnersResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersResponse",
   encode(message: QueryDenomOwnersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.denomOwners) {
       DenomOwner.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1382,7 +1361,6 @@ function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
   };
 }
 export const QuerySendEnabledRequest = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledRequest",
   encode(message: QuerySendEnabledRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.denoms) {
       writer.uint32(10).string(v!);
@@ -1445,7 +1423,6 @@ function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
   };
 }
 export const QuerySendEnabledResponse = {
-  typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledResponse",
   encode(message: QuerySendEnabledResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.sendEnabled) {
       SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim();

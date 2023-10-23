@@ -19,7 +19,6 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.gov.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxMetadataLen !== BigInt(0)) {
       writer.uint32(8).uint64(message.maxMetadataLen);

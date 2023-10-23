@@ -133,7 +133,6 @@ function createBaseQueryIncentivizedPacketsRequest(): QueryIncentivizedPacketsRe
   };
 }
 export const QueryIncentivizedPacketsRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsRequest",
   encode(
     message: QueryIncentivizedPacketsRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -198,7 +197,6 @@ function createBaseQueryIncentivizedPacketsResponse(): QueryIncentivizedPacketsR
   };
 }
 export const QueryIncentivizedPacketsResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsResponse",
   encode(
     message: QueryIncentivizedPacketsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -258,7 +256,6 @@ function createBaseQueryIncentivizedPacketRequest(): QueryIncentivizedPacketRequ
   };
 }
 export const QueryIncentivizedPacketRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketRequest",
   encode(
     message: QueryIncentivizedPacketRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -323,7 +320,6 @@ function createBaseQueryIncentivizedPacketResponse(): QueryIncentivizedPacketRes
   };
 }
 export const QueryIncentivizedPacketResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketResponse",
   encode(
     message: QueryIncentivizedPacketResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -383,7 +379,6 @@ function createBaseQueryIncentivizedPacketsForChannelRequest(): QueryIncentivize
   };
 }
 export const QueryIncentivizedPacketsForChannelRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest",
   encode(
     message: QueryIncentivizedPacketsForChannelRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -466,7 +461,6 @@ function createBaseQueryIncentivizedPacketsForChannelResponse(): QueryIncentiviz
   };
 }
 export const QueryIncentivizedPacketsForChannelResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse",
   encode(
     message: QueryIncentivizedPacketsForChannelResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -525,7 +519,6 @@ function createBaseQueryTotalRecvFeesRequest(): QueryTotalRecvFeesRequest {
   };
 }
 export const QueryTotalRecvFeesRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesRequest",
   encode(message: QueryTotalRecvFeesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetId !== undefined) {
       PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim();
@@ -576,7 +569,6 @@ function createBaseQueryTotalRecvFeesResponse(): QueryTotalRecvFeesResponse {
   };
 }
 export const QueryTotalRecvFeesResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesResponse",
   encode(message: QueryTotalRecvFeesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.recvFees) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -628,7 +620,6 @@ function createBaseQueryTotalAckFeesRequest(): QueryTotalAckFeesRequest {
   };
 }
 export const QueryTotalAckFeesRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesRequest",
   encode(message: QueryTotalAckFeesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetId !== undefined) {
       PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim();
@@ -679,7 +670,6 @@ function createBaseQueryTotalAckFeesResponse(): QueryTotalAckFeesResponse {
   };
 }
 export const QueryTotalAckFeesResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesResponse",
   encode(message: QueryTotalAckFeesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.ackFees) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -731,7 +721,6 @@ function createBaseQueryTotalTimeoutFeesRequest(): QueryTotalTimeoutFeesRequest 
   };
 }
 export const QueryTotalTimeoutFeesRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest",
   encode(message: QueryTotalTimeoutFeesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetId !== undefined) {
       PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim();
@@ -782,7 +771,6 @@ function createBaseQueryTotalTimeoutFeesResponse(): QueryTotalTimeoutFeesRespons
   };
 }
 export const QueryTotalTimeoutFeesResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse",
   encode(message: QueryTotalTimeoutFeesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.timeoutFees) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -836,7 +824,6 @@ function createBaseQueryPayeeRequest(): QueryPayeeRequest {
   };
 }
 export const QueryPayeeRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryPayeeRequest",
   encode(message: QueryPayeeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
@@ -891,7 +878,6 @@ function createBaseQueryPayeeResponse(): QueryPayeeResponse {
   };
 }
 export const QueryPayeeResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryPayeeResponse",
   encode(message: QueryPayeeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.payeeAddress !== "") {
       writer.uint32(10).string(message.payeeAddress);
@@ -938,7 +924,6 @@ function createBaseQueryCounterpartyPayeeRequest(): QueryCounterpartyPayeeReques
   };
 }
 export const QueryCounterpartyPayeeRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeRequest",
   encode(message: QueryCounterpartyPayeeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== "") {
       writer.uint32(10).string(message.channelId);
@@ -995,7 +980,6 @@ function createBaseQueryCounterpartyPayeeResponse(): QueryCounterpartyPayeeRespo
   };
 }
 export const QueryCounterpartyPayeeResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeResponse",
   encode(
     message: QueryCounterpartyPayeeResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1047,7 +1031,6 @@ function createBaseQueryFeeEnabledChannelsRequest(): QueryFeeEnabledChannelsRequ
   };
 }
 export const QueryFeeEnabledChannelsRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest",
   encode(
     message: QueryFeeEnabledChannelsRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1112,7 +1095,6 @@ function createBaseQueryFeeEnabledChannelsResponse(): QueryFeeEnabledChannelsRes
   };
 }
 export const QueryFeeEnabledChannelsResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse",
   encode(
     message: QueryFeeEnabledChannelsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1172,7 +1154,6 @@ function createBaseQueryFeeEnabledChannelRequest(): QueryFeeEnabledChannelReques
   };
 }
 export const QueryFeeEnabledChannelRequest = {
-  typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelRequest",
   encode(message: QueryFeeEnabledChannelRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -1229,7 +1210,6 @@ function createBaseQueryFeeEnabledChannelResponse(): QueryFeeEnabledChannelRespo
   };
 }
 export const QueryFeeEnabledChannelResponse = {
-  typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelResponse",
   encode(
     message: QueryFeeEnabledChannelResponse,
     writer: BinaryWriter = BinaryWriter.create(),

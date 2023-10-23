@@ -16,7 +16,6 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.capability.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sealKeeper === true) {
       writer.uint32(8).bool(message.sealKeeper);

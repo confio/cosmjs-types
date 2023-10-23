@@ -27,7 +27,6 @@ function createBaseGenesisOwners(): GenesisOwners {
   };
 }
 export const GenesisOwners = {
-  typeUrl: "/cosmos.capability.v1beta1.GenesisOwners",
   encode(message: GenesisOwners, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.index !== BigInt(0)) {
       writer.uint32(8).uint64(message.index);
@@ -88,7 +87,6 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/cosmos.capability.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.index !== BigInt(0)) {
       writer.uint32(8).uint64(message.index);

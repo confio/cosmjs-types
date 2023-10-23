@@ -34,7 +34,6 @@ function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   };
 }
 export const MsgGrantAllowance = {
-  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
   encode(message: MsgGrantAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
@@ -99,7 +98,6 @@ function createBaseMsgGrantAllowanceResponse(): MsgGrantAllowanceResponse {
   return {};
 }
 export const MsgGrantAllowanceResponse = {
-  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse",
   encode(_: MsgGrantAllowanceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -137,7 +135,6 @@ function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
   };
 }
 export const MsgRevokeAllowance = {
-  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
   encode(message: MsgRevokeAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
@@ -190,7 +187,6 @@ function createBaseMsgRevokeAllowanceResponse(): MsgRevokeAllowanceResponse {
   return {};
 }
 export const MsgRevokeAllowanceResponse = {
-  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse",
   encode(_: MsgRevokeAllowanceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

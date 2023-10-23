@@ -96,7 +96,6 @@ function createBaseContractExecutionAuthorization(): ContractExecutionAuthorizat
   };
 }
 export const ContractExecutionAuthorization = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractExecutionAuthorization",
   encode(
     message: ContractExecutionAuthorization,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -151,7 +150,6 @@ function createBaseContractMigrationAuthorization(): ContractMigrationAuthorizat
   };
 }
 export const ContractMigrationAuthorization = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractMigrationAuthorization",
   encode(
     message: ContractMigrationAuthorization,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -208,7 +206,6 @@ function createBaseContractGrant(): ContractGrant {
   };
 }
 export const ContractGrant = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractGrant",
   encode(message: ContractGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contract !== "") {
       writer.uint32(10).string(message.contract);
@@ -276,7 +273,6 @@ function createBaseMaxCallsLimit(): MaxCallsLimit {
   };
 }
 export const MaxCallsLimit = {
-  typeUrl: "/cosmwasm.wasm.v1.MaxCallsLimit",
   encode(message: MaxCallsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.remaining !== BigInt(0)) {
       writer.uint32(8).uint64(message.remaining);
@@ -324,7 +320,6 @@ function createBaseMaxFundsLimit(): MaxFundsLimit {
   };
 }
 export const MaxFundsLimit = {
-  typeUrl: "/cosmwasm.wasm.v1.MaxFundsLimit",
   encode(message: MaxFundsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.amounts) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -375,7 +370,6 @@ function createBaseCombinedLimit(): CombinedLimit {
   };
 }
 export const CombinedLimit = {
-  typeUrl: "/cosmwasm.wasm.v1.CombinedLimit",
   encode(message: CombinedLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.callsRemaining !== BigInt(0)) {
       writer.uint32(8).uint64(message.callsRemaining);
@@ -435,7 +429,6 @@ function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
   return {};
 }
 export const AllowAllMessagesFilter = {
-  typeUrl: "/cosmwasm.wasm.v1.AllowAllMessagesFilter",
   encode(_: AllowAllMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -472,7 +465,6 @@ function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
   };
 }
 export const AcceptedMessageKeysFilter = {
-  typeUrl: "/cosmwasm.wasm.v1.AcceptedMessageKeysFilter",
   encode(message: AcceptedMessageKeysFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.keys) {
       writer.uint32(10).string(v!);
@@ -524,7 +516,6 @@ function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
   };
 }
 export const AcceptedMessagesFilter = {
-  typeUrl: "/cosmwasm.wasm.v1.AcceptedMessagesFilter",
   encode(message: AcceptedMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.messages) {
       writer.uint32(10).bytes(v!);

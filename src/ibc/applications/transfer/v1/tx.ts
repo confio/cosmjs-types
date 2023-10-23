@@ -51,7 +51,6 @@ function createBaseMsgTransfer(): MsgTransfer {
   };
 }
 export const MsgTransfer = {
-  typeUrl: "/ibc.applications.transfer.v1.MsgTransfer",
   encode(message: MsgTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sourcePort !== "") {
       writer.uint32(10).string(message.sourcePort);
@@ -168,7 +167,6 @@ function createBaseMsgTransferResponse(): MsgTransferResponse {
   };
 }
 export const MsgTransferResponse = {
-  typeUrl: "/ibc.applications.transfer.v1.MsgTransferResponse",
   encode(message: MsgTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);

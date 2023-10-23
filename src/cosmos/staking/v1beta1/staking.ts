@@ -343,7 +343,6 @@ function createBaseHistoricalInfo(): HistoricalInfo {
   };
 }
 export const HistoricalInfo = {
-  typeUrl: "/cosmos.staking.v1beta1.HistoricalInfo",
   encode(message: HistoricalInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(10).fork()).ldelim();
@@ -406,7 +405,6 @@ function createBaseCommissionRates(): CommissionRates {
   };
 }
 export const CommissionRates = {
-  typeUrl: "/cosmos.staking.v1beta1.CommissionRates",
   encode(message: CommissionRates, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.rate !== "") {
       writer.uint32(10).string(message.rate);
@@ -471,7 +469,6 @@ function createBaseCommission(): Commission {
   };
 }
 export const Commission = {
-  typeUrl: "/cosmos.staking.v1beta1.Commission",
   encode(message: Commission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.commissionRates !== undefined) {
       CommissionRates.encode(message.commissionRates, writer.uint32(10).fork()).ldelim();
@@ -537,7 +534,6 @@ function createBaseDescription(): Description {
   };
 }
 export const Description = {
-  typeUrl: "/cosmos.staking.v1beta1.Description",
   encode(message: Description, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.moniker !== "") {
       writer.uint32(10).string(message.moniker);
@@ -631,7 +627,6 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
-  typeUrl: "/cosmos.staking.v1beta1.Validator",
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.operatorAddress !== "") {
       writer.uint32(10).string(message.operatorAddress);
@@ -818,7 +813,6 @@ function createBaseValAddresses(): ValAddresses {
   };
 }
 export const ValAddresses = {
-  typeUrl: "/cosmos.staking.v1beta1.ValAddresses",
   encode(message: ValAddresses, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.addresses) {
       writer.uint32(10).string(v!);
@@ -869,7 +863,6 @@ function createBaseDVPair(): DVPair {
   };
 }
 export const DVPair = {
-  typeUrl: "/cosmos.staking.v1beta1.DVPair",
   encode(message: DVPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -924,7 +917,6 @@ function createBaseDVPairs(): DVPairs {
   };
 }
 export const DVPairs = {
-  typeUrl: "/cosmos.staking.v1beta1.DVPairs",
   encode(message: DVPairs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.pairs) {
       DVPair.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -976,7 +968,6 @@ function createBaseDVVTriplet(): DVVTriplet {
   };
 }
 export const DVVTriplet = {
-  typeUrl: "/cosmos.staking.v1beta1.DVVTriplet",
   encode(message: DVVTriplet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -1040,7 +1031,6 @@ function createBaseDVVTriplets(): DVVTriplets {
   };
 }
 export const DVVTriplets = {
-  typeUrl: "/cosmos.staking.v1beta1.DVVTriplets",
   encode(message: DVVTriplets, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.triplets) {
       DVVTriplet.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1093,7 +1083,6 @@ function createBaseDelegation(): Delegation {
   };
 }
 export const Delegation = {
-  typeUrl: "/cosmos.staking.v1beta1.Delegation",
   encode(message: Delegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -1159,7 +1148,6 @@ function createBaseUnbondingDelegation(): UnbondingDelegation {
   };
 }
 export const UnbondingDelegation = {
-  typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegation",
   encode(message: UnbondingDelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -1233,7 +1221,6 @@ function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
   };
 }
 export const UnbondingDelegationEntry = {
-  typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegationEntry",
   encode(message: UnbondingDelegationEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creationHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.creationHeight);
@@ -1343,7 +1330,6 @@ function createBaseRedelegationEntry(): RedelegationEntry {
   };
 }
 export const RedelegationEntry = {
-  typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry",
   encode(message: RedelegationEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creationHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.creationHeight);
@@ -1449,7 +1435,6 @@ function createBaseRedelegation(): Redelegation {
   };
 }
 export const Redelegation = {
-  typeUrl: "/cosmos.staking.v1beta1.Redelegation",
   encode(message: Redelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegatorAddress !== "") {
       writer.uint32(10).string(message.delegatorAddress);
@@ -1532,7 +1517,6 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/cosmos.staking.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.unbondingTime !== undefined) {
       Duration.encode(message.unbondingTime, writer.uint32(10).fork()).ldelim();
@@ -1628,7 +1612,6 @@ function createBaseDelegationResponse(): DelegationResponse {
   };
 }
 export const DelegationResponse = {
-  typeUrl: "/cosmos.staking.v1beta1.DelegationResponse",
   encode(message: DelegationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.delegation !== undefined) {
       Delegation.encode(message.delegation, writer.uint32(10).fork()).ldelim();
@@ -1690,7 +1673,6 @@ function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
   };
 }
 export const RedelegationEntryResponse = {
-  typeUrl: "/cosmos.staking.v1beta1.RedelegationEntryResponse",
   encode(message: RedelegationEntryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.redelegationEntry !== undefined) {
       RedelegationEntry.encode(message.redelegationEntry, writer.uint32(10).fork()).ldelim();
@@ -1754,7 +1736,6 @@ function createBaseRedelegationResponse(): RedelegationResponse {
   };
 }
 export const RedelegationResponse = {
-  typeUrl: "/cosmos.staking.v1beta1.RedelegationResponse",
   encode(message: RedelegationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.redelegation !== undefined) {
       Redelegation.encode(message.redelegation, writer.uint32(10).fork()).ldelim();
@@ -1818,7 +1799,6 @@ function createBasePool(): Pool {
   };
 }
 export const Pool = {
-  typeUrl: "/cosmos.staking.v1beta1.Pool",
   encode(message: Pool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.notBondedTokens !== "") {
       writer.uint32(10).string(message.notBondedTokens);
@@ -1873,7 +1853,6 @@ function createBaseValidatorUpdates(): ValidatorUpdates {
   };
 }
 export const ValidatorUpdates = {
-  typeUrl: "/cosmos.staking.v1beta1.ValidatorUpdates",
   encode(message: ValidatorUpdates, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.updates) {
       ValidatorUpdate.encode(v!, writer.uint32(10).fork()).ldelim();

@@ -86,7 +86,6 @@ function createBaseDuration(): Duration {
   };
 }
 export const Duration = {
-  typeUrl: "/google.protobuf.Duration",
   encode(message: Duration, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.seconds !== BigInt(0)) {
       writer.uint32(8).int64(message.seconds);

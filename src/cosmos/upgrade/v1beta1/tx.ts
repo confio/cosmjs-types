@@ -42,7 +42,6 @@ function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
   };
 }
 export const MsgSoftwareUpgrade = {
-  typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
   encode(message: MsgSoftwareUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -97,7 +96,6 @@ function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
   return {};
 }
 export const MsgSoftwareUpgradeResponse = {
-  typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
   encode(_: MsgSoftwareUpgradeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -134,7 +132,6 @@ function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
   };
 }
 export const MsgCancelUpgrade = {
-  typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgrade",
   encode(message: MsgCancelUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -178,7 +175,6 @@ function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
   return {};
 }
 export const MsgCancelUpgradeResponse = {
-  typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse",
   encode(_: MsgCancelUpgradeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

@@ -194,7 +194,6 @@ function createBaseQueryContractInfoRequest(): QueryContractInfoRequest {
   };
 }
 export const QueryContractInfoRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoRequest",
   encode(message: QueryContractInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -243,7 +242,6 @@ function createBaseQueryContractInfoResponse(): QueryContractInfoResponse {
   };
 }
 export const QueryContractInfoResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoResponse",
   encode(message: QueryContractInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -304,7 +302,6 @@ function createBaseQueryContractHistoryRequest(): QueryContractHistoryRequest {
   };
 }
 export const QueryContractHistoryRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryRequest",
   encode(message: QueryContractHistoryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -365,7 +362,6 @@ function createBaseQueryContractHistoryResponse(): QueryContractHistoryResponse 
   };
 }
 export const QueryContractHistoryResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryResponse",
   encode(message: QueryContractHistoryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.entries) {
       ContractCodeHistoryEntry.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -431,7 +427,6 @@ function createBaseQueryContractsByCodeRequest(): QueryContractsByCodeRequest {
   };
 }
 export const QueryContractsByCodeRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeRequest",
   encode(message: QueryContractsByCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -494,7 +489,6 @@ function createBaseQueryContractsByCodeResponse(): QueryContractsByCodeResponse 
   };
 }
 export const QueryContractsByCodeResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeResponse",
   encode(message: QueryContractsByCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.contracts) {
       writer.uint32(10).string(v!);
@@ -559,7 +553,6 @@ function createBaseQueryAllContractStateRequest(): QueryAllContractStateRequest 
   };
 }
 export const QueryAllContractStateRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateRequest",
   encode(message: QueryAllContractStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -620,7 +613,6 @@ function createBaseQueryAllContractStateResponse(): QueryAllContractStateRespons
   };
 }
 export const QueryAllContractStateResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateResponse",
   encode(message: QueryAllContractStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.models) {
       Model.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -685,7 +677,6 @@ function createBaseQueryRawContractStateRequest(): QueryRawContractStateRequest 
   };
 }
 export const QueryRawContractStateRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateRequest",
   encode(message: QueryRawContractStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -745,7 +736,6 @@ function createBaseQueryRawContractStateResponse(): QueryRawContractStateRespons
   };
 }
 export const QueryRawContractStateResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateResponse",
   encode(message: QueryRawContractStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
@@ -795,7 +785,6 @@ function createBaseQuerySmartContractStateRequest(): QuerySmartContractStateRequ
   };
 }
 export const QuerySmartContractStateRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateRequest",
   encode(
     message: QuerySmartContractStateRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -858,7 +847,6 @@ function createBaseQuerySmartContractStateResponse(): QuerySmartContractStateRes
   };
 }
 export const QuerySmartContractStateResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateResponse",
   encode(
     message: QuerySmartContractStateResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -910,7 +898,6 @@ function createBaseQueryCodeRequest(): QueryCodeRequest {
   };
 }
 export const QueryCodeRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryCodeRequest",
   encode(message: QueryCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -961,7 +948,6 @@ function createBaseCodeInfoResponse(): CodeInfoResponse {
   };
 }
 export const CodeInfoResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse",
   encode(message: CodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -1044,7 +1030,6 @@ function createBaseQueryCodeResponse(): QueryCodeResponse {
   };
 }
 export const QueryCodeResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryCodeResponse",
   encode(message: QueryCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeInfo !== undefined) {
       CodeInfoResponse.encode(message.codeInfo, writer.uint32(10).fork()).ldelim();
@@ -1103,7 +1088,6 @@ function createBaseQueryCodesRequest(): QueryCodesRequest {
   };
 }
 export const QueryCodesRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryCodesRequest",
   encode(message: QueryCodesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -1153,7 +1137,6 @@ function createBaseQueryCodesResponse(): QueryCodesResponse {
   };
 }
 export const QueryCodesResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryCodesResponse",
   encode(message: QueryCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.codeInfos) {
       CodeInfoResponse.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1216,7 +1199,6 @@ function createBaseQueryPinnedCodesRequest(): QueryPinnedCodesRequest {
   };
 }
 export const QueryPinnedCodesRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesRequest",
   encode(message: QueryPinnedCodesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1266,7 +1248,6 @@ function createBaseQueryPinnedCodesResponse(): QueryPinnedCodesResponse {
   };
 }
 export const QueryPinnedCodesResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesResponse",
   encode(message: QueryPinnedCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     writer.uint32(10).fork();
     for (const v of message.codeIds) {
@@ -1337,7 +1318,6 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1374,7 +1354,6 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -1423,7 +1402,6 @@ function createBaseQueryContractsByCreatorRequest(): QueryContractsByCreatorRequ
   };
 }
 export const QueryContractsByCreatorRequest = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorRequest",
   encode(
     message: QueryContractsByCreatorRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1487,7 +1465,6 @@ function createBaseQueryContractsByCreatorResponse(): QueryContractsByCreatorRes
   };
 }
 export const QueryContractsByCreatorResponse = {
-  typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorResponse",
   encode(
     message: QueryContractsByCreatorResponse,
     writer: BinaryWriter = BinaryWriter.create(),

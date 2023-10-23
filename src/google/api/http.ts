@@ -361,7 +361,6 @@ function createBaseHttp(): Http {
   };
 }
 export const Http = {
-  typeUrl: "/google.api.Http",
   encode(message: Http, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.rules) {
       HttpRule.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -431,7 +430,6 @@ function createBaseHttpRule(): HttpRule {
   };
 }
 export const HttpRule = {
-  typeUrl: "/google.api.HttpRule",
   encode(message: HttpRule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.selector !== "") {
       writer.uint32(10).string(message.selector);
@@ -567,7 +565,6 @@ function createBaseCustomHttpPattern(): CustomHttpPattern {
   };
 }
 export const CustomHttpPattern = {
-  typeUrl: "/google.api.CustomHttpPattern",
   encode(message: CustomHttpPattern, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.kind !== "") {
       writer.uint32(10).string(message.kind);

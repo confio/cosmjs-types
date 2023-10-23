@@ -58,7 +58,6 @@ function createBaseValidatorSigningInfo(): ValidatorSigningInfo {
   };
 }
 export const ValidatorSigningInfo = {
-  typeUrl: "/cosmos.slashing.v1beta1.ValidatorSigningInfo",
   encode(message: ValidatorSigningInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -163,7 +162,6 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: "/cosmos.slashing.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.signedBlocksWindow !== BigInt(0)) {
       writer.uint32(8).int64(message.signedBlocksWindow);

@@ -123,7 +123,6 @@ function createBaseQueryConnectionRequest(): QueryConnectionRequest {
   };
 }
 export const QueryConnectionRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionRequest",
   encode(message: QueryConnectionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);
@@ -171,7 +170,6 @@ function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   };
 }
 export const QueryConnectionResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionResponse",
   encode(message: QueryConnectionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.connection !== undefined) {
       ConnectionEnd.encode(message.connection, writer.uint32(10).fork()).ldelim();
@@ -242,7 +240,6 @@ function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
   };
 }
 export const QueryConnectionsRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionsRequest",
   encode(message: QueryConnectionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -293,7 +290,6 @@ function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
   };
 }
 export const QueryConnectionsResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionsResponse",
   encode(message: QueryConnectionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.connections) {
       IdentifiedConnection.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -369,7 +365,6 @@ function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsReques
   };
 }
 export const QueryClientConnectionsRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsRequest",
   encode(message: QueryClientConnectionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.clientId !== "") {
       writer.uint32(10).string(message.clientId);
@@ -419,7 +414,6 @@ function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsRespo
   };
 }
 export const QueryClientConnectionsResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsResponse",
   encode(
     message: QueryClientConnectionsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -497,7 +491,6 @@ function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientSta
   };
 }
 export const QueryConnectionClientStateRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateRequest",
   encode(
     message: QueryConnectionClientStateRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -550,7 +543,6 @@ function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientSt
   };
 }
 export const QueryConnectionClientStateResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateResponse",
   encode(
     message: QueryConnectionClientStateResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -631,7 +623,6 @@ function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsen
   };
 }
 export const QueryConnectionConsensusStateRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateRequest",
   encode(
     message: QueryConnectionConsensusStateRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -709,7 +700,6 @@ function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConse
   };
 }
 export const QueryConnectionConsensusStateResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateResponse",
   encode(
     message: QueryConnectionConsensusStateResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -792,7 +782,6 @@ function createBaseQueryConnectionParamsRequest(): QueryConnectionParamsRequest 
   return {};
 }
 export const QueryConnectionParamsRequest = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsRequest",
   encode(_: QueryConnectionParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -831,7 +820,6 @@ function createBaseQueryConnectionParamsResponse(): QueryConnectionParamsRespons
   };
 }
 export const QueryConnectionParamsResponse = {
-  typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsResponse",
   encode(message: QueryConnectionParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();

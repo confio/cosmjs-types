@@ -29,7 +29,6 @@ function createBaseFungibleTokenPacketData(): FungibleTokenPacketData {
   };
 }
 export const FungibleTokenPacketData = {
-  typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketData",
   encode(message: FungibleTokenPacketData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);

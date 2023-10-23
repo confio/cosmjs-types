@@ -34,7 +34,6 @@ function createBaseMetadata(): Metadata {
   };
 }
 export const Metadata = {
-  typeUrl: "/ibc.applications.interchain_accounts.v1.Metadata",
   encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.version !== "") {
       writer.uint32(10).string(message.version);

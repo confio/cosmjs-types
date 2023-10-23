@@ -45,7 +45,6 @@ function createBaseClass(): Class {
   };
 }
 export const Class = {
-  typeUrl: "/cosmos.nft.v1beta1.Class",
   encode(message: Class, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
@@ -151,7 +150,6 @@ function createBaseNFT(): NFT {
   };
 }
 export const NFT = {
-  typeUrl: "/cosmos.nft.v1beta1.NFT",
   encode(message: NFT, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.classId !== "") {
       writer.uint32(10).string(message.classId);

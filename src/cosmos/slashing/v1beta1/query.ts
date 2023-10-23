@@ -46,7 +46,6 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  typeUrl: "/cosmos.slashing.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -83,7 +82,6 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
-  typeUrl: "/cosmos.slashing.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -131,7 +129,6 @@ function createBaseQuerySigningInfoRequest(): QuerySigningInfoRequest {
   };
 }
 export const QuerySigningInfoRequest = {
-  typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfoRequest",
   encode(message: QuerySigningInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.consAddress !== "") {
       writer.uint32(10).string(message.consAddress);
@@ -177,7 +174,6 @@ function createBaseQuerySigningInfoResponse(): QuerySigningInfoResponse {
   };
 }
 export const QuerySigningInfoResponse = {
-  typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfoResponse",
   encode(message: QuerySigningInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.valSigningInfo !== undefined) {
       ValidatorSigningInfo.encode(message.valSigningInfo, writer.uint32(10).fork()).ldelim();
@@ -231,7 +227,6 @@ function createBaseQuerySigningInfosRequest(): QuerySigningInfosRequest {
   };
 }
 export const QuerySigningInfosRequest = {
-  typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosRequest",
   encode(message: QuerySigningInfosRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -283,7 +278,6 @@ function createBaseQuerySigningInfosResponse(): QuerySigningInfosResponse {
   };
 }
 export const QuerySigningInfosResponse = {
-  typeUrl: "/cosmos.slashing.v1beta1.QuerySigningInfosResponse",
   encode(message: QuerySigningInfosResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.info) {
       ValidatorSigningInfo.encode(v!, writer.uint32(10).fork()).ldelim();

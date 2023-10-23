@@ -149,7 +149,6 @@ function createBaseGetValidatorSetByHeightRequest(): GetValidatorSetByHeightRequ
   };
 }
 export const GetValidatorSetByHeightRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightRequest",
   encode(
     message: GetValidatorSetByHeightRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -216,7 +215,6 @@ function createBaseGetValidatorSetByHeightResponse(): GetValidatorSetByHeightRes
   };
 }
 export const GetValidatorSetByHeightResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightResponse",
   encode(
     message: GetValidatorSetByHeightResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -295,7 +293,6 @@ function createBaseGetLatestValidatorSetRequest(): GetLatestValidatorSetRequest 
   };
 }
 export const GetLatestValidatorSetRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestValidatorSetRequest",
   encode(message: GetLatestValidatorSetRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -348,7 +345,6 @@ function createBaseGetLatestValidatorSetResponse(): GetLatestValidatorSetRespons
   };
 }
 export const GetLatestValidatorSetResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestValidatorSetResponse",
   encode(message: GetLatestValidatorSetResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.blockHeight);
@@ -427,7 +423,6 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.Validator",
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
@@ -507,7 +502,6 @@ function createBaseGetBlockByHeightRequest(): GetBlockByHeightRequest {
   };
 }
 export const GetBlockByHeightRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetBlockByHeightRequest",
   encode(message: GetBlockByHeightRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -557,7 +551,6 @@ function createBaseGetBlockByHeightResponse(): GetBlockByHeightResponse {
   };
 }
 export const GetBlockByHeightResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetBlockByHeightResponse",
   encode(message: GetBlockByHeightResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim();
@@ -629,7 +622,6 @@ function createBaseGetLatestBlockRequest(): GetLatestBlockRequest {
   return {};
 }
 export const GetLatestBlockRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestBlockRequest",
   encode(_: GetLatestBlockRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -668,7 +660,6 @@ function createBaseGetLatestBlockResponse(): GetLatestBlockResponse {
   };
 }
 export const GetLatestBlockResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestBlockResponse",
   encode(message: GetLatestBlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockId !== undefined) {
       BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim();
@@ -738,7 +729,6 @@ function createBaseGetSyncingRequest(): GetSyncingRequest {
   return {};
 }
 export const GetSyncingRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetSyncingRequest",
   encode(_: GetSyncingRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -775,7 +765,6 @@ function createBaseGetSyncingResponse(): GetSyncingResponse {
   };
 }
 export const GetSyncingResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetSyncingResponse",
   encode(message: GetSyncingResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.syncing === true) {
       writer.uint32(8).bool(message.syncing);
@@ -819,7 +808,6 @@ function createBaseGetNodeInfoRequest(): GetNodeInfoRequest {
   return {};
 }
 export const GetNodeInfoRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetNodeInfoRequest",
   encode(_: GetNodeInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -857,7 +845,6 @@ function createBaseGetNodeInfoResponse(): GetNodeInfoResponse {
   };
 }
 export const GetNodeInfoResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.GetNodeInfoResponse",
   encode(message: GetNodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.defaultNodeInfo !== undefined) {
       DefaultNodeInfo.encode(message.defaultNodeInfo, writer.uint32(10).fork()).ldelim();
@@ -930,7 +917,6 @@ function createBaseVersionInfo(): VersionInfo {
   };
 }
 export const VersionInfo = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.VersionInfo",
   encode(message: VersionInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -1046,7 +1032,6 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.path !== "") {
       writer.uint32(10).string(message.path);
@@ -1113,7 +1098,6 @@ function createBaseABCIQueryRequest(): ABCIQueryRequest {
   };
 }
 export const ABCIQueryRequest = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.ABCIQueryRequest",
   encode(message: ABCIQueryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
@@ -1197,7 +1181,6 @@ function createBaseABCIQueryResponse(): ABCIQueryResponse {
   };
 }
 export const ABCIQueryResponse = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.ABCIQueryResponse",
   encode(message: ABCIQueryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
@@ -1326,7 +1309,6 @@ function createBaseProofOp(): ProofOp {
   };
 }
 export const ProofOp = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.ProofOp",
   encode(message: ProofOp, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== "") {
       writer.uint32(10).string(message.type);
@@ -1392,7 +1374,6 @@ function createBaseProofOps(): ProofOps {
   };
 }
 export const ProofOps = {
-  typeUrl: "/cosmos.base.tendermint.v1beta1.ProofOps",
   encode(message: ProofOps, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.ops) {
       ProofOp.encode(v!, writer.uint32(10).fork()).ldelim();

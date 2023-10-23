@@ -46,7 +46,6 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.controllerGenesisState !== undefined) {
       ControllerGenesisState.encode(message.controllerGenesisState, writer.uint32(10).fork()).ldelim();
@@ -116,7 +115,6 @@ function createBaseControllerGenesisState(): ControllerGenesisState {
   };
 }
 export const ControllerGenesisState = {
-  typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState",
   encode(message: ControllerGenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.activeChannels) {
       ActiveChannel.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -214,7 +212,6 @@ function createBaseHostGenesisState(): HostGenesisState {
   };
 }
 export const HostGenesisState = {
-  typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.HostGenesisState",
   encode(message: HostGenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.activeChannels) {
       ActiveChannel.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -308,7 +305,6 @@ function createBaseActiveChannel(): ActiveChannel {
   };
 }
 export const ActiveChannel = {
-  typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ActiveChannel",
   encode(message: ActiveChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);
@@ -383,7 +379,6 @@ function createBaseRegisteredInterchainAccount(): RegisteredInterchainAccount {
   };
 }
 export const RegisteredInterchainAccount = {
-  typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount",
   encode(message: RegisteredInterchainAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.connectionId !== "") {
       writer.uint32(10).string(message.connectionId);

@@ -308,7 +308,6 @@ function createBaseQueryChannelRequest(): QueryChannelRequest {
   };
 }
 export const QueryChannelRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelRequest",
   encode(message: QueryChannelRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -365,7 +364,6 @@ function createBaseQueryChannelResponse(): QueryChannelResponse {
   };
 }
 export const QueryChannelResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelResponse",
   encode(message: QueryChannelResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channel !== undefined) {
       Channel.encode(message.channel, writer.uint32(10).fork()).ldelim();
@@ -436,7 +434,6 @@ function createBaseQueryChannelsRequest(): QueryChannelsRequest {
   };
 }
 export const QueryChannelsRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelsRequest",
   encode(message: QueryChannelsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -487,7 +484,6 @@ function createBaseQueryChannelsResponse(): QueryChannelsResponse {
   };
 }
 export const QueryChannelsResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelsResponse",
   encode(message: QueryChannelsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.channels) {
       IdentifiedChannel.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -562,7 +558,6 @@ function createBaseQueryConnectionChannelsRequest(): QueryConnectionChannelsRequ
   };
 }
 export const QueryConnectionChannelsRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryConnectionChannelsRequest",
   encode(
     message: QueryConnectionChannelsRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -627,7 +622,6 @@ function createBaseQueryConnectionChannelsResponse(): QueryConnectionChannelsRes
   };
 }
 export const QueryConnectionChannelsResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryConnectionChannelsResponse",
   encode(
     message: QueryConnectionChannelsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -707,7 +701,6 @@ function createBaseQueryChannelClientStateRequest(): QueryChannelClientStateRequ
   };
 }
 export const QueryChannelClientStateRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelClientStateRequest",
   encode(
     message: QueryChannelClientStateRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -769,7 +762,6 @@ function createBaseQueryChannelClientStateResponse(): QueryChannelClientStateRes
   };
 }
 export const QueryChannelClientStateResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelClientStateResponse",
   encode(
     message: QueryChannelClientStateResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -851,7 +843,6 @@ function createBaseQueryChannelConsensusStateRequest(): QueryChannelConsensusSta
   };
 }
 export const QueryChannelConsensusStateRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelConsensusStateRequest",
   encode(
     message: QueryChannelConsensusStateRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -938,7 +929,6 @@ function createBaseQueryChannelConsensusStateResponse(): QueryChannelConsensusSt
   };
 }
 export const QueryChannelConsensusStateResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryChannelConsensusStateResponse",
   encode(
     message: QueryChannelConsensusStateResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1025,7 +1015,6 @@ function createBaseQueryPacketCommitmentRequest(): QueryPacketCommitmentRequest 
   };
 }
 export const QueryPacketCommitmentRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentRequest",
   encode(message: QueryPacketCommitmentRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -1095,7 +1084,6 @@ function createBaseQueryPacketCommitmentResponse(): QueryPacketCommitmentRespons
   };
 }
 export const QueryPacketCommitmentResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentResponse",
   encode(message: QueryPacketCommitmentResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.commitment.length !== 0) {
       writer.uint32(10).bytes(message.commitment);
@@ -1170,7 +1158,6 @@ function createBaseQueryPacketCommitmentsRequest(): QueryPacketCommitmentsReques
   };
 }
 export const QueryPacketCommitmentsRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentsRequest",
   encode(message: QueryPacketCommitmentsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -1241,7 +1228,6 @@ function createBaseQueryPacketCommitmentsResponse(): QueryPacketCommitmentsRespo
   };
 }
 export const QueryPacketCommitmentsResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentsResponse",
   encode(
     message: QueryPacketCommitmentsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1322,7 +1308,6 @@ function createBaseQueryPacketReceiptRequest(): QueryPacketReceiptRequest {
   };
 }
 export const QueryPacketReceiptRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketReceiptRequest",
   encode(message: QueryPacketReceiptRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -1392,7 +1377,6 @@ function createBaseQueryPacketReceiptResponse(): QueryPacketReceiptResponse {
   };
 }
 export const QueryPacketReceiptResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketReceiptResponse",
   encode(message: QueryPacketReceiptResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.received === true) {
       writer.uint32(16).bool(message.received);
@@ -1464,7 +1448,6 @@ function createBaseQueryPacketAcknowledgementRequest(): QueryPacketAcknowledgeme
   };
 }
 export const QueryPacketAcknowledgementRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementRequest",
   encode(
     message: QueryPacketAcknowledgementRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1537,7 +1520,6 @@ function createBaseQueryPacketAcknowledgementResponse(): QueryPacketAcknowledgem
   };
 }
 export const QueryPacketAcknowledgementResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementResponse",
   encode(
     message: QueryPacketAcknowledgementResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1616,7 +1598,6 @@ function createBaseQueryPacketAcknowledgementsRequest(): QueryPacketAcknowledgem
   };
 }
 export const QueryPacketAcknowledgementsRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementsRequest",
   encode(
     message: QueryPacketAcknowledgementsRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1716,7 +1697,6 @@ function createBaseQueryPacketAcknowledgementsResponse(): QueryPacketAcknowledge
   };
 }
 export const QueryPacketAcknowledgementsResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementsResponse",
   encode(
     message: QueryPacketAcknowledgementsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1797,7 +1777,6 @@ function createBaseQueryUnreceivedPacketsRequest(): QueryUnreceivedPacketsReques
   };
 }
 export const QueryUnreceivedPacketsRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryUnreceivedPacketsRequest",
   encode(message: QueryUnreceivedPacketsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -1881,7 +1860,6 @@ function createBaseQueryUnreceivedPacketsResponse(): QueryUnreceivedPacketsRespo
   };
 }
 export const QueryUnreceivedPacketsResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryUnreceivedPacketsResponse",
   encode(
     message: QueryUnreceivedPacketsResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -1959,7 +1937,6 @@ function createBaseQueryUnreceivedAcksRequest(): QueryUnreceivedAcksRequest {
   };
 }
 export const QueryUnreceivedAcksRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryUnreceivedAcksRequest",
   encode(message: QueryUnreceivedAcksRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -2040,7 +2017,6 @@ function createBaseQueryUnreceivedAcksResponse(): QueryUnreceivedAcksResponse {
   };
 }
 export const QueryUnreceivedAcksResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryUnreceivedAcksResponse",
   encode(message: QueryUnreceivedAcksResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     writer.uint32(10).fork();
     for (const v of message.sequences) {
@@ -2114,7 +2090,6 @@ function createBaseQueryNextSequenceReceiveRequest(): QueryNextSequenceReceiveRe
   };
 }
 export const QueryNextSequenceReceiveRequest = {
-  typeUrl: "/ibc.core.channel.v1.QueryNextSequenceReceiveRequest",
   encode(
     message: QueryNextSequenceReceiveRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -2176,7 +2151,6 @@ function createBaseQueryNextSequenceReceiveResponse(): QueryNextSequenceReceiveR
   };
 }
 export const QueryNextSequenceReceiveResponse = {
-  typeUrl: "/ibc.core.channel.v1.QueryNextSequenceReceiveResponse",
   encode(
     message: QueryNextSequenceReceiveResponse,
     writer: BinaryWriter = BinaryWriter.create(),

@@ -99,7 +99,6 @@ function createBaseSnapshot(): Snapshot {
   };
 }
 export const Snapshot = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.Snapshot",
   encode(message: Snapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
@@ -187,7 +186,6 @@ function createBaseMetadata(): Metadata {
   };
 }
 export const Metadata = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.Metadata",
   encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.chunkHashes) {
       writer.uint32(10).bytes(v!);
@@ -245,7 +243,6 @@ function createBaseSnapshotItem(): SnapshotItem {
   };
 }
 export const SnapshotItem = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotItem",
   encode(message: SnapshotItem, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.store !== undefined) {
       SnapshotStoreItem.encode(message.store, writer.uint32(10).fork()).ldelim();
@@ -356,7 +353,6 @@ function createBaseSnapshotStoreItem(): SnapshotStoreItem {
   };
 }
 export const SnapshotStoreItem = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotStoreItem",
   encode(message: SnapshotStoreItem, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -405,7 +401,6 @@ function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
   };
 }
 export const SnapshotIAVLItem = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotIAVLItem",
   encode(message: SnapshotIAVLItem, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -483,7 +478,6 @@ function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
   };
 }
 export const SnapshotExtensionMeta = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta",
   encode(message: SnapshotExtensionMeta, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -538,7 +532,6 @@ function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
   };
 }
 export const SnapshotExtensionPayload = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload",
   encode(message: SnapshotExtensionPayload, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.payload.length !== 0) {
       writer.uint32(10).bytes(message.payload);
@@ -588,7 +581,6 @@ function createBaseSnapshotKVItem(): SnapshotKVItem {
   };
 }
 export const SnapshotKVItem = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotKVItem",
   encode(message: SnapshotKVItem, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -645,7 +637,6 @@ function createBaseSnapshotSchema(): SnapshotSchema {
   };
 }
 export const SnapshotSchema = {
-  typeUrl: "/cosmos.base.snapshots.v1beta1.SnapshotSchema",
   encode(message: SnapshotSchema, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.keys) {
       writer.uint32(10).bytes(v!);

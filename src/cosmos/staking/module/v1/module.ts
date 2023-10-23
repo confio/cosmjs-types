@@ -20,7 +20,6 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.staking.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.hooksOrder) {
       writer.uint32(10).string(v!);

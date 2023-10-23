@@ -29,7 +29,6 @@ function createBaseModule(): Module {
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.auth.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bech32Prefix !== "") {
       writer.uint32(10).string(message.bech32Prefix);
@@ -104,7 +103,6 @@ function createBaseModuleAccountPermission(): ModuleAccountPermission {
   };
 }
 export const ModuleAccountPermission = {
-  typeUrl: "/cosmos.auth.module.v1.ModuleAccountPermission",
   encode(message: ModuleAccountPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.account !== "") {
       writer.uint32(10).string(message.account);

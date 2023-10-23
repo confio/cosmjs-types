@@ -47,7 +47,6 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/cosmos.staking.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -193,7 +192,6 @@ function createBaseLastValidatorPower(): LastValidatorPower {
   };
 }
 export const LastValidatorPower = {
-  typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower",
   encode(message: LastValidatorPower, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);

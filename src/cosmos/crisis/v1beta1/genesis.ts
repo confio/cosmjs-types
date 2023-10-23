@@ -17,7 +17,6 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/cosmos.crisis.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.constantFee !== undefined) {
       Coin.encode(message.constantFee, writer.uint32(26).fork()).ldelim();
