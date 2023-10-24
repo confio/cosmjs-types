@@ -36,6 +36,7 @@ function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount 
   };
 }
 export const MsgRegisterInterchainAccount = {
+  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount",
   encode(message: MsgRegisterInterchainAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
@@ -101,6 +102,7 @@ function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchain
   };
 }
 export const MsgRegisterInterchainAccountResponse = {
+  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse",
   encode(
     message: MsgRegisterInterchainAccountResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -154,6 +156,7 @@ function createBaseMsgSendTx(): MsgSendTx {
   };
 }
 export const MsgSendTx = {
+  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTx",
   encode(message: MsgSendTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
@@ -234,6 +237,7 @@ function createBaseMsgSendTxResponse(): MsgSendTxResponse {
   };
 }
 export const MsgSendTxResponse = {
+  typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse",
   encode(message: MsgSendTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);

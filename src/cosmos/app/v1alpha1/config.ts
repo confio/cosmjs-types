@@ -63,6 +63,7 @@ function createBaseConfig(): Config {
   };
 }
 export const Config = {
+  typeUrl: "/cosmos.app.v1alpha1.Config",
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.modules) {
       ModuleConfig.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -129,6 +130,7 @@ function createBaseModuleConfig(): ModuleConfig {
   };
 }
 export const ModuleConfig = {
+  typeUrl: "/cosmos.app.v1alpha1.ModuleConfig",
   encode(message: ModuleConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -200,6 +202,7 @@ function createBaseGolangBinding(): GolangBinding {
   };
 }
 export const GolangBinding = {
+  typeUrl: "/cosmos.app.v1alpha1.GolangBinding",
   encode(message: GolangBinding, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.interfaceType !== "") {
       writer.uint32(10).string(message.interfaceType);

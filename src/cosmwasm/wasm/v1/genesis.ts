@@ -39,6 +39,7 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
+  typeUrl: "/cosmwasm.wasm.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -130,6 +131,7 @@ function createBaseCode(): Code {
   };
 }
 export const Code = {
+  typeUrl: "/cosmwasm.wasm.v1.Code",
   encode(message: Code, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
@@ -213,6 +215,7 @@ function createBaseContract(): Contract {
   };
 }
 export const Contract = {
+  typeUrl: "/cosmwasm.wasm.v1.Contract",
   encode(message: Contract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contractAddress !== "") {
       writer.uint32(10).string(message.contractAddress);
@@ -304,6 +307,7 @@ function createBaseSequence(): Sequence {
   };
 }
 export const Sequence = {
+  typeUrl: "/cosmwasm.wasm.v1.Sequence",
   encode(message: Sequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.idKey.length !== 0) {
       writer.uint32(10).bytes(message.idKey);

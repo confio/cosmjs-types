@@ -87,6 +87,7 @@ function createBasePlan(): Plan {
   };
 }
 export const Plan = {
+  typeUrl: "/cosmos.upgrade.v1beta1.Plan",
   encode(message: Plan, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -179,6 +180,7 @@ function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   };
 }
 export const SoftwareUpgradeProposal = {
+  typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
   encode(message: SoftwareUpgradeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -245,6 +247,7 @@ function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposa
   };
 }
 export const CancelSoftwareUpgradeProposal = {
+  typeUrl: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
   encode(message: CancelSoftwareUpgradeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
@@ -302,6 +305,7 @@ function createBaseModuleVersion(): ModuleVersion {
   };
 }
 export const ModuleVersion = {
+  typeUrl: "/cosmos.upgrade.v1beta1.ModuleVersion",
   encode(message: ModuleVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);

@@ -17,6 +17,7 @@ function createBasePairs(): Pairs {
   };
 }
 export const Pairs = {
+  typeUrl: "/cosmos.base.kv.v1beta1.Pairs",
   encode(message: Pairs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.pairs) {
       Pair.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -67,6 +68,7 @@ function createBasePair(): Pair {
   };
 }
 export const Pair = {
+  typeUrl: "/cosmos.base.kv.v1beta1.Pair",
   encode(message: Pair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);

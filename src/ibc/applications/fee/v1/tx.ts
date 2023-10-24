@@ -70,6 +70,7 @@ function createBaseMsgRegisterPayee(): MsgRegisterPayee {
   };
 }
 export const MsgRegisterPayee = {
+  typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayee",
   encode(message: MsgRegisterPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -140,6 +141,7 @@ function createBaseMsgRegisterPayeeResponse(): MsgRegisterPayeeResponse {
   return {};
 }
 export const MsgRegisterPayeeResponse = {
+  typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayeeResponse",
   encode(_: MsgRegisterPayeeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -179,6 +181,7 @@ function createBaseMsgRegisterCounterpartyPayee(): MsgRegisterCounterpartyPayee 
   };
 }
 export const MsgRegisterCounterpartyPayee = {
+  typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayee",
   encode(message: MsgRegisterCounterpartyPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.portId !== "") {
       writer.uint32(10).string(message.portId);
@@ -251,6 +254,7 @@ function createBaseMsgRegisterCounterpartyPayeeResponse(): MsgRegisterCounterpar
   return {};
 }
 export const MsgRegisterCounterpartyPayeeResponse = {
+  typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse",
   encode(
     _: MsgRegisterCounterpartyPayeeResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -296,6 +300,7 @@ function createBaseMsgPayPacketFee(): MsgPayPacketFee {
   };
 }
 export const MsgPayPacketFee = {
+  typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFee",
   encode(message: MsgPayPacketFee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fee !== undefined) {
       Fee.encode(message.fee, writer.uint32(10).fork()).ldelim();
@@ -381,6 +386,7 @@ function createBaseMsgPayPacketFeeResponse(): MsgPayPacketFeeResponse {
   return {};
 }
 export const MsgPayPacketFeeResponse = {
+  typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeResponse",
   encode(_: MsgPayPacketFeeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -418,6 +424,7 @@ function createBaseMsgPayPacketFeeAsync(): MsgPayPacketFeeAsync {
   };
 }
 export const MsgPayPacketFeeAsync = {
+  typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsync",
   encode(message: MsgPayPacketFeeAsync, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetId !== undefined) {
       PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim();
@@ -476,6 +483,7 @@ function createBaseMsgPayPacketFeeAsyncResponse(): MsgPayPacketFeeAsyncResponse 
   return {};
 }
 export const MsgPayPacketFeeAsyncResponse = {
+  typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse",
   encode(_: MsgPayPacketFeeAsyncResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

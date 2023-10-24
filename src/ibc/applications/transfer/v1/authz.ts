@@ -31,6 +31,7 @@ function createBaseAllocation(): Allocation {
   };
 }
 export const Allocation = {
+  typeUrl: "/ibc.applications.transfer.v1.Allocation",
   encode(message: Allocation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sourcePort !== "") {
       writer.uint32(10).string(message.sourcePort);
@@ -112,6 +113,7 @@ function createBaseTransferAuthorization(): TransferAuthorization {
   };
 }
 export const TransferAuthorization = {
+  typeUrl: "/ibc.applications.transfer.v1.TransferAuthorization",
   encode(message: TransferAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.allocations) {
       Allocation.encode(v!, writer.uint32(10).fork()).ldelim();

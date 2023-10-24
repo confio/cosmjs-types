@@ -14,6 +14,7 @@ function createBaseFileDescriptorsRequest(): FileDescriptorsRequest {
   return {};
 }
 export const FileDescriptorsRequest = {
+  typeUrl: "/cosmos.reflection.v1.FileDescriptorsRequest",
   encode(_: FileDescriptorsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -50,6 +51,7 @@ function createBaseFileDescriptorsResponse(): FileDescriptorsResponse {
   };
 }
 export const FileDescriptorsResponse = {
+  typeUrl: "/cosmos.reflection.v1.FileDescriptorsResponse",
   encode(message: FileDescriptorsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.files) {
       FileDescriptorProto.encode(v!, writer.uint32(10).fork()).ldelim();

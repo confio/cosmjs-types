@@ -26,6 +26,7 @@ function createBaseEquivocation(): Equivocation {
   };
 }
 export const Equivocation = {
+  typeUrl: "/cosmos.evidence.v1beta1.Equivocation",
   encode(message: Equivocation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);

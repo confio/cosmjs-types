@@ -33,9 +33,9 @@ telescope({
       includePackageVar: true,
       strictNullCheckForPrototypeMethods: true,
       paginationDefaultFromPartial: true,
+      addTypeUrlToObjects: true,
       // Those are causing trouble in CosmJS testing (https://github.com/cosmology-tech/telescope/issues/489)
       addTypeUrlToDecoders: false,
-      addTypeUrlToObjects: false,
       excluded: {
         protos: [
           "cosmos/autocli/v1/options.proto",
