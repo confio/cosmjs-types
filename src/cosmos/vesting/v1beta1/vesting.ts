@@ -25,6 +25,16 @@ export interface ContinuousVestingAccount {
   /** Vesting start time, as unix timestamp (in seconds). */
   startTime: Long;
 }
+
+
+export interface ForeverVestingAccount {
+  baseVestingAccount?: BaseVestingAccount;
+
+  /** Vesting end time, 0 as never. */
+  endTime: Long
+  vestingSupplyPercentage: string
+  alreadyVested: Coin[]
+}
 /**
  * DelayedVestingAccount implements the VestingAccount interface. It vests all
  * coins after a specific time, but non prior. In other words, it keeps them
@@ -166,6 +176,103 @@ export const BaseVestingAccount = {
     return message;
   },
 };
+
+
+function createBaseForeverVestingAccount(): ForeverVestingAccount {
+  return {
+    baseVestingAccount: undefined,
+    endTime: Long.ZERO,
+    vestingSupplyPercentage: "",
+    alreadyVested: [],
+  };
+}
+
+export const ForeverVestingAccount = {
+  encode(message: ForeverVestingAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.baseVestingAccount !== undefined) {
+      BaseVestingAccount.encode(message.baseVestingAccount, writer.uint32(10).fork()).ldelim();
+    }
+    if (!message.endTime.isZero()) {
+      writer.uint32(16).int64(message.endTime);
+    }
+    if (message.vestingSupplyPercentage !== "") {
+      writer.uint32(26).string(message.vestingSupplyPercentage);
+    }
+    for (const v of message.alreadyVested) {
+      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: _m0.Reader | Uint8Array, length?: number): ForeverVestingAccount {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseForeverVestingAccount();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.endTime = reader.int64() as Long;
+          break;
+        case 3:
+          message.vestingSupplyPercentage = reader.string();
+          break;
+        case 4:
+          message.alreadyVested.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): ForeverVestingAccount {
+    return {
+      baseVestingAccount: isSet(object.baseVestingAccount)
+        ? BaseVestingAccount.fromJSON(object.baseVestingAccount)
+        : undefined,
+      endTime: isSet(object.endTime) ? Long.fromValue(object.endTime) : Long.ZERO,
+      vestingSupplyPercentage: isSet(object.vestingSupplyPercentage) ? object.vestingSupplyPercentage : "",
+      alreadyVested: Array.isArray(object?.alreadyVested)
+        ? object.alreadyVested.map((e: any) => Coin.fromJSON(e))
+        : [],
+    }},
+  toJSON(message: ForeverVestingAccount): any {
+    const obj: any = {};
+    message.baseVestingAccount !== undefined &&
+      (obj.baseVestingAccount = message.baseVestingAccount
+        ? BaseVestingAccount.toJSON(message.baseVestingAccount)
+        : undefined);
+    message.endTime !== undefined && (obj.endTime = (message.endTime || Long.ZERO).toString());
+    message.vestingSupplyPercentage !== undefined && (obj.vestingSupplyPercentage = message.vestingSupplyPercentage);
+    if (message.alreadyVested) {
+      obj.alreadyVested = message.alreadyVested.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.alreadyVested = [];
+    }
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<ForeverVestingAccount>, I>>(object: I): ForeverVestingAccount {
+    const message = createBaseForeverVestingAccount();
+    message.baseVestingAccount =
+      object.baseVestingAccount !== undefined && object.baseVestingAccount !== null
+        ? BaseVestingAccount.fromPartial(object.baseVestingAccount)
+        : undefined;
+    message.endTime =
+      object.endTime !== undefined && object.endTime !== null ? Long.fromValue(object.endTime) : Long.ZERO;
+    message.vestingSupplyPercentage =
+      object.vestingSupplyPercentage !== undefined && object.vestingSupplyPercentage !== null
+        ? object.vestingSupplyPercentage
+        : "";
+    message.alreadyVested = object.alreadyVested?.map((e) => Coin.fromPartial(e)) || [];
+    return message;
+  }
+}
+
+
 function createBaseContinuousVestingAccount(): ContinuousVestingAccount {
   return {
     baseVestingAccount: undefined,
