@@ -62,7 +62,7 @@ export interface InstantiateContract2Proposal {
   title: string;
   /** Description is a human readable text */
   description: string;
-  /** RunAs is the address that is passed to the contract's enviroment as sender */
+  /** RunAs is the address that is passed to the contract's environment as sender */
   runAs: string;
   /** Admin is an optional address that can execute migrations */
   admin: string;

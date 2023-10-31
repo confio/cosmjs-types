@@ -156,7 +156,7 @@ export function lengthOpToJSON(object: LengthOp): string {
  * The result of peforming all these steps will provide a "root hash", which can
  * be compared to the value in a header.
  *
- * Since it is computationally infeasible to produce a hash collission for any of the used
+ * Since it is computationally infeasible to produce a hash collision for any of the used
  * cryptographic hash functions, if someone can provide a series of operations to transform
  * a given key and value into a root hash that matches some trusted root, these key and values
  * must be in the referenced merkle tree.

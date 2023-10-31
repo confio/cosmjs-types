@@ -55,7 +55,7 @@ export function bondStatusToJSON(object: BondStatus): string {
       return "UNRECOGNIZED";
   }
 }
-/** Infraction indicates the infraction a validator commited. */
+/** Infraction indicates the infraction a validator committed. */
 export enum Infraction {
   /** INFRACTION_UNSPECIFIED - UNSPECIFIED defines an empty infraction. */
   INFRACTION_UNSPECIFIED = 0,
